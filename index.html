@@ -97,9 +97,8 @@
       font-family:"Fraunces",serif; font-weight:700; font-size:21px; letter-spacing:.2px; color:var(--heading-ink)
     }
 
-    /* Hide desktop nav links (leave mobile intact) */
-    nav ul{display:none}
-
+    /* Desktop nav visible */
+    nav ul{display:flex;list-style:none;gap:16px;margin:0;padding:0}
     nav a{padding:8px 12px;border-radius:999px;color:#7A5B3B}
     nav a.active, nav a:focus-visible, nav a:hover{background:rgba(230,162,74,0.18);text-decoration:none}
     .menu-btn{display:none;color:#7A5B3B}
@@ -116,7 +115,7 @@
     .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--gap);align-items:center;padding:calc(var(--gap)*2) 0}
     .eyebrow{color:#AF7A2C;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
     h1,.section-title{font-family:"Fraunces",serif;color:var(--heading-ink)}
-    /* Golden-hour headline styling */
+    /* Headline styling */
     h1{
       font-family:"Playfair Display", serif;
       font-size:clamp(32px,6vw,56px);
@@ -125,9 +124,7 @@
       font-weight:700;
       letter-spacing:.2px;
       background: linear-gradient(180deg, #7A5B3B 0%, #B37A32 55%, #6B4E2E 100%);
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
+      -webkit-background-clip:text; background-clip:text; color:transparent;
       text-shadow: 0 1px 0 rgba(255,255,255,.2);
     }
     .section-title{font-size:clamp(24px,3.5vw,38px);margin:0 0 8px;font-weight:600;letter-spacing:.2px}
@@ -271,15 +268,14 @@
     </div>
   </header>
 
-  <!-- Scallop divider -->
-  <div class="scallop"></div>
+  <!-- (Removed the scallop divider that was directly under the header) -->
 
   <main id="home" class="container">
     <!-- Hero -->
     <section class="hero" aria-label="Hero">
       <div>
         <div class="eyebrow">Sarasota • Siesta Key • Lido • Longboat Key</div>
-        <h1>Golden-hour portraits for families on Florida’s Gulf Coast</h1>
+        <h1>Whimsical, candid photography for families on the Gulf Coast</h1>
         <p class="subtitle">
           I’m Rachel — a family & lifestyle photographer creating
           <strong>candid, timeless, true-to-life</strong> images at the beach, in the park, and wherever your story feels most like home.
