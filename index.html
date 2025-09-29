@@ -4,106 +4,170 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rachel Barton Photography | Sarasota Family & Lifestyle Photographer</title>
-  
-  <!-- Primary SEO -->
-  <meta name="description" content="Rachel Barton Photography offers candid, timeless, true-to-life family, maternity, newborn, and portrait sessions across Sarasota and the Gulf Coast from Tampa to Punta Gorda. Weekday early mornings/evenings + weekends." />
-  <link rel="canonical" href="https://rachelbartonphotography.example/" />
 
-  <!-- Open Graph / Twitter -->
+  <!-- Primary SEO -->
+  <meta name="description" content="Candid, timeless, true-to-life family, maternity, newborn & portrait photography across Sarasota and Florida’s Gulf Coast — with a soft, whimsical touch." />
+  <link rel="canonical" href="https://rachelsphotography.netlify.app/" />
+
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
-  <meta property="og:description" content="Candid, timeless, true-to-life photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
+  <meta property="og:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
   <meta property="og:image" content="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:url" content="https://rachelbartonphotography.example/" />
+  <meta property="og:url" content="https://rachelsphotography.netlify.app/" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts -->
+  <!-- Fonts: soft serif + handwritten accent + friendly sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg: #faf9f7;
+      /* Whimsical, feminine palette */
+      --bg: #fffaf7;             /* soft paper */
       --paper: #ffffff;
-      --ink: #1f2937; /* slate-800 */
-      --muted: #6b7280; /* gray-500 */
-      --accent: #0ea5a4; /* teal-500 vibe */
-      --accent-ink: #0b7e7d;
-      --ring: rgba(14,165,164,0.25);
-      --shadow: 0 10px 25px rgba(0,0,0,0.06);
-      --radius: 16px;
+      --ink: #3a3a3a;
+      --muted: #6e6e6e;
+
+      --rose-50:#fff6f4; --rose-100:#fde9e6; --rose-200:#f8d6d0; --rose-300:#f0bdb3;
+      --sage-50:#f4f7f3; --sage-100:#e7eee3; --sage-200:#d9e5d3;
+      --butter-50:#fff9e9; --butter-100:#fff2cc;
+      --accent:#e6b1b5;          /* rosy pink */
+      --accent-ink:#9a6a6d;      /* deeper rose */
+      --accent-2:#b6c8b6;        /* gentle sage */
+      --ring: rgba(230,177,181,.35);
+      --shadow: 0 10px 30px rgba(53, 28, 43, 0.08);
+      --radius: 18px;
       --gap: clamp(16px, 3vw, 32px);
       --maxw: 1200px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.6}
-    img{max-width:100%;height:auto;display:block;border-radius:12px}
-    a{color:var(--accent);text-decoration:none}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65}
+    img{max-width:100%;height:auto;display:block;border-radius:14px}
+    a{color:#905a5e;text-decoration:none}
     a:hover{text-decoration:underline}
+
+    /* Subtle paper grain effect */
+    body::before{
+      content:""; position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(255,200,188,.35), transparent 60%),
+        radial-gradient(900px 500px at 110% 20%, rgba(182,200,182,.25), transparent 60%),
+        radial-gradient(800px 500px at 50% 120%, rgba(255,236,200,.25), transparent 60%);
+      opacity:.55; z-index:-1;
+    }
 
     /* Layout */
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
-    header.site{position:sticky;top:0;z-index:50;background:rgba(250,249,247,0.75);backdrop-filter:saturate(120%) blur(10px);border-bottom:1px solid rgba(0,0,0,0.05)}
+    header.site{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,250,247,0.82);backdrop-filter:saturate(120%) blur(10px);
+      border-bottom:1px solid rgba(0,0,0,0.04)
+    }
     .nav{display:flex;align-items:center;justify-content:space-between;padding:14px var(--gap)}
-    .brand{display:flex;align-items:center;gap:12px;font-family:"Playfair Display",serif}
-    .brand .logo{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#d1fae5,#99f6e4,#67e8f9);box-shadow:var(--shadow)}
-    .brand .name{font-weight:700;font-size:20px;letter-spacing:.3px}
-    nav ul{display:flex;list-style:none;gap:18px;margin:0;padding:0}
-    nav a{padding:8px 10px;border-radius:999px}
-    nav a.active, nav a:focus-visible, nav a:hover{background:rgba(14,165,164,0.12);text-decoration:none}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo{
+      width:44px;height:44px;border-radius:50%;
+      background:
+        radial-gradient(circle at 30% 30%, #ffe4e2, transparent 60%),
+        radial-gradient(circle at 70% 70%, #dbe9d7, transparent 55%),
+        linear-gradient(135deg,#fff6f4,#fff);
+      box-shadow:var(--shadow); border:1px solid rgba(0,0,0,.04)
+    }
+    .brand .name{
+      font-family:"Fraunces",serif; font-weight:700; font-size:21px; letter-spacing:.3px
+    }
+    nav ul{display:flex;list-style:none;gap:16px;margin:0;padding:0}
+    nav a{padding:8px 12px;border-radius:999px}
+    nav a.active, nav a:focus-visible, nav a:hover{background:rgba(230,177,181,0.15);text-decoration:none}
     .menu-btn{display:none}
+
+    /* Fancy section dividers (scallops) */
+    .scallop{
+      --h:18px;
+      height:var(--h); background:
+        radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top / var(--h) var(--h) repeat-x,
+        linear-gradient(var(--rose-100),var(--rose-100));
+    }
+    .scallop.sage{
+      background:
+        radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top / var(--h) var(--h) repeat-x,
+        linear-gradient(var(--sage-100),var(--sage-100));
+    }
 
     /* Hero */
     .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--gap);align-items:center;padding:calc(var(--gap)*2) 0}
-    .hero .eyebrow{color:var(--accent-ink);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
-    .hero h1{font-family:"Playfair Display",serif;font-size:clamp(32px,6vw,56px);line-height:1.1;margin:.25em 0}
-    .hero p{color:var(--muted);max-width:60ch}
+    .eyebrow{color:var(--accent-ink);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
+    h1{font-family:"Fraunces",serif;font-size:clamp(34px,6.2vw,64px);line-height:1.08;margin:.25em 0}
+    .subtitle{color:#7b6d6e;max-width:60ch}
     .cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+
     .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;border:1px solid transparent;background:var(--accent);color:white;font-weight:700;box-shadow:var(--shadow)}
-    .btn.secondary{background:#e6f7f6;color:var(--accent-ink);border-color:#bcebea}
-    .badge{display:inline-flex;align-items:center;gap:8px;background:white;border:1px solid rgba(0,0,0,0.05);padding:8px 12px;border-radius:999px;margin-top:12px;color:var(--muted)}
+    .btn:hover{filter:brightness(.98)}
+    .btn.secondary{background:#fff;color:#7a5e60;border-color:#efd6d9}
+    .btn.ghost{background:transparent;border:1px dashed #d7c0c2;color:#8a6a6d}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(0,0,0,0.05);padding:8px 12px;border-radius:999px;margin-top:12px;color:#8a8a8a}
+
+    /* “Sticker” accent */
+    .sticker{
+      position:relative; display:inline-flex; align-items:center; gap:8px;
+      background:var(--butter-50); border:1px solid #ffe7b3; color:#6d5a33;
+      padding:8px 12px; border-radius:999px; transform:rotate(-3deg);
+      box-shadow:0 6px 18px rgba(180,140,90,.15)
+    }
 
     /* Sections */
     section{padding:calc(var(--gap)*2) 0}
-    .section-title{font-family:"Playfair Display",serif;font-size:clamp(24px,3.5vw,36px);margin:0 0 8px}
-    .section-sub{color:var(--muted);margin:0 0 22px}
+    .section-title{font-family:"Fraunces",serif;font-size:clamp(26px,3.5vw,40px);margin:0 0 8px}
+    .section-sub{color:#7a6f6f;margin:0 0 22px}
 
     /* Services */
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    .card{background:var(--paper);border:1px solid rgba(0,0,0,0.06);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .card{
+      background:linear-gradient(180deg,#fff, #fff6f4);
+      border:1px solid #f3e3e1;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column
+    }
     .card .body{padding:18px}
-    .card h3{margin:0 0 6px;font-size:20px}
-    .meta{color:var(--muted);font-size:14px}
+    .card h3{margin:0 0 6px;font-size:20px;font-family:"Fraunces",serif}
+    .meta{color:#8a7a7a;font-size:14px}
 
-    /* Gallery */
+    /* Mosaic gallery with lightbox */
     .mosaic{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+    .mosaic img{cursor:pointer; transition:transform .2s ease}
+    .mosaic img:hover{transform:scale(1.01)}
 
     /* Why */
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    .feature{background:var(--paper);padding:18px;border:1px solid rgba(0,0,0,0.06);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .feature{background:var(--paper);padding:18px;border:1px solid #eee2e1;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .feature h3{font-family:"Fraunces",serif;margin-top:0}
 
-    /* Testimonials */
+    /* Quotes */
     .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    blockquote{background:var(--paper);padding:18px;border-left:4px solid var(--accent);margin:0;border-radius:12px}
-    blockquote footer{color:var(--muted);font-size:14px;margin-top:8px}
+    blockquote{background:#fff;border:1px solid #f1dedd;padding:18px;margin:0;border-radius:14px;position:relative}
+    blockquote:before{
+      content:"“"; font-family:"Fraunces",serif; font-size:48px; color:#e1b8bc; position:absolute; left:12px; top:-10px
+    }
+    blockquote footer{color:#8a7a7a;font-size:14px;margin-top:8px}
 
     /* Contact */
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
-    form{background:var(--paper);padding:18px;border:1px solid rgba(0,0,0,0.06);border-radius:var(--radius);box-shadow:var(--shadow)}
+    form{background:#fff;padding:18px;border:1px solid #f1dedd;border-radius:var(--radius);box-shadow:var(--shadow)}
     label{display:block;font-weight:600;margin:10px 0 6px}
-    input, textarea, select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #e5e7eb;background:#fff;outline:none}
-    input:focus, textarea:focus, select:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--ring)}
+    input, textarea, select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #ecd8d8;background:#fff;outline:none}
+    input:focus, textarea:focus, select:focus{border-color:#e6b1b5;box-shadow:0 0 0 4px var(--ring)}
     textarea{min-height:120px}
 
     /* Footer */
-    footer{border-top:1px solid rgba(0,0,0,0.08);padding:24px 0;color:var(--muted)}
+    footer{border-top:1px solid rgba(0,0,0,0.06);padding:28px 0;color:#7f7f7f}
 
-    /* Responsive */
+    /* Mobile */
+    @media (max-width: 1024px){
+      .hero{grid-template-columns:1fr;gap:24px}
+    }
     @media (max-width: 960px){
-      .hero{grid-template-columns:1fr;}
       .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr}
       nav ul{display:none}
       .menu-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,0,0,0.08);padding:8px 12px;border-radius:10px;background:white}
@@ -116,6 +180,16 @@
       .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr}
       .btn{width:100%;justify-content:center}
     }
+
+    /* Booking Modal */
+    #bookingModal{position:fixed;inset:0;display:none;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);z-index:1000}
+    #bookingBox{max-width:960px;width:92%;height:80vh;margin:5vh auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.2);position:relative}
+    #bookingClose{position:absolute;right:10px;top:10px;border:none;background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+
+    /* Lightbox */
+    #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:1200}
+    #lightbox img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 12px 50px rgba(0,0,0,.5)}
+    #lightbox button{position:absolute;top:18px;right:18px;background:#fff;border:0;border-radius:10px;padding:8px 12px;cursor:pointer}
   </style>
 
   <!-- JSON-LD: Local Business / Photographer -->
@@ -126,7 +200,7 @@
     "name": "Rachel Barton Photography",
     "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop",
     "description": "Candid, timeless, true-to-life family, maternity, newborn, and portrait photography in Sarasota and the Gulf Coast.",
-    "url": "https://rachelbartonphotography.example/",
+    "url": "https://rachelsphotography.netlify.app/",
     "telephone": "+1-615-300-2618",
     "email": "rradkins@gmail.com",
     "areaServed": ["Sarasota","Bradenton","Siesta Key","Lido Key","Longboat Key","Lakewood Ranch","Venice","Tampa","St. Petersburg","Clearwater","Punta Gorda"],
@@ -149,8 +223,8 @@
       <nav aria-label="Primary">
         <ul>
           <li><a href="#home" class="active">Home</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#services">Sessions</a></li>
+          <li><a href="#portfolio">Galleries</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#reviews">Reviews</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -159,29 +233,33 @@
     </div>
     <div class="mobile-nav container" id="mnav">
       <a href="#home" onclick="toggleMenu(false)">Home</a>
-      <a href="#services" onclick="toggleMenu(false)">Services</a>
-      <a href="#portfolio" onclick="toggleMenu(false)">Portfolio</a>
+      <a href="#services" onclick="toggleMenu(false)">Sessions</a>
+      <a href="#portfolio" onclick="toggleMenu(false)">Galleries</a>
       <a href="#about" onclick="toggleMenu(false)">About</a>
       <a href="#reviews" onclick="toggleMenu(false)">Reviews</a>
       <a href="#contact" onclick="toggleMenu(false)">Contact</a>
     </div>
   </header>
 
+  <!-- Scallop divider -->
+  <div class="scallop"></div>
+
   <main id="home" class="container">
     <!-- Hero -->
     <section class="hero" aria-label="Hero">
       <div>
         <div class="eyebrow">Sarasota • Siesta Key • Lido • Longboat Key</div>
-        <h1>Joyful, candid photography for families on the Gulf Coast</h1>
-        <p>
-          I’m Rachel, a Sarasota family & lifestyle photographer creating
+        <h1>Whimsical, candid photography for families on the Gulf Coast</h1>
+        <p class="subtitle">
+          I’m Rachel — a family & lifestyle photographer creating
           <strong>candid, timeless, true-to-life</strong> images at the beach, in the park, and wherever your story feels most like home.
         </p>
         <div class="cta">
-          <a class="btn" href="#contact">Book a Session</a>
-          <a class="btn secondary" href="#portfolio">View Portfolio</a>
+          <a class="btn" href="javascript:void(0)" onclick="openBooking()">Book a Session</a>
+          <a class="btn secondary" href="#portfolio">View Galleries</a>
+          <span class="sticker">now booking fall minis ✨</span>
         </div>
-        <div class="badge">Weekday mornings & evenings • Full weekends • Serving Tampa → Punta Gorda</div>
+        <div class="badge">Weekday mornings & evenings • Full weekends • From Tampa → Punta Gorda</div>
       </div>
       <div>
         <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop" alt="Family walking on a beach at sunset" />
@@ -190,8 +268,8 @@
 
     <!-- Services -->
     <section id="services" aria-labelledby="services-title">
-      <h2 class="section-title" id="services-title">Services & Investment</h2>
-      <p class="section-sub">Simple, flexible sessions with clear deliverables. Perfect for families, maternity, newborn, and portraits.</p>
+      <h2 class="section-title" id="services-title">Sessions & Investment</h2>
+      <p class="section-sub">Simple, flexible sessions with clear deliverables — styled with warmth, movement, and a little magic.</p>
 
       <div class="cards">
         <article class="card">
@@ -199,8 +277,9 @@
           <div class="body">
             <h3>Mini Session</h3>
             <p class="meta">30 minutes • ~15–25 edited images</p>
-            <p>Great for quick milestones and seasonal updates. One location. Weekdays or select weekend windows.</p>
+            <p>Perfect for milestones & seasonal updates. One location. Weekdays or select weekend windows.</p>
             <p><strong>Intro pricing:</strong> $200–$275</p>
+            <a class="btn ghost" href="javascript:void(0)" onclick="openBooking()">Book mini</a>
           </div>
         </article>
         <article class="card">
@@ -210,6 +289,7 @@
             <p class="meta">60 minutes • ~35–50 edited images</p>
             <p>The most popular option for families & maternity. One location (nearby second look optional).</p>
             <p><strong>Intro pricing:</strong> $350–$450</p>
+            <a class="btn ghost" href="javascript:void(0)" onclick="openBooking()">Book standard</a>
           </div>
         </article>
         <article class="card">
@@ -219,17 +299,24 @@
             <p class="meta">90 minutes • ~60+ edited images</p>
             <p>Extra time for outfit changes, variety, or two nearby locations. Priority editing available.</p>
             <p><strong>Intro pricing:</strong> $550–$650</p>
+            <a class="btn ghost" href="javascript:void(0)" onclick="openBooking()">Book deluxe</a>
           </div>
         </article>
       </div>
-      <p class="section-sub" style="margin-top:16px">Add-ons: additional images, full-gallery upgrade, print products, travel beyond core area, weekend peak times.</p>
+
+      <p class="section-sub" style="margin-top:16px">
+        Add-ons: additional images, full-gallery upgrade, print products, travel beyond core area, weekend peak times.
+      </p>
     </section>
+
+    <!-- Scallop divider (sage) -->
+    <div class="scallop sage"></div>
 
     <!-- Portfolio / Mosaic -->
     <section id="portfolio" aria-labelledby="portfolio-title">
-      <h2 class="section-title" id="portfolio-title">Portfolio Highlights</h2>
-      <p class="section-sub">A peek at the candid, movement-filled style you'll receive. (Placeholder imagery until we add Rachel’s galleries.)</p>
-      <div class="mosaic">
+      <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
+      <p class="section-sub">A peek at the candid, movement-filled style you’ll receive. (Placeholder imagery until we add Rachel’s work.)</p>
+      <div class="mosaic" id="grid">
         <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop" alt="Portrait in natural light" />
         <img src="https://images.unsplash.com/photo-1511317559916-56d5ddb62563?q=80&w=1200&auto=format&fit=crop" alt="Family laughter in a field" />
         <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?q=80&w=1200&auto=format&fit=crop" alt="Parents holding newborn hands" />
@@ -238,7 +325,7 @@
         <img src="https://images.unsplash.com/photo-1520975922203-88ad3ea67b93?q=80&w=1200&auto=format&fit=crop" alt="Child twirling in nature" />
       </div>
       <div class="cta" style="margin-top:18px">
-        <a class="btn secondary" href="#contact">Ask About a Session</a>
+        <a class="btn secondary" href="javascript:void(0)" onclick="openBooking()">Check availability</a>
       </div>
     </section>
 
@@ -250,13 +337,13 @@
         <div class="card" style="grid-column: span 2">
           <div class="body">
             <p>
-              Two years ago, our family moved from Nashville to Sarasota, and we’ve been chasing beach sunrises and golden-hour palms ever since. Before photography, I worked in corporate healthcare administration and earned an MBA in Healthcare Management—so I bring a calm, organized, detail-focused approach to every session.
+              Two years ago, our family moved from Nashville to Sarasota, and we’ve been chasing beach sunrises and golden-hour palms ever since. Before photography, I worked in corporate healthcare administration and earned an MBA in Healthcare Management — so I bring a calm, organized, detail-focused approach to every session.
             </p>
             <p>
-              I’m known for gentle direction that still feels candid and natural, true-to-life color, and a kid-friendly flow with room to wiggle and wonder. I shoot across Sarasota, Siesta Key, Lido, Longboat, Lakewood Ranch, and Venice—and I’m happy to travel from Tampa down to Punta Gorda.
+              I’m known for gentle direction that still feels candid and natural, true-to-life color, and a kid-friendly flow with room to wiggle and wonder. I shoot across Sarasota, Siesta Key, Lido, Longboat, Lakewood Ranch, and Venice — and I’m happy to travel from Tampa down to Punta Gorda.
             </p>
             <p><strong>Favorite locations:</strong> Lido Key, Siesta Key, Celery Fields, Myakka River State Park, The Ringling, Selby Gardens.</p>
-            <div class="cta"><a class="btn" href="#contact">Let’s Plan Your Session</a></div>
+            <div class="cta"><a class="btn" href="javascript:void(0)" onclick="openBooking()">Let’s Plan Your Session</a></div>
           </div>
         </div>
         <div class="card">
@@ -271,16 +358,16 @@
       <p class="section-sub">Candid • Timeless • True-to-life</p>
       <div class="features">
         <div class="feature">
-          <h3>Patient & Kid‑Wise</h3>
+          <h3>Patient & Kid-Wise</h3>
           <p>We keep things light and playful so personalities shine. Gentle prompts, real moments.</p>
         </div>
         <div class="feature">
-          <h3>Detail‑Driven</h3>
+          <h3>Detail-Driven</h3>
           <p>Clear prep, easy styling tips, and thoughtful direction. A calm experience from hello to gallery delivery.</p>
         </div>
         <div class="feature">
           <h3>Timeless Editing</h3>
-          <p>Clean, true-to-life color and natural skin tones—photos you’ll still love in ten years.</p>
+          <p>Clean, true-to-life color and natural skin tones — photos you’ll still love in ten years.</p>
         </div>
       </div>
     </section>
@@ -288,15 +375,15 @@
     <!-- Reviews -->
     <section id="reviews" aria-labelledby="reviews-title">
       <h2 class="section-title" id="reviews-title">Kind Words</h2>
-      <p class="section-sub">We’ll add 3–6 short testimonials here as they come in. For now, sample placeholders:</p>
+      <p class="section-sub">We’ll add 3–6 short testimonials here as they come in.</p>
       <div class="quotes">
-        <blockquote>“Rachel kept our toddler smiling the whole time—so many genuine moments.”<footer>— S. Miller</footer></blockquote>
-        <blockquote>“Booking was simple, communication was clear, and the photos are stunning.”<footer>— A. Nguyen</footer></blockquote>
-        <blockquote>“She noticed the little details and made us feel relaxed and ourselves.”<footer>— J. Rivera</footer></blockquote>
+        <blockquote>Rachel kept our toddler smiling the whole time — so many genuine moments.<footer>— S. Miller</footer></blockquote>
+        <blockquote>Booking was simple, communication was clear, and the photos are stunning.<footer>— A. Nguyen</footer></blockquote>
+        <blockquote>She noticed the little details and made us feel relaxed and ourselves.<footer>— J. Rivera</footer></blockquote>
       </div>
     </section>
 
-    <!-- FAQ / Policies (starter copy; customize later) -->
+    <!-- FAQ / Policies -->
     <section aria-labelledby="faq-title">
       <h2 class="section-title" id="faq-title">FAQ & Policies</h2>
       <div class="features">
@@ -306,7 +393,7 @@
         </div>
         <div class="feature">
           <h3>Booking & Payment</h3>
-          <p>A signed agreement and a non‑refundable retainer (e.g., $100 or 25%) secure your date; balance due by the session day.</p>
+          <p>A signed agreement and a non-refundable retainer (e.g., $100 or 25%) secure your date; balance due by the session day.</p>
         </div>
         <div class="feature">
           <h3>Rescheduling & Weather</h3>
@@ -318,7 +405,7 @@
         </div>
         <div class="feature">
           <h3>Delivery & Prints</h3>
-          <p>Online gallery with high‑resolution downloads and print options. Personal print rights included.</p>
+          <p>Online gallery with high-resolution downloads and print options. Personal print rights included.</p>
         </div>
         <div class="feature">
           <h3>Travel</h3>
@@ -332,8 +419,11 @@
       <h2 class="section-title" id="contact-title">Say Hello</h2>
       <p class="section-sub">Tell me about your crew and the kind of session you’re envisioning.</p>
       <div class="contact-grid">
-        <form name="contact" method="POST" data-netlify="true">
+        <!-- Netlify form with honeypot + redirect back to home for toast -->
+        <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?contact=sent">
           <input type="hidden" name="form-name" value="contact" />
+          <p style="display:none"><label>Don’t fill this out: <input name="bot-field" /></label></p>
+
           <label for="name">Your Name</label>
           <input id="name" name="name" required placeholder="Jane Doe" />
           <label for="email">Email</label>
@@ -351,9 +441,11 @@
           <textarea id="message" name="message" placeholder="Tell me a bit about your family and preferred location/time."></textarea>
           <div style="display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap">
             <button class="btn" type="submit">Send Request</button>
-            <span style="color:var(--muted);font-size:14px">Or reach me directly: <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615‑300‑2618</a></span>
+            <a class="btn secondary" href="javascript:void(0)" onclick="openBooking()">Check Calendar</a>
+            <span style="color:#8a7a7a;font-size:14px">Or reach me: <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></span>
           </div>
         </form>
+
         <div>
           <div class="card">
             <div class="body">
@@ -362,37 +454,46 @@
               <h3 style="margin-top:16px">Preferred Times</h3>
               <p>Weekday early mornings & evenings · All weekend times. Beach sessions at golden hour recommended.</p>
               <h3 style="margin-top:16px">Booking Online</h3>
-              <p>Prefer to book directly? We can embed a scheduler here when ready.</p>
-              <div class="badge">Coming Soon: Live booking + contracts</div>
+              <p>Prefer to book directly? Tap “Book a Session” to open the calendar right here.</p>
+              <div class="badge">Live booking + contracts coming soon</div>
             </div>
           </div>
-          <div class="card" style="margin-top:var(--gap)">
-            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="Waves at sunset (Sarasota vibe)" />
-          </div>
+          <div class="card" style="margin-top:var(--gap)"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="Waves at sunset (Sarasota vibe)" /></div>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container">
-      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
-        <div>
-          © <span id="year"></span> Rachel Barton Photography · Sarasota, FL
-        </div>
-        <div>
-          <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615‑300‑2618</a>
-        </div>
-      </div>
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
+      <div><a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></div>
     </div>
   </footer>
 
+  <!-- Booking Modal (Acuity or Calendly) -->
+  <div id="bookingModal" aria-hidden="true">
+    <div id="bookingBox" role="dialog" aria-modal="true" aria-label="Book a session">
+      <button id="bookingClose" type="button" onclick="closeBooking()" aria-label="Close booking">✕</button>
+      <div id="bookingWrap" style="width:100%;height:100%;overflow:auto"></div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox"><button onclick="closeLightbox()">✕</button><img alt=""></div>
+
+  <!-- Schedulers (choose ONE: Calendly OR Acuity). Acuity shown here. -->
+  <script src="https://embed.acuityscheduling.com/js/embed.js" async></script>
+  <!-- <script src="https://assets.calendly.com/assets/external/widget.js" async></script> -->
+
   <script>
+    // Mobile menu
     function toggleMenu(force){
       const el = document.getElementById('mnav');
       if(force === false){ el.classList.remove('open'); return; }
       el.classList.toggle('open');
     }
+
     // Active link on scroll
     const sections = ['home','services','portfolio','about','reviews','contact'];
     const navLinks = document.querySelectorAll('header nav a');
@@ -407,8 +508,54 @@
       })
     }, opts);
     sections.forEach(id=>{const s=document.getElementById(id); if(s) io.observe(s)});
-    // Current year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Toast after Netlify redirect back with ?contact=sent
+    (function(){
+      const p = new URLSearchParams(location.search);
+      if(p.get('contact') === 'sent'){
+        const toast = document.createElement('div');
+        toast.textContent = "Thanks for reaching out — I’ll email you shortly!";
+        Object.assign(toast.style,{
+          position:'fixed',left:'50%',transform:'translateX(-50%)',bottom:'20px',
+          background:'#fff',border:'1px solid #f1dedd',padding:'12px 16px',
+          borderRadius:'12px',boxShadow:'0 10px 25px rgba(0,0,0,.12)',zIndex:2000
+        });
+        document.body.appendChild(toast);
+        setTimeout(()=>toast.remove(), 4200);
+      }
+    })();
+
+    // Booking popup (Acuity shown). Replace URL with your scheduler.
+    function openBooking(){
+      const modal = document.getElementById('bookingModal');
+      const wrap  = document.getElementById('bookingWrap');
+      // TODO: swap this with YOUR Acuity link (owner=XXXX) or Calendly URL:
+      const acuityUrl = "https://app.acuityscheduling.com/schedule.php?owner=YOUR_OWNER_ID";
+      wrap.innerHTML = `<iframe src="${acuityUrl}" title="Acuity Scheduling" style="border:0;width:100%;height:100%"></iframe>`;
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeBooking(){
+      document.getElementById('bookingModal').style.display='none';
+      document.getElementById('bookingWrap').innerHTML="";
+      document.body.style.overflow='';
+    }
+    document.getElementById('bookingModal').addEventListener('click',(e)=>{ if(e.target.id==='bookingModal') closeBooking() });
+    window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeBooking(); });
+
+    // Simple image lightbox
+    const grid = document.getElementById('grid');
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('img');
+    function closeLightbox(){ lb.style.display='none'; lbImg.src=''; }
+    if(grid){
+      grid.querySelectorAll('img').forEach(img=>{
+        img.addEventListener('click',()=>{ lbImg.src = img.src; lb.style.display='flex'; });
+      });
+    }
+    lb.addEventListener('click',(e)=>{ if(e.target.id==='lightbox') closeLightbox(); });
+    window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLightbox(); });
   </script>
 </body>
 </html>
