@@ -97,8 +97,9 @@
       font-family:"Fraunces",serif; font-weight:700; font-size:21px; letter-spacing:.2px; color:var(--heading-ink)
     }
 
-    /* Desktop nav visible */
-    nav ul{display:flex;list-style:none;gap:16px;margin:0;padding:0}
+    /* Remove the row of nav links under the brand (desktop) but keep mobile intact */
+    header.site nav ul{display:none !important;}
+
     nav a{padding:8px 12px;border-radius:999px;color:#7A5B3B}
     nav a.active, nav a:focus-visible, nav a:hover{background:rgba(230,162,74,0.18);text-decoration:none}
     .menu-btn{display:none;color:#7A5B3B}
@@ -115,7 +116,7 @@
     .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--gap);align-items:center;padding:calc(var(--gap)*2) 0}
     .eyebrow{color:#AF7A2C;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
     h1,.section-title{font-family:"Fraunces",serif;color:var(--heading-ink)}
-    /* Headline styling */
+    /* Golden-hour headline styling */
     h1{
       font-family:"Playfair Display", serif;
       font-size:clamp(32px,6vw,56px);
@@ -124,7 +125,9 @@
       font-weight:700;
       letter-spacing:.2px;
       background: linear-gradient(180deg, #7A5B3B 0%, #B37A32 55%, #6B4E2E 100%);
-      -webkit-background-clip:text; background-clip:text; color:transparent;
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
       text-shadow: 0 1px 0 rgba(255,255,255,.2);
     }
     .section-title{font-size:clamp(24px,3.5vw,38px);margin:0 0 8px;font-weight:600;letter-spacing:.2px}
@@ -138,6 +141,8 @@
     .btn.secondary{background:#fff;color:#7A5B3B;border-color:#F7E6C7}
     .btn.ghost{background:transparent;border:1px dashed #F2D9A4;color:#7A5B3B}
     .badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(0,0,0,0.05);padding:8px 12px;border-radius:999px;margin-top:12px;color:#8E8176}
+    /* Warm variant just for the big hero pill */
+    .badge.warm{background:#FFF2D8;border-color:#FFE9B0;color:#6D5A33}
 
     .sticker{position:relative; display:inline-flex; align-items:center; gap:8px; background:#FFF2D8; border:1px solid #FFE9B0; color:#6D5A33; padding:8px 12px; border-radius:999px; transform:rotate(-3deg); box-shadow:0 6px 18px rgba(180,140,90,.15)}
 
@@ -268,14 +273,15 @@
     </div>
   </header>
 
-  <!-- (Removed the scallop divider that was directly under the header) -->
+  <!-- Scallop divider -->
+  <div class="scallop"></div>
 
   <main id="home" class="container">
     <!-- Hero -->
     <section class="hero" aria-label="Hero">
       <div>
         <div class="eyebrow">Sarasota • Siesta Key • Lido • Longboat Key</div>
-        <h1>Whimsical, candid photography for families on the Gulf Coast</h1>
+        <h1>Real, relaxed family photography — coastal, warm, and timeless</h1>
         <p class="subtitle">
           I’m Rachel — a family & lifestyle photographer creating
           <strong>candid, timeless, true-to-life</strong> images at the beach, in the park, and wherever your story feels most like home.
@@ -285,7 +291,7 @@
           <a class="btn secondary" href="#portfolio">View Galleries</a>
           <span class="sticker">now booking fall minis ✨</span>
         </div>
-        <div class="badge">Weekday mornings & evenings • Full weekends • From Tampa → Punta Gorda</div>
+        <div class="badge warm">Weekday mornings & evenings • Full weekends • From Tampa → Punta Gorda</div>
       </div>
       <div>
         <img
