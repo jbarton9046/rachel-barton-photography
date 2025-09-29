@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rachel Barton Photography | Sarasota Family & Lifestyle Photographer</title>
+  
+  <!-- Primary SEO -->
+  <meta name="description" content="Rachel Barton Photography offers candid, timeless, true-to-life family, maternity, newborn, and portrait sessions across Sarasota and the Gulf Coast from Tampa to Punta Gorda. Weekday early mornings/evenings + weekends." />
+  <link rel="canonical" href="https://rachelbartonphotography.example/" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
+  <meta property="og:description" content="Candid, timeless, true-to-life photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://rachelbartonphotography.example/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #faf9f7;
+      --paper: #ffffff;
+      --ink: #1f2937; /* slate-800 */
+      --muted: #6b7280; /* gray-500 */
+      --accent: #0ea5a4; /* teal-500 vibe */
+      --accent-ink: #0b7e7d;
+      --ring: rgba(14,165,164,0.25);
+      --shadow: 0 10px 25px rgba(0,0,0,0.06);
+      --radius: 16px;
+      --gap: clamp(16px, 3vw, 32px);
+      --maxw: 1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.6}
+    img{max-width:100%;height:auto;display:block;border-radius:12px}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Layout */
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
+    header.site{position:sticky;top:0;z-index:50;background:rgba(250,249,247,0.75);backdrop-filter:saturate(120%) blur(10px);border-bottom:1px solid rgba(0,0,0,0.05)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px var(--gap)}
+    .brand{display:flex;align-items:center;gap:12px;font-family:"Playfair Display",serif}
+    .brand .logo{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#d1fae5,#99f6e4,#67e8f9);box-shadow:var(--shadow)}
+    .brand .name{font-weight:700;font-size:20px;letter-spacing:.3px}
+    nav ul{display:flex;list-style:none;gap:18px;margin:0;padding:0}
+    nav a{padding:8px 10px;border-radius:999px}
+    nav a.active, nav a:focus-visible, nav a:hover{background:rgba(14,165,164,0.12);text-decoration:none}
+    .menu-btn{display:none}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--gap);align-items:center;padding:calc(var(--gap)*2) 0}
+    .hero .eyebrow{color:var(--accent-ink);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
+    .hero h1{font-family:"Playfair Display",serif;font-size:clamp(32px,6vw,56px);line-height:1.1;margin:.25em 0}
+    .hero p{color:var(--muted);max-width:60ch}
+    .cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;border:1px solid transparent;background:var(--accent);color:white;font-weight:700;box-shadow:var(--shadow)}
+    .btn.secondary{background:#e6f7f6;color:var(--accent-ink);border-color:#bcebea}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:white;border:1px solid rgba(0,0,0,0.05);padding:8px 12px;border-radius:999px;margin-top:12px;color:var(--muted)}
+
+    /* Sections */
+    section{padding:calc(var(--gap)*2) 0}
+    .section-title{font-family:"Playfair Display",serif;font-size:clamp(24px,3.5vw,36px);margin:0 0 8px}
+    .section-sub{color:var(--muted);margin:0 0 22px}
+
+    /* Services */
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+    .card{background:var(--paper);border:1px solid rgba(0,0,0,0.06);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .card .body{padding:18px}
+    .card h3{margin:0 0 6px;font-size:20px}
+    .meta{color:var(--muted);font-size:14px}
+
+    /* Gallery */
+    .mosaic{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+
+    /* Why */
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+    .feature{background:var(--paper);padding:18px;border:1px solid rgba(0,0,0,0.06);border-radius:var(--radius);box-shadow:var(--shadow)}
+
+    /* Testimonials */
+    .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+    blockquote{background:var(--paper);padding:18px;border-left:4px solid var(--accent);margin:0;border-radius:12px}
+    blockquote footer{color:var(--muted);font-size:14px;margin-top:8px}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+    form{background:var(--paper);padding:18px;border:1px solid rgba(0,0,0,0.06);border-radius:var(--radius);box-shadow:var(--shadow)}
+    label{display:block;font-weight:600;margin:10px 0 6px}
+    input, textarea, select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #e5e7eb;background:#fff;outline:none}
+    input:focus, textarea:focus, select:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--ring)}
+    textarea{min-height:120px}
+
+    /* Footer */
+    footer{border-top:1px solid rgba(0,0,0,0.08);padding:24px 0;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width: 960px){
+      .hero{grid-template-columns:1fr;}
+      .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr}
+      nav ul{display:none}
+      .menu-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,0,0,0.08);padding:8px 12px;border-radius:10px;background:white}
+      .mobile-nav{display:none;padding:12px var(--gap)}
+      .mobile-nav.open{display:block}
+      .mobile-nav a{display:block;padding:10px 12px;border-radius:8px}
+      .mobile-nav a:hover{background:rgba(0,0,0,0.04);text-decoration:none}
+    }
+    @media (max-width: 640px){
+      .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr}
+      .btn{width:100%;justify-content:center}
+    }
+  </style>
+
+  <!-- JSON-LD: Local Business / Photographer -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Rachel Barton Photography",
+    "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop",
+    "description": "Candid, timeless, true-to-life family, maternity, newborn, and portrait photography in Sarasota and the Gulf Coast.",
+    "url": "https://rachelbartonphotography.example/",
+    "telephone": "+1-615-300-2618",
+    "email": "rradkins@gmail.com",
+    "areaServed": ["Sarasota","Bradenton","Siesta Key","Lido Key","Longboat Key","Lakewood Ranch","Venice","Tampa","St. Petersburg","Clearwater","Punta Gorda"],
+    "openingHoursSpecification": [
+      {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"06:30","closes":"09:00"},
+      {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"17:00","closes":"20:30"},
+      {"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday"],"opens":"06:30","closes":"20:30"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="nav container">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="name">Rachel Barton Photography</div>
+      </div>
+      <button class="menu-btn" aria-label="Toggle menu" onclick="toggleMenu()">☰ Menu</button>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="mobile-nav container" id="mnav">
+      <a href="#home" onclick="toggleMenu(false)">Home</a>
+      <a href="#services" onclick="toggleMenu(false)">Services</a>
+      <a href="#portfolio" onclick="toggleMenu(false)">Portfolio</a>
+      <a href="#about" onclick="toggleMenu(false)">About</a>
+      <a href="#reviews" onclick="toggleMenu(false)">Reviews</a>
+      <a href="#contact" onclick="toggleMenu(false)">Contact</a>
+    </div>
+  </header>
+
+  <main id="home" class="container">
+    <!-- Hero -->
+    <section class="hero" aria-label="Hero">
+      <div>
+        <div class="eyebrow">Sarasota • Siesta Key • Lido • Longboat Key</div>
+        <h1>Joyful, candid photography for families on the Gulf Coast</h1>
+        <p>
+          I’m Rachel, a Sarasota family & lifestyle photographer creating
+          <strong>candid, timeless, true-to-life</strong> images at the beach, in the park, and wherever your story feels most like home.
+        </p>
+        <div class="cta">
+          <a class="btn" href="#contact">Book a Session</a>
+          <a class="btn secondary" href="#portfolio">View Portfolio</a>
+        </div>
+        <div class="badge">Weekday mornings & evenings • Full weekends • Serving Tampa → Punta Gorda</div>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop" alt="Family walking on a beach at sunset" />
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" aria-labelledby="services-title">
+      <h2 class="section-title" id="services-title">Services & Investment</h2>
+      <p class="section-sub">Simple, flexible sessions with clear deliverables. Perfect for families, maternity, newborn, and portraits.</p>
+
+      <div class="cards">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1529676468690-df6b0b2a9a27?q=80&w=1200&auto=format&fit=crop" alt="Smiling family portrait outdoors" />
+          <div class="body">
+            <h3>Mini Session</h3>
+            <p class="meta">30 minutes • ~15–25 edited images</p>
+            <p>Great for quick milestones and seasonal updates. One location. Weekdays or select weekend windows.</p>
+            <p><strong>Intro pricing:</strong> $200–$275</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1555252586-d839a96a1948?q=80&w=1200&auto=format&fit=crop" alt="Expecting couple at sunset" />
+          <div class="body">
+            <h3>Standard Session</h3>
+            <p class="meta">60 minutes • ~35–50 edited images</p>
+            <p>The most popular option for families & maternity. One location (nearby second look optional).</p>
+            <p><strong>Intro pricing:</strong> $350–$450</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="Parents with newborn at home" />
+          <div class="body">
+            <h3>Deluxe Session</h3>
+            <p class="meta">90 minutes • ~60+ edited images</p>
+            <p>Extra time for outfit changes, variety, or two nearby locations. Priority editing available.</p>
+            <p><strong>Intro pricing:</strong> $550–$650</p>
+          </div>
+        </article>
+      </div>
+      <p class="section-sub" style="margin-top:16px">Add-ons: additional images, full-gallery upgrade, print products, travel beyond core area, weekend peak times.</p>
+    </section>
+
+    <!-- Portfolio / Mosaic -->
+    <section id="portfolio" aria-labelledby="portfolio-title">
+      <h2 class="section-title" id="portfolio-title">Portfolio Highlights</h2>
+      <p class="section-sub">A peek at the candid, movement-filled style you'll receive. (Placeholder imagery until we add Rachel’s galleries.)</p>
+      <div class="mosaic">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop" alt="Portrait in natural light" />
+        <img src="https://images.unsplash.com/photo-1511317559916-56d5ddb62563?q=80&w=1200&auto=format&fit=crop" alt="Family laughter in a field" />
+        <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?q=80&w=1200&auto=format&fit=crop" alt="Parents holding newborn hands" />
+        <img src="https://images.unsplash.com/photo-1520975922203-b86f2763e6a1?q=80&w=1200&auto=format&fit=crop" alt="Maternity silhouette at sunset" />
+        <img src="https://images.unsplash.com/photo-1460364157752-926555421a7e?q=80&w=1200&auto=format&fit=crop" alt="Couple walking on the beach" />
+        <img src="https://images.unsplash.com/photo-1520975922203-88ad3ea67b93?q=80&w=1200&auto=format&fit=crop" alt="Child twirling in nature" />
+      </div>
+      <div class="cta" style="margin-top:18px">
+        <a class="btn secondary" href="#contact">Ask About a Session</a>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" aria-labelledby="about-title">
+      <h2 class="section-title" id="about-title">Meet Rachel</h2>
+      <p class="section-sub">Mom of two, outdoors lover, and detail-driven photographer who keeps sessions calm, playful, and effortless.</p>
+      <div class="cards" style="align-items:start">
+        <div class="card" style="grid-column: span 2">
+          <div class="body">
+            <p>
+              Two years ago, our family moved from Nashville to Sarasota, and we’ve been chasing beach sunrises and golden-hour palms ever since. Before photography, I worked in corporate healthcare administration and earned an MBA in Healthcare Management—so I bring a calm, organized, detail-focused approach to every session.
+            </p>
+            <p>
+              I’m known for gentle direction that still feels candid and natural, true-to-life color, and a kid-friendly flow with room to wiggle and wonder. I shoot across Sarasota, Siesta Key, Lido, Longboat, Lakewood Ranch, and Venice—and I’m happy to travel from Tampa down to Punta Gorda.
+            </p>
+            <p><strong>Favorite locations:</strong> Lido Key, Siesta Key, Celery Fields, Myakka River State Park, The Ringling, Selby Gardens.</p>
+            <div class="cta"><a class="btn" href="#contact">Let’s Plan Your Session</a></div>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1520975922203-0f7f4a5f9792?q=80&w=1200&auto=format&fit=crop" alt="Rachel outdoors with camera (placeholder)" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Why choose me -->
+    <section aria-labelledby="why-title">
+      <h2 class="section-title" id="why-title">My Approach</h2>
+      <p class="section-sub">Candid • Timeless • True-to-life</p>
+      <div class="features">
+        <div class="feature">
+          <h3>Patient & Kid‑Wise</h3>
+          <p>We keep things light and playful so personalities shine. Gentle prompts, real moments.</p>
+        </div>
+        <div class="feature">
+          <h3>Detail‑Driven</h3>
+          <p>Clear prep, easy styling tips, and thoughtful direction. A calm experience from hello to gallery delivery.</p>
+        </div>
+        <div class="feature">
+          <h3>Timeless Editing</h3>
+          <p>Clean, true-to-life color and natural skin tones—photos you’ll still love in ten years.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews" aria-labelledby="reviews-title">
+      <h2 class="section-title" id="reviews-title">Kind Words</h2>
+      <p class="section-sub">We’ll add 3–6 short testimonials here as they come in. For now, sample placeholders:</p>
+      <div class="quotes">
+        <blockquote>“Rachel kept our toddler smiling the whole time—so many genuine moments.”<footer>— S. Miller</footer></blockquote>
+        <blockquote>“Booking was simple, communication was clear, and the photos are stunning.”<footer>— A. Nguyen</footer></blockquote>
+        <blockquote>“She noticed the little details and made us feel relaxed and ourselves.”<footer>— J. Rivera</footer></blockquote>
+      </div>
+    </section>
+
+    <!-- FAQ / Policies (starter copy; customize later) -->
+    <section aria-labelledby="faq-title">
+      <h2 class="section-title" id="faq-title">FAQ & Policies</h2>
+      <div class="features">
+        <div class="feature">
+          <h3>Availability</h3>
+          <p>Weekday early mornings & evenings; full weekends. Golden hour recommended for beach sessions.</p>
+        </div>
+        <div class="feature">
+          <h3>Booking & Payment</h3>
+          <p>A signed agreement and a non‑refundable retainer (e.g., $100 or 25%) secure your date; balance due by the session day.</p>
+        </div>
+        <div class="feature">
+          <h3>Rescheduling & Weather</h3>
+          <p>Florida skies change fast. If rain or high winds are likely, we’ll decide together 12–24h prior and reschedule at no fee once.</p>
+        </div>
+        <div class="feature">
+          <h3>Turnaround</h3>
+          <p>Proofs within 7–10 days; full gallery within 2–4 weeks. Rush editing available for an additional fee.</p>
+        </div>
+        <div class="feature">
+          <h3>Delivery & Prints</h3>
+          <p>Online gallery with high‑resolution downloads and print options. Personal print rights included.</p>
+        </div>
+        <div class="feature">
+          <h3>Travel</h3>
+          <p>Core area: Sarasota, Siesta Key, Lido, Longboat, Lakewood Ranch, Venice. Travel beyond may include a small fee.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact / Booking -->
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 class="section-title" id="contact-title">Say Hello</h2>
+      <p class="section-sub">Tell me about your crew and the kind of session you’re envisioning.</p>
+      <div class="contact-grid">
+        <form name="contact" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="contact" />
+          <label for="name">Your Name</label>
+          <input id="name" name="name" required placeholder="Jane Doe" />
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required placeholder="you@example.com" />
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" inputmode="tel" placeholder="(xxx) xxx-xxxx" />
+          <label for="service">Interested In</label>
+          <select id="service" name="service">
+            <option value="Family">Family</option>
+            <option value="Maternity">Maternity</option>
+            <option value="Newborn">Newborn</option>
+            <option value="Portraits">Portraits</option>
+          </select>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell me a bit about your family and preferred location/time."></textarea>
+          <div style="display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap">
+            <button class="btn" type="submit">Send Request</button>
+            <span style="color:var(--muted);font-size:14px">Or reach me directly: <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615‑300‑2618</a></span>
+          </div>
+        </form>
+        <div>
+          <div class="card">
+            <div class="body">
+              <h3>Service Area</h3>
+              <p>Sarasota • Siesta Key • Lido • Longboat Key • Lakewood Ranch • Venice • Bradenton • Tampa • St. Petersburg • Clearwater • Punta Gorda</p>
+              <h3 style="margin-top:16px">Preferred Times</h3>
+              <p>Weekday early mornings & evenings · All weekend times. Beach sessions at golden hour recommended.</p>
+              <h3 style="margin-top:16px">Booking Online</h3>
+              <p>Prefer to book directly? We can embed a scheduler here when ready.</p>
+              <div class="badge">Coming Soon: Live booking + contracts</div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:var(--gap)">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="Waves at sunset (Sarasota vibe)" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+        <div>
+          © <span id="year"></span> Rachel Barton Photography · Sarasota, FL
+        </div>
+        <div>
+          <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615‑300‑2618</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu(force){
+      const el = document.getElementById('mnav');
+      if(force === false){ el.classList.remove('open'); return; }
+      el.classList.toggle('open');
+    }
+    // Active link on scroll
+    const sections = ['home','services','portfolio','about','reviews','contact'];
+    const navLinks = document.querySelectorAll('header nav a');
+    const opts = {root:null,rootMargin:'-40% 0px -55% 0px',threshold:0};
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          navLinks.forEach(a=>a.classList.remove('active'));
+          const link = document.querySelector(`header nav a[href="#${e.target.id}"]`);
+          if(link) link.classList.add('active');
+        }
+      })
+    }, opts);
+    sections.forEach(id=>{const s=document.getElementById(id); if(s) io.observe(s)});
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
