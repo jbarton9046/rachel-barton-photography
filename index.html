@@ -84,11 +84,14 @@
     .brand{display:flex;align-items:center;gap:12px}
     .brand .logo{
       width:44px;height:44px;border-radius:50%;
+      /* Golden-hour sun (glow + gentle vignette) */
       background:
-        radial-gradient(circle at 30% 30%, #FFECC2, transparent 60%),
-        radial-gradient(circle at 70% 70%, #FFE0D1, transparent 55%),
-        linear-gradient(135deg,#FFF6DD,#fff);
-      box-shadow:var(--shadow); border:1px solid rgba(0,0,0,.04)
+        radial-gradient(42px 42px at 50% 50%, #FFE7B3 0%, #FFD485 45%, #FFC166 65%, #F4A44C 85%, #E18A3B 100%);
+      border:1px solid rgba(226, 149, 60, .45);
+      box-shadow:
+        0 4px 10px rgba(0,0,0,.08),
+        0 0 0 6px rgba(255, 219, 170, .45),
+        0 0 32px rgba(255, 176, 88, .35);
     }
     .brand .name{
       font-family:"Fraunces",serif; font-weight:700; font-size:21px; letter-spacing:.2px; color:var(--heading-ink)
@@ -275,12 +278,9 @@
       </div>
       <div>
         <img
-          src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop"
-          srcset="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=800&auto=format&fit=crop 800w,
-                  https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1200&auto=format&fit=crop 1200w,
-                  https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1600&auto=format&fit=crop 1600w"
-          sizes="(max-width: 1024px) 92vw, 46vw"
-          alt="Family walking on a beach at sunset" loading="eager" />
+          src="pictures/portrait-woman-representing-motherhood.jpg"
+          alt="Warm golden-hour portrait evoking motherhood"
+          loading="eager" />
       </div>
     </section>
 
