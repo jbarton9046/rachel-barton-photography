@@ -29,24 +29,23 @@
 
   <style>
     :root{
-      /* Lavender-forward palette */
-      --bg: #fffafc;              /* soft paper with pink tint */
+      /* GOLDEN-HOUR palette (warm, soft, feminine) */
+      --bg: #FFF8EE;             /* warm paper */
       --paper: #ffffff;
-      --ink: #524b55;             /* gentle body text */
-      --muted: #8f8592;
+      --ink: #5A5046;            /* soft warm charcoal */
+      --muted: #8E8176;
 
-      /* Lavender & sage family */
-      --lav-50:#f8f5ff; --lav-100:#efe8ff; --lav-200:#e4d9ff; --lav-300:#d2c4ff;
-      --lav-400:#bba6f0; --lav-500:#a489e0; --lav-600:#8f74cc; --lav-700:#7b62b3;
-      --sage-50:#f4f7f3; --sage-100:#e7eee3; --sage-200:#d9e5d3;
+      --butter-50:#FFF6DD; --butter-100:#FFECC2; --butter-200:#FFE1A8;
+      --peach-100:#FFE0D1; --peach-200:#FFD1BC;
+      --sage-100:#E9F0E4;
 
-      --heading-ink:#7b62b3;      /* soft lavender for headings */
-      --accent:#a489d9;           /* lavender button */
-      --accent-ink:#5f4c86;       /* deeper lavender text */
-      --accent-2:#c9d7c6;         /* gentle sage accent */
+      --heading-ink:#6B4E2E;     /* warm umber for headings */
+      --accent:#E6A24A;          /* golden button */
+      --accent-ink:#7A4A10;      /* deeper gold-brown text */
+      --accent-2:#D7C69E;        /* pale sand accent */
 
-      --ring: rgba(164,137,217,.35);
-      --shadow: 0 10px 30px rgba(68, 41, 97, 0.08);
+      --ring: rgba(230,162,74,.35);
+      --shadow: 0 10px 30px rgba(94, 63, 20, 0.10);
       --radius: 18px;
       --gap: clamp(16px, 3vw, 32px);
       --maxw: 1200px;
@@ -61,24 +60,24 @@
     }
     img{max-width:100%;height:auto;display:block;border-radius:14px}
 
-    /* Links: lavender */
-    a{color:#7b62b3;text-decoration:none}
-    a:hover{color:#6d56a2;text-decoration:underline}
+    /* Links: warm golden */
+    a{color:#9A6724;text-decoration:none}
+    a:hover{color:#7f531c;text-decoration:underline}
 
-    /* Subtle watercolor bloom corners (very light, whimsical) */
+    /* Subtle golden-hour bloom */
     body::before{
       content:""; position:fixed; inset:0; pointer-events:none;
       background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(168,137,217,.20), transparent 60%),
-        radial-gradient(900px 500px at 110% 20%, rgba(201,215,198,.18), transparent 60%),
-        radial-gradient(800px 500px at 50% 120%, rgba(244,231,255,.25), transparent 60%);
+        radial-gradient(1200px 600px at 10% -10%, rgba(255,221,180,.38), transparent 60%),
+        radial-gradient(900px 500px at 110% 20%, rgba(255,233,176,.30), transparent 60%),
+        radial-gradient(800px 500px at 50% 120%, rgba(255,209,194,.28), transparent 60%);
       opacity:.6; z-index:-1;
     }
 
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
     header.site{
       position:sticky;top:0;z-index:50;
-      background:rgba(255,250,252,0.85);backdrop-filter:saturate(120%) blur(10px);
+      background:rgba(255,248,238,0.85);backdrop-filter:saturate(120%) blur(10px);
       border-bottom:1px solid rgba(0,0,0,0.04)
     }
     .nav{display:flex;align-items:center;justify-content:space-between;padding:14px var(--gap)}
@@ -86,9 +85,9 @@
     .brand .logo{
       width:44px;height:44px;border-radius:50%;
       background:
-        radial-gradient(circle at 30% 30%, #efe8ff, transparent 60%),
-        radial-gradient(circle at 70% 70%, #e7eee3, transparent 55%),
-        linear-gradient(135deg,#fff7ff,#fff);
+        radial-gradient(circle at 30% 30%, #FFECC2, transparent 60%),
+        radial-gradient(circle at 70% 70%, #FFE0D1, transparent 55%),
+        linear-gradient(135deg,#FFF6DD,#fff);
       box-shadow:var(--shadow); border:1px solid rgba(0,0,0,.04)
     }
     .brand .name{
@@ -96,63 +95,63 @@
     }
 
     nav ul{display:flex;list-style:none;gap:16px;margin:0;padding:0}
-    nav a{padding:8px 12px;border-radius:999px;color:#6f5f8d}
-    nav a.active, nav a:focus-visible, nav a:hover{background:rgba(164,137,217,0.14);text-decoration:none}
-    .menu-btn{display:none;color:#6f5f8d}
+    nav a{padding:8px 12px;border-radius:999px;color:#7A5B3B}
+    nav a.active, nav a:focus-visible, nav a:hover{background:rgba(230,162,74,0.18);text-decoration:none}
+    .menu-btn{display:none;color:#7A5B3B}
 
-    /* Scallop dividers (lavender / sage) */
+    /* Scallop dividers (butter / sage) */
     .scallop{--h:18px;height:var(--h);background:
       radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
-      linear-gradient(var(--lav-100),var(--lav-100));}
+      linear-gradient(var(--butter-100),var(--butter-100));}
     .scallop.sage{background:
       radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
       linear-gradient(var(--sage-100),var(--sage-100));}
 
-    /* Headings: lavender, lighter weight */
+    /* Headings */
     .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--gap);align-items:center;padding:calc(var(--gap)*2) 0}
-    .eyebrow{color:#8a77ba;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
+    .eyebrow{color:#AF7A2C;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
     h1,.section-title{font-family:"Fraunces",serif;color:var(--heading-ink)}
     h1{font-size:clamp(32px,6vw,56px);line-height:1.1;margin:.25em 0;font-weight:600;letter-spacing:.2px}
     .section-title{font-size:clamp(24px,3.5vw,38px);margin:0 0 8px;font-weight:600;letter-spacing:.2px}
-    .feature h3,.card h3{font-family:"Fraunces",serif;font-weight:600;color:#6f5f8d}
+    .feature h3,.card h3{font-family:"Fraunces",serif;font-weight:600;color:#7A5B3B}
 
-    .subtitle{color:#7f748a;max-width:60ch}
+    .subtitle{color:#7E6F63;max-width:60ch}
     .cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
 
     .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;border:1px solid transparent;background:var(--accent);color:white;font-weight:700;box-shadow:var(--shadow)}
     .btn:hover{filter:brightness(.98)}
-    .btn.secondary{background:#fff;color:#6f5f8d;border-color:#e5dbff}
-    .btn.ghost{background:transparent;border:1px dashed #d8cff0;color:#6f5f8d}
-    .badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(0,0,0,0.05);padding:8px 12px;border-radius:999px;margin-top:12px;color:#8c8395}
+    .btn.secondary{background:#fff;color:#7A5B3B;border-color:#F7E6C7}
+    .btn.ghost{background:transparent;border:1px dashed #F2D9A4;color:#7A5B3B}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(0,0,0,0.05);padding:8px 12px;border-radius:999px;margin-top:12px;color:#8E8176}
 
-    .sticker{position:relative; display:inline-flex; align-items:center; gap:8px; background:#fbf6ff; border:1px solid #efe8ff; color:#6a5a8f; padding:8px 12px; border-radius:999px; transform:rotate(-3deg); box-shadow:0 6px 18px rgba(140,110,180,.15)}
+    .sticker{position:relative; display:inline-flex; align-items:center; gap:8px; background:#FFF2D8; border:1px solid #FFE9B0; color:#6D5A33; padding:8px 12px; border-radius:999px; transform:rotate(-3deg); box-shadow:0 6px 18px rgba(180,140,90,.15)}
 
     section{padding:calc(var(--gap)*2) 0}
-    .section-sub{color:#857a8f;margin:0 0 22px}
+    .section-sub{color:#7A6C5E;margin:0 0 22px}
 
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    .card{background:linear-gradient(180deg,#fff, #fbf6ff); border:1px solid #efe8ff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .card{background:linear-gradient(180deg,#fff, #FFF4DE); border:1px solid #F7E6C7;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
     .card .body{padding:18px}
-    .meta{color:#8a7fa1;font-size:14px}
+    .meta{color:#8A7A6A;font-size:14px}
 
-    /* Gallery grid with consistent aspect ratio to avoid layout shift */
+    /* Gallery */
     .mosaic{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
     .mosaic img{cursor:pointer; transition:transform .2s ease; aspect-ratio:4/5; object-fit:cover}
     .mosaic img:hover{transform:scale(1.01)}
 
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    .feature{background:var(--paper);padding:18px;border:1px solid #efe8ff;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .feature{background:var(--paper);padding:18px;border:1px solid #F7E6C7;border-radius:var(--radius);box-shadow:var(--shadow)}
 
     .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    blockquote{background:#fff;border:1px solid #efe8ff;padding:18px;margin:0;border-radius:14px;position:relative;color:#6d5d8f}
-    blockquote:before{content:"“"; font-family:"Fraunces",serif; font-size:48px; color:#d7c8ff; position:absolute; left:12px; top:-10px}
-    blockquote footer{color:#8a7a9f;font-size:14px;margin-top:8px}
+    blockquote{background:#fff;border:1px solid #F7E6C7;padding:18px;margin:0;border-radius:14px;position:relative;color:#6B5B4D}
+    blockquote:before{content:"“"; font-family:"Fraunces",serif; font-size:48px; color:#F2D6A7; position:absolute; left:12px; top:-10px}
+    blockquote footer{color:#8A7A6A;font-size:14px;margin-top:8px}
 
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
-    form{background:#fff;padding:18px;border:1px solid #efe8ff;border-radius:var(--radius);box-shadow:var(--shadow)}
-    label{display:block;font-weight:600;margin:10px 0 6px;color:#6f5f8d}
-    input, textarea, select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #e4dbff;background:#fff;outline:none}
-    input:focus, textarea:focus, select:focus{border-color:#a489d9;box-shadow:0 0 0 4px var(--ring)}
+    form{background:#fff;padding:18px;border:1px solid #F7E6C7;border-radius:var(--radius);box-shadow:var(--shadow)}
+    label{display:block;font-weight:600;margin:10px 0 6px;color:#7A5B3B}
+    input, textarea, select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #F2D9A4;background:#fff;outline:none}
+    input:focus, textarea:focus, select:focus{border-color:#E6A24A;box-shadow:0 0 0 4px var(--ring)}
     textarea{min-height:120px}
 
     footer{border-top:1px solid rgba(0,0,0,0.06);padding:28px 0;color:#7f7f7f}
@@ -165,7 +164,7 @@
       .menu-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,0,0,0.08);padding:8px 12px;border-radius:10px;background:white}
       .mobile-nav{display:none;padding:12px var(--gap)}
       .mobile-nav.open{display:block}
-      .mobile-nav a{display:block;padding:10px 12px;border-radius:8px;color:#6f5f8d}
+      .mobile-nav a{display:block;padding:10px 12px;border-radius:8px;color:#7A5B3B}
       .mobile-nav a:hover{background:rgba(0,0,0,0.04);text-decoration:none}
     }
     @media (max-width: 640px){
@@ -175,9 +174,9 @@
 
     /* Booking Modal */
     #bookingModal{position:fixed;inset:0;display:none;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);z-index:1000}
-    #bookingBox{max-width:960px;width:92%;height:80vh;margin:5vh auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.2);position:relative}
-    #bookingClose{position:absolute;right:10px;top:10px;border:none;background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-
+    #bookingBox{max-width:960px;width:92%;height:80vh;margin:5vh auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.2);position:relative; border:1px solid #F7E6C7}
+    #bookingClose{position:absolute;right:10px;top:10px;border:none;background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.1); color:#7A5B3B}
+    #bookingClose:hover{background:#FFF4DE}
     /* Lightbox */
     #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:1200}
     #lightbox img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 12px 50px rgba(0,0,0,.5)}
@@ -282,7 +281,7 @@
             <p class="meta">30 minutes • ~15–25 edited images</p>
             <p>Perfect for milestones & seasonal updates. One location. Weekdays or select weekend windows.</p>
             <p><strong>Intro pricing:</strong> $200–$275</p>
-            <a class="btn ghost" href="javascript:void(0)" onclick="openBooking()">Book mini</a>
+            <a class="btn ghost" href="javascript:void(0)" onclick="openBooking('https://app.acuityscheduling.com/schedule.php?owner=37092379&appointmentType=84002438')">Book mini</a>
           </div>
         </article>
 
@@ -298,7 +297,7 @@
             <p class="meta">60 minutes • ~35–50 edited images</p>
             <p>The most popular option for families & maternity. One location (nearby second look optional).</p>
             <p><strong>Intro pricing:</strong> $350–$450</p>
-            <a class="btn ghost" href="javascript:void(0)" onclick="openBooking()">Book standard</a>
+            <a class="btn ghost" href="javascript:void(0)" onclick="openBooking('https://app.acuityscheduling.com/schedule.php?owner=37092379&appointmentType=84002572')">Book standard</a>
           </div>
         </article>
 
@@ -314,7 +313,7 @@
             <p class="meta">90 minutes • ~60+ edited images</p>
             <p>Extra time for outfit changes, variety, or two nearby locations. Priority editing available.</p>
             <p><strong>Intro pricing:</strong> $550–$650</p>
-            <a class="btn ghost" href="javascript:void(0)" onclick="openBooking()">Book deluxe</a>
+            <a class="btn ghost" href="javascript:void(0)" onclick="openBooking('https://app.acuityscheduling.com/schedule.php?owner=37092379&appointmentType=84002640')">Book deluxe</a>
           </div>
         </article>
       </div>
@@ -492,7 +491,7 @@
           <div style="display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap">
             <button class="btn" type="submit">Send Request</button>
             <a class="btn secondary" href="javascript:void(0)" onclick="openBooking()">Check Calendar</a>
-            <span style="color:#8a7a9f;font-size:14px">Or reach me: <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></span>
+            <span style="color:#8A7A6A;font-size:14px">Or reach me: <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></span>
           </div>
         </form>
 
@@ -528,7 +527,7 @@
     </div>
   </footer>
 
-  <!-- Booking Modal (Acuity or Calendly) -->
+  <!-- Booking Modal (Acuity) -->
   <div id="bookingModal" aria-hidden="true">
     <div id="bookingBox" role="dialog" aria-modal="true" aria-label="Book a session">
       <button id="bookingClose" type="button" onclick="closeBooking()" aria-label="Close booking">✕</button>
@@ -539,9 +538,8 @@
   <!-- Lightbox -->
   <div id="lightbox"><button onclick="closeLightbox()">✕</button><img alt=""></div>
 
-  <!-- Schedulers (choose ONE: Calendly OR Acuity). Acuity shown here. -->
+  <!-- Acuity embed script (kept; not required for iframe but harmless) -->
   <script src="https://embed.acuityscheduling.com/js/embed.js" async></script>
-  <!-- <script src="https://assets.calendly.com/assets/external/widget.js" async></script> -->
 
   <script>
     // Mobile menu
@@ -575,22 +573,21 @@
         toast.textContent = "Thanks for reaching out — I’ll email you shortly!";
         Object.assign(toast.style,{
           position:'fixed',left:'50%',transform:'translateX(-50%)',bottom:'20px',
-          background:'#fff',border:'1px solid #efe8ff',padding:'12px 16px',
+          background:'#fff',border:'1px solid #F7E6C7',padding:'12px 16px',
           borderRadius:'12px',boxShadow:'0 10px 25px rgba(0,0,0,.12)',zIndex:2000,
-          color:'#6f5f8d'
+          color:'#7A5B3B'
         });
         document.body.appendChild(toast);
         setTimeout(()=>toast.remove(), 4200);
       }
     })();
 
-    // Booking popup (Acuity shown). Replace URL with your scheduler.
-    function openBooking(){
+    // Booking popup (Acuity) with default Sessions category OR per-type links
+    function openBooking(url){
       const modal = document.getElementById('bookingModal');
       const wrap  = document.getElementById('bookingWrap');
-      // TODO: swap this with YOUR Acuity link (owner=XXXX) or Calendly URL:
-      const acuityUrl = "https://app.acuityscheduling.com/schedule.php?owner=YOUR_OWNER_ID";
-      wrap.innerHTML = `<iframe src="${acuityUrl}" title="Acuity Scheduling" style="border:0;width:100%;height:100%"></iframe>`;
+      const defaultUrl = "https://app.acuityscheduling.com/schedule.php?owner=37092379&appointmentType=category:Sessions";
+      wrap.innerHTML = `<iframe src="${url || defaultUrl}" title="Acuity Scheduling" style="border:0;width:100%;height:100%"></iframe>`;
       modal.style.display = 'block';
       document.body.style.overflow = 'hidden';
     }
@@ -602,7 +599,7 @@
     document.getElementById('bookingModal').addEventListener('click',(e)=>{ if(e.target.id==='bookingModal') closeBooking() });
     window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeBooking(); });
 
-    // Simple image lightbox (ensures photos open big)
+    // Simple image lightbox
     const grid = document.getElementById('grid');
     const lb = document.getElementById('lightbox');
     const lbImg = lb.querySelector('img');
