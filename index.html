@@ -213,7 +213,11 @@
 
     /* === NEW: True cut-out notch via SVG mask + U-frame === */
     .mosaic a.captioned.notch{
-      --frame:#F2D9A4;               /* matches image border */
+      --frame:#F2D9A4;               /* frame color matches image border */
+      /* percent equivalents of 180/800 and 620/800 so CSS can align label box */
+      --notch-left: 22.5%;
+      --notch-right: 22.5%;          /* right inset; symmetric */
+      --notch-height: 96px;          /* visual height of recess */
       position:relative;
     }
     .mosaic a.captioned.notch img{ display:none } /* photo is rendered inside SVG */
@@ -221,31 +225,45 @@
     .mosaic a.captioned.notch .notch-figure{
       display:block; width:100%;
       aspect-ratio:4/5;              /* same aspect as other tiles */
-      border:1px solid var(--frame); /* outer frame (top/left/right/bottom) */
+      /* IMPORTANT: transparent so the page background shows through the cutout */
+      background:transparent;
       box-shadow:0 6px 18px rgba(0,0,0,.06);
-      background:#fff;               /* prevents see-through if image fails */
+      /* No border here — we draw the entire frame with the SVG path,
+         including skipping the bottom under the notch. */
     }
-    /* U-frame stroke (down/up the notch edges, across notch top, and bottom segments) */
+    /* U-frame stroke (top, left, right, bottom segments, plus around the notch) */
     .mosaic a.captioned.notch .u-stroke{
       fill:none;
       stroke:var(--frame);
       stroke-width:2;
       vector-effect:non-scaling-stroke;
     }
-    /* Label inside recess */
+
+    /* Overlay “notch box” exactly where the recess is -> perfect label centering */
+    .mosaic a.captioned.notch .notch-box{
+      position:absolute;
+      left:var(--notch-left);
+      right:var(--notch-right);
+      height:var(--notch-height);
+      bottom:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:none; /* keep tile clickable */
+      /* no background; we want to see the page background in the cutout */
+    }
+
+    /* Smaller label (about half the visual bulk) */
     .mosaic a.captioned.notch .cap-label{
-      position:absolute; left:50%;
-      transform:translateX(-50%);
-      bottom:8px;
       background:var(--accent-2);
       color:#6D5A33;
       border:1px solid #FFE3AA;
-      padding:8px 14px;
+      padding:5px 10px;          /* tighter */
+      font-size:12px;            /* smaller text */
       letter-spacing:.08em;
       font-weight:600;
       white-space:nowrap;
       border-radius:0;
-      pointer-events:none;
     }
 
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
@@ -440,36 +458,45 @@
       <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
       <div class="mosaic" id="grid">
-        <!-- First tile: TRUE notch cut-out with U-frame -->
+        <!-- First tile: TRUE notch cut-out with U-frame and perfectly-centered smaller label -->
         <a href="/galleries/family-portrait.html" class="captioned notch" aria-label="Family Portrait Gallery">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
               <!-- Mask: white keeps pixels; black removes pixels -->
               <mask id="notchMask">
                 <rect x="0" y="0" width="100%" height="100%" fill="white"/>
-                <!-- Notch rectangle (centered). Tweak these numbers to tighten/loosen fit -->
-                <!-- x1=180, x2=620 -> width=440; yTop=904; height=96 -->
+                <!-- Notch rectangle (centered) -->
+                <!-- x1=180, x2=620 (width=440); yTop=904; height=96 -->
                 <rect x="180" y="904" width="440" height="96" fill="black"/>
               </mask>
             </defs>
 
-            <!-- Photo rendered through the mask -->
+            <!-- Photo rendered through the mask (transparent where notch is) -->
             <image href="pictures/christStephAlbumThumb.jpg"
                    x="0" y="0" width="800" height="1000"
                    preserveAspectRatio="xMidYMid slice"
                    mask="url(#notchMask)"></image>
 
-            <!-- U-frame: bottom left segment, notch legs + top, bottom right segment -->
-            <path class="u-stroke"
-              d="
-                M 1 999   L 180 999   /* bottom left until notch */
-                M 180 999 L 180 904   /* up left notch edge   */
-                M 180 904 L 620 904   /* across notch top     */
-                M 620 904 L 620 999   /* down right notch edge*/
-                M 620 999 L 799 999   /* bottom right after notch */
-              " />
+            <!-- Entire frame drawn by strokes (no bottom line under notch) -->
+            <!-- top -->
+            <path class="u-stroke" d="M 1 1 L 799 1" />
+            <!-- left -->
+            <path class="u-stroke" d="M 1 1 L 1 999" />
+            <!-- right -->
+            <path class="u-stroke" d="M 799 1 L 799 999" />
+            <!-- bottom segments (skip under notch) -->
+            <path class="u-stroke" d="M 1 999 L 180 999" />
+            <path class="u-stroke" d="M 620 999 L 799 999" />
+            <!-- notch uprights + top across -->
+            <path class="u-stroke" d="M 180 999 L 180 904" />
+            <path class="u-stroke" d="M 180 904 L 620 904" />
+            <path class="u-stroke" d="M 620 904 L 620 999" />
           </svg>
-          <span class="cap-label">Family Portraits</span>
+
+          <!-- Overlay box aligned to recess for perfect centering -->
+          <div class="notch-box">
+            <span class="cap-label">Family Portraits</span>
+          </div>
         </a>
 
         <a href="/galleries/couples-sunset.html" aria-label="Couples Sunset Gallery">
