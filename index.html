@@ -58,7 +58,8 @@
       line-height:1.65;
       -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
-    img{max-width:100%;height:auto;display:block;border-radius:14px}
+    /* Square corners site-wide */
+    img{max-width:100%;height:auto;display:block;border-radius:0}
 
     /* Links: warm golden */
     a{color:#9A6724;text-decoration:none}
@@ -161,8 +162,20 @@
 
     /* Gallery */
     .mosaic{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    .mosaic img{cursor:pointer; transition:transform .2s ease; aspect-ratio:4/5; object-fit:cover}
-    .mosaic img:hover{transform:scale(1.01)}
+    .mosaic a{display:block; text-decoration:none;}
+    .mosaic img{
+      cursor:pointer;
+      aspect-ratio:4/5;
+      object-fit:cover;
+      border-radius:0;                 /* framed gallery only */
+      border:1px solid #F2D9A4;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .mosaic img:hover{
+      transform:scale(1.01);
+      box-shadow:0 10px 24px rgba(0,0,0,.08);
+    }
 
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
     .feature{background:var(--paper);padding:18px;border:1px solid #F7E6C7;border-radius:var(--radius);box-shadow:var(--shadow)}
@@ -228,7 +241,8 @@
     #bookingClose:hover{background:#FFF4DE}
     /* Lightbox */
     #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:1200}
-    #lightbox img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 12px 50px rgba(0,0,0,.5)}
+    /* square corners for lightbox image */
+    #lightbox img{max-width:92vw;max-height:88vh;border-radius:0;box-shadow:0 12px 50px rgba(0,0,0,.5)}
     #lightbox button{position:absolute;top:18px;right:18px;background:#fff;border:0;border-radius:10px;padding:8px 12px;cursor:pointer}
   </style>
 
@@ -361,24 +375,36 @@
       <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
       <div class="mosaic" id="grid">
-        <img loading="lazy"
-          src="pictures/cheerful-family-beach-wedding-ceremony.jpg"
-          alt="Cheerful family on the beach at golden hour" />
-        <img loading="lazy"
-          src="pictures/cool-two-young-women-having-fun-sunset-beach-gay-lesbian-love-romance.jpg"
-          alt="Two women laughing at sunset on the beach" />
-        <img loading="lazy"
-          src="pictures/cute-family-playing-autumn-field.jpg"
-          alt="Family playing together in an autumn field" />
-        <img loading="lazy"
-          src="pictures/family-with-baby-daughter-together-vacation.jpg"
-          alt="Family with baby daughter on vacation" />
-        <img loading="lazy"
-          src="pictures/full-grandma-kid-seaside.jpg"
-          alt="Grandmother and child by the seaside" />
-        <img loading="lazy"
-          src="pictures/young-stylish-hipster-couple-love-tropical-beach-vacation.jpg"
-          alt="Stylish couple on a tropical beach" />
+        <a href="/galleries/family-beach.html" aria-label="Family Beach Gallery">
+          <img loading="lazy"
+            src="pictures/cheerful-family-beach-wedding-ceremony.jpg"
+            alt="Cheerful family on the beach at golden hour" />
+        </a>
+        <a href="/galleries/couples-sunset.html" aria-label="Couples Sunset Gallery">
+          <img loading="lazy"
+            src="pictures/cool-two-young-women-having-fun-sunset-beach-gay-lesbian-love-romance.jpg"
+            alt="Two women laughing at sunset on the beach" />
+        </a>
+        <a href="/galleries/fall-field.html" aria-label="Fall Field Family Gallery">
+          <img loading="lazy"
+            src="pictures/cute-family-playing-autumn-field.jpg"
+            alt="Family playing together in an autumn field" />
+        </a>
+        <a href="/galleries/vacation.html" aria-label="Vacation Family Gallery">
+          <img loading="lazy"
+            src="pictures/family-with-baby-daughter-together-vacation.jpg"
+            alt="Family with baby daughter on vacation" />
+        </a>
+        <a href="/galleries/grandparents.html" aria-label="Grandparents & Littles Gallery">
+          <img loading="lazy"
+            src="pictures/full-grandma-kid-seaside.jpg"
+            alt="Grandmother and child by the seaside" />
+        </a>
+        <a href="/galleries/couples-tropical.html" aria-label="Tropical Couples Gallery">
+          <img loading="lazy"
+            src="pictures/young-stylish-hipster-couple-love-tropical-beach-vacation.jpg"
+            alt="Stylish couple on a tropical beach" />
+        </a>
       </div>
       <div class="cta" style="margin-top:18px">
         <a class="btn secondary" href="#book">Check availability</a>
@@ -404,11 +430,8 @@
         </div>
         <div class="card">
           <img loading="lazy"
-            src="https://images.unsplash.com/photo-1520975922203-0f7f4a5f9792?q=80&w=1200&auto=format&fit=crop"
-            srcset="https://images.unsplash.com/photo-1520975922203-0f7f4a5f9792?q=80&w=700&auto=format&fit=crop 700w,
-                    https://images.unsplash.com/photo-1520975922203-0f7f4a5f9792?q=80&w=1200&auto=format&fit=crop 1200w"
-            sizes="(max-width: 960px) 92vw, 360px"
-            alt="Rachel outdoors with camera (placeholder)" />
+            src="pictures/rahcelHeadshot.JPG"
+            alt="Rachel Barton, Sarasota family photographer headshot" />
         </div>
       </div>
     </section>
@@ -614,6 +637,26 @@
     }
     document.getElementById('bookingModal').addEventListener('click',(e)=>{ if(e.target.id==='bookingModal') closeBooking() });
     window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeBooking(); });
+
+    /* Minimal lightbox: only binds to elements explicitly marked with [data-lightbox] */
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb ? lb.querySelector('img') : null;
+    function closeLightbox(){
+      if(lb){ lb.style.display='none'; if(lbImg) lbImg.src=''; }
+    }
+    document.querySelectorAll('[data-lightbox]').forEach(el=>{
+      el.addEventListener('click',(e)=>{
+        e.preventDefault();
+        const src = el.getAttribute('href') || el.getAttribute('data-src');
+        if(src && lb && lbImg){ lbImg.src = src; lb.style.display='flex'; }
+      });
+      const img = el.querySelector('img');
+      if(img){ img.setAttribute('decoding','async'); img.setAttribute('loading','lazy'); }
+    });
+    if(lb){
+      lb.addEventListener('click',(e)=>{ if(e.target.id==='lightbox') closeLightbox(); });
+      window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLightbox(); });
+    }
   </script>
 </body>
 </html>
