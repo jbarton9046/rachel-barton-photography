@@ -58,8 +58,15 @@
       line-height:1.65;
       -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
-    /* Square corners site-wide */
-    img{max-width:100%;height:auto;display:block;border-radius:0}
+    /* Square corners + framed photos site-wide */
+    img{
+      max-width:100%;
+      height:auto;
+      display:block;
+      border-radius:0;
+      border:1px solid #F2D9A4;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+    }
 
     /* Links: warm golden */
     a{color:#9A6724;text-decoration:none}
@@ -167,14 +174,23 @@
       cursor:pointer;
       aspect-ratio:4/5;
       object-fit:cover;
-      border-radius:0;                 /* framed gallery only */
-      border:1px solid #F2D9A4;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      border-radius:0;                 /* square corners */
       transition:transform .2s ease, box-shadow .2s ease;
     }
-    .mosaic img:hover{
-      transform:scale(1.01);
-      box-shadow:0 10px 24px rgba(0,0,0,.08);
+    .mosaic img:hover{ transform:scale(1.01); box-shadow:0 10px 24px rgba(0,0,0,.08) }
+
+    /* Captioned style for first gallery tile (family portrait) */
+    .mosaic a.captioned{ position:relative; padding-bottom:52px }
+    .mosaic a.captioned .cap-band{
+      position:absolute; left:6%; right:6%; bottom:6px;
+      background:#fff; border:1px solid #F2D9A4; box-shadow:0 6px 18px rgba(0,0,0,.06);
+      height:46px; transform:translateY(100%); border-radius:0;
+    }
+    .mosaic a.captioned .cap-label{
+      position:absolute; left:50%; transform:translate(-50%, calc(100% + 10px));
+      background:var(--accent-2); color:#6D5A33; border:1px solid #FFE3AA;
+      padding:10px 18px; letter-spacing:.08em; font-weight:600; border-radius:0;
+      white-space:nowrap;
     }
 
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
@@ -242,7 +258,7 @@
     /* Lightbox */
     #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:1200}
     /* square corners for lightbox image */
-    #lightbox img{max-width:92vw;max-height:88vh;border-radius:0;box-shadow:0 12px 50px rgba(0,0,0,.5)}
+    #lightbox img{max-width:92vw;max-height:88vh;border-radius:0;box-shadow:0 12px 50px rgba(0,0,0,.5); border:1px solid #F2D9A4}
     #lightbox button{position:absolute;top:18px;right:18px;background:#fff;border:0;border-radius:0;padding:8px 12px;cursor:pointer}
   </style>
 
@@ -305,8 +321,8 @@
           <a class="btn secondary" href="#portfolio">View Galleries</a>
           <span class="sticker">now booking fall minis ✨</span>
         </div>
-        <!-- This pill is white per your note -->
-        <div class="badge white">Weekday mornings & evenings • Full weekends • From Tampa → Punta Gorda</div>
+        <!-- Updated availability -->
+        <div class="badge white">Select weekday evenings • Full weekends • From Tampa → Punta Gorda</div>
       </div>
       <div>
         <img
@@ -329,8 +345,8 @@
           <div class="body">
             <h3>Mini Session</h3>
             <p class="meta">30 minutes • ~15–25 edited images</p>
-            <p>Perfect for milestones & seasonal updates. One location. Weekdays or select weekend windows.</p>
-            <p><strong>Intro pricing:</strong> $200–$275</p>
+            <p>Perfect for milestones & seasonal updates. Select weekday evenings or full weekends.</p>
+            <p><strong>Intro pricing:</strong> $250</p>
             <a class="btn ghost" href="#book">Book mini</a>
           </div>
         </article>
@@ -343,7 +359,7 @@
             <h3>Standard Session</h3>
             <p class="meta">60 minutes • ~35–50 edited images</p>
             <p>The most popular option for families & maternity. One location (nearby second look optional).</p>
-            <p><strong>Intro pricing:</strong> $350–$450</p>
+            <p><strong>Intro pricing:</strong> $450</p>
             <a class="btn ghost" href="#book">Book standard</a>
           </div>
         </article>
@@ -356,7 +372,7 @@
             <h3>Deluxe Session</h3>
             <p class="meta">90 minutes • ~60+ edited images</p>
             <p>Extra time for outfit changes, variety, or two nearby locations. Priority editing available.</p>
-            <p><strong>Intro pricing:</strong> $550–$650</p>
+            <p><strong>Intro pricing:</strong> $650</p>
             <a class="btn ghost" href="#book">Book deluxe</a>
           </div>
         </article>
@@ -375,10 +391,13 @@
       <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
       <div class="mosaic" id="grid">
-        <a href="/galleries/family-beach.html" aria-label="Family Beach Gallery">
+        <!-- First tile wired to a Family Portrait gallery with caption -->
+        <a href="/galleries/family-portrait.html" class="captioned" aria-label="Family Portrait Gallery">
           <img loading="lazy"
             src="pictures/cheerful-family-beach-wedding-ceremony.jpg"
             alt="Cheerful family on the beach at golden hour" />
+          <div class="cap-band" aria-hidden="true"></div>
+          <span class="cap-label">Family Portrait</span>
         </a>
         <a href="/galleries/couples-sunset.html" aria-label="Couples Sunset Gallery">
           <img loading="lazy"
@@ -473,7 +492,7 @@
       <div class="features">
         <div class="feature">
           <h3>Availability</h3>
-          <p>Weekday early mornings & evenings; full weekends. Golden hour recommended for beach sessions.</p>
+          <p>Select weekday evenings; full weekends. Golden hour recommended for beach sessions.</p>
         </div>
         <div class="feature">
           <h3>Booking & Payment</h3>
@@ -556,7 +575,7 @@
               <h3>Service Area</h3>
               <p>Sarasota • Siesta Key • Lido • Longboat Key • Lakewood Ranch • Venice • Bradenton • Tampa • St. Petersburg • Clearwater • Punta Gorda</p>
               <h3 style="margin-top:16px">Preferred Times</h3>
-              <p>Weekday early mornings & evenings · All weekend times. Beach sessions at golden hour recommended.</p>
+              <p>Select weekday evenings · Full weekends. Beach sessions at golden hour recommended.</p>
               <h3 style="margin-top:16px">Booking Online</h3>
               <p>Prefer to book directly? Tap “Book a Session” to open the calendar right here.</p>
               <div class="badge">Live booking + contracts coming soon</div>
