@@ -91,7 +91,7 @@
     .nav{display:flex;align-items:center;justify-content:space-between;padding:14px var(--gap)}
     .brand{display:flex;align-items:center;gap:12px}
     .brand .logo{
-      width:44px;height:44px;border-radius:0; /* no circular mark */
+      width:44px;height:44px;border-radius:50%; /* circle sun restored */
       /* Golden-hour sun (glow + gentle vignette) */
       background:
         radial-gradient(42px 42px at 50% 50%, #FFE7B3 0%, #FFD485 45%, #FFC166 65%, #F4A44C 85%, #E18A3B 100%);
@@ -126,7 +126,7 @@
       linear-gradient(var(--sage-100),var(--sage-100));}
 
     /* Headings */
-    /* HERO now uses a full-bleed background image with copy over it */
+    /* HERO full-bleed with centered copy */
     .hero{
       display:grid;
       grid-template-columns:1fr;
@@ -135,6 +135,11 @@
       min-height:70vh;
       background:url('pictures/heroImage.jpg') center/cover no-repeat;
       position:relative;
+
+      /* make hero span full viewport width even inside .container */
+      width:100vw;
+      margin-left:calc(50% - 50vw);
+      margin-right:calc(50% - 50vw);
     }
     .hero::after{
       content:"";
@@ -149,7 +154,10 @@
       padding:18px;
       max-width:680px;
       box-shadow:var(--shadow);
+      margin:0 auto;               /* center the card */
+      text-align:center;           /* center text inside */
     }
+    .hero .cta{justify-content:center} /* center buttons */
 
     .eyebrow{color:#AF7A2C;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
     h1,.section-title{font-family:"Fraunces",serif;color:var(--heading-ink)}
@@ -203,18 +211,19 @@
     }
     .mosaic img:hover{ transform:scale(1.01); box-shadow:0 10px 24px rgba(0,0,0,.08) }
 
-    /* Captioned style for first gallery tile (family portrait) — label set into bottom of image */
-    .mosaic a.captioned{ position:relative; }
+    /* Make the first tile look like a rectangular cut-out ("recess") that matches the page background */
+    .mosaic a.captioned{ position:relative; --cap-h:56px; }
+    .mosaic a.captioned img{ border-bottom:0; } /* hide image bottom rule so no line shows through the recess */
     .mosaic a.captioned .cap-band{
       position:absolute; left:6%; right:6%; bottom:0;
-      background:var(--bg); 
-      border:1px solid #F2D9A4; 
-      border-bottom:0;               /* remove bottom border for seamless look */
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      height:56px; border-radius:0;
+      height:var(--cap-h);
+      background:var(--bg);           /* EXACT match to page background */
+      border:0;                       /* seamless – no outline */
+      box-shadow:none;                /* no shadow so it blends perfectly */
+      display:flex; align-items:center; justify-content:center;
     }
     .mosaic a.captioned .cap-label{
-      position:absolute; left:50%; bottom:28px; transform:translateX(-50%);
+      position:static;                /* centered by flex above */
       background:var(--accent-2); color:#6D5A33; border:1px solid #FFE3AA;
       padding:10px 18px; letter-spacing:.08em; font-weight:600; border-radius:0;
       white-space:nowrap;
@@ -417,8 +426,9 @@
           <img loading="lazy"
             src="pictures/christStephAlbumThumb.jpg"
             alt="Family portrait session thumbnail" />
-          <div class="cap-band" aria-hidden="true"></div>
-          <span class="cap-label">Family Portraits</span>
+          <div class="cap-band" aria-hidden="false">
+            <span class="cap-label">Family Portraits</span>
+          </div>
         </a>
         <a href="/galleries/couples-sunset.html" aria-label="Couples Sunset Gallery">
           <img loading="lazy"
