@@ -511,26 +511,18 @@
           <!-- Compact calendar card placed above Service Area -->
           <div class="card" id="book" style="margin-bottom:var(--gap)">
             <div class="body" style="padding:0">
-              <div class="scheduler-card compact">
-                <div class="cal" id="cal">
-                  <div class="cal-left">
-                    <div class="cal-header">
-                      <button class="cal-btn" id="prevMonth" aria-label="Previous month">‹</button>
-                      <h3 id="monthLabel">Month YYYY</h3>
-                      <button class="cal-btn" id="nextMonth" aria-label="Next month">›</button>
-                    </div>
-                    <div class="cal-grid" id="dow">
-                      <div class="cal-dow">S</div><div class="cal-dow">M</div><div class="cal-dow">T</div>
-                      <div class="cal-dow">W</div><div class="cal-dow">T</div><div class="cal-dow">F</div><div class="cal-dow">S</div>
-                    </div>
-                    <div class="cal-grid" id="days"></div>
-                  </div>
-                  <div class="cal-right">
-                    <h3 style="margin-top:0;font-family:'Fraunces',serif;color:#7A5B3B" id="slotTitle">Select a date</h3>
-                    <div id="slots">
-                      <p class="empty">Choose a day on the calendar to see available times.</p>
-                    </div>
-                  </div>
+              <div class="scheduler-card compact" style="border:none; box-shadow:none">
+                <!-- HoneyBook Inline Embed -->
+                <iframe
+                  src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c"
+                  title="Book a Session"
+                  style="width:100%; height:600px; border:0; border-radius:14px; display:block;"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  allow="clipboard-write; geolocation">
+                </iframe>
+                <div style="padding:12px 14px; text-align:center;">
+                  <a href="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c" target="_blank" rel="noopener">Open full-screen ↗</a>
                 </div>
               </div>
             </div>
@@ -547,14 +539,7 @@
               <div class="badge">Live booking + contracts coming soon</div>
             </div>
           </div>
-          <div class="card" style="margin-top:var(--gap)">
-            <img loading="lazy"
-              src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop"
-              srcset="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=700&auto=format&fit=crop 700w,
-                      https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop 1200w"
-              sizes="(max-width: 960px) 92vw, 360px"
-              alt="Waves at sunset (Sarasota vibe)" />
-          </div>
+          <!-- Bottom picture card removed per your request -->
         </div>
       </div>
     </section>
@@ -589,7 +574,7 @@
       entries.forEach(e=>{
         if(e.isIntersecting){
           navLinks.forEach(a=>a.classList.remove('active'));
-          const link = document.querySelector(`header nav a[href="#\${e.target.id}"]`);
+          const link = document.querySelector(`header nav a[href="#${e.target.id}"]`);
           if(link) link.classList.add('active');
         }
       })
@@ -613,101 +598,6 @@
         setTimeout(()=>toast.remove(), 4200);
       }
     })();
-
-    // Simple "fridge" calendar
-    const monthLabel = document.getElementById('monthLabel');
-    const daysEl = document.getElementById('days');
-    aconst slotsEl = document.getElementById('slots');
-    const slotTitle = document.getElementById('slotTitle');
-    let viewDate = new Date();
-    let selectedDate = null;
-
-    function fmtMonth(d){
-      return d.toLocaleString(undefined,{month:'long', year:'numeric'});
-    }
-    function renderCalendar(){
-      monthLabel.textContent = fmtMonth(viewDate);
-      daysEl.innerHTML = '';
-      const y = viewDate.getFullYear();
-      const m = viewDate.getMonth();
-      const first = new Date(y,m,1);
-      const startIdx = first.getDay();
-      const daysInMonth = new Date(y,m+1,0).getDate();
-
-      // previous month's trailing days
-      const prevDays = new Date(y,m,0).getDate();
-      for(let i=0;i<startIdx;i++){
-        const n = prevDays - (startIdx-1) + i;
-        const div = document.createElement('div');
-        div.className = 'cal-day muted';
-        div.textContent = n;
-        daysEl.appendChild(div);
-      }
-      // current month days
-      for(let d=1; d<=daysInMonth; d++){
-        const div = document.createElement('div');
-        div.className = 'cal-day';
-        div.textContent = d;
-        const thisDate = new Date(y,m,d);
-        if(selectedDate && thisDate.toDateString() === selectedDate.toDateString()){
-          div.classList.add('selected');
-        }
-        div.addEventListener('click',()=>{
-          selectedDate = thisDate;
-          renderCalendar();
-          renderSlots();
-        });
-        daysEl.appendChild(div);
-      }
-      // next month's leading days to fill grid (optional)
-      const cells = daysEl.children.length;
-      const toFill = (cells % 7 === 0) ? 0 : 7 - (cells % 7);
-      for(let i=1;i<=toFill;i++){
-        const div = document.createElement('div');
-        div.className = 'cal-day muted';
-        div.textContent = i;
-        daysEl.appendChild(div);
-      }
-    }
-    function renderSlots(){
-      slotsEl.innerHTML = '';
-      if(!selectedDate){
-        slotTitle.textContent = 'Select a date';
-        slotsEl.innerHTML = '<p class="empty">Choose a day on the calendar to see available times.</p>';
-        return;
-      }
-      slotTitle.textContent = selectedDate.toLocaleDateString(undefined,{weekday:'long', month:'long', day:'numeric'});
-      // Demo time slots
-      const demoSlots = ['8:00 AM','9:15 AM','10:30 AM','4:45 PM','6:00 PM'];
-      demoSlots.forEach(t=>{
-        const b = document.createElement('button');
-        b.type='button';
-        b.className='slot';
-        b.textContent=t;
-        b.addEventListener('click',()=>{
-          alert(`Great! You picked ${t} on ${slotTitle.textContent}. We’ll hook this up to your booking soon.`);
-        });
-        slotsEl.appendChild(b);
-      });
-    }
-    document.getElementById('prevMonth').addEventListener('click',()=>{ viewDate.setMonth(viewDate.getMonth()-1); renderCalendar(); renderSlots(); });
-    document.getElementById('nextMonth').addEventListener('click',()=>{ viewDate.setMonth(viewDate.getMonth()+1); renderCalendar(); renderSlots(); });
-    renderCalendar(); renderSlots();
-
-    // Simple image lightbox
-    const grid = document.getElementById('grid');
-    const lb = document.getElementById('lightbox');
-    const lbImg = lb.querySelector('img');
-    function closeLightbox(){ lb.style.display='none'; lbImg.src=''; }
-    if(grid){
-      grid.querySelectorAll('img').forEach(img=>{
-        img.addEventListener('click',()=>{ lbImg.src = img.currentSrc || img.src; lb.style.display='flex'; });
-        img.setAttribute('decoding','async');
-        img.setAttribute('loading','lazy');
-      });
-    }
-    lb.addEventListener('click',(e)=>{ if(e.target.id==='lightbox') closeLightbox(); });
-    window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLightbox(); });
 
     // (Modal booking functions kept but unused)
     function openBooking(url){
