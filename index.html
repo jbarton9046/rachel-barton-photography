@@ -211,43 +211,41 @@
     }
     .mosaic img:hover{ transform:scale(1.01); box-shadow:0 10px 24px rgba(0,0,0,.08) }
 
-    /* --- Captioned tile with recess + continuous frame --- */
-    .mosaic a.captioned{
+    /* === NEW: True cut-out notch via SVG mask + U-frame === */
+    .mosaic a.captioned.notch{
+      --frame:#F2D9A4;               /* matches image border */
       position:relative;
-      --cap-h:56px;                 /* recess height */
-      --frame:#F2D9A4;              /* same as image border */
     }
-    /* remove the image’s bottom border so we can draw the U-frame on the recess itself */
-    .mosaic a.captioned img{
-      border-bottom:0;
-      /* Optional: if you want the image pixels literally cut off, uncomment the next line */
-      /* clip-path: inset(0 0 var(--cap-h) 0); */
-    }
-    /* the “notch” area that matches the page background */
-    .mosaic a.captioned .cap-band{
-      position:absolute; left:6%; right:6%; bottom:0;
-      height:var(--cap-h);
-      background:var(--bg);           /* EXACT match to page background */
-      border-bottom:1px solid var(--frame);   /* bottom of the U-frame */
-      box-shadow:none;
-      display:flex; align-items:center; justify-content:center;
-      pointer-events:none;            /* keep the whole tile clickable */
-    }
-    /* draw the two vertical strokes of the U-frame so the border continues down the notch */
-    .mosaic a.captioned .cap-band::before,
-    .mosaic a.captioned .cap-band::after{
-      content:"";
-      position:absolute; top:-1px; bottom:0;
-      width:1px; background:var(--frame);
-    }
-    .mosaic a.captioned .cap-band::before{ left:0; }
-    .mosaic a.captioned .cap-band::after{ right:0; }
+    .mosaic a.captioned.notch img{ display:none } /* photo is rendered inside SVG */
 
-    .mosaic a.captioned .cap-label{
-      position:static;                /* centered by flex above */
-      background:var(--accent-2); color:#6D5A33; border:1px solid #FFE3AA;
-      padding:10px 18px; letter-spacing:.08em; font-weight:600; border-radius:0;
+    .mosaic a.captioned.notch .notch-figure{
+      display:block; width:100%;
+      aspect-ratio:4/5;              /* same aspect as other tiles */
+      border:1px solid var(--frame); /* outer frame (top/left/right/bottom) */
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      background:#fff;               /* prevents see-through if image fails */
+    }
+    /* U-frame stroke (down/up the notch edges, across notch top, and bottom segments) */
+    .mosaic a.captioned.notch .u-stroke{
+      fill:none;
+      stroke:var(--frame);
+      stroke-width:2;
+      vector-effect:non-scaling-stroke;
+    }
+    /* Label inside recess */
+    .mosaic a.captioned.notch .cap-label{
+      position:absolute; left:50%;
+      transform:translateX(-50%);
+      bottom:8px;
+      background:var(--accent-2);
+      color:#6D5A33;
+      border:1px solid #FFE3AA;
+      padding:8px 14px;
+      letter-spacing:.08em;
+      font-weight:600;
       white-space:nowrap;
+      border-radius:0;
+      pointer-events:none;
     }
 
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
@@ -442,15 +440,38 @@
       <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
       <div class="mosaic" id="grid">
-        <!-- First tile wired to a Family Portrait gallery with caption -->
-        <a href="/galleries/family-portrait.html" class="captioned" aria-label="Family Portrait Gallery">
-          <img loading="lazy"
-            src="pictures/christStephAlbumThumb.jpg"
-            alt="Family portrait session thumbnail" />
-          <div class="cap-band" aria-hidden="false">
-            <span class="cap-label">Family Portraits</span>
-          </div>
+        <!-- First tile: TRUE notch cut-out with U-frame -->
+        <a href="/galleries/family-portrait.html" class="captioned notch" aria-label="Family Portrait Gallery">
+          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <!-- Mask: white keeps pixels; black removes pixels -->
+              <mask id="notchMask">
+                <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                <!-- Notch rectangle (centered). Tweak these numbers to tighten/loosen fit -->
+                <!-- x1=180, x2=620 -> width=440; yTop=904; height=96 -->
+                <rect x="180" y="904" width="440" height="96" fill="black"/>
+              </mask>
+            </defs>
+
+            <!-- Photo rendered through the mask -->
+            <image href="pictures/christStephAlbumThumb.jpg"
+                   x="0" y="0" width="800" height="1000"
+                   preserveAspectRatio="xMidYMid slice"
+                   mask="url(#notchMask)"></image>
+
+            <!-- U-frame: bottom left segment, notch legs + top, bottom right segment -->
+            <path class="u-stroke"
+              d="
+                M 1 999   L 180 999   /* bottom left until notch */
+                M 180 999 L 180 904   /* up left notch edge   */
+                M 180 904 L 620 904   /* across notch top     */
+                M 620 904 L 620 999   /* down right notch edge*/
+                M 620 999 L 799 999   /* bottom right after notch */
+              " />
+          </svg>
+          <span class="cap-label">Family Portraits</span>
         </a>
+
         <a href="/galleries/couples-sunset.html" aria-label="Couples Sunset Gallery">
           <img loading="lazy"
             src="pictures/cool-two-young-women-having-fun-sunset-beach-gay-lesbian-love-romance.jpg"
