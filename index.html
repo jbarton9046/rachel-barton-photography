@@ -126,7 +126,31 @@
       linear-gradient(var(--sage-100),var(--sage-100));}
 
     /* Headings */
-    .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--gap);align-items:center;padding:calc(var(--gap)*2) 0}
+    /* HERO now uses a full-bleed background image with copy over it */
+    .hero{
+      display:grid;
+      grid-template-columns:1fr;
+      align-items:center;
+      padding:calc(var(--gap)*3) 0;
+      min-height:70vh;
+      background:url('pictures/heroImage.jpg') center/cover no-repeat;
+      position:relative;
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(to bottom, rgba(255,248,238,.62), rgba(255,248,238,.18) 35%, rgba(0,0,0,.18) 100%);
+      pointer-events:none;
+    }
+    .hero .copy{
+      position:relative; /* above overlay */
+      background:rgba(255,248,238,.86);
+      border:1px solid #F7E6C7;
+      padding:18px;
+      max-width:680px;
+      box-shadow:var(--shadow);
+    }
+
     .eyebrow{color:#AF7A2C;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
     h1,.section-title{font-family:"Fraunces",serif;color:var(--heading-ink)}
     h1{
@@ -179,15 +203,15 @@
     }
     .mosaic img:hover{ transform:scale(1.01); box-shadow:0 10px 24px rgba(0,0,0,.08) }
 
-    /* Captioned style for first gallery tile (family portrait) */
-    .mosaic a.captioned{ position:relative; padding-bottom:52px }
+    /* Captioned style for first gallery tile (family portrait) — label set into bottom of image */
+    .mosaic a.captioned{ position:relative; }
     .mosaic a.captioned .cap-band{
-      position:absolute; left:6%; right:6%; bottom:6px;
+      position:absolute; left:6%; right:6%; bottom:12px;
       background:#fff; border:1px solid #F2D9A4; box-shadow:0 6px 18px rgba(0,0,0,.06);
-      height:46px; transform:translateY(100%); border-radius:0;
+      height:46px; border-radius:0;
     }
     .mosaic a.captioned .cap-label{
-      position:absolute; left:50%; transform:translate(-50%, calc(100% + 10px));
+      position:absolute; left:50%; bottom:35px; transform:translateX(-50%);
       background:var(--accent-2); color:#6D5A33; border:1px solid #FFE3AA;
       padding:10px 18px; letter-spacing:.08em; font-weight:600; border-radius:0;
       white-space:nowrap;
@@ -309,7 +333,7 @@
   <main id="home" class="container">
     <!-- Hero -->
     <section class="hero" aria-label="Hero">
-      <div>
+      <div class="copy">
         <div class="eyebrow">Sarasota • Siesta Key • Lido • Longboat Key</div>
         <h1>Real, relaxed family photography — coastal, warm, and timeless</h1>
         <p class="subtitle">
@@ -323,12 +347,6 @@
         </div>
         <!-- Updated availability -->
         <div class="badge white">Select weekday evenings • Full weekends • From Tampa → Punta Gorda</div>
-      </div>
-      <div>
-        <img
-          src="pictures/portrait-woman-representing-motherhood.jpg"
-          alt="Warm golden-hour portrait evoking motherhood"
-          loading="eager" />
       </div>
     </section>
 
@@ -394,8 +412,8 @@
         <!-- First tile wired to a Family Portrait gallery with caption -->
         <a href="/galleries/family-portrait.html" class="captioned" aria-label="Family Portrait Gallery">
           <img loading="lazy"
-            src="pictures/cheerful-family-beach-wedding-ceremony.jpg"
-            alt="Cheerful family on the beach at golden hour" />
+            src="pictures/christStephAlbumThumb.jpg"
+            alt="Family portrait session thumbnail" />
           <div class="cap-band" aria-hidden="true"></div>
           <span class="cap-label">Family Portrait</span>
         </a>
