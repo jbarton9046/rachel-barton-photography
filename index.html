@@ -46,7 +46,7 @@
 
       --ring: rgba(230,162,74,.35);
       --shadow: 0 10px 30px rgba(94, 63, 20, 0.10);
-      --radius: 18px;
+      --radius: 0; /* square everything */
       --gap: clamp(16px, 3vw, 32px);
       --maxw: 1200px;
     }
@@ -84,7 +84,7 @@
     .nav{display:flex;align-items:center;justify-content:space-between;padding:14px var(--gap)}
     .brand{display:flex;align-items:center;gap:12px}
     .brand .logo{
-      width:44px;height:44px;border-radius:50%;
+      width:44px;height:44px;border-radius:0; /* no circular mark */
       /* Golden-hour sun (glow + gentle vignette) */
       background:
         radial-gradient(42px 42px at 50% 50%, #FFE7B3 0%, #FFD485 45%, #FFC166 65%, #F4A44C 85%, #E18A3B 100%);
@@ -106,7 +106,7 @@
       margin:0;
       padding:0;
     }
-    nav a{padding:8px 12px;border-radius:999px;color:#7A5B3B}
+    nav a{padding:8px 12px;border-radius:0;color:#7A5B3B}
     nav a.active, nav a:focus-visible, nav a:hover{background:rgba(230,162,74,0.18);text-decoration:none}
     .menu-btn{display:none;color:#7A5B3B}
 
@@ -141,16 +141,16 @@
     .subtitle{color:#7E6F63;max-width:60ch}
     .cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
 
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;border:1px solid transparent;background:var(--accent);color:white;font-weight:700;box-shadow:var(--shadow)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:0;border:1px solid transparent;background:var(--accent);color:white;font-weight:700;box-shadow:var(--shadow)}
     .btn:hover{filter:brightness(.98)}
     .btn.secondary{background:#fff;color:#7A5B3B;border-color:#F7E6C7}
     .btn.ghost{background:transparent;border:1px dashed #F2D9A4;color:#7A5B3B}
 
-    /* Badge pills — make a cohesive warm style site-wide, with a white variant for hero */
-    .badge{display:inline-flex;align-items:center;gap:8px;background:#FFF2D8;border:1px solid #FFE3AA;padding:8px 12px;border-radius:999px;margin-top:12px;color:#6D5A33}
+    /* Badge pills — square now */
+    .badge{display:inline-flex;align-items:center;gap:8px;background:#FFF2D8;border:1px solid #FFE3AA;padding:8px 12px;border-radius:0;margin-top:12px;color:#6D5A33}
     .badge.white{background:#fff;border-color:rgba(0,0,0,0.05);color:#8E8176}
 
-    .sticker{position:relative; display:inline-flex; align-items:center; gap:8px; background:#FFF2D8; border:1px solid #FFE9B0; color:#6D5A33; padding:8px 12px; border-radius:999px; transform:rotate(-3deg); box-shadow:0 6px 18px rgba(180,140,90,.15)}
+    .sticker{position:relative; display:inline-flex; align-items:center; gap:8px; background:#FFF2D8; border:1px solid #FFE9B0; color:#6D5A33; padding:8px 12px; border-radius:0; transform:rotate(-3deg); box-shadow:0 6px 18px rgba(180,140,90,.15)}
 
     section{padding:calc(var(--gap)*2) 0}
     .section-sub{color:#7A6C5E;margin:0 0 22px}
@@ -181,14 +181,14 @@
     .feature{background:var(--paper);padding:18px;border:1px solid #F7E6C7;border-radius:var(--radius);box-shadow:var(--shadow)}
 
     .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    blockquote{background:#fff;border:1px solid #F7E6C7;padding:18px;margin:0;border-radius:14px;position:relative;color:#6B5B4D}
+    blockquote{background:#fff;border:1px solid #F7E6C7;padding:18px;margin:0;border-radius:0;position:relative;color:#6B5B4D}
     blockquote:before{content:"“"; font-family:"Fraunces",serif; font-size:48px; color:#F2D6A7; position:absolute; left:12px; top:-10px}
     blockquote footer{color:#8A7A6A;font-size:14px;margin-top:8px}
 
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
     form{background:#fff;padding:18px;border:1px solid #F7E6C7;border-radius:var(--radius);box-shadow:var(--shadow)}
     label{display:block;font-weight:600;margin:10px 0 6px;color:#7A5B3B}
-    input, textarea, select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #F2D9A4;background:#fff;outline:none}
+    input, textarea, select{width:100%;padding:12px 14px;border-radius:0;border:1px solid #F2D9A4;background:#fff;outline:none}
     input:focus, textarea:focus, select:focus{border-color:#E6A24A;box-shadow:0 0 0 4px var(--ring)}
     textarea{min-height:120px}
 
@@ -202,13 +202,13 @@
     .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
     .cal-header h3{margin:0;font-family:"Fraunces",serif;color:#7A5B3B}
     .cal-nav{display:flex;gap:6px}
-    .cal-btn{border:1px solid #F2D9A4;background:#fff;border-radius:10px;padding:6px 10px;cursor:pointer}
+    .cal-btn{border:1px solid #F2D9A4;background:#fff;border-radius:0;padding:6px 10px;cursor:pointer}
     .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
     .cal-dow{font-size:12px;color:#8A7A6A;text-align:center;margin-bottom:6px}
-    .cal-day{background:#FFF9EF;border:1px solid #F7E6C7;border-radius:12px;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;cursor:pointer}
+    .cal-day{background:#FFF9EF;border:1px solid #F7E6C7;border-radius:0;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;cursor:pointer}
     .cal-day.muted{opacity:.35}
     .cal-day.selected{background:#FFE6BF;border-color:#E6A24A;box-shadow:0 0 0 3px rgba(230,162,74,.25) inset}
-    .slot{display:block;padding:10px 12px;border:1px solid #F2D9A4;border-radius:10px;margin-bottom:10px;text-align:center;cursor:pointer;background:#fff}
+    .slot{display:block;padding:10px 12px;border:1px solid #F2D9A4;border-radius:0;margin-bottom:10px;text-align:center;cursor:pointer;background:#fff}
     .slot:hover{background:#FFF7E8}
     .empty{color:#8A7A6A;font-size:14px}
 
@@ -217,10 +217,10 @@
     .scheduler-card.compact .cal-left{padding:14px}
     .scheduler-card.compact .cal-right{padding:14px}
     .scheduler-card.compact .cal-header h3{font-size:16px}
-    .scheduler-card.compact .cal-btn{padding:4px 8px;font-size:12px;border-radius:8px}
+    .scheduler-card.compact .cal-btn{padding:4px 8px;font-size:12px;border-radius:0}
     .scheduler-card.compact .cal-dow{font-size:11px}
-    .scheduler-card.compact .cal-day{font-size:13px;border-radius:10px}
-    .scheduler-card.compact .slot{padding:8px 10px;font-size:14px;border-radius:8px}
+    .scheduler-card.compact .cal-day{font-size:13px;border-radius:0}
+    .scheduler-card.compact .slot{padding:8px 10px;font-size:14px;border-radius:0}
 
     /* Mobile */
     @media (max-width: 1024px){ .hero{grid-template-columns:1fr;gap:24px} }
@@ -236,14 +236,14 @@
 
     /* Booking Modal (kept for future use) */
     #bookingModal{position:fixed;inset:0;display:none;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);z-index:1000}
-    #bookingBox{max-width:960px;width:92%;height:80vh;margin:5vh auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.2);position:relative; border:1px solid #F7E6C7}
-    #bookingClose{position:absolute;right:10px;top:10px;border:none;background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.1); color:#7A5B3B}
+    #bookingBox{max-width:960px;width:92%;height:80vh;margin:5vh auto;background:#fff;border-radius:0;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.2);position:relative; border:1px solid #F7E6C7}
+    #bookingClose{position:absolute;right:10px;top:10px;border:none;background:#fff;border-radius:0;padding:8px 10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.1); color:#7A5B3B}
     #bookingClose:hover{background:#FFF4DE}
     /* Lightbox */
     #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:1200}
     /* square corners for lightbox image */
     #lightbox img{max-width:92vw;max-height:88vh;border-radius:0;box-shadow:0 12px 50px rgba(0,0,0,.5)}
-    #lightbox button{position:absolute;top:18px;right:18px;background:#fff;border:0;border-radius:10px;padding:8px 12px;cursor:pointer}
+    #lightbox button{position:absolute;top:18px;right:18px;background:#fff;border:0;border-radius:0;padding:8px 12px;cursor:pointer}
   </style>
 
   <!-- JSON-LD: Local Business / Photographer -->
@@ -539,7 +539,7 @@
                 <iframe
                   src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c"
                   title="Book a Session"
-                  style="width:100%; height:600px; border:0; border-radius:14px; display:block;"
+                  style="width:100%; height:600px; border:0; border-radius:0; display:block;"
                   loading="lazy"
                   referrerpolicy="no-referrer-when-downgrade"
                   allow="clipboard-write; geolocation">
@@ -614,7 +614,7 @@
         Object.assign(toast.style,{
           position:'fixed',left:'50%',transform:'translateX(-50%)',bottom:'20px',
           background:'#fff',border:'1px solid #F7E6C7',padding:'12px 16px',
-          borderRadius:'12px',boxShadow:'0 10px 25px rgba(0,0,0,.12)',zIndex:2000,
+          borderRadius:'0',boxShadow:'0 10px 25px rgba(0,0,0,.12)',zIndex:2000,
           color:'#7A5B3B'
         });
         document.body.appendChild(toast);
