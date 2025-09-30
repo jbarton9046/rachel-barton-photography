@@ -211,17 +211,38 @@
     }
     .mosaic img:hover{ transform:scale(1.01); box-shadow:0 10px 24px rgba(0,0,0,.08) }
 
-    /* Make the first tile look like a rectangular cut-out ("recess") that matches the page background */
-    .mosaic a.captioned{ position:relative; --cap-h:56px; }
-    .mosaic a.captioned img{ border-bottom:0; } /* hide image bottom rule so no line shows through the recess */
+    /* --- Captioned tile with recess + continuous frame --- */
+    .mosaic a.captioned{
+      position:relative;
+      --cap-h:56px;                 /* recess height */
+      --frame:#F2D9A4;              /* same as image border */
+    }
+    /* remove the image’s bottom border so we can draw the U-frame on the recess itself */
+    .mosaic a.captioned img{
+      border-bottom:0;
+      /* Optional: if you want the image pixels literally cut off, uncomment the next line */
+      /* clip-path: inset(0 0 var(--cap-h) 0); */
+    }
+    /* the “notch” area that matches the page background */
     .mosaic a.captioned .cap-band{
       position:absolute; left:6%; right:6%; bottom:0;
       height:var(--cap-h);
       background:var(--bg);           /* EXACT match to page background */
-      border:0;                       /* seamless – no outline */
-      box-shadow:none;                /* no shadow so it blends perfectly */
+      border-bottom:1px solid var(--frame);   /* bottom of the U-frame */
+      box-shadow:none;
       display:flex; align-items:center; justify-content:center;
+      pointer-events:none;            /* keep the whole tile clickable */
     }
+    /* draw the two vertical strokes of the U-frame so the border continues down the notch */
+    .mosaic a.captioned .cap-band::before,
+    .mosaic a.captioned .cap-band::after{
+      content:"";
+      position:absolute; top:-1px; bottom:0;
+      width:1px; background:var(--frame);
+    }
+    .mosaic a.captioned .cap-band::before{ left:0; }
+    .mosaic a.captioned .cap-band::after{ right:0; }
+
     .mosaic a.captioned .cap-label{
       position:static;                /* centered by flex above */
       background:var(--accent-2); color:#6D5A33; border:1px solid #FFE3AA;
@@ -647,7 +668,7 @@
       entries.forEach(e=>{
         if(e.isIntersecting){
           navLinks.forEach(a=>a.classList.remove('active'));
-          const link = document.querySelector(`header nav a[href="#${e.target.id}"]`);
+          const link = document.querySelector('header nav, a[href="#${e.target.id}"]');
           if(link) link.classList.add('active');
         }
       })
@@ -676,7 +697,7 @@
     function openBooking(url){
       const modal = document.getElementById('bookingModal');
       const wrap  = document.getElementById('bookingWrap');
-      wrap.innerHTML = `<div style="display:flex;height:100%;align-items:center;justify-content:center;color:#7A5B3B">Booking coming soon</div>`;
+      wrap.innerHTML = <div style="display:flex;height:100%;align-items:center;justify-content:center;color:#7A5B3B">Booking coming soon</div>;
       modal.style.display = 'block';
       document.body.style.overflow = 'hidden';
     }
