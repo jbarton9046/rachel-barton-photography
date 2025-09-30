@@ -199,6 +199,16 @@
     .slot:hover{background:#FFF7E8}
     .empty{color:#8A7A6A;font-size:14px}
 
+    /* Compact calendar overrides (for the Contact column card) */
+    .scheduler-card.compact .cal{grid-template-columns:1fr 220px}
+    .scheduler-card.compact .cal-left{padding:14px}
+    .scheduler-card.compact .cal-right{padding:14px}
+    .scheduler-card.compact .cal-header h3{font-size:16px}
+    .scheduler-card.compact .cal-btn{padding:4px 8px;font-size:12px;border-radius:8px}
+    .scheduler-card.compact .cal-dow{font-size:11px}
+    .scheduler-card.compact .cal-day{font-size:13px;border-radius:10px}
+    .scheduler-card.compact .slot{padding:8px 10px;font-size:14px;border-radius:8px}
+
     /* Mobile */
     @media (max-width: 1024px){ .hero{grid-template-columns:1fr;gap:24px} }
     @media (max-width: 960px){
@@ -277,7 +287,7 @@
           <strong>candid, timeless, true-to-life</strong> images at the beach, in the park, and wherever your story feels most like home.
         </p>
         <div class="cta">
-          <a class="btn" href="#schedule">Book a Session</a>
+          <a class="btn" href="#book">Book a Session</a>
           <a class="btn secondary" href="#portfolio">View Galleries</a>
           <span class="sticker">now booking fall minis ✨</span>
         </div>
@@ -307,7 +317,7 @@
             <p class="meta">30 minutes • ~15–25 edited images</p>
             <p>Perfect for milestones & seasonal updates. One location. Weekdays or select weekend windows.</p>
             <p><strong>Intro pricing:</strong> $200–$275</p>
-            <a class="btn ghost" href="#schedule">Book mini</a>
+            <a class="btn ghost" href="#book">Book mini</a>
           </div>
         </article>
 
@@ -320,7 +330,7 @@
             <p class="meta">60 minutes • ~35–50 edited images</p>
             <p>The most popular option for families & maternity. One location (nearby second look optional).</p>
             <p><strong>Intro pricing:</strong> $350–$450</p>
-            <a class="btn ghost" href="#schedule">Book standard</a>
+            <a class="btn ghost" href="#book">Book standard</a>
           </div>
         </article>
 
@@ -333,7 +343,7 @@
             <p class="meta">90 minutes • ~60+ edited images</p>
             <p>Extra time for outfit changes, variety, or two nearby locations. Priority editing available.</p>
             <p><strong>Intro pricing:</strong> $550–$650</p>
-            <a class="btn ghost" href="#schedule">Book deluxe</a>
+            <a class="btn ghost" href="#book">Book deluxe</a>
           </div>
         </article>
       </div>
@@ -341,34 +351,6 @@
       <p class="section-sub" style="margin-top:16px">
         Add-ons: additional images, full-gallery upgrade, print products, travel beyond core area, weekend peak times.
       </p>
-    </section>
-
-    <!-- Booking (Fridge-style Calendar) -->
-    <section id="schedule" aria-labelledby="schedule-title">
-      <h2 class="section-title" id="schedule-title">Book Your Session</h2>
-      <p class="section-sub">Pick a date, then choose a time. This calendar is a demo UI — we’ll wire it to your booking later.</p>
-      <div class="scheduler-card">
-        <div class="cal" id="cal">
-          <div class="cal-left">
-            <div class="cal-header">
-              <button class="cal-btn" id="prevMonth" aria-label="Previous month">‹</button>
-              <h3 id="monthLabel">Month YYYY</h3>
-              <button class="cal-btn" id="nextMonth" aria-label="Next month">›</button>
-            </div>
-            <div class="cal-grid" id="dow">
-              <div class="cal-dow">S</div><div class="cal-dow">M</div><div class="cal-dow">T</div>
-              <div class="cal-dow">W</div><div class="cal-dow">T</div><div class="cal-dow">F</div><div class="cal-dow">S</div>
-            </div>
-            <div class="cal-grid" id="days"></div>
-          </div>
-          <div class="cal-right">
-            <h3 style="margin-top:0;font-family:'Fraunces',serif;color:#7A5B3B" id="slotTitle">Select a date</h3>
-            <div id="slots">
-              <p class="empty">Choose a day on the calendar to see available times.</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- Scallop divider (sage) -->
@@ -399,7 +381,7 @@
           alt="Stylish couple on a tropical beach" />
       </div>
       <div class="cta" style="margin-top:18px">
-        <a class="btn secondary" href="#schedule">Check availability</a>
+        <a class="btn secondary" href="#book">Check availability</a>
       </div>
     </section>
 
@@ -417,7 +399,7 @@
               I’m known for gentle direction that still feels candid and natural, true-to-life color, and a kid-friendly flow with room to wiggle and wonder. I shoot across Sarasota, Siesta Key, Lido, Longboat, Lakewood Ranch, and Venice — and I’m happy to travel from Tampa down to Punta Gorda.
             </p>
             <p><strong>Favorite locations:</strong> Lido Key, Siesta Key, Celery Fields, Myakka River State Park, The Ringling, Selby Gardens.</p>
-            <div class="cta"><a class="btn" href="#schedule">Let’s Plan Your Session</a></div>
+            <div class="cta"><a class="btn" href="#book">Let’s Plan Your Session</a></div>
           </div>
         </div>
         <div class="card">
@@ -520,12 +502,40 @@
           <textarea id="message" name="message" placeholder="Tell me a bit about your family and preferred location/time."></textarea>
           <div style="display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap">
             <button class="btn" type="submit">Send Request</button>
-            <a class="btn secondary" href="#schedule">Check Calendar</a>
+            <a class="btn secondary" href="#book">Check Calendar</a>
             <span style="color:#8A7A6A;font-size:14px">Or reach me: <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></span>
           </div>
         </form>
 
         <div>
+          <!-- Compact calendar card placed above Service Area -->
+          <div class="card" id="book" style="margin-bottom:var(--gap)">
+            <div class="body" style="padding:0">
+              <div class="scheduler-card compact">
+                <div class="cal" id="cal">
+                  <div class="cal-left">
+                    <div class="cal-header">
+                      <button class="cal-btn" id="prevMonth" aria-label="Previous month">‹</button>
+                      <h3 id="monthLabel">Month YYYY</h3>
+                      <button class="cal-btn" id="nextMonth" aria-label="Next month">›</button>
+                    </div>
+                    <div class="cal-grid" id="dow">
+                      <div class="cal-dow">S</div><div class="cal-dow">M</div><div class="cal-dow">T</div>
+                      <div class="cal-dow">W</div><div class="cal-dow">T</div><div class="cal-dow">F</div><div class="cal-dow">S</div>
+                    </div>
+                    <div class="cal-grid" id="days"></div>
+                  </div>
+                  <div class="cal-right">
+                    <h3 style="margin-top:0;font-family:'Fraunces',serif;color:#7A5B3B" id="slotTitle">Select a date</h3>
+                    <div id="slots">
+                      <p class="empty">Choose a day on the calendar to see available times.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="card">
             <div class="body">
               <h3>Service Area</h3>
@@ -607,7 +617,7 @@
     // Simple "fridge" calendar
     const monthLabel = document.getElementById('monthLabel');
     const daysEl = document.getElementById('days');
-    const slotsEl = document.getElementById('slots');
+    aconst slotsEl = document.getElementById('slots');
     const slotTitle = document.getElementById('slotTitle');
     let viewDate = new Date();
     let selectedDate = null;
