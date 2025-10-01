@@ -447,7 +447,7 @@
       <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
       <div class="mosaic" id="grid">
-        <!-- First tile: TRUE notch cut-out with U-frame and centered label -->
+        <!-- First tile: TRUE notch cut-out with full frame + centered label and recess border -->
         <a href="/galleries/family-portrait.html" class="captioned notch" aria-label="Family Portrait Gallery">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
@@ -461,17 +461,22 @@
               </filter>
             </defs>
 
+            <!-- Photo clipped by recess -->
             <image href="pictures/christStephAlbumThumb.jpg"
                    x="0" y="0" width="800" height="1000"
                    preserveAspectRatio="xMidYMid slice"
                    mask="url(#notchMask)"></image>
 
+            <!-- Full outer border + matching recess border -->
             <g id="frameGroup" filter="url(#frameShadow)">
-              <path id="framePath" class="u-stroke"
-                    d="M 1 1 H 799 V 999 H 540 V 920 H 260 V 999 H 1 Z"/>
+              <!-- full frame goes all the way around again -->
+              <path id="framePath" class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <!-- border for the recess (kept in sync by JS) -->
+              <rect id="recessStroke" class="u-stroke" x="260" y="920" width="280" height="80"/>
             </g>
           </svg>
 
+          <!-- overlay box sized/centered to the recess -->
           <div class="notch-box" id="notchBox">
             <span class="cap-label" id="capLabel">Family Portraits</span>
           </div>
@@ -728,20 +733,20 @@
     document.getElementById('bookingModal').addEventListener('click',(e)=>{ if(e.target.id==='bookingModal') closeBooking() });
     window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeBooking(); });
 
-    /* ===== FIRST TILE: recess = label size + equal 8px margin on ALL sides,
-       lifted up so it no longer sits flush with or past the photo bottom. ===== */
+    /* ===== FIRST TILE: Center label; keep full outer border; draw matching recess border. ===== */
     (function(){
       const tile = document.querySelector('.mosaic a.captioned.notch');
       if(!tile) return;
 
       const svg = tile.querySelector('svg.notch-figure');
-      const notchRect = svg.querySelector('#notchRect');
-      const framePath = svg.querySelector('#framePath');
+      const notchRect = svg.querySelector('#notchRect');       // mask cutout
+      const framePath = svg.querySelector('#framePath');       // full outer frame (static)
+      const recessStroke = svg.querySelector('#recessStroke'); // stroke that outlines the recess
       const label = tile.querySelector('#capLabel');
       const notchBox = tile.querySelector('#notchBox');
 
       function updateNotch(){
-        if(!svg || !label || !notchRect || !framePath || !notchBox) return;
+        if(!svg || !label || !notchRect || !framePath || !recessStroke || !notchBox) return;
 
         const padCss = 8; // uniform recess visible on all sides
 
@@ -775,29 +780,17 @@
         notchRect.setAttribute('width', recessW.toFixed(2));
         notchRect.setAttribute('height', recessH.toFixed(2));
 
-        // Overlay box matches the recess, and is lifted by padCss too
+        // Make the visible recess border match the cutout
+        recessStroke.setAttribute('x', recessX.toFixed(2));
+        recessStroke.setAttribute('y', recessY.toFixed(2));
+        recessStroke.setAttribute('width', recessW.toFixed(2));
+        recessStroke.setAttribute('height', recessH.toFixed(2));
+
+        // Overlay box matches the recess and centers label perfectly
         notchBox.style.width = recessW_css + 'px';
         notchBox.style.height = recessH_css + 'px';
         notchBox.style.marginLeft = (-recessW_css/2) + 'px';
         notchBox.style.bottom = padCss + 'px';
-
-        // Redraw border path to detour around recess (no stroke under it)
-        const x1 = recessX;
-        const x2 = recessX + recessW;
-        const yT = recessY;
-
-        const d = [
-          'M 1 1',
-          'H 799',
-          'V 999',
-          `H ${x2.toFixed(2)}`,
-          `V ${yT.toFixed(2)}`,
-          `H ${x1.toFixed(2)}`,
-          'V 999',
-          'H 1',
-          'Z'
-        ].join(' ');
-        framePath.setAttribute('d', d);
       }
 
       // Ensure fonts are loaded so label width is correct
