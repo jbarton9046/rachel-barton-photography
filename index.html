@@ -129,6 +129,12 @@
     .scallop.sage{background:
       radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
       linear-gradient(var(--sage-100),var(--sage-100));}
+    /* Make only the FIRST scallop (the one right under the header) sticky */
+    .site + .scallop{
+      position: sticky;
+      top: var(--scallop-top, 70px); /* filled dynamically for perfect alignment */
+      z-index: 49; /* just beneath the header (which is z-index:50) */
+    }
 
     /* Headings */
 
@@ -859,5 +865,31 @@
       setTimeout(updateAll, 0);
     })();
   </script>
+  <script>
+  // ...your existing script...
+
+  // Keep the scallop snug under the sticky header
+  (function(){
+    const root = document.documentElement;
+    const header = document.querySelector('header.site');
+    if(!header) return;
+
+    function setScallopOffset(){
+      // account for any font loading or responsive changes
+      const h = header.offsetHeight;
+      root.style.setProperty('--scallop-top', h + 'px');
+    }
+
+    // initial + responsive updates
+    setScallopOffset();
+    window.addEventListener('resize', setScallopOffset);
+
+    // if fonts change metrics after load
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(setScallopOffset);
+    }
+  })();
+</script>
+
 </body>
 </html>
