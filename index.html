@@ -25,25 +25,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Caveat:wght@400;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- Preload hero image for faster paint -->
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop" imagesrcset="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=900&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop 1400w" imagesizes="(max-width: 1024px) 90vw, 50vw">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop"
+        imagesrcset="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=900&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop 1400w"
+        imagesizes="(max-width: 1024px) 90vw, 50vw">
 
   <style>
     :root{
       /* GOLDEN-HOUR palette (warm, soft, feminine) */
-      --bg: #FFF8EE;             /* warm paper */
+      --bg: #FFF8EE; /* warm paper */
       --paper: #ffffff;
-      --ink: #5A5046;            /* soft warm charcoal */
+      --ink: #5A5046; /* soft warm charcoal */
       --muted: #8E8176;
-
-      --butter-50:#FFF6DD; --butter-100:#FFECC2; --butter-200:#FFE1A8;
-      --peach-100:#FFE0D1; --peach-200:#FFD1BC;
+      --butter-50:#FFF6DD;
+      --butter-100:#FFECC2;
+      --butter-200:#FFE1A8;
+      --peach-100:#FFE0D1;
+      --peach-200:#FFD1BC;
       --sage-100:#E9F0E4;
-
-      --heading-ink:#6B4E2E;     /* warm umber for headings */
-      --accent:#E6A24A;          /* golden button */
-      --accent-ink:#7A4A10;      /* deeper gold-brown text */
-      --accent-2:#D7C69E;        /* pale sand accent */
-
+      --heading-ink:#6B4E2E; /* warm umber for headings */
+      --accent:#E6A24A; /* golden button */
+      --accent-ink:#7A4A10; /* deeper gold-brown text */
+      --accent-2:#D7C69E; /* pale sand accent */
       --ring: rgba(230,162,74,.35);
       --shadow: 0 10px 30px rgba(94, 63, 20, 0.10);
       --radius: 0; /* square everything */
@@ -56,8 +58,10 @@
       margin:0;padding:0;background:var(--bg);color:var(--ink);
       font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       line-height:1.65;
-      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
     }
+
     /* Square corners + framed photos site-wide */
     img{
       max-width:100%;
@@ -74,15 +78,20 @@
 
     /* Subtle golden-hour bloom */
     body::before{
-      content:""; position:fixed; inset:0; pointer-events:none;
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
       background:
         radial-gradient(1200px 600px at 10% -10%, rgba(255,221,180,.38), transparent 60%),
         radial-gradient(900px 500px at 110% 20%, rgba(255,233,176,.30), transparent 60%),
         radial-gradient(800px 500px at 50% 120%, rgba(255,209,194,.28), transparent 60%);
-      opacity:.6; z-index:-1;
+      opacity:.6;
+      z-index:-1;
     }
 
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
+
     header.site{
       position:sticky;top:0;z-index:50;
       background:rgba(255,248,238,0.85);backdrop-filter:saturate(120%) blur(10px);
@@ -107,11 +116,7 @@
 
     /* Desktop nav to the right of the logo */
     header.site nav ul{
-      display:flex;
-      list-style:none;
-      gap:16px;
-      margin:0;
-      padding:0;
+      display:flex; list-style:none; gap:16px; margin:0; padding:0;
     }
     nav a{padding:8px 12px;border-radius:0;color:#7A5B3B}
     nav a.active, nav a:focus-visible, nav a:hover{background:rgba(230,162,74,0.18);text-decoration:none}
@@ -126,36 +131,25 @@
       linear-gradient(var(--sage-100),var(--sage-100));}
 
     /* Headings */
+
     /* HERO full-bleed with centered copy */
     .hero{
-      display:grid;
-      grid-template-columns:1fr;
-      align-items:center;
-      padding:calc(var(--gap)*3) 0;
-      min-height:70vh;
-      background:url('pictures/heroImage.jpg') center/cover no-repeat;
-      position:relative;
-
+      display:grid; grid-template-columns:1fr; align-items:center;
+      padding:calc(var(--gap)*3) 0; min-height:70vh;
+      background:url('pictures/heroImage.jpg') center/cover no-repeat; position:relative;
       /* make hero span full viewport width even inside .container */
-      width:100vw;
-      margin-left:calc(50% - 50vw);
-      margin-right:calc(50% - 50vw);
+      width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
     }
     .hero::after{
-      content:"";
-      position:absolute; inset:0;
+      content:""; position:absolute; inset:0;
       background:linear-gradient(to bottom, rgba(255,248,238,.62), rgba(255,248,238,.18) 35%, rgba(0,0,0,.18) 100%);
       pointer-events:none;
     }
     .hero .copy{
       position:relative; /* above overlay */
-      background:rgba(255,248,238,.86);
-      border:1px solid #F7E6C7;
-      padding:18px;
-      max-width:680px;
-      box-shadow:var(--shadow);
-      margin:0 auto;               /* center the card */
-      text-align:center;           /* center text inside */
+      background:rgba(255,248,238,.86); border:1px solid #F7E6C7; padding:18px; max-width:680px; box-shadow:var(--shadow);
+      margin:0 auto; /* center the card */
+      text-align:center; /* center text inside */
     }
     .hero .cta{justify-content:center} /* center buttons */
 
@@ -164,22 +158,15 @@
     h1{
       font-family:"Playfair Display", serif;
       font-size:clamp(32px,6vw,56px);
-      line-height:1.1;
-      margin:.25em 0;
-      font-weight:700;
-      letter-spacing:.2px;
+      line-height:1.1; margin:.25em 0; font-weight:700; letter-spacing:.2px;
       background: linear-gradient(180deg, #7A5B3B 0%, #B37A32 55%, #6B4E2E 100%);
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
+      -webkit-background-clip:text; background-clip:text; color:transparent;
       text-shadow: 0 1px 0 rgba(255,255,255,.2);
     }
     .section-title{font-size:clamp(24px,3.5vw,38px);margin:0 0 8px;font-weight:600;letter-spacing:.2px}
     .feature h3,.card h3{font-family:"Fraunces",serif;font-weight:600;color:#7A5B3B}
-
     .subtitle{color:#7E6F63;max-width:60ch}
     .cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
-
     .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:0;border:1px solid transparent;background:var(--accent);color:white;font-weight:700;box-shadow:var(--shadow)}
     .btn:hover{filter:brightness(.98)}
     .btn.secondary{background:#fff;color:#7A5B3B;border-color:#F7E6C7}
@@ -188,7 +175,6 @@
     /* Badge pills — square now */
     .badge{display:inline-flex;align-items:center;gap:8px;background:#FFF2D8;border:1px solid #FFE3AA;padding:8px 12px;border-radius:0;margin-top:12px;color:#6D5A33}
     .badge.white{background:#fff;border-color:rgba(0,0,0,0.05);color:#8E8176}
-
     .sticker{position:relative; display:inline-flex; align-items:center; gap:8px; background:#FFF2D8; border:1px solid #FFE9B0; color:#6D5A33; padding:8px 12px; border-radius:0; transform:rotate(-3deg); box-shadow:0 6px 18px rgba(180,140,90,.15)}
 
     section{padding:calc(var(--gap)*2) 0}
@@ -201,49 +187,47 @@
 
     /* Gallery */
     .mosaic{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    .mosaic a{display:block; text-decoration:none;}
-    .mosaic img{
-      cursor:pointer;
-      aspect-ratio:4/5;
-      object-fit:cover;
-      border-radius:0;                 /* square corners */
-      transition:transform .2s ease, box-shadow .2s ease;
-    }
-    .mosaic img:hover{ transform:scale(1.01); box-shadow:0 10px 24px rgba(0,0,0,.08) }
 
-    /* === TRUE cutout notch for the FIRST tile only === */
-    .mosaic a.captioned.notch{
+    /* We now use <figure> tiles with SVG, not linked images */
+    .mosaic .captioned.notch{
       position:relative;
-      --frame:#F2D9A4; /* frame color to match site image frame */
+      display:block;
     }
-    .mosaic a.captioned.notch img{ display:none; } /* we render the photo inside the SVG */
-
-    .mosaic a.captioned.notch .notch-figure{
-      display:block; width:100%;
+    .mosaic .notch-figure{
+      display:block;
+      width:100%;
       aspect-ratio:4/5;
       background:transparent; /* lets the page background show through the recess */
+      transition:transform .2s ease, filter .2s ease;
     }
+    .mosaic .captioned.notch:hover .notch-figure{
+      transform:scale(1.01);
+      filter:drop-shadow(0 10px 24px rgba(0,0,0,.08));
+    }
+
     /* The visible frame’s stroke */
-    .mosaic a.captioned.notch .u-stroke{
+    .mosaic .u-stroke{
       fill:none;
-      stroke:var(--frame);
+      stroke:#F2D9A4;
       stroke-width:1;
       vector-effect:non-scaling-stroke;
       stroke-linejoin:round;
     }
 
     /* Overlay box that exactly matches the recess; we size/position it via JS */
-    .mosaic a.captioned.notch .notch-box{
+    .mosaic .notch-box{
       position:absolute;
       bottom:0;
       left:50%;
       transform:translateX(-50%);
-      display:flex; align-items:center; justify-content:center;
-      pointer-events:none; /* keep the whole tile clickable */
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:none; /* keep photo non-clickable; only label is clickable */
     }
 
-    /* Label chip */
-    .mosaic a.captioned.notch .cap-label{
+    /* Label chip (this is the ONLY link) */
+    .mosaic .cap-label{
       background:var(--accent-2);
       color:#6D5A33;
       border:1px solid #FFE3AA;
@@ -254,11 +238,13 @@
       white-space:nowrap;
       border-radius:0;
       line-height:1.2;
+      pointer-events:auto; /* allow clicking the label */
+      text-decoration:none;
     }
+    .mosaic .cap-label:hover{background:#e8d8b0;text-decoration:none}
 
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
     .feature{background:var(--paper);padding:18px;border:1px solid #F7E6C7;border-radius:var(--radius);box-shadow:var(--shadow)}
-
     .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
     blockquote{background:#fff;border:1px solid #F7E6C7;padding:18px;margin:0;border-radius:0;position:relative;color:#6B5B4D}
     blockquote:before{content:"“"; font-family:"Fraunces",serif; font-size:48px; color:#F2D6A7; position:absolute; left:12px; top:-10px}
@@ -302,7 +288,9 @@
     .scheduler-card.compact .slot{padding:8px 10px;font-size:14px;border-radius:0}
 
     /* Mobile */
-    @media (max-width: 1024px){ .hero{grid-template-columns:1fr;gap:24px} }
+    @media (max-width: 1024px){
+      .hero{grid-template-columns:1fr;gap:24px}
+    }
     @media (max-width: 960px){
       .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr}
       .cal{grid-template-columns:1fr}
@@ -318,6 +306,7 @@
     #bookingBox{max-width:960px;width:92%;height:80vh;margin:5vh auto;background:#fff;border-radius:0;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.2);position:relative; border:1px solid #F7E6C7}
     #bookingClose{position:absolute;right:10px;top:10px;border:none;background:#fff;border-radius:0;padding:8px 10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.1); color:#7A5B3B}
     #bookingClose:hover{background:#FFF4DE}
+
     /* Lightbox */
     #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:1200}
     #lightbox img{max-width:92vw;max-height:88vh;border-radius:0;box-shadow:0 12px 50px rgba(0,0,0,.5); border:1px solid #F2D9A4}
@@ -375,8 +364,7 @@
         <div class="eyebrow">Sarasota • Siesta Key • Lido • Longboat Key</div>
         <h1>Real, relaxed family photography — coastal, warm, and timeless</h1>
         <p class="subtitle">
-          I’m Rachel — a family & lifestyle photographer creating
-          <strong>candid, timeless, true-to-life</strong> images at the beach, in the park, and wherever your story feels most like home.
+          I’m Rachel — a family & lifestyle photographer creating <strong>candid, timeless, true-to-life</strong> images at the beach, in the park, and wherever your story feels most like home.
         </p>
         <div class="cta">
           <a class="btn" href="#book">Book a Session</a>
@@ -395,9 +383,7 @@
 
       <div class="cards">
         <article class="card">
-          <img loading="lazy"
-            src="pictures/mother-son-outdoors-sunset-with-copy-space.jpg"
-            alt="Mother and son outdoors at sunset" />
+          <img loading="lazy" src="pictures/mother-son-outdoors-sunset-with-copy-space.jpg" alt="Mother and son outdoors at sunset" />
           <div class="body">
             <h3>Mini Session</h3>
             <p class="meta">30 minutes • ~15–25 edited images</p>
@@ -408,9 +394,7 @@
         </article>
 
         <article class="card">
-          <img loading="lazy"
-            src="pictures/mother-son-outdoors-sunset-with-copy-space%20(1).jpg"
-            alt="Mother and son in golden hour" />
+          <img loading="lazy" src="pictures/mother-son-outdoors-sunset-with-copy-space%20(1).jpg" alt="Mother and son in golden hour" />
           <div class="body">
             <h3>Standard Session</h3>
             <p class="meta">60 minutes • ~35–50 edited images</p>
@@ -421,9 +405,7 @@
         </article>
 
         <article class="card">
-          <img loading="lazy"
-            src="pictures/man-woman-kid-wearing-pale-summer-clothes-walking-wet-sand-sea-spending-leisure-time-beach.jpg"
-            alt="Family walking along wet sand at the beach" />
+          <img loading="lazy" src="pictures/man-woman-kid-wearing-pale-summer-clothes-walking-wet-sand-sea-spending-leisure-time-beach.jpg" alt="Family walking along wet sand at the beach" />
           <div class="body">
             <h3>Deluxe Session</h3>
             <p class="meta">90 minutes • ~60+ edited images</p>
@@ -446,68 +428,149 @@
     <section id="portfolio" aria-labelledby="portfolio-title">
       <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
+
       <div class="mosaic" id="grid">
-        <!-- First tile: TRUE notch cut-out with full frame + centered label and recess border -->
-        <a href="/galleries/family-portrait.html" class="captioned notch" aria-label="Family Portrait Gallery">
+
+        <!-- 1) Family Portraits -->
+        <figure class="captioned notch" aria-label="Family Portrait Gallery">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
-              <mask id="notchMask">
+              <mask id="notchMask-1">
                 <rect x="0" y="0" width="100%" height="100%" fill="white"/>
-                <rect id="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
               </mask>
-
-              <filter id="frameShadow" x="-20%" y="-20%" width="140%" height="140%">
+              <filter id="frameShadow-1" x="-20%" y="-20%" width="140%" height="140%">
                 <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
               </filter>
             </defs>
-
-            <!-- Photo clipped by recess -->
-            <image href="pictures/christStephAlbumThumb.jpg"
-                   x="0" y="0" width="800" height="1000"
-                   preserveAspectRatio="xMidYMid slice"
-                   mask="url(#notchMask)"></image>
-
-            <!-- Full outer border + matching recess border -->
-            <g id="frameGroup" filter="url(#frameShadow)">
-              <!-- full frame goes all the way around again -->
-              <path id="framePath" class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
-              <!-- border for the recess (kept in sync by JS) -->
-              <rect id="recessStroke" class="u-stroke" x="260" y="920" width="280" height="80"/>
+            <image href="pictures/christStephAlbumThumb.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-1)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
             </g>
           </svg>
-
-          <!-- overlay box sized/centered to the recess -->
-          <div class="notch-box" id="notchBox">
-            <span class="cap-label" id="capLabel">Family Portraits</span>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/family-portrait.html">Family Portraits</a>
           </div>
-        </a>
+        </figure>
 
-        <a href="/galleries/couples-sunset.html" aria-label="Couples Sunset Gallery">
-          <img loading="lazy"
-            src="pictures/cool-two-young-women-having-fun-sunset-beach-gay-lesbian-love-romance.jpg"
-            alt="Two women laughing at sunset on the beach" />
-        </a>
-        <a href="/galleries/fall-field.html" aria-label="Fall Field Family Gallery">
-          <img loading="lazy"
-            src="pictures/cute-family-playing-autumn-field.jpg"
-            alt="Family playing together in an autumn field" />
-        </a>
-        <a href="/galleries/vacation.html" aria-label="Vacation Family Gallery">
-          <img loading="lazy"
-            src="pictures/family-with-baby-daughter-together-vacation.jpg"
-            alt="Family with baby daughter on vacation" />
-        </a>
-        <a href="/galleries/grandparents.html" aria-label="Grandparents & Littles Gallery">
-          <img loading="lazy"
-            src="pictures/full-grandma-kid-seaside.jpg"
-            alt="Grandmother and child by the seaside" />
-        </a>
-        <a href="/galleries/couples-tropical.html" aria-label="Tropical Couples Gallery">
-          <img loading="lazy"
-            src="pictures/young-stylish-hipster-couple-love-tropical-beach-vacation.jpg"
-            alt="Stylish couple on a tropical beach" />
-        </a>
+        <!-- 2) Couples at Sunset -->
+        <figure class="captioned notch" aria-label="Couples Sunset Gallery">
+          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <mask id="notchMask-2">
+                <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+              </mask>
+              <filter id="frameShadow-2" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+              </filter>
+            </defs>
+            <image href="pictures/cool-two-young-women-having-fun-sunset-beach-gay-lesbian-love-romance.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-2)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
+            </g>
+          </svg>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/couples-sunset.html">Couples at Sunset</a>
+          </div>
+        </figure>
+
+        <!-- 3) Autumn Field Family -->
+        <figure class="captioned notch" aria-label="Fall Field Family Gallery">
+          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <mask id="notchMask-3">
+                <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+              </mask>
+              <filter id="frameShadow-3" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+              </filter>
+            </defs>
+            <image href="pictures/cute-family-playing-autumn-field.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-3)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
+            </g>
+          </svg>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/fall-field.html">Autumn Field Family</a>
+          </div>
+        </figure>
+
+        <!-- 4) Vacation Family -->
+        <figure class="captioned notch" aria-label="Vacation Family Gallery">
+          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <mask id="notchMask-4">
+                <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+              </mask>
+              <filter id="frameShadow-4" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+              </filter>
+            </defs>
+            <image href="pictures/family-with-baby-daughter-together-vacation.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-4)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-4)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
+            </g>
+          </svg>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/vacation.html">Vacation Family</a>
+          </div>
+        </figure>
+
+        <!-- 5) Grandparents & Littles -->
+        <figure class="captioned notch" aria-label="Grandparents & Littles Gallery">
+          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <mask id="notchMask-5">
+                <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+              </mask>
+              <filter id="frameShadow-5" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+              </filter>
+            </defs>
+            <image href="pictures/full-grandma-kid-seaside.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-5)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-5)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
+            </g>
+          </svg>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/grandparents.html">Grandparents &amp; Littles</a>
+          </div>
+        </figure>
+
+        <!-- 6) Tropical Couples -->
+        <figure class="captioned notch" aria-label="Tropical Couples Gallery">
+          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <mask id="notchMask-6">
+                <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+              </mask>
+              <filter id="frameShadow-6" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+              </filter>
+            </defs>
+            <image href="pictures/young-stylish-hipster-couple-love-tropical-beach-vacation.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-6)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-6)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
+            </g>
+          </svg>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/couples-tropical.html">Tropical Couples</a>
+          </div>
+        </figure>
+
       </div>
+
       <div class="cta" style="margin-top:18px">
         <a class="btn secondary" href="#book">Check availability</a>
       </div>
@@ -517,6 +580,7 @@
     <section id="about" aria-labelledby="about-title">
       <h2 class="section-title" id="about-title">Meet Rachel</h2>
       <p class="section-sub">Mom of two, outdoors lover, and detail-driven photographer who keeps sessions calm, playful, and effortless.</p>
+
       <div class="cards" style="align-items:start">
         <div class="card" style="grid-column: span 2">
           <div class="body">
@@ -530,10 +594,9 @@
             <div class="cta"><a class="btn" href="#book">Let’s Plan Your Session</a></div>
           </div>
         </div>
+
         <div class="card">
-          <img loading="lazy"
-            src="pictures/rahcelHeadshot.JPG"
-            alt="Rachel Barton, Sarasota family photographer headshot" />
+          <img loading="lazy" src="pictures/rahcelHeadshot.JPG" alt="Rachel Barton, Sarasota family photographer headshot" />
         </div>
       </div>
     </section>
@@ -542,6 +605,7 @@
     <section aria-labelledby="why-title">
       <h2 class="section-title" id="why-title">My Approach</h2>
       <p class="section-sub">Candid • Timeless • True-to-life</p>
+
       <div class="features">
         <div class="feature">
           <h3>Patient & Kid-Wise</h3>
@@ -562,6 +626,7 @@
     <section id="reviews" aria-labelledby="reviews-title">
       <h2 class="section-title" id="reviews-title">Kind Words</h2>
       <p class="section-sub">We’ll add 3–6 short testimonials here as they come in.</p>
+
       <div class="quotes">
         <blockquote>Rachel kept our toddler smiling the whole time — so many genuine moments.<footer>— S. Miller</footer></blockquote>
         <blockquote>Booking was simple, communication was clear, and the photos are stunning.<footer>— A. Nguyen</footer></blockquote>
@@ -572,6 +637,7 @@
     <!-- FAQ / Policies -->
     <section aria-labelledby="faq-title">
       <h2 class="section-title" id="faq-title">FAQ & Policies</h2>
+
       <div class="features">
         <div class="feature">
           <h3>Availability</h3>
@@ -604,6 +670,7 @@
     <section id="contact" aria-labelledby="contact-title">
       <h2 class="section-title" id="contact-title">Say Hello</h2>
       <p class="section-sub">Tell me about your crew and the kind of session you’re envisioning.</p>
+
       <div class="contact-grid">
         <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?contact=sent">
           <input type="hidden" name="form-name" value="contact" />
@@ -611,10 +678,13 @@
 
           <label for="name">Your Name</label>
           <input id="name" name="name" required placeholder="Jane Doe" />
+
           <label for="email">Email</label>
           <input id="email" name="email" type="email" required placeholder="you@example.com" />
+
           <label for="phone">Phone</label>
           <input id="phone" name="phone" inputmode="tel" placeholder="(xxx) xxx-xxxx" />
+
           <label for="service">Interested In</label>
           <select id="service" name="service">
             <option value="Family">Family</option>
@@ -622,8 +692,10 @@
             <option value="Newborn">Newborn</option>
             <option value="Portraits">Portraits</option>
           </select>
+
           <label for="message">Message</label>
           <textarea id="message" name="message" placeholder="Tell me a bit about your family and preferred location/time."></textarea>
+
           <div style="display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap">
             <button class="btn" type="submit">Send Request</button>
             <a class="btn secondary" href="#book">Check Calendar</a>
@@ -635,13 +707,10 @@
           <div class="card" id="book" style="margin-bottom:var(--gap)">
             <div class="body" style="padding:0">
               <div class="scheduler-card compact" style="border:none; box-shadow:none">
-                <iframe
-                  src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c"
-                  title="Book a Session"
-                  style="width:100%; height:600px; border:0; border-radius:0; display:block;"
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  allow="clipboard-write; geolocation">
+                <iframe src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c"
+                        title="Book a Session"
+                        style="width:100%; height:600px; border:0; border-radius:0; display:block;"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allow="clipboard-write; geolocation">
                 </iframe>
                 <div style="padding:12px 14px; text-align:center;">
                   <a href="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c" target="_blank" rel="noopener">Open full-screen ↗</a>
@@ -654,14 +723,18 @@
             <div class="body">
               <h3>Service Area</h3>
               <p>Sarasota • Siesta Key • Lido • Longboat Key • Lakewood Ranch • Venice • Bradenton • Tampa • St. Petersburg • Clearwater • Punta Gorda</p>
+
               <h3 style="margin-top:16px">Preferred Times</h3>
               <p>Select weekday evenings · Full weekends. Beach sessions at golden hour recommended.</p>
+
               <h3 style="margin-top:16px">Booking Online</h3>
               <p>Prefer to book directly? Tap “Book a Session” to open the calendar right here.</p>
+
               <div class="badge">Live booking + contracts coming soon</div>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   </main>
@@ -685,79 +758,79 @@
   <div id="lightbox"><button onclick="closeLightbox()">✕</button><img alt=""></div>
 
   <script>
-  /* ===== FIRST TILE: Center label; keep full outer border; draw matching recess border. ===== */
-  (function(){
-    const tile = document.querySelector('.mosaic a.captioned.notch');
-    if(!tile) return;
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    const svg = tile.querySelector('svg.notch-figure');
-    const notchRect = svg.querySelector('#notchRect');       // mask cutout
-    const framePath = svg.querySelector('#framePath');       // full outer frame (static)
-    const recessStroke = svg.querySelector('#recessStroke'); // stroke that outlines the recess
-    const label = tile.querySelector('#capLabel');
-    const notchBox = tile.querySelector('#notchBox');
+    /* ===== Apply TRUE notch cutout + centered label to ALL six tiles ===== */
+    (function(){
+      const tiles = document.querySelectorAll('.mosaic .captioned.notch');
+      if(!tiles.length) return;
 
-    function updateNotch(){
-      if(!svg || !label || !notchRect || !framePath || !recessStroke || !notchBox) return;
+      function updateTile(tile){
+        const svg = tile.querySelector('svg.notch-figure');
+        const notchRect = svg.querySelector('.notchRect');     // mask cutout rect
+        const recessStroke = svg.querySelector('.recessStroke'); // visible border of recess
+        const label = tile.querySelector('.cap-label');
+        const notchBox = tile.querySelector('.notch-box');
+        if(!svg || !label || !notchRect || !recessStroke || !notchBox) return;
 
-      const padCss = 8;              // uniform recess visible on all sides
-      const nudgeRightCss = 1;       // <— tweak this (px) if you want a hair more/less to the right
+        const padCss = 8;         // uniform recess padding around the label
+        const nudgeRightCss = 1;  // micro-nudge for optical centering
 
-      // Measure label (CSS px)
-      const labelRect = label.getBoundingClientRect();
-      const tileRect  = svg.getBoundingClientRect();
-      const labelW = labelRect.width;
-      const labelH = labelRect.height;
+        // Measure in CSS px
+        const labelRect = label.getBoundingClientRect();
+        const tileRect  = svg.getBoundingClientRect();
+        const labelW = labelRect.width;
+        const labelH = labelRect.height;
 
-      // Target recess size in CSS px
-      const recessW_css = labelW + padCss * 2;
-      const recessH_css = labelH + padCss * 2;
+        // Recess size in CSS px
+        const recessW_css = labelW + padCss * 2;
+        const recessH_css = labelH + padCss * 2;
 
-      // Center recess horizontally
-      const recessLeft_css = tileRect.left + (tileRect.width - recessW_css)/2;
+        // Convert CSS px -> SVG units (viewBox 800x1000)
+        const sx = 800 / tileRect.width;
+        const sy = 1000 / tileRect.height;
 
-      // Convert CSS px to SVG units (viewBox 800x1000)
-      const sx = 800 / tileRect.width;
-      const sy = 1000 / tileRect.height;
+        const recessW = recessW_css * sx;
+        const recessH = recessH_css * sy;
 
-      const recessW = recessW_css * sx;
-      const recessH = recessH_css * sy;
+        // Center horizontally; lift up slightly so a bottom margin shows
+        const recessX = ((tileRect.width - recessW_css) / 2) * sx;
+        const recessY = 1000 - recessH - (padCss * sy);
 
-      // Lift the recess UP by padCss so the bottom margin shows
-      const recessX = ((recessLeft_css - tileRect.left) * sx);
-      const recessY = 1000 - recessH - (padCss * sy);
+        // Apply to mask (cutout)
+        notchRect.setAttribute('x', recessX.toFixed(2));
+        notchRect.setAttribute('y', recessY.toFixed(2));
+        notchRect.setAttribute('width', recessW.toFixed(2));
+        notchRect.setAttribute('height', recessH.toFixed(2));
 
-      // Apply to mask (cutout)
-      notchRect.setAttribute('x', recessX.toFixed(2));
-      notchRect.setAttribute('y', recessY.toFixed(2));
-      notchRect.setAttribute('width', recessW.toFixed(2));
-      notchRect.setAttribute('height', recessH.toFixed(2));
+        // Visible recess border to match
+        recessStroke.setAttribute('x', recessX.toFixed(2));
+        recessStroke.setAttribute('y', recessY.toFixed(2));
+        recessStroke.setAttribute('width', recessW.toFixed(2));
+        recessStroke.setAttribute('height', recessH.toFixed(2));
 
-      // Make the visible recess border match the cutout
-      recessStroke.setAttribute('x', recessX.toFixed(2));
-      recessStroke.setAttribute('y', recessY.toFixed(2));
-      recessStroke.setAttribute('width', recessW.toFixed(2));
-      recessStroke.setAttribute('height', recessH.toFixed(2));
+        // Position the overlay box to match recess (label is the ONLY link)
+        notchBox.style.width = recessW_css + 'px';
+        notchBox.style.height = recessH_css + 'px';
+        notchBox.style.bottom = padCss + 'px';
+        notchBox.style.left = '50%';
+        notchBox.style.transform = `translateX(calc(-50% + ${nudgeRightCss}px))`;
+      }
 
-      // Overlay box matches the recess and we nudge it slightly RIGHT for perfect optical centering
+      function updateAll(){
+        tiles.forEach(t => updateTile(t));
+      }
 
-      notchBox.style.width = recessW_css + 'px';
-      notchBox.style.height = recessH_css + 'px';
-      notchBox.style.bottom = padCss + 'px';
-      notchBox.style.left = '50%';
-      notchBox.style.transform = `translateX(calc(-50% + ${nudgeRightCss}px))`; // <— the nudge
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(()=>{ requestAnimationFrame(updateAll); });
+      } else {
+        window.addEventListener('load', updateAll);
+      }
 
-    }
-
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(()=>{ requestAnimationFrame(updateNotch); });
-    } else {
-      window.addEventListener('load', updateNotch);
-    }
-    window.addEventListener('resize', ()=>{ requestAnimationFrame(updateNotch); });
-    setTimeout(updateNotch, 0);
-  })();
+      window.addEventListener('resize', ()=>{ requestAnimationFrame(updateAll); });
+      setTimeout(updateAll, 0);
+    })();
   </script>
-
 </body>
 </html>
