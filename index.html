@@ -165,6 +165,62 @@
     /* Responsive */
     @media (max-width:960px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr} }
     @media (max-width:640px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr} }
+    /* ----- Subtle square buttons from Sessions & Investment downward ----- */
+    /* Targets only buttons/links with class .btn that live inside <main> */
+    main .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 16px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:#3f3a33;
+      font-weight:700;
+      text-decoration:none;
+      border-radius:0;                 /* 90° corners */
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:
+        background-color .15s ease,
+        border-color .15s ease,
+        box-shadow .15s ease,
+        transform .15s ease,
+        color .15s ease;
+    }
+
+    /* Hover / focus: soft, elegant lift + sunset-gold text */
+    main .btn:hover,
+    main .btn:focus-visible{
+      background:#f9f6ef;              /* subtle warm paper */
+      border-color:#dcd4c3;
+      box-shadow:0 10px 24px rgba(0,0,0,.08);
+      transform:translateY(-1px);
+      color:var(--accent);
+      outline:none;
+    }
+
+    /* Active press */
+    main .btn:active{
+      transform:translateY(0);
+      box-shadow:0 4px 12px rgba(0,0,0,.06);
+    }
+
+    /* If you use a button element, keep the same look */
+    main button.btn{
+      appearance:none;
+      -webkit-appearance:none;
+      cursor:pointer;
+    }
+
+    /* Keep hero buttons as floating text (explicitly re-assert) */
+    .hero .btn{
+      background:transparent !important;
+      border:0 !important;
+      padding:0 !important;
+      box-shadow:none !important;
+      color:#3f3a33;
+    }
+
   </style>
 
   <!-- JSON-LD -->
