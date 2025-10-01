@@ -122,54 +122,51 @@
     nav a.active, nav a:focus-visible, nav a:hover{background:rgba(230,162,74,0.18);text-decoration:none}
     .menu-btn{display:none;color:#7A5B3B}
 
-    /* Scallop dividers (butter / sage) */
-    .scallop{--h:18px;height:var(--h);background:
-      radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
-      linear-gradient(var(--butter-100),var(--butter-100));}
-    .scallop.sage{background:
-      radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
-      linear-gradient(var(--sage-100),var(--sage-100));}
-    /* Make only the FIRST scallop (the one right under the header) sticky */
-    /* Make the top scallop match the sticky header's transparency + blur */
-    /* OLD-LOOK scallop, now sticky + identical to header styling */
-    /* Sticky scallop that matches the header exactly (blur + translucency) */
+        /* Scallop dividers — match header; only the first one is sticky */
     .scallop{
       --h:18px;
       height:var(--h);
 
-      /* stick right under the sticky header */
-      position: sticky;
-      top: 0;                 /* sits just below the header (header stays at z=50) */
-      z-index: 49;
-
-      /* IDENTICAL treatment to header */
+      /* identical visuals to header */
       background: rgba(255,248,238,0.85);
       backdrop-filter: saturate(120%) blur(10px);
       -webkit-backdrop-filter: saturate(120%) blur(10px);
       border-bottom:1px solid rgba(0,0,0,0.04);
 
-      /* create the scallop edge by masking circles out of the bar */
+      /* wavy scallop edge */
       -webkit-mask:
-        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%) center top/var(--h) var(--h) repeat-x,
+        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%)
+          center top/var(--h) var(--h) repeat-x,
         linear-gradient(#000,#000);
       mask:
-        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%) center top/var(--h) var(--h) repeat-x,
+        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%)
+          center top/var(--h) var(--h) repeat-x,
         linear-gradient(#000,#000);
     }
 
-    /* If you use the sage variant anywhere, keep it identical to header too */
+    /* make ONLY the first scallop sticky so it sits under the sticky header */
+    .scallop:first-of-type{
+      position: sticky;
+      top: 0;      /* header is z=50 */
+      z-index: 49;
+    }
+
+    /* Sage variant: same translucency/blur so it matches the header */
     .scallop.sage{
       background: rgba(255,248,238,0.85);
       backdrop-filter: saturate(120%) blur(10px);
       -webkit-backdrop-filter: saturate(120%) blur(10px);
       border-bottom:1px solid rgba(0,0,0,0.04);
       -webkit-mask:
-        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%) center top/var(--h) var(--h) repeat-x,
+        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%)
+          center top/var(--h) var(--h) repeat-x,
         linear-gradient(#000,#000);
       mask:
-        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%) center top/var(--h) var(--h) repeat-x,
+        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%)
+          center top/var(--h) var(--h) repeat-x,
         linear-gradient(#000,#000);
     }
+
 
     /* Headings */
 
