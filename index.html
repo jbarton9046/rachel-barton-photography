@@ -470,12 +470,10 @@
             <!-- Full outer border + matching recess border -->
             <g id="frameGroup" filter="url(#frameShadow)">
               <!-- full frame goes all the way around again -->
-              <path id="framePath" class="u-stroke" d="M 1 1 H 799 V 999 H 1 Z"></path>
+              <path id="framePath" class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
               <!-- border for the recess (kept in sync by JS) -->
               <rect id="recessStroke" class="u-stroke" x="260" y="920" width="280" height="80"/>
             </g>
-            <rect id="recessStroke" class="u-stroke" x="260" y="920" width="280" height="80" fill="none">
-            </rect>
           </svg>
 
           <!-- overlay box sized/centered to the recess -->
@@ -685,6 +683,7 @@
 
   <!-- Lightbox -->
   <div id="lightbox"><button onclick="closeLightbox()">✕</button><img alt=""></div>
+
   <script>
   /* ===== FIRST TILE: Center label; keep full outer border; draw matching recess border. ===== */
   (function(){
@@ -757,5 +756,6 @@
     setTimeout(updateNotch, 0);
   })();
   </script>
+
 </body>
 </html>
