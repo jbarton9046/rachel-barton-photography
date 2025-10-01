@@ -165,6 +165,7 @@
     /* Responsive */
     @media (max-width:960px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr} }
     @media (max-width:640px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr} }
+
     /* ----- Subtle square buttons from Sessions & Investment downward ----- */
     /* Targets only buttons/links with class .btn that live inside <main> */
     main .btn{
@@ -187,30 +188,20 @@
         transform .15s ease,
         color .15s ease;
     }
-
-    /* Hover / focus: soft, elegant lift + sunset-gold text */
     main .btn:hover,
     main .btn:focus-visible{
-      background:#f9f6ef;              /* subtle warm paper */
+      background:#f9f6ef;
       border-color:#dcd4c3;
       box-shadow:0 10px 24px rgba(0,0,0,.08);
       transform:translateY(-1px);
       color:var(--accent);
       outline:none;
     }
-
-    /* Active press */
     main .btn:active{
       transform:translateY(0);
       box-shadow:0 4px 12px rgba(0,0,0,.06);
     }
-
-    /* If you use a button element, keep the same look */
-    main button.btn{
-      appearance:none;
-      -webkit-appearance:none;
-      cursor:pointer;
-    }
+    main button.btn{ appearance:none; -webkit-appearance:none; cursor:pointer; }
 
     /* Keep hero buttons as floating text (explicitly re-assert) */
     .hero .btn{
@@ -221,6 +212,12 @@
       color:#3f3a33;
     }
 
+    /* NEW: make service card buttons align at the bottom uniformly */
+    .card .body{ display:flex; flex-direction:column; }       /* keeps existing padding */
+    .card .body .btn{ align-self:flex-start; margin-top:auto; }
+
+    /* NEW: center the single Send Request button in contact form */
+    .contact-cta{ justify-content:center; }
   </style>
 
   <!-- JSON-LD -->
@@ -293,8 +290,8 @@
             <h3>Mini Session</h3>
             <p class="meta">30 minutes • ~15–25 edited images</p>
             <p>Perfect for milestones & seasonal updates. Select weekday evenings or full weekends.</p>
-            <p><strong>Intro pricing:</strong> $250</p>
-            <a class="btn" href="#book">Book mini</a>
+            <p><strong>Intro pricing:</strong> $400</p>
+            <a class="btn" href="#book">Book Mini</a>
           </div>
         </article>
 
@@ -304,8 +301,8 @@
             <h3>Standard Session</h3>
             <p class="meta">60 minutes • ~35–50 edited images</p>
             <p>The most popular option for families & maternity. One location (nearby second look optional).</p>
-            <p><strong>Intro pricing:</strong> $450</p>
-            <a class="btn" href="#book">Book standard</a>
+            <p><strong>Intro pricing:</strong> $600</p>
+            <a class="btn" href="#book">Book Standard</a>
           </div>
         </article>
 
@@ -315,8 +312,8 @@
             <h3>Deluxe Session</h3>
             <p class="meta">90 minutes • ~60+ edited images</p>
             <p>Extra time for outfit changes, variety, or two nearby locations. Priority editing available.</p>
-            <p><strong>Intro pricing:</strong> $650</p>
-            <a class="btn" href="#book">Book deluxe</a>
+            <p><strong>Intro pricing:</strong> $800</p>
+            <a class="btn" href="#book">Book Deluxe</a>
           </div>
         </article>
       </div>
@@ -564,10 +561,12 @@
           <label for="message">Message</label>
           <textarea id="message" name="message" placeholder="Tell me a bit about your family and preferred location/time."></textarea>
 
-          <div class="cta" style="margin-top:14px">
+          <!-- UPDATED: centered single button; removed "Check Calendar" -->
+          <div class="cta contact-cta" style="margin-top:14px">
             <button class="btn" type="submit">Send Request</button>
-            <a class="btn" href="#book">Check Calendar</a>
-            <span style="color:#6e6a62; font-size:14px">Or reach me: <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></span>
+            <span style="color:#6e6a62; font-size:14px; display:block; text-align:center">
+              Or reach me: <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a>
+            </span>
           </div>
         </form>
 
