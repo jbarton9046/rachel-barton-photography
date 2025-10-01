@@ -740,11 +740,13 @@
       recessStroke.setAttribute('height', recessH.toFixed(2));
 
       // Overlay box matches the recess and we nudge it slightly RIGHT for perfect optical centering
+
       notchBox.style.width = recessW_css + 'px';
       notchBox.style.height = recessH_css + 'px';
       notchBox.style.bottom = padCss + 'px';
       notchBox.style.left = '50%';
       notchBox.style.transform = `translateX(calc(-50% + ${nudgeRightCss}px))`; // <— the nudge
+
     }
 
     if (document.fonts && document.fonts.ready) {
