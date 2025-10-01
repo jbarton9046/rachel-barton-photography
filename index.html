@@ -186,7 +186,14 @@
     .meta{color:#8A7A6A;font-size:14px}
 
     /* Gallery */
-    .mosaic{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+    .mosaic{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      /* tighter gap -> tiles are visually larger and closer together */
+      gap: clamp(10px, 1.6vw, 16px);
+    }
+    /* remove default figure margins so tiles use full column width and align flush with heading/CTA */
+    .mosaic figure{ margin:0; }
 
     /* We now use <figure> tiles with SVG, not linked images */
     .mosaic .captioned.notch{
