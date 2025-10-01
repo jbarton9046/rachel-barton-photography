@@ -211,24 +211,20 @@
     }
     .mosaic img:hover{ transform:scale(1.01); box-shadow:0 10px 24px rgba(0,0,0,.08) }
 
-    /* === NEW: True cut-out notch via SVG mask + U-frame === */
+    /* === TRUE cutout notch for the FIRST tile only === */
     .mosaic a.captioned.notch{
-      --frame:#F2D9A4;
-      /* NEW: narrowed notch and synced insets for perfect centering */
-      --notch-left: 32.5%;  /* 260 / 800 */
-      --notch-right: 32.5%; /* 260 / 800 */
-      --notch-height: 80px; /* shallower notch; label centers vertically */
       position:relative;
+      --frame:#F2D9A4; /* frame color to match site image frame */
     }
-    .mosaic a.captioned.notch img{ display:none } /* photo is rendered inside SVG */
+    .mosaic a.captioned.notch img{ display:none; } /* we render the photo inside the SVG */
 
     .mosaic a.captioned.notch .notch-figure{
       display:block; width:100%;
       aspect-ratio:4/5;
-      background:transparent; /* page background shows through */
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      background:transparent; /* lets the page background show through the recess */
+      /* DO NOT use box-shadow here — we’ll shadow only the visible frame via SVG filter */
     }
-    /* U-frame stroke (1px to match site frame) */
+    /* The visible frame’s stroke */
     .mosaic a.captioned.notch .u-stroke{
       fill:none;
       stroke:var(--frame);
@@ -237,22 +233,28 @@
       stroke-linejoin:round;
     }
 
-    /* Box that matches the notch exactly -> perfect centering */
+    /* Overlay box that exactly matches the recess; we size/position it via JS */
     .mosaic a.captioned.notch .notch-box{
       position:absolute;
-      left:var(--notch-left);
-      right:var(--notch-right);
-      height:var(--notch-height);
       bottom:0;
+      left:50%;
+      transform:translateX(-50%);
       display:flex; align-items:center; justify-content:center;
-      pointer-events:none;
+      pointer-events:none; /* keep the whole tile clickable */
     }
 
-    /* Smaller label */
+    /* Label chip */
     .mosaic a.captioned.notch .cap-label{
-      background:var(--accent-2); color:#6D5A33; border:1px solid #FFE3AA;
-      padding:5px 10px; font-size:12px; letter-spacing:.08em; font-weight:600;
-      white-space:nowrap; border-radius:0;
+      background:var(--accent-2);
+      color:#6D5A33;
+      border:1px solid #FFE3AA;
+      padding:8px 14px;
+      font-size:13px;
+      letter-spacing:.08em;
+      font-weight:600;
+      white-space:nowrap;
+      border-radius:0;
+      line-height:1.2;
     }
 
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
@@ -454,34 +456,33 @@
               <!-- Mask: white keeps pixels; black removes pixels -->
               <mask id="notchMask">
                 <rect x="0" y="0" width="100%" height="100%" fill="white"/>
-                <!-- NEW: narrower, centered notch (x=260, width=280, top=920, height=80) -->
-                <rect x="260" y="920" width="280" height="80" fill="black"/>
+                <!-- Black rect becomes the recess (sized via JS to be label + 0.2in on all sides) -->
+                <rect id="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
               </mask>
+
+              <!-- Shadow only along the visible frame (not under the recess) -->
+              <filter id="frameShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+              </filter>
             </defs>
 
-            <!-- Photo rendered through the mask (transparent where notch is) -->
+            <!-- Photo rendered through the mask (transparent where recess is) -->
             <image href="pictures/christStephAlbumThumb.jpg"
                    x="0" y="0" width="800" height="1000"
                    preserveAspectRatio="xMidYMid slice"
                    mask="url(#notchMask)"></image>
 
-            <!-- One continuous frame that detours around the notch (no line under it) -->
-            <path class="u-stroke"
-                  d="
-                    M 1 1 L 799 1     /* top */
-                    L 799 999         /* right side */
-                    L 540 999         /* bottom to right edge of notch */
-                    L 540 920         /* up right notch edge */
-                    L 260 920         /* across notch top */
-                    L 260 999         /* down left notch edge */
-                    L 1 999           /* bottom to left */
-                    L 1 1             /* up left side */
-                  " />
+            <!-- Frame that detours around the recess (no line under it) -->
+            <g id="frameGroup" filter="url(#frameShadow)">
+              <!-- These path numbers are updated by JS once we know the label size -->
+              <path id="framePath" class="u-stroke"
+                    d="M 1 1 H 799 V 999 H 540 V 920 H 260 V 999 H 1 Z"/>
+            </g>
           </svg>
 
-          <!-- Label perfectly centered inside the notch -->
-          <div class="notch-box">
-            <span class="cap-label">Family Portraits</span>
+          <!-- Label perfectly centered inside the recess; JS sizes this box to the recess -->
+          <div class="notch-box" id="notchBox">
+            <span class="cap-label" id="capLabel">Family Portraits</span>
           </div>
         </a>
 
@@ -762,6 +763,83 @@
       lb.addEventListener('click',(e)=>{ if(e.target.id==='lightbox') closeLightbox(); });
       window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLightbox(); });
     }
+
+    /* ===== FIRST TILE: size recess = label box + 0.2in on every side, center label ===== */
+    (function(){
+      const tile = document.querySelector('.mosaic a.captioned.notch');
+      if(!tile) return;
+
+      const svg = tile.querySelector('svg.notch-figure');
+      const notchRect = svg.querySelector('#notchRect');
+      const framePath = svg.querySelector('#framePath');
+      const label = tile.querySelector('#capLabel');
+      const notchBox = tile.querySelector('#notchBox');
+
+      function updateNotch(){
+        if(!svg || !label || !notchRect || !framePath || !notchBox) return;
+
+        // 1/5 inch padding on every side (CSS absolute length: 1in = 96px)
+        const padCss = 0.2 * 96; // 19.2 CSS px
+
+        // Measure label (CSS px)
+        const labelRect = label.getBoundingClientRect();
+        const tileRect = svg.getBoundingClientRect();
+
+        const labelW = labelRect.width;
+        const labelH = labelRect.height;
+
+        // Recess size in CSS px
+        const recessW_css = labelW + padCss * 2;
+        const recessH_css = labelH + padCss * 2;
+
+        // Center recess horizontally; bottom-aligned vertically
+        const recessLeft_css = tileRect.left + (tileRect.width - recessW_css)/2;
+
+        // Convert CSS px to SVG units (viewBox 800x1000)
+        const sx = 800 / tileRect.width;
+        const sy = 1000 / tileRect.height;
+
+        const recessW = recessW_css * sx;
+        const recessH = recessH_css * sy;
+        const recessX = ( (recessLeft_css - tileRect.left) * sx );
+        const recessY = 1000 - recessH; // bottom-aligned
+
+        // Update mask rect (this cuts the pixels out)
+        notchRect.setAttribute('x', recessX.toFixed(2));
+        notchRect.setAttribute('y', recessY.toFixed(2));
+        notchRect.setAttribute('width', recessW.toFixed(2));
+        notchRect.setAttribute('height', recessH.toFixed(2));
+
+        // Update label container box to match recess size and position (for perfect centering)
+        notchBox.style.width = recessW_css + 'px';
+        notchBox.style.height = recessH_css + 'px';
+        notchBox.style.marginLeft = (-recessW_css/2) + 'px';
+
+        // 2) Draw the frame that detours around the recess; no line under the recess
+        // Left edge of recess = x1, right edge = x2, top of recess = yT (all SVG units)
+        const x1 = recessX;
+        const x2 = recessX + recessW;
+        const yT = recessY;
+
+        // Path: top -> right -> bottom to x2 -> up to yT -> across to x1 -> down to bottom -> left -> top
+        const d = [
+          'M 1 1',
+          'H 799',
+          'V 999',
+          `H ${x2.toFixed(2)}`,
+          `V ${yT.toFixed(2)}`,
+          `H ${x1.toFixed(2)}`,
+          'V 999',
+          'H 1',
+          'Z'
+        ].join(' ');
+        framePath.setAttribute('d', d);
+      }
+
+      // Run after fonts/layout paint
+      window.addEventListener('load', updateNotch);
+      window.addEventListener('resize', ()=>{ requestAnimationFrame(updateNotch); });
+    })();
   </script>
 </body>
 </html>
