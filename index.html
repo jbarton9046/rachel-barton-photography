@@ -132,35 +132,44 @@
     /* Make only the FIRST scallop (the one right under the header) sticky */
     /* Make the top scallop match the sticky header's transparency + blur */
     /* OLD-LOOK scallop, now sticky + identical to header styling */
+    /* Sticky scallop that matches the header exactly (blur + translucency) */
     .scallop{
       --h:18px;
       height:var(--h);
 
       /* stick right under the sticky header */
       position: sticky;
-      top: 0;
-      z-index: 49; /* header is 50 */
+      top: 0;                 /* sits just below the header (header stays at z=50) */
+      z-index: 49;
 
-      /* SAME base as header */
-      background:
-        radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
-        rgba(255,248,238,0.85); /* identical to header background */
+      /* IDENTICAL treatment to header */
+      background: rgba(255,248,238,0.85);
       backdrop-filter: saturate(120%) blur(10px);
       -webkit-backdrop-filter: saturate(120%) blur(10px);
       border-bottom:1px solid rgba(0,0,0,0.04);
+
+      /* create the scallop edge by masking circles out of the bar */
+      -webkit-mask:
+        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%) center top/var(--h) var(--h) repeat-x,
+        linear-gradient(#000,#000);
+      mask:
+        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%) center top/var(--h) var(--h) repeat-x,
+        linear-gradient(#000,#000);
     }
 
-    /* Optional: if you use the sage variant anywhere and want it to also match the header transparency */
+    /* If you use the sage variant anywhere, keep it identical to header too */
     .scallop.sage{
-      background:
-        radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
-        rgba(255,248,238,0.85);
+      background: rgba(255,248,238,0.85);
       backdrop-filter: saturate(120%) blur(10px);
       -webkit-backdrop-filter: saturate(120%) blur(10px);
+      border-bottom:1px solid rgba(0,0,0,0.04);
+      -webkit-mask:
+        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%) center top/var(--h) var(--h) repeat-x,
+        linear-gradient(#000,#000);
+      mask:
+        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%) center top/var(--h) var(--h) repeat-x,
+        linear-gradient(#000,#000);
     }
-
-
-
 
     /* Headings */
 
