@@ -55,8 +55,8 @@
 
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
 
+    /* Header is NOT sticky now */
     header.site{
-      position:sticky;top:0;z-index:50;
       background:rgba(255,248,238,0.85);
       backdrop-filter:saturate(120%) blur(10px);
       -webkit-backdrop-filter:saturate(120%) blur(10px);
@@ -75,28 +75,13 @@
     nav a{padding:8px 12px;border-radius:0;color:#7A5B3B}
     nav a.active, nav a:hover, nav a:focus-visible{background:rgba(230,162,74,0.18);text-decoration:none}
 
-    /* Scallop: same translucent/blurred backdrop as header, plus wavy edge */
+    /* Scallop — butter strip with repeating arcs (non-sticky) */
     .scallop{
       --h:18px;
-      position:relative;
       height:var(--h);
-      background:rgba(255,248,238,0.85);
-      backdrop-filter:saturate(120%) blur(10px);
-      -webkit-backdrop-filter:saturate(120%) blur(10px);
-      border-bottom:1px solid rgba(0,0,0,0.04);
-      z-index:49;
-    }
-    .scallop::after{
-      content:"";
-      position:absolute; left:0; right:0; bottom:-1px; height:var(--h);
       background:
-        radial-gradient(var(--h) at 50% 0, var(--bg) 98%, transparent 100%)
-        center bottom/var(--h) var(--h) repeat-x;
-      pointer-events:none;
-    }
-    .scallop:first-of-type{
-      position:sticky;
-      top:var(--scallop-top, 0px);
+        radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
+        linear-gradient(var(--butter-100),var(--butter-100));
     }
 
     h1,.section-title{font-family:"Fraunces",serif;color:var(--heading-ink)}
@@ -168,7 +153,7 @@
     </div>
   </header>
 
-  <!-- Sticky scallop with matching background -->
+  <!-- Scallop divider (non-sticky) -->
   <div class="scallop"></div>
 
   <main class="container">
@@ -178,13 +163,11 @@
       <p class="section-sub">Candid, movement-filled portraits with warm, true-to-life color.</p>
 
       <div class="grid" id="gallery">
-        <!-- 12 images -->
+        <!-- Removed 2, 9, 11 -->
         <figure>
           <a href="/pictures/familyPortrait/image1.jpg"><img loading="lazy" src="/pictures/familyPortrait/image1.jpg" alt="Family portrait 1" /></a>
         </figure>
-        <figure>
-          <a href="/pictures/familyPortrait/image2.jpg"><img loading="lazy" src="/pictures/familyPortrait/image2.jpg" alt="Family portrait 2" /></a>
-        </figure>
+        <!-- image2 removed -->
         <figure>
           <a href="/pictures/familyPortrait/image3.jpg"><img loading="lazy" src="/pictures/familyPortrait/image3.jpg" alt="Family portrait 3" /></a>
         </figure>
@@ -203,15 +186,11 @@
         <figure>
           <a href="/pictures/familyPortrait/image8.jpg"><img loading="lazy" src="/pictures/familyPortrait/image8.jpg" alt="Family portrait 8" /></a>
         </figure>
-        <figure>
-          <a href="/pictures/familyPortrait/image9.jpg"><img loading="lazy" src="/pictures/familyPortrait/image9.jpg" alt="Family portrait 9" /></a>
-        </figure>
+        <!-- image9 removed -->
         <figure>
           <a href="/pictures/familyPortrait/image10.jpg"><img loading="lazy" src="/pictures/familyPortrait/image10.jpg" alt="Family portrait 10" /></a>
         </figure>
-        <figure>
-          <a href="/pictures/familyPortrait/image11.jpg"><img loading="lazy" src="/pictures/familyPortrait/image11.jpg" alt="Family portrait 11" /></a>
-        </figure>
+        <!-- image11 removed -->
         <figure>
           <a href="/pictures/familyPortrait/image12.jpg"><img loading="lazy" src="/pictures/familyPortrait/image12.jpg" alt="Family portrait 12" /></a>
         </figure>
@@ -241,21 +220,6 @@
   <script>
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Set scallop offset so it tucks right under the sticky header
-    (function(){
-      const root = document.documentElement;
-      const header = document.querySelector('header.site');
-      if(!header) return;
-      function setScallopOffset(){
-        root.style.setProperty('--scallop-top', header.offsetHeight + 'px');
-      }
-      setScallopOffset();
-      window.addEventListener('resize', setScallopOffset);
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(setScallopOffset);
-      }
-    })();
 
     // Simple Lightbox (click thumbnails)
     (function(){
