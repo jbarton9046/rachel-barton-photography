@@ -213,57 +213,46 @@
 
     /* === NEW: True cut-out notch via SVG mask + U-frame === */
     .mosaic a.captioned.notch{
-      --frame:#F2D9A4;               /* frame color matches image border */
-      /* percent equivalents of 180/800 and 620/800 so CSS can align label box */
-      --notch-left: 22.5%;
-      --notch-right: 22.5%;          /* right inset; symmetric */
-      --notch-height: 96px;          /* visual height of recess */
+      --frame:#F2D9A4;
+      /* NEW: narrowed notch and synced insets for perfect centering */
+      --notch-left: 32.5%;  /* 260 / 800 */
+      --notch-right: 32.5%; /* 260 / 800 */
+      --notch-height: 80px; /* shallower notch; label centers vertically */
       position:relative;
     }
     .mosaic a.captioned.notch img{ display:none } /* photo is rendered inside SVG */
 
     .mosaic a.captioned.notch .notch-figure{
       display:block; width:100%;
-      aspect-ratio:4/5;              /* same aspect as other tiles */
-      /* IMPORTANT: transparent so the page background shows through the cutout */
-      background:transparent;
+      aspect-ratio:4/5;
+      background:transparent; /* page background shows through */
       box-shadow:0 6px 18px rgba(0,0,0,.06);
-      /* No border here — we draw the entire frame with the SVG path,
-         including skipping the bottom under the notch. */
     }
-    /* U-frame stroke (top, left, right, bottom segments, plus around the notch) */
+    /* U-frame stroke (1px to match site frame) */
     .mosaic a.captioned.notch .u-stroke{
       fill:none;
       stroke:var(--frame);
-      stroke-width:2;
+      stroke-width:1;
       vector-effect:non-scaling-stroke;
+      stroke-linejoin:round;
     }
 
-    /* Overlay “notch box” exactly where the recess is -> perfect label centering */
+    /* Box that matches the notch exactly -> perfect centering */
     .mosaic a.captioned.notch .notch-box{
       position:absolute;
       left:var(--notch-left);
       right:var(--notch-right);
       height:var(--notch-height);
       bottom:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      pointer-events:none; /* keep tile clickable */
-      /* no background; we want to see the page background in the cutout */
+      display:flex; align-items:center; justify-content:center;
+      pointer-events:none;
     }
 
-    /* Smaller label (about half the visual bulk) */
+    /* Smaller label */
     .mosaic a.captioned.notch .cap-label{
-      background:var(--accent-2);
-      color:#6D5A33;
-      border:1px solid #FFE3AA;
-      padding:5px 10px;          /* tighter */
-      font-size:12px;            /* smaller text */
-      letter-spacing:.08em;
-      font-weight:600;
-      white-space:nowrap;
-      border-radius:0;
+      background:var(--accent-2); color:#6D5A33; border:1px solid #FFE3AA;
+      padding:5px 10px; font-size:12px; letter-spacing:.08em; font-weight:600;
+      white-space:nowrap; border-radius:0;
     }
 
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
@@ -458,16 +447,15 @@
       <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
       <div class="mosaic" id="grid">
-        <!-- First tile: TRUE notch cut-out with U-frame and perfectly-centered smaller label -->
+        <!-- First tile: TRUE notch cut-out with U-frame and centered label -->
         <a href="/galleries/family-portrait.html" class="captioned notch" aria-label="Family Portrait Gallery">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
               <!-- Mask: white keeps pixels; black removes pixels -->
               <mask id="notchMask">
                 <rect x="0" y="0" width="100%" height="100%" fill="white"/>
-                <!-- Notch rectangle (centered) -->
-                <!-- x1=180, x2=620 (width=440); yTop=904; height=96 -->
-                <rect x="180" y="904" width="440" height="96" fill="black"/>
+                <!-- NEW: narrower, centered notch (x=260, width=280, top=920, height=80) -->
+                <rect x="260" y="920" width="280" height="80" fill="black"/>
               </mask>
             </defs>
 
@@ -477,23 +465,21 @@
                    preserveAspectRatio="xMidYMid slice"
                    mask="url(#notchMask)"></image>
 
-            <!-- Entire frame drawn by strokes (no bottom line under notch) -->
-            <!-- top -->
-            <path class="u-stroke" d="M 1 1 L 799 1" />
-            <!-- left -->
-            <path class="u-stroke" d="M 1 1 L 1 999" />
-            <!-- right -->
-            <path class="u-stroke" d="M 799 1 L 799 999" />
-            <!-- bottom segments (skip under notch) -->
-            <path class="u-stroke" d="M 1 999 L 180 999" />
-            <path class="u-stroke" d="M 620 999 L 799 999" />
-            <!-- notch uprights + top across -->
-            <path class="u-stroke" d="M 180 999 L 180 904" />
-            <path class="u-stroke" d="M 180 904 L 620 904" />
-            <path class="u-stroke" d="M 620 904 L 620 999" />
+            <!-- One continuous frame that detours around the notch (no line under it) -->
+            <path class="u-stroke"
+                  d="
+                    M 1 1 L 799 1     /* top */
+                    L 799 999         /* right side */
+                    L 540 999         /* bottom to right edge of notch */
+                    L 540 920         /* up right notch edge */
+                    L 260 920         /* across notch top */
+                    L 260 999         /* down left notch edge */
+                    L 1 999           /* bottom to left */
+                    L 1 1             /* up left side */
+                  " />
           </svg>
 
-          <!-- Overlay box aligned to recess for perfect centering -->
+          <!-- Label perfectly centered inside the notch -->
           <div class="notch-box">
             <span class="cap-label">Family Portraits</span>
           </div>
