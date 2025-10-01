@@ -9,15 +9,21 @@
   <meta name="description" content="Candid, timeless, true-to-life family, maternity, newborn & portrait photography across Sarasota and Florida’s Gulf Coast — with a soft, whimsical touch." />
   <link rel="canonical" href="https://rachelsphotography.netlify.app/" />
 
-  <!-- Open Graph -->
+  <!-- Social share (iMessage / FB / Twitter) -->
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Rachel Barton Photography" />
   <meta property="og:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
   <meta property="og:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
-  <meta property="og:image" content="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" />
+  <meta property="og:url" content="https://rachelsphotography.netlify.app/" />
+  <!-- Use your screenshot as the preview image (absolute URL) -->
+  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
+  <meta property="og:image:secure_url" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:url" content="https://rachelsphotography.netlify.app/" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
+  <meta name="twitter:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
+  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -210,6 +216,20 @@
       padding:0 !important;
       box-shadow:none !important;
       color:#3f3a33;
+    }
+
+    /* Hero links – larger, professional, text-only with gold hover */
+    .hero .cta{ gap:28px; }
+    .hero .btn{
+      font-size:clamp(18px,2.2vw,20px);
+      letter-spacing:.02em;
+      padding:8px 6px;                 /* increases hit area without a box */
+      border-bottom:1px solid transparent;
+    }
+    .hero .btn:hover,
+    .hero .btn:focus-visible{
+      color:var(--accent);
+      border-bottom-color:var(--accent);/* classy underline on hover/focus */
     }
 
     /* NEW: make service card buttons align at the bottom uniformly */
@@ -561,10 +581,10 @@
       function updateTile(tile){
         const svg = tile.querySelector('svg.notch-figure');
         const notchRect = svg.querySelector('.notchRect');
-        const recessStroke = svg.querySelector('.recessStroke');
+        the_recessStroke = svg.querySelector('.recessStroke');
         const label = tile.querySelector('.cap-label');
         const notchBox = tile.querySelector('.notch-box');
-        if(!svg || !label || !notchRect || !recessStroke || !notchBox) return;
+        if(!svg || !label || !notchRect || !the_recessStroke || !notchBox) return;
 
         const padCss = 8;
         const labelRect = label.getBoundingClientRect();
@@ -587,10 +607,10 @@
         notchRect.setAttribute('width', recessW.toFixed(2));
         notchRect.setAttribute('height', recessH.toFixed(2));
 
-        recessStroke.setAttribute('x', recessX.toFixed(2));
-        recessStroke.setAttribute('y', recessY.toFixed(2));
-        recessStroke.setAttribute('width', recessW.toFixed(2));
-        recessStroke.setAttribute('height', recessH.toFixed(2));
+        the_recessStroke.setAttribute('x', recessX.toFixed(2));
+        the_recessStroke.setAttribute('y', recessY.toFixed(2));
+        the_recessStroke.setAttribute('width', recessW.toFixed(2));
+        the_recessStroke.setAttribute('height', recessH.toFixed(2));
 
         notchBox.style.width = recessW_css + 'px';
         notchBox.style.height = recessH_css + 'px';
