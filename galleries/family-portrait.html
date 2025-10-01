@@ -44,7 +44,6 @@
     a{color:#9A6724;text-decoration:none}
     a:hover{color:#7f531c;text-decoration:underline}
 
-    /* golden-hour bloom */
     body::before{
       content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
       background:
@@ -56,7 +55,6 @@
 
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
 
-    /* Header */
     header.site{
       position:sticky;top:0;z-index:50;
       background:rgba(255,248,238,0.85);
@@ -77,7 +75,7 @@
     nav a{padding:8px 12px;border-radius:0;color:#7A5B3B}
     nav a.active, nav a:hover, nav a:focus-visible{background:rgba(230,162,74,0.18);text-decoration:none}
 
-    /* Scallop that visually "belongs" to the header and is sticky too */
+    /* Scallop: same translucent/blurred backdrop as header, plus wavy edge */
     .scallop{
       --h:18px;
       position:relative;
@@ -86,20 +84,19 @@
       backdrop-filter:saturate(120%) blur(10px);
       -webkit-backdrop-filter:saturate(120%) blur(10px);
       border-bottom:1px solid rgba(0,0,0,0.04);
-      z-index:49; /* sits under the sticky header */
+      z-index:49;
     }
     .scallop::after{
       content:"";
       position:absolute; left:0; right:0; bottom:-1px; height:var(--h);
       background:
         radial-gradient(var(--h) at 50% 0, var(--bg) 98%, transparent 100%)
-          center bottom/var(--h) var(--h) repeat-x;
+        center bottom/var(--h) var(--h) repeat-x;
       pointer-events:none;
     }
-    /* make ONLY the first scallop sticky and offset below header */
     .scallop:first-of-type{
       position:sticky;
-      top: var(--scallop-top, 0px);
+      top:var(--scallop-top, 0px);
     }
 
     h1,.section-title{font-family:"Fraunces",serif;color:var(--heading-ink)}
@@ -137,7 +134,7 @@
     @media (max-width: 960px){ .grid{grid-template-columns:repeat(2,1fr)} }
     @media (max-width: 640px){ .grid{grid-template-columns:1fr} }
 
-    footer{border-top:1px solid rgba(0,0,0,.06);padding:28px 0;color:#7f7f7f}
+    footer{border-top:1px solid rgba(0,0,0,0.06);padding:28px 0;color:#7f7f7f}
 
     /* Lightbox */
     #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:1200}
@@ -171,7 +168,7 @@
     </div>
   </header>
 
-  <!-- Sticky scallop that visually continues the header -->
+  <!-- Sticky scallop with matching background -->
   <div class="scallop"></div>
 
   <main class="container">
@@ -245,16 +242,14 @@
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Make the first scallop stick directly under the sticky header
+    // Set scallop offset so it tucks right under the sticky header
     (function(){
       const root = document.documentElement;
       const header = document.querySelector('header.site');
       if(!header) return;
-
       function setScallopOffset(){
         root.style.setProperty('--scallop-top', header.offsetHeight + 'px');
       }
-
       setScallopOffset();
       window.addEventListener('resize', setScallopOffset);
       if (document.fonts && document.fonts.ready) {
@@ -296,6 +291,7 @@
       prevBtn.addEventListener('click', prev);
       nextBtn.addEventListener('click', next);
 
+      // keyboard controls
       window.addEventListener('keydown', e=>{
         if(lightbox.style.display !== 'flex') return;
         if(e.key === 'Escape') closeBox();
@@ -303,6 +299,7 @@
         if(e.key === 'ArrowRight') next();
       });
 
+      // click outside to close
       lightbox.addEventListener('click', e=>{
         if(e.target === lightbox) closeBox();
       });
