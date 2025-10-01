@@ -828,7 +828,8 @@
 
       function updateTile(tile){
         const svg = tile.querySelector('svg.notch-figure');
-        const notchRect = svg.querySelector('.notchRect');     // mask cutout rect
+        the_notchRect = svg.querySelector('.notchRect');     // mask cutout rect
+        const notchRect = the_notchRect;
         const recessStroke = svg.querySelector('.recessStroke'); // visible border of recess
         const label = tile.querySelector('.cap-label');
         const notchBox = tile.querySelector('.notch-box');
