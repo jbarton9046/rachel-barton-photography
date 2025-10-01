@@ -456,7 +456,7 @@
               <!-- Mask: white keeps pixels; black removes pixels -->
               <mask id="notchMask">
                 <rect x="0" y="0" width="100%" height="100%" fill="white"/>
-                <!-- Black rect becomes the recess (sized via JS to be label + 0.2in on all sides) -->
+                <!-- Black rect becomes the recess (initial size here; JS recalculates) -->
                 <rect id="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
               </mask>
 
@@ -474,7 +474,6 @@
 
             <!-- Frame that detours around the recess (no line under it) -->
             <g id="frameGroup" filter="url(#frameShadow)">
-              <!-- These path numbers are updated by JS once we know the label size -->
               <path id="framePath" class="u-stroke"
                     d="M 1 1 H 799 V 999 H 540 V 920 H 260 V 999 H 1 Z"/>
             </g>
@@ -764,7 +763,8 @@
       window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLightbox(); });
     }
 
-    /* ===== FIRST TILE: size recess = label box + 0.2in on every side, center label ===== */
+    /* ===== FIRST TILE: make the recess margin equal to the little top gap you saw,
+       then apply that SAME margin on all four sides around the label. ===== */
     (function(){
       const tile = document.querySelector('.mosaic a.captioned.notch');
       if(!tile) return;
@@ -778,50 +778,52 @@
       function updateNotch(){
         if(!svg || !label || !notchRect || !framePath || !notchBox) return;
 
-        // 1/5 inch padding on every side (CSS absolute length: 1in = 96px)
-        const padCss = 0.2 * 96; // 19.2 CSS px
-
-        // Measure label (CSS px)
+        // Measure label & tile in CSS px
         const labelRect = label.getBoundingClientRect();
-        const tileRect = svg.getBoundingClientRect();
-
+        const tileRect  = svg.getBoundingClientRect();
         const labelW = labelRect.width;
         const labelH = labelRect.height;
 
-        // Recess size in CSS px
-        const recessW_css = labelW + padCss * 2;
-        const recessH_css = labelH + padCss * 2;
-
-        // Center recess horizontally; bottom-aligned vertically
-        const recessLeft_css = tileRect.left + (tileRect.width - recessW_css)/2;
-
-        // Convert CSS px to SVG units (viewBox 800x1000)
+        // Convert helpers (viewBox 800x1000)
         const sx = 800 / tileRect.width;
         const sy = 1000 / tileRect.height;
 
+        // Derive the padding from the current (initial) recess height:
+        // take the initial notch height (SVG units), convert to CSS px,
+        // and use half the leftover space above/below the label as the target margin.
+        const initialH_svg  = parseFloat(notchRect.getAttribute('height')) || 80; // default 80
+        const initialH_css  = initialH_svg / sy;
+        const padCss        = Math.max(0, (initialH_css - labelH) / 2);
+
+        // New recess size = label + equal margin on all four sides
+        const recessW_css = labelW + padCss * 2;
+        const recessH_css = labelH + padCss * 2;
+
+        // Center recess horizontally; bottom-align vertically with the image/frame
+        const recessLeft_css = tileRect.left + (tileRect.width - recessW_css)/2;
+
+        // Convert to SVG units
         const recessW = recessW_css * sx;
         const recessH = recessH_css * sy;
-        const recessX = ( (recessLeft_css - tileRect.left) * sx );
+        const recessX = ((recessLeft_css - tileRect.left) * sx);
         const recessY = 1000 - recessH; // bottom-aligned
 
-        // Update mask rect (this cuts the pixels out)
+        // Update mask (cutout)
         notchRect.setAttribute('x', recessX.toFixed(2));
         notchRect.setAttribute('y', recessY.toFixed(2));
         notchRect.setAttribute('width', recessW.toFixed(2));
         notchRect.setAttribute('height', recessH.toFixed(2));
 
-        // Update label container box to match recess size and position (for perfect centering)
+        // Match overlay box to recess for perfect centering of the label
         notchBox.style.width = recessW_css + 'px';
         notchBox.style.height = recessH_css + 'px';
         notchBox.style.marginLeft = (-recessW_css/2) + 'px';
 
-        // 2) Draw the frame that detours around the recess; no line under the recess
-        // Left edge of recess = x1, right edge = x2, top of recess = yT (all SVG units)
+        // Frame path that detours around the recess (no border under the recess)
         const x1 = recessX;
         const x2 = recessX + recessW;
         const yT = recessY;
 
-        // Path: top -> right -> bottom to x2 -> up to yT -> across to x1 -> down to bottom -> left -> top
         const d = [
           'M 1 1',
           'H 799',
@@ -836,7 +838,6 @@
         framePath.setAttribute('d', d);
       }
 
-      // Run after fonts/layout paint
       window.addEventListener('load', updateNotch);
       window.addEventListener('resize', ()=>{ requestAnimationFrame(updateNotch); });
     })();
