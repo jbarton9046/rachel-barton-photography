@@ -122,7 +122,7 @@
     nav a.active, nav a:focus-visible, nav a:hover{background:rgba(230,162,74,0.18);text-decoration:none}
     .menu-btn{display:none;color:#7A5B3B}
 
-    /* ── Scallop divider ───────── */
+    /* ── Scallop divider: matches header + sticky (top one only) ───────── */
     .scallop{
       --h:18px;
       position:relative;
@@ -131,8 +131,8 @@
       backdrop-filter:saturate(120%) blur(10px);
       -webkit-backdrop-filter:saturate(120%) blur(10px);
       border-bottom:1px solid rgba(0,0,0,0.04);
-      z-index:2; /* ensure it paints above the hero */
     }
+    /* draw the wavy edge with a pseudo-element so it always shows */
     .scallop::after{
       content:"";
       position:absolute; left:0; right:0; bottom:-1px; height:var(--h);
@@ -141,13 +141,13 @@
           center bottom/var(--h) var(--h) repeat-x;
       pointer-events:none;
     }
-    /* make ONLY the top scallop sticky right under the sticky header */
-    .scallop.top{
+    /* make ONLY the first scallop sticky under the sticky header */
+    .scallop:first-of-type{
       position:sticky;
       top: var(--scallop-top, 0px);
       z-index:49;
     }
-    /* Sage variant (non-sticky) */
+    /* Sage variant keeps same translucency/blur so it matches header */
     .scallop.sage{
       background:rgba(255,248,238,0.85);
       backdrop-filter:saturate(120%) blur(10px);
@@ -163,6 +163,8 @@
       pointer-events:none;
     }
 
+    /* Headings */
+
     /* HERO full-bleed with centered copy */
     .hero{
       display:grid; grid-template-columns:1fr; align-items:center;
@@ -170,20 +172,19 @@
       background:url('pictures/heroImage.jpg') center/cover no-repeat; position:relative;
       /* make hero span full viewport width even inside .container */
       width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
-      z-index:1; /* stays under the scallop */
     }
     .hero::after{
       content:""; position:absolute; inset:0;
       background:linear-gradient(to bottom, rgba(255,248,238,.62), rgba(255,248,238,.18) 35%, rgba(0,0,0,.18) 100%);
       pointer-events:none;
     }
-
     .hero .copy{
-      position:relative;
+      position:relative; /* above overlay */
       background:rgba(255,248,238,.86); border:1px solid #F7E6C7; padding:18px; max-width:680px; box-shadow:var(--shadow);
-      margin:0 auto; text-align:center;
+      margin:0 auto; /* center the card */
+      text-align:center; /* center text inside */
     }
-    .hero .cta{justify-content:center}
+    .hero .cta{justify-content:center} /* center buttons */
 
     .eyebrow{color:#AF7A2C;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
     h1,.section-title{font-family:"Fraunces",serif;color:var(--heading-ink)}
@@ -204,6 +205,7 @@
     .btn.secondary{background:#fff;color:#7A5B3B;border-color:#F7E6C7}
     .btn.ghost{background:transparent;border:1px dashed #F2D9A4;color:#7A5B3B}
 
+    /* Badge pills — square now */
     .badge{display:inline-flex;align-items:center;gap:8px;background:#FFF2D8;border:1px solid #FFE3AA;padding:8px 12px;border-radius:0;margin-top:12px;color:#6D5A33}
     .badge.white{background:#fff;border-color:rgba(0,0,0,0.05);color:#8E8176}
     .sticker{position:relative; display:inline-flex; align-items:center; gap:8px; background:#FFF2D8; border:1px solid #FFE9B0; color:#6D5A33; padding:8px 12px; border-radius:0; transform:rotate(-3deg); box-shadow:0 6px 18px rgba(180,140,90,.15)}
@@ -220,27 +222,86 @@
     .mosaic{
       display:grid;
       grid-template-columns:repeat(3,1fr);
+      /* tighter gap -> tiles are visually larger and closer together */
       gap: clamp(10px, 1.6vw, 16px);
     }
+    /* remove default figure margins so tiles use full column width and align flush with heading/CTA */
     .mosaic figure{ margin:0; }
-    .mosaic .captioned.notch{ position:relative; display:block; }
+
+    /* We now use <figure> tiles with SVG, not linked images */
+    .mosaic .captioned.notch{
+      position:relative;
+      display:block;
+    }
+
     .mosaic .notch-figure{
-      display:block; width:100%; aspect-ratio:4/5; background:transparent;
-      border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06); transition:none;
+      display:block;
+      width:100%;
+      aspect-ratio:4/5;
+      background:transparent; /* lets the page background show through the recess */
+      /* restore original IMG box metrics with a transparent border; keep the same shadow */
+      border:1px solid transparent;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      /* no hover transition on the picture itself */
+      transition:none;
     }
-    .mosaic .captioned.notch:hover .notch-figure{ transform:none; filter:none; }
-    .mosaic .u-stroke{ fill:none; stroke:#F2D9A4; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round; }
+
+    /* DISABLED picture hover (no scale or extra shadow on images) */
+    .mosaic .captioned.notch:hover .notch-figure{
+      transform:none;
+      filter:none;
+    }
+
+    /* The visible frame’s stroke */
+    .mosaic .u-stroke{
+      fill:none;
+      stroke:#F2D9A4;
+      stroke-width:1;
+      vector-effect:non-scaling-stroke;
+      stroke-linejoin:round;
+    }
+
+    /* Overlay box that exactly matches the recess; we size/position it via JS */
     .mosaic .notch-box{
-      position:absolute; bottom:0; left:50%; transform:translateX(-50%);
-      display:flex; align-items:center; justify-content:center; pointer-events:none;
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:none; /* keep photo non-clickable; only label is clickable */
     }
+
+    /* Label chip (this is the ONLY link) */
     .mosaic .cap-label{
-      background:var(--accent-2); color:#6D5A33; border:1px solid #FFE3AA; padding:8px 14px;
-      font-size:13px; letter-spacing:.08em; font-weight:600; white-space:nowrap; border-radius:0; line-height:1.2;
-      pointer-events:auto; text-decoration:none; transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+      background:var(--accent-2);
+      color:#6D5A33;
+      border:1px solid #FFE3AA;
+      padding:8px 14px;
+      font-size:13px;
+      letter-spacing:.08em;
+      font-weight:600;
+      white-space:nowrap;
+      border-radius:0;
+      line-height:1.2;
+      pointer-events:auto; /* allow clicking the label */
+      text-decoration:none;
+      /* add hover/active affordance to the LABEL instead of the photo */
+      transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease;
     }
-    .mosaic .cap-label:hover,.mosaic .cap-label:focus-visible{ background:#e8d8b0; box-shadow:0 6px 18px rgba(0,0,0,.08); transform:translateY(-1px); text-decoration:none; outline:none; }
-    .mosaic .cap-label:active{ transform:translateY(0); box-shadow:0 3px 10px rgba(0,0,0,.06); }
+    .mosaic .cap-label:hover,
+    .mosaic .cap-label:focus-visible{
+      background:#e8d8b0;
+      box-shadow:0 6px 18px rgba(0,0,0,.08);
+      transform:translateY(-1px);
+      text-decoration:none;
+      outline:none;
+    }
+    .mosaic .cap-label:active{
+      transform:translateY(0);
+      box-shadow:0 3px 10px rgba(0,0,0,.06);
+    }
 
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
     .feature{background:var(--paper);padding:18px;border:1px solid #F7E6C7;border-radius:var(--radius);box-shadow:var(--shadow)}
@@ -354,7 +415,7 @@
   </header>
 
   <!-- Scallop divider -->
-  <div class="scallop top"></div>
+  <div class="scallop"></div>
 
   <main id="home" class="container">
     <!-- Hero -->
@@ -429,7 +490,7 @@
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
 
       <div class="mosaic" id="grid">
-        <!-- tiles unchanged -->
+
         <!-- 1) Family Portraits -->
         <figure class="captioned notch" aria-label="Family Portrait Gallery">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -567,6 +628,7 @@
             <a class="cap-label" href="/galleries/couples-tropical.html">Tropical Couples</a>
           </div>
         </figure>
+
       </div>
 
       <div class="cta" style="margin-top:18px">
@@ -767,6 +829,7 @@
       function updateTile(tile){
         const svg = tile.querySelector('svg.notch-figure');
         const notchRect = svg.querySelector('.notchRect');     // mask cutout rect
+        the_recess = svg.querySelector('.recessStroke'); // alias safeguard (not used)
         const recessStroke = svg.querySelector('.recessStroke'); // visible border of recess
         const label = tile.querySelector('.cap-label');
         const notchBox = tile.querySelector('.notch-box');
@@ -831,7 +894,7 @@
     })();
   </script>
   <script>
-  // Keep the scallop snug under the sticky header
+  // Keep the scallop snug under the sticky header (safe to keep)
   (function(){
     const root = document.documentElement;
     const header = document.querySelector('header.site');
@@ -849,7 +912,7 @@
       document.fonts.ready.then(setScallopOffset);
     }
   })();
-</script>
+  </script>
 
 </body>
 </html>
