@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Family Portraits | Rachel Barton Photography</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Family portrait gallery by Rachel Barton Photography — candid, timeless, true-to-life images around Sarasota and Florida’s Gulf Coast." />
+  <link rel="canonical" href="/galleries/family-portrait.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Family Portraits – Rachel Barton Photography" />
+  <meta property="og:description" content="A selection of family portrait sessions — warm, candid, and true-to-life." />
+  <meta property="og:image" content="/pictures/familyPortrait/image1.jpg" />
+  <meta property="og:url" content="https://rachelsphotography.netlify.app/galleries/family-portrait.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#FFF8EE; --paper:#fff; --ink:#5A5046; --muted:#8E8176;
+      --butter-100:#FFECC2; --sage-100:#E9F0E4;
+      --heading-ink:#6B4E2E; --accent:#E6A24A; --accent-2:#D7C69E;
+      --ring:rgba(230,162,74,.35);
+      --shadow:0 10px 30px rgba(94,63,20,.10);
+      --radius:0;
+      --gap: clamp(16px, 3vw, 32px);
+      --maxw:1200px;
+      --frame:#F2D9A4;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+      font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65}
+
+    /* global image treatment */
+    img{max-width:100%;height:auto;display:block;border-radius:0;border:1px solid var(--frame);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+
+    a{color:#9A6724;text-decoration:none}
+    a:hover{color:#7f531c;text-decoration:underline}
+
+    body::before{
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(255,221,180,.38), transparent 60%),
+        radial-gradient(900px 500px at 110% 20%, rgba(255,233,176,.30), transparent 60%),
+        radial-gradient(800px 500px at 50% 120%, rgba(255,209,194,.28), transparent 60%);
+      opacity:.6;
+    }
+
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
+
+    header.site{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,248,238,0.85);backdrop-filter:saturate(120%) blur(10px);
+      border-bottom:1px solid rgba(0,0,0,0.04)
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px var(--gap)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo{
+      width:44px;height:44px;border-radius:50%;
+      background:radial-gradient(42px 42px at 50% 50%, #FFE7B3 0%, #FFD485 45%, #FFC166 65%, #F4A44C 85%, #E18A3B 100%);
+      border:1px solid rgba(226,149,60,.45);
+      box-shadow:0 4px 10px rgba(0,0,0,.08), 0 0 0 6px rgba(255,219,170,.45), 0 0 32px rgba(255,176,88,.35);
+    }
+    .brand .name{font-family:"Fraunces",serif;font-weight:700;font-size:21px;color:var(--heading-ink)}
+    header.site nav ul{display:flex;list-style:none;gap:16px;margin:0;padding:0}
+    nav a{padding:8px 12px;border-radius:0;color:#7A5B3B}
+    nav a.active, nav a:hover, nav a:focus-visible{background:rgba(230,162,74,0.18);text-decoration:none}
+
+    .scallop{--h:18px;height:var(--h);background:
+      radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
+      linear-gradient(var(--butter-100),var(--butter-100));}
+
+    h1,.section-title{font-family:"Fraunces",serif;color:var(--heading-ink)}
+    h1{
+      font-family:"Playfair Display",serif;
+      font-size:clamp(28px,5.5vw,52px);
+      line-height:1.1;margin:.25em 0 .2em;font-weight:700;
+      background:linear-gradient(180deg,#7A5B3B 0%, #B37A32 55%, #6B4E2E 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      text-shadow:0 1px 0 rgba(255,255,255,.2);
+    }
+    .section-sub{color:#7A6C5E;margin:0 0 18px}
+
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border:1px solid transparent;border-radius:0;background:var(--accent);color:#fff;font-weight:700;box-shadow:var(--shadow)}
+    .btn.secondary{background:#fff;color:#7A5B3B;border-color:#F7E6C7}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+
+    main section{padding:calc(var(--gap)*1.5) 0}
+
+    /* Gallery grid — match index look: big, tight 3-col */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap: clamp(10px, 1.6vw, 16px); /* tight */
+    }
+    .grid figure{margin:0}
+    .grid img{
+      width:100%;
+      aspect-ratio:4/5;
+      object-fit:cover;
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+    /* keep subtle hover, not dramatic */
+    .grid a:hover img{ transform:scale(1.01); box-shadow:0 10px 24px rgba(0,0,0,.08) }
+
+    @media (max-width: 960px){ .grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width: 640px){ .grid{grid-template-columns:1fr} }
+
+    footer{border-top:1px solid rgba(0,0,0,.06);padding:28px 0;color:#7f7f7f}
+
+    /* Lightbox */
+    #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:1200}
+    #lightbox img{max-width:92vw;max-height:88vh;border:1px solid var(--frame);box-shadow:0 12px 50px rgba(0,0,0,.5)}
+    #lb-close,#lb-prev,#lb-next{
+      position:absolute;border:0;background:#ffffff; color:#7A5B3B; cursor:pointer;
+      padding:8px 12px; border-radius:0; box-shadow:0 2px 8px rgba(0,0,0,.2)
+    }
+    #lb-close{top:18px;right:18px}
+    #lb-prev{left:18px;top:50%;transform:translateY(-50%)}
+    #lb-next{right:18px;top:50%;transform:translateY(-50%)}
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="nav container">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="name">Rachel Barton Photography</div>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="/#home">Home</a></li>
+          <li><a href="/#services">Sessions</a></li>
+          <li><a href="/#portfolio" class="active">Galleries</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#reviews">Reviews</a></li>
+          <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="scallop"></div>
+
+  <main class="container">
+    <section>
+      <p class="section-sub"><a href="/#portfolio">← All Galleries</a></p>
+      <h1>Family Portraits</h1>
+      <p class="section-sub">Candid, movement-filled portraits with warm, true-to-life color.</p>
+
+      <div class="grid" id="gallery">
+        <!-- 12 images -->
+        <figure>
+          <a href="/pictures/familyPortrait/image1.jpg"><img loading="lazy" src="/pictures/familyPortrait/image1.jpg" alt="Family portrait 1" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image2.jpg"><img loading="lazy" src="/pictures/familyPortrait/image2.jpg" alt="Family portrait 2" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image3.jpg"><img loading="lazy" src="/pictures/familyPortrait/image3.jpg" alt="Family portrait 3" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image4.jpg"><img loading="lazy" src="/pictures/familyPortrait/image4.jpg" alt="Family portrait 4" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image5.jpg"><img loading="lazy" src="/pictures/familyPortrait/image5.jpg" alt="Family portrait 5" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image6.jpg"><img loading="lazy" src="/pictures/familyPortrait/image6.jpg" alt="Family portrait 6" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image7.jpg"><img loading="lazy" src="/pictures/familyPortrait/image7.jpg" alt="Family portrait 7" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image8.jpg"><img loading="lazy" src="/pictures/familyPortrait/image8.jpg" alt="Family portrait 8" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image9.jpg"><img loading="lazy" src="/pictures/familyPortrait/image9.jpg" alt="Family portrait 9" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image10.jpg"><img loading="lazy" src="/pictures/familyPortrait/image10.jpg" alt="Family portrait 10" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image11.jpg"><img loading="lazy" src="/pictures/familyPortrait/image11.jpg" alt="Family portrait 11" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image12.jpg"><img loading="lazy" src="/pictures/familyPortrait/image12.jpg" alt="Family portrait 12" /></a>
+        </figure>
+      </div>
+
+      <div class="cta" style="margin-top:18px">
+        <a class="btn secondary" href="/#book">Check availability</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
+      <div><a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lb-close" aria-label="Close">✕</button>
+    <button id="lb-prev" aria-label="Previous image">‹</button>
+    <img id="lb-img" alt="" />
+    <button id="lb-next" aria-label="Next image">›</button>
+  </div>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple Lightbox (click thumbnails)
+    (function(){
+      const lightbox = document.getElementById('lightbox');
+      const imgEl = document.getElementById('lb-img');
+      const closeBtn = document.getElementById('lb-close');
+      const prevBtn = document.getElementById('lb-prev');
+      const nextBtn = document.getElementById('lb-next');
+
+      const links = Array.from(document.querySelectorAll('#gallery a'));
+      let idx = -1;
+
+      function openAt(i){
+        idx = (i + links.length) % links.length;
+        imgEl.src = links[idx].getAttribute('href');
+        lightbox.style.display = 'flex';
+      }
+      function closeBox(){
+        lightbox.style.display = 'none';
+        imgEl.removeAttribute('src');
+      }
+      function prev(){ openAt(idx - 1); }
+      function next(){ openAt(idx + 1); }
+
+      links.forEach((a,i)=>{
+        a.addEventListener('click', e=>{
+          e.preventDefault();
+          openAt(i);
+        });
+      });
+
+      closeBtn.addEventListener('click', closeBox);
+      prevBtn.addEventListener('click', prev);
+      nextBtn.addEventListener('click', next);
+
+      // keyboard controls
+      window.addEventListener('keydown', e=>{
+        if(lightbox.style.display !== 'flex') return;
+        if(e.key === 'Escape') closeBox();
+        if(e.key === 'ArrowLeft') prev();
+        if(e.key === 'ArrowRight') next();
+      });
+
+      // click outside to close
+      lightbox.addEventListener('click', e=>{
+        if(e.target === lightbox) closeBox();
+      });
+    })();
+  </script>
+</body>
+</html>
