@@ -222,7 +222,6 @@
       display:block; width:100%;
       aspect-ratio:4/5;
       background:transparent; /* lets the page background show through the recess */
-      /* DO NOT use box-shadow here — we’ll shadow only the visible frame via SVG filter */
     }
     /* The visible frame’s stroke */
     .mosaic a.captioned.notch .u-stroke{
@@ -321,7 +320,6 @@
     #bookingClose:hover{background:#FFF4DE}
     /* Lightbox */
     #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:1200}
-    /* square corners for lightbox image */
     #lightbox img{max-width:92vw;max-height:88vh;border-radius:0;box-shadow:0 12px 50px rgba(0,0,0,.5); border:1px solid #F2D9A4}
     #lightbox button{position:absolute;top:18px;right:18px;background:#fff;border:0;border-radius:0;padding:8px 12px;cursor:pointer}
   </style>
@@ -453,33 +451,27 @@
         <a href="/galleries/family-portrait.html" class="captioned notch" aria-label="Family Portrait Gallery">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
-              <!-- Mask: white keeps pixels; black removes pixels -->
               <mask id="notchMask">
                 <rect x="0" y="0" width="100%" height="100%" fill="white"/>
-                <!-- Black rect becomes the recess (initial size here; JS recalculates) -->
                 <rect id="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
               </mask>
 
-              <!-- Shadow only along the visible frame (not under the recess) -->
               <filter id="frameShadow" x="-20%" y="-20%" width="140%" height="140%">
                 <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
               </filter>
             </defs>
 
-            <!-- Photo rendered through the mask (transparent where recess is) -->
             <image href="pictures/christStephAlbumThumb.jpg"
                    x="0" y="0" width="800" height="1000"
                    preserveAspectRatio="xMidYMid slice"
                    mask="url(#notchMask)"></image>
 
-            <!-- Frame that detours around the recess (no line under it) -->
             <g id="frameGroup" filter="url(#frameShadow)">
               <path id="framePath" class="u-stroke"
                     d="M 1 1 H 799 V 999 H 540 V 920 H 260 V 999 H 1 Z"/>
             </g>
           </svg>
 
-          <!-- Label perfectly centered inside the recess; JS sizes this box to the recess -->
           <div class="notch-box" id="notchBox">
             <span class="cap-label" id="capLabel">Family Portraits</span>
           </div>
@@ -608,7 +600,6 @@
       <h2 class="section-title" id="contact-title">Say Hello</h2>
       <p class="section-sub">Tell me about your crew and the kind of session you’re envisioning.</p>
       <div class="contact-grid">
-        <!-- Netlify form with honeypot + redirect back to home for toast -->
         <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?contact=sent">
           <input type="hidden" name="form-name" value="contact" />
           <p style="display:none"><label>Don’t fill this out: <input name="bot-field" /></label></p>
@@ -636,11 +627,9 @@
         </form>
 
         <div>
-          <!-- Compact calendar card placed above Service Area -->
           <div class="card" id="book" style="margin-bottom:var(--gap)">
             <div class="body" style="padding:0">
               <div class="scheduler-card compact" style="border:none; box-shadow:none">
-                <!-- HoneyBook Inline Embed -->
                 <iframe
                   src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c"
                   title="Book a Session"
@@ -667,7 +656,6 @@
               <div class="badge">Live booking + contracts coming soon</div>
             </div>
           </div>
-          <!-- Bottom picture card removed per your request -->
         </div>
       </div>
     </section>
@@ -690,8 +678,6 @@
 
   <!-- Lightbox -->
   <div id="lightbox"><button onclick="closeLightbox()">✕</button><img alt=""></div>
-
-  <!-- (Old Acuity embed script removed since we're using the inline calendar) -->
 
   <script>
     // Active link on scroll
@@ -727,11 +713,10 @@
       }
     })();
 
-    // (Modal booking functions kept but unused)
     function openBooking(url){
       const modal = document.getElementById('bookingModal');
       const wrap  = document.getElementById('bookingWrap');
-      wrap.innerHTML = <div style="display:flex;height:100%;align-items:center;justify-content:center;color:#7A5B3B">Booking coming soon</div>;
+      wrap.innerHTML = "<div style='display:flex;height:100%;align-items:center;justify-content:center;color:#7A5B3B'>Booking coming soon</div>";
       modal.style.display = 'block';
       document.body.style.overflow = 'hidden';
     }
@@ -743,28 +728,8 @@
     document.getElementById('bookingModal').addEventListener('click',(e)=>{ if(e.target.id==='bookingModal') closeBooking() });
     window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeBooking(); });
 
-    /* Minimal lightbox: only binds to elements explicitly marked with [data-lightbox] */
-    const lb = document.getElementById('lightbox');
-    const lbImg = lb ? lb.querySelector('img') : null;
-    function closeLightbox(){
-      if(lb){ lb.style.display='none'; if(lbImg) lbImg.src=''; }
-    }
-    document.querySelectorAll('[data-lightbox]').forEach(el=>{
-      el.addEventListener('click',(e)=>{
-        e.preventDefault();
-        const src = el.getAttribute('href') || el.getAttribute('data-src');
-        if(src && lb && lbImg){ lbImg.src = src; lb.style.display='flex'; }
-      });
-      const img = el.querySelector('img');
-      if(img){ img.setAttribute('decoding','async'); img.setAttribute('loading','lazy'); }
-    });
-    if(lb){
-      lb.addEventListener('click',(e)=>{ if(e.target.id==='lightbox') closeLightbox(); });
-      window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLightbox(); });
-    }
-
-    /* ===== FIRST TILE: recess = label size + equal 6px margin on ALL sides.
-       Recess is inside the photo (not flush at the bottom); label is centered in it. ===== */
+    /* ===== FIRST TILE: recess = label size + equal 8px margin on ALL sides,
+       lifted up so it no longer sits flush with or past the photo bottom. ===== */
     (function(){
       const tile = document.querySelector('.mosaic a.captioned.notch');
       if(!tile) return;
@@ -778,7 +743,7 @@
       function updateNotch(){
         if(!svg || !label || !notchRect || !framePath || !notchBox) return;
 
-        const padCss = 6; // px margin to show around the label on all sides
+        const padCss = 8; // uniform recess visible on all sides
 
         // Measure label (CSS px)
         const labelRect = label.getBoundingClientRect();
@@ -786,7 +751,7 @@
         const labelW = labelRect.width;
         const labelH = labelRect.height;
 
-        // Recess size in CSS px = label + 2*pad
+        // Target recess size in CSS px
         const recessW_css = labelW + padCss * 2;
         const recessH_css = labelH + padCss * 2;
 
@@ -800,24 +765,23 @@
         const recessW = recessW_css * sx;
         const recessH = recessH_css * sy;
 
-        // BOTTOM-ALIGN WITH A MARGIN: lift the recess up by padCss so it doesn't touch the photo bottom
+        // Lift the recess UP by padCss so the bottom margin shows
         const recessX = ((recessLeft_css - tileRect.left) * sx);
         const recessY = 1000 - recessH - (padCss * sy);
 
-        // Update mask (cutout)
+        // Apply to mask (cutout)
         notchRect.setAttribute('x', recessX.toFixed(2));
         notchRect.setAttribute('y', recessY.toFixed(2));
         notchRect.setAttribute('width', recessW.toFixed(2));
         notchRect.setAttribute('height', recessH.toFixed(2));
 
-        // Position/size the overlay so the label sits centered inside the recess,
-        // and leave the same pad at the bottom visually.
+        // Overlay box matches the recess, and is lifted by padCss too
         notchBox.style.width = recessW_css + 'px';
         notchBox.style.height = recessH_css + 'px';
         notchBox.style.marginLeft = (-recessW_css/2) + 'px';
-        notchBox.style.bottom = padCss + 'px'; // move the label up so bottom margin shows
+        notchBox.style.bottom = padCss + 'px';
 
-        // Frame path detours around the recess (no stroke under it)
+        // Redraw border path to detour around recess (no stroke under it)
         const x1 = recessX;
         const x2 = recessX + recessW;
         const yT = recessY;
@@ -836,8 +800,15 @@
         framePath.setAttribute('d', d);
       }
 
-      window.addEventListener('load', updateNotch);
+      // Ensure fonts are loaded so label width is correct
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(()=>{ requestAnimationFrame(updateNotch); });
+      } else {
+        window.addEventListener('load', updateNotch);
+      }
       window.addEventListener('resize', ()=>{ requestAnimationFrame(updateNotch); });
+      // Fallback tick after paint
+      setTimeout(updateNotch, 0);
     })();
   </script>
 </body>
