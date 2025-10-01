@@ -131,25 +131,46 @@
       linear-gradient(var(--sage-100),var(--sage-100));}
     /* Make only the FIRST scallop (the one right under the header) sticky */
     /* Make the top scallop match the sticky header's transparency + blur */
+    /* Sticky scallop that visually matches the header */
     .site + .scallop{
+      /* stick just under the header (header z-index is 50) */
       position: sticky;
-      top: var(--scallop-top, 70px);
-      z-index: 49; /* header is 50 */
+      top: 0;                 /* sits flush to the bottom of the sticky header */
+      z-index: 49;
 
-      /* match header: rgba(255,248,238,0.85) + blur */
+      height: 18px;           /* same wave height */
+      /* exact same translucent base as header */
+      background-color: rgba(255,248,238,0.85);
       backdrop-filter: saturate(120%) blur(10px);
       -webkit-backdrop-filter: saturate(120%) blur(10px);
 
-      /* use semi-transparent “butter” so the strip isn’t opaque */
-      --butter-alpha: 0.85;
-      background:
-        radial-gradient(var(--h) at 50% -2px, rgba(255,248,238, var(--butter-alpha)) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
-        linear-gradient(rgba(255,236,194, var(--butter-alpha)), rgba(255,236,194, var(--butter-alpha)));
-      border-bottom: 1px solid rgba(0,0,0,0.04); /* same subtle divider as header */
+      border-bottom: 1px solid rgba(0,0,0,0.04); /* same hairline as header */
+      overflow: hidden;
     }
 
-    /* (optional) If you want the sage scallop to remain opaque, do nothing.
-      If you want it translucent too, add the same backdrop + alpha to .scallop.sage */
+    /* draw only the wave using a mask so the base color stays identical to header */
+    .site + .scallop::before{
+      content:"";
+      position:absolute; inset:0;
+
+      /* the “bite” pattern across the top edge */
+      -webkit-mask:
+        radial-gradient(9px 9px at 50% -2px, #000 98%, transparent 100%) center top/18px 18px repeat-x;
+      mask:
+        radial-gradient(9px 9px at 50% -2px, #000 98%, transparent 100%) center top/18px 18px repeat-x;
+
+      /* show a subtle frame color through the masked wave edge */
+      background: #F2D9A4;     /* your frame color */
+      pointer-events:none;
+    }
+
+    /* If you also use the sage scallop and want it to match the header too: */
+    .scallop.sage{
+      background-color: rgba(255,248,238,0.85);
+      backdrop-filter: saturate(120%) blur(10px);
+      -webkit-backdrop-filter: saturate(120%) blur(10px);
+    }
+
 
 
     /* Headings */
