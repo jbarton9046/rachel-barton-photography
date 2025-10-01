@@ -130,11 +130,27 @@
       radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
       linear-gradient(var(--sage-100),var(--sage-100));}
     /* Make only the FIRST scallop (the one right under the header) sticky */
+    /* Make the top scallop match the sticky header's transparency + blur */
     .site + .scallop{
       position: sticky;
-      top: var(--scallop-top, 70px); /* filled dynamically for perfect alignment */
-      z-index: 49; /* just beneath the header (which is z-index:50) */
+      top: var(--scallop-top, 70px);
+      z-index: 49; /* header is 50 */
+
+      /* match header: rgba(255,248,238,0.85) + blur */
+      backdrop-filter: saturate(120%) blur(10px);
+      -webkit-backdrop-filter: saturate(120%) blur(10px);
+
+      /* use semi-transparent “butter” so the strip isn’t opaque */
+      --butter-alpha: 0.85;
+      background:
+        radial-gradient(var(--h) at 50% -2px, rgba(255,248,238, var(--butter-alpha)) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
+        linear-gradient(rgba(255,236,194, var(--butter-alpha)), rgba(255,236,194, var(--butter-alpha)));
+      border-bottom: 1px solid rgba(0,0,0,0.04); /* same subtle divider as header */
     }
+
+    /* (optional) If you want the sage scallop to remain opaque, do nothing.
+      If you want it translucent too, add the same backdrop + alpha to .scallop.sage */
+
 
     /* Headings */
 
