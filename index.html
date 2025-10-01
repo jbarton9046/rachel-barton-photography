@@ -49,6 +49,9 @@
       --radius: 0; /* square everything */
       --gap: clamp(16px, 3vw, 32px);
       --maxw: 1200px;
+
+      /* NEW: target margin around the label inside the recess */
+      --recess-pad: 10px; /* adjust if you want a hair more/less gap */
     }
 
     *{box-sizing:border-box}
@@ -763,8 +766,8 @@
       window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLightbox(); });
     }
 
-    /* ===== FIRST TILE: uniform margin equals the small current top gap;
-       label sits fully inside the photo (with same bottom margin), not flush. ===== */
+    /* ===== FIRST TILE: recess = label size + equal margin on ALL sides (from --recess-pad).
+       Recess is bottom-aligned with the photo; label is centered within. ===== */
     (function(){
       const tile = document.querySelector('.mosaic a.captioned.notch');
       if(!tile) return;
@@ -775,51 +778,52 @@
       const label = tile.querySelector('#capLabel');
       const notchBox = tile.querySelector('#notchBox');
 
+      function pxPad(){
+        const v = getComputedStyle(document.documentElement).getPropertyValue('--recess-pad').trim();
+        return v.endsWith('px') ? parseFloat(v) : parseFloat(v)||10;
+      }
+
       function updateNotch(){
         if(!svg || !label || !notchRect || !framePath || !notchBox) return;
 
-        // Measure label & tile in CSS px
+        const padCss = pxPad(); // pixels on each side
+
+        // Measure label (CSS px) and tile (for converting to SVG units)
         const labelRect = label.getBoundingClientRect();
         const tileRect  = svg.getBoundingClientRect();
         const labelW = labelRect.width;
         const labelH = labelRect.height;
 
-        // Convert helpers (viewBox 800x1000)
-        const sx = 800 / tileRect.width;
-        const sy = 1000 / tileRect.height;
-
-        // Use the CURRENT initial notch height as the source of the "little top gap"
-        // (so whatever margin you can see now becomes the uniform padding on all sides)
-        const initialH_svg = parseFloat(notchRect.getAttribute('height')) || 80;
-        const initialH_css = initialH_svg / sy;
-        const padCss = Math.max(0, (initialH_css - labelH) / 2);
-
-        // Recess = label + equal margin on all sides
+        // Recess in CSS px = label + 2*pad
         const recessW_css = labelW + padCss * 2;
         const recessH_css = labelH + padCss * 2;
 
-        // Center recess horizontally; keep it INSIDE the photo at the bottom with bottom margin
-        // i.e., the recess bottom touches the photo bottom; label sits centered with bottom pad visible.
+        // Center recess horizontally; bottom-align vertically
         const recessLeft_css = tileRect.left + (tileRect.width - recessW_css)/2;
 
-        // Convert to SVG units
+        // Convert CSS px to SVG units (viewBox 800x1000)
+        const sx = 800 / tileRect.width;
+        const sy = 1000 / tileRect.height;
         const recessW = recessW_css * sx;
         const recessH = recessH_css * sy;
         const recessX = ((recessLeft_css - tileRect.left) * sx);
-        const recessY = 1000 - recessH; // bottom-aligned to image bottom
+        const recessY = 1000 - recessH; // align recess bottom to image bottom
 
-        // Update mask (the actual cut-out)
+        // Apply to mask (creates the cut-out)
         notchRect.setAttribute('x', recessX.toFixed(2));
         notchRect.setAttribute('y', recessY.toFixed(2));
         notchRect.setAttribute('width', recessW.toFixed(2));
         notchRect.setAttribute('height', recessH.toFixed(2));
 
-        // Match overlay box to recess for perfect centering of the label
+        // Match the overlay box so the label centers inside the recess
         notchBox.style.width = recessW_css + 'px';
         notchBox.style.height = recessH_css + 'px';
         notchBox.style.marginLeft = (-recessW_css/2) + 'px';
+        notchBox.style.display = 'flex';
+        notchBox.style.alignItems = 'center';
+        notchBox.style.justifyContent = 'center';
 
-        // Frame path that detours around the recess (no border under it)
+        // Draw the frame so there is no line under the recess
         const x1 = recessX;
         const x2 = recessX + recessW;
         const yT = recessY;
@@ -838,8 +842,14 @@
         framePath.setAttribute('d', d);
       }
 
+      // Recalculate when fonts load, on resize, and whenever the label size changes
       window.addEventListener('load', updateNotch);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(updateNotch);
+      }
       window.addEventListener('resize', ()=>{ requestAnimationFrame(updateNotch); });
+      const ro = new ResizeObserver(()=>updateNotch());
+      ro.observe(label);
     })();
   </script>
 </body>
