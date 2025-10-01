@@ -122,51 +122,46 @@
     nav a.active, nav a:focus-visible, nav a:hover{background:rgba(230,162,74,0.18);text-decoration:none}
     .menu-btn{display:none;color:#7A5B3B}
 
-        /* Scallop dividers — match header; only the first one is sticky */
+    /* ── Scallop divider: matches header + sticky (top one only) ───────── */
     .scallop{
       --h:18px;
+      position:relative;
       height:var(--h);
-
-      /* identical visuals to header */
-      background: rgba(255,248,238,0.85);
-      backdrop-filter: saturate(120%) blur(10px);
-      -webkit-backdrop-filter: saturate(120%) blur(10px);
+      background:rgba(255,248,238,0.85);
+      backdrop-filter:saturate(120%) blur(10px);
+      -webkit-backdrop-filter:saturate(120%) blur(10px);
       border-bottom:1px solid rgba(0,0,0,0.04);
-
-      /* wavy scallop edge */
-      -webkit-mask:
-        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%)
-          center top/var(--h) var(--h) repeat-x,
-        linear-gradient(#000,#000);
-      mask:
-        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%)
-          center top/var(--h) var(--h) repeat-x,
-        linear-gradient(#000,#000);
     }
-
-    /* make ONLY the first scallop sticky so it sits under the sticky header */
+    /* draw the wavy edge with a pseudo-element so it always shows */
+    .scallop::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:-1px; height:var(--h);
+      background:
+        radial-gradient(var(--h) at 50% 0, var(--bg) 98%, transparent 100%)
+          center bottom/var(--h) var(--h) repeat-x;
+      pointer-events:none;
+    }
+    /* make ONLY the first scallop sticky under the sticky header */
     .scallop:first-of-type{
-      position: sticky;
-      top: 0;      /* header is z=50 */
-      z-index: 49;
+      position:sticky;
+      top:0;
+      z-index:49;
     }
-
-    /* Sage variant: same translucency/blur so it matches the header */
+    /* Sage variant keeps same translucency/blur so it matches header */
     .scallop.sage{
-      background: rgba(255,248,238,0.85);
-      backdrop-filter: saturate(120%) blur(10px);
-      -webkit-backdrop-filter: saturate(120%) blur(10px);
+      background:rgba(255,248,238,0.85);
+      backdrop-filter:saturate(120%) blur(10px);
+      -webkit-backdrop-filter:saturate(120%) blur(10px);
       border-bottom:1px solid rgba(0,0,0,0.04);
-      -webkit-mask:
-        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%)
-          center top/var(--h) var(--h) repeat-x,
-        linear-gradient(#000,#000);
-      mask:
-        radial-gradient(var(--h) at 50% -2px, transparent 98%, #000 100%)
-          center top/var(--h) var(--h) repeat-x,
-        linear-gradient(#000,#000);
     }
-
+    .scallop.sage::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:-1px; height:var(--h);
+      background:
+        radial-gradient(var(--h) at 50% 0, var(--bg) 98%, transparent 100%)
+          center bottom/var(--h) var(--h) repeat-x;
+      pointer-events:none;
+    }
 
     /* Headings */
 
@@ -458,7 +453,7 @@
           </div>
         </article>
 
-        <article class="card">
+      <article class="card">
           <img loading="lazy" src="pictures/mother-son-outdoors-sunset-with-copy-space%20(1).jpg" alt="Mother and son in golden hour" />
           <div class="body">
             <h3>Standard Session</h3>
@@ -596,7 +591,7 @@
                 <rect x="0" y="0" width="100%" height="100%" fill="white"/>
                 <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
               </mask>
-              <filter id="frameShadow-5" x="-20%" y="-20%" width="140%" height="140%">
+              <filter id="frameShadow-5" x="-20%" y="-20%" width="140%">
                 <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
               </filter>
             </defs>
@@ -619,7 +614,7 @@
                 <rect x="0" y="0" width="100%" height="100%" fill="white"/>
                 <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
               </mask>
-              <filter id="frameShadow-6" x="-20%" y="-20%" width="140%" height="140%">
+              <filter id="frameShadow-6" x="-20%" y="-20%" width="140%">
                 <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
               </filter>
             </defs>
@@ -898,25 +893,20 @@
     })();
   </script>
   <script>
-  // ...your existing script...
-
-  // Keep the scallop snug under the sticky header
+  // Keep the scallop snug under the sticky header (safe to keep)
   (function(){
     const root = document.documentElement;
     const header = document.querySelector('header.site');
     if(!header) return;
 
     function setScallopOffset(){
-      // account for any font loading or responsive changes
       const h = header.offsetHeight;
       root.style.setProperty('--scallop-top', h + 'px');
     }
 
-    // initial + responsive updates
     setScallopOffset();
     window.addEventListener('resize', setScallopOffset);
 
-    // if fonts change metrics after load
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(setScallopOffset);
     }
