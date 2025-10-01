@@ -36,11 +36,11 @@
       --paper:#ffffff;
       --ink:#3e3e3a;
       --muted:#7a766e;
-      --accent:#A88A5A;     /* refined sand/gold */
+      --accent:#A88A5A;     /* sunset gold */
       --accent-2:#E8DFC9;   /* pale sand for small chips */
       --line:#e9e6df;
 
-      /* legacy butter scallop tones */
+      /* butter scallop tones */
       --butter-bar: rgba(255,248,238,0.92);
       --butter-stroke: rgba(0,0,0,0.04);
 
@@ -61,9 +61,9 @@
     /* Global image frame */
     img{max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
 
-    /* Links */
+    /* Links: floating text; gold on hover; no underline */
     a{color:inherit; text-decoration:none}
-    a:hover{ text-decoration:underline }
+    a:hover, a:focus-visible{ color:var(--accent); text-decoration:none; outline:none }
 
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
@@ -83,12 +83,12 @@
     .brand .name{font-family:"Fraunces",serif; font-weight:700; font-size:21px}
 
     header.site nav ul{display:flex; list-style:none; gap:18px; margin:0; padding:0}
-    /* floating text links: no backgrounds, just subtle underline on hover/active */
-    nav a{padding:0; color:#5a5347; font-weight:600; border-bottom:2px solid transparent}
-    nav a:hover, nav a:focus-visible{ text-decoration:none; border-bottom-color:#bba37c }
-    nav a.active{ text-decoration:none; border-bottom-color:#bba37c }
+    /* floating text links: no backgrounds/borders, gold hover/active */
+    nav a{padding:0; color:#5a5347; font-weight:600; transition:color .15s ease}
+    nav a:hover, nav a:focus-visible{ color:var(--accent) }
+    nav a.active{ color:var(--accent) }
 
-    /* Butter scallop (brought back) */
+    /* Butter scallop */
     .scallop{
       --h:18px;
       position:relative; height:var(--h);
@@ -131,10 +131,10 @@
     .section-title{font-size:clamp(24px,3.5vw,38px); margin:0 0 8px; font-weight:600}
     .subtitle{color:#5c5850; max-width:60ch; margin:0 auto}
 
-    /* Floating-text buttons (no chips, centered) */
+    /* Floating-text buttons (centered) */
     .cta{display:flex; gap:22px; margin-top:18px; flex-wrap:wrap; justify-content:center}
-    .btn{background:transparent; border:0; padding:0; color:#3f3a33; font-weight:700; text-decoration:none}
-    .btn:hover,.btn:focus-visible{ text-decoration:underline }
+    .btn{background:transparent; border:0; padding:0; color:#3f3a33; font-weight:700; text-decoration:none; cursor:pointer}
+    .btn:hover,.btn:focus-visible{ color:var(--accent); text-decoration:none; outline:none }
     .btn.secondary{ color:#3f3a33 }
     .btn.ghost{ color:#6a645a }
 
@@ -148,7 +148,7 @@
     .card .body{padding:18px}
     .meta{color:#7b786f; font-size:14px}
 
-    /* Gallery (unchanged mechanics) */
+    /* Gallery */
     .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px)}
     .mosaic figure{margin:0}
     .mosaic .captioned.notch{position:relative; display:block}
@@ -237,11 +237,10 @@
           I’m Rachel — a family & lifestyle photographer creating <strong>candid, timeless, true-to-life</strong> images at the beach, in the park, and wherever your story feels most like home.
         </p>
 
-        <!-- centered floating-text buttons -->
+        <!-- centered floating-text buttons (minis removed) -->
         <div class="cta">
           <a class="btn" href="#book">Book a Session</a>
           <a class="btn secondary" href="#portfolio">View Galleries</a>
-          <span class="btn ghost" aria-hidden="true">now booking fall minis ✨</span>
         </div>
 
         <!-- Availability text updated: Tampa → Naples -->
@@ -303,8 +302,7 @@
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
 
       <div class="mosaic" id="grid">
-        <!-- (tiles unchanged) -->
-        <!-- 1) Family Portraits -->
+        <!-- 1) Family Portraits (UPDATED IMAGE) -->
         <figure class="captioned notch" aria-label="Family Portrait Gallery">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
@@ -316,7 +314,7 @@
                 <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
               </filter>
             </defs>
-            <image href="pictures/christStephAlbumThumb.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
+            <image href="pictures/familyPortrait/image5.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
             <g class="frameGroup" filter="url(#frameShadow-1)">
               <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
               <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
@@ -633,7 +631,7 @@
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    /* ===== Apply TRUE notch cutout + centered label to ALL six tiles ===== */
+    /* Apply TRUE notch cutout + centered label to ALL six tiles */
     (function(){
       const tiles = document.querySelectorAll('.mosaic .captioned.notch');
       if(!tiles.length) return;
@@ -651,11 +649,9 @@
 
         const labelRect = label.getBoundingClientRect();
         const tileRect  = svg.getBoundingClientRect();
-        const labelW = labelRect.width;
-        const labelH = labelRect.height;
 
-        const recessW_css = labelW + padCss * 2;
-        const recessH_css = labelH + padCss * 2;
+        const recessW_css = labelRect.width + padCss * 2;
+        const recessH_css = labelRect.height + padCss * 2;
 
         const sx = 800 / tileRect.width;
         const sy = 1000 / tileRect.height;
