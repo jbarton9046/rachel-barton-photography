@@ -73,9 +73,19 @@
     nav a{padding:8px 12px;border-radius:0;color:#7A5B3B}
     nav a.active, nav a:hover, nav a:focus-visible{background:rgba(230,162,74,0.18);text-decoration:none}
 
-    .scallop{--h:18px;height:var(--h);background:
-      radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
-      linear-gradient(var(--butter-100),var(--butter-100));}
+    /* scallop: butter strip with repeating arcs — and sticky just under header */
+    .scallop{
+      --h:18px;
+      height:var(--h);
+      background:
+        radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
+        linear-gradient(var(--butter-100),var(--butter-100));
+    }
+    .scallop:first-of-type{
+      position:sticky;
+      top:var(--scallop-top, 0px);
+      z-index:49;
+    }
 
     h1,.section-title{font-family:"Fraunces",serif;color:var(--heading-ink)}
     h1{
@@ -98,7 +108,7 @@
     .grid{
       display:grid;
       grid-template-columns:repeat(3,1fr);
-      gap: clamp(10px, 1.6vw, 16px); /* tight */
+      gap: clamp(10px, 1.6vw, 16px);
     }
     .grid figure{margin:0}
     .grid img{
@@ -107,7 +117,6 @@
       object-fit:cover;
       transition:transform .15s ease, box-shadow .15s ease;
     }
-    /* keep subtle hover, not dramatic */
     .grid a:hover img{ transform:scale(1.01); box-shadow:0 10px 24px rgba(0,0,0,.08) }
 
     @media (max-width: 960px){ .grid{grid-template-columns:repeat(2,1fr)} }
@@ -266,6 +275,23 @@
       lightbox.addEventListener('click', e=>{
         if(e.target === lightbox) closeBox();
       });
+    })();
+  </script>
+  <script>
+    /* Set scallop offset so it tucks right under the sticky header */
+    (function(){
+      const root = document.documentElement;
+      const header = document.querySelector('header.site');
+      if(!header) return;
+      function setScallopOffset(){
+        const h = header.offsetHeight;
+        root.style.setProperty('--scallop-top', h + 'px');
+      }
+      setScallopOffset();
+      window.addEventListener('resize', setScallopOffset);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(setScallopOffset);
+      }
     })();
   </script>
 </body>
