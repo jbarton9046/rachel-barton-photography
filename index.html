@@ -22,31 +22,33 @@
   <!-- Fonts: soft serif + handwritten accent + friendly sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Caveat:wght@400;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- Preload hero image for faster paint -->
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop" imagesrcset="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=900&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop 1400w" imagesizes="(max-width: 1024px) 90vw, 50vw">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop"
+        imagesrcset="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=900&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop 1400w"
+        imagesizes="(max-width: 1024px) 90vw, 50vw">
 
   <style>
     :root{
       /* GOLDEN-HOUR palette (warm, soft, feminine) */
-      --bg: #FFF8EE;             /* warm paper */
+      --bg: #FFF8EE; /* warm paper */
       --paper: #ffffff;
-      --ink: #5A5046;            /* soft warm charcoal */
+      --ink: #5A5046; /* soft warm charcoal */
       --muted: #8E8176;
-
-      --butter-50:#FFF6DD; --butter-100:#FFECC2; --butter-200:#FFE1A8;
-      --peach-100:#FFE0D1; --peach-200:#FFD1BC;
+      --butter-50:#FFF6DD;
+      --butter-100:#FFECC2;
+      --butter-200:#FFE1A8;
+      --peach-100:#FFE0D1;
+      --peach-200:#FFD1BC;
       --sage-100:#E9F0E4;
-
-      --heading-ink:#6B4E2E;     /* warm umber for headings */
-      --accent:#E6A24A;          /* golden button */
-      --accent-ink:#7A4A10;      /* deeper gold-brown text */
-      --accent-2:#D7C69E;        /* pale sand accent */
-
+      --heading-ink:#6B4E2E; /* warm umber for headings */
+      --accent:#E6A24A; /* golden button */
+      --accent-ink:#7A4A10; /* deeper gold-brown text */
+      --accent-2:#D7C69E; /* pale sand accent */
       --ring: rgba(230,162,74,.35);
       --shadow: 0 10px 30px rgba(94, 63, 20, 0.10);
-      --radius: 18px;
+      --radius: 0; /* square everything */
       --gap: clamp(16px, 3vw, 32px);
       --maxw: 1200px;
     }
@@ -56,9 +58,19 @@
       margin:0;padding:0;background:var(--bg);color:var(--ink);
       font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       line-height:1.65;
-      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
     }
-    img{max-width:100%;height:auto;display:block;border-radius:14px}
+
+    /* Square corners + framed photos site-wide */
+    img{
+      max-width:100%;
+      height:auto;
+      display:block;
+      border-radius:0;
+      border:1px solid #F2D9A4;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+    }
 
     /* Links: warm golden */
     a{color:#9A6724;text-decoration:none}
@@ -66,15 +78,20 @@
 
     /* Subtle golden-hour bloom */
     body::before{
-      content:""; position:fixed; inset:0; pointer-events:none;
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
       background:
         radial-gradient(1200px 600px at 10% -10%, rgba(255,221,180,.38), transparent 60%),
         radial-gradient(900px 500px at 110% 20%, rgba(255,233,176,.30), transparent 60%),
         radial-gradient(800px 500px at 50% 120%, rgba(255,209,194,.28), transparent 60%);
-      opacity:.6; z-index:-1;
+      opacity:.6;
+      z-index:-1;
     }
 
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
+
     header.site{
       position:sticky;top:0;z-index:50;
       background:rgba(255,248,238,0.85);backdrop-filter:saturate(120%) blur(10px);
@@ -83,48 +100,115 @@
     .nav{display:flex;align-items:center;justify-content:space-between;padding:14px var(--gap)}
     .brand{display:flex;align-items:center;gap:12px}
     .brand .logo{
-      width:44px;height:44px;border-radius:50%;
+      width:44px;height:44px;border-radius:50%; /* circle sun restored */
+      /* Golden-hour sun (glow + gentle vignette) */
       background:
-        radial-gradient(circle at 30% 30%, #FFECC2, transparent 60%),
-        radial-gradient(circle at 70% 70%, #FFE0D1, transparent 55%),
-        linear-gradient(135deg,#FFF6DD,#fff);
-      box-shadow:var(--shadow); border:1px solid rgba(0,0,0,.04)
+        radial-gradient(42px 42px at 50% 50%, #FFE7B3 0%, #FFD485 45%, #FFC166 65%, #F4A44C 85%, #E18A3B 100%);
+      border:1px solid rgba(226, 149, 60, .45);
+      box-shadow:
+        0 4px 10px rgba(0,0,0,.08),
+        0 0 0 6px rgba(255, 219, 170, .45),
+        0 0 32px rgba(255, 176, 88, .35);
     }
     .brand .name{
       font-family:"Fraunces",serif; font-weight:700; font-size:21px; letter-spacing:.2px; color:var(--heading-ink)
     }
 
-    nav ul{display:flex;list-style:none;gap:16px;margin:0;padding:0}
-    nav a{padding:8px 12px;border-radius:999px;color:#7A5B3B}
+    /* Desktop nav to the right of the logo */
+    header.site nav ul{
+      display:flex; list-style:none; gap:16px; margin:0; padding:0;
+    }
+    nav a{padding:8px 12px;border-radius:0;color:#7A5B3B}
     nav a.active, nav a:focus-visible, nav a:hover{background:rgba(230,162,74,0.18);text-decoration:none}
     .menu-btn{display:none;color:#7A5B3B}
 
-    /* Scallop dividers (butter / sage) */
-    .scallop{--h:18px;height:var(--h);background:
-      radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
-      linear-gradient(var(--butter-100),var(--butter-100));}
-    .scallop.sage{background:
-      radial-gradient(var(--h) at 50% -2px, var(--bg) 98%, transparent 100%) center top/var(--h) var(--h) repeat-x,
-      linear-gradient(var(--sage-100),var(--sage-100));}
+    /* ── Scallop divider: matches header + sticky (top one only) ───────── */
+    .scallop{
+      --h:18px;
+      position:relative;
+      height:var(--h);
+      background:rgba(255,248,238,0.85);
+      backdrop-filter:saturate(120%) blur(10px);
+      -webkit-backdrop-filter:saturate(120%) blur(10px);
+      border-bottom:1px solid rgba(0,0,0,0.04);
+    }
+    /* draw the wavy edge with a pseudo-element so it always shows */
+    .scallop::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:-1px; height:var(--h);
+      background:
+        radial-gradient(var(--h) at 50% 0, var(--bg) 98%, transparent 100%)
+          center bottom/var(--h) var(--h) repeat-x;
+      pointer-events:none;
+    }
+    /* make ONLY the first scallop sticky under the sticky header */
+    .scallop:first-of-type{
+      position:sticky;
+      top:0;
+      z-index:49;
+    }
+    /* Sage variant keeps same translucency/blur so it matches header */
+    .scallop.sage{
+      background:rgba(255,248,238,0.85);
+      backdrop-filter:saturate(120%) blur(10px);
+      -webkit-backdrop-filter:saturate(120%) blur(10px);
+      border-bottom:1px solid rgba(0,0,0,0.04);
+    }
+    .scallop.sage::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:-1px; height:var(--h);
+      background:
+        radial-gradient(var(--h) at 50% 0, var(--bg) 98%, transparent 100%)
+          center bottom/var(--h) var(--h) repeat-x;
+      pointer-events:none;
+    }
 
     /* Headings */
-    .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--gap);align-items:center;padding:calc(var(--gap)*2) 0}
+
+    /* HERO full-bleed with centered copy */
+    .hero{
+      display:grid; grid-template-columns:1fr; align-items:center;
+      padding:calc(var(--gap)*3) 0; min-height:70vh;
+      background:url('pictures/heroImage.jpg') center/cover no-repeat; position:relative;
+      /* make hero span full viewport width even inside .container */
+      width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
+    }
+    .hero::after{
+      content:""; position:absolute; inset:0;
+      background:linear-gradient(to bottom, rgba(255,248,238,.62), rgba(255,248,238,.18) 35%, rgba(0,0,0,.18) 100%);
+      pointer-events:none;
+    }
+    .hero .copy{
+      position:relative; /* above overlay */
+      background:rgba(255,248,238,.86); border:1px solid #F7E6C7; padding:18px; max-width:680px; box-shadow:var(--shadow);
+      margin:0 auto; /* center the card */
+      text-align:center; /* center text inside */
+    }
+    .hero .cta{justify-content:center} /* center buttons */
+
     .eyebrow{color:#AF7A2C;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
     h1,.section-title{font-family:"Fraunces",serif;color:var(--heading-ink)}
-    h1{font-size:clamp(32px,6vw,56px);line-height:1.1;margin:.25em 0;font-weight:600;letter-spacing:.2px}
+    h1{
+      font-family:"Playfair Display", serif;
+      font-size:clamp(32px,6vw,56px);
+      line-height:1.1; margin:.25em 0; font-weight:700; letter-spacing:.2px;
+      background: linear-gradient(180deg, #7A5B3B 0%, #B37A32 55%, #6B4E2E 100%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow: 0 1px 0 rgba(255,255,255,.2);
+    }
     .section-title{font-size:clamp(24px,3.5vw,38px);margin:0 0 8px;font-weight:600;letter-spacing:.2px}
     .feature h3,.card h3{font-family:"Fraunces",serif;font-weight:600;color:#7A5B3B}
-
     .subtitle{color:#7E6F63;max-width:60ch}
     .cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
-
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;border:1px solid transparent;background:var(--accent);color:white;font-weight:700;box-shadow:var(--shadow)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:0;border:1px solid transparent;background:var(--accent);color:white;font-weight:700;box-shadow:var(--shadow)}
     .btn:hover{filter:brightness(.98)}
     .btn.secondary{background:#fff;color:#7A5B3B;border-color:#F7E6C7}
     .btn.ghost{background:transparent;border:1px dashed #F2D9A4;color:#7A5B3B}
-    .badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(0,0,0,0.05);padding:8px 12px;border-radius:999px;margin-top:12px;color:#8E8176}
 
-    .sticker{position:relative; display:inline-flex; align-items:center; gap:8px; background:#FFF2D8; border:1px solid #FFE9B0; color:#6D5A33; padding:8px 12px; border-radius:999px; transform:rotate(-3deg); box-shadow:0 6px 18px rgba(180,140,90,.15)}
+    /* Badge pills — square now */
+    .badge{display:inline-flex;align-items:center;gap:8px;background:#FFF2D8;border:1px solid #FFE3AA;padding:8px 12px;border-radius:0;margin-top:12px;color:#6D5A33}
+    .badge.white{background:#fff;border-color:rgba(0,0,0,0.05);color:#8E8176}
+    .sticker{position:relative; display:inline-flex; align-items:center; gap:8px; background:#FFF2D8; border:1px solid #FFE9B0; color:#6D5A33; padding:8px 12px; border-radius:0; transform:rotate(-3deg); box-shadow:0 6px 18px rgba(180,140,90,.15)}
 
     section{padding:calc(var(--gap)*2) 0}
     .section-sub{color:#7A6C5E;margin:0 0 22px}
@@ -135,52 +219,158 @@
     .meta{color:#8A7A6A;font-size:14px}
 
     /* Gallery */
-    .mosaic{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    .mosaic img{cursor:pointer; transition:transform .2s ease; aspect-ratio:4/5; object-fit:cover}
-    .mosaic img:hover{transform:scale(1.01)}
+    .mosaic{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      /* tighter gap -> tiles are visually larger and closer together */
+      gap: clamp(10px, 1.6vw, 16px);
+    }
+    /* remove default figure margins so tiles use full column width and align flush with heading/CTA */
+    .mosaic figure{ margin:0; }
+
+    /* We now use <figure> tiles with SVG, not linked images */
+    .mosaic .captioned.notch{
+      position:relative;
+      display:block;
+    }
+
+    .mosaic .notch-figure{
+      display:block;
+      width:100%;
+      aspect-ratio:4/5;
+      background:transparent; /* lets the page background show through the recess */
+      /* restore original IMG box metrics with a transparent border; keep the same shadow */
+      border:1px solid transparent;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      /* no hover transition on the picture itself */
+      transition:none;
+    }
+
+    /* DISABLED picture hover (no scale or extra shadow on images) */
+    .mosaic .captioned.notch:hover .notch-figure{
+      transform:none;
+      filter:none;
+    }
+
+    /* The visible frame’s stroke */
+    .mosaic .u-stroke{
+      fill:none;
+      stroke:#F2D9A4;
+      stroke-width:1;
+      vector-effect:non-scaling-stroke;
+      stroke-linejoin:round;
+    }
+
+    /* Overlay box that exactly matches the recess; we size/position it via JS */
+    .mosaic .notch-box{
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:none; /* keep photo non-clickable; only label is clickable */
+    }
+
+    /* Label chip (this is the ONLY link) */
+    .mosaic .cap-label{
+      background:var(--accent-2);
+      color:#6D5A33;
+      border:1px solid #FFE3AA;
+      padding:8px 14px;
+      font-size:13px;
+      letter-spacing:.08em;
+      font-weight:600;
+      white-space:nowrap;
+      border-radius:0;
+      line-height:1.2;
+      pointer-events:auto; /* allow clicking the label */
+      text-decoration:none;
+      /* add hover/active affordance to the LABEL instead of the photo */
+      transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+    }
+    .mosaic .cap-label:hover,
+    .mosaic .cap-label:focus-visible{
+      background:#e8d8b0;
+      box-shadow:0 6px 18px rgba(0,0,0,.08);
+      transform:translateY(-1px);
+      text-decoration:none;
+      outline:none;
+    }
+    .mosaic .cap-label:active{
+      transform:translateY(0);
+      box-shadow:0 3px 10px rgba(0,0,0,.06);
+    }
 
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
     .feature{background:var(--paper);padding:18px;border:1px solid #F7E6C7;border-radius:var(--radius);box-shadow:var(--shadow)}
-
     .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    blockquote{background:#fff;border:1px solid #F7E6C7;padding:18px;margin:0;border-radius:14px;position:relative;color:#6B5B4D}
+    blockquote{background:#fff;border:1px solid #F7E6C7;padding:18px;margin:0;border-radius:0;position:relative;color:#6B5B4D}
     blockquote:before{content:"“"; font-family:"Fraunces",serif; font-size:48px; color:#F2D6A7; position:absolute; left:12px; top:-10px}
     blockquote footer{color:#8A7A6A;font-size:14px;margin-top:8px}
 
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
     form{background:#fff;padding:18px;border:1px solid #F7E6C7;border-radius:var(--radius);box-shadow:var(--shadow)}
     label{display:block;font-weight:600;margin:10px 0 6px;color:#7A5B3B}
-    input, textarea, select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #F2D9A4;background:#fff;outline:none}
+    input, textarea, select{width:100%;padding:12px 14px;border-radius:0;border:1px solid #F2D9A4;background:#fff;outline:none}
     input:focus, textarea:focus, select:focus{border-color:#E6A24A;box-shadow:0 0 0 4px var(--ring)}
     textarea{min-height:120px}
 
     footer{border-top:1px solid rgba(0,0,0,0.06);padding:28px 0;color:#7f7f7f}
 
+    /* "Fridge" calendar styles */
+    .scheduler-card{background:#fff;border:1px solid #F7E6C7;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .cal{display:grid;grid-template-columns:1fr 280px}
+    .cal-left{padding:18px}
+    .cal-right{border-left:1px solid #F7E6C7;padding:18px}
+    .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .cal-header h3{margin:0;font-family:"Fraunces",serif;color:#7A5B3B}
+    .cal-nav{display:flex;gap:6px}
+    .cal-btn{border:1px solid #F2D9A4;background:#fff;border-radius:0;padding:6px 10px;cursor:pointer}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+    .cal-dow{font-size:12px;color:#8A7A6A;text-align:center;margin-bottom:6px}
+    .cal-day{background:#FFF9EF;border:1px solid #F7E6C7;border-radius:0;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;cursor:pointer}
+    .cal-day.muted{opacity:.35}
+    .cal-day.selected{background:#FFE6BF;border-color:#E6A24A;box-shadow:0 0 0 3px rgba(230,162,74,.25) inset}
+    .slot{display:block;padding:10px 12px;border:1px solid #F2D9A4;border-radius:0;margin-bottom:10px;text-align:center;cursor:pointer;background:#fff}
+    .slot:hover{background:#FFF7E8}
+    .empty{color:#8A7A6A;font-size:14px}
+
+    /* Compact calendar overrides (for the Contact column card) */
+    .scheduler-card.compact .cal{grid-template-columns:1fr 220px}
+    .scheduler-card.compact .cal-left{padding:14px}
+    .scheduler-card.compact .cal-right{padding:14px}
+    .scheduler-card.compact .cal-header h3{font-size:16px}
+    .scheduler-card.compact .cal-btn{padding:4px 8px;font-size:12px;border-radius:0}
+    .scheduler-card.compact .cal-dow{font-size:11px}
+    .scheduler-card.compact .cal-day{font-size:13px;border-radius:0}
+    .scheduler-card.compact .slot{padding:8px 10px;font-size:14px;border-radius:0}
+
     /* Mobile */
-    @media (max-width: 1024px){ .hero{grid-template-columns:1fr;gap:24px} }
+    @media (max-width: 1024px){
+      .hero{grid-template-columns:1fr;gap:24px}
+    }
     @media (max-width: 960px){
       .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr}
-      nav ul{display:none}
-      .menu-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,0,0,0.08);padding:8px 12px;border-radius:10px;background:white}
-      .mobile-nav{display:none;padding:12px var(--gap)}
-      .mobile-nav.open{display:block}
-      .mobile-nav a{display:block;padding:10px 12px;border-radius:8px;color:#7A5B3B}
-      .mobile-nav a:hover{background:rgba(0,0,0,0.04);text-decoration:none}
+      .cal{grid-template-columns:1fr}
+      .cal-right{border-left:0;border-top:1px solid #F7E6C7}
     }
     @media (max-width: 640px){
       .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr}
       .btn{width:100%;justify-content:center}
     }
 
-    /* Booking Modal */
+    /* Booking Modal (kept for future use) */
     #bookingModal{position:fixed;inset:0;display:none;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);z-index:1000}
-    #bookingBox{max-width:960px;width:92%;height:80vh;margin:5vh auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.2);position:relative; border:1px solid #F7E6C7}
-    #bookingClose{position:absolute;right:10px;top:10px;border:none;background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.1); color:#7A5B3B}
+    #bookingBox{max-width:960px;width:92%;height:80vh;margin:5vh auto;background:#fff;border-radius:0;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.2);position:relative; border:1px solid #F7E6C7}
+    #bookingClose{position:absolute;right:10px;top:10px;border:none;background:#fff;border-radius:0;padding:8px 10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.1); color:#7A5B3B}
     #bookingClose:hover{background:#FFF4DE}
+
     /* Lightbox */
     #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:1200}
-    #lightbox img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 12px 50px rgba(0,0,0,.5)}
-    #lightbox button{position:absolute;top:18px;right:18px;background:#fff;border:0;border-radius:10px;padding:8px 12px;cursor:pointer}
+    #lightbox img{max-width:92vw;max-height:88vh;border-radius:0;box-shadow:0 12px 50px rgba(0,0,0,.5); border:1px solid #F2D9A4}
+    #lightbox button{position:absolute;top:18px;right:18px;background:#fff;border:0;border-radius:0;padding:8px 12px;cursor:pointer}
   </style>
 
   <!-- JSON-LD: Local Business / Photographer -->
@@ -210,7 +400,7 @@
         <div class="logo" aria-hidden="true"></div>
         <div class="name">Rachel Barton Photography</div>
       </div>
-      <button class="menu-btn" aria-label="Toggle menu" onclick="toggleMenu()">☰ Menu</button>
+      <!-- Nav restored to the right of the logo -->
       <nav aria-label="Primary">
         <ul>
           <li><a href="#home" class="active">Home</a></li>
@@ -222,14 +412,6 @@
         </ul>
       </nav>
     </div>
-    <div class="mobile-nav container" id="mnav">
-      <a href="#home" onclick="toggleMenu(false)">Home</a>
-      <a href="#services" onclick="toggleMenu(false)">Sessions</a>
-      <a href="#portfolio" onclick="toggleMenu(false)">Galleries</a>
-      <a href="#about" onclick="toggleMenu(false)">About</a>
-      <a href="#reviews" onclick="toggleMenu(false)">Reviews</a>
-      <a href="#contact" onclick="toggleMenu(false)">Contact</a>
-    </div>
   </header>
 
   <!-- Scallop divider -->
@@ -238,28 +420,19 @@
   <main id="home" class="container">
     <!-- Hero -->
     <section class="hero" aria-label="Hero">
-      <div>
+      <div class="copy">
         <div class="eyebrow">Sarasota • Siesta Key • Lido • Longboat Key</div>
-        <h1>Whimsical, candid photography for families on the Gulf Coast</h1>
+        <h1>Real, relaxed family photography — coastal, warm, and timeless</h1>
         <p class="subtitle">
-          I’m Rachel — a family & lifestyle photographer creating
-          <strong>candid, timeless, true-to-life</strong> images at the beach, in the park, and wherever your story feels most like home.
+          I’m Rachel — a family & lifestyle photographer creating <strong>candid, timeless, true-to-life</strong> images at the beach, in the park, and wherever your story feels most like home.
         </p>
         <div class="cta">
-          <a class="btn" href="javascript:void(0)" onclick="openBooking()">Book a Session</a>
+          <a class="btn" href="#book">Book a Session</a>
           <a class="btn secondary" href="#portfolio">View Galleries</a>
           <span class="sticker">now booking fall minis ✨</span>
         </div>
-        <div class="badge">Weekday mornings & evenings • Full weekends • From Tampa → Punta Gorda</div>
-      </div>
-      <div>
-        <img
-          src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop"
-          srcset="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=800&auto=format&fit=crop 800w,
-                  https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1200&auto=format&fit=crop 1200w,
-                  https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1600&auto=format&fit=crop 1600w"
-          sizes="(max-width: 1024px) 92vw, 46vw"
-          alt="Family walking on a beach at sunset" loading="eager" />
+        <!-- Updated availability -->
+        <div class="badge white">Select weekday evenings • Full weekends • From Tampa → Punta Gorda</div>
       </div>
     </section>
 
@@ -270,41 +443,35 @@
 
       <div class="cards">
         <article class="card">
-          <img loading="lazy"
-            src="pictures/mother-son-outdoors-sunset-with-copy-space.jpg"
-            alt="Mother and son outdoors at sunset" />
+          <img loading="lazy" src="pictures/mother-son-outdoors-sunset-with-copy-space.jpg" alt="Mother and son outdoors at sunset" />
           <div class="body">
             <h3>Mini Session</h3>
             <p class="meta">30 minutes • ~15–25 edited images</p>
-            <p>Perfect for milestones & seasonal updates. One location. Weekdays or select weekend windows.</p>
-            <p><strong>Intro pricing:</strong> $200–$275</p>
-            <a class="btn ghost" href="javascript:void(0)" onclick="openBooking('https://app.acuityscheduling.com/schedule.php?owner=37092379&appointmentType=84002438')">Book mini</a>
+            <p>Perfect for milestones & seasonal updates. Select weekday evenings or full weekends.</p>
+            <p><strong>Intro pricing:</strong> $250</p>
+            <a class="btn ghost" href="#book">Book mini</a>
           </div>
         </article>
 
-        <article class="card">
-          <img loading="lazy"
-            src="pictures/mother-son-outdoors-sunset-with-copy-space%20(1).jpg"
-            alt="Mother and son in golden hour" />
+      <article class="card">
+          <img loading="lazy" src="pictures/mother-son-outdoors-sunset-with-copy-space%20(1).jpg" alt="Mother and son in golden hour" />
           <div class="body">
             <h3>Standard Session</h3>
             <p class="meta">60 minutes • ~35–50 edited images</p>
             <p>The most popular option for families & maternity. One location (nearby second look optional).</p>
-            <p><strong>Intro pricing:</strong> $350–$450</p>
-            <a class="btn ghost" href="javascript:void(0)" onclick="openBooking('https://app.acuityscheduling.com/schedule.php?owner=37092379&appointmentType=84002572')">Book standard</a>
+            <p><strong>Intro pricing:</strong> $450</p>
+            <a class="btn ghost" href="#book">Book standard</a>
           </div>
         </article>
 
         <article class="card">
-          <img loading="lazy"
-            src="pictures/man-woman-kid-wearing-pale-summer-clothes-walking-wet-sand-sea-spending-leisure-time-beach.jpg"
-            alt="Family walking along wet sand at the beach" />
+          <img loading="lazy" src="pictures/man-woman-kid-wearing-pale-summer-clothes-walking-wet-sand-sea-spending-leisure-time-beach.jpg" alt="Family walking along wet sand at the beach" />
           <div class="body">
             <h3>Deluxe Session</h3>
             <p class="meta">90 minutes • ~60+ edited images</p>
             <p>Extra time for outfit changes, variety, or two nearby locations. Priority editing available.</p>
-            <p><strong>Intro pricing:</strong> $550–$650</p>
-            <a class="btn ghost" href="javascript:void(0)" onclick="openBooking('https://app.acuityscheduling.com/schedule.php?owner=37092379&appointmentType=84002640')">Book deluxe</a>
+            <p><strong>Intro pricing:</strong> $650</p>
+            <a class="btn ghost" href="#book">Book deluxe</a>
           </div>
         </article>
       </div>
@@ -320,47 +487,152 @@
     <!-- Portfolio / Mosaic -->
     <section id="portfolio" aria-labelledby="portfolio-title">
       <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
-      <p class="section-sub">A peek at the candid, movement-filled style you’ll receive. (Placeholder imagery until we add Rachel’s work.)</p>
+      <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
+
       <div class="mosaic" id="grid">
-        <img loading="lazy"
-          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop"
-          srcset="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop 600w,
-                  https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop 1200w"
-          sizes="(max-width: 960px) 92vw, 360px"
-          alt="Portrait in natural light" />
-        <img loading="lazy"
-          src="https://images.unsplash.com/photo-1511317559916-56d5ddb62563?q=80&w=1200&auto=format&fit=crop"
-          srcset="https://images.unsplash.com/photo-1511317559916-56d5ddb62563?q=80&w=600&auto=format&fit=crop 600w,
-                  https://images.unsplash.com/photo-1511317559916-56d5ddb62563?q=80&w=1200&auto=format&fit=crop 1200w"
-          sizes="(max-width: 960px) 92vw, 360px"
-          alt="Family laughter in a field" />
-        <img loading="lazy"
-          src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?q=80&w=1200&auto=format&fit=crop"
-          srcset="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?q=80&w=600&auto=format&fit=crop 600w,
-                  https://images.unsplash.com/photo-1510511459019-5dda7724fd87?q=80&w=1200&auto=format&fit=crop 1200w"
-          sizes="(max-width: 960px) 92vw, 360px"
-          alt="Parents holding newborn hands" />
-        <img loading="lazy"
-          src="https://images.unsplash.com/photo-1520975922203-b86f2763e6a1?q=80&w=1200&auto=format&fit=crop"
-          srcset="https://images.unsplash.com/photo-1520975922203-b86f2763e6a1?q=80&w=600&auto=format&fit=crop 600w,
-                  https://images.unsplash.com/photo-1520975922203-b86f2763e6a1?q=80&w=1200&auto=format&fit=crop 1200w"
-          sizes="(max-width: 960px) 92vw, 360px"
-          alt="Maternity silhouette at sunset" />
-        <img loading="lazy"
-          src="https://images.unsplash.com/photo-1460364157752-926555421a7e?q=80&w=1200&auto=format&fit=crop"
-          srcset="https://images.unsplash.com/photo-1460364157752-926555421a7e?q=80&w=600&auto=format&fit=crop 600w,
-                  https://images.unsplash.com/photo-1460364157752-926555421a7e?q=80&w=1200&auto=format&fit=crop 1200w"
-          sizes="(max-width: 960px) 92vw, 360px"
-          alt="Couple walking on the beach" />
-        <img loading="lazy"
-          src="https://images.unsplash.com/photo-1520975922203-88ad3ea67b93?q=80&w=1200&auto=format&fit=crop"
-          srcset="https://images.unsplash.com/photo-1520975922203-88ad3ea67b93?q=80&w=600&auto=format&fit=crop 600w,
-                  https://images.unsplash.com/photo-1520975922203-88ad3ea67b93?q=80&w=1200&auto=format&fit=crop 1200w"
-          sizes="(max-width: 960px) 92vw, 360px"
-          alt="Child twirling in nature" />
+
+        <!-- 1) Family Portraits -->
+        <figure class="captioned notch" aria-label="Family Portrait Gallery">
+          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <mask id="notchMask-1">
+                <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+              </mask>
+              <filter id="frameShadow-1" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+              </filter>
+            </defs>
+            <image href="pictures/christStephAlbumThumb.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-1)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
+            </g>
+          </svg>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/family-portrait.html">Family Portraits</a>
+          </div>
+        </figure>
+
+        <!-- 2) Couples at Sunset -->
+        <figure class="captioned notch" aria-label="Couples Sunset Gallery">
+          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <mask id="notchMask-2">
+                <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+              </mask>
+              <filter id="frameShadow-2" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+              </filter>
+            </defs>
+            <image href="pictures/cool-two-young-women-having-fun-sunset-beach-gay-lesbian-love-romance.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-2)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
+            </g>
+          </svg>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/couples-sunset.html">Couples at Sunset</a>
+          </div>
+        </figure>
+
+        <!-- 3) Autumn Field Family -->
+        <figure class="captioned notch" aria-label="Fall Field Family Gallery">
+          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <mask id="notchMask-3">
+                <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+              </mask>
+              <filter id="frameShadow-3" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+              </filter>
+            </defs>
+            <image href="pictures/cute-family-playing-autumn-field.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-3)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
+            </g>
+          </svg>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/fall-field.html">Autumn Field Family</a>
+          </div>
+        </figure>
+
+        <!-- 4) Vacation Family -->
+        <figure class="captioned notch" aria-label="Vacation Family Gallery">
+          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <mask id="notchMask-4">
+                <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+              </mask>
+              <filter id="frameShadow-4" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+              </filter>
+            </defs>
+            <image href="pictures/family-with-baby-daughter-together-vacation.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-4)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-4)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
+            </g>
+          </svg>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/vacation.html">Vacation Family</a>
+          </div>
+        </figure>
+
+        <!-- 5) Grandparents & Littles -->
+        <figure class="captioned notch" aria-label="Grandparents & Littles Gallery">
+          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <mask id="notchMask-5">
+                <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+              </mask>
+              <filter id="frameShadow-5" x="-20%" y="-20%" width="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+              </filter>
+            </defs>
+            <image href="pictures/full-grandma-kid-seaside.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-5)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-5)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
+            </g>
+          </svg>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/grandparents.html">Grandparents &amp; Littles</a>
+          </div>
+        </figure>
+
+        <!-- 6) Tropical Couples -->
+        <figure class="captioned notch" aria-label="Tropical Couples Gallery">
+          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <mask id="notchMask-6">
+                <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+              </mask>
+              <filter id="frameShadow-6" x="-20%" y="-20%" width="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+              </filter>
+            </defs>
+            <image href="pictures/young-stylish-hipster-couple-love-tropical-beach-vacation.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-6)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-6)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/>
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80"/>
+            </g>
+          </svg>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/couples-tropical.html">Tropical Couples</a>
+          </div>
+        </figure>
+
       </div>
+
       <div class="cta" style="margin-top:18px">
-        <a class="btn secondary" href="javascript:void(0)" onclick="openBooking()">Check availability</a>
+        <a class="btn secondary" href="#book">Check availability</a>
       </div>
     </section>
 
@@ -368,6 +640,7 @@
     <section id="about" aria-labelledby="about-title">
       <h2 class="section-title" id="about-title">Meet Rachel</h2>
       <p class="section-sub">Mom of two, outdoors lover, and detail-driven photographer who keeps sessions calm, playful, and effortless.</p>
+
       <div class="cards" style="align-items:start">
         <div class="card" style="grid-column: span 2">
           <div class="body">
@@ -378,16 +651,12 @@
               I’m known for gentle direction that still feels candid and natural, true-to-life color, and a kid-friendly flow with room to wiggle and wonder. I shoot across Sarasota, Siesta Key, Lido, Longboat, Lakewood Ranch, and Venice — and I’m happy to travel from Tampa down to Punta Gorda.
             </p>
             <p><strong>Favorite locations:</strong> Lido Key, Siesta Key, Celery Fields, Myakka River State Park, The Ringling, Selby Gardens.</p>
-            <div class="cta"><a class="btn" href="javascript:void(0)" onclick="openBooking()">Let’s Plan Your Session</a></div>
+            <div class="cta"><a class="btn" href="#book">Let’s Plan Your Session</a></div>
           </div>
         </div>
+
         <div class="card">
-          <img loading="lazy"
-            src="https://images.unsplash.com/photo-1520975922203-0f7f4a5f9792?q=80&w=1200&auto=format&fit=crop"
-            srcset="https://images.unsplash.com/photo-1520975922203-0f7f4a5f9792?q=80&w=700&auto=format&fit=crop 700w,
-                    https://images.unsplash.com/photo-1520975922203-0f7f4a5f9792?q=80&w=1200&auto=format&fit=crop 1200w"
-            sizes="(max-width: 960px) 92vw, 360px"
-            alt="Rachel outdoors with camera (placeholder)" />
+          <img loading="lazy" src="pictures/rahcelHeadshot.JPG" alt="Rachel Barton, Sarasota family photographer headshot" />
         </div>
       </div>
     </section>
@@ -396,6 +665,7 @@
     <section aria-labelledby="why-title">
       <h2 class="section-title" id="why-title">My Approach</h2>
       <p class="section-sub">Candid • Timeless • True-to-life</p>
+
       <div class="features">
         <div class="feature">
           <h3>Patient & Kid-Wise</h3>
@@ -416,6 +686,7 @@
     <section id="reviews" aria-labelledby="reviews-title">
       <h2 class="section-title" id="reviews-title">Kind Words</h2>
       <p class="section-sub">We’ll add 3–6 short testimonials here as they come in.</p>
+
       <div class="quotes">
         <blockquote>Rachel kept our toddler smiling the whole time — so many genuine moments.<footer>— S. Miller</footer></blockquote>
         <blockquote>Booking was simple, communication was clear, and the photos are stunning.<footer>— A. Nguyen</footer></blockquote>
@@ -426,10 +697,11 @@
     <!-- FAQ / Policies -->
     <section aria-labelledby="faq-title">
       <h2 class="section-title" id="faq-title">FAQ & Policies</h2>
+
       <div class="features">
         <div class="feature">
           <h3>Availability</h3>
-          <p>Weekday early mornings & evenings; full weekends. Golden hour recommended for beach sessions.</p>
+          <p>Select weekday evenings; full weekends. Golden hour recommended for beach sessions.</p>
         </div>
         <div class="feature">
           <h3>Booking & Payment</h3>
@@ -458,18 +730,21 @@
     <section id="contact" aria-labelledby="contact-title">
       <h2 class="section-title" id="contact-title">Say Hello</h2>
       <p class="section-sub">Tell me about your crew and the kind of session you’re envisioning.</p>
+
       <div class="contact-grid">
-        <!-- Netlify form with honeypot + redirect back to home for toast -->
         <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?contact=sent">
           <input type="hidden" name="form-name" value="contact" />
           <p style="display:none"><label>Don’t fill this out: <input name="bot-field" /></label></p>
 
           <label for="name">Your Name</label>
           <input id="name" name="name" required placeholder="Jane Doe" />
+
           <label for="email">Email</label>
           <input id="email" name="email" type="email" required placeholder="you@example.com" />
+
           <label for="phone">Phone</label>
           <input id="phone" name="phone" inputmode="tel" placeholder="(xxx) xxx-xxxx" />
+
           <label for="service">Interested In</label>
           <select id="service" name="service">
             <option value="Family">Family</option>
@@ -477,36 +752,49 @@
             <option value="Newborn">Newborn</option>
             <option value="Portraits">Portraits</option>
           </select>
+
           <label for="message">Message</label>
           <textarea id="message" name="message" placeholder="Tell me a bit about your family and preferred location/time."></textarea>
+
           <div style="display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap">
             <button class="btn" type="submit">Send Request</button>
-            <a class="btn secondary" href="javascript:void(0)" onclick="openBooking()">Check Calendar</a>
+            <a class="btn secondary" href="#book">Check Calendar</a>
             <span style="color:#8A7A6A;font-size:14px">Or reach me: <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></span>
           </div>
         </form>
 
         <div>
+          <div class="card" id="book" style="margin-bottom:var(--gap)">
+            <div class="body" style="padding:0">
+              <div class="scheduler-card compact" style="border:none; box-shadow:none">
+                <iframe src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c"
+                        title="Book a Session"
+                        style="width:100%; height:600px; border:0; border-radius:0; display:block;"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allow="clipboard-write; geolocation">
+                </iframe>
+                <div style="padding:12px 14px; text-align:center;">
+                  <a href="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c" target="_blank" rel="noopener">Open full-screen ↗</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="card">
             <div class="body">
               <h3>Service Area</h3>
               <p>Sarasota • Siesta Key • Lido • Longboat Key • Lakewood Ranch • Venice • Bradenton • Tampa • St. Petersburg • Clearwater • Punta Gorda</p>
+
               <h3 style="margin-top:16px">Preferred Times</h3>
-              <p>Weekday early mornings & evenings · All weekend times. Beach sessions at golden hour recommended.</p>
+              <p>Select weekday evenings · Full weekends. Beach sessions at golden hour recommended.</p>
+
               <h3 style="margin-top:16px">Booking Online</h3>
               <p>Prefer to book directly? Tap “Book a Session” to open the calendar right here.</p>
+
               <div class="badge">Live booking + contracts coming soon</div>
             </div>
           </div>
-          <div class="card" style="margin-top:var(--gap)">
-            <img loading="lazy"
-              src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop"
-              srcset="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=700&auto=format&fit=crop 700w,
-                      https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop 1200w"
-              sizes="(max-width: 960px) 92vw, 360px"
-              alt="Waves at sunset (Sarasota vibe)" />
-          </div>
         </div>
+
       </div>
     </section>
   </main>
@@ -518,7 +806,7 @@
     </div>
   </footer>
 
-  <!-- Booking Modal (Acuity) -->
+  <!-- Booking Modal (kept for future use) -->
   <div id="bookingModal" aria-hidden="true">
     <div id="bookingBox" role="dialog" aria-modal="true" aria-label="Book a session">
       <button id="bookingClose" type="button" onclick="closeBooking()" aria-label="Close booking">✕</button>
@@ -529,81 +817,101 @@
   <!-- Lightbox -->
   <div id="lightbox"><button onclick="closeLightbox()">✕</button><img alt=""></div>
 
-  <!-- Acuity embed script (kept; not required for iframe but harmless) -->
-  <script src="https://embed.acuityscheduling.com/js/embed.js" async></script>
-
   <script>
-    // Mobile menu
-    function toggleMenu(force){
-      const el = document.getElementById('mnav');
-      if(force === false){ el.classList.remove('open'); return; }
-      el.classList.toggle('open');
-    }
-
-    // Active link on scroll
-    const sections = ['home','services','portfolio','about','reviews','contact'];
-    const navLinks = document.querySelectorAll('header nav a');
-    const opts = {root:null,rootMargin:'-40% 0px -55% 0px',threshold:0};
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          navLinks.forEach(a=>a.classList.remove('active'));
-          const link = document.querySelector(`header nav a[href="#${e.target.id}"]`);
-          if(link) link.classList.add('active');
-        }
-      })
-    }, opts);
-    sections.forEach(id=>{const s=document.getElementById(id); if(s) io.observe(s)});
+    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Toast after Netlify redirect back with ?contact=sent
+    /* ===== Apply TRUE notch cutout + centered label to ALL six tiles ===== */
     (function(){
-      const p = new URLSearchParams(location.search);
-      if(p.get('contact') === 'sent'){
-        const toast = document.createElement('div');
-        toast.textContent = "Thanks for reaching out — I’ll email you shortly!";
-        Object.assign(toast.style,{
-          position:'fixed',left:'50%',transform:'translateX(-50%)',bottom:'20px',
-          background:'#fff',border:'1px solid #F7E6C7',padding:'12px 16px',
-          borderRadius:'12px',boxShadow:'0 10px 25px rgba(0,0,0,.12)',zIndex:2000,
-          color:'#7A5B3B'
-        });
-        document.body.appendChild(toast);
-        setTimeout(()=>toast.remove(), 4200);
+      const tiles = document.querySelectorAll('.mosaic .captioned.notch');
+      if(!tiles.length) return;
+
+      function updateTile(tile){
+        const svg = tile.querySelector('svg.notch-figure');
+        const notchRect = svg.querySelector('.notchRect');     // mask cutout rect
+        const recessStroke = svg.querySelector('.recessStroke'); // visible border of recess
+        const label = tile.querySelector('.cap-label');
+        const notchBox = tile.querySelector('.notch-box');
+        if(!svg || !label || !notchRect || !recessStroke || !notchBox) return;
+
+        const padCss = 8;         // uniform recess padding around the label
+        const nudgeRightCss = 1;  // micro-nudge for optical centering
+
+        // Measure in CSS px
+        const labelRect = label.getBoundingClientRect();
+        const tileRect  = svg.getBoundingClientRect();
+        const labelW = labelRect.width;
+        const labelH = labelRect.height;
+
+        // Recess size in CSS px
+        const recessW_css = labelW + padCss * 2;
+        const recessH_css = labelH + padCss * 2;
+
+        // Convert CSS px -> SVG units (viewBox 800x1000)
+        const sx = 800 / tileRect.width;
+        const sy = 1000 / tileRect.height;
+
+        const recessW = recessW_css * sx;
+        const recessH = recessH_css * sy;
+
+        // Center horizontally; lift up slightly so a bottom margin shows
+        const recessX = ((tileRect.width - recessW_css) / 2) * sx;
+        const recessY = 1000 - recessH - (padCss * sy);
+
+        // Apply to mask (cutout)
+        notchRect.setAttribute('x', recessX.toFixed(2));
+        notchRect.setAttribute('y', recessY.toFixed(2));
+        notchRect.setAttribute('width', recessW.toFixed(2));
+        notchRect.setAttribute('height', recessH.toFixed(2));
+
+        // Visible recess border to match
+        recessStroke.setAttribute('x', recessX.toFixed(2));
+        recessStroke.setAttribute('y', recessY.toFixed(2));
+        recessStroke.setAttribute('width', recessW.toFixed(2));
+        recessStroke.setAttribute('height', recessH.toFixed(2));
+
+        // Position the overlay box to match recess (label is the ONLY link)
+        notchBox.style.width = recessW_css + 'px';
+        notchBox.style.height = recessH_css + 'px';
+        notchBox.style.bottom = padCss + 'px';
+        notchBox.style.left = '50%';
+        notchBox.style.transform = `translateX(calc(-50% + ${nudgeRightCss}px))`;
       }
+
+      function updateAll(){
+        tiles.forEach(t => updateTile(t));
+      }
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(()=>{ requestAnimationFrame(updateAll); });
+      } else {
+        window.addEventListener('load', updateAll);
+      }
+
+      window.addEventListener('resize', ()=>{ requestAnimationFrame(updateAll); });
+      setTimeout(updateAll, 0);
     })();
-
-    // Booking popup (Acuity) with default Sessions category OR per-type links
-    function openBooking(url){
-      const modal = document.getElementById('bookingModal');
-      const wrap  = document.getElementById('bookingWrap');
-      const defaultUrl = "https://app.acuityscheduling.com/schedule.php?owner=37092379&appointmentType=category:Sessions";
-      wrap.innerHTML = `<iframe src="${url || defaultUrl}" title="Acuity Scheduling" style="border:0;width:100%;height:100%"></iframe>`;
-      modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    }
-    function closeBooking(){
-      document.getElementById('bookingModal').style.display='none';
-      document.getElementById('bookingWrap').innerHTML="";
-      document.body.style.overflow='';
-    }
-    document.getElementById('bookingModal').addEventListener('click',(e)=>{ if(e.target.id==='bookingModal') closeBooking() });
-    window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeBooking(); });
-
-    // Simple image lightbox
-    const grid = document.getElementById('grid');
-    const lb = document.getElementById('lightbox');
-    const lbImg = lb.querySelector('img');
-    function closeLightbox(){ lb.style.display='none'; lbImg.src=''; }
-    if(grid){
-      grid.querySelectorAll('img').forEach(img=>{
-        img.addEventListener('click',()=>{ lbImg.src = img.currentSrc || img.src; lb.style.display='flex'; });
-        img.setAttribute('decoding','async');
-        img.setAttribute('loading','lazy');
-      });
-    }
-    lb.addEventListener('click',(e)=>{ if(e.target.id==='lightbox') closeLightbox(); });
-    window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLightbox(); });
   </script>
+  <script>
+  // Keep the scallop snug under the sticky header (safe to keep)
+  (function(){
+    const root = document.documentElement;
+    const header = document.querySelector('header.site');
+    if(!header) return;
+
+    function setScallopOffset(){
+      const h = header.offsetHeight;
+      root.style.setProperty('--scallop-top', h + 'px');
+    }
+
+    setScallopOffset();
+    window.addEventListener('resize', setScallopOffset);
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(setScallopOffset);
+    }
+  })();
+</script>
+
 </body>
 </html>
