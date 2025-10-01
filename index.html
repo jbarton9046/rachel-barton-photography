@@ -685,124 +685,77 @@
   <div id="lightbox"><button onclick="closeLightbox()">✕</button><img alt=""></div>
 
   <script>
-    // Active link on scroll
-    const sections = ['home','services','portfolio','about','reviews','contact'];
-    const navLinks = document.querySelectorAll('header nav a');
-    const opts = {root:null,rootMargin:'-40% 0px -55% 0px',threshold:0};
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          navLinks.forEach(a=>a.classList.remove('active'));
-          const link = document.querySelector('header nav, a[href="#${e.target.id}"]');
-          if(link) link.classList.add('active');
-        }
-      })
-    }, opts);
-    sections.forEach(id=>{const s=document.getElementById(id); if(s) io.observe(s)});
-    document.getElementById('year').textContent = new Date().getFullYear();
+  /* ===== FIRST TILE: Center label; keep full outer border; draw matching recess border. ===== */
+  (function(){
+    const tile = document.querySelector('.mosaic a.captioned.notch');
+    if(!tile) return;
 
-    // Toast after Netlify redirect back with ?contact=sent
-    (function(){
-      const p = new URLSearchParams(location.search);
-      if(p.get('contact') === 'sent'){
-        const toast = document.createElement('div');
-        toast.textContent = "Thanks for reaching out — I’ll email you shortly!";
-        Object.assign(toast.style,{
-          position:'fixed',left:'50%',transform:'translateX(-50%)',bottom:'20px',
-          background:'#fff',border:'1px solid #F7E6C7',padding:'12px 16px',
-          borderRadius:'0',boxShadow:'0 10px 25px rgba(0,0,0,.12)',zIndex:2000,
-          color:'#7A5B3B'
-        });
-        document.body.appendChild(toast);
-        setTimeout(()=>toast.remove(), 4200);
-      }
-    })();
+    const svg = tile.querySelector('svg.notch-figure');
+    const notchRect = svg.querySelector('#notchRect');       // mask cutout
+    const framePath = svg.querySelector('#framePath');       // full outer frame (static)
+    const recessStroke = svg.querySelector('#recessStroke'); // stroke that outlines the recess
+    const label = tile.querySelector('#capLabel');
+    const notchBox = tile.querySelector('#notchBox');
 
-    function openBooking(url){
-      const modal = document.getElementById('bookingModal');
-      const wrap  = document.getElementById('bookingWrap');
-      wrap.innerHTML = "<div style='display:flex;height:100%;align-items:center;justify-content:center;color:#7A5B3B'>Booking coming soon</div>";
-      modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
+    function updateNotch(){
+      if(!svg || !label || !notchRect || !framePath || !recessStroke || !notchBox) return;
+
+      const padCss = 8;              // uniform recess visible on all sides
+      const nudgeRightCss = 4;       // <— tweak this (px) if you want a hair more/less to the right
+
+      // Measure label (CSS px)
+      const labelRect = label.getBoundingClientRect();
+      const tileRect  = svg.getBoundingClientRect();
+      const labelW = labelRect.width;
+      const labelH = labelRect.height;
+
+      // Target recess size in CSS px
+      const recessW_css = labelW + padCss * 2;
+      const recessH_css = labelH + padCss * 2;
+
+      // Center recess horizontally
+      const recessLeft_css = tileRect.left + (tileRect.width - recessW_css)/2;
+
+      // Convert CSS px to SVG units (viewBox 800x1000)
+      const sx = 800 / tileRect.width;
+      const sy = 1000 / tileRect.height;
+
+      const recessW = recessW_css * sx;
+      const recessH = recessH_css * sy;
+
+      // Lift the recess UP by padCss so the bottom margin shows
+      const recessX = ((recessLeft_css - tileRect.left) * sx);
+      const recessY = 1000 - recessH - (padCss * sy);
+
+      // Apply to mask (cutout)
+      notchRect.setAttribute('x', recessX.toFixed(2));
+      notchRect.setAttribute('y', recessY.toFixed(2));
+      notchRect.setAttribute('width', recessW.toFixed(2));
+      notchRect.setAttribute('height', recessH.toFixed(2));
+
+      // Make the visible recess border match the cutout
+      recessStroke.setAttribute('x', recessX.toFixed(2));
+      recessStroke.setAttribute('y', recessY.toFixed(2));
+      recessStroke.setAttribute('width', recessW.toFixed(2));
+      recessStroke.setAttribute('height', recessH.toFixed(2));
+
+      // Overlay box matches the recess and we nudge it slightly RIGHT for perfect optical centering
+      notchBox.style.width = recessW_css + 'px';
+      notchBox.style.height = recessH_css + 'px';
+      notchBox.style.bottom = padCss + 'px';
+      notchBox.style.left = '50%';
+      notchBox.style.transform = `translateX(calc(-50% + ${nudgeRightCss}px))`; // <— the nudge
     }
-    function closeBooking(){
-      document.getElementById('bookingModal').style.display='none';
-      document.getElementById('bookingWrap').innerHTML="";
-      document.body.style.overflow='';
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(()=>{ requestAnimationFrame(updateNotch); });
+    } else {
+      window.addEventListener('load', updateNotch);
     }
-    document.getElementById('bookingModal').addEventListener('click',(e)=>{ if(e.target.id==='bookingModal') closeBooking() });
-    window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeBooking(); });
-
-    /* ===== FIRST TILE: Center label; keep full outer border; draw matching recess border. ===== */
-    (function(){
-      const tile = document.querySelector('.mosaic a.captioned.notch');
-      if(!tile) return;
-
-      const svg = tile.querySelector('svg.notch-figure');
-      const notchRect = svg.querySelector('#notchRect');       // mask cutout
-      const framePath = svg.querySelector('#framePath');       // full outer frame (static)
-      const recessStroke = svg.querySelector('#recessStroke'); // stroke that outlines the recess
-      const label = tile.querySelector('#capLabel');
-      const notchBox = tile.querySelector('#notchBox');
-
-      function updateNotch(){
-        if(!svg || !label || !notchRect || !framePath || !recessStroke || !notchBox) return;
-
-        const padCss = 8; // uniform recess visible on all sides
-
-        // Measure label (CSS px)
-        const labelRect = label.getBoundingClientRect();
-        const tileRect  = svg.getBoundingClientRect();
-        const labelW = labelRect.width;
-        const labelH = labelRect.height;
-
-        // Target recess size in CSS px
-        const recessW_css = labelW + padCss * 2;
-        const recessH_css = labelH + padCss * 2;
-
-        // Center recess horizontally
-        const recessLeft_css = tileRect.left + (tileRect.width - recessW_css)/2;
-
-        // Convert CSS px to SVG units (viewBox 800x1000)
-        const sx = 800 / tileRect.width;
-        const sy = 1000 / tileRect.height;
-
-        const recessW = recessW_css * sx;
-        const recessH = recessH_css * sy;
-
-        // Lift the recess UP by padCss so the bottom margin shows
-        const recessX = ((recessLeft_css - tileRect.left) * sx);
-        const recessY = 1000 - recessH - (padCss * sy);
-
-        // Apply to mask (cutout)
-        notchRect.setAttribute('x', recessX.toFixed(2));
-        notchRect.setAttribute('y', recessY.toFixed(2));
-        notchRect.setAttribute('width', recessW.toFixed(2));
-        notchRect.setAttribute('height', recessH.toFixed(2));
-
-        // Make the visible recess border match the cutout
-        recessStroke.setAttribute('x', recessX.toFixed(2));
-        recessStroke.setAttribute('y', recessY.toFixed(2));
-        recessStroke.setAttribute('width', recessW.toFixed(2));
-        recessStroke.setAttribute('height', recessH.toFixed(2));
-
-        // Overlay box matches the recess and centers label perfectly
-        notchBox.style.width = recessW_css + 'px';
-        notchBox.style.height = recessH_css + 'px';
-        notchBox.style.marginLeft = (-recessW_css/2) + 'px';
-        notchBox.style.bottom = padCss + 'px';
-      }
-
-      // Ensure fonts are loaded so label width is correct
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(()=>{ requestAnimationFrame(updateNotch); });
-      } else {
-        window.addEventListener('load', updateNotch);
-      }
-      window.addEventListener('resize', ()=>{ requestAnimationFrame(updateNotch); });
-      // Fallback tick after paint
-      setTimeout(updateNotch, 0);
-    })();
+    window.addEventListener('resize', ()=>{ requestAnimationFrame(updateNotch); });
+    setTimeout(updateNotch, 0);
+  })();
   </script>
+
 </body>
 </html>
