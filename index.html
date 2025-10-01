@@ -763,8 +763,8 @@
       window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLightbox(); });
     }
 
-    /* ===== FIRST TILE: make the recess margin equal to the little top gap you saw,
-       then apply that SAME margin on all four sides around the label. ===== */
+    /* ===== FIRST TILE: uniform margin equals the small current top gap;
+       label sits fully inside the photo (with same bottom margin), not flush. ===== */
     (function(){
       const tile = document.querySelector('.mosaic a.captioned.notch');
       if(!tile) return;
@@ -788,27 +788,27 @@
         const sx = 800 / tileRect.width;
         const sy = 1000 / tileRect.height;
 
-        // Derive the padding from the current (initial) recess height:
-        // take the initial notch height (SVG units), convert to CSS px,
-        // and use half the leftover space above/below the label as the target margin.
-        const initialH_svg  = parseFloat(notchRect.getAttribute('height')) || 80; // default 80
-        const initialH_css  = initialH_svg / sy;
-        const padCss        = Math.max(0, (initialH_css - labelH) / 2);
+        // Use the CURRENT initial notch height as the source of the "little top gap"
+        // (so whatever margin you can see now becomes the uniform padding on all sides)
+        const initialH_svg = parseFloat(notchRect.getAttribute('height')) || 80;
+        const initialH_css = initialH_svg / sy;
+        const padCss = Math.max(0, (initialH_css - labelH) / 2);
 
-        // New recess size = label + equal margin on all four sides
+        // Recess = label + equal margin on all sides
         const recessW_css = labelW + padCss * 2;
         const recessH_css = labelH + padCss * 2;
 
-        // Center recess horizontally; bottom-align vertically with the image/frame
+        // Center recess horizontally; keep it INSIDE the photo at the bottom with bottom margin
+        // i.e., the recess bottom touches the photo bottom; label sits centered with bottom pad visible.
         const recessLeft_css = tileRect.left + (tileRect.width - recessW_css)/2;
 
         // Convert to SVG units
         const recessW = recessW_css * sx;
         const recessH = recessH_css * sy;
         const recessX = ((recessLeft_css - tileRect.left) * sx);
-        const recessY = 1000 - recessH; // bottom-aligned
+        const recessY = 1000 - recessH; // bottom-aligned to image bottom
 
-        // Update mask (cutout)
+        // Update mask (the actual cut-out)
         notchRect.setAttribute('x', recessX.toFixed(2));
         notchRect.setAttribute('y', recessY.toFixed(2));
         notchRect.setAttribute('width', recessW.toFixed(2));
@@ -819,7 +819,7 @@
         notchBox.style.height = recessH_css + 'px';
         notchBox.style.marginLeft = (-recessW_css/2) + 'px';
 
-        // Frame path that detours around the recess (no border under the recess)
+        // Frame path that detours around the recess (no border under it)
         const x1 = recessX;
         const x2 = recessX + recessW;
         const yT = recessY;
