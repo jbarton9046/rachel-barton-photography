@@ -158,7 +158,7 @@
 
     .scheduler-card{border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);background:#fff; overflow:hidden;}
 
-    /* ----- ON-BRAND SCHEDULER (centered & responsive) ----- */
+    /* ----- ON-BRAND SCHEDULER (centered, no scrollbar, no full-screen link) ----- */
     .scheduler-wrap{ max-width:980px; margin:0 auto; }
     .scheduler-wrap .scheduler-header{ text-align:center; margin-bottom:12px; }
     .scheduler-wrap h2{
@@ -171,37 +171,36 @@
 
     .scheduler-card{
       position:relative;
+      height:1200px;              /* ample room so inner page doesn't scroll */
       display:flex;
       justify-content:center;
       align-items:flex-start;
-      overflow:hidden;
+      overflow:hidden;            /* hide any stray overflow */
     }
-
-    /* Responsive iframe wrapper for Acuity */
-    .iframe-wrap{
-      position:relative;
-      width:100%;
-      padding-top:56.25%; /* 16:9 */
-      background:#fff;
-      border-top:1px solid var(--line);
-    }
-    .iframe-wrap iframe{
-      position:absolute; inset:0; width:100%; height:100%; border:0;
-    }
-
-    .scheduler-card .sched-footer{
-      padding:10px 14px; text-align:center; border-top:1px solid var(--line); background:#fff;
+    .scheduler-card iframe{
+      display:block;
+      width:1200px;               /* Acuity canvas width */
+      max-width:none;
+      height:1600px;              /* taller than visible area to avoid bars */
+      border:0;
+      transform:scale(.8);        /* compact look */
+      transform-origin:top center;
+      margin:0;
     }
 
     @media (max-width:960px){
       .packages .cards{grid-template-columns:1fr 1fr}
       .faq-grid{grid-template-columns:1fr 1fr}
       .scheduler-wrap{ max-width:860px; }
+      .scheduler-card{ height:1100px; }
+      .scheduler-card iframe{ height:1500px; }
     }
     @media (max-width:640px){
       .packages .cards{grid-template-columns:1fr}
       .faq-grid{grid-template-columns:1fr}
-      .scheduler-wrap{ max-width:600px; }
+      .scheduler-wrap{ max_width:600px; }
+      .scheduler-card{ height:1000px; }
+      .scheduler-card iframe{ height:1400px; }
     }
   </style>
 </head>
@@ -344,18 +343,14 @@
           </div>
 
           <div class="scheduler-card">
-            <div class="iframe-wrap">
-              <iframe
-                src="https://app.acuityscheduling.com/schedule.php?owner=37092379"
-                title="Book a Session"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                allow="payment *">
-              </iframe>
-            </div>
-            <div class="sched-footer">
-              <a href="https://app.acuityscheduling.com/schedule.php?owner=37092379" target="_blank" rel="noopener">Open full-screen ↗</a>
-            </div>
+            <iframe
+              src="https://app.acuityscheduling.com/schedule.php?owner=37092379"
+              title="Book a Session"
+              loading="lazy"
+              scrolling="no"
+              referrerpolicy="no-referrer-when-downgrade"
+              allow="payment *">
+            </iframe>
           </div>
         </div>
       </section>
