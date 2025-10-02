@@ -110,6 +110,37 @@
     #lb-close{top:18px;right:18px}
     #lb-prev{left:18px;top:50%;transform:translateY(-50%)}
     #lb-next{right:18px;top:50%;transform:translateY(-50%)}
+
+    /* ===== Packages section (square, subtle buttons like index) ===== */
+    .packages{padding:calc(var(--gap)*1.8) 0}
+    .packages .section-title{font-family:"Fraunces",serif;font-size:clamp(24px,3.5vw,38px);margin:0 0 8px;color:#3f3a33;text-align:center}
+    .packages .section-sub{color:#67635b;margin:0 0 22px;text-align:center}
+    .packages .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+    .packages .card{background:var(--paper);border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .packages .card .body{padding:18px;display:flex;flex-direction:column}
+    .packages .meta{color:#7b786f;font-size:14px}
+    .packages .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:10px 16px;border:1px solid var(--line);background:#fff;color:#3f3a33;
+      font-weight:700;text-decoration:none;border-radius:0;box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
+      align-self:flex-start;margin-top:auto
+    }
+    .packages .btn:hover,.packages .btn:focus-visible{
+      background:#f9f6ef;border-color:#dcd4c3;box-shadow:0 10px 24px rgba(0,0,0,.08);
+      transform:translateY(-1px);color:var(--accent);outline:none
+    }
+
+    /* FAQ + booking card */
+    .faq{margin-top:calc(var(--gap)*1.2)}
+    .faq details{background:#fff;border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);padding:14px;margin-bottom:10px}
+    .faq summary{cursor:pointer;font-weight:700;color:#3f3a33;list-style:none}
+    .faq summary::-webkit-details-marker{display:none}
+    .faq p{margin:10px 0 0;color:#5c5850}
+    .scheduler-card{border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);background:#fff}
+
+    @media (max-width:960px){ .packages .cards{grid-template-columns:1fr 1fr} }
+    @media (max-width:640px){ .packages .cards{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
@@ -177,6 +208,80 @@
         <figure>
           <a href="/pictures/familyPortrait/image12.jpg"><img loading="lazy" src="/pictures/familyPortrait/image12.jpg" alt="Family portrait 12" /></a>
         </figure>
+      </div>
+    </section>
+
+    <!-- ===== Family Packages (moved from index) ===== -->
+    <section class="packages" aria-labelledby="pkg-title">
+      <h2 class="section-title" id="pkg-title">Family Packages</h2>
+      <p class="section-sub">Simple, flexible sessions with clear deliverables — styled with warmth, movement, and a little magic.</p>
+
+      <div class="cards">
+        <article class="card">
+          <img loading="lazy" src="/pictures/mother-son-outdoors-sunset-with-copy-space.jpg" alt="Mini session example" />
+          <div class="body">
+            <h3>Mini Session</h3>
+            <p class="meta">30 minutes • ~15–25 edited images</p>
+            <p>Perfect for milestones & seasonal updates. Select weekday evenings or full weekends.</p>
+            <p><strong>$400</strong></p>
+            <a class="btn" href="/#book">Book Mini</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img loading="lazy" src="/pictures/mother-son-outdoors-sunset-with-copy-space%20(1).jpg" alt="Standard session example" />
+          <div class="body">
+            <h3>Standard Session</h3>
+            <p class="meta">60 minutes • ~35–50 edited images</p>
+            <p>Our best balance of time & variety. One location (nearby second look optional).</p>
+            <p><strong>$600</strong></p>
+            <a class="btn" href="/#book">Book Standard</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img loading="lazy" src="/pictures/man-woman-kid-wearing-pale-summer-clothes-walking-wet-sand-sea-spending-leisure-time-beach.jpg" alt="Deluxe session example" />
+          <div class="body">
+            <h3>Deluxe Session</h3>
+            <p class="meta">90 minutes • ~60+ edited images</p>
+            <p>Extra time for outfit changes, variety, or two nearby locations. Priority editing available.</p>
+            <p><strong>$800</strong></p>
+            <a class="btn" href="/#book">Book Deluxe</a>
+          </div>
+        </article>
+      </div>
+
+      <p class="section-sub" style="margin-top:16px">
+        Add-ons: additional images, full-gallery upgrade, print products, travel beyond core area, weekend peak times.
+      </p>
+
+      <!-- Mini FAQ -->
+      <div class="faq">
+        <details>
+          <summary>What should we wear?</summary>
+          <p>Neutral + coastal tones photograph beautifully. Avoid tiny stripes/logos; coordinate without matching. I’ll send simple styling tips after booking.</p>
+        </details>
+        <details>
+          <summary>When is the best time?</summary>
+          <p>Golden hour (just after sunrise or before sunset) for soft, flattering light. Weekday evenings are often calmer at the beach.</p>
+        </details>
+        <details>
+          <summary>How do we receive photos?</summary>
+          <p>Via private online gallery with high-resolution downloads and print options.</p>
+        </details>
+      </div>
+
+      <!-- Inline booking (same embed, compact) -->
+      <div class="scheduler-card" style="margin-top:24px">
+        <iframe
+          src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c"
+          title="Book a Session"
+          style="width:100%; height:600px; border:0; border-radius:0; display:block;"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade" allow="clipboard-write; geolocation">
+        </iframe>
+        <div style="padding:12px 14px; text-align:center;">
+          <a href="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c" target="_blank" rel="noopener">Open full-screen ↗</a>
+        </div>
       </div>
     </section>
   </main>
@@ -250,3 +355,4 @@
   </script>
 </body>
 </html>
+
