@@ -158,7 +158,7 @@
 
     .scheduler-card{border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);background:#fff; overflow:hidden;}
 
-    /* ----- ON-BRAND SCHEDULER (centered & scaled; no left bias) ----- */
+    /* ----- ON-BRAND SCHEDULER (centered & responsive) ----- */
     .scheduler-wrap{ max-width:980px; margin:0 auto; }
     .scheduler-wrap .scheduler-header{ text-align:center; margin-bottom:12px; }
     .scheduler-wrap h2{
@@ -168,26 +168,28 @@
       color:#3f3a33;
     }
     .scheduler-wrap p{ margin:0; color:#5c5850; font-size:15px; }
+
     .scheduler-card{
       position:relative;
-      height:960px;
       display:flex;
       justify-content:center;
       align-items:flex-start;
       overflow:hidden;
     }
-    .scheduler-card iframe{
-      display:block;
-      width:1200px;              /* unscaled HoneyBook canvas */
-      max-width:none;
-      height:1200px;
-      border:0;
-      transform:scale(.8);       /* compact, reduces need for internal scroll */
-      transform-origin:top center;
-      margin:0;
+
+    /* Responsive iframe wrapper for Acuity */
+    .iframe-wrap{
+      position:relative;
+      width:100%;
+      padding-top:56.25%; /* 16:9 */
+      background:#fff;
+      border-top:1px solid var(--line);
     }
+    .iframe-wrap iframe{
+      position:absolute; inset:0; width:100%; height:100%; border:0;
+    }
+
     .scheduler-card .sched-footer{
-      position:absolute; left:0; right:0; bottom:0;
       padding:10px 14px; text-align:center; border-top:1px solid var(--line); background:#fff;
     }
 
@@ -195,15 +197,11 @@
       .packages .cards{grid-template-columns:1fr 1fr}
       .faq-grid{grid-template-columns:1fr 1fr}
       .scheduler-wrap{ max-width:860px; }
-      .scheduler-card{ height:880px; }
-      .scheduler-card iframe{ height:1100px; }
     }
     @media (max-width:640px){
       .packages .cards{grid-template-columns:1fr}
       .faq-grid{grid-template-columns:1fr}
       .scheduler-wrap{ max-width:600px; }
-      .scheduler-card{ height:800px; }
-      .scheduler-card iframe{ height:1000px; }
     }
   </style>
 </head>
@@ -337,7 +335,7 @@
         </div>
       </div>
 
-      <!-- Public HoneyBook FLOW embed (no email gate) -->
+      <!-- Public Acuity SCHEDULER embed (no email gate) -->
       <section aria-labelledby="sched-title" style="padding-top:24px">
         <div class="scheduler-wrap container">
           <div class="scheduler-header">
@@ -346,16 +344,17 @@
           </div>
 
           <div class="scheduler-card">
-            <iframe
-              src="https://rachelbartonphotography.hbportal.co/flow/68de0cc00f57f5002b366b0a?hash=43597838be3f4cd358bba082d781e145"
-              title="Book a Session"
-              loading="lazy"
-              scrolling="no"
-              referrerpolicy="no-referrer-when-downgrade"
-              allow="clipboard-write; geolocation">
-            </iframe>
+            <div class="iframe-wrap">
+              <iframe
+                src="https://app.acuityscheduling.com/schedule.php?owner=37092379"
+                title="Book a Session"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allow="payment *">
+              </iframe>
+            </div>
             <div class="sched-footer">
-              <a href="https://rachelbartonphotography.hbportal.co/flow/68de0cc00f57f5002b366b0a?hash=43597838be3f4cd358bba082d781e145" target="_blank" rel="noopener">Open full-screen ↗</a>
+              <a href="https://app.acuityscheduling.com/schedule.php?owner=37092379" target="_blank" rel="noopener">Open full-screen ↗</a>
             </div>
           </div>
         </div>
