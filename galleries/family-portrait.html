@@ -158,15 +158,16 @@
 
     .scheduler-card{border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);background:#fff; overflow:hidden;}
 
-    /* ----- ON-BRAND SCHEDULER (SHRUNK) ----- */
+    /* ----- ON-BRAND SCHEDULER (SHRUNK & CENTERED MORE) ----- */
+    .scheduler-wrap{ max-width:980px; margin:0 auto; } /* narrower + centered */
     .scheduler-wrap .scheduler-header{
       text-align:center;
-      margin-bottom:12px; /* was 16px */
+      margin-bottom:12px;
     }
     .scheduler-wrap h2{
       font-family:"Fraunces",serif;
-      font-size:clamp(20px,3vw,28px); /* slightly smaller */
-      margin:0 0 4px; /* tighter */
+      font-size:clamp(20px,3vw,28px);
+      margin:0 0 4px;
       color:#3f3a33;
     }
     .scheduler-wrap p{ margin:0; color:#5c5850; font-size:15px; }
@@ -177,7 +178,7 @@
     }
     .sched-pills .pill{
       appearance:none; border:1px solid var(--line); background:#fff; color:#3f3a33;
-      border-radius:999px; padding:7px 12px; font-weight:700; font-size:14px; cursor:pointer; /* smaller pill */
+      border-radius:999px; padding:7px 12px; font-weight:700; font-size:14px; cursor:pointer;
       box-shadow:0 6px 18px rgba(0,0,0,.06);
       transition:background-color .15s ease, border-color .15s ease, color .15s ease, transform .15s ease, box-shadow .15s ease;
     }
@@ -190,19 +191,20 @@
       background:var(--accent-2); border-color:#dfd5bd; color:#5b5243;
     }
 
-    /* Shrink the iframe visually while keeping content intact and scrollbar-free */
+    /* SHRINK iframe to 80% and size wrapper so full content fits (no inner scrollbar) */
     .scheduler-card{
       position:relative;
-      height:1080px; /* visible height after scaling (see breakpoints below) */
+      height:960px;           /* visible height after scaling (1200 * .8) */
     }
     .scheduler-card iframe{
       display:block;
-      width:111.12%;          /* compensate for 0.9 scale (1/0.9 ≈ 1.111...) */
+      width:125%;             /* compensate for scale(.8) => 1/0.8 = 1.25 */
       height:1200px;          /* full HoneyBook content height */
       border:0;
-      transform:scale(.9);    /* SHRINK */
+      transform:scale(.8);    /* smaller */
       transform-origin:top center;
       margin:0 auto;
+      overflow:hidden;
     }
     .scheduler-card .sched-footer{
       position:absolute; left:0; right:0; bottom:0;
@@ -212,13 +214,15 @@
     @media (max-width:960px){
       .packages .cards{grid-template-columns:1fr 1fr}
       .faq-grid{grid-template-columns:1fr 1fr}
-      .scheduler-card{ height:990px; }  /* 1100 * .9 */
+      .scheduler-wrap{ max-width:860px; }
+      .scheduler-card{ height:880px; }   /* 1100 * .8 */
       .scheduler-card iframe{ height:1100px; }
     }
     @media (max-width:640px){
       .packages .cards{grid-template-columns:1fr}
       .faq-grid{grid-template-columns:1fr}
-      .scheduler-card{ height:900px; }  /* 1000 * .9 */
+      .scheduler-wrap{ max-width:600px; }
+      .scheduler-card{ height:800px; }   /* 1000 * .8 */
       .scheduler-card iframe{ height:1000px; }
     }
   </style>
