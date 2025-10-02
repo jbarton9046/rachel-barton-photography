@@ -158,7 +158,7 @@
 
     .scheduler-card{border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);background:#fff; overflow:hidden;}
 
-    /* ----- ON-BRAND SCHEDULER (SHRUNK & CENTERED) ----- */
+    /* ----- ON-BRAND SCHEDULER (legacy styles left intact for consistency) ----- */
     .scheduler-wrap{ max-width:980px; margin:0 auto; }
     .scheduler-wrap .scheduler-header{ text-align:center; margin-bottom:12px; }
     .scheduler-wrap h2{
@@ -168,41 +168,23 @@
       color:#3f3a33;
     }
     .scheduler-wrap p{ margin:0; color:#5c5850; font-size:15px; }
-    .sched-pills{
-      display:flex; gap:8px; justify-content:center; flex-wrap:wrap;
-      margin-top:10px;
-    }
-    .sched-pills .pill{
-      appearance:none; border:1px solid var(--line); background:#fff; color:#3f3a33;
-      border-radius:999px; padding:7px 12px; font-weight:700; font-size:14px; cursor:pointer;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:background-color .15s ease, border-color .15s ease, color .15s ease, transform .15s ease, box-shadow .15s ease;
-    }
-    .sched-pills .pill:hover,
-    .sched-pills .pill:focus-visible{
-      background:#f9f6ef; border-color:#dcd4c3; color:var(--accent);
-      transform:translateY(-1px); outline:none;
-    }
-    .sched-pills .pill.is-active{
-      background:var(--accent-2); border-color:#dfd5bd; color:#5b5243;
-    }
 
     /* CENTER IFRAME EXACTLY (no left bias) */
     .scheduler-card{
       position:relative;
-      height:960px;              /* visible height after scaling */
-      display:flex;              /* center the iframe horizontally */
+      height:960px;
+      display:flex;
       justify-content:center;
       align-items:flex-start;
       overflow:hidden;
     }
     .scheduler-card iframe{
       display:block;
-      width:1200px;              /* unscaled content width */
+      width:1200px;
       max-width:none;
-      height:1200px;             /* unscaled content height */
+      height:1200px;
       border:0;
-      transform:scale(.8);       /* shrink uniformly */
+      transform:scale(.8);
       transform-origin:top center;
       margin:0;
     }
@@ -225,6 +207,12 @@
       .scheduler-card{ height:800px; }
       .scheduler-card iframe{ height:1000px; }
     }
+
+    /* ---- New compact HoneyBook FLOW embed ---- */
+    .hb-embed{ max-width:980px; margin:24px auto; }
+    .hb-embed iframe{ width:100%; height:720px; border:0; display:block; }
+    @media (max-width:960px){ .hb-embed iframe{ height:820px; } }
+    @media (max-width:640px){ .hb-embed iframe{ height:900px; } }
   </style>
 </head>
 <body>
@@ -357,36 +345,19 @@
         </div>
       </div>
 
-      <!-- On-brand scheduler block (pills to choose session link) -->
-      <section aria-labelledby="sched-title" style="padding-top:24px">
-        <div class="scheduler-wrap container">
-          <div class="scheduler-header">
-            <h2 id="sched-title">Schedule your session</h2>
-            <p>Pick a time that works. I’ll follow up with a quick prep guide and styling tips.</p>
-
-            <!-- NOTE: replace data-src values for Standard/Deluxe with your specific HoneyBook URLs -->
-            <div class="sched-pills" role="tablist" aria-label="Choose a session type">
-              <button class="pill is-active" data-src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c">Mini</button>
-              <button class="pill" data-src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c">Standard</button>
-              <button class="pill" data-src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c">Deluxe</button>
-            </div>
-          </div>
-
-          <div class="scheduler-card">
-            <iframe id="hbFrame"
-              src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c"
-              title="Book a Session"
-              loading="lazy"
-              scrolling="no"
-              referrerpolicy="no-referrer-when-downgrade"
-              allow="clipboard-write; geolocation">
-            </iframe>
-            <div class="sched-footer">
-              <a id="hbFullLink" href="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c" target="_blank" rel="noopener">Open full-screen ↗</a>
-            </div>
-          </div>
+      <!-- HoneyBook FLOW embed (centered & compact) -->
+      <div class="scheduler-card hb-embed">
+        <iframe
+          src="https://rachelbartonphotography.hbportal.co/flow/68de0513f40538002d72d1af?hash=a3b917eb6603d7ffd13f9d2c57ab71bb"
+          title="Book a Session"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allow="clipboard-write; geolocation">
+        </iframe>
+        <div class="sched-footer">
+          <a href="https://rachelbartonphotography.hbportal.co/flow/68de0513f40538002d72d1af?hash=a3b917eb6603d7ffd13f9d2c57ab71bb" target="_blank" rel="noopener">Open full-screen ↗</a>
         </div>
-      </section>
+      </div>
     </section>
   </main>
 
@@ -454,24 +425,6 @@
       // click outside to close
       lightbox.addEventListener('click', e=>{
         if(e.target === lightbox) closeBox();
-      });
-    })();
-
-    // Scheduler pills: swap iframe URL + full-screen link
-    (function(){
-      const frame = document.getElementById('hbFrame');
-      const fullLink = document.getElementById('hbFullLink');
-      const pills = document.querySelectorAll('.sched-pills .pill');
-      pills.forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          pills.forEach(b=>b.classList.remove('is-active'));
-          btn.classList.add('is-active');
-          const url = btn.getAttribute('data-src');
-          if(url){
-            if (frame.src !== url) frame.src = url;
-            if (fullLink) fullLink.href = url;
-          }
-        });
       });
     })();
   </script>
