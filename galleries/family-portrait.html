@@ -36,6 +36,8 @@
       margin:0; padding:0; background:var(--bg); color:var(--ink);
       font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      /* prevent any horizontal scrollbar */
+      overflow-x:hidden;
     }
 
     /* Global links match index (gold hover) */
@@ -155,7 +157,7 @@
       color:#5c5850;
     }
 
-    .scheduler-card{border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);background:#fff}
+    .scheduler-card{border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);background:#fff; overflow:hidden;}
 
     /* ----- On-brand scheduler wrapper & pills (around the iframe) ----- */
     .scheduler-wrap .scheduler-header{
@@ -188,7 +190,9 @@
       background:var(--accent-2); border-color:#dfd5bd; color:#5b5243;
     }
     .scheduler-card iframe{
-      display:block; width:100%; height:720px; border:0;
+      display:block; width:100%;
+      /* taller so the HoneyBook UI doesn’t need a scrollbar */
+      height:1200px; border:0;
     }
     .scheduler-card .sched-footer{
       padding:12px 14px; text-align:center; border-top:1px solid var(--line);
@@ -199,12 +203,14 @@
     @media (max-width:960px){
       .packages .cards{grid-template-columns:1fr 1fr}
       .faq-grid{grid-template-columns:1fr 1fr}
-      .scheduler-card iframe{ height:650px; }
+      /* still no scrollbar on laptop/tablet */
+      .scheduler-card iframe{ height:1100px; }
     }
     @media (max-width:640px){
       .packages .cards{grid-template-columns:1fr}
       .faq-grid{grid-template-columns:1fr}
-      .scheduler-card iframe{ height:640px; }
+      /* extra height on phones to avoid inner scroll */
+      .scheduler-card iframe{ height:1000px; }
     }
   </style>
 </head>
@@ -358,6 +364,7 @@
               src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c"
               title="Book a Session"
               loading="lazy"
+              scrolling="no"
               referrerpolicy="no-referrer-when-downgrade"
               allow="clipboard-write; geolocation">
             </iframe>
