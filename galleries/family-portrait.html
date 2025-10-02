@@ -34,20 +34,26 @@
     *{box-sizing:border-box}
     html,body{
       margin:0; padding:0; background:var(--bg); color:var(--ink);
-      font-family:Manrope,system-ui,-apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-      overflow-x:hidden;
+      overflow-x:hidden; /* prevent any horizontal scrollbar */
     }
 
+    /* Global links match index (gold hover) */
     a{color:inherit; text-decoration:none; transition:color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
 
+    /* Image frame like index */
     img{max-width:100%; height:auto; display:block; border:1px solid var(--frame); box-shadow:0 6px 18px rgba(0,0,0,.06)}
 
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    /* Floating nav look */
-    header.site{position:absolute; top:0; left:0; right:0; background:transparent; border:0; z-index:10;}
+    /* ===== FLOATING NAV (no header bar) ===== */
+    header.site{
+      position:absolute; top:0; left:0; right:0;
+      background:transparent; border:0;
+      z-index:10;
+    }
     .nav{display:flex;align-items:center;justify-content:space-between;padding:14px var(--gap)}
     .brand{display:flex;align-items:center;gap:12px}
     .brand .logo{
@@ -60,7 +66,7 @@
     header.site nav ul{display:flex;list-style:none;gap:18px;margin:0;padding:0}
     header.site nav a{font-weight:600}
 
-    /* Floating intro card */
+    /* Floating intro card (matches index hero card) */
     .floating{
       background:rgba(255,255,255,.85);
       border:1px solid var(--line);
@@ -74,11 +80,17 @@
     h1{font-family:"Playfair Display",serif; font-size:clamp(28px,5.5vw,52px); line-height:1.1; margin:.25em 0 .2em; font-weight:700; color:#3f3a33}
     .section-sub{color:#5c5850; margin:0 0 12px}
 
+    /* Bigger text CTAs (no boxes) */
     .cta{display:flex; gap:26px; margin-top:14px; flex-wrap:wrap; justify-content:center}
     .cta a{font-weight:700; font-size:18px; line-height:1.2}
 
+    /* Gallery grid */
     main section{padding:0 0 calc(var(--gap)*1.5)}
-    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px)}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:clamp(10px,1.6vw,16px);
+    }
     .grid figure{margin:0}
     .grid img{width:100%; aspect-ratio:4/5; object-fit:cover; transition:transform .15s ease, box-shadow .15s ease}
     .grid a:hover img{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.08) }
@@ -88,7 +100,18 @@
 
     footer{border-top:1px solid var(--line);padding:28px 0;color:#7f7f7f}
 
-    /* Packages */
+    /* Lightbox */
+    #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:1200}
+    #lightbox img{max-width:92vw;max-height:88vh;border:1px solid var(--frame);box-shadow:0 12px 50px rgba(0,0,0,.5)}
+    #lb-close,#lb-prev,#lb-next{
+      position:absolute;border:0;background:#ffffff; color:#7A5B3B; cursor:pointer;
+      padding:8px 12px; border-radius:0; box-shadow:0 2px 8px rgba(0,0,0,.2)
+    }
+    #lb-close{top:18px;right:18px}
+    #lb-prev{left:18px;top:50%;transform:translateY(-50%)}
+    #lb-next{right:18px;top:50%;transform:translateY(-50%)}
+
+    /* ===== Packages section (square, subtle buttons like index) ===== */
     .packages{padding:calc(var(--gap)*1.8) 0}
     .packages .section-title{font-family:"Fraunces",serif;font-size:clamp(24px,3.5vw,38px);margin:0 0 8px;color:#3f3a33;text-align:center}
     .packages .section-sub{color:#67635b;margin:0 0 22px;text-align:center}
@@ -108,25 +131,60 @@
       transform:translateY(-1px);color:var(--accent);outline:none
     }
 
-    /* FAQ cards */
+    /* FAQ (card grid to match the site) */
     .faq{margin-top:calc(var(--gap)*1.2)}
-    .faq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-    .faq-card{background:#fff;border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);padding:18px}
-    .faq-card h3{margin:0 0 8px;font-size:18px;font-weight:700;color:#3f3a33}
-    .faq-card p{margin:0;color:#5c5850}
+    .faq-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:var(--gap);
+    }
+    .faq-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:0;
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+    .faq-card h3{
+      margin:0 0 8px;
+      font-size:18px;
+      font-weight:700;
+      color:#3f3a33;
+    }
+    .faq-card p{
+      margin:0;
+      color:#5c5850;
+    }
 
-    /* Scheduler wrapper */
     .scheduler-card{border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);background:#fff; overflow:hidden;}
+
+    /* ----- ON-BRAND SCHEDULER (centered & scaled; no left bias) ----- */
     .scheduler-wrap{ max-width:980px; margin:0 auto; }
     .scheduler-wrap .scheduler-header{ text-align:center; margin-bottom:12px; }
-    .scheduler-wrap h2{ font-family:"Fraunces",serif; font-size:clamp(20px,3vw,28px); margin:0 0 4px; color:#3f3a33; }
+    .scheduler-wrap h2{
+      font-family:"Fraunces",serif;
+      font-size:clamp(20px,3vw,28px);
+      margin:0 0 4px;
+      color:#3f3a33;
+    }
     .scheduler-wrap p{ margin:0; color:#5c5850; font-size:15px; }
     .scheduler-card{
-      position:relative; height:960px; display:flex; justify-content:center; align-items:flex-start; overflow:hidden;
+      position:relative;
+      height:960px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      overflow:hidden;
     }
     .scheduler-card iframe{
-      display:block; width:1200px; max-width:none; height:1200px; border:0;
-      transform:scale(.8); transform-origin:top center; margin:0;
+      display:block;
+      width:1200px;              /* unscaled HoneyBook canvas */
+      max-width:none;
+      height:1200px;
+      border:0;
+      transform:scale(.8);       /* compact, reduces need for internal scroll */
+      transform-origin:top center;
+      margin:0;
     }
     .scheduler-card .sched-footer{
       position:absolute; left:0; right:0; bottom:0;
@@ -169,7 +227,7 @@
     </div>
   </header>
 
-  <!-- Floating intro -->
+  <!-- Floating intro (no hero image) -->
   <div class="floating container" role="region" aria-label="Gallery intro">
     <p class="section-sub"><a href="/#portfolio">← All Galleries</a></p>
     <h1>Family Portraits</h1>
@@ -183,19 +241,41 @@
   <main class="container">
     <section aria-label="Family portraits gallery">
       <div class="grid" id="gallery">
-        <figure><a href="/pictures/familyPortrait/image1.jpg"><img loading="lazy" src="/pictures/familyPortrait/image1.jpg" alt="Family portrait 1" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image3.jpg"><img loading="lazy" src="/pictures/familyPortrait/image3.jpg" alt="Family portrait 3" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image4.jpg"><img loading="lazy" src="/pictures/familyPortrait/image4.jpg" alt="Family portrait 4" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image5.jpg"><img loading="lazy" src="/pictures/familyPortrait/image5.jpg" alt="Family portrait 5" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image6.jpg"><img loading="lazy" src="/pictures/familyPortrait/image6.jpg" alt="Family portrait 6" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image7.jpg"><img loading="lazy" src="/pictures/familyPortrait/image7.jpg" alt="Family portrait 7" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image8.jpg"><img loading="lazy" src="/pictures/familyPortrait/image8.jpg" alt="Family portrait 8" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image10.jpg"><img loading="lazy" src="/pictures/familyPortrait/image10.jpg" alt="Family portrait 10" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image12.jpg"><img loading="lazy" src="/pictures/familyPortrait/image12.jpg" alt="Family portrait 12" /></a></figure>
+        <!-- Removed 2, 9, 11 -->
+        <figure>
+          <a href="/pictures/familyPortrait/image1.jpg"><img loading="lazy" src="/pictures/familyPortrait/image1.jpg" alt="Family portrait 1" /></a>
+        </figure>
+        <!-- image2 removed -->
+        <figure>
+          <a href="/pictures/familyPortrait/image3.jpg"><img loading="lazy" src="/pictures/familyPortrait/image3.jpg" alt="Family portrait 3" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image4.jpg"><img loading="lazy" src="/pictures/familyPortrait/image4.jpg" alt="Family portrait 4" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image5.jpg"><img loading="lazy" src="/pictures/familyPortrait/image5.jpg" alt="Family portrait 5" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image6.jpg"><img loading="lazy" src="/pictures/familyPortrait/image6.jpg" alt="Family portrait 6" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image7.jpg"><img loading="lazy" src="/pictures/familyPortrait/image7.jpg" alt="Family portrait 7" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image8.jpg"><img loading="lazy" src="/pictures/familyPortrait/image8.jpg" alt="Family portrait 8" /></a>
+        </figure>
+        <!-- image9 removed -->
+        <figure>
+          <a href="/pictures/familyPortrait/image10.jpg"><img loading="lazy" src="/pictures/familyPortrait/image10.jpg" alt="Family portrait 10" /></a>
+        </figure>
+        <!-- image11 removed -->
+        <figure>
+          <a href="/pictures/familyPortrait/image12.jpg"><img loading="lazy" src="/pictures/familyPortrait/image12.jpg" alt="Family portrait 12" /></a>
+        </figure>
       </div>
     </section>
 
-    <!-- Packages -->
+    <!-- ===== Family Packages (moved from index) ===== -->
     <section class="packages" aria-labelledby="pkg-title">
       <h2 class="section-title" id="pkg-title">Family Packages</h2>
       <p class="section-sub">Simple, flexible sessions with clear deliverables — styled with warmth, movement, and a little magic.</p>
@@ -239,7 +319,7 @@
         Add-ons: additional images, full-gallery upgrade, print products, travel beyond core area, weekend peak times, <strong>priority editing</strong>.
       </p>
 
-      <!-- FAQ -->
+      <!-- FAQ in card grid -->
       <div class="faq">
         <div class="faq-grid">
           <div class="faq-card">
@@ -257,7 +337,7 @@
         </div>
       </div>
 
-      <!-- Public HoneyBook SCHEDULER embed (no email gate) -->
+      <!-- Public HoneyBook FLOW embed (no email gate) -->
       <section aria-labelledby="sched-title" style="padding-top:24px">
         <div class="scheduler-wrap container">
           <div class="scheduler-header">
@@ -267,7 +347,7 @@
 
           <div class="scheduler-card">
             <iframe
-              src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c"
+              src="https://rachelbartonphotography.hbportal.co/flow/68de0cc00f57f5002b366b0a?hash=43597838be3f4cd358bba082d781e145"
               title="Book a Session"
               loading="lazy"
               scrolling="no"
@@ -275,7 +355,7 @@
               allow="clipboard-write; geolocation">
             </iframe>
             <div class="sched-footer">
-              <a href="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c" target="_blank" rel="noopener">Open full-screen ↗</a>
+              <a href="https://rachelbartonphotography.hbportal.co/flow/68de0cc00f57f5002b366b0a?hash=43597838be3f4cd358bba082d781e145" target="_blank" rel="noopener">Open full-screen ↗</a>
             </div>
           </div>
         </div>
@@ -302,7 +382,7 @@
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Simple Lightbox
+    // Simple Lightbox (click thumbnails)
     (function(){
       const lightbox = document.getElementById('lightbox');
       const imgEl = document.getElementById('lb-img');
@@ -336,6 +416,7 @@
       prevBtn.addEventListener('click', prev);
       nextBtn.addEventListener('click', next);
 
+      // keyboard controls
       window.addEventListener('keydown', e=>{
         if(lightbox.style.display !== 'flex') return;
         if(e.key === 'Escape') closeBox();
@@ -343,6 +424,7 @@
         if(e.key === 'ArrowRight') next();
       });
 
+      // click outside to close
       lightbox.addEventListener('click', e=>{
         if(e.target === lightbox) closeBox();
       });
