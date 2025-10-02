@@ -158,7 +158,7 @@
 
     .scheduler-card{border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);background:#fff; overflow:hidden;}
 
-    /* ----- ON-BRAND SCHEDULER (legacy styles left intact for consistency) ----- */
+    /* ----- ON-BRAND SCHEDULER (centered & scaled; no left bias) ----- */
     .scheduler-wrap{ max-width:980px; margin:0 auto; }
     .scheduler-wrap .scheduler-header{ text-align:center; margin-bottom:12px; }
     .scheduler-wrap h2{
@@ -168,8 +168,6 @@
       color:#3f3a33;
     }
     .scheduler-wrap p{ margin:0; color:#5c5850; font-size:15px; }
-
-    /* CENTER IFRAME EXACTLY (no left bias) */
     .scheduler-card{
       position:relative;
       height:960px;
@@ -180,11 +178,11 @@
     }
     .scheduler-card iframe{
       display:block;
-      width:1200px;
+      width:1200px;              /* unscaled HoneyBook canvas */
       max-width:none;
       height:1200px;
       border:0;
-      transform:scale(.8);
+      transform:scale(.8);       /* compact, reduces need for internal scroll */
       transform-origin:top center;
       margin:0;
     }
@@ -207,12 +205,6 @@
       .scheduler-card{ height:800px; }
       .scheduler-card iframe{ height:1000px; }
     }
-
-    /* ---- New compact HoneyBook FLOW embed ---- */
-    .hb-embed{ max-width:980px; margin:24px auto; }
-    .hb-embed iframe{ width:100%; height:720px; border:0; display:block; }
-    @media (max-width:960px){ .hb-embed iframe{ height:820px; } }
-    @media (max-width:640px){ .hb-embed iframe{ height:900px; } }
   </style>
 </head>
 <body>
@@ -345,19 +337,29 @@
         </div>
       </div>
 
-      <!-- HoneyBook FLOW embed (centered & compact) -->
-      <div class="scheduler-card hb-embed">
-        <iframe
-          src="https://rachelbartonphotography.hbportal.co/flow/68de0513f40538002d72d1af?hash=a3b917eb6603d7ffd13f9d2c57ab71bb"
-          title="Book a Session"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          allow="clipboard-write; geolocation">
-        </iframe>
-        <div class="sched-footer">
-          <a href="https://rachelbartonphotography.hbportal.co/flow/68de0513f40538002d72d1af?hash=a3b917eb6603d7ffd13f9d2c57ab71bb" target="_blank" rel="noopener">Open full-screen ↗</a>
+      <!-- Public HoneyBook SCHEDULER embed (no email gate) -->
+      <section aria-labelledby="sched-title" style="padding-top:24px">
+        <div class="scheduler-wrap container">
+          <div class="scheduler-header">
+            <h2 id="sched-title">Schedule your session</h2>
+            <p>Pick a time that works. I’ll follow up with a quick prep guide and styling tips.</p>
+          </div>
+
+          <div class="scheduler-card">
+            <iframe
+              src="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c"
+              title="Book a Session"
+              loading="lazy"
+              scrolling="no"
+              referrerpolicy="no-referrer-when-downgrade"
+              allow="clipboard-write; geolocation">
+            </iframe>
+            <div class="sched-footer">
+              <a href="https://rachelbartonphotography.hbportal.co/schedule/68db40849f6539002e23102c" target="_blank" rel="noopener">Open full-screen ↗</a>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </section>
   </main>
 
