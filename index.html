@@ -15,7 +15,6 @@
   <meta property="og:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
   <meta property="og:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
   <meta property="og:url" content="https://rachelsphotography.netlify.app/" />
-  <!-- Use your screenshot as the preview image (absolute URL) -->
   <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
   <meta property="og:image:secure_url" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
   <meta property="og:image:width" content="1200" />
@@ -58,14 +57,13 @@
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
 
-    /* Floating text links, gold on hover, no underline */
     a{color:inherit; text-decoration:none; transition:color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
 
     img{max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    /* HERO (full viewport, brand + nav over photo) */
+    /* HERO */
     .hero{
       position:relative;
       min-height:100svh;
@@ -79,10 +77,10 @@
       pointer-events:none;
     }
 
-    /* top overlay bar */
+    /* top overlay bar (centered nav) */
     .topbar{
       position:absolute; left:0; right:0; top:0;
-      display:flex; align-items:center; justify-content:center; /* center the nav across top */
+      display:flex; align-items:center; justify-content:center;
       padding:16px var(--gap); z-index:2;
     }
     nav.primary{width:100%;}
@@ -91,18 +89,22 @@
       justify-content:center; gap:clamp(18px,3.2vw,46px); flex-wrap:wrap;
     }
     nav.primary a{
-      font-weight:400;                          /* not bold */
-      font-size:clamp(16px,1.8vw,22px);         /* larger, professional */
+      font-weight:400;                  /* not bold */
+      font-size:clamp(16px,1.8vw,22px); /* larger, professional */
       letter-spacing:.01em;
       padding:6px 2px;
     }
 
-    /* hero copy block */
+    /* hero copy box — tighter fit left/right */
     .hero .copy{
       position:relative; z-index:1;
+      display:inline-block;                   /* shrink-wrap to content */
+      width:fit-content;
+      max-width:min(92vw, 760px);             /* stay responsive */
       background:rgba(255,255,255,.85);
       border:1px solid var(--line);
-      padding:18px; max-width:680px; box-shadow:var(--shadow);
+      padding:clamp(14px,1.8vw,24px) clamp(18px,3vw,32px);
+      box-shadow:var(--shadow);
       text-align:center;
     }
 
@@ -110,10 +112,23 @@
     h1{font-family:"Playfair Display",serif; font-size:clamp(32px,6vw,56px); line-height:1.1; margin:.25em 0; font-weight:700; color:#3f3a33}
     .subtitle{color:#5c5850; max-width:60ch; margin:0 auto}
 
-    /* Floating-text buttons – centered */
+    /* Buttons */
     .cta{display:flex; gap:22px; margin-top:18px; flex-wrap:wrap; justify-content:center}
     .btn{background:transparent; border:0; padding:0; color:#3f3a33; font-weight:700; cursor:pointer}
-    .btn:hover,.btn:focus-visible{ color:var(--accent) }
+
+    /* HERO primary button with soft sand background */
+    .hero .btn{
+      background:var(--accent-2);
+      border:1px solid var(--line);
+      padding:10px 16px;
+      border-radius:0;
+      box-shadow:var(--shadow);
+      text-decoration:none;
+    }
+    .hero .btn:hover,.hero .btn:focus-visible{
+      background:#e2d7bd; border-color:#dcd4c3; color:#3f3a33;
+      outline:none;
+    }
 
     .badge{display:block; margin-top:12px; color:#6a645a}
 
@@ -174,19 +189,11 @@
     @media (max-width:960px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr} }
     @media (max-width:640px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr} }
 
-    /* Buttons below main content */
+    /* Generic buttons below main content */
     main .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:10px 16px;
-      border:1px solid var(--line);
-      background:#fff;
-      color:#3f3a33;
-      font-weight:700;
-      text-decoration:none;
-      border-radius:0;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 16px; border:1px solid var(--line);
+      background:#fff; color:#3f3a33; font-weight:700; text-decoration:none; border-radius:0;
       box-shadow:0 6px 18px rgba(0,0,0,.06);
       transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
@@ -197,12 +204,6 @@
     main .btn:active{ transform:translateY(0); box-shadow:0 4px 12px rgba(0,0,0,.06); }
     main button.btn{ appearance:none; -webkit-appearance:none; cursor:pointer; }
 
-    /* Keep hero buttons as floating text */
-    .hero .btn{ background:transparent !important; border:0 !important; padding:0 !important; box-shadow:none !important; color:#3f3a33; }
-    .hero .cta{ gap:28px; }
-    .hero .btn{ font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; padding:8px 6px; border-bottom:1px solid transparent; }
-    .hero .btn:hover,.hero .btn:focus-visible{ color:var(--accent); border-bottom-color:var(--accent); }
-
     /* Align service card buttons uniformly */
     .card .body{ display:flex; flex-direction:column; }
     .card .body .btn{ align-self:flex-start; margin-top:auto; }
@@ -210,14 +211,12 @@
     /* Center the single Send Request button in contact form */
     .contact-cta{ justify-content:center; }
 
-    /* Scheduler (Acuity) – no inner scrollbar, fills column */
+    /* Scheduler */
     .scheduler-card{position:relative; display:flex; justify-content:center; align-items:flex-start;}
     .iframe-wrap{position:relative; width:100%; background:#fff;}
     .iframe-wrap iframe{
       display:block; width:100%; border:0;
-      height:0;             /* embed.js sets exact height */
-      min-height:650px;     /* good first paint */
-      overflow:hidden;      /* no inner scrollbar */
+      height:0; min-height:650px; overflow:hidden;
     }
   </style>
 
@@ -256,16 +255,17 @@
     <div class="copy container">
       <div class="eyebrow">Welcome to</div>
       <h1>Rachel Barton Photography</h1>
-      <!-- removed subtitle -->
 
-      <div class="cta">
-        <a class="btn" href="#book">Book a Session</a>
-      </div>
-
-      <div class="badge">
+      <!-- Service areas (3 rows) -->
+      <div class="badge" aria-label="Service areas">
         Sarasota • Siesta Key • Lido • Longboat Key<br>
         Lakewood Ranch • Venice • Bradenton<br>
         Tampa • St. Petersburg • Clearwater • Naples
+      </div>
+
+      <!-- Button moved to bottom with matching background -->
+      <div class="cta" style="margin-top:18px">
+        <a class="btn" href="#book">Book a Session</a>
       </div>
     </div>
   </section>
@@ -281,7 +281,7 @@
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
 
       <div class="mosaic" id="grid">
-        <!-- LEFT – stays the same -->
+        <!-- LEFT -->
         <figure class="captioned notch" aria-label="Oona & Ivy – Meadow Light">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
@@ -305,7 +305,7 @@
           </div>
         </figure>
 
-        <!-- MIDDLE – Family Portraits (swapped with right) -->
+        <!-- MIDDLE – Family Portraits -->
         <figure class="captioned notch" aria-label="Family Portrait Gallery">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
@@ -329,7 +329,7 @@
           </div>
         </figure>
 
-        <!-- RIGHT – Oona & Ivy – Beach Sunset -->
+        <!-- RIGHT – Beach Sunset -->
         <figure class="captioned notch" aria-label="Oona & Ivy – Beach Sunset">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
@@ -423,7 +423,6 @@
       <p class="section-sub">Tell me about your crew and the kind of session you’re envisioning.</p>
 
       <div class="contact-grid">
-        <!-- LEFT COLUMN: form + details stacked so the card hugs the button -->
         <div class="left-col">
           <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?contact=sent">
             <input type="hidden" name="form-name" value="contact" />
@@ -457,7 +456,6 @@
             </div>
           </form>
 
-          <!-- This card now sits immediately under the form (no giant blank gap) -->
           <div class="card">
             <div class="body">
               <h3>Service Area</h3>
@@ -474,7 +472,6 @@
           </div>
         </div>
 
-        <!-- RIGHT COLUMN: scheduler -->
         <div class="right-col">
           <div class="card" id="book">
             <div class="body" style="padding:0">
@@ -568,7 +565,6 @@
     })();
   </script>
 
-  <!-- Acuity auto-resize (prevents inner scrollbars) -->
   <script src="https://embed.acuityscheduling.com/js/embed.js" async></script>
 </body>
 </html>
