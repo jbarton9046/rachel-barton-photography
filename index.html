@@ -67,7 +67,12 @@
     .hero{
       position:relative;
       min-height:100svh;
-      display:grid; place-items:center;
+
+      /* Left-third layout */
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      align-items:center;
+
       background:url('pictures/heroImage.jpg') center/cover no-repeat;
       width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
     }
@@ -97,18 +102,21 @@
       border-bottom-color:var(--accent);
     }
 
-    /* Hero copy card – hugs content and ignores .container padding */
+    /* Hero copy card – hugs text, centered inside LEFT column */
     .hero .copy{
       position:relative; z-index:1;
       display:inline-block;
       background:rgba(255,255,255,.65);
       border:1px solid var(--line);
       padding:24px 28px;
-      width:fit-content;              /* hug text width */
+      width:fit-content;
       max-width:min(92vw, 900px);
-      margin:0;                       /* no extra margins */
+      margin:0;
       box-shadow:var(--shadow);
       text-align:center;
+
+      grid-column:1;           /* left third */
+      justify-self:center;     /* centered within that column */
     }
 
     .eyebrow{color:#8d7a5c; font-weight:700; letter-spacing:.16em; text-transform:uppercase; font-size:12px; margin-bottom:6px}
@@ -181,7 +189,11 @@
     footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f}
 
     /* Responsive */
-    @media (max-width:960px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr} }
+    @media (max-width:960px){
+      .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr}
+      .hero{ grid-template-columns:1fr; }
+      .hero .copy{ grid-column:1; justify-self:center; }
+    }
     @media (max-width:640px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr} }
 
     /* Generic buttons below main content */
@@ -236,7 +248,7 @@
       </nav>
     </div>
 
-    <!-- removed .container here so the card width hugs the text -->
+    <!-- copy card centered in the left third -->
     <div class="copy">
       <div class="eyebrow">Welcome to</div>
       <h1>Rachel Barton<br>Photography</h1>
@@ -344,30 +356,7 @@
       </div>
     </section>
 
-    <!-- About -->
-    <section id="about" aria-labelledby="about-title">
-      <h2 class="section-title" id="about-title">Meet Rachel</h2>
-      <p class="section-sub">Mom of two, outdoors lover, and detail-driven photographer who keeps sessions calm, playful, and effortless.</p>
-
-      <div class="cards" style="align-items:start">
-        <div class="card" style="grid-column: span 2">
-          <div class="body">
-            <p>
-              Two years ago, our family moved from Nashville to Sarasota, and we’ve been chasing beach sunrises and golden-hour palms ever since. Before photography, I worked in corporate healthcare administration and earned an MBA in Healthcare Management — so I bring a calm, organized, detail-focused approach to every session.
-            </p>
-            <p>
-              I’m known for gentle direction that still feels candid and natural, true-to-life color, and a kid-friendly flow with room to wiggle and wonder. I shoot across Sarasota, Siesta Key, Lido, Longboat, Lakewood Ranch, and Venice — and I’m happy to travel from Tampa down to Naples.
-            </p>
-            <p><strong>Favorite locations:</strong> Lido Key, Siesta Key, Celery Fields, Myakka River State Park, The Ringling, Selby Gardens.</p>
-            <div class="cta"><a class="btn" href="#book">Let’s Plan Your Session</a></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <img loading="lazy" src="pictures/rahcelHeadshot.JPG" alt="Rachel Barton, Sarasota family photographer headshot" />
-        </div>
-      </div>
-    </section>
+    <!-- About section removed from index; lives on /about.html -->
 
     <!-- Why choose me -->
     <section aria-labelledby="why-title">
