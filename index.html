@@ -9,7 +9,7 @@
   <meta name="description" content="Candid, timeless, true-to-life family, maternity, newborn & portrait photography across Sarasota and Florida’s Gulf Coast — with a soft, whimsical touch." />
   <link rel="canonical" href="https://rachelsphotography.netlify.app/" />
 
-  <!-- Social share (iMessage / FB / Twitter) -->
+  <!-- Social share -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Rachel Barton Photography" />
   <meta property="og:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
@@ -38,8 +38,8 @@
       --paper:#ffffff;
       --ink:#3e3e3a;
       --muted:#7a766e;
-      --accent:#A88A5A;    /* sunset gold */
-      --accent-2:#E8DFC9;  /* pale sand */
+      --accent:#A88A5A;
+      --accent-2:#E8DFC9;
       --line:#e9e6df;
       --butter-bar: rgba(255,248,238,0.92);
       --butter-stroke: rgba(0,0,0,0.04);
@@ -49,17 +49,14 @@
       --gap:clamp(16px,3vw,32px);
       --maxw:1200px;
     }
-
     *{box-sizing:border-box}
     html,body{
       margin:0; padding:0; background:var(--bg); color:var(--ink);
       font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
-
     a{color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
-
     img{max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
@@ -68,9 +65,9 @@
       position:relative;
       min-height:100svh;
 
-      /* Left-third layout */
+      /* TWO columns, card centered in left column */
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+      grid-template-columns:repeat(2,1fr);
       align-items:center;
 
       background:url('pictures/heroImage.jpg') center/cover no-repeat;
@@ -102,7 +99,7 @@
       border-bottom-color:var(--accent);
     }
 
-    /* Hero copy card – hugs text, centered inside LEFT column */
+    /* Hero copy card */
     .hero .copy{
       position:relative; z-index:1;
       display:inline-block;
@@ -115,22 +112,18 @@
       box-shadow:var(--shadow);
       text-align:center;
 
-      grid-column:1;           /* left third */
-      justify-self:center;     /* centered within that column */
+      grid-column:1;          /* left column */
+      justify-self:center;    /* centered in that column */
     }
 
     .eyebrow{color:#8d7a5c; font-weight:700; letter-spacing:.16em; text-transform:uppercase; font-size:12px; margin-bottom:6px}
     h1{font-family:"Playfair Display",serif; font-size:clamp(34px,6vw,60px); line-height:1.1; margin:.25em 0; font-weight:700; color:#3f3a33}
 
-    /* Text-only CTA */
     .cta{display:flex; gap:22px; margin-top:16px; flex-wrap:wrap; justify-content:center}
     .btn{background:transparent; border:0; padding:0 4px; color:#3f3a33; font-weight:700; cursor:pointer}
     .hero .btn{ font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; border-bottom:1px solid transparent; }
     .hero .btn:hover, .hero .btn:focus-visible{ color:var(--accent); border-bottom-color:var(--accent); }
 
-    .badge{display:block; margin-top:12px; color:#6a645a}
-
-    /* Service areas */
     .localities{color:#5c5850; margin-top:6px; line-height:1.75}
     .localities .dot::after{content:" • "; color:#8a857a}
     .localities .dot:last-child::after{content:""}
@@ -248,19 +241,17 @@
       </nav>
     </div>
 
-    <!-- copy card centered in the left third -->
+    <!-- copy card centered in the left column -->
     <div class="copy">
       <div class="eyebrow">Welcome to</div>
       <h1>Rachel Barton<br>Photography</h1>
 
-      <!-- Service areas in three neat rows -->
       <div class="localities">
         <span class="dot">Sarasota</span><span class="dot">Siesta Key</span><span class="dot">Lido</span><span class="dot">Longboat Key</span><br>
         <span class="dot">Lakewood Ranch</span><span class="dot">Venice</span><span class="dot">Bradenton</span><br>
         <span class="dot">Tampa</span><span class="dot">St. Petersburg</span><span class="dot">Clearwater</span><span>Naples</span>
       </div>
 
-      <!-- Single text-only CTA at bottom -->
       <div class="cta">
         <a class="btn" href="#book" aria-label="Book a Session">Book a Session</a>
       </div>
@@ -310,7 +301,7 @@
                 <rect x="0" y="0" width="100%" height="100%" fill="white" />
                 <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
               </mask>
-              <filter id="frameShadow-1" x="-20%" y="-20%" width="140%" height="140%">
+              <filter id="frameShadow-1" x="-20%" y="-20%" width="140%">
                 <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
               </filter>
             </defs>
@@ -334,7 +325,7 @@
                 <rect x="0" y="0" width="100%" height="100%" fill="white" />
                 <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
               </mask>
-              <filter id="frameShadow-2" x="-20%" y="-20%" width="140%" height="140%">
+              <filter id="frameShadow-2" x="-20%" y="-20%" width="140%">
                 <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
               </filter>
             </defs>
@@ -397,7 +388,6 @@
       <p class="section-sub">Tell me about your crew and the kind of session you’re envisioning.</p>
 
       <div class="contact-grid">
-        <!-- LEFT COLUMN -->
         <div class="left-col">
           <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?contact=sent">
             <input type="hidden" name="form-name" value="contact" />
@@ -447,7 +437,6 @@
           </div>
         </div>
 
-        <!-- RIGHT COLUMN: scheduler -->
         <div class="right-col">
           <div class="card" id="book">
             <div class="body" style="padding:0">
@@ -478,7 +467,6 @@
     </div>
   </footer>
 
-  <!-- Lightbox shell (kept) -->
   <div id="lightbox"><button onclick="closeLightbox()">✕</button><img alt=""></div>
 
   <script>
@@ -541,7 +529,6 @@
     })();
   </script>
 
-  <!-- Acuity auto-resize -->
   <script src="https://embed.acuityscheduling.com/js/embed.js" async></script>
 </body>
 </html>
