@@ -82,16 +82,19 @@
     /* top overlay bar */
     .topbar{
       position:absolute; left:0; right:0; top:0;
-      display:flex; align-items:center; justify-content:flex-end; /* brand removed, keep nav right-aligned */
+      display:flex; align-items:center; justify-content:center; /* center the nav across top */
       padding:16px var(--gap); z-index:2;
     }
-
-    nav.primary ul{display:flex; gap:22px; list-style:none; margin:0; padding:0}
+    nav.primary{width:100%;}
+    nav.primary ul{
+      display:flex; list-style:none; margin:0; padding:0;
+      justify-content:center; gap:clamp(18px,3.2vw,46px); flex-wrap:wrap;
+    }
     nav.primary a{
-      font-weight:700;
-      font-size:clamp(16px, 1.6vw, 20px);  /* larger, still clean */
+      font-weight:400;                          /* not bold */
+      font-size:clamp(16px,1.8vw,22px);         /* larger, professional */
       letter-spacing:.01em;
-      padding:6px 0;
+      padding:6px 2px;
     }
 
     /* hero copy block */
@@ -238,7 +241,7 @@
   <!-- HERO -->
   <section class="hero" aria-label="Hero">
     <div class="topbar container">
-      <!-- brand removed per request -->
+      <!-- brand removed -->
       <nav class="primary" aria-label="Primary">
         <ul>
           <li><a href="#portfolio">Galleries</a></li>
@@ -253,14 +256,17 @@
     <div class="copy container">
       <div class="eyebrow">Welcome to</div>
       <h1>Rachel Barton Photography</h1>
-      <!-- subtitle paragraph removed per request -->
+      <!-- removed subtitle -->
 
       <div class="cta">
         <a class="btn" href="#book">Book a Session</a>
-        <a class="btn" href="#portfolio">View Galleries</a>
       </div>
 
-      <div class="badge">Sarasota • Siesta Key • Lido • Longboat Key • Lakewood Ranch • Venice • Bradenton • Tampa • St. Petersburg • Clearwater • Naples</div>
+      <div class="badge">
+        Sarasota • Siesta Key • Lido • Longboat Key<br>
+        Lakewood Ranch • Venice • Bradenton<br>
+        Tampa • St. Petersburg • Clearwater • Naples
+      </div>
     </div>
   </section>
 
@@ -299,7 +305,7 @@
           </div>
         </figure>
 
-        <!-- MIDDLE – now Family Portraits (swapped with right) -->
+        <!-- MIDDLE – Family Portraits (swapped with right) -->
         <figure class="captioned notch" aria-label="Family Portrait Gallery">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
@@ -323,7 +329,7 @@
           </div>
         </figure>
 
-        <!-- RIGHT – now Oona & Ivy – Beach Sunset (swapped from middle) -->
+        <!-- RIGHT – Oona & Ivy – Beach Sunset -->
         <figure class="captioned notch" aria-label="Oona & Ivy – Beach Sunset">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
@@ -383,7 +389,7 @@
       <h2 class="section-title" id="why-title">My Approach</h2>
       <p class="section-sub">Candid • Timeless • True-to-life</p>
 
-    <div class="features">
+      <div class="features">
         <div class="feature">
           <h3>Patient & Kid-Wise</h3>
           <p>We keep things light and playful so personalities shine. Gentle prompts, real moments.</p>
