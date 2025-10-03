@@ -65,19 +65,17 @@
       position:relative;
       min-height:100svh;
 
-      /* TWO columns, card centered in left column */
+      /* TWO columns, card centered in right column */
       display:grid;
       grid-template-columns:repeat(2,1fr);
       align-items:center;
 
-      background:url('pictures/oonaIvy/E26A0671.jpg') center/cover no-repeat;
+      /* swapped image + framed higher to show more sky */
+      background:url('pictures/oonaIvy/E26A0671.jpg') center 15%/cover no-repeat;
       width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
     }
-    .hero::after{
-      content:""; position:absolute; inset:0;
-      background:linear-gradient(to bottom, rgba(250,250,248,.75), rgba(250,250,248,.35) 35%, rgba(0,0,0,.10) 100%);
-      pointer-events:none;
-    }
+    /* remove the old light gradient overlay */
+    .hero::after{ content:none; }
 
     /* Top bar – brand hidden, centered nav */
     .topbar{
@@ -354,7 +352,7 @@
       <h2 class="section-title" id="why-title">My Approach</h2>
       <p class="section-sub">Candid • Timeless • True-to-life</p>
 
-      <div class="features">
+    <div class="features">
         <div class="feature">
           <h3>Patient & Kid-Wise</h3>
           <p>We keep things light and playful so personalities shine. Gentle prompts, real moments.</p>
@@ -502,7 +500,7 @@
         const recessY = 1000 - recessH - (padCss * sy);
 
         notchRect.setAttribute('x', recessX.toFixed(2));
-        notchRect.setAttribute('y', recessY.toFixed(2));
+        notchRect setAttribute('y', recessY.toFixed(2));
         notchRect.setAttribute('width', recessW.toFixed(2));
         notchRect.setAttribute('height', recessH.toFixed(2));
 
