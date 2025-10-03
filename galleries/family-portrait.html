@@ -37,13 +37,14 @@
       font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
       overflow-x:hidden; /* prevent any horizontal scrollbar */
+      /* ensure only ONE vertical scrollbar (the window) */
+      overflow-y:overlay; /* macOS friendly; falls back to auto elsewhere */
+      height:auto;
     }
 
-    /* Global links match index (gold hover) */
     a{color:inherit; text-decoration:none; transition:color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
 
-    /* Image frame like index */
     img{max-width:100%; height:auto; display:block; border:1px solid var(--frame); box-shadow:0 6px 18px rgba(0,0,0,.06)}
 
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
@@ -66,7 +67,7 @@
     header.site nav ul{display:flex;list-style:none;gap:18px;margin:0;padding:0}
     header.site nav a{font-weight:600}
 
-    /* Floating intro card (matches index hero card) */
+    /* Floating intro (no hero image) */
     .floating{
       background:rgba(255,255,255,.85);
       border:1px solid var(--line);
@@ -80,7 +81,6 @@
     h1{font-family:"Playfair Display",serif; font-size:clamp(28px,5.5vw,52px); line-height:1.1; margin:.25em 0 .2em; font-weight:700; color:#3f3a33}
     .section-sub{color:#5c5850; margin:0 0 12px}
 
-    /* Bigger text CTAs (no boxes) */
     .cta{display:flex; gap:26px; margin-top:14px; flex-wrap:wrap; justify-content:center}
     .cta a{font-weight:700; font-size:18px; line-height:1.2}
 
@@ -111,7 +111,7 @@
     #lb-prev{left:18px;top:50%;transform:translateY(-50%)}
     #lb-next{right:18px;top:50%;transform:translateY(-50%)}
 
-    /* ===== Packages section (square, subtle buttons like index) ===== */
+    /* ===== Packages ===== */
     .packages{padding:calc(var(--gap)*1.8) 0}
     .packages .section-title{font-family:"Fraunces",serif;font-size:clamp(24px,3.5vw,38px);margin:0 0 8px;color:#3f3a33;text-align:center}
     .packages .section-sub{color:#67635b;margin:0 0 22px;text-align:center}
@@ -131,34 +131,14 @@
       transform:translateY(-1px);color:var(--accent);outline:none
     }
 
-    /* FAQ (card grid to match the site) */
+    /* FAQ (card grid) */
     .faq{margin-top:calc(var(--gap)*1.2)}
-    .faq-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:var(--gap);
-    }
-    .faq-card{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:0;
-      box-shadow:var(--shadow);
-      padding:18px;
-    }
-    .faq-card h3{
-      margin:0 0 8px;
-      font-size:18px;
-      font-weight:700;
-      color:#3f3a33;
-    }
-    .faq-card p{
-      margin:0;
-      color:#5c5850;
-    }
+    .faq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+    .faq-card{background:#fff;border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);padding:18px}
+    .faq-card h3{margin:0 0 8px;font-size:18px;font-weight:700;color:#3f3a33}
+    .faq-card p{margin:0;color:#5c5850}
 
-    .scheduler-card{border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);background:#fff; overflow:hidden;}
-
-    /* ----- ON-BRAND SCHEDULER (centered & responsive) ----- */
+    /* ----- Scheduler (fix double scrollbar & overflow) ----- */
     .scheduler-wrap{ max-width:980px; margin:0 auto; }
     .scheduler-wrap .scheduler-header{ text-align:center; margin-bottom:12px; }
     .scheduler-wrap h2{
@@ -170,27 +150,33 @@
     .scheduler-wrap p{ margin:0; color:#5c5850; font-size:15px; }
 
     .scheduler-card{
+      border:1px solid var(--line);
+      border-radius:0;
+      box-shadow:var(--shadow);
+      background:#fff;
       position:relative;
       display:flex;
       justify-content:center;
       align-items:flex-start;
-      overflow:hidden;
+      overflow:visible; /* prevent inner scrollbars */
     }
 
-    /* Responsive iframe wrapper for Acuity */
+    /* wrapper with auto height – no aspect ratio padding hack */
     .iframe-wrap{
       position:relative;
       width:100%;
-      padding-top:56.25%; /* 16:9 (will be overridden inline for embed=1) */
       background:#fff;
       border-top:1px solid var(--line);
+      overflow:visible;
     }
     .iframe-wrap iframe{
-      position:absolute; inset:0; width:100%; height:100%; border:0;
+      display:block;
+      width:100%;
+      border:0;
+      height:0;          /* embed.js will set the real height */
+      min-height:650px;  /* decent first paint */
+      overflow:hidden;   /* no inner scrollbar */
     }
-
-    /* Ensure the scheduler can grow when the embed auto-resizes */
-    .scheduler-card{ overflow:visible; }
 
     @media (max-width:960px){
       .packages .cards{grid-template-columns:1fr 1fr}
@@ -238,11 +224,9 @@
   <main class="container">
     <section aria-label="Family portraits gallery">
       <div class="grid" id="gallery">
-        <!-- Removed 2, 9, 11 -->
         <figure>
           <a href="/pictures/familyPortrait/image1.jpg"><img loading="lazy" src="/pictures/familyPortrait/image1.jpg" alt="Family portrait 1" /></a>
         </figure>
-        <!-- image2 removed -->
         <figure>
           <a href="/pictures/familyPortrait/image3.jpg"><img loading="lazy" src="/pictures/familyPortrait/image3.jpg" alt="Family portrait 3" /></a>
         </figure>
@@ -261,18 +245,16 @@
         <figure>
           <a href="/pictures/familyPortrait/image8.jpg"><img loading="lazy" src="/pictures/familyPortrait/image8.jpg" alt="Family portrait 8" /></a>
         </figure>
-        <!-- image9 removed -->
         <figure>
           <a href="/pictures/familyPortrait/image10.jpg"><img loading="lazy" src="/pictures/familyPortrait/image10.jpg" alt="Family portrait 10" /></a>
         </figure>
-        <!-- image11 removed -->
         <figure>
           <a href="/pictures/familyPortrait/image12.jpg"><img loading="lazy" src="/pictures/familyPortrait/image12.jpg" alt="Family portrait 12" /></a>
         </figure>
       </div>
     </section>
 
-    <!-- ===== Family Packages (moved from index) ===== -->
+    <!-- ===== Family Packages ===== -->
     <section class="packages" aria-labelledby="pkg-title">
       <h2 class="section-title" id="pkg-title">Family Packages</h2>
       <p class="section-sub">Simple, flexible sessions with clear deliverables — styled with warmth, movement, and a little magic.</p>
@@ -316,7 +298,7 @@
         Add-ons: additional images, full-gallery upgrade, print products, travel beyond core area, weekend peak times, <strong>priority editing</strong>.
       </p>
 
-      <!-- FAQ in card grid -->
+      <!-- FAQ -->
       <div class="faq">
         <div class="faq-grid">
           <div class="faq-card">
@@ -334,7 +316,7 @@
         </div>
       </div>
 
-      <!-- Public Acuity SCHEDULER embed (auto-resizes, no scrollbars) -->
+      <!-- Scheduler -->
       <section aria-labelledby="sched-title" style="padding-top:24px">
         <div class="scheduler-wrap container">
           <div class="scheduler-header">
@@ -343,14 +325,12 @@
           </div>
 
           <div class="scheduler-card">
-            <div class="iframe-wrap" style="padding-top:0;height:auto;">
+            <div class="iframe-wrap">
               <iframe
                 src="https://app.acuityscheduling.com/schedule.php?owner=37092379&embedded=1"
                 title="Book a Session"
                 class="acuity-embed"
                 frameborder="0"
-                width="100%"
-                height="800"
                 scrolling="no"
                 allow="payment *">
               </iframe>
@@ -429,7 +409,7 @@
     })();
   </script>
 
-  <!-- Acuity auto-resize script (Option B) -->
+  <!-- Acuity auto-resize script (prevents inner scrollbar & page overflow) -->
   <script src="https://embed.acuityscheduling.com/js/embed.js" async></script>
 </body>
 </html>
