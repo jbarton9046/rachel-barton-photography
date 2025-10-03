@@ -79,23 +79,20 @@
       pointer-events:none;
     }
 
-    /* top overlay bar (brand left, nav right) */
+    /* top overlay bar */
     .topbar{
       position:absolute; left:0; right:0; top:0;
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex; align-items:center; justify-content:flex-end; /* brand removed, keep nav right-aligned */
       padding:16px var(--gap); z-index:2;
     }
-    .brand{display:flex; align-items:center; gap:12px}
-    .brand .logo{
-      width:44px; height:44px; border-radius:50%;
-      background:radial-gradient(42px 42px at 50% 50%, #FFE7B3 0%, #FFD485 45%, #FFC166 65%, #F4A44C 85%, #E18A3B 100%);
-      border:1px solid rgba(226,149,60,.35);
-      box-shadow:0 0 0 6px rgba(255,219,170,.28), 0 0 24px rgba(255,176,88,.25);
-    }
-    .brand .name{font-family:"Fraunces",serif; font-weight:700; font-size:21px}
 
-    nav.primary ul{display:flex; gap:18px; list-style:none; margin:0; padding:0}
-    nav.primary a{font-weight:600}
+    nav.primary ul{display:flex; gap:22px; list-style:none; margin:0; padding:0}
+    nav.primary a{
+      font-weight:700;
+      font-size:clamp(16px, 1.6vw, 20px);  /* larger, still clean */
+      letter-spacing:.01em;
+      padding:6px 0;
+    }
 
     /* hero copy block */
     .hero .copy{
@@ -161,7 +158,7 @@
 
     /* Contact */
     .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
-    .left-col, .right-col{display:flex; flex-direction:column; gap:var(--gap);} /* stacks items so card hugs form */
+    .left-col, .right-col{display:flex; flex-direction:column; gap:var(--gap);}
     form{background:#fff; padding:18px; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
     label{display:block; font-weight:600; margin:10px 0 6px; color:#4b463f}
     input, textarea, select{width:100%; padding:12px 14px; border-radius:0; border:1px solid var(--line); background:#fff; outline:none}
@@ -241,13 +238,9 @@
   <!-- HERO -->
   <section class="hero" aria-label="Hero">
     <div class="topbar container">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div class="name">Rachel Barton Photography</div>
-      </div>
+      <!-- brand removed per request -->
       <nav class="primary" aria-label="Primary">
         <ul>
-          <!-- removed Sessions per request -->
           <li><a href="#portfolio">Galleries</a></li>
           <li><a href="/about.html">About</a></li>
           <li><a href="#reviews">Reviews</a></li>
@@ -260,17 +253,14 @@
     <div class="copy container">
       <div class="eyebrow">Welcome to</div>
       <h1>Rachel Barton Photography</h1>
-      <p class="subtitle">
-        I’m Rachel — a family & lifestyle photographer creating
-        <strong>candid, timeless, true-to-life</strong> images at the beach, in the park, and wherever your story feels most like home.
-      </p>
+      <!-- subtitle paragraph removed per request -->
 
       <div class="cta">
         <a class="btn" href="#book">Book a Session</a>
         <a class="btn" href="#portfolio">View Galleries</a>
       </div>
 
-      <div class="badge">Select weekday evenings • Full weekends • From Tampa → Naples</div>
+      <div class="badge">Sarasota • Siesta Key • Lido • Longboat Key • Lakewood Ranch • Venice • Bradenton • Tampa • St. Petersburg • Clearwater • Naples</div>
     </div>
   </section>
 
@@ -393,7 +383,7 @@
       <h2 class="section-title" id="why-title">My Approach</h2>
       <p class="section-sub">Candid • Timeless • True-to-life</p>
 
-      <div class="features">
+    <div class="features">
         <div class="feature">
           <h3>Patient & Kid-Wise</h3>
           <p>We keep things light and playful so personalities shine. Gentle prompts, real moments.</p>
