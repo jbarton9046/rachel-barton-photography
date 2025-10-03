@@ -68,7 +68,7 @@
     /* HERO (full viewport, brand + nav over photo) */
     .hero{
       position:relative;
-      min-height:100svh;            /* full viewport height incl. mobile UI */
+      min-height:100svh;
       display:grid; place-items:center;
       background:url('pictures/heroImage.jpg') center/cover no-repeat;
       width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
@@ -159,7 +159,9 @@
     blockquote:before{content:"“"; font-family:"Fraunces",serif; font-size:48px; color:#d9d3c6; position:absolute; left:12px; top:-10px}
     blockquote footer{color:#7b786f; font-size:14px; margin-top:8px}
 
+    /* Contact */
     .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
+    .left-col, .right-col{display:flex; flex-direction:column; gap:var(--gap);} /* stacks items so card hugs form */
     form{background:#fff; padding:18px; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
     label{display:block; font-weight:600; margin:10px 0 6px; color:#4b463f}
     input, textarea, select{width:100%; padding:12px 14px; border-radius:0; border:1px solid var(--line); background:#fff; outline:none}
@@ -172,8 +174,7 @@
     @media (max-width:960px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr} }
     @media (max-width:640px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr} }
 
-    /* ----- Subtle square buttons from Sessions & Investment downward ----- */
-    /* Targets only buttons/links with class .btn that live inside <main> */
+    /* Buttons below main content */
     main .btn{
       display:inline-flex;
       align-items:center;
@@ -185,61 +186,31 @@
       color:#3f3a33;
       font-weight:700;
       text-decoration:none;
-      border-radius:0;                 /* 90° corners */
+      border-radius:0;
       box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:
-        background-color .15s ease,
-        border-color .15s ease,
-        box-shadow .15s ease,
-        transform .15s ease,
-        color .15s ease;
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
-    main .btn:hover,
-    main .btn:focus-visible{
-      background:#f9f6ef;
-      border-color:#dcd4c3;
-      box-shadow:0 10px 24px rgba(0,0,0,.08);
-      transform:translateY(-1px);
-      color:var(--accent);
+    main .btn:hover, main .btn:focus-visible{
+      background:#f9f6ef; border-color:#dcd4c3; box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); color:var(--accent);
       outline:none;
     }
-    main .btn:active{
-      transform:translateY(0);
-      box-shadow:0 4px 12px rgba(0,0,0,.06);
-    }
+    main .btn:active{ transform:translateY(0); box-shadow:0 4px 12px rgba(0,0,0,.06); }
     main button.btn{ appearance:none; -webkit-appearance:none; cursor:pointer; }
 
-    /* Keep hero buttons as floating text (explicitly re-assert) */
-    .hero .btn{
-      background:transparent !important;
-      border:0 !important;
-      padding:0 !important;
-      box-shadow:none !important;
-      color:#3f3a33;
-    }
-
-    /* Hero links – larger, professional, text-only with gold hover */
+    /* Keep hero buttons as floating text */
+    .hero .btn{ background:transparent !important; border:0 !important; padding:0 !important; box-shadow:none !important; color:#3f3a33; }
     .hero .cta{ gap:28px; }
-    .hero .btn{
-      font-size:clamp(18px,2.2vw,20px);
-      letter-spacing:.02em;
-      padding:8px 6px;                 /* increases hit area without a box */
-      border-bottom:1px solid transparent;
-    }
-    .hero .btn:hover,
-    .hero .btn:focus-visible{
-      color:var(--accent);
-      border-bottom-color:var(--accent);/* classy underline on hover/focus */
-    }
+    .hero .btn{ font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; padding:8px 6px; border-bottom:1px solid transparent; }
+    .hero .btn:hover,.hero .btn:focus-visible{ color:var(--accent); border-bottom-color:var(--accent); }
 
-    /* NEW: make service card buttons align at the bottom uniformly */
-    .card .body{ display:flex; flex-direction:column; }       /* keeps existing padding */
+    /* Align service card buttons uniformly */
+    .card .body{ display:flex; flex-direction:column; }
     .card .body .btn{ align-self:flex-start; margin-top:auto; }
 
-    /* NEW: center the single Send Request button in contact form */
+    /* Center the single Send Request button in contact form */
     .contact-cta{ justify-content:center; }
 
-    /* ===== Scheduler (Acuity) – no inner scrollbar, fills column ===== */
+    /* Scheduler (Acuity) – no inner scrollbar, fills column */
     .scheduler-card{position:relative; display:flex; justify-content:center; align-items:flex-start;}
     .iframe-wrap{position:relative; width:100%; background:#fff;}
     .iframe-wrap iframe{
@@ -267,7 +238,7 @@
 </head>
 <body>
 
-  <!-- HERO (no separate header; brand + nav live here) -->
+  <!-- HERO -->
   <section class="hero" aria-label="Hero">
     <div class="topbar container">
       <div class="brand">
@@ -276,7 +247,7 @@
       </div>
       <nav class="primary" aria-label="Primary">
         <ul>
-          <li><a href="#services">Sessions</a></li>
+          <!-- removed Sessions per request -->
           <li><a href="#portfolio">Galleries</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#reviews">Reviews</a></li>
@@ -307,50 +278,6 @@
   <div class="scallop"></div>
 
   <main class="container">
-    <!-- Services -->
-    <section id="services" aria-labelledby="services-title">
-      <h2 class="section-title" id="services-title">Sessions & Investment</h2>
-      <p class="section-sub">Simple, flexible sessions with clear deliverables — styled with warmth, movement, and a little magic.</p>
-
-      <div class="cards">
-        <article class="card">
-          <img loading="lazy" src="pictures/mother-son-outdoors-sunset-with-copy-space.jpg" alt="Mother and son outdoors at sunset" />
-          <div class="body">
-            <h3>Mini Session</h3>
-            <p class="meta">30 minutes • ~15–25 edited images</p>
-            <p>Perfect for milestones & seasonal updates. Select weekday evenings or full weekends.</p>
-            <p><strong>Intro pricing:</strong> $400</p>
-            <a class="btn" href="#book">Book Mini</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <img loading="lazy" src="pictures/mother-son-outdoors-sunset-with-copy-space%20(1).jpg" alt="Mother and son in golden hour" />
-          <div class="body">
-            <h3>Standard Session</h3>
-            <p class="meta">60 minutes • ~35–50 edited images</p>
-            <p>The most popular option for families & maternity. One location (nearby second look optional).</p>
-            <p><strong>Intro pricing:</strong> $600</p>
-            <a class="btn" href="#book">Book Standard</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <img loading="lazy" src="pictures/man-woman-kid-wearing-pale-summer-clothes-walking-wet-sand-sea-spending-leisure-time-beach.jpg" alt="Family walking along wet sand at the beach" />
-          <div class="body">
-            <h3>Deluxe Session</h3>
-            <p class="meta">90 minutes • ~60+ edited images</p>
-            <p>Extra time for outfit changes, variety, or two nearby locations. Priority editing available.</p>
-            <p><strong>Intro pricing:</strong> $800</p>
-            <a class="btn" href="#book">Book Deluxe</a>
-          </div>
-        </article>
-      </div>
-
-      <p class="section-sub" style="margin-top:16px">
-        Add-ons: additional images, full-gallery upgrade, print products, travel beyond core area, weekend peak times.
-      </p>
-    </section>
 
     <!-- Portfolio / Mosaic -->
     <section id="portfolio" aria-labelledby="portfolio-title">
@@ -358,31 +285,33 @@
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
 
       <div class="mosaic" id="grid">
-        <!-- 1) Family Portraits -->
-        <figure class="captioned notch" aria-label="Family Portrait Gallery">
+        <!-- ORDER SWAPPED: right becomes left, middle stays, left becomes right -->
+
+        <!-- (new LEFT) *Updated* Oona & Ivy – Meadow Light -->
+        <figure class="captioned notch" aria-label="Oona & Ivy – Meadow Light">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
-              <mask id="notchMask-1">
+              <mask id="notchMask-3a">
                 <rect x="0" y="0" width="100%" height="100%" fill="white" />
                 <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
               </mask>
-              <filter id="frameShadow-1" x="-20%" y="-20%" width="140%" height="140%">
+              <filter id="frameShadow-3a" x="-20%" y="-20%" width="140%" height="140%">
                 <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
               </filter>
             </defs>
-            <image href="pictures/familyPortrait/image5.jpg" x="0" y="0" width="800" height="1000"
-                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
-            <g class="frameGroup" filter="url(#frameShadow-1)">
+            <image href="pictures/oonaIvy/E26A0761.jpg" x="0" y="0" width="800" height="1000"
+                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-3a)">
               <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
               <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
             </g>
           </svg>
           <div class="notch-box">
-            <a class="cap-label" href="/galleries/family-portrait.html">Family Portraits</a>
+            <a class="cap-label" href="#portfolio">Oona &amp; Ivy – Meadow Light</a>
           </div>
         </figure>
 
-        <!-- 2) *Updated* Oona & Ivy – Beach Sunset -->
+        <!-- (MIDDLE) *Updated* Oona & Ivy – Beach Sunset -->
         <figure class="captioned notch" aria-label="Oona & Ivy – Beach Sunset">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
@@ -406,27 +335,27 @@
           </div>
         </figure>
 
-        <!-- 3) *Updated* Oona & Ivy – Meadow Light -->
-        <figure class="captioned notch" aria-label="Oona & Ivy – Meadow Light">
+        <!-- (new RIGHT) Family Portraits -->
+        <figure class="captioned notch" aria-label="Family Portrait Gallery">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
-              <mask id="notchMask-3">
+              <mask id="notchMask-1">
                 <rect x="0" y="0" width="100%" height="100%" fill="white" />
                 <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
               </mask>
-              <filter id="frameShadow-3" x="-20%" y="-20%" width="140%" height="140%">
+              <filter id="frameShadow-1" x="-20%" y="-20%" width="140%" height="140%">
                 <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
               </filter>
             </defs>
-            <image href="pictures/oonaIvy/E26A0761.jpg" x="0" y="0" width="800" height="1000"
-                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3)"></image>
-            <g class="frameGroup" filter="url(#frameShadow-3)">
+            <image href="pictures/familyPortrait/image5.jpg" x="0" y="0" width="800" height="1000"
+                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-1)">
               <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
               <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
             </g>
           </svg>
           <div class="notch-box">
-            <a class="cap-label" href="#portfolio">Oona &amp; Ivy – Meadow Light</a>
+            <a class="cap-label" href="/galleries/family-portrait.html">Family Portraits</a>
           </div>
         </figure>
       </div>
@@ -435,7 +364,6 @@
         <a class="btn" href="#book">Check availability</a>
       </div>
     </section>
-
 
     <!-- About -->
     <section id="about" aria-labelledby="about-title">
@@ -501,43 +429,60 @@
       <p class="section-sub">Tell me about your crew and the kind of session you’re envisioning.</p>
 
       <div class="contact-grid">
-        <!-- LEFT COLUMN: form -->
-        <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?contact=sent">
-          <input type="hidden" name="form-name" value="contact" />
-          <p style="display:none"><label>Don’t fill this out: <input name="bot-field" /></label></p>
+        <!-- LEFT COLUMN: form + details stacked so the card hugs the button -->
+        <div class="left-col">
+          <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?contact=sent">
+            <input type="hidden" name="form-name" value="contact" />
+            <p style="display:none"><label>Don’t fill this out: <input name="bot-field" /></label></p>
 
-          <label for="name">Your Name</label>
-          <input id="name" name="name" required placeholder="Jane Doe" />
+            <label for="name">Your Name</label>
+            <input id="name" name="name" required placeholder="Jane Doe" />
 
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" required placeholder="you@example.com" />
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required placeholder="you@example.com" />
 
-          <label for="phone">Phone</label>
-          <input id="phone" name="phone" inputmode="tel" placeholder="(xxx) xxx-xxxx" />
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" inputmode="tel" placeholder="(xxx) xxx-xxxx" />
 
-          <label for="service">Interested In</label>
-          <select id="service" name="service">
-            <option value="Family">Family</option>
-            <option value="Maternity">Maternity</option>
-            <option value="Newborn">Newborn</option>
-            <option value="Portraits">Portraits</option>
-          </select>
+            <label for="service">Interested In</label>
+            <select id="service" name="service">
+              <option value="Family">Family</option>
+              <option value="Maternity">Maternity</option>
+              <option value="Newborn">Newborn</option>
+              <option value="Portraits">Portraits</option>
+            </select>
 
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Tell me a bit about your family and preferred location/time."></textarea>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell me a bit about your family and preferred location/time."></textarea>
 
-          <!-- UPDATED: centered single button; removed "Check Calendar" -->
-          <div class="cta contact-cta" style="margin-top:14px">
-            <button class="btn" type="submit">Send Request</button>
-            <span style="color:#6e6a62; font-size:14px; display:block; text-align:center">
-              Or reach me: <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a>
-            </span>
+            <div class="cta contact-cta" style="margin-top:14px">
+              <button class="btn" type="submit">Send Request</button>
+              <span style="color:#6e6a62; font-size:14px; display:block; text-align:center">
+                Or reach me: <a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a>
+              </span>
+            </div>
+          </form>
+
+          <!-- This card now sits immediately under the form (no giant blank gap) -->
+          <div class="card">
+            <div class="body">
+              <h3>Service Area</h3>
+              <p>Sarasota • Siesta Key • Lido • Longboat Key • Lakewood Ranch • Venice • Bradenton • Tampa • St. Petersburg • Clearwater • Naples</p>
+
+              <h3 style="margin-top:16px">Preferred Times</h3>
+              <p>Select weekday evenings · Full weekends. Beach sessions at golden hour recommended.</p>
+
+              <h3 style="margin-top:16px">Booking Online</h3>
+              <p>Prefer to book directly? Tap “Book a Session” to open the calendar right here.</p>
+
+              <div class="badge">Live booking + contracts coming soon</div>
+            </div>
           </div>
-        </form>
+        </div>
 
-        <!-- RIGHT COLUMN: scheduler only -->
-        <div>
-          <div class="card" id="book" style="margin-bottom:var(--gap)">
+        <!-- RIGHT COLUMN: scheduler -->
+        <div class="right-col">
+          <div class="card" id="book">
             <div class="body" style="padding:0">
               <div class="scheduler-card" style="border:none; box-shadow:none">
                 <div class="iframe-wrap">
@@ -552,22 +497,6 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <!-- LEFT COLUMN, DIRECTLY UNDER THE FORM (moved up to remove blank gap) -->
-        <div class="card" style="grid-column:1/2">
-          <div class="body">
-            <h3>Service Area</h3>
-            <p>Sarasota • Siesta Key • Lido • Longboat Key • Lakewood Ranch • Venice • Bradenton • Tampa • St. Petersburg • Clearwater • Naples</p>
-
-            <h3 style="margin-top:16px">Preferred Times</h3>
-            <p>Select weekday evenings · Full weekends. Beach sessions at golden hour recommended.</p>
-
-            <h3 style="margin-top:16px">Booking Online</h3>
-            <p>Prefer to book directly? Tap “Book a Session” to open the calendar right here.</p>
-
-            <div class="badge">Live booking + contracts coming soon</div>
           </div>
         </div>
 
