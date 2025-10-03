@@ -9,13 +9,15 @@
   <meta name="description" content="Candid, timeless, true-to-life family, maternity, newborn & portrait photography across Sarasota and Florida’s Gulf Coast — with a soft, whimsical touch." />
   <link rel="canonical" href="https://rachelsphotography.netlify.app/" />
 
-  <!-- Social share -->
+  <!-- Social share (iMessage / FB / Twitter) -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Rachel Barton Photography" />
   <meta property="og:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
   <meta property="og:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
   <meta property="og:url" content="https://rachelsphotography.netlify.app/" />
+  <!-- Use your screenshot as the preview image (absolute URL) -->
   <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
+  <meta property="og:image:secure_url" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -33,58 +35,121 @@
 
   <style>
     :root{
-      --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
-      --accent:#A88A5A; --accent-2:#E8DFC9; --line:#e9e6df;
-      --butter-bar: rgba(255,248,238,0.92); --butter-stroke: rgba(0,0,0,0.04);
-      --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
-      --radius:0; --gap:clamp(16px,3vw,32px); --maxw:1200px;
+      --bg:#FAFAF8;
+      --paper:#ffffff;
+      --ink:#3e3e3a;
+      --muted:#7a766e;
+      --accent:#A88A5A;    /* sunset gold */
+      --accent-2:#E8DFC9;  /* pale sand */
+      --line:#e9e6df;
+      --butter-bar: rgba(255,248,238,0.92);
+      --butter-stroke: rgba(0,0,0,0.04);
+      --ring: rgba(168,138,90,.25);
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius:0;
+      --gap:clamp(16px,3vw,32px);
+      --maxw:1200px;
     }
+
     *{box-sizing:border-box}
-    html,body{margin:0; padding:0; background:var(--bg); color:var(--ink);
-      font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; line-height:1.65}
+    html,body{
+      margin:0; padding:0; background:var(--bg); color:var(--ink);
+      font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+
+    /* Floating text links, gold on hover, no underline */
     a{color:inherit; text-decoration:none; transition:color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
+
     img{max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    .hero{ position:relative; min-height:100svh; display:grid; place-items:center;
-      background:url('pictures/heroImage.jpg') center/cover no-repeat; width:100vw;
-      margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw); }
-    .hero::after{ content:""; position:absolute; inset:0;
-      background:linear-gradient(to bottom, rgba(250,250,248,.75), rgba(250,250,248,.35) 35%, rgba(0,0,0,.10) 100%); pointer-events:none; }
+    /* HERO (full viewport, brand + nav over photo) */
+    .hero{
+      position:relative;
+      min-height:100svh;
+      display:grid; place-items:center;
+      background:url('pictures/heroImage.jpg') center/cover no-repeat;
+      width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
+    }
+    .hero::after{
+      content:""; position:absolute; inset:0;
+      background:linear-gradient(to bottom, rgba(250,250,248,.75), rgba(250,250,248,.35) 35%, rgba(0,0,0,.10) 100%);
+      pointer-events:none;
+    }
 
-    .topbar{ position:absolute; left:0; right:0; top:0; display:flex; align-items:center; justify-content:space-between; padding:16px var(--gap); z-index:2; }
+    /* top overlay bar (brand left, nav right) */
+    .topbar{
+      position:absolute; left:0; right:0; top:0;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px var(--gap); z-index:2;
+    }
     .brand{display:flex; align-items:center; gap:12px}
-    .logo{width:44px; height:44px; border-radius:50%; background:radial-gradient(42px 42px at 50% 50%, #FFE7B3 0%, #FFD485 45%, #FFC166 65%, #F4A44C 85%, #E18A3B 100%); border:1px solid rgba(226,149,60,.35); box-shadow:0 0 0 6px rgba(255,219,170,.28), 0 0 24px rgba(255,176,88,.25)}
+    .brand .logo{
+      width:44px; height:44px; border-radius:50%;
+      background:radial-gradient(42px 42px at 50% 50%, #FFE7B3 0%, #FFD485 45%, #FFC166 65%, #F4A44C 85%, #E18A3B 100%);
+      border:1px solid rgba(226,149,60,.35);
+      box-shadow:0 0 0 6px rgba(255,219,170,.28), 0 0 24px rgba(255,176,88,.25);
+    }
     .brand .name{font-family:"Fraunces",serif; font-weight:700; font-size:21px}
+
     nav.primary ul{display:flex; gap:18px; list-style:none; margin:0; padding:0}
     nav.primary a{font-weight:600}
 
-    .hero .copy{ position:relative; z-index:1; background:rgba(255,255,255,.85); border:1px solid var(--line);
-      padding:18px; max-width:680px; box-shadow:var(--shadow); text-align:center; }
+    /* hero copy block */
+    .hero .copy{
+      position:relative; z-index:1;
+      background:rgba(255,255,255,.85);
+      border:1px solid var(--line);
+      padding:18px; max-width:680px; box-shadow:var(--shadow);
+      text-align:center;
+    }
+
     .eyebrow{color:#8d7a5c; font-weight:700; letter-spacing:.16em; text-transform:uppercase; font-size:12px}
     h1{font-family:"Playfair Display",serif; font-size:clamp(32px,6vw,56px); line-height:1.1; margin:.25em 0; font-weight:700; color:#3f3a33}
     .subtitle{color:#5c5850; max-width:60ch; margin:0 auto}
+
+    /* Floating-text buttons – centered */
     .cta{display:flex; gap:22px; margin-top:18px; flex-wrap:wrap; justify-content:center}
     .btn{background:transparent; border:0; padding:0; color:#3f3a33; font-weight:700; cursor:pointer}
     .btn:hover,.btn:focus-visible{ color:var(--accent) }
+
     .badge{display:block; margin-top:12px; color:#6a645a}
 
-    .scallop{ --h:18px; position:relative; height:var(--h); background:var(--butter-bar); border-bottom:1px solid var(--butter-stroke); }
-    .scallop::after{ content:""; position:absolute; left:0; right:0; bottom:-1px; height:var(--h);
-      background:radial-gradient(var(--h) at 50% 0, var(--bg) 98%, transparent 100%) center bottom/var(--h) var(--h) repeat-x; pointer-events:none; }
+    /* Butter scallop divider under hero */
+    .scallop{
+      --h:18px; position:relative; height:var(--h);
+      background:var(--butter-bar); border-bottom:1px solid var(--butter-stroke);
+    }
+    .scallop::after{
+      content:""; position:absolute; left:0; right:0; bottom:-1px; height:var(--h);
+      background:radial-gradient(var(--h) at 50% 0, var(--bg) 98%, transparent 100%) center bottom/var(--h) var(--h) repeat-x;
+      pointer-events:none;
+    }
 
+    /* Sections below */
     section{padding:calc(var(--gap)*2) 0}
     .section-title{font-family:"Fraunces",serif; font-size:clamp(24px,3.5vw,38px); margin:0 0 8px}
     .section-sub{color:#67635b; margin:0 0 22px}
 
+    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
+    .card{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column}
+    .card .body{padding:18px}
+    .meta{color:#7b786f; font-size:14px}
+
+    /* Galleries */
     .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px)}
     .mosaic figure{margin:0}
     .mosaic .captioned.notch{position:relative; display:block}
     .mosaic .notch-figure{display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .mosaic .u-stroke{fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round}
     .mosaic .notch-box{position:absolute; bottom:0; left:50%; transform:translateX(-50%); display:flex; align-items:center; justify-content:center; pointer-events:none}
-    .mosaic .cap-label{ background:var(--accent-2); color:#5b5243; border:1px solid var(--line); padding:8px 14px; font-size:13px; letter-spacing:.08em; font-weight:600; white-space:nowrap; line-height:1.2; pointer-events:auto; transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease }
+    .mosaic .cap-label{
+      background:var(--accent-2); color:#5b5243; border:1px solid var(--line);
+      padding:8px 14px; font-size:13px; letter-spacing:.08em; font-weight:600; white-space:nowrap; line-height:1.2;
+      pointer-events:auto; transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease
+    }
     .mosaic .cap-label:hover{background:#e2d7bd; box-shadow:0 6px 18px rgba(0,0,0,.08); transform:translateY(-1px)}
 
     .features{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
@@ -92,9 +157,11 @@
     .quotes{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
     blockquote{background:#fff; border:1px solid var(--line); padding:18px; margin:0; border-radius:0; position:relative; color:#504a42}
     blockquote:before{content:"“"; font-family:"Fraunces",serif; font-size:48px; color:#d9d3c6; position:absolute; left:12px; top:-10px}
+    blockquote footer{color:#7b786f; font-size:14px; margin-top:8px}
 
+    /* Contact */
     .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
-    .left-col, .right-col{display:flex; flex-direction:column; gap:var(--gap);}
+    .left-col, .right-col{display:flex; flex-direction:column; gap:var(--gap);} /* stacks items so card hugs form */
     form{background:#fff; padding:18px; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
     label{display:block; font-weight:600; margin:10px 0 6px; color:#4b463f}
     input, textarea, select{width:100%; padding:12px 14px; border-radius:0; border:1px solid var(--line); background:#fff; outline:none}
@@ -102,14 +169,59 @@
     textarea{min-height:120px}
 
     footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f}
-    @media (max-width:960px){ .mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr} }
-    @media (max-width:640px){ .mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr} }
 
-    main .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33; font-weight:700; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06); transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease}
-    main .btn:hover, main .btn:focus-visible{ background:#f9f6ef; border-color:#dcd4c3; box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); color:var(--accent); outline:none }
-    main .btn:active{ transform:translateY(0); box-shadow:0 4px 12px rgba(0,0,0,.06) }
+    /* Responsive */
+    @media (max-width:960px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr} }
+    @media (max-width:640px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr} }
+
+    /* Buttons below main content */
+    main .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 16px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:#3f3a33;
+      font-weight:700;
+      text-decoration:none;
+      border-radius:0;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
+    }
+    main .btn:hover, main .btn:focus-visible{
+      background:#f9f6ef; border-color:#dcd4c3; box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); color:var(--accent);
+      outline:none;
+    }
+    main .btn:active{ transform:translateY(0); box-shadow:0 4px 12px rgba(0,0,0,.06); }
+    main button.btn{ appearance:none; -webkit-appearance:none; cursor:pointer; }
+
+    /* Keep hero buttons as floating text */
+    .hero .btn{ background:transparent !important; border:0 !important; padding:0 !important; box-shadow:none !important; color:#3f3a33; }
+    .hero .cta{ gap:28px; }
+    .hero .btn{ font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; padding:8px 6px; border-bottom:1px solid transparent; }
+    .hero .btn:hover,.hero .btn:focus-visible{ color:var(--accent); border-bottom-color:var(--accent); }
+
+    /* Align service card buttons uniformly */
+    .card .body{ display:flex; flex-direction:column; }
+    .card .body .btn{ align-self:flex-start; margin-top:auto; }
+
+    /* Center the single Send Request button in contact form */
+    .contact-cta{ justify-content:center; }
+
+    /* Scheduler (Acuity) – no inner scrollbar, fills column */
+    .scheduler-card{position:relative; display:flex; justify-content:center; align-items:flex-start;}
+    .iframe-wrap{position:relative; width:100%; background:#fff;}
+    .iframe-wrap iframe{
+      display:block; width:100%; border:0;
+      height:0;             /* embed.js sets exact height */
+      min-height:650px;     /* good first paint */
+      overflow:hidden;      /* no inner scrollbar */
+    }
   </style>
 
+  <!-- JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -135,6 +247,7 @@
       </div>
       <nav class="primary" aria-label="Primary">
         <ul>
+          <!-- removed Sessions per request -->
           <li><a href="#portfolio">Galleries</a></li>
           <li><a href="/about.html">About</a></li>
           <li><a href="#reviews">Reviews</a></li>
@@ -161,79 +274,92 @@
     </div>
   </section>
 
+  <!-- Butter scallop divider under hero -->
   <div class="scallop"></div>
 
   <main class="container">
 
-    <!-- Featured Galleries -->
+    <!-- Portfolio / Mosaic -->
     <section id="portfolio" aria-labelledby="portfolio-title">
       <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
 
       <div class="mosaic" id="grid">
-        <!-- LEFT -->
+        <!-- LEFT – stays the same -->
         <figure class="captioned notch" aria-label="Oona & Ivy – Meadow Light">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
-              <mask id="notchMask-3a"><rect x="0" y="0" width="100%" height="100%" fill="white" /><rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" /></mask>
-              <filter id="frameShadow-3a" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
+              <mask id="notchMask-3a">
+                <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
+              </mask>
+              <filter id="frameShadow-3a" x="-20%" y="-20%" width="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+              </filter>
             </defs>
-            <image href="pictures/oonaIvy/E26A0761.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
-            <g class="frameGroup" filter="url(#frameShadow-3a)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
+            <image href="pictures/oonaIvy/E26A0761.jpg" x="0" y="0" width="800" height="1000"
+                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-3a)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+            </g>
           </svg>
-          <div class="notch-box"><a class="cap-label" href="#portfolio">Oona &amp; Ivy – Meadow Light</a></div>
+          <div class="notch-box">
+            <a class="cap-label" href="#portfolio">Oona &amp; Ivy – Meadow Light</a>
+          </div>
         </figure>
 
-        <!-- MIDDLE (Family Portraits) -->
+        <!-- MIDDLE – Family Portraits -->
         <figure class="captioned notch" aria-label="Family Portrait Gallery">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
-              <mask id="notchMask-1"><rect x="0" y="0" width="100%" height="100%" fill="white" /><rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" /></mask>
-              <filter id="frameShadow-1" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
+              <mask id="notchMask-1">
+                <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
+              </mask>
+              <filter id="frameShadow-1" x="-20%" y="-20%" width="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+              </filter>
             </defs>
-            <image href="pictures/familyPortrait/image5.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
-            <g class="frameGroup" filter="url(#frameShadow-1)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
+            <image href="pictures/familyPortrait/image5.jpg" x="0" y="0" width="800" height="1000"
+                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-1)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+            </g>
           </svg>
-          <div class="notch-box"><a class="cap-label" href="/galleries/family-portrait.html">Family Portraits</a></div>
+          <div class="notch-box">
+            <a class="cap-label" href="/galleries/family-portrait.html">Family Portraits</a>
+          </div>
         </figure>
 
-        <!-- RIGHT -->
+        <!-- RIGHT – Oona & Ivy – Beach Sunset -->
         <figure class="captioned notch" aria-label="Oona & Ivy – Beach Sunset">
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
-              <mask id="notchMask-2"><rect x="0" y="0" width="100%" height="100%" fill="white" /><rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" /></mask>
-              <filter id="frameShadow-2" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
+              <mask id="notchMask-2">
+                <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
+              </mask>
+              <filter id="frameShadow-2" x="-20%" y="-20%" width="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+              </filter>
             </defs>
-            <image href="pictures/oonaIvy/E26A0701%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
-            <g class="frameGroup" filter="url(#frameShadow-2)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
+            <image href="pictures/oonaIvy/E26A0701%20(1).jpg" x="0" y="0" width="800" height="1000"
+                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
+            <g class="frameGroup" filter="url(#frameShadow-2)">
+              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+            </g>
           </svg>
-          <div class="notch-box"><a class="cap-label" href="#portfolio">Oona &amp; Ivy – Beach Sunset</a></div>
+          <div class="notch-box">
+            <a class="cap-label" href="#portfolio">Oona &amp; Ivy – Beach Sunset</a>
+          </div>
         </figure>
       </div>
 
       <div class="cta" style="margin-top:18px">
         <a class="btn" href="#book">Check availability</a>
-      </div>
-    </section>
-
-    <!-- My Approach -->
-    <section aria-labelledby="why-title">
-      <h2 class="section-title" id="why-title">My Approach</h2>
-      <p class="section-sub">Candid • Timeless • True-to-life</p>
-
-      <div class="features">
-        <div class="feature">
-          <h3>Patient & Kid-Wise</h3>
-          <p>We keep things light and playful so personalities shine. Gentle prompts, real moments.</p>
-        </div>
-        <div class="feature">
-          <h3>Detail-Driven</h3>
-          <p>Clear prep, easy styling tips, and thoughtful direction. A calm experience from hello to gallery delivery.</p>
-        </div>
-        <div class="feature">
-          <h3>Timeless Editing</h3>
-          <p>Clean, true-to-life color and natural skin tones — photos you’ll still love in ten years.</p>
-        </div>
       </div>
     </section>
 
@@ -255,6 +381,7 @@
       <p class="section-sub">Tell me about your crew and the kind of session you’re envisioning.</p>
 
       <div class="contact-grid">
+        <!-- LEFT COLUMN: form + details stacked so the card hugs the button -->
         <div class="left-col">
           <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?contact=sent">
             <input type="hidden" name="form-name" value="contact" />
@@ -288,6 +415,7 @@
             </div>
           </form>
 
+          <!-- This card now sits immediately under the form (no giant blank gap) -->
           <div class="card">
             <div class="body">
               <h3>Service Area</h3>
@@ -304,6 +432,7 @@
           </div>
         </div>
 
+        <!-- RIGHT COLUMN: scheduler -->
         <div class="right-col">
           <div class="card" id="book">
             <div class="body" style="padding:0">
@@ -334,14 +463,17 @@
     </div>
   </footer>
 
+  <!-- Lightbox shell (kept) -->
   <div id="lightbox"><button onclick="closeLightbox()">✕</button><img alt=""></div>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    /* True notch cutout sizing for gallery labels */
     (function(){
       const tiles = document.querySelectorAll('.mosaic .captioned.notch');
       if(!tiles.length) return;
+
       function updateTile(tile){
         const svg = tile.querySelector('svg.notch-figure');
         const notchRect = svg.querySelector('.notchRect');
@@ -349,39 +481,52 @@
         const label = tile.querySelector('.cap-label');
         const notchBox = tile.querySelector('.notch-box');
         if(!svg || !label || !notchRect || !the_recessStroke || !notchBox) return;
+
         const padCss = 8;
         const labelRect = label.getBoundingClientRect();
         const tileRect  = svg.getBoundingClientRect();
+
         const recessW_css = labelRect.width + padCss * 2;
         const recessH_css = labelRect.height + padCss * 2;
+
         const sx = 800 / tileRect.width;
         const sy = 1000 / tileRect.height;
+
         const recessW = recessW_css * sx;
         const recessH = recessH_css * sy;
+
         const recessX = ((tileRect.width - recessW_css) / 2) * sx;
         const recessY = 1000 - recessH - (padCss * sy);
+
         notchRect.setAttribute('x', recessX.toFixed(2));
         notchRect.setAttribute('y', recessY.toFixed(2));
         notchRect.setAttribute('width', recessW.toFixed(2));
         notchRect.setAttribute('height', recessH.toFixed(2));
+
         the_recessStroke.setAttribute('x', recessX.toFixed(2));
         the_recessStroke.setAttribute('y', recessY.toFixed(2));
         the_recessStroke.setAttribute('width', recessW.toFixed(2));
         the_recessStroke.setAttribute('height', recessH.toFixed(2));
+
         notchBox.style.width = recessW_css + 'px';
         notchBox.style.height = recessH_css + 'px';
         notchBox.style.bottom = padCss + 'px';
         notchBox.style.left = '50%';
         notchBox.style.transform = 'translateX(-50%)';
       }
+
       function updateAll(){ tiles.forEach(t => updateTile(t)); }
-      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(()=>{ requestAnimationFrame(updateAll); }); }
-      else { window.addEventListener('load', updateAll); }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(()=>{ requestAnimationFrame(updateAll); });
+      } else {
+        window.addEventListener('load', updateAll);
+      }
       window.addEventListener('resize', ()=>{ requestAnimationFrame(updateAll); });
       setTimeout(updateAll, 0);
     })();
   </script>
 
+  <!-- Acuity auto-resize (prevents inner scrollbars) -->
   <script src="https://embed.acuityscheduling.com/js/embed.js" async></script>
 </body>
 </html>
