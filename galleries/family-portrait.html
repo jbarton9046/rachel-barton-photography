@@ -53,25 +53,15 @@
 
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    /* ===== FLOATING NAV (no header bar) ===== */
-    header.site{
-      position:absolute; top:0; left:0; right:0;
-      background:transparent; border:0;
-      z-index:10;
+    /* ===== CENTERED TOPBAR NAV (matches index.html) ===== */
+    .topbar{
+      position:absolute; left:0; right:0; top:0;
+      display:flex; align-items:center; justify-content:center;
+      padding:16px var(--gap); z-index:10;
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px var(--gap)}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand .logo{
-      width:44px;height:44px;border-radius:50%;
-      background:radial-gradient(42px 42px at 50% 50%, #FFE7B3 0%, #FFD485 45%, #FFC166 65%, #F4A44C 85%, #E18A3B 100%);
-      border:1px solid rgba(226,149,60,.35);
-      box-shadow:0 0 0 6px rgba(255,219,170,.28), 0 0 24px rgba(255,176,88,.25);
-    }
-    .brand .name{font-family:"Fraunces",serif; font-weight:700; font-size:21px}
-
-    /* Navbar font/hover matches index (Raleway) */
-    header.site nav ul{display:flex;list-style:none;gap:28px;margin:0;padding:0}
-    header.site nav a{
+    .brand{display:none}
+    nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
+    nav.primary a{
       font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-weight:500;
       font-size:clamp(16px,1.8vw,20px);
@@ -79,9 +69,10 @@
       border-bottom:1px solid transparent;
       padding:4px 2px;
     }
-    header.site nav a:hover, header.site nav a:focus-visible{
+    nav.primary a:hover, nav.primary a:focus-visible{
       color:var(--accent);
       border-bottom-color:var(--accent);
+      outline:none;
     }
 
     /* Floating intro (no hero image) */
@@ -219,24 +210,21 @@
   </style>
 </head>
 <body>
-  <header class="site">
-    <div class="nav container">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div class="name">Rachel Barton Photography</div>
-      </div>
-      <nav aria-label="Primary">
-        <ul>
-          <li><a href="/#services">Sessions</a></li>
-          <li><a href="/#portfolio" class="active">Galleries</a></li>
-          <li><a href="/#about">About</a></li>
-          <li><a href="/#reviews">Reviews</a></li>
-          <li><a href="/#contact">Contact</a></li>
-          <li><a href="/#book">Book</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+
+  <!-- Topbar nav matching index; includes Home link on this non-index page -->
+  <div class="topbar container">
+    <div class="brand"></div>
+    <nav class="primary" aria-label="Primary">
+      <ul>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/#portfolio" class="active">Galleries</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/#reviews">Reviews</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/#book">Book</a></li>
+      </ul>
+    </nav>
+  </div>
 
   <!-- Floating intro (no hero image) -->
   <div class="floating container" role="region" aria-label="Gallery intro">
