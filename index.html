@@ -106,40 +106,57 @@
       border-bottom-color:var(--accent);
     }
 
-    /* Dropdown (on-brand: clean, light, bordered card with subtle shadow) */
+    /* --- Dropdown: on-brand card + hover bridge to prevent flicker --- */
+    .has-sub{ /* create a hover "bridge" zone below Galleries */
+      position:relative;
+    }
+    .has-sub::after{
+      content:"";
+      position:absolute;
+      left:-8px; right:-8px;
+      top:100%;
+      height:12px;        /* bridge height under the link */
+      background:transparent;
+    }
+
     .dropdown{
       position:absolute;
-      top:100%;
+      top:calc(100% + 6px);    /* slight offset below the link */
       left:50%;
       transform:translate(-50%, 0);
-      background:#fff;
+      background:rgba(255,255,255,.92);   /* match floating card look */
+      backdrop-filter:saturate(1.1);
       border:1px solid var(--line);
       box-shadow:var(--shadow);
       padding:8px;
       display:flex;
       flex-direction:column;
       gap:4px;
-      min-width:240px;
+      min-width:260px;
       opacity:0; visibility:hidden; pointer-events:none;
       transition:opacity .15s ease, transform .15s ease;
       z-index:3;
     }
     .has-sub:hover .dropdown,
-    .has-sub:focus-within .dropdown{
+    .has-sub:focus-within .dropdown,
+    .dropdown:hover{
       opacity:1; visibility:visible; pointer-events:auto;
-      transform:translate(-50%, 8px);
+      transform:translate(-50%, 2px);
     }
+    .dropdown li{list-style:none}
     .dropdown a{
       font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-weight:500;
       font-size:16px;
-      padding:8px 10px;
+      padding:10px 12px;
       border:1px solid transparent;
       border-radius:0;
       white-space:nowrap;
+      letter-spacing:.02em;
+      color:#3f3a33;
     }
     .dropdown a:hover, .dropdown a:focus-visible{
-      background:#f9f6ef;
+      background:#f9f6ef;          /* same hover tone as buttons */
       border-color:#dcd4c3;
       color:var(--accent);
       outline:none;
@@ -341,79 +358,79 @@
       <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
 
-      <div class="mosaic" id="grid">
-        <!-- LEFT -->
-        <figure class="captioned notch" id="gallery-meadow" aria-label="Oona & Ivy – Meadow Light">
-          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs>
-              <mask id="notchMask-3a">
-                <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
-              </mask>
-              <filter id="frameShadow-3a" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-              </filter>
-            </defs>
-            <image href="pictures/oonaIvy/E26A0761.jpg" x="0" y="0" width="800" height="1000"
-                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
-            <g class="frameGroup" filter="url(#frameShadow-3a)">
-              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
-            </g>
-          </svg>
-          <div class="notch-box">
-            <a class="cap-label" href="#gallery-meadow">Oona &amp; Ivy – Meadow Light</a>
-          </div>
-        </figure>
+    <div class="mosaic" id="grid">
+      <!-- LEFT -->
+      <figure class="captioned notch" id="gallery-meadow" aria-label="Oona & Ivy – Meadow Light">
+        <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <mask id="notchMask-3a">
+              <rect x="0" y="0" width="100%" height="100%" fill="white" />
+              <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
+            </mask>
+            <filter id="frameShadow-3a" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+            </filter>
+          </defs>
+          <image href="pictures/oonaIvy/E26A0761.jpg" x="0" y="0" width="800" height="1000"
+                 preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
+          <g class="frameGroup" filter="url(#frameShadow-3a)">
+            <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+            <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+          </g>
+        </svg>
+        <div class="notch-box">
+          <a class="cap-label" href="#gallery-meadow">Oona &amp; Ivy – Meadow Light</a>
+        </div>
+      </figure>
 
-        <!-- MIDDLE -->
-        <figure class="captioned notch" id="gallery-family" aria-label="Family Portrait Gallery">
-          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs>
-              <mask id="notchMask-1">
-                <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
-              </mask>
-              <filter id="frameShadow-1" x="-20%" y="-20%" width="140%">
-                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-              </filter>
-            </defs>
-            <image href="pictures/familyPortrait/image5.jpg" x="0" y="0" width="800" height="1000"
-                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
-            <g class="frameGroup" filter="url(#frameShadow-1)">
-              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
-            </g>
-          </svg>
-          <div class="notch-box">
-            <a class="cap-label" href="/galleries/family-portrait.html">Family Portraits</a>
-          </div>
-        </figure>
+      <!-- MIDDLE -->
+      <figure class="captioned notch" id="gallery-family" aria-label="Family Portrait Gallery">
+        <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <mask id="notchMask-1">
+              <rect x="0" y="0" width="100%" height="100%" fill="white" />
+              <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
+            </mask>
+            <filter id="frameShadow-1" x="-20%" y="-20%" width="140%">
+              <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+            </filter>
+          </defs>
+          <image href="pictures/familyPortrait/image5.jpg" x="0" y="0" width="800" height="1000"
+                 preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
+          <g class="frameGroup" filter="url(#frameShadow-1)">
+            <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+            <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+          </g>
+        </svg>
+        <div class="notch-box">
+          <a class="cap-label" href="/galleries/family-portrait.html">Family Portraits</a>
+        </div>
+      </figure>
 
-        <!-- RIGHT -->
-        <figure class="captioned notch" id="gallery-beach" aria-label="Oona & Ivy – Beach Sunset">
-          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs>
-              <mask id="notchMask-2">
-                <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
-              </mask>
-              <filter id="frameShadow-2" x="-20%" y="-20%" width="140%">
-                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-              </filter>
-            </defs>
-            <image href="pictures/oonaIvy/E26A0701%20(1).jpg" x="0" y="0" width="800" height="1000"
-                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
-            <g class="frameGroup" filter="url(#frameShadow-2)">
-              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
-            </g>
-          </svg>
-          <div class="notch-box">
-            <a class="cap-label" href="#gallery-beach">Oona &amp; Ivy – Beach Sunset</a>
-          </div>
-        </figure>
-      </div>
+      <!-- RIGHT -->
+      <figure class="captioned notch" id="gallery-beach" aria-label="Oona & Ivy – Beach Sunset">
+        <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <mask id="notchMask-2">
+              <rect x="0" y="0" width="100%" height="100%" fill="white" />
+              <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
+            </mask>
+            <filter id="frameShadow-2" x="-20%" y="-20%" width="140%">
+              <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+            </filter>
+          </defs>
+          <image href="pictures/oonaIvy/E26A0701%20(1).jpg" x="0" y="0" width="800" height="1000"
+                 preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
+          <g class="frameGroup" filter="url(#frameShadow-2)">
+            <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+            <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+          </g>
+        </svg>
+        <div class="notch-box">
+          <a class="cap-label" href="#gallery-beach">Oona &amp; Ivy – Beach Sunset</a>
+        </div>
+      </figure>
+    </div>
 
       <div class="cta" style="margin-top:18px">
         <a class="btn" href="#book">Check availability</a>
