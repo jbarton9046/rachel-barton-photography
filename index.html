@@ -163,9 +163,10 @@
     }
     .section-sub{color:#67635b; margin:0 0 22px}
 
-    /* >>> CHANGE: Make the entire "My Approach" section Cormorant Garamond */
-    section[aria-labelledby="why-title"]{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+    /* *** CHANGE: only the three card titles use the gallery label font *** */
+    .features .feature h3{
+      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      font-weight:700;
     }
 
     .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
