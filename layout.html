@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><!-- Page Title → replace per page --></title>
 
-  <!-- Minimal fonts -->
+  <!-- Fonts to match index.html -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Body: Source Sans 3 · Headers: Cormorant Garamond · Nav: Raleway -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -38,7 +39,8 @@
     *{box-sizing:border-box}
     html,body{
       margin:0; padding:0; background:var(--bg); color:var(--ink);
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      /* Body font matches index.html */
+      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       line-height:1.7; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
 
@@ -51,8 +53,8 @@
 
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    /* Headings */
-    h1,.section-title{font-family:"Playfair Display",serif; color:#202022}
+    /* Headings use the same header font as index.html */
+    h1,.section-title{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; color:#202022}
     h1{font-size:clamp(32px,6vw,56px); line-height:1.1; margin:.35em 0 .2em; font-weight:700}
     .section-title{font-size:clamp(22px,3.4vw,38px); margin:0 0 10px; font-weight:600}
     .section-sub{color:var(--muted); margin:0 0 20px}
@@ -91,6 +93,29 @@
     }
     .mosaic .cap-label:hover,.mosaic .cap-label:focus-visible{background:#e2d7bd; box-shadow:0 6px 18px rgba(0,0,0,.08); transform:translateY(-1px); outline:none}
 
+    /* ===== Floating topbar nav (matches index.html) ===== */
+    .topbar{
+      position:absolute; left:0; right:0; top:0;
+      display:flex; align-items:center; justify-content:center;
+      padding:16px var(--gap); z-index:10; /* sits above hero imagery */
+    }
+    .brand{display:none} /* index hides the brand in the topbar */
+    nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
+    nav.primary a{
+      font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight:500;
+      font-size:clamp(16px,1.8vw,20px);
+      letter-spacing:.02em;
+      border-bottom:1px solid transparent;
+      padding:4px 2px;
+      transition:color .15s ease, border-color .15s ease;
+    }
+    nav.primary a:hover, nav.primary a:focus-visible{
+      color:var(--accent);
+      border-bottom-color:var(--accent);
+      outline:none;
+    }
+
     /* Forms */
     label{display:block; font-weight:600; margin:10px 0 6px; color:#34343a}
     input, textarea, select{width:100%; padding:12px 14px; border-radius:0; border:1px solid var(--line); background:#fff; color:#1f1f22; outline:none}
@@ -105,7 +130,23 @@
   </style>
 </head>
 <body>
-  <!-- No header here by design. Each page (index.html) can place a brand+nav overlay inside its hero. -->
+  <!--
+    No fixed header here by design.
+    To match index.html, drop this inside a page's hero:
+
+    <div class="topbar container">
+      <div class="brand"></div>
+      <nav class="primary" aria-label="Primary">
+        <ul>
+          <li><a href="/#portfolio">Galleries</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/#reviews">Reviews</a></li>
+          <li><a href="/#contact">Contact</a></li>
+          <li><a href="/#book">Book</a></li>
+        </ul>
+      </nav>
+    </div>
+  -->
 
   <!-- ===== Page-specific content goes here ===== -->
   <main class="container">
