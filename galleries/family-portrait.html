@@ -17,10 +17,13 @@
   <meta property="og:url" content="https://rachelsphotography.netlify.app/galleries/family-portrait.html" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts (same as index) -->
+  <!-- Fonts (match index) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- keep existing families for compatibility -->
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- index.html choices -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -34,7 +37,8 @@
     *{box-sizing:border-box}
     html,body{
       margin:0; padding:0; background:var(--bg); color:var(--ink);
-      font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      /* Body font matches index */
+      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
       overflow-x:hidden; /* prevent any horizontal scrollbar */
       /* ensure only ONE vertical scrollbar (the window) */
@@ -64,8 +68,21 @@
       box-shadow:0 0 0 6px rgba(255,219,170,.28), 0 0 24px rgba(255,176,88,.25);
     }
     .brand .name{font-family:"Fraunces",serif; font-weight:700; font-size:21px}
-    header.site nav ul{display:flex;list-style:none;gap:18px;margin:0;padding:0}
-    header.site nav a{font-weight:600}
+
+    /* Navbar font/hover matches index (Raleway) */
+    header.site nav ul{display:flex;list-style:none;gap:28px;margin:0;padding:0}
+    header.site nav a{
+      font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight:500;
+      font-size:clamp(16px,1.8vw,20px);
+      letter-spacing:.02em;
+      border-bottom:1px solid transparent;
+      padding:4px 2px;
+    }
+    header.site nav a:hover, header.site nav a:focus-visible{
+      color:var(--accent);
+      border-bottom-color:var(--accent);
+    }
 
     /* Floating intro (no hero image) */
     .floating{
@@ -78,11 +95,18 @@
       max-width:820px;
     }
 
-    h1{font-family:"Playfair Display",serif; font-size:clamp(28px,5.5vw,52px); line-height:1.1; margin:.25em 0 .2em; font-weight:700; color:#3f3a33}
+    /* Titles use header font from index (Cormorant Garamond) */
+    h1{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-size:clamp(28px,5.5vw,52px); line-height:1.1; margin:.25em 0 .2em; font-weight:700; color:#3f3a33
+    }
     .section-sub{color:#5c5850; margin:0 0 12px}
 
     .cta{display:flex; gap:26px; margin-top:14px; flex-wrap:wrap; justify-content:center}
-    .cta a{font-weight:700; font-size:18px; line-height:1.2}
+    .cta a{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; /* match index button font */
+      font-weight:700; font-size:18px; line-height:1.2
+    }
 
     /* Gallery grid */
     main section{padding:0 0 calc(var(--gap)*1.5)}
@@ -113,13 +137,17 @@
 
     /* ===== Packages ===== */
     .packages{padding:calc(var(--gap)*1.8) 0}
-    .packages .section-title{font-family:"Fraunces",serif;font-size:clamp(24px,3.5vw,38px);margin:0 0 8px;color:#3f3a33;text-align:center}
+    .packages .section-title{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; /* align with index headers */
+      font-size:clamp(24px,3.5vw,38px);margin:0 0 8px;color:#3f3a33;text-align:center
+    }
     .packages .section-sub{color:#67635b;margin:0 0 22px;text-align:center}
     .packages .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
     .packages .card{background:var(--paper);border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
     .packages .card .body{padding:18px;display:flex;flex-direction:column}
     .packages .meta{color:#7b786f;font-size:14px}
     .packages .btn{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; /* match index buttons */
       display:inline-flex;align-items:center;justify-content:center;gap:8px;
       padding:10px 16px;border:1px solid var(--line);background:#fff;color:#3f3a33;
       font-weight:700;text-decoration:none;border-radius:0;box-shadow:0 6px 18px rgba(0,0,0,.06);
@@ -142,7 +170,7 @@
     .scheduler-wrap{ max-width:980px; margin:0 auto; }
     .scheduler-wrap .scheduler-header{ text-align:center; margin-bottom:12px; }
     .scheduler-wrap h2{
-      font-family:"Fraunces",serif;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; /* match headers */
       font-size:clamp(20px,3vw,28px);
       margin:0 0 4px;
       color:#3f3a33;
@@ -186,7 +214,7 @@
     @media (max-width:640px){
       .packages .cards{grid-template-columns:1fr}
       .faq-grid{grid-template-columns:1fr}
-      .scheduler-wrap{ max-width:600px; }
+      .scheduler-wrap{ max_width:600px; }
     }
   </style>
 </head>
