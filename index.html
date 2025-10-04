@@ -130,7 +130,12 @@
     }
 
     .cta{display:flex; gap:22px; margin-top:16px; flex-wrap:wrap; justify-content:center}
-    .btn{background:transparent; border:0; padding:0 4px; color:#3f3a33; font-weight:700; cursor:pointer}
+
+    /* CHANGE: make buttons use the header font (size unchanged) */
+    .btn{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      background:transparent; border:0; padding:0 4px; color:#3f3a33; font-weight:700; cursor:pointer
+    }
     .hero .btn{ font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; border-bottom:1px solid transparent; }
     .hero .btn:hover, .hero .btn:focus-visible{ color:var(--accent); border-bottom-color:var(--accent); }
 
