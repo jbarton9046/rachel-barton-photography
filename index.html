@@ -57,9 +57,8 @@
       font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
-    a{color:inherit; text-decoration:none; transition:color .15s ease}
+    a{color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
-
     img{max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
@@ -89,16 +88,15 @@
       font-weight:500;
       font-size:clamp(16px,1.8vw,20px);
       letter-spacing:.02em;
-      /* remove underline behavior everywhere */
-      border-bottom:0;
+      border-bottom:0;            /* no underline */
       padding:4px 2px;
     }
     nav.primary a:hover, nav.primary a:focus-visible{
       color:var(--accent);
-      border-bottom:0;
+      border-bottom:0;            /* keep no underline on hover */
     }
 
-    /* Dropdown base */
+    /* Base dropdown (will be overridden below for “floating text”) */
     .has-sub{ position:relative; }
     .has-sub::after{
       content:"";
@@ -113,18 +111,18 @@
       top:calc(100% + 6px);
       left:50%;
       transform:translate(-50%, 0);
-      /* FLOAT: no background */
-      background:transparent;
-      border:0;
+      background:rgba(255,255,255,.65);
+      border:1px solid var(--line);
       box-shadow:var(--shadow);
-      padding:2px 0;            /* minimal container padding */
+      padding:6px 8px;
       display:flex;
       flex-direction:column;
-      gap:4px;                  /* a little space between lines */
-      min-width:180px;
+      gap:2px;
+      min-width:220px;
       opacity:0; visibility:hidden; pointer-events:none;
       transition:opacity .15s ease, transform .15s ease;
       z-index:3;
+      backdrop-filter:saturate(1.05);
     }
     .has-sub:hover .dropdown,
     .has-sub:focus-within .dropdown,
@@ -136,19 +134,18 @@
     .dropdown a{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-weight:700;
-      font-size:clamp(12px,1.1vw,14px);
-      letter-spacing:.01em;
-      line-height:1.15;
-      padding:2px 4px;          /* small internal padding for readability */
+      font-size:clamp(18px,2.2vw,20px);
+      letter-spacing:.02em;
+      line-height:1.1;
+      padding:2px 6px;
       color:#3f3a33;
-      border-bottom:0;          /* no underline */
+      border-bottom:0;            /* no underline */
       white-space:nowrap;
-      background:rgba(255,255,255,0); /* truly floating */
     }
     .dropdown a:hover, .dropdown a:focus-visible{
-      color:var(--accent);
-      border-bottom:0;
       background:transparent;
+      border-bottom:0;            /* keep no underline */
+      color:var(--accent);
       outline:none;
     }
 
@@ -176,12 +173,12 @@
 
     .cta{display:flex; gap:22px; margin-top:16px; flex-wrap:wrap; justify-content:center}
 
-    /* Button: thin black border, no underline ever */
+    /* Button: thin black border, tighter padding; no underline ever */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       background:transparent;
       border:1px solid rgba(0,0,0,.85);
-      padding:6px 12px;
+      padding:3px 8px;            /* tighter so it hugs text */
       color:#3f3a33;
       font-weight:700;
       cursor:pointer;
@@ -279,6 +276,33 @@
     .iframe-wrap{position:relative; width:100%; background:#fff;}
     .iframe-wrap iframe{ display:block; width:100%; border:0; height:0; min-height:650px; overflow:hidden; }
   </style>
+
+  <!-- FINAL OVERRIDES: floating dropdown text + spacing; remove underline everywhere -->
+  <style id="dropdown-float-overrides">
+    /* Dropdown floats: strip card/background/borders and add a little spacing */
+    .topbar nav.primary .has-sub > .dropdown{
+      background:transparent !important;
+      border:0 !important;
+      box-shadow:none !important;
+      padding:0 !important;
+      gap:6px !important;                /* a little padding between lines */
+      min-width:unset !important;        /* let width fit the text */
+      left:50% !important;
+      transform:translateX(-50%) !important;
+    }
+    .topbar nav.primary .dropdown a{
+      border-bottom:0 !important;        /* no underline ever */
+      padding:0 !important;              /* text sits cleanly */
+      background:transparent !important;
+    }
+    .topbar nav.primary .dropdown a:hover,
+    .topbar nav.primary .dropdown a:focus-visible{
+      border-bottom:0 !important;
+      background:transparent !important;
+      color:var(--accent) !important;
+      outline:none !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -309,7 +333,7 @@
       <div class="eyebrow">Welcome to</div>
       <h1>Rachel Barton<br>Photography</h1>
 
-      <!-- Book button moved ABOVE localities and given thin black border (styled in CSS) -->
+      <!-- Book a Session moved above the areas -->
       <div class="cta">
         <a class="btn" href="#book" aria-label="Book a Session">Book a Session</a>
       </div>
