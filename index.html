@@ -131,7 +131,7 @@
 
     .cta{display:flex; gap:22px; margin-top:16px; flex-wrap:wrap; justify-content:center}
 
-    /* CHANGE: make buttons use the header font (size unchanged) */
+    /* Buttons use the header font (size unchanged) */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       background:transparent; border:0; padding:0 4px; color:#3f3a33; font-weight:700; cursor:pointer
@@ -162,6 +162,11 @@
       font-size:clamp(24px,3.5vw,38px); margin:0 0 8px
     }
     .section-sub{color:#67635b; margin:0 0 22px}
+
+    /* >>> CHANGE: Make the entire "My Approach" section Cormorant Garamond */
+    section[aria-labelledby="why-title"]{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+    }
 
     .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
     .card{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column}
@@ -373,7 +378,7 @@
       <h2 class="section-title" id="why-title">My Approach</h2>
       <p class="section-sub">Candid • Timeless • True-to-life</p>
 
-    <div class="features">
+      <div class="features">
         <div class="feature">
           <h3>Patient & Kid-Wise</h3>
           <p>We keep things light and playful so personalities shine. Gentle prompts, real moments.</p>
