@@ -20,10 +20,13 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts -->
+  <!-- Fonts (match index.html selections) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Keep original set for compatibility -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Index choices -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -33,28 +36,72 @@
       --radius:0; --gap:clamp(16px,3vw,32px); --maxw:1200px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0; padding:0; background:var(--bg); color:var(--ink);
-      font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; line-height:1.65}
+    html,body{
+      margin:0; padding:0; background:var(--bg); color:var(--ink);
+      /* Body font matches index */
+      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
     a{color:inherit; text-decoration:none; transition:color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
     img{max-width:100%; height:auto; display:block; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
+
+    /* Header bar */
     header.site{background:#fff; border-bottom:1px solid var(--line)}
     .bar{display:flex; align-items:center; justify-content:space-between; padding:12px 0}
     .brand{display:flex; gap:12px; align-items:center}
     .logo{width:36px; height:36px; border-radius:50%; background:radial-gradient(36px 36px at 50% 50%, #FFE7B3 0%, #FFD485 45%, #FFC166 65%, #F4A44C 85%, #E18A3B 100%); border:1px solid rgba(226,149,60,.35)}
     .brand .name{font-family:"Fraunces",serif; font-weight:700}
-    nav ul{display:flex; gap:16px; list-style:none; padding:0; margin:0}
+
+    /* Navbar matches index (Raleway + spacing + subtle underline on hover) */
+    nav ul{display:flex; gap:28px; list-style:none; padding:0; margin:0}
+    nav a{
+      font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight:500;
+      font-size:clamp(16px,1.8vw,20px);
+      letter-spacing:.02em;
+      border-bottom:1px solid transparent;
+      padding:4px 2px;
+    }
+    nav a:hover, nav a:focus-visible{
+      color:var(--accent);
+      border-bottom-color:var(--accent);
+    }
+
     main section{padding:calc(var(--gap)*2) 0}
-    h1,h2{font-family:"Playfair Display",serif}
+
+    /* Headers match index (Cormorant Garamond) */
+    h1,h2{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      color:#3f3a33;
+    }
+
+    .section-sub{color:#67635b; margin:0 0 22px}
+
     .cards{display:grid; grid-template-columns:2fr 1fr; gap:var(--gap)}
     .card{background:#fff; border:1px solid var(--line); box-shadow:var(--shadow)}
     .card .body{padding:18px}
+
+    /* Buttons match index: use header font, same size/weight behavior */
+    .btn{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33; font-weight:700; text-decoration:none; border-radius:0;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
+    }
+    .btn:hover, .btn:focus-visible{
+      background:#f9f6ef; border-color:#dcd4c3; box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); color:var(--accent);
+      outline:none;
+    }
+    .btn:active{ transform:translateY(0); box-shadow:0 4px 12px rgba(0,0,0,.06); }
+
     .cta{display:flex; gap:16px; flex-wrap:wrap}
+
     footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px}
+
     @media (max-width:900px){ .cards{grid-template-columns:1fr} }
-    .btn{display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border:1px solid var(--line); background:#fff; font-weight:700; box-shadow:0 6px 18px rgba(0,0,0,.06)}
-    .btn:hover{background:#f9f6ef; border-color:#dcd4c3; color:var(--accent)}
   </style>
 </head>
 <body>
