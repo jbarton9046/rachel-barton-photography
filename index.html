@@ -27,11 +27,8 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Existing families kept -->
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Selected families -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <!-- Nav #5: Lora + Raleway (use Raleway for nav items) -->
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Preload hero image -->
@@ -81,7 +78,7 @@
     .topbar{
       position:absolute; left:0; right:0; top:0;
       display:flex; align-items:center; justify-content:center;
-      padding:16px var(--gap); z-index:10; /* raised to match layout.html */
+      padding:16px var(--gap); z-index:2;
     }
     .brand{display:none}
     nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
@@ -99,9 +96,9 @@
       border-bottom-color:var(--accent);
     }
 
-    /* --- Dropdown: compact + EXACTLY match hero button font (Cormorant Garamond, 700) --- */
+    /* Base dropdown (will be hard-overridden below) */
     .has-sub{ position:relative; }
-    .has-sub::after{ /* hover bridge so it won't collapse while moving down */
+    .has-sub::after{
       content:"";
       position:absolute;
       left:-8px; right:-8px;
@@ -109,23 +106,22 @@
       height:12px;
       background:transparent;
     }
-
     .dropdown{
       position:absolute;
       top:calc(100% + 6px);
       left:50%;
       transform:translate(-50%, 0);
-      background:rgba(255,255,255,.65); /* same translucent card as hero title */
+      background:rgba(255,255,255,.65);
       border:1px solid var(--line);
       box-shadow:var(--shadow);
-      padding:6px 8px;                 /* compact padding */
+      padding:6px 8px;
       display:flex;
       flex-direction:column;
-      gap:2px;                          /* compact spacing */
+      gap:2px;
       min-width:220px;
       opacity:0; visibility:hidden; pointer-events:none;
       transition:opacity .15s ease, transform .15s ease;
-      z-index:20;
+      z-index:3;
       backdrop-filter:saturate(1.05);
     }
     .has-sub:hover .dropdown,
@@ -136,7 +132,6 @@
     }
     .dropdown li{list-style:none}
     .dropdown a{
-      /* Match the hero “Book a Session” button typography exactly */
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-weight:700;
       font-size:clamp(18px,2.2vw,20px);
@@ -178,7 +173,6 @@
 
     .cta{display:flex; gap:22px; margin-top:16px; flex-wrap:wrap; justify-content:center}
 
-    /* Buttons use the header font (size unchanged) */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       background:transparent; border:0; padding:0 4px; color:#3f3a33; font-weight:700; cursor:pointer
@@ -190,7 +184,6 @@
     .localities .dot::after{content:" • "; color:#8a857a}
     .localities .dot:last-child::after{content:""}
 
-    /* Scallop */
     .scallop{
       --h:18px; position:relative; height:var(--h);
       background:var(--butter-bar); border-bottom:1px solid var(--butter-stroke);
@@ -201,7 +194,6 @@
       pointer-events:none;
     }
 
-    /* Sections */
     section{padding:calc(var(--gap)*2) 0}
     .section-title{
       font-family:"Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
@@ -209,7 +201,6 @@
     }
     .section-sub{color:#67635b; margin:0 0 22px}
 
-    /* Features card headings: keep in Source Sans for contrast */
     .features .feature h3{
       font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
       font-weight:700;
@@ -220,7 +211,6 @@
     .card .body{padding:18px}
     .meta{color:#7b786f; font-size:14px}
 
-    /* Galleries */
     .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px)}
     .mosaic figure{margin:0}
     .mosaic .captioned.notch{position:relative; display:block}
@@ -241,7 +231,6 @@
     blockquote:before{content:"“"; font-family:"Fraunces",serif; font-size:48px; color:#d9d3c6; position:absolute; left:12px; top:-10px}
     blockquote footer{color:#7b786f; font-size:14px; margin-top:8px}
 
-    /* Contact */
     .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
     .left-col, .right-col{display:flex; flex-direction:column; gap:var(--gap);}
     form{background:#fff; padding:18px; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
@@ -252,7 +241,6 @@
 
     footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f}
 
-    /* Responsive */
     @media (max-width:960px){
       .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr}
       .hero{ grid-template-columns:1fr; }
@@ -260,7 +248,6 @@
     }
     @media (max-width:640px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr} }
 
-    /* Generic buttons below main content */
     main .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
       padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33; font-weight:700; text-decoration:none; border-radius:0;
@@ -274,26 +261,55 @@
     main .btn:active{ transform:translateY(0); box-shadow:0 4px 12px rgba(0,0,0,.06); }
     main button.btn{ appearance:none; -webkit-appearance:none; cursor:pointer; }
 
-    /* Scheduler */
     .scheduler-card{position:relative; display:flex; justify-content:center; align-items:flex-start;}
     .iframe-wrap{position:relative; width:100%; background:#fff;}
     .iframe-wrap iframe{ display:block; width:100%; border:0; height:0; min-height:650px; overflow:hidden; }
   </style>
 
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Rachel Barton Photography",
-    "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop",
-    "description": "Candid, timeless, true-to-life family, maternity, newborn, and portrait photography in Sarasota and the Gulf Coast.",
-    "url": "https://rachelsphotography.netlify.app/",
-    "telephone": "+1-615-300-2618",
-    "email": "rradkins@gmail.com",
-    "areaServed": ["Sarasota","Bradenton","Siesta Key","Lido Key","Longboat Key","Lakewood Ranch","Venice","Tampa","St. Petersburg","Clearwater","Naples"]
-  }
-  </script>
+  <!-- HARD OVERRIDES: compact dropdown (half size), zero padding; match hero button font -->
+  <style id="dropdown-hard-overrides">
+    .topbar nav.primary .has-sub{position:relative;}
+    .topbar nav.primary .has-sub::after{content:"";position:absolute;left:-8px;right:-8px;top:100%;height:12px;background:transparent;}
+
+    .topbar nav.primary .has-sub > .dropdown{
+      padding:2px 4px !important;   /* remove extra padding */
+      gap:0 !important;              /* no vertical gaps */
+      min-width:180px !important;    /* narrower menu */
+      background:rgba(255,255,255,.65) !important;
+      border:1px solid var(--line) !important;
+      box-shadow:var(--shadow) !important;
+      top:calc(100% + 6px) !important;
+      left:50% !important;
+      transform:translateX(-50%) !important;
+      backdrop-filter:saturate(1.05);
+    }
+    .topbar nav.primary .has-sub:hover > .dropdown,
+    .topbar nav.primary .has-sub:focus-within > .dropdown,
+    .topbar nav.primary .has-sub > .dropdown:hover{
+      opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
+      transform:translate(-50%, 2px) !important;
+    }
+    .topbar nav.primary .dropdown li{margin:0 !important; list-style:none;}
+    .topbar nav.primary .dropdown a{
+      display:block;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important; /* EXACT hero button family */
+      font-weight:700 !important;                                    /* EXACT weight */
+      font-size:clamp(12px,1.1vw,14px) !important;                   /* ~half the previous size */
+      line-height:1.05 !important;                                   /* tight */
+      letter-spacing:.01em !important;
+      padding:0 2px !important;                                      /* no internal padding */
+      color:#3f3a33 !important;
+      border-bottom:1px solid transparent !important;
+      white-space:nowrap;
+    }
+    .topbar nav.primary .dropdown a:hover,
+    .topbar nav.primary .dropdown a:focus-visible{
+      border-bottom-color:var(--accent) !important;
+      color:var(--accent) !important;
+      background:transparent !important;
+      outline:none !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -303,15 +319,12 @@
       <div class="brand"></div>
       <nav class="primary" aria-label="Primary">
         <ul>
-          <!-- Added Home button to match layout.html -->
-          <li><a class="nav-home" href="/index.html">Home</a></li>
-
+          <li><a href="/">Home</a></li>
           <li class="has-sub">
             <a href="#portfolio" aria-haspopup="true" aria-expanded="false">Galleries</a>
-            <!-- Dropdown: three titles from the gallery tiles -->
             <ul class="dropdown" aria-label="Galleries submenu">
               <li><a href="#gallery-meadow">Oona &amp; Ivy – Meadow Light</a></li>
-              <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
+              <li><a href="#gallery-family">Family Portraits</a></li>
               <li><a href="#gallery-beach">Oona &amp; Ivy – Beach Sunset</a></li>
             </ul>
           </li>
@@ -323,7 +336,6 @@
       </nav>
     </div>
 
-    <!-- copy card centered in the right column -->
     <div class="copy">
       <div class="eyebrow">Welcome to</div>
       <h1>Rachel Barton<br>Photography</h1>
@@ -340,12 +352,9 @@
     </div>
   </section>
 
-  <!-- Butter scallop divider under hero -->
   <div class="scallop"></div>
 
   <main class="container">
-
-    <!-- Portfolio / Mosaic -->
     <section id="portfolio" aria-labelledby="portfolio-title">
       <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
       <p class="section-sub">A peek at the candid, movement-filled style you’ll receive.</p>
@@ -429,9 +438,6 @@
       </div>
     </section>
 
-    <!-- About section removed from index; lives on /about.html -->
-
-    <!-- Why choose me -->
     <section aria-labelledby="why-title">
       <h2 class="section-title" id="why-title">My Approach</h2>
       <p class="section-sub">Candid • Timeless • True-to-life</p>
@@ -452,7 +458,6 @@
       </div>
     </section>
 
-    <!-- Reviews -->
     <section id="reviews" aria-labelledby="reviews-title">
       <h2 class="section-title" id="reviews-title">Kind Words</h2>
       <p class="section-sub">We’ll add 3–6 short testimonials here as they come in.</p>
@@ -464,7 +469,6 @@
       </div>
     </section>
 
-    <!-- Contact / Booking -->
     <section id="contact" aria-labelledby="contact-title">
       <h2 class="section-title" id="contact-title">Say Hello</h2>
       <p class="section-sub">Tell me about your crew and the kind of session you’re envisioning.</p>
@@ -554,7 +558,6 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    /* True notch cutout sizing for gallery labels */
     (function(){
       const tiles = document.querySelectorAll('.mosaic .captioned.notch');
       if(!tiles.length) return;
