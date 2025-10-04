@@ -106,7 +106,7 @@
       border-bottom-color:var(--accent);
     }
 
-    /* --- Dropdown: float style (matches nav), smaller text & tighter spacing, with hover bridge --- */
+    /* --- Dropdown: float style; smaller & tighter, with hover bridge --- */
     .has-sub{ position:relative; }
     .has-sub::after{
       content:"";
@@ -119,17 +119,17 @@
 
     .dropdown{
       position:absolute;
-      top:calc(100% + 2px);   /* tighter gap so it feels connected */
+      top:calc(100% + 2px);   /* tight visual connection */
       left:50%;
       transform:translate(-50%, 0);
-      background:transparent; /* float look: no card */
+      background:transparent; /* float, no card */
       border:0;
       box-shadow:none;
-      padding:4px 0;          /* tighter padding */
+      padding:2px 0;          /* tighter padding */
       display:flex;
       flex-direction:column;
-      gap:2px;                /* smaller spacing between items */
-      min-width:0;            /* allow text width */
+      gap:0;                  /* no extra gaps */
+      min-width:0;            /* shrink to content */
       opacity:0; visibility:hidden; pointer-events:none;
       transition:opacity .15s ease, transform .15s ease;
       z-index:3;
@@ -144,12 +144,12 @@
     .dropdown a{
       font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-weight:500;
-      font-size:clamp(14px,1.5vw,18px); /* smaller than top-level */
-      line-height:1.2;
-      padding:2px 2px;                    /* minimal padding to match nav feel */
+      font-size:clamp(12px,1.2vw,15px);  /* smaller text */
+      line-height:1.1;                    /* compact line height */
+      padding:1px 2px;                    /* minimal padding */
       border-bottom:1px solid transparent;/* same underline behavior */
       white-space:nowrap;
-      letter-spacing:.02em;
+      letter-spacing:.01em;               /* a touch tighter */
       color:#3f3a33;
     }
     .dropdown a:hover, .dropdown a:focus-visible{
