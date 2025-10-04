@@ -126,10 +126,10 @@
     #lb-prev{left:18px;top:50%;transform:translateY(-50%)}
     #lb-next{right:18px;top:50%;transform:translateY(-50%)}
 
-    /* ===== Packages ===== */
+    /* ===== Packages (styles kept in case you re-add later) ===== */
     .packages{padding:calc(var(--gap)*1.8) 0}
     .packages .section-title{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; /* align with index headers */
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-size:clamp(24px,3.5vw,38px);margin:0 0 8px;color:#3f3a33;text-align:center
     }
     .packages .section-sub{color:#67635b;margin:0 0 22px;text-align:center}
@@ -138,7 +138,7 @@
     .packages .card .body{padding:18px;display:flex;flex-direction:column}
     .packages .meta{color:#7b786f;font-size:14px}
     .packages .btn{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; /* match index buttons */
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex;align-items:center;justify-content:center;gap:8px;
       padding:10px 16px;border:1px solid var(--line);background:#fff;color:#3f3a33;
       font-weight:700;text-decoration:none;border-radius:0;box-shadow:0 6px 18px rgba(0,0,0,.06);
@@ -154,14 +154,18 @@
     .faq{margin-top:calc(var(--gap)*1.2)}
     .faq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
     .faq-card{background:#fff;border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);padding:18px}
-    .faq-card h3{margin:0 0 8px;font-size:18px;font-weight:700;color:#3f3a33}
+    /* Change only the font family to match the buttons; keep size/weight the same */
+    .faq-card h3{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      margin:0 0 8px;font-size:18px;font-weight:700;color:#3f3a33
+    }
     .faq-card p{margin:0;color:#5c5850}
 
     /* ----- Scheduler (fix double scrollbar & overflow) ----- */
     .scheduler-wrap{ max-width:980px; margin:0 auto; }
     .scheduler-wrap .scheduler-header{ text-align:center; margin-bottom:12px; }
     .scheduler-wrap h2{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; /* match headers */
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-size:clamp(20px,3vw,28px);
       margin:0 0 4px;
       color:#3f3a33;
@@ -270,90 +274,47 @@
       </div>
     </section>
 
-    <!-- ===== Family Packages ===== -->
-    <section class="packages" aria-labelledby="pkg-title">
-      <h2 class="section-title" id="pkg-title">Family Packages</h2>
-      <p class="section-sub">Simple, flexible sessions with clear deliverables — styled with warmth, movement, and a little magic.</p>
+    <!-- ===== Removed the "Family Packages" card section per request ===== -->
 
-      <div class="cards">
-        <article class="card">
-          <img loading="lazy" src="/pictures/mother-son-outdoors-sunset-with-copy-space.jpg" alt="Mini session example" />
-          <div class="body">
-            <h3>Mini Session</h3>
-            <p class="meta">30 minutes • ~15–25 edited images</p>
-            <p>Perfect for milestones & seasonal updates. Select weekday evenings or full weekends.</p>
-            <p><strong>$400</strong></p>
-            <a class="btn" href="/#book">Book Mini</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <img loading="lazy" src="/pictures/mother-son-outdoors-sunset-with-copy-space%20(1).jpg" alt="Standard session example" />
-          <div class="body">
-            <h3>Standard Session</h3>
-            <p class="meta">60 minutes • ~35–50 edited images</p>
-            <p>Our best balance of time & variety. One location (nearby second look optional).</p>
-            <p><strong>$600</strong></p>
-            <a class="btn" href="/#book">Book Standard</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <img loading="lazy" src="/pictures/man-woman-kid-wearing-pale-summer-clothes-walking-wet-sand-sea-spending-leisure-time-beach.jpg" alt="Deluxe session example" />
-          <div class="body">
-            <h3>Deluxe Session</h3>
-            <p class="meta">90 minutes • ~60+ edited images</p>
-            <p>Extra time for outfit changes, variety, or two nearby locations.</p>
-            <p><strong>$800</strong></p>
-            <a class="btn" href="/#book">Book Deluxe</a>
-          </div>
-        </article>
+    <!-- FAQ (kept) -->
+    <section class="faq" aria-label="Frequently asked questions">
+      <div class="faq-grid">
+        <div class="faq-card">
+          <h3>What should we wear?</h3>
+          <p>Neutral + coastal tones photograph beautifully. Avoid tiny stripes/logos; coordinate without matching. I’ll share simple styling tips after booking.</p>
+        </div>
+        <div class="faq-card">
+          <h3>How far in advance should we book?</h3>
+          <p>2–4 weeks is ideal for weekday evenings; weekends fill sooner. If you have a tight window, reach out—cancellations pop up.</p>
+        </div>
+        <div class="faq-card">
+          <h3>What happens if it rains?</h3>
+          <p>We’ll watch the forecast together. I hold backup times for weather and can pivot to a nearby covered location when needed.</p>
+        </div>
       </div>
+    </section>
 
-      <p class="section-sub" style="margin-top:16px">
-        Add-ons: additional images, full-gallery upgrade, print products, travel beyond core area, weekend peak times, <strong>priority editing</strong>.
-      </p>
+    <!-- Scheduler (kept) -->
+    <section aria-labelledby="sched-title" style="padding-top:24px">
+      <div class="scheduler-wrap container">
+        <div class="scheduler-header">
+          <h2 id="sched-title">Schedule your session</h2>
+          <p>Pick a time that works. I’ll follow up with a quick prep guide and styling tips.</p>
+        </div>
 
-      <!-- FAQ -->
-      <div class="faq">
-        <div class="faq-grid">
-          <div class="faq-card">
-            <h3>What should we wear?</h3>
-            <p>Neutral + coastal tones photograph beautifully. Avoid tiny stripes/logos; coordinate without matching. I’ll share simple styling tips after booking.</p>
-          </div>
-          <div class="faq-card">
-            <h3>How far in advance should we book?</h3>
-            <p>2–4 weeks is ideal for weekday evenings; weekends fill sooner. If you have a tight window, reach out—cancellations pop up.</p>
-          </div>
-          <div class="faq-card">
-            <h3>What happens if it rains?</h3>
-            <p>We’ll watch the forecast together. I hold backup times for weather and can pivot to a nearby covered location when needed.</p>
+        <div class="scheduler-card">
+          <div class="iframe-wrap">
+            <iframe
+              src="https://app.acuityscheduling.com/schedule.php?owner=37092379&embedded=1"
+              title="Book a Session"
+              class="acuity-embed"
+              frameborder="0"
+              scrolling="no"
+              allow="payment *">
+            </iframe>
           </div>
         </div>
       </div>
-
-      <!-- Scheduler -->
-      <section aria-labelledby="sched-title" style="padding-top:24px">
-        <div class="scheduler-wrap container">
-          <div class="scheduler-header">
-            <h2 id="sched-title">Schedule your session</h2>
-            <p>Pick a time that works. I’ll follow up with a quick prep guide and styling tips.</p>
-          </div>
-
-          <div class="scheduler-card">
-            <div class="iframe-wrap">
-              <iframe
-                src="https://app.acuityscheduling.com/schedule.php?owner=37092379&embedded=1"
-                title="Book a Session"
-                class="acuity-embed"
-                frameborder="0"
-                scrolling="no"
-                allow="payment *">
-              </iframe>
-            </div>
-          </div>
-        </div>
-      </section>
     </section>
   </main>
 
