@@ -152,7 +152,7 @@
       background:transparent;
     }
 
-    /* Dropdown container: compact + same translucent card as hero title */
+    /* Dropdown container: COMPACT, same translucent card as hero title */
     .topbar nav.primary .has-sub > .dropdown{
       position:absolute;
       top:calc(100% + 6px);
@@ -161,10 +161,10 @@
       background:rgba(255,255,255,.65);
       border:1px solid var(--line);
       box-shadow:var(--shadow);
-      padding:6px 8px;
+      padding:4px 6px;        /* ↓ tighter padding */
       display:flex;
       flex-direction:column;
-      gap:2px;
+      gap:0;                  /* ↓ remove extra gaps */
       min-width:220px;
       opacity:0; visibility:hidden; pointer-events:none;
       transition:opacity .15s ease, transform .15s ease;
@@ -178,15 +178,15 @@
       transform:translate(-50%, 2px);
     }
 
-    /* EXACT font to match the hero button (“Book a Session”) */
+    /* EXACT font to match hero button, but HALF the size and tighter */
     .topbar nav.primary .dropdown a{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
       font-weight:700 !important;
-      font-size:clamp(18px,2.2vw,20px) !important;
-      letter-spacing:.02em;
-      line-height:1.1;
+      font-size:clamp(10px,1.1vw,10px) !important; /* ↓ half of ~20px */
+      letter-spacing:.01em;
+      line-height:1.05;        /* ↓ tighter line-height */
       color:#3f3a33;
-      padding:2px 6px;
+      padding:0 4px;           /* ↓ tighter hit area */
       border-bottom:1px solid transparent;
       white-space:nowrap;
     }
