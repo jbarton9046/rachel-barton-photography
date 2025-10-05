@@ -320,10 +320,11 @@
     .hero .cta{ margin-top:34px; margin-bottom:26px; }
   </style>
 
-  <!-- Slider arrows (first and third tiles only) -->
+  <!-- Slider arrows (now for ALL three tiles) -->
   <style id="tile-slider-arrows">
     /* Floating gold arrows for tile sliders */
     #gallery-meadow .tile-nav,
+    #gallery-family .tile-nav,
     #gallery-beach .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       background:transparent; border:0;
@@ -333,27 +334,31 @@
       opacity:0; transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease;
     }
     #gallery-meadow:hover .tile-nav,
+    #gallery-family:hover .tile-nav,
     #gallery-beach:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
-    #gallery-meadow .tile-prev, #gallery-beach .tile-prev{ left:10px; }
-    #gallery-meadow .tile-next, #gallery-beach .tile-next{ right:10px; }
+    #gallery-meadow .tile-prev, #gallery-family .tile-prev, #gallery-beach .tile-prev{ left:10px; }
+    #gallery-meadow .tile-next, #gallery-family .tile-next, #gallery-beach .tile-next{ right:10px; }
     #gallery-meadow .tile-nav svg,
+    #gallery-family .tile-nav svg,
     #gallery-beach .tile-nav svg{ width:22px; height:22px; display:block }
     #gallery-meadow .tile-nav:hover, 
     #gallery-meadow .tile-nav:focus-visible,
+    #gallery-family .tile-nav:hover, 
+    #gallery-family .tile-nav:focus-visible,
     #gallery-beach .tile-nav:hover, 
     #gallery-beach .tile-nav:focus-visible{
       color:#b79661; box-shadow:0 6px 18px rgba(0,0,0,.18); outline:none;
     }
   </style>
 
-  <!-- Pagination dots (gold) positioned just above the title link -->
+  <!-- Pagination dots (gold) moved 50% closer to the notch -->
   <style id="tile-slider-dots">
     #gallery-meadow .tile-dots,
     #gallery-family .tile-dots,
     #gallery-beach .tile-dots{
       position:absolute;
       left:50%; transform:translateX(-50%);
-      bottom:80px;                 /* above the cap-label bar */
+      bottom:40px;                 /* was 80px; now 50% closer to the cut-out */
       display:flex; gap:8px;
       z-index:4; pointer-events:auto;
     }
@@ -395,9 +400,9 @@
           <li class="has-sub">
             <a href="#portfolio" aria-haspopup="true" aria-expanded="false">Galleries</a>
             <ul class="dropdown" aria-label="Galleries submenu">
-              <li><a href="#gallery-meadow">Oona &amp; Ivy – Meadow Light</a></li>
+              <li><a href="#gallery-meadow">Sister Portraits</a></li>
               <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
-              <li><a href="#gallery-beach">Oona &amp; Ivy – Beach Sunset</a></li>
+              <li><a href="#gallery-beach">Friend Portraits</a></li>
             </ul>
           </li>
           <li><a href="/about.html">About</a></li>
@@ -479,7 +484,7 @@
             </svg>
           </button>
 
-          <!-- pagination dots (visible for new users) -->
+          <!-- pagination dots -->
           <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
           <div class="notch-box">
@@ -520,6 +525,20 @@
               <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
             </g>
           </svg>
+
+          <!-- NEW: arrows for the middle tile -->
+          <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 18L9 12l6-6"/>
+            </svg>
+          </button>
+          <button class="tile-nav tile-next" type="button" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
 
           <!-- pagination dots -->
           <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
@@ -563,7 +582,7 @@
             </g>
           </svg>
 
-          <!-- floating gold prev/next controls (first & third only) -->
+          <!-- floating gold prev/next controls -->
           <button class="tile-nav tile-prev" type="button" aria-label="Previous">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -577,7 +596,7 @@
             </svg>
           </button>
 
-          <!-- pagination dots (above the title link) -->
+          <!-- pagination dots -->
           <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
           <div class="notch-box">
@@ -615,7 +634,7 @@
       <h2 class="section-title" id="reviews-title">Kind Words</h2>
       <p class="section-sub">We’ll add 3–6 short testimonials here as they come in.</p>
 
-    <div class="quotes">
+      <div class="quotes">
         <blockquote>Rachel kept our toddler smiling the whole time — so many genuine moments.<footer>— S. Miller</footer></blockquote>
         <blockquote>Booking was simple, communication was clear, and the photos are stunning.<footer>— A. Nguyen</footer></blockquote>
         <blockquote>She noticed the little details and made us feel relaxed and ourselves.<footer>— J. Rivera</footer></blockquote>
@@ -879,6 +898,12 @@
         imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
         updateDots();
       }
+
+      // buttons
+      const prevBtn = tile.querySelector('.tile-prev');
+      const nextBtn = tile.querySelector('.tile-next');
+      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
+      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
 
       // click image to advance
       tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
