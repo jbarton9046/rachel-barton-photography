@@ -44,7 +44,7 @@
     img{max-width:100%; height:auto; display:block; border:1px solid var(--frame); box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    /* Topbar (matches index) */
+    /* Topbar (match index) */
     .topbar{
       position:absolute; left:0; right:0; top:0;
       display:flex; align-items:center; justify-content:center;
@@ -56,22 +56,21 @@
     nav.primary a{
       font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-weight:500; font-size:clamp(16px,1.8vw,20px); letter-spacing:.02em;
-      border-bottom:1px solid transparent; padding:4px 2px;
+      border-bottom:0; padding:4px 2px;              /* no underline, like index */
     }
     nav.primary a:hover, nav.primary a:focus-visible{
-      color:var(--accent); border-bottom-color:var(--accent); outline:none;
+      color:var(--accent); border-bottom:0; outline:none; /* keep no underline */
     }
 
     /* Base dropdown (same structure as index) */
     .has-sub{ position:relative; }
     .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
     .dropdown{
-      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%,0);
-      /* default look is overridden below to match the floating text style */
-      background:transparent; border:0; box-shadow:none;
-      padding:0; display:flex; flex-direction:column; gap:6px; min-width:unset;
+      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
+      background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
+      padding:6px 8px; display:flex; flex-direction:column; gap:2px; min-width:220px;
       opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease;
-      z-index:30;
+      z-index:30; backdrop-filter:saturate(1.05);
     }
     .has-sub:hover .dropdown,
     .has-sub:focus-within .dropdown,
@@ -79,12 +78,37 @@
     .dropdown li{list-style:none}
     .dropdown a{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700; font-size:clamp(13px,1.65vw,15px); line-height:1.05;
-      padding:0; color:#3f3a33; border-bottom:0; white-space:nowrap; background:transparent;
+      font-weight:700; font-size:clamp(18px,2.2vw,20px); line-height:1.1; /* base size before overrides */
+      padding:2px 6px; color:#3f3a33; border-bottom:0; white-space:nowrap; background:transparent;
     }
-    .dropdown a:hover, .dropdown a:focus-visible{ background:transparent; border-bottom:0; color:var(--accent); outline:none; }
+  </style>
 
-    /* Floating intro; extra top margin so dropdown never collides */
+  <!-- OVERRIDES from index: remove box & set 75% size, same tight spacing -->
+  <style id="dropdown-float-overrides">
+    .topbar nav.primary .has-sub > .dropdown{
+      background:transparent !important; border:0 !important; box-shadow:none !important;
+      padding:0 !important; gap:6px !important; min-width:unset !important;
+      left:50% !important; transform:translateX(-50%) !important;
+    }
+    .topbar nav.primary .dropdown a{
+      border-bottom:0 !important; padding:0 !important; background:transparent !important;
+    }
+    .topbar nav.primary .dropdown a:hover,
+    .topbar nav.primary .dropdown a:focus-visible{
+      border-bottom:0 !important; background:transparent !important; color:var(--accent) !important; outline:none !important;
+    }
+  </style>
+  <style id="dropdown-75pct-fontmatch">
+    .topbar nav.primary .dropdown a{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
+      font-weight:700 !important;
+      font-size:clamp(13px, 1.65vw, 15px) !important;  /* 75% like index */
+      line-height:1.05 !important;
+    }
+  </style>
+
+  <style>
+    /* Floating intro; extra top margin so dropdown never overlaps */
     .floating{
       background:rgba(255,255,255,.85);
       border:1px solid var(--line);
@@ -221,34 +245,17 @@
         imgEl.src = links[idx].getAttribute('href');
         lightbox.style.display = 'flex';
       }
-      function closeBox(){
-        lightbox.style.display = 'none';
-        imgEl.removeAttribute('src');
-      }
+      function closeBox(){ lightbox.style.display = 'none'; imgEl.removeAttribute('src'); }
       function prev(){ openAt(idx - 1); }
       function next(){ openAt(idx + 1); }
 
-      links.forEach((a,i)=>{
-        a.addEventListener('click', e=>{
-          e.preventDefault();
-          openAt(i);
-        });
-      });
-
+      links.forEach((a,i)=> a.addEventListener('click', e=>{ e.preventDefault(); openAt(i); }));
       closeBtn.addEventListener('click', closeBox);
       prevBtn.addEventListener('click', prev);
       nextBtn.addEventListener('click', next);
-
-      window.addEventListener('keydown', e=>{
-        if(lightbox.style.display !== 'flex') return;
-        if(e.key === 'Escape') closeBox();
-        if(e.key === 'ArrowLeft') prev();
-        if(e.key === 'ArrowRight') next();
-      });
-
-      lightbox.addEventListener('click', e=>{
-        if(e.target === lightbox) closeBox();
-      });
+      window.addEventListener('keydown', e=>{ if(lightbox.style.display!=='flex') return;
+        if(e.key==='Escape') closeBox(); if(e.key==='ArrowLeft') prev(); if(e.key==='ArrowRight') next();});
+      lightbox.addEventListener('click', e=>{ if(e.target===lightbox) closeBox(); });
     })();
   </script>
 </body>
