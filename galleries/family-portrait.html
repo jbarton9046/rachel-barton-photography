@@ -20,7 +20,9 @@
   <!-- Fonts (match index) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- keep existing families for compatibility -->
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- index.html choices -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -35,9 +37,13 @@
     *{box-sizing:border-box}
     html,body{
       margin:0; padding:0; background:var(--bg); color:var(--ink);
+      /* Body font matches index */
       font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-      overflow-x:hidden; overflow-y:overlay; height:auto;
+      overflow-x:hidden; /* prevent any horizontal scrollbar */
+      /* ensure only ONE vertical scrollbar (the window) */
+      overflow-y:overlay; /* macOS friendly; falls back to auto elsewhere */
+      height:auto;
     }
 
     a{color:inherit; text-decoration:none; transition:color .15s ease}
@@ -47,53 +53,63 @@
 
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    /* Centered topbar (matches index) */
+    /* ===== CENTERED TOPBAR NAV (matches index.html) ===== */
     .topbar{
       position:absolute; left:0; right:0; top:0;
       display:flex; align-items:center; justify-content:center;
-      padding:16px var(--gap); z-index:20;
+      padding:16px var(--gap); z-index:20; /* higher to float above content */
     }
     .brand{display:none}
     nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
     nav.primary li{ position:relative; }
     nav.primary a{
       font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-weight:500; font-size:clamp(16px,1.8vw,20px); letter-spacing:.02em;
-      border-bottom:1px solid transparent; padding:4px 2px;
+      font-weight:500;
+      font-size:clamp(16px,1.8vw,20px);
+      letter-spacing:.02em;
+      border-bottom:1px solid transparent;
+      padding:4px 2px;
     }
     nav.primary a:hover, nav.primary a:focus-visible{
-      color:var(--accent); border-bottom-color:var(--accent); outline:none;
+      color:var(--accent);
+      border-bottom-color:var(--accent);
+      outline:none;
     }
 
-    /* Dropdown (exact match to index) */
+    /* --- Dropdown (same behavior/appearance as index.html) --- */
     .has-sub{ position:relative; }
-    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
+    .has-sub::after{
+      content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent;
+    }
     .dropdown{
       position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
       background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
       padding:6px 8px; display:flex; flex-direction:column; gap:2px; min-width:220px;
-      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease;
-      z-index:30; backdrop-filter:saturate(1.05);
+      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:30; backdrop-filter:saturate(1.05);
     }
     .has-sub:hover .dropdown,
     .has-sub:focus-within .dropdown,
-    .dropdown:hover{ opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px); }
+    .dropdown:hover{
+      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
+    }
     .dropdown li{list-style:none}
     .dropdown a{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700; font-size:clamp(13px, 1.65vw, 15px); line-height:1.05;
-      padding:0; color:#3f3a33; border-bottom:0; white-space:nowrap; background:transparent;
+      font-weight:700; font-size:clamp(13px, 1.65vw, 15px); /* 75% size like index */
+      line-height:1.05; padding:0; color:#3f3a33; border-bottom:0; white-space:nowrap; background:transparent;
     }
-    .dropdown a:hover, .dropdown a:focus-visible{ background:transparent; border-bottom:0; color:var(--accent); outline:none; }
+    .dropdown a:hover, .dropdown a:focus-visible{
+      background:transparent; border-bottom:0; color:var(--accent); outline:none;
+    }
 
-    /* Floating intro (spaced down for dropdown clearance) */
+    /* Floating intro (no hero image) */
     .floating{
       background:rgba(255,255,255,.85);
       border:1px solid var(--line);
       box-shadow:var(--shadow);
       padding:18px;
       text-align:center;
-      margin:calc(var(--gap)*5) auto var(--gap);
+      margin:calc(var(--gap)*5) auto var(--gap); /* extra clearance for dropdown */
       max-width:820px;
     }
 
@@ -106,7 +122,7 @@
 
     .cta{display:flex; gap:26px; margin-top:14px; flex-wrap:wrap; justify-content:center}
     .cta a{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; /* match index button font */
       font-weight:700; font-size:18px; line-height:1.2
     }
 
@@ -136,11 +152,97 @@
     #lb-close{top:18px;right:18px}
     #lb-prev{left:18px;top:50%;transform:translateY(-50%)}
     #lb-next{right:18px;top:50%;transform:translateY(-50%)}
+
+    /* ===== Packages (styles kept in case you re-add later) ===== */
+    .packages{padding:calc(var(--gap)*1.8) 0}
+    .packages .section-title{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-size:clamp(24px,3.5vw,38px);margin:0 0 8px;color:#3f3a33;text-align:center
+    }
+    .packages .section-sub{color:#67635b;margin:0 0 22px;text-align:center}
+    .packages .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+    .packages .card{background:var(--paper);border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .packages .card .body{padding:18px;display:flex;flex-direction:column}
+    .packages .meta{color:#7b786f;font-size:14px}
+    .packages .btn{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:10px 16px;border:1px solid var(--line);background:#fff;color:#3f3a33;
+      font-weight:700;text-decoration:none;border-radius:0;box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
+      align-self:flex-start;margin-top:auto
+    }
+    .packages .btn:hover,.packages .btn:focus-visible{
+      background:#f9f6ef;border-color:#dcd4c3;box-shadow:0 10px 24px rgba(0,0,0,.08);
+      transform:translateY(-1px);color:var(--accent);outline:none
+    }
+
+    /* FAQ (card grid) */
+    .faq{margin-top:calc(var(--gap)*1.2)}
+    .faq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+    .faq-card{background:#fff;border:1px solid var(--line);border-radius:0;box-shadow:var(--shadow);padding:18px}
+    /* Change only the font family to match the buttons; keep size/weight the same */
+    .faq-card h3{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      margin:0 0 8px;font-size:18px;font-weight:700;color:#3f3a33
+    }
+    .faq-card p{margin:0;color:#5c5850}
+
+    /* ----- Scheduler (fix double scrollbar & overflow) ----- */
+    .scheduler-wrap{ max-width:980px; margin:0 auto; }
+    .scheduler-wrap .scheduler-header{ text-align:center; margin-bottom:12px; }
+    .scheduler-wrap h2{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-size:clamp(20px,3vw,28px);
+      margin:0 0 4px;
+      color:#3f3a33;
+    }
+    .scheduler-wrap p{ margin:0; color:#5c5850; font-size:15px; }
+
+    .scheduler-card{
+      border:1px solid var(--line);
+      border-radius:0;
+      box-shadow:var(--shadow);
+      background:#fff;
+      position:relative;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      overflow:visible; /* prevent inner scrollbars */
+    }
+
+    /* wrapper with auto height – no aspect ratio padding hack */
+    .iframe-wrap{
+      position:relative;
+      width:100%;
+      background:#fff;
+      border-top:1px solid var(--line);
+      overflow:visible;
+    }
+    .iframe-wrap iframe{
+      display:block;
+      width:100%;
+      border:0;
+      height:0;          /* embed.js will set the real height */
+      min-height:650px;  /* decent first paint */
+      overflow:hidden;   /* no inner scrollbar */
+    }
+
+    @media (max-width:960px){
+      .packages .cards{grid-template-columns:1fr 1fr}
+      .faq-grid{grid-template-columns:1fr 1fr}
+      .scheduler-wrap{ max-width:860px; }
+    }
+    @media (max-width:640px){
+      .packages .cards{grid-template-columns:1fr}
+      .faq-grid{grid-template-columns:1fr}
+      .scheduler-wrap{ max_width:600px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Topbar nav -->
+  <!-- Topbar nav matching index; includes Home link on this non-index page -->
   <div class="topbar container">
     <div class="brand"></div>
     <nav class="primary" aria-label="Primary">
@@ -176,17 +278,37 @@
   <main class="container">
     <section aria-label="Family portraits gallery">
       <div class="grid" id="gallery">
-        <figure><a href="/pictures/familyPortrait/image1.jpg"><img loading="lazy" src="/pictures/familyPortrait/image1.jpg" alt="Family portrait 1" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image3.jpg"><img loading="lazy" src="/pictures/familyPortrait/image3.jpg" alt="Family portrait 3" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image4.jpg"><img loading="lazy" src="/pictures/familyPortrait/image4.jpg" alt="Family portrait 4" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image5.jpg"><img loading="lazy" src="/pictures/familyPortrait/image5.jpg" alt="Family portrait 5" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image6.jpg"><img loading="lazy" src="/pictures/familyPortrait/image6.jpg" alt="Family portrait 6" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image7.jpg"><img loading="lazy" src="/pictures/familyPortrait/image7.jpg" alt="Family portrait 7" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image8.jpg"><img loading="lazy" src="/pictures/familyPortrait/image8.jpg" alt="Family portrait 8" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image10.jpg"><img loading="lazy" src="/pictures/familyPortrait/image10.jpg" alt="Family portrait 10" /></a></figure>
-        <figure><a href="/pictures/familyPortrait/image12.jpg"><img loading="lazy" src="/pictures/familyPortrait/image12.jpg" alt="Family portrait 12" /></a></figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image1.jpg"><img loading="lazy" src="/pictures/familyPortrait/image1.jpg" alt="Family portrait 1" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image3.jpg"><img loading="lazy" src="/pictures/familyPortrait/image3.jpg" alt="Family portrait 3" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image4.jpg"><img loading="lazy" src="/pictures/familyPortrait/image4.jpg" alt="Family portrait 4" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image5.jpg"><img loading="lazy" src="/pictures/familyPortrait/image5.jpg" alt="Family portrait 5" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image6.jpg"><img loading="lazy" src="/pictures/familyPortrait/image6.jpg" alt="Family portrait 6" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image7.jpg"><img loading="lazy" src="/pictures/familyPortrait/image7.jpg" alt="Family portrait 7" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image8.jpg"><img loading="lazy" src="/pictures/familyPortrait/image8.jpg" alt="Family portrait 8" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image10.jpg"><img loading="lazy" src="/pictures/familyPortrait/image10.jpg" alt="Family portrait 10" /></a>
+        </figure>
+        <figure>
+          <a href="/pictures/familyPortrait/image12.jpg"><img loading="lazy" src="/pictures/familyPortrait/image12.jpg" alt="Family portrait 12" /></a>
+        </figure>
       </div>
     </section>
+
+    <!-- ===== Removed the "Family Packages" card section per request ===== -->
 
     <!-- FAQ (kept) -->
     <section class="faq" aria-label="Frequently asked questions">
@@ -298,7 +420,7 @@
     })();
   </script>
 
-  <!-- Acuity auto-resize script -->
+  <!-- Acuity auto-resize script (prevents inner scrollbar & page overflow) -->
   <script src="https://embed.acuityscheduling.com/js/embed.js" async></script>
 </body>
 </html>
