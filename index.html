@@ -320,10 +320,11 @@
     .hero .cta{ margin-top:34px; margin-bottom:26px; }
   </style>
 
-  <!-- Slider arrows (only for first tile) -->
+  <!-- Slider arrows (only for first and third tiles) -->
   <style id="tile-slider-arrows">
-    /* Floating gold arrows for the first tile */
-    #gallery-meadow .tile-nav{
+    /* Floating gold arrows for tile sliders */
+    #gallery-meadow .tile-nav,
+    #gallery-beach .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       background:transparent; border:0;
       width:42px; height:42px; display:grid; place-items:center;
@@ -331,26 +332,32 @@
       cursor:pointer; user-select:none; z-index:4;
       opacity:0; transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease;
     }
-    #gallery-meadow:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
-    #gallery-meadow .tile-prev{ left:10px; }
-    #gallery-meadow .tile-next{ right:10px; }
-    #gallery-meadow .tile-nav svg{ width:22px; height:22px; display:block }
+    #gallery-meadow:hover .tile-nav,
+    #gallery-beach:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
+    #gallery-meadow .tile-prev, #gallery-beach .tile-prev{ left:10px; }
+    #gallery-meadow .tile-next, #gallery-beach .tile-next{ right:10px; }
+    #gallery-meadow .tile-nav svg,
+    #gallery-beach .tile-nav svg{ width:22px; height:22px; display:block }
     #gallery-meadow .tile-nav:hover, 
-    #gallery-meadow .tile-nav:focus-visible{
+    #gallery-meadow .tile-nav:focus-visible,
+    #gallery-beach .tile-nav:hover, 
+    #gallery-beach .tile-nav:focus-visible{
       color:#b79661; box-shadow:0 6px 18px rgba(0,0,0,.18); outline:none;
     }
   </style>
 
-  <!-- NEW: Pagination dots for first tile (positioned just above the title link) -->
+  <!-- Pagination dots for first & third tiles (positioned just above the title link) -->
   <style id="tile-slider-dots">
-    #gallery-meadow .tile-dots{
+    #gallery-meadow .tile-dots,
+    #gallery-beach .tile-dots{
       position:absolute;
       left:50%; transform:translateX(-50%);
-      bottom:80px;                 /* raised above the cap-label bar */
+      bottom:80px;                 /* above the cap-label bar */
       display:flex; gap:8px;
       z-index:4; pointer-events:auto;
     }
-    #gallery-meadow .tile-dots button{
+    #gallery-meadow .tile-dots button,
+    #gallery-beach .tile-dots button{
       width:8px; height:8px; border-radius:50%;
       border:1px solid var(--accent);
       background:transparent;
@@ -358,11 +365,14 @@
       opacity:.85; transition:transform .15s ease, background-color .15s ease, opacity .15s ease;
     }
     #gallery-meadow .tile-dots button:hover,
-    #gallery-meadow .tile-dots button:focus-visible{
+    #gallery-meadow .tile-dots button:focus-visible,
+    #gallery-beach .tile-dots button:hover,
+    #gallery-beach .tile-dots button:focus-visible{
       outline:none; transform:scale(1.15);
       opacity:1;
     }
-    #gallery-meadow .tile-dots button.is-active{
+    #gallery-meadow .tile-dots button.is-active,
+    #gallery-beach .tile-dots button.is-active{
       background:var(--accent);
       opacity:1;
     }
@@ -468,7 +478,7 @@
           <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
           <div class="notch-box">
-            <a class="cap-label" href="#gallery-meadow">Sisters Portraits</a>
+            <a class="cap-label" href="#gallery-meadow">Sister Portraits</a>
           </div>
         </figure>
 
@@ -497,7 +507,20 @@
         </figure>
 
         <!-- RIGHT -->
-        <figure class="captioned notch" id="gallery-beach" aria-label="Oona & Ivy – Beach Sunset">
+        <figure class="captioned notch" id="gallery-beach" aria-label="Friend Portraits"
+                data-images='[
+                  "pictures/thirdTileGal/E26A1931.jpg",
+                  "pictures/thirdTileGal/E26A1938.jpg",
+                  "pictures/thirdTileGal/E26A1944.jpg",
+                  "pictures/thirdTileGal/E26A1945.jpg",
+                  "pictures/thirdTileGal/E26A1986.jpg",
+                  "pictures/thirdTileGal/E26A2017.jpg",
+                  "pictures/thirdTileGal/E26A2022%20(1).jpg",
+                  "pictures/thirdTileGal/E26A2047-2.jpg",
+                  "pictures/thirdTileGal/E26A2106.jpg",
+                  "pictures/thirdTileGal/E26A2226.jpg",
+                  "pictures/thirdTileGal/E26A2245.jpg"
+                ]'>
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
               <mask id="notchMask-2">
@@ -508,15 +531,33 @@
                 <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
               </filter>
             </defs>
-            <image href="pictures/oonaIvy/E26A0701%20(1).jpg" x="0" y="0" width="800" height="1000"
+            <image href="pictures/thirdTileGal/E26A1931.jpg" x="0" y="0" width="800" height="1000"
                    preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
             <g class="frameGroup" filter="url(#frameShadow-2)">
               <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
               <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
             </g>
           </svg>
+
+          <!-- floating gold prev/next controls (copied from first tile) -->
+          <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 18L9 12l6-6"/>
+            </svg>
+          </button>
+          <button class="tile-nav tile-next" type="button" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+
+          <!-- pagination dots (above the title link) -->
+          <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
+
           <div class="notch-box">
-            <a class="cap-label" href="#gallery-beach">Oona &amp; Ivy – Beach Sunset</a>
+            <a class="cap-label" href="#gallery-beach">Friend Portraits</a>
           </div>
         </figure>
       </div>
@@ -706,6 +747,71 @@
   <script>
     (function(){
       const tile = document.getElementById('gallery-meadow');
+      if(!tile) return;
+
+      const imgEl = tile.querySelector('svg image');
+      if(!imgEl) return;
+
+      let list;
+      try {
+        list = JSON.parse(tile.getAttribute('data-images') || '[]');
+      } catch(e){ list = []; }
+
+      if(!Array.isArray(list) || list.length <= 1) return;
+
+      let idx = 0;
+
+      // build dots
+      const dotsWrap = tile.querySelector('.tile-dots');
+      const dots = [];
+      if(dotsWrap){
+        for(let i=0;i<list.length;i++){
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('role','tab');
+          b.setAttribute('aria-label','Go to slide ' + (i+1));
+          b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
+          dotsWrap.appendChild(b);
+          dots.push(b);
+        }
+      }
+
+      function updateDots(){
+        if(!dots.length) return;
+        dots.forEach((d,i)=>{
+          if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); }
+          else{ d.classList.remove('is-active'); d.removeAttribute('aria-selected'); }
+        });
+      }
+
+      function show(i){
+        idx = (i + list.length) % list.length;
+        const src = list[idx];
+        imgEl.setAttribute('href', src);
+        // for older browsers
+        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+        updateDots();
+      }
+
+      // buttons
+      const prevBtn = tile.querySelector('.tile-prev');
+      const nextBtn = tile.querySelector('.tile-next');
+      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
+      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
+
+      // click image to advance
+      tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
+
+      // init
+      updateDots();
+
+    })();
+  </script>
+
+  <!-- Third-tile slider (copied layout, only touches #gallery-beach) -->
+  <script>
+    (function(){
+      const tile = document.getElementById('gallery-beach');
       if(!tile) return;
 
       const imgEl = tile.querySelector('svg image');
