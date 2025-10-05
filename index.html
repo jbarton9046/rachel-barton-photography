@@ -319,6 +319,20 @@
   <style id="hero-cta-spacing">
     .hero .cta{ margin-top:28px; margin-bottom:16px; }
   </style>
+
+  <!-- Slider arrows (only for first tile) -->
+  <style id="tile-slider-arrows">
+    #gallery-meadow .tile-nav{
+      position:absolute; top:50%; transform:translateY(-50%);
+      background:rgba(255,255,255,.7); border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      width:34px; height:34px; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; user-select:none; z-index:4;
+    }
+    #gallery-meadow .tile-prev{ left:8px; }
+    #gallery-meadow .tile-next{ right:8px; }
+    #gallery-meadow .tile-nav:hover{ background:#fff; }
+  </style>
 </head>
 <body>
 
@@ -371,7 +385,20 @@
 
       <div class="mosaic" id="grid">
         <!-- LEFT -->
-        <figure class="captioned notch" id="gallery-meadow" aria-label="Oona & Ivy – Meadow Light">
+        <figure class="captioned notch" id="gallery-meadow" aria-label="Oona & Ivy – Meadow Light"
+                data-images='[
+                  "pictures/oonaIvy/E26A0761.jpg",
+                  "pictures/firstTileGal/E26A0671%20(2).jpg",
+                  "pictures/firstTileGal/E26A0698.jpg",
+                  "pictures/firstTileGal/E26A0699.jpg",
+                  "pictures/firstTileGal/E26A0712.jpg",
+                  "pictures/firstTileGal/E26A0718.jpg",
+                  "pictures/firstTileGal/E26A0739.jpg",
+                  "pictures/firstTileGal/E26A0753.jpg",
+                  "pictures/firstTileGal/E26A0758.jpg",
+                  "pictures/firstTileGal/E26A0759.jpg",
+                  "pictures/firstTileGal/E26A0764.jpg"
+                ]'>
           <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <defs>
               <mask id="notchMask-3a">
@@ -389,6 +416,9 @@
               <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
             </g>
           </svg>
+          <!-- simple prev/next controls -->
+          <button class="tile-nav tile-prev" type="button" aria-label="Previous">‹</button>
+          <button class="tile-nav tile-next" type="button" aria-label="Next">›</button>
           <div class="notch-box">
             <a class="cap-label" href="#gallery-meadow">Oona &amp; Ivy – Meadow Light</a>
           </div>
@@ -621,6 +651,43 @@
       }
       window.addEventListener('resize', ()=>{ requestAnimationFrame(updateAll); });
       setTimeout(updateAll, 0);
+    })();
+  </script>
+
+  <!-- First-tile slider (non-destructive, only touches #gallery-meadow) -->
+  <script>
+    (function(){
+      const tile = document.getElementById('gallery-meadow');
+      if(!tile) return;
+
+      const imgEl = tile.querySelector('svg image');
+      if(!imgEl) return;
+
+      let list;
+      try {
+        list = JSON.parse(tile.getAttribute('data-images') || '[]');
+      } catch(e){ list = []; }
+
+      if(!Array.isArray(list) || list.length <= 1) return;
+
+      let idx = 0;
+
+      function show(i){
+        idx = (i + list.length) % list.length;
+        const src = list[idx];
+        imgEl.setAttribute('href', src);
+        // for older browsers
+        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+      }
+
+      // buttons
+      const prevBtn = tile.querySelector('.tile-prev');
+      const nextBtn = tile.querySelector('.tile-next');
+      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
+      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
+
+      // click image to advance
+      tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
     })();
   </script>
 
