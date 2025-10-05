@@ -317,21 +317,28 @@
 
   <!-- NEW: small spacing bump above/below Book a Session -->
   <style id="hero-cta-spacing">
-    .hero .cta{ margin-top:28px; margin-bottom:16px; }
+    .hero .cta{ margin-top:34px; margin-bottom:18px; }
   </style>
 
   <!-- Slider arrows (only for first tile) -->
   <style id="tile-slider-arrows">
+    /* Floating gold arrows for the first tile */
     #gallery-meadow .tile-nav{
-      position:absolute; top:50%; transform:translateY(-50%);
-      background:rgba(255,255,255,.7); border:1px solid var(--line);
-      box-shadow:var(--shadow);
-      width:34px; height:34px; display:flex; align-items:center; justify-content:center;
+      position:absolute; top:50%; transform:translateY(-50%) scale(.98);
+      background:transparent; border:0;
+      width:42px; height:42px; display:grid; place-items:center;
+      color:var(--accent);
       cursor:pointer; user-select:none; z-index:4;
+      opacity:0; transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease;
     }
-    #gallery-meadow .tile-prev{ left:8px; }
-    #gallery-meadow .tile-next{ right:8px; }
-    #gallery-meadow .tile-nav:hover{ background:#fff; }
+    #gallery-meadow:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
+    #gallery-meadow .tile-prev{ left:10px; }
+    #gallery-meadow .tile-next{ right:10px; }
+    #gallery-meadow .tile-nav svg{ width:22px; height:22px; display:block }
+    #gallery-meadow .tile-nav:hover, 
+    #gallery-meadow .tile-nav:focus-visible{
+      color:#b79661; box-shadow:0 6px 18px rgba(0,0,0,.18); outline:none;
+    }
   </style>
 </head>
 <body>
@@ -416,9 +423,19 @@
               <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
             </g>
           </svg>
-          <!-- simple prev/next controls -->
-          <button class="tile-nav tile-prev" type="button" aria-label="Previous">‹</button>
-          <button class="tile-nav tile-next" type="button" aria-label="Next">›</button>
+          <!-- floating gold prev/next controls -->
+          <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 18L9 12l6-6"/>
+            </svg>
+          </button>
+          <button class="tile-nav tile-next" type="button" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
           <div class="notch-box">
             <a class="cap-label" href="#gallery-meadow">Oona &amp; Ivy – Meadow Light</a>
           </div>
