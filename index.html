@@ -351,14 +351,14 @@
     }
   </style>
 
-  <!-- Pagination dots (gold) moved 50% closer to the notch -->
+  <!-- Pagination dots (gold) default; JS will place them just above the notch -->
   <style id="tile-slider-dots">
     #gallery-meadow .tile-dots,
     #gallery-family .tile-dots,
     #gallery-beach .tile-dots{
       position:absolute;
       left:50%; transform:translateX(-50%);
-      bottom:40px;                 /* was 80px; now 50% closer to the cut-out */
+      bottom:40px;                 /* baseline; overridden by JS for exact placement */
       display:flex; gap:8px;
       z-index:4; pointer-events:auto;
     }
@@ -400,7 +400,7 @@
           <li class="has-sub">
             <a href="#portfolio" aria-haspopup="true" aria-expanded="false">Galleries</a>
             <ul class="dropdown" aria-label="Galleries submenu">
-              <li><a href="#gallery-meadow">Sister Portraits</a></li>
+              <li><a href="#gallery-meadow">Sibling Portraits</a></li>
               <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
               <li><a href="#gallery-beach">Friend Portraits</a></li>
             </ul>
@@ -488,7 +488,7 @@
           <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
           <div class="notch-box">
-            <a class="cap-label" href="#gallery-meadow">Sister Portraits</a>
+            <a class="cap-label" href="#gallery-meadow">Sibling Portraits</a>
           </div>
         </figure>
 
@@ -773,6 +773,13 @@
         notchBox.style.bottom = padCss + 'px';
         notchBox.style.left = '50%';
         notchBox.style.transform = 'translateX(-50%)';
+
+        /* NEW: place dots just above the notch/label (with a tiny gap) */
+        const dotsWrap = tile.querySelector('.tile-dots');
+        if(dotsWrap){
+          const gap = 6; // px visual gap above the notch
+          dotsWrap.style.bottom = (padCss + recessH_css + gap) + 'px';
+        }
       }
 
       function updateAll(){ tiles.forEach(t => updateTile(t)); }
