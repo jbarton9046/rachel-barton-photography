@@ -61,6 +61,7 @@
     }
     .brand{display:none}
     nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
+    nav.primary li{ position:relative; }
     nav.primary a{
       font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-weight:500;
@@ -73,6 +74,32 @@
       color:var(--accent);
       border-bottom-color:var(--accent);
       outline:none;
+    }
+
+    /* --- Dropdown (same behavior/appearance as index.html) --- */
+    .has-sub{ position:relative; }
+    .has-sub::after{
+      content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent;
+    }
+    .dropdown{
+      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
+      background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
+      padding:6px 8px; display:flex; flex-direction:column; gap:2px; min-width:220px;
+      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:20; backdrop-filter:saturate(1.05);
+    }
+    .has-sub:hover .dropdown,
+    .has-sub:focus-within .dropdown,
+    .dropdown:hover{
+      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
+    }
+    .dropdown li{list-style:none}
+    .dropdown a{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-weight:700; font-size:clamp(13px, 1.65vw, 15px); /* 75% size like index */
+      line-height:1.05; padding:0; color:#3f3a33; border-bottom:0; white-space:nowrap; background:transparent;
+    }
+    .dropdown a:hover, .dropdown a:focus-visible{
+      background:transparent; border-bottom:0; color:var(--accent); outline:none;
     }
 
     /* Floating intro (no hero image) */
@@ -221,7 +248,14 @@
     <nav class="primary" aria-label="Primary">
       <ul>
         <li><a href="/index.html">Home</a></li>
-        <li><a href="/#portfolio" class="active">Galleries</a></li>
+        <li class="has-sub">
+          <a href="/#portfolio" class="active" aria-haspopup="true" aria-expanded="false">Galleries</a>
+          <ul class="dropdown" aria-label="Galleries submenu">
+            <li><a href="/#gallery-meadow">Sibling Portraits</a></li>
+            <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
+            <li><a href="/#gallery-beach">Friend Portraits</a></li>
+          </ul>
+        </li>
         <li><a href="/about.html">About</a></li>
         <li><a href="/#reviews">Reviews</a></li>
         <li><a href="/#contact">Contact</a></li>
