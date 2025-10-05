@@ -340,6 +340,33 @@
       color:#b79661; box-shadow:0 6px 18px rgba(0,0,0,.18); outline:none;
     }
   </style>
+
+  <!-- NEW: Pagination dots for first tile (positioned just above the title link) -->
+  <style id="tile-slider-dots">
+    #gallery-meadow .tile-dots{
+      position:absolute;
+      left:50%; transform:translateX(-50%);
+      bottom:58px;                 /* sits above the cap-label bar */
+      display:flex; gap:8px;
+      z-index:4; pointer-events:auto;
+    }
+    #gallery-meadow .tile-dots button{
+      width:8px; height:8px; border-radius:50%;
+      border:1px solid var(--accent);
+      background:transparent;
+      padding:0; cursor:pointer;
+      opacity:.85; transition:transform .15s ease, background-color .15s ease, opacity .15s ease;
+    }
+    #gallery-meadow .tile-dots button:hover,
+    #gallery-meadow .tile-dots button:focus-visible{
+      outline:none; transform:scale(1.15);
+      opacity:1;
+    }
+    #gallery-meadow .tile-dots button.is-active{
+      background:var(--accent);
+      opacity:1;
+    }
+  </style>
 </head>
 <body>
 
@@ -436,6 +463,10 @@
               <path d="M9 18l6-6-6-6"/>
             </svg>
           </button>
+
+          <!-- pagination dots (visible for new users) -->
+          <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
+
           <div class="notch-box">
             <a class="cap-label" href="#gallery-meadow">Oona &amp; Ivy – Meadow Light</a>
           </div>
@@ -689,12 +720,36 @@
 
       let idx = 0;
 
+      // build dots
+      const dotsWrap = tile.querySelector('.tile-dots');
+      const dots = [];
+      if(dotsWrap){
+        for(let i=0;i<list.length;i++){
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('role','tab');
+          b.setAttribute('aria-label','Go to slide ' + (i+1));
+          b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
+          dotsWrap.appendChild(b);
+          dots.push(b);
+        }
+      }
+
+      function updateDots(){
+        if(!dots.length) return;
+        dots.forEach((d,i)=>{
+          if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); }
+          else{ d.classList.remove('is-active'); d.removeAttribute('aria-selected'); }
+        });
+      }
+
       function show(i){
         idx = (i + list.length) % list.length;
         const src = list[idx];
         imgEl.setAttribute('href', src);
         // for older browsers
         imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+        updateDots();
       }
 
       // buttons
@@ -705,6 +760,10 @@
 
       // click image to advance
       tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
+
+      // init
+      updateDots();
+
     })();
   </script>
 
