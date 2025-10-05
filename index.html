@@ -400,7 +400,8 @@
           <li class="has-sub">
             <a href="#portfolio" aria-haspopup="true" aria-expanded="false">Galleries</a>
             <ul class="dropdown" aria-label="Galleries submenu">
-              <li><a href="#gallery-meadow">Sibling Portraits</a></li>
+              <!-- UPDATED LINK -->
+              <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
               <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
               <li><a href="#gallery-beach">Friend Portraits</a></li>
             </ul>
@@ -488,7 +489,8 @@
           <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
           <div class="notch-box">
-            <a class="cap-label" href="#gallery-meadow">Sibling Portraits</a>
+            <!-- UPDATED LINK -->
+            <a class="cap-label" href="/galleries/sibling-portrait.html">Sibling Portraits</a>
           </div>
         </figure>
 
@@ -634,7 +636,7 @@
       <h2 class="section-title" id="reviews-title">Kind Words</h2>
       <p class="section-sub">We’ll add 3–6 short testimonials here as they come in.</p>
 
-      <div class="quotes">
+    <div class="quotes">
         <blockquote>Rachel kept our toddler smiling the whole time — so many genuine moments.<footer>— S. Miller</footer></blockquote>
         <blockquote>Booking was simple, communication was clear, and the photos are stunning.<footer>— A. Nguyen</footer></blockquote>
         <blockquote>She noticed the little details and made us feel relaxed and ourselves.<footer>— J. Rivera</footer></blockquote>
@@ -774,10 +776,10 @@
         notchBox.style.left = '50%';
         notchBox.style.transform = 'translateX(-50%)';
 
-        /* NEW: place dots just above the notch/label (with a tiny gap) */
+        /* dots just above the notch */
         const dotsWrap = tile.querySelector('.tile-dots');
         if(dotsWrap){
-          const gap = 6; // px visual gap above the notch
+          const gap = 6; // px above the notch
           dotsWrap.style.bottom = (padCss + recessH_css + gap) + 'px';
         }
       }
