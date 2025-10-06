@@ -62,165 +62,51 @@
     img{max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    /* HERO */
-    .hero{
-      position:relative;
-      min-height:100svh;
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      align-items:center;
-      background:url('pictures/oonaIvy/E26A0671.jpg') center 15%/cover no-repeat;
-      width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
-    }
-    .hero::after{ content:none; }
+    /* HERO (not used on galleries page; left for consistency) */
+    .hero{ display:none; }
 
     /* Top bar – brand hidden, centered nav */
     .topbar{
-      position:absolute; left:0; right:0; top:0;
+      position:sticky; left:0; right:0; top:0;
       display:flex; align-items:center; justify-content:center;
-      padding:16px var(--gap); z-index:2;
+      padding:16px var(--gap); z-index:10; background:transparent;
     }
     .brand{display:none}
-    nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
+    nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0; justify-content:center}
     nav.primary li{ position:relative; }
     nav.primary a{
       font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-weight:500;
       font-size:clamp(16px,1.8vw,20px);
       letter-spacing:.02em;
-      border-bottom:0;            /* no underline */
+      border-bottom:0;
       padding:4px 2px;
     }
     nav.primary a:hover, nav.primary a:focus-visible{
       color:var(--accent);
-      border-bottom:0;            /* keep no underline on hover */
+      border-bottom:0;
     }
 
-    /* Base dropdown (will be overridden below for “floating text”) */
+    /* Base dropdown (text-only floating) */
     .has-sub{ position:relative; }
-    .has-sub::after{
-      content:"";
-      position:absolute;
-      left:-8px; right:-8px;
-      top:100%;
-      height:12px;
-      background:transparent;
-    }
+    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
     .dropdown{
-      position:absolute;
-      top:calc(100% + 6px);
-      left:50%;
-      transform:translate(-50%, 0);
-      background:rgba(255,255,255,.65);
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
-      padding:6px 8px;
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-      min-width:220px;
-      opacity:0; visibility:hidden; pointer-events:none;
-      transition:opacity .15s ease, transform .15s ease;
-      z-index:3;
-      backdrop-filter:saturate(1.05);
+      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
+      background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
+      padding:6px 8px; display:flex; flex-direction:column; gap:2px; min-width:220px;
+      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:3; backdrop-filter:saturate(1.05);
     }
-    .has-sub:hover .dropdown,
-    .has-sub:focus-within .dropdown,
-    .dropdown:hover{
-      opacity:1; visibility:visible; pointer-events:auto;
-      transform:translate(-50%, 2px);
-    }
+    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{ opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px); }
     .dropdown li{list-style:none}
     .dropdown a{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700;
-      font-size:clamp(18px,2.2vw,20px);
-      letter-spacing:.02em;
-      line-height:1.1;
-      padding:2px 6px;
-      color:#3f3a33;
-      border-bottom:0;            /* no underline */
-      white-space:nowrap;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-weight:700;
+      font-size:clamp(13px, 1.65vw, 15px); letter-spacing:.02em; line-height:1.05; padding:0; color:#3f3a33; border-bottom:0; white-space:nowrap;
     }
-    .dropdown a:hover, .dropdown a:focus-visible{
-      background:transparent;
-      border-bottom:0;            /* keep no underline */
-      color:var(--accent);
-      outline:none;
-    }
-
-    /* Hero copy card */
-    .hero .copy{
-      position:relative; z-index:1;
-      display:inline-block;
-      background:rgba(255,255,255,.65);
-      border:1px solid var(--line);
-      padding:24px 28px;
-      width:fit-content;
-      max-width:min(92vw, 900px);
-      margin:0;
-      box-shadow:var(--shadow);
-      text-align:center;
-      grid-column:2;
-      justify-self:center;
-    }
-
-    .eyebrow{color:#8d7a5c; font-weight:700; letter-spacing:.16em; text-transform:uppercase; font-size:12px; margin-bottom:6px}
-    h1{
-      font-family:"Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
-      font-size:clamp(34px,6vw,60px); line-height:1.1; margin:.25em 0; font-weight:700; color:#3f3a33
-    }
-
-    .cta{display:flex; gap:22px; margin-top:16px; flex-wrap:wrap; justify-content:center}
-
-    /* Button: thin black border, tighter padding; no underline ever */
-    .btn{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      background:transparent;
-      border:1px solid rgba(0,0,0,.85);
-      padding:3px 8px;            /* tighter so it hugs text */
-      color:#3f3a33;
-      font-weight:700;
-      cursor:pointer;
-      border-radius:0;
-    }
-    .hero .btn{ font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; }
-    .hero .btn:hover, .hero .btn:focus-visible{
-      color:var(--accent);
-      border-color:var(--accent); /* hover border matches gold text */
-      outline:none;
-    }
-
-    .localities{color:#5c5850; margin-top:6px; line-height:1.75}
-    .localities .dot::after{content:" • "; color:#8a857a}
-    .localities .dot:last-child::after{content:""}
-
-    .scallop{
-      --h:18px; position:relative; height:var(--h);
-      background:var(--butter-bar); border-bottom:1px solid var(--butter-stroke);
-    }
-    .scallop::after{
-      content:""; position:absolute; left:0; right:0; bottom:-1px; height:var(--h);
-      background:radial-gradient(var(--h) at 50% 0, var(--bg) 98%, transparent 100%) center bottom/var(--h) var(--h) repeat-x;
-      pointer-events:none;
-    }
+    .dropdown a:hover, .dropdown a:focus-visible{ background:transparent; border-bottom:0; color:var(--accent); outline:none; }
 
     section{padding:calc(var(--gap)*2) 0}
-    .section-title{
-      font-family:"Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
-      font-size:clamp(24px,3.5vw,38px); margin:0 0 8px
-    }
+    .section-title{ font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-size:clamp(24px,3.5vw,38px); margin:0 0 8px }
     .section-sub{color:#67635b; margin:0 0 22px}
-
-    .features .feature h3{
-      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-      font-weight:700;
-    }
-
-    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
-    .card{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column}
-    .card .body{padding:18px}
-    .meta{color:#7b786f; font-size:14px}
 
     .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px)}
     .mosaic figure{margin:0}
@@ -235,276 +121,75 @@
     }
     .mosaic .cap-label:hover{background:#e2d7bd; box-shadow:0 6px 18px rgba(0,0,0,.08); transform:translateY(-1px)}
 
-    .features{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
-    .feature{background:var(--paper); padding:18px; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
-    .quotes{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
-    blockquote{background:#fff; border:1px solid var(--line); padding:18px; margin:0; border-radius:0; position:relative; color:#504a42}
-    blockquote:before{content:"“"; font-family:"Fraunces",serif; font-size:48px; color:#d9d3c6; position:absolute; left:12px; top:-10px}
-    blockquote footer{color:#7b786f; font-size:14px; margin-top:8px}
-
-    .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
-    .left-col, .right-col{display:flex; flex-direction:column; gap:var(--gap);}
-    form{background:#fff; padding:18px; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
-    label{display:block; font-weight:600; margin:10px 0 6px; color:#4b463f}
-    input, textarea, select{width:100%; padding:12px 14px; border-radius:0; border:1px solid var(--line); background:#fff; outline:none}
-    input:focus, textarea:focus, select:focus{border-color:#c9b792; box-shadow:0 0 0 4px var(--ring)}
-    textarea{min-height:120px}
-
-    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f}
-
-    @media (max-width:960px){
-      .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr}
-      .hero{ grid-template-columns:1fr; }
-      .hero .copy{ grid-column:1; justify-self:center; }
-    }
-    @media (max-width:640px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr} }
-
-    main .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33; font-weight:700; text-decoration:none; border-radius:0;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
-    }
-    main .btn:hover, main .btn:focus-visible{
-      background:#f9f6ef; border-color:#dcd4c3; box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); color:var(--accent);
-      outline:none;
-    }
-    main .btn:active{ transform:translateY(0); box-shadow:0 4px 12px rgba(0,0,0,.06); }
-    main button.btn{ appearance:none; -webkit-appearance:none; cursor:pointer; }
-
-    .scheduler-card{position:relative; display:flex; justify-content:center; align-items:flex-start;}
-    .iframe-wrap{position:relative; width:100%; background:#fff;}
-    .iframe-wrap iframe{ display:block; width:100%; border:0; height:0; min-height:650px; overflow:hidden; }
-  </style>
-
-  <!-- FINAL OVERRIDES: floating dropdown text + spacing; remove underline everywhere -->
-  <style id="dropdown-float-overrides">
-    /* Dropdown floats: strip card/background/borders and add a little spacing */
-    .topbar nav.primary .has-sub > .dropdown{
-      background:transparent !important;
-      border:0 !important;
-      box-shadow:none !important;
-      padding:0 !important;
-      gap:6px !important;                /* a little padding between lines */
-      min-width:unset !important;        /* let width fit the text */
-      left:50% !important;
-      transform:translateX(-50%) !important;
-    }
-    .topbar nav.primary .dropdown a{
-      border-bottom:0 !important;        /* no underline ever */
-      padding:0 !important;              /* text sits cleanly */
-      background:transparent !important;
-    }
-    .topbar nav.primary .dropdown a:hover,
-    .topbar nav.primary .dropdown a:focus-visible{
-      border-bottom:0 !important;
-      background:transparent !important;
-      color:var(--accent) !important;
-      outline:none !important;
-    }
-  </style>
-
-  <!-- NEW: 75% size + match “Book a Session” font for dropdown items -->
-  <style id="dropdown-75pct-fontmatch">
-    .topbar nav.primary .dropdown a{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
-      font-weight:700 !important;
-      /* 75% of previous 18–20px → ~13.5–15px */
-      font-size:clamp(13px, 1.65vw, 15px) !important;
-      line-height:1.05 !important;
-    }
-  </style>
-
-  <!-- NEW: small spacing bump above/below Book a Session -->
-  <style id="hero-cta-spacing">
-    .hero .cta{ margin-top:34px; margin-bottom:26px; }
-  </style>
-
-  <!-- Slider arrows (now for ALL three tiles) -->
-  <style id="tile-slider-arrows">
-    /* Floating gold arrows for tile sliders */
+    /* Floating diamond arrows */
     #gallery-meadow .tile-nav,
     #gallery-family .tile-nav,
-    #gallery-beach .tile-nav{
+    #gallery-beach  .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       background:transparent !important; border:0 !important;
-      width:42px; height:42px; display:grid; place-items:center;
+      width:56px; height:56px; display:grid; place-items:center;
       color:var(--accent);
       cursor:pointer; user-select:none; z-index:4;
-      opacity:0; transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease;
-      outline:none;
+      opacity:0; transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease; outline:none;
+      padding:0;
     }
     #gallery-meadow:hover .tile-nav,
     #gallery-family:hover .tile-nav,
-    #gallery-beach:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
+    #gallery-beach:hover  .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
     #gallery-meadow .tile-prev, #gallery-family .tile-prev, #gallery-beach .tile-prev{ left:10px; }
     #gallery-meadow .tile-next, #gallery-family .tile-next, #gallery-beach .tile-next{ right:10px; }
-    #gallery-meadow .tile-nav svg,
-    #gallery-family .tile-nav svg,
-    #gallery-beach .tile-nav svg{ width:22px; height:22px; display:block }
-    #gallery-meadow .tile-nav:hover, 
-    #gallery-meadow .tile-nav:focus-visible,
-    #gallery-family .tile-nav:hover, 
-    #gallery-family .tile-nav:focus-visible,
-    #gallery-beach .tile-nav:hover, 
-    #gallery-beach .tile-nav:focus-visible{
-      color:#b79661; box-shadow:0 6px 18px rgba(0,0,0,.18); outline:none;
-    }
-  </style>
+    #gallery-meadow .tile-nav svg, #gallery-family .tile-nav svg, #gallery-beach .tile-nav svg{ width:22px; height:22px; display:block; position:relative; z-index:2 }
+    #gallery-meadow .tile-nav:hover, #gallery-meadow .tile-nav:focus-visible,
+    #gallery-family .tile-nav:hover, #gallery-family .tile-nav:focus-visible,
+    #gallery-beach  .tile-nav:hover, #gallery-beach  .tile-nav:focus-visible{ color:#b79661; box-shadow:0 6px 18px rgba(0,0,0,.18); outline:none; }
 
-  <!-- Pagination dots (gold) default; JS will place them just above the notch -->
-  <style id="tile-slider-dots">
-    #gallery-meadow .tile-dots,
-    #gallery-family .tile-dots,
-    #gallery-beach .tile-dots{
-      position:absolute;
-      left:50%; transform:translateX(-50%);
-      bottom:40px;                 /* baseline; overridden by JS for exact placement */
-      display:flex; gap:8px;
-      z-index:4; pointer-events:auto;
+    /* Frosted diamond plate + outline */
+    #gallery-meadow .tile-nav::before,
+    #gallery-family .tile-nav::before,
+    #gallery-beach  .tile-nav::before{
+      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
+      background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05);
+      box-shadow:0 6px 18px rgba(0,0,0,.14); z-index:0;
     }
-    #gallery-meadow .tile-dots button,
-    #gallery-family .tile-dots button,
-    #gallery-beach .tile-dots button{
-      width:8px; height:8px; border-radius:50%;
-      border:1px solid var(--accent);
-      background:transparent;
-      padding:0; cursor:pointer;
-      opacity:.85; transition:transform .15s ease, background-color .15s ease, opacity .15s ease;
+    #gallery-meadow .tile-nav::after,
+    #gallery-family .tile-nav::after,
+    #gallery-beach  .tile-nav::after{
+      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
+      border:1.5px solid var(--accent); z-index:1; pointer-events:none;
     }
-    #gallery-meadow .tile-dots button:hover,
-    #gallery-meadow .tile-dots button:focus-visible,
-    #gallery-family .tile-dots button:hover,
-    #gallery-family .tile-dots button:focus-visible,
-    #gallery-beach .tile-dots button:hover,
-    #gallery-beach .tile-dots button:focus-visible{
-      outline:none; transform:scale(1.15);
-      opacity:1;
+    #gallery-meadow .tile-nav:hover::before, #gallery-family .tile-nav:hover::before, #gallery-beach .tile-nav:hover::before,
+    #gallery-meadow .tile-nav:focus-visible::before, #gallery-family .tile-nav:focus-visible::before, #gallery-beach .tile-nav:focus-visible::before{
+      -webkit-backdrop-filter:blur(8px) saturate(1.08); backdrop-filter:blur(8px) saturate(1.08); box-shadow:0 8px 22px rgba(0,0,0,.16);
     }
-    #gallery-meadow .tile-dots button.is-active,
-    #gallery-family .tile-dots button.is-active,
-    #gallery-beach .tile-dots button.is-active{
-      background:var(--accent);
-      opacity:1;
+    #gallery-meadow .tile-nav:hover::after, #gallery-family .tile-nav:hover::after, #gallery-beach .tile-nav:hover::after,
+    #gallery-meadow .tile-nav:focus-visible::after, #gallery-family .tile-nav:focus-visible::after, #gallery-beach .tile-nav:focus-visible::after{
+      border-color:#b79661;
     }
-  </style>
 
-  <!-- ======== PROFESSIONAL FROSTED DIAMONDS (diamond plate exactly under outline) ======== -->
-  <style id="professional-glass-diamonds">
-  #gallery-meadow .tile-nav,
-  #gallery-family .tile-nav,
-  #gallery-beach  .tile-nav{
-    width:56px; height:56px;
-    background:transparent !important; border:0 !important;
-    padding:0; position:absolute;
-  }
-  /* Frosted diamond plate */
-  #gallery-meadow .tile-nav::before,
-  #gallery-family .tile-nav::before,
-  #gallery-beach  .tile-nav::before{
-    content:""; position:absolute; inset:0; margin:7px;
-    transform:rotate(45deg);
-    background:rgba(255,255,255,.22);
-    -webkit-backdrop-filter:blur(7px) saturate(1.05);
-    backdrop-filter:blur(7px) saturate(1.05);
-    box-shadow:0 6px 18px rgba(0,0,0,.14);
-    z-index:0;
-  }
-  /* Gold outline uses same inset so it sits exactly atop the plate */
-  #gallery-meadow .tile-nav::after,
-  #gallery-family .tile-nav::after,
-  #gallery-beach  .tile-nav::after{
-    content:""; position:absolute; inset:0; margin:7px;
-    transform:rotate(45deg);
-    border:1.5px solid var(--accent);
-    z-index:1; pointer-events:none;
-  }
-  #gallery-meadow .tile-nav svg,
-  #gallery-family .tile-nav svg,
-  #gallery-beach  .tile-nav svg{
-    width:22px; height:22px; z-index:2; position:relative;
-  }
-  #gallery-meadow .tile-nav:hover::before,
-  #gallery-family .tile-nav:hover::before,
-  #gallery-beach  .tile-nav:hover::before,
-  #gallery-meadow .tile-nav:focus-visible::before,
-  #gallery-family .tile-nav:focus-visible::before,
-  #gallery-beach  .tile-nav:focus-visible::before{
-    -webkit-backdrop-filter:blur(8px) saturate(1.08);
-    backdrop-filter:blur(8px) saturate(1.08);
-    box-shadow:0 8px 22px rgba(0,0,0,.16);
-  }
-  #gallery-meadow .tile-nav:hover::after,
-  #gallery-family .tile-nav:hover::after,
-  #gallery-beach  .tile-nav:hover::after,
-  #gallery-meadow .tile-nav:focus-visible::after,
-  #gallery-family .tile-nav:focus-visible::after,
-  #gallery-beach  .tile-nav:focus-visible::after{
-    border-color:#b79661;
-  }
-
-  /* SMALL DOT DIAMONDS (unchanged look) */
-  #gallery-meadow .tile-dots button,
-  #gallery-family .tile-dots button,
-  #gallery-beach  .tile-dots button{
-    position:relative;
-    width:10px; height:10px;
-    transform:rotate(45deg);
-    border:1px solid var(--accent);
-    background:transparent !important;
-    border-radius:0;
-  }
-  #gallery-meadow .tile-dots button::before,
-  #gallery-family .tile-dots button::before,
-  #gallery-beach  .tile-dots button::before{
-    content:""; position:absolute; inset:-2px;
-    background:rgba(255,255,255,.18);
-    -webkit-backdrop-filter:blur(5px) saturate(1.05);
-    backdrop-filter:blur(5px) saturate(1.05);
-    z-index:-1;
-  }
-  #gallery-meadow .tile-dots button.is-active::before,
-  #gallery-family .tile-dots button.is-active::before,
-  #gallery-beach  .tile-dots button.is-active::before{
-    background:rgba(168,138,90,.22);
-  }
-  #gallery-meadow .tile-dots button:hover,
-  #gallery-meadow .tile-dots button:focus-visible,
-  #gallery-family .tile-dots button:hover,
-  #gallery-family .tile-dots button:focus-visible,
-  #gallery-beach  .tile-dots button:hover,
-  #gallery-beach  .tile-dots button:focus-visible{
-    transform:rotate(45deg) scale(1.15);
-  }
-  </style>
-
-  <!-- OPTION 1: Helper bar style under subhead -->
-  <style id="section-help-style">
-    .section-help{
-      margin:10px 0 12px;
-      font-size:13px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:#6e6a62;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:6px 10px;
-      background:#fff;
-      border:1px solid var(--line);
-      box-shadow:0 2px 8px rgba(0,0,0,.04);
+    /* Diamond dots */
+    #gallery-meadow .tile-dots, #gallery-family .tile-dots, #gallery-beach .tile-dots{
+      position:absolute; left:50%; transform:translateX(-50%); bottom:40px; display:flex; gap:8px; z-index:4; pointer-events:auto;
     }
-    .section-help .help-ico{ font-size:12px; opacity:.85 }
-    /* Pull the grid a touch closer to the helper */
-    #portfolio .mosaic{ margin-top:6px; }
-  </style>
+    #gallery-meadow .tile-dots button, #gallery-family .tile-dots button, #gallery-beach .tile-dots button{
+      position:relative; width:10px; height:10px; transform:rotate(45deg); border:1px solid var(--accent); background:transparent !important; border-radius:0; padding:0; cursor:pointer; opacity:.95;
+      transition:transform .15s ease, background-color .15s ease, opacity .15s ease;
+    }
+    #gallery-meadow .tile-dots button::before, #gallery-family .tile-dots button::before, #gallery-beach .tile-dots button::before{
+      content:""; position:absolute; inset:-2px; background:rgba(255,255,255,.18); -webkit-backdrop-filter:blur(5px) saturate(1.05); backdrop-filter:blur(5px) saturate(1.05); z-index:-1;
+    }
+    #gallery-meadow .tile-dots button.is-active::before, #gallery-family .tile-dots button.is-active::before, #gallery-beach .tile-dots button.is-active::before{ background:rgba(168,138,90,.22); }
+    #gallery-meadow .tile-dots button:hover, #gallery-meadow .tile-dots button:focus-visible,
+    #gallery-family .tile-dots button:hover, #gallery-family .tile-dots button:focus-visible,
+    #gallery-beach .tile-dots button:hover, #gallery-beach .tile-dots button:focus-visible{ transform:rotate(45deg) scale(1.15); outline:none; }
 
-  <style>
-    /* Galleries page tweaks */
-    .topbar.container{ align-items:center; display:flex; justify-content:center; gap:28px; padding:12px var(--gap); }
-    .topbar .brand{ flex:0 0 auto; }
-    .topbar nav.primary ul{ justify-content:center; }
-    #portfolio .mosaic{ margin-top:10px; }
+    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; text-align:center}
+
+    @media (max-width:960px){
+      .mosaic{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:640px){
+      .mosaic{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
@@ -536,13 +221,13 @@
         <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
         <p class="section-sub">From sunlit meadows to Gulf sunsets, explore the feel of a session—connection, motion, and easy, unposed energy.</p>
 
-        <!-- Helper bar (Option 1) -->
-        <div class="section-help" role="note" aria-label="Gallery navigation help">
+        <!-- Helper bar -->
+        <div class="section-help" role="note" aria-label="Gallery navigation help" style="margin:10px 0 12px; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:#6e6a62; display:inline-flex; align-items:center; gap:8px; padding:6px 10px; background:#fff; border:1px solid var(--line); box-shadow:0 2px 8px rgba(0,0,0,.04);">
           <span class="help-ico" aria-hidden="true">ⓘ</span>
           Preview & navigate: click the tile or use the arrows to move through images. Select the label to view the full gallery.
         </div>
 
-        <div class="mosaic" id="grid">
+        <div class="mosaic" id="grid" style="margin-top:6px">
           <!-- LEFT -->
           <figure class="captioned notch" id="gallery-meadow" aria-label="Oona & Ivy – Meadow Light"
                   data-images='[
@@ -575,25 +260,17 @@
                 <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
               </g>
             </svg>
-            <!-- floating gold prev/next controls -->
+
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M15 18L9 12l6-6"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18L9 12l6-6"/></svg>
             </button>
             <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 18l6-6-6-6"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
             </button>
 
-            <!-- pagination dots -->
             <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
             <div class="notch-box">
-              <!-- UPDATED LINK -->
               <a class="cap-label" href="/galleries/sibling-portrait.html">Sibling Portraits</a>
             </div>
           </figure>
@@ -623,7 +300,6 @@
                   <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                 </filter>
               </defs>
-              <!-- keep original first image visible -->
               <image href="pictures/familyPortrait/image5.jpg" x="0" y="0" width="800" height="1000"
                      preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
               <g class="frameGroup" filter="url(#frameShadow-1)">
@@ -632,21 +308,13 @@
               </g>
             </svg>
 
-            <!-- floating gold prev/next controls -->
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M15 18L9 12l6-6"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18L9 12l6-6"/></svg>
             </button>
             <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 18l6-6-6-6"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
             </button>
 
-            <!-- pagination dots -->
             <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
             <div class="notch-box">
@@ -679,7 +347,6 @@
                   <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                 </filter>
               </defs>
-              <!-- make E26A2022 (1).jpg the first/visible image -->
               <image href="pictures/thirdTileGal/E26A2022%20(1).jpg" x="0" y="0" width="800" height="1000"
                      preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
               <g class="frameGroup" filter="url(#frameShadow-2)">
@@ -688,21 +355,13 @@
               </g>
             </svg>
 
-            <!-- floating gold prev/next controls -->
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M15 18L9 12l6-6"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18L9 12l6-6"/></svg>
             </button>
             <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 18l6-6-6-6"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
             </button>
 
-            <!-- pagination dots -->
             <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
             <div class="notch-box">
@@ -711,7 +370,7 @@
           </figure>
         </div>
 
-        <div class="cta" style="margin-top:18px">
+        <div class="cta" style="margin-top:18px; display:flex; justify-content:center">
           <a class="btn" href="#book">Check availability</a>
         </div>
       </section>
@@ -720,7 +379,7 @@
 
   <footer>— S. Miller</footer>
 
-  <!-- Tile logic: positions notch, draws diamonds, wires prev/next and image cycling -->
+  <!-- Layout: compute notch/label/dots (lifted) -->
   <script>
     (function(){
       const tiles = document.querySelectorAll('.mosaic .captioned.notch');
@@ -728,81 +387,232 @@
 
       function updateTile(tile){
         const svg = tile.querySelector('svg.notch-figure');
-        const notchRect = svg.querySelector('.notchRect');
-        const recessStroke = svg.querySelector('.recessStroke');
+        const notchRect = svg?.querySelector('.notchRect');
+        const recessStroke = svg?.querySelector('.recessStroke');
         const label = tile.querySelector('.cap-label');
         const notchBox = tile.querySelector('.notch-box');
+        if(!svg || !label || !notchRect || !recessStroke || !notchBox) return;
 
-        const padX = 28; // breathing room around label
-        // measure with safe fallback when hidden
-        const labelWidth = Math.ceil((label.getBoundingClientRect().width || label.offsetWidth || 120)) + padX;
-        const w = Math.max(140, Math.min(560, labelWidth)); // clamp a bit for sanity
-        const x = (800 - w)/2;
-        const y = 920;
-        const h = 80;
+        const padCss = 4;     /* label padding in recess */
+        const liftCss = 10;   /* lift notch/label up */
+        const dotsGapCss = 14;/* space between notch and diamonds */
 
-        notchRect.setAttribute('x', x);
-        notchRect.setAttribute('y', y);
-        notchRect.setAttribute('width', w);
-        notchRect.setAttribute('height', h);
+        const labelRect = label.getBoundingClientRect();
+        const tileRect  = svg.getBoundingClientRect();
 
-        recessStroke.setAttribute('x', x);
-        recessStroke.setAttribute('y', y);
-        recessStroke.setAttribute('width', w);
-        recessStroke.setAttribute('height', h);
+        const recessW_css = labelRect.width + padCss * 2;
+        const recessH_css = labelRect.height + padCss * 2;
 
-        notchBox.style.transform = `translate(${x}px, ${y}px)`;
-        notchBox.style.width = w + 'px';
+        const sx = 800 / tileRect.width;
+        const sy = 1000 / tileRect.height;
 
-        // place the diamond dots a touch above the recess
-        const dots = tile.querySelector('.tile-dots');
-        if(dots){
-          const target = y - 22;
-          dots.style.bottom = (1000 - target) + 'px';
+        const recessW = recessW_css * sx;
+        const recessH = recessH_css * sy;
+
+        const recessX = ((tileRect.width - recessW_css) / 2) * sx;
+        const recessY = 1000 - recessH - (padCss * sy) - (liftCss * sy);
+
+        notchRect.setAttribute('x', recessX.toFixed(2));
+        notchRect.setAttribute('y', recessY.toFixed(2));
+        notchRect.setAttribute('width', recessW.toFixed(2));
+        notchRect.setAttribute('height', recessH.toFixed(2));
+
+        recessStroke.setAttribute('x', recessX.toFixed(2));
+        recessStroke.setAttribute('y', recessY.toFixed(2));
+        recessStroke.setAttribute('width', recessW.toFixed(2));
+        recessStroke.setAttribute('height', recessH.toFixed(2));
+
+        /* position label box (title) – lifted to match notch */
+        notchBox.style.width = recessW_css + 'px';
+        notchBox.style.height = recessH_css + 'px';
+        notchBox.style.bottom = (padCss + liftCss) + 'px';
+        notchBox.style.left = '50%';
+        notchBox.style.transform = 'translateX(-50%)';
+
+        /* diamonds (dots) just above the notch */
+        const dotsWrap = tile.querySelector('.tile-dots');
+        if(dotsWrap){
+          dotsWrap.style.bottom = (padCss + recessH_css + dotsGapCss + liftCss) + 'px';
         }
       }
 
-      tiles.forEach(tile => {
-        const images = JSON.parse(tile.getAttribute('data-images')||'[]');
-        const img = tile.querySelector('image');
-        let idx = 0;
+      function updateAll(){ tiles.forEach(t => updateTile(t)); }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(()=>{ requestAnimationFrame(updateAll); });
+      } else {
+        window.addEventListener('load', updateAll);
+      }
+      window.addEventListener('resize', ()=>{ requestAnimationFrame(updateAll); });
+      setTimeout(updateAll, 0);
+    })();
+  </script>
 
-        function render(i){
-          if(!images.length) return;
-          idx = (i + images.length) % images.length;
-          img.setAttribute('href', images[idx]);
-          updateTile(tile);
-          updateDots();
+  <!-- Slider: tile #1 -->
+  <script>
+    (function(){
+      const tile = document.getElementById('gallery-meadow');
+      if(!tile) return;
+
+      const imgEl = tile.querySelector('svg image');
+      if(!imgEl) return;
+
+      let list;
+      try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
+      if(!Array.isArray(list) || list.length <= 1) return;
+
+      let idx = 0;
+
+      // build dots
+      const dotsWrap = tile.querySelector('.tile-dots');
+      const dots = [];
+      if(dotsWrap){
+        for(let i=0;i<list.length;i++){
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('role','tab');
+          b.setAttribute('aria-label','Go to slide ' + (i+1));
+          b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
+          dotsWrap.appendChild(b);
+          dots.push(b);
         }
+      }
 
-        const dots = tile.querySelector('.tile-dots');
-        function updateDots(){
-          if(!dots) return;
-          dots.innerHTML = '';
-          images.forEach((_, i) => {
-            const b = document.createElement('button');
-            b.className = 'dot' + (i===idx ? ' is-active':'');
-            b.setAttribute('aria-label', `Slide ${i+1}`);
-            b.addEventListener('click', e => { e.stopPropagation(); render(i); });
-            dots.appendChild(b);
-          });
+      function updateDots(){
+        if(!dots.length) return;
+        dots.forEach((d,i)=>{
+          if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); }
+          else{ d.classList.remove('is-active'); d.removeAttribute('aria-selected'); }
+        });
+      }
+
+      function show(i){
+        idx = (i + list.length) % list.length;
+        const src = list[idx];
+        imgEl.setAttribute('href', src);
+        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+        updateDots();
+      }
+
+      const prevBtn = tile.querySelector('.tile-prev');
+      const nextBtn = tile.querySelector('.tile-next');
+      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
+      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
+
+      tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
+
+      updateDots();
+    })();
+  </script>
+
+  <!-- Slider: tile #2 -->
+  <script>
+    (function(){
+      const tile = document.getElementById('gallery-family');
+      if(!tile) return;
+
+      const imgEl = tile.querySelector('svg image');
+      if(!imgEl) return;
+
+      let list;
+      try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
+      if(!Array.isArray(list) || list.length <= 1) return;
+
+      let idx = 0;
+
+      const dotsWrap = tile.querySelector('.tile-dots');
+      const dots = [];
+      if(dotsWrap){
+        for(let i=0;i<list.length;i++){
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('role','tab');
+          b.setAttribute('aria-label','Go to slide ' + (i+1));
+          b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
+          dotsWrap.appendChild(b);
+          dots.push(b);
         }
+      }
 
-        const prevBtn = tile.querySelector('.tile-prev');
-        const nextBtn = tile.querySelector('.tile-next');
-        if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); render(idx-1); });
-        if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); render(idx+1); });
+      function updateDots(){
+        if(!dots.length) return;
+        dots.forEach((d,i)=>{
+          if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); }
+          else{ d.classList.remove('is-active'); d.removeAttribute('aria-selected'); }
+        });
+      }
 
-        tile.querySelector('svg.notch-figure')?.addEventListener('click', () => render(idx+1));
+      function show(i){
+        idx = (i + list.length) % list.length;
+        const src = list[idx];
+        imgEl.setAttribute('href', src);
+        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+        updateDots();
+      }
 
-        // init
-        render(0);
-      });
+      const prevBtn = tile.querySelector('.tile-prev');
+      const nextBtn = tile.querySelector('.tile-next');
+      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
+      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
 
-      // keep positions tight on resize/font-load
-      window.addEventListener('resize', () => {
-        document.querySelectorAll('.mosaic .captioned.notch').forEach(updateTile);
-      });
+      tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
+
+      updateDots();
+    })();
+  </script>
+
+  <!-- Slider: tile #3 -->
+  <script>
+    (function(){
+      const tile = document.getElementById('gallery-beach');
+      if(!tile) return;
+
+      const imgEl = tile.querySelector('svg image');
+      if(!imgEl) return;
+
+      let list;
+      try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
+      if(!Array.isArray(list) || list.length <= 1) return;
+
+      let idx = 0;
+
+      const dotsWrap = tile.querySelector('.tile-dots');
+      const dots = [];
+      if(dotsWrap){
+        for(let i=0;i<list.length;i++){
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('role','tab');
+          b.setAttribute('aria-label','Go to slide ' + (i+1));
+          b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
+          dotsWrap.appendChild(b);
+          dots.push(b);
+        }
+      }
+
+      function updateDots(){
+        if(!dots.length) return;
+        dots.forEach((d,i)=>{
+          if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); }
+          else{ d.classList.remove('is-active'); d.removeAttribute('aria-selected'); }
+        });
+      }
+
+      function show(i){
+        idx = (i + list.length) % list.length;
+        const src = list[idx];
+        imgEl.setAttribute('href', src);
+        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+        updateDots();
+      }
+
+      const prevBtn = tile.querySelector('.tile-prev');
+      const nextBtn = tile.querySelector('.tile-next');
+      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
+      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
+
+      tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
+
+      updateDots();
     })();
   </script>
 </body>
