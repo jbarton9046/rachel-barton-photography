@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Galleries | Rachel Barton Photography</title>
+  <title>Rachel Barton Photography | Sarasota Family & Lifestyle Photographer</title>
 
   <!-- Primary SEO -->
-  <meta name="description" content="Explore all galleries by Rachel Barton Photography — family, siblings, and friends."" />
-  <link rel="canonical" href=https://rachelsphotography.netlify.app/galleries.html" />
+  <meta name="description" content="Candid, timeless, true-to-life family, maternity, newborn & portrait photography across Sarasota and Florida’s Gulf Coast — with a soft, whimsical touch." />
+  <link rel="canonical" href="https://rachelsphotography.netlify.app/" />
 
   <!-- Social share -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Rachel Barton Photography" />
-  <meta property="og:title" content=Galleries – Rachel Barton Photography" />
-  <meta property="og:description" content=Explore all galleries by Rachel Barton Photography." />
+  <meta property="og:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
+  <meta property="og:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
   <meta property="og:url" content="https://rachelsphotography.netlify.app/" />
   <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
   <meta property="og:image:secure_url" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content=Galleries – Rachel Barton Photography" />
-  <meta name="twitter:description" content=Explore all galleries by Rachel Barton Photography." />
+  <meta name="twitter:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
+  <meta name="twitter:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
   <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
 
   <!-- Fonts -->
@@ -498,29 +498,23 @@
     /* Pull the grid a touch closer to the helper */
     #portfolio .mosaic{ margin-top:6px; }
   </style>
+
+<style>
+  /* Galleries page tweaks */
+  .topbar.container{ align-items:center; display:flex; justify-content:center; gap:28px; padding:12px var(--gap); }
+  .topbar .brand{ flex:0 0 auto; }
+  .topbar nav.primary ul{ justify-content:center; }
+  #portfolio .mosaic{ margin-top:10px; }
+</style>
+
 </head>
 <body>
-  <nav class="primary" aria-label="Primary">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li class="has-sub">
-            <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
-            <ul class="dropdown" aria-label="Galleries submenu">
-              <!-- UPDATED LINK -->
-              <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
-              <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
-              <li><a href="#gallery-beach">Friend Portraits</a></li>
-            </ul>
-          </li>
-          <li><a href="/about.html">About</a></li>
-          <li><a href="#reviews">Reviews</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#book">Book</a></li>
-        </ul>
-      </nav>
-  <main id="content">
-    <section id="portfolio" aria-labelledby="portfolio-title">
-      <h2 class="section-title" id="portfolio-title">Galleries</h2>
+<div class="topbar container">
+      <div class="brand"></div>
+<main id='content'>
+<div class="container">
+<section id="portfolio" aria-labelledby="portfolio-title">
+      <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
       <p class="section-sub">From sunlit meadows to Gulf sunsets, explore the feel of a session—connection, motion, and easy, unposed energy.</p>
 
       <!-- Helper bar (Option 1) -->
@@ -702,75 +696,8 @@
         <a class="btn" href="#book">Check availability</a>
       </div>
     </section>
-  </main>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    (function(){
-      const tiles = document.querySelectorAll('.mosaic .captioned.notch');
-      if(!tiles.length) return;
-
-      function updateTile(tile){
-        const svg = tile.querySelector('svg.notch-figure');
-        const notchRect = svg.querySelector('.notchRect');
-        the_recessStroke = svg.querySelector('.recessStroke');
-        const label = tile.querySelector('.cap-label');
-        const notchBox = tile.querySelector('.notch-box');
-        if(!svg || !label || !notchRect || !the_recessStroke || !notchBox) return;
-
-        const padCss = 4;            /* label padding inside the notch */
-        const liftCss = 10;          /* ↑ raise notch & title by this many px */
-        const dotsGapCss = 14;       /* ↑ extra space between notch & diamonds */
-
-        const labelRect = label.getBoundingClientRect();
-        const tileRect  = svg.getBoundingClientRect();
-
-        const recessW_css = labelRect.width + padCss * 2;
-        const recessH_css = labelRect.height + padCss * 2;
-
-        const sx = 800 / tileRect.width;
-        const sy = 1000 / tileRect.height;
-
-        const recessW = recessW_css * sx;
-        const recessH = recessH_css * sy;
-
-        const recessX = ((tileRect.width - recessW_css) / 2) * sx;
-        const recessY = 1000 - recessH - (padCss * sy) - (liftCss * sy); /* lifted up */
-
-        notchRect.setAttribute('x', recessX.toFixed(2));
-        notchRect.setAttribute('y', recessY.toFixed(2));
-        notchRect.setAttribute('width', recessW.toFixed(2));
-        notchRect.setAttribute('height', recessH.toFixed(2));
-
-        the_recessStroke.setAttribute('x', recessX.toFixed(2));
-        the_recessStroke.setAttribute('y', recessY.toFixed(2));
-        the_recessStroke.setAttribute('width', recessW.toFixed(2));
-        the_recessStroke.setAttribute('height', recessH.toFixed(2));
-
-        /* position label box (title) – lifted to match notch */
-        notchBox.style.width = recessW_css + 'px';
-        notchBox.style.height = recessH_css + 'px';
-        notchBox.style.bottom = (padCss + liftCss) + 'px';
-        notchBox.style.left = '50%';
-        notchBox.style.transform = 'translateX(-50%)';
-
-        /* diamonds (dots) just above the notch, with more separation */
-        const dotsWrap = tile.querySelector('.tile-dots');
-        if(dotsWrap){
-          dotsWrap.style.bottom = (padCss + recessH_css + dotsGapCss + liftCss) + 'px';
-        }
-      }
-
-      function updateAll(){ tiles.forEach(t => updateTile(t)); }
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(()=>{ requestAnimationFrame(updateAll); });
-      } else {
-        window.addEventListener('load', updateAll);
-      }
-      window.addEventListener('resize', ()=>{ requestAnimationFrame(updateAll); });
-      setTimeout(updateAll, 0);
-    })();
-  </script>
-  <footer>— S. Miller</footer>
+</div>
+</main>
+<footer>— S. Miller</footer>
 </body>
 </html>
