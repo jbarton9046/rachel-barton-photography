@@ -88,34 +88,66 @@
       font-weight:500;
       font-size:clamp(16px,1.8vw,20px);
       letter-spacing:.02em;
-      border-bottom:0;
+      border-bottom:0;            /* no underline */
       padding:4px 2px;
     }
     nav.primary a:hover, nav.primary a:focus-visible{
       color:var(--accent);
-      border-bottom:0;
+      border-bottom:0;            /* keep no underline on hover */
     }
 
-    /* Dropdown */
+    /* Base dropdown (will be overridden below for “floating text”) */
     .has-sub{ position:relative; }
-    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
-    .dropdown{
-      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
-      background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
-      padding:6px 8px; display:flex; flex-direction:column; gap:2px; min-width:220px;
-      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease;
-      z-index:3; backdrop-filter:saturate(1.05);
+    .has-sub::after{
+      content:"";
+      position:absolute;
+      left:-8px; right:-8px;
+      top:100%;
+      height:12px;
+      background:transparent;
     }
-    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
-      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
+    .dropdown{
+      position:absolute;
+      top:calc(100% + 6px);
+      left:50%;
+      transform:translate(-50%, 0);
+      background:rgba(255,255,255,.65);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      padding:6px 8px;
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      min-width:220px;
+      opacity:0; visibility:hidden; pointer-events:none;
+      transition:opacity .15s ease, transform .15s ease;
+      z-index:3;
+      backdrop-filter:saturate(1.05);
+    }
+    .has-sub:hover .dropdown,
+    .has-sub:focus-within .dropdown,
+    .dropdown:hover{
+      opacity:1; visibility:visible; pointer-events:auto;
+      transform:translate(-50%, 2px);
     }
     .dropdown li{list-style:none}
     .dropdown a{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700; font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; line-height:1.1;
-      padding:2px 6px; color:#3f3a33; border-bottom:0; white-space:nowrap;
+      font-weight:700;
+      font-size:clamp(18px,2.2vw,20px);
+      letter-spacing:.02em;
+      line-height:1.1;
+      padding:2px 6px;
+      color:#3f3a33;
+      border-bottom:0;            /* no underline */
+      white-space:nowrap;
     }
-    .dropdown a:hover, .dropdown a:focus-visible{ background:transparent; border-bottom:0; color:var(--accent); outline:none; }
+    .dropdown a:hover, .dropdown a:focus-visible{
+      background:transparent;
+      border-bottom:0;            /* keep no underline */
+      color:var(--accent);
+      outline:none;
+    }
 
     /* Hero copy card */
     .hero .copy{
@@ -141,24 +173,32 @@
 
     .cta{display:flex; gap:22px; margin-top:16px; flex-wrap:wrap; justify-content:center}
 
+    /* Button: thin black border, tighter padding; no underline ever */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       background:transparent;
       border:1px solid rgba(0,0,0,.85);
-      padding:3px 8px;
+      padding:3px 8px;            /* tighter so it hugs text */
       color:#3f3a33;
       font-weight:700;
       cursor:pointer;
       border-radius:0;
     }
     .hero .btn{ font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; }
-    .hero .btn:hover, .hero .btn:focus-visible{ color:var(--accent); border-color:var(--accent); outline:none; }
+    .hero .btn:hover, .hero .btn:focus-visible{
+      color:var(--accent);
+      border-color:var(--accent); /* hover border matches gold text */
+      outline:none;
+    }
 
     .localities{color:#5c5850; margin-top:6px; line-height:1.75}
     .localities .dot::after{content:" • "; color:#8a857a}
     .localities .dot:last-child::after{content:""}
 
-    .scallop{ --h:18px; position:relative; height:var(--h); background:var(--butter-bar); border-bottom:1px solid var(--butter-stroke); }
+    .scallop{
+      --h:18px; position:relative; height:var(--h);
+      background:var(--butter-bar); border-bottom:1px solid var(--butter-stroke);
+    }
     .scallop::after{
       content:""; position:absolute; left:0; right:0; bottom:-1px; height:var(--h);
       background:radial-gradient(var(--h) at 50% 0, var(--bg) 98%, transparent 100%) center bottom/var(--h) var(--h) repeat-x;
@@ -166,10 +206,16 @@
     }
 
     section{padding:calc(var(--gap)*2) 0}
-    .section-title{ font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-size:clamp(24px,3.5vw,38px); margin:0 0 8px }
+    .section-title{
+      font-family:"Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
+      font-size:clamp(24px,3.5vw,38px); margin:0 0 8px
+    }
     .section-sub{color:#67635b; margin:0 0 22px}
 
-    .features .feature h3{ font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; font-weight:700; }
+    .features .feature h3{
+      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      font-weight:700;
+    }
 
     .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
     .card{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column}
@@ -182,10 +228,9 @@
     .mosaic .notch-figure{display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .mosaic .u-stroke{fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round}
     .mosaic .notch-box{position:absolute; bottom:0; left:50%; transform:translateX(-50%); display:flex; align-items:center; justify-content:center; pointer-events:none}
-    /* tighter label fit */
     .mosaic .cap-label{
       background:var(--accent-2); color:#5b5243; border:1px solid var(--line);
-      padding:6px 10px; font-size:13px; letter-spacing:.08em; font-weight:600; white-space:nowrap; line-height:1.2;
+      padding:8px 14px; font-size:13px; letter-spacing:.08em; font-weight:600; white-space:nowrap; line-height:1.2;
       pointer-events:auto; transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease
     }
     .mosaic .cap-label:hover{background:#e2d7bd; box-shadow:0 6px 18px rgba(0,0,0,.08); transform:translateY(-1px)}
@@ -232,92 +277,205 @@
     .iframe-wrap iframe{ display:block; width:100%; border:0; height:0; min-height:650px; overflow:hidden; }
   </style>
 
-  <!-- Float the dropdown text (match index look) -->
+  <!-- FINAL OVERRIDES: floating dropdown text + spacing; remove underline everywhere -->
   <style id="dropdown-float-overrides">
+    /* Dropdown floats: strip card/background/borders and add a little spacing */
     .topbar nav.primary .has-sub > .dropdown{
-      background:transparent !important; border:0 !important; box-shadow:none !important; padding:0 !important;
-      gap:6px !important; min-width:unset !important; left:50% !important; transform:translateX(-50%) !important;
+      background:transparent !important;
+      border:0 !important;
+      box-shadow:none !important;
+      padding:0 !important;
+      gap:6px !important;                /* a little padding between lines */
+      min-width:unset !important;        /* let width fit the text */
+      left:50% !important;
+      transform:translateX(-50%) !important;
     }
     .topbar nav.primary .dropdown a{
-      border-bottom:0 !important; padding:0 !important; background:transparent !important;
+      border-bottom:0 !important;        /* no underline ever */
+      padding:0 !important;              /* text sits cleanly */
+      background:transparent !important;
     }
-    .topbar nav.primary .dropdown a:hover,.topbar nav.primary .dropdown a:focus-visible{
-      border-bottom:0 !important; background:transparent !important; color:var(--accent) !important; outline:none !important;
+    .topbar nav.primary .dropdown a:hover,
+    .topbar nav.primary .dropdown a:focus-visible{
+      border-bottom:0 !important;
+      background:transparent !important;
+      color:var(--accent) !important;
+      outline:none !important;
     }
   </style>
 
-  <!-- 75% size dropdown font match -->
+  <!-- NEW: 75% size + match “Book a Session” font for dropdown items -->
   <style id="dropdown-75pct-fontmatch">
     .topbar nav.primary .dropdown a{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
       font-weight:700 !important;
+      /* 75% of previous 18–20px → ~13.5–15px */
       font-size:clamp(13px, 1.65vw, 15px) !important;
       line-height:1.05 !important;
     }
   </style>
 
-  <!-- Hero CTA spacing -->
+  <!-- NEW: small spacing bump above/below Book a Session -->
   <style id="hero-cta-spacing">
     .hero .cta{ margin-top:34px; margin-bottom:26px; }
   </style>
 
-  <!-- TILE CONTROLS: keep diamond outline, remove square backplate -->
+  <!-- Slider arrows (now for ALL three tiles) -->
   <style id="tile-slider-arrows">
-    /* Button hit-area */
+    /* Floating gold arrows for tile sliders */
     #gallery-meadow .tile-nav,
     #gallery-family .tile-nav,
     #gallery-beach .tile-nav{
-      position:absolute; top:50%; transform:translateY(-50%);
-      background:transparent; border:0; width:64px; height:64px;
-      display:grid; place-items:center; color:var(--accent);
-      cursor:pointer; user-select:none; z-index:4; opacity:0;
-      transition:opacity .2s ease, color .2s ease, box-shadow .2s ease;
+      position:absolute; top:50%; transform:translateY(-50%) scale(.98);
+      background:transparent !important; border:0 !important;
+      width:42px; height:42px; display:grid; place-items:center;
+      color:var(--accent);
+      cursor:pointer; user-select:none; z-index:4;
+      opacity:0; transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease;
+      outline:none;
     }
-    #gallery-meadow:hover .tile-nav, #gallery-family:hover .tile-nav, #gallery-beach:hover .tile-nav{ opacity:1; }
+    #gallery-meadow:hover .tile-nav,
+    #gallery-family:hover .tile-nav,
+    #gallery-beach:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
     #gallery-meadow .tile-prev, #gallery-family .tile-prev, #gallery-beach .tile-prev{ left:10px; }
     #gallery-meadow .tile-next, #gallery-family .tile-next, #gallery-beach .tile-next{ right:10px; }
-
-    /* GOLD ARROW ICON */
     #gallery-meadow .tile-nav svg,
     #gallery-family .tile-nav svg,
     #gallery-beach .tile-nav svg{ width:22px; height:22px; display:block }
-
-    /* DIAMOND OUTLINE (transparent center) */
-    #gallery-meadow .tile-nav::after,
-    #gallery-family .tile-nav::after,
-    #gallery-beach .tile-nav::after{
-      content:""; position:absolute; inset:0; margin:auto; width:58px; height:58px;
-      border:2px solid var(--accent); background:transparent; transform:rotate(45deg);
-      box-shadow:0 6px 18px rgba(0,0,0,.18);
-      pointer-events:none;
-    }
-
-    /* REMOVE square backplate */
-    #gallery-meadow .tile-nav::before,
-    #gallery-family .tile-nav::before,
-    #gallery-beach .tile-nav::before{ content:none !important; }
-
-    /* hover accent */
-    #gallery-meadow .tile-nav:hover, #gallery-meadow .tile-nav:focus-visible,
-    #gallery-family .tile-nav:hover, #gallery-family .tile-nav:focus-visible,
-    #gallery-beach .tile-nav:hover, #gallery-beach .tile-nav:focus-visible{
-      color:#b79661; outline:none;
+    #gallery-meadow .tile-nav:hover, 
+    #gallery-meadow .tile-nav:focus-visible,
+    #gallery-family .tile-nav:hover, 
+    #gallery-family .tile-nav:focus-visible,
+    #gallery-beach .tile-nav:hover, 
+    #gallery-beach .tile-nav:focus-visible{
+      color:#b79661; box-shadow:0 6px 18px rgba(0,0,0,.18); outline:none;
     }
   </style>
 
-  <!-- Pagination dots (gold) -->
+  <!-- Pagination dots (gold) default; JS will place them just above the notch -->
   <style id="tile-slider-dots">
-    #gallery-meadow .tile-dots, #gallery-family .tile-dots, #gallery-beach .tile-dots{
-      position:absolute; left:50%; transform:translateX(-50%); bottom:40px; display:flex; gap:8px; z-index:4; pointer-events:auto;
+    #gallery-meadow .tile-dots,
+    #gallery-family .tile-dots,
+    #gallery-beach .tile-dots{
+      position:absolute;
+      left:50%; transform:translateX(-50%);
+      bottom:40px;                 /* baseline; overridden by JS for exact placement */
+      display:flex; gap:8px;
+      z-index:4; pointer-events:auto;
     }
-    #gallery-meadow .tile-dots button, #gallery-family .tile-dots button, #gallery-beach .tile-dots button{
-      width:8px; height:8px; border-radius:50%; border:1px solid var(--accent); background:transparent; padding:0; cursor:pointer; opacity:.85;
-      transition:transform .15s ease, background-color .15s ease, opacity .15s ease;
+    #gallery-meadow .tile-dots button,
+    #gallery-family .tile-dots button,
+    #gallery-beach .tile-dots button{
+      width:8px; height:8px; border-radius:50%;
+      border:1px solid var(--accent);
+      background:transparent;
+      padding:0; cursor:pointer;
+      opacity:.85; transition:transform .15s ease, background-color .15s ease, opacity .15s ease;
     }
-    #gallery-meadow .tile-dots button:hover, #gallery-meadow .tile-dots button:focus-visible,
-    #gallery-family .tile-dots button:hover, #gallery-family .tile-dots button:focus-visible,
-    #gallery-beach .tile-dots button:hover, #gallery-beach .tile-dots button:focus-visible{ outline:none; transform:scale(1.15); opacity:1; }
-    #gallery-meadow .tile-dots button.is-active, #gallery-family .tile-dots button.is-active, #gallery-beach .tile-dots button.is-active{ background:var(--accent); opacity:1; }
+    #gallery-meadow .tile-dots button:hover,
+    #gallery-meadow .tile-dots button:focus-visible,
+    #gallery-family .tile-dots button:hover,
+    #gallery-family .tile-dots button:focus-visible,
+    #gallery-beach .tile-dots button:hover,
+    #gallery-beach .tile-dots button:focus-visible{
+      outline:none; transform:scale(1.15);
+      opacity:1;
+    }
+    #gallery-meadow .tile-dots button.is-active,
+    #gallery-family .tile-dots button.is-active,
+    #gallery-beach .tile-dots button.is-active{
+      background:var(--accent);
+      opacity:1;
+    }
+  </style>
+
+  <!-- ======== PROFESSIONAL FROSTED DIAMONDS (diamond plate exactly under outline) ======== -->
+  <style id="professional-glass-diamonds">
+  #gallery-meadow .tile-nav,
+  #gallery-family .tile-nav,
+  #gallery-beach  .tile-nav{
+    width:56px; height:56px;
+    background:transparent !important; border:0 !important;
+    padding:0; position:absolute;
+  }
+  /* Frosted diamond plate */
+  #gallery-meadow .tile-nav::before,
+  #gallery-family .tile-nav::before,
+  #gallery-beach  .tile-nav::before{
+    content:""; position:absolute; inset:0; margin:7px;
+    transform:rotate(45deg);
+    background:rgba(255,255,255,.22);
+    -webkit-backdrop-filter:blur(7px) saturate(1.05);
+    backdrop-filter:blur(7px) saturate(1.05);
+    box-shadow:0 6px 18px rgba(0,0,0,.14);
+    z-index:0;
+  }
+  /* Gold outline uses same inset so it sits exactly atop the plate */
+  #gallery-meadow .tile-nav::after,
+  #gallery-family .tile-nav::after,
+  #gallery-beach  .tile-nav::after{
+    content:""; position:absolute; inset:0; margin:7px;
+    transform:rotate(45deg);
+    border:1.5px solid var(--accent);
+    z-index:1; pointer-events:none;
+  }
+  #gallery-meadow .tile-nav svg,
+  #gallery-family .tile-nav svg,
+  #gallery-beach  .tile-nav svg{
+    width:22px; height:22px; z-index:2; position:relative;
+  }
+  #gallery-meadow .tile-nav:hover::before,
+  #gallery-family .tile-nav:hover::before,
+  #gallery-beach  .tile-nav:hover::before,
+  #gallery-meadow .tile-nav:focus-visible::before,
+  #gallery-family .tile-nav:focus-visible::before,
+  #gallery-beach  .tile-nav:focus-visible::before{
+    -webkit-backdrop-filter:blur(8px) saturate(1.08);
+    backdrop-filter:blur(8px) saturate(1.08);
+    box-shadow:0 8px 22px rgba(0,0,0,.16);
+  }
+  #gallery-meadow .tile-nav:hover::after,
+  #gallery-family .tile-nav:hover::after,
+  #gallery-beach  .tile-nav:hover::after,
+  #gallery-meadow .tile-nav:focus-visible::after,
+  #gallery-family .tile-nav:focus-visible::after,
+  #gallery-beach  .tile-nav:focus-visible::after{
+    border-color:#b79661;
+  }
+
+  /* SMALL DOT DIAMONDS (unchanged look) */
+  #gallery-meadow .tile-dots button,
+  #gallery-family .tile-dots button,
+  #gallery-beach  .tile-dots button{
+    position:relative;
+    width:10px; height:10px;
+    transform:rotate(45deg);
+    border:1px solid var(--accent);
+    background:transparent !important;
+    border-radius:0;
+  }
+  #gallery-meadow .tile-dots button::before,
+  #gallery-family .tile-dots button::before,
+  #gallery-beach  .tile-dots button::before{
+    content:""; position:absolute; inset:-2px;
+    background:rgba(255,255,255,.18);
+    -webkit-backdrop-filter:blur(5px) saturate(1.05);
+    backdrop-filter:blur(5px) saturate(1.05);
+    z-index:-1;
+  }
+  #gallery-meadow .tile-dots button.is-active::before,
+  #gallery-family .tile-dots button.is-active::before,
+  #gallery-beach  .tile-dots button.is-active::before{
+    background:rgba(168,138,90,.22);
+  }
+  #gallery-meadow .tile-dots button:hover,
+  #gallery-meadow .tile-dots button:focus-visible,
+  #gallery-family .tile-dots button:hover,
+  #gallery-family .tile-dots button:focus-visible,
+  #gallery-beach  .tile-dots button:hover,
+  #gallery-beach  .tile-dots button:focus-visible{
+    transform:rotate(45deg) scale(1.15);
+  }
   </style>
 </head>
 <body>
@@ -332,6 +490,7 @@
           <li class="has-sub">
             <a href="#portfolio" aria-haspopup="true" aria-expanded="false">Galleries</a>
             <ul class="dropdown" aria-label="Galleries submenu">
+              <!-- UPDATED LINK -->
               <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
               <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
               <li><a href="#gallery-beach">Friend Portraits</a></li>
@@ -349,6 +508,7 @@
       <div class="eyebrow">Welcome to</div>
       <h1>Rachel Barton<br>Photography</h1>
 
+      <!-- Book a Session moved above the areas -->
       <div class="cta">
         <a class="btn" href="#book" aria-label="Book a Session">Book a Session</a>
       </div>
@@ -401,21 +561,25 @@
               <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
             </g>
           </svg>
-
+          <!-- floating gold prev/next controls -->
           <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M15 18L9 12l6-6"/>
             </svg>
           </button>
           <button class="tile-nav tile-next" type="button" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 18l6-6-6-6"/>
             </svg>
           </button>
 
+          <!-- pagination dots -->
           <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
           <div class="notch-box">
+            <!-- UPDATED LINK -->
             <a class="cap-label" href="/galleries/sibling-portrait.html">Sibling Portraits</a>
           </div>
         </figure>
@@ -445,6 +609,7 @@
                 <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
               </filter>
             </defs>
+            <!-- keep original first image visible -->
             <image href="pictures/familyPortrait/image5.jpg" x="0" y="0" width="800" height="1000"
                    preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
             <g class="frameGroup" filter="url(#frameShadow-1)">
@@ -453,17 +618,21 @@
             </g>
           </svg>
 
+          <!-- floating gold prev/next controls -->
           <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M15 18L9 12l6-6"/>
             </svg>
           </button>
           <button class="tile-nav tile-next" type="button" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 18l6-6-6-6"/>
             </svg>
           </button>
 
+          <!-- pagination dots -->
           <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
           <div class="notch-box">
@@ -496,6 +665,7 @@
                 <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
               </filter>
             </defs>
+            <!-- make E26A2022 (1).jpg the first/visible image -->
             <image href="pictures/thirdTileGal/E26A2022%20(1).jpg" x="0" y="0" width="800" height="1000"
                    preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
             <g class="frameGroup" filter="url(#frameShadow-2)">
@@ -504,17 +674,21 @@
             </g>
           </svg>
 
+          <!-- floating gold prev/next controls -->
           <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M15 18L9 12l6-6"/>
             </svg>
           </button>
           <button class="tile-nav tile-next" type="button" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 18l6-6-6-6"/>
             </svg>
           </button>
 
+          <!-- pagination dots -->
           <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
           <div class="notch-box">
@@ -660,8 +834,7 @@
         const notchBox = tile.querySelector('.notch-box');
         if(!svg || !label || !notchRect || !the_recessStroke || !notchBox) return;
 
-        /* tighter than before */
-        const padCss = 4; /* was 8 */
+        const padCss = 4; /* tighter notch around the label */
         const labelRect = label.getBoundingClientRect();
         const tileRect  = svg.getBoundingClientRect();
 
@@ -693,71 +866,214 @@
         notchBox.style.left = '50%';
         notchBox.style.transform = 'translateX(-50%)';
 
+        /* dots just above the notch */
         const dotsWrap = tile.querySelector('.tile-dots');
         if(dotsWrap){
-          const gap = 6;
+          const gap = 6; // px above the notch
           dotsWrap.style.bottom = (padCss + recessH_css + gap) + 'px';
         }
       }
 
       function updateAll(){ tiles.forEach(t => updateTile(t)); }
-      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(()=>{ requestAnimationFrame(updateAll); }); }
-      else { window.addEventListener('load', updateAll); }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(()=>{ requestAnimationFrame(updateAll); });
+      } else {
+        window.addEventListener('load', updateAll);
+      }
       window.addEventListener('resize', ()=>{ requestAnimationFrame(updateAll); });
       setTimeout(updateAll, 0);
     })();
   </script>
 
-  <!-- Sliders (x3) -->
+  <!-- First-tile slider -->
   <script>
     (function(){
-      function makeSlider(tileId){
-        const tile = document.getElementById(tileId);
-        if(!tile) return;
-        const imgEl = tile.querySelector('svg image');
-        if(!imgEl) return;
+      const tile = document.getElementById('gallery-meadow');
+      if(!tile) return;
 
-        let list;
-        try{ list = JSON.parse(tile.getAttribute('data-images') || '[]'); }catch(e){ list=[]; }
-        if(!Array.isArray(list) || list.length <= 1) return;
+      const imgEl = tile.querySelector('svg image');
+      if(!imgEl) return;
 
-        let idx = 0;
+      let list;
+      try {
+        list = JSON.parse(tile.getAttribute('data-images') || '[]');
+      } catch(e){ list = []; }
 
-        const dotsWrap = tile.querySelector('.tile-dots');
-        const dots = [];
-        if(dotsWrap){
-          for(let i=0;i<list.length;i++){
-            const b = document.createElement('button');
-            b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide '+(i+1));
-            b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
-            dotsWrap.appendChild(b); dots.push(b);
-          }
+      if(!Array.isArray(list) || list.length <= 1) return;
+
+      let idx = 0;
+
+      // build dots
+      const dotsWrap = tile.querySelector('.tile-dots');
+      const dots = [];
+      if(dotsWrap){
+        for(let i=0;i<list.length;i++){
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('role','tab');
+          b.setAttribute('aria-label','Go to slide ' + (i+1));
+          b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
+          dotsWrap.appendChild(b);
+          dots.push(b);
         }
+      }
 
-        function updateDots(){
-          dots.forEach((d,i)=>{ if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); } else { d.classList.remove('is-active'); d.removeAttribute('aria-selected'); } });
-        }
+      function updateDots(){
+        if(!dots.length) return;
+        dots.forEach((d,i)=>{
+          if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); }
+          else{ d.classList.remove('is-active'); d.removeAttribute('aria-selected'); }
+        });
+      }
 
-        function show(i){
-          idx = (i + list.length) % list.length;
-          const src = list[idx];
-          imgEl.setAttribute('href', src);
-          imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
-          updateDots();
-        }
-
-        const prevBtn = tile.querySelector('.tile-prev');
-        const nextBtn = tile.querySelector('.tile-next');
-        if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
-        if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
-
-        tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
+      function show(i){
+        idx = (i + list.length) % list.length;
+        const src = list[idx];
+        imgEl.setAttribute('href', src);
+        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
         updateDots();
       }
 
-      makeSlider('gallery-meadow');
-      makeSlider('gallery-family');
-      makeSlider('gallery-beach');
+      // buttons
+      const prevBtn = tile.querySelector('.tile-prev');
+      const nextBtn = tile.querySelector('.tile-next');
+      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
+      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
+
+      // click image to advance
+      tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
+
+      // init
+      updateDots();
+
+    })();
+  </script>
+
+  <!-- Second-tile slider -->
+  <script>
+    (function(){
+      const tile = document.getElementById('gallery-family');
+      if(!tile) return;
+
+      const imgEl = tile.querySelector('svg image');
+      if(!imgEl) return;
+
+      let list;
+      try {
+        list = JSON.parse(tile.getAttribute('data-images') || '[]');
+      } catch(e){ list = []; }
+
+      if(!Array.isArray(list) || list.length <= 1) return;
+
+      let idx = 0;
+
+      // build dots
+      const dotsWrap = tile.querySelector('.tile-dots');
+      const dots = [];
+      if(dotsWrap){
+        for(let i=0;i<list.length;i++){
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('role','tab');
+          b.setAttribute('aria-label','Go to slide ' + (i+1));
+          b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
+          dotsWrap.appendChild(b);
+          dots.push(b);
+        }
+      }
+
+      function updateDots(){
+        if(!dots.length) return;
+        dots.forEach((d,i)=>{
+          if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); }
+          else{ d.classList.remove('is-active'); d.removeAttribute('aria-selected'); }
+        });
+      }
+
+      function show(i){
+        idx = (i + list.length) % list.length;
+        const src = list[idx];
+        imgEl.setAttribute('href', src);
+        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+        updateDots();
+      }
+
+      // buttons
+      const prevBtn = tile.querySelector('.tile-prev');
+      const nextBtn = tile.querySelector('.tile-next');
+      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
+      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
+
+      // click image to advance
+      tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
+
+      // init
+      updateDots();
+
+    })();
+  </script>
+
+  <!-- Third-tile slider -->
+  <script>
+    (function(){
+      const tile = document.getElementById('gallery-beach');
+      if(!tile) return;
+
+      const imgEl = tile.querySelector('svg image');
+      if(!imgEl) return;
+
+      let list;
+      try {
+        list = JSON.parse(tile.getAttribute('data-images') || '[]');
+      } catch(e){ list = []; }
+
+      if(!Array.isArray(list) || list.length <= 1) return;
+
+      let idx = 0;
+
+      // build dots
+      const dotsWrap = tile.querySelector('.tile-dots');
+      const dots = [];
+      if(dotsWrap){
+        for(let i=0;i<list.length;i++){
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('role','tab');
+          b.setAttribute('aria-label','Go to slide ' + (i+1));
+          b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
+          dotsWrap.appendChild(b);
+          dots.push(b);
+        }
+      }
+
+      function updateDots(){
+        if(!dots.length) return;
+        dots.forEach((d,i)=>{
+          if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); }
+          else{ d.classList.remove('is-active'); d.removeAttribute('aria-selected'); }
+        });
+      }
+
+      function show(i){
+        idx = (i + list.length) % list.length;
+        const src = list[idx];
+        imgEl.setAttribute('href', src);
+        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+        updateDots();
+      }
+
+      // buttons
+      const prevBtn = tile.querySelector('.tile-prev');
+      const nextBtn = tile.querySelector('.tile-next');
+      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
+      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
+
+      // click image to advance
+      tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
+
+      // init
+      updateDots();
+
     })();
   </script>
 
