@@ -389,7 +389,7 @@
     }
   </style>
 
-  <!-- ======== PROFESSIONAL FROSTED DIAMONDS (diamond plate exactly under outline) ======== -->
+  <!-- ======== PROFESSIONAL FROSTED DIAMONDS (diamond blur with no square) ======== -->
   <style id="professional-glass-diamonds">
   #gallery-meadow .tile-nav,
   #gallery-family .tile-nav,
@@ -398,19 +398,21 @@
     background:transparent !important; border:0 !important;
     padding:0; position:absolute;
   }
-  /* Frosted diamond plate */
+  /* Frosted diamond plate — clipped to a diamond (no visible square) */
   #gallery-meadow .tile-nav::before,
   #gallery-family .tile-nav::before,
   #gallery-beach  .tile-nav::before{
     content:""; position:absolute; inset:0; margin:7px;
-    transform:rotate(45deg);
+    /* remove rotation and clip the blur to a diamond */
+    -webkit-clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+            clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
     background:rgba(255,255,255,.22);
     -webkit-backdrop-filter:blur(7px) saturate(1.05);
-    backdrop-filter:blur(7px) saturate(1.05);
+            backdrop-filter:blur(7px) saturate(1.05);
     box-shadow:0 6px 18px rgba(0,0,0,.14);
     z-index:0;
   }
-  /* Gold outline uses same inset so it sits exactly atop the plate */
+  /* Gold outline uses rotation; sits exactly atop the clipped plate */
   #gallery-meadow .tile-nav::after,
   #gallery-family .tile-nav::after,
   #gallery-beach  .tile-nav::after{
@@ -431,7 +433,7 @@
   #gallery-family .tile-nav:focus-visible::before,
   #gallery-beach  .tile-nav:focus-visible::before{
     -webkit-backdrop-filter:blur(8px) saturate(1.08);
-    backdrop-filter:blur(8px) saturate(1.08);
+            backdrop-filter:blur(8px) saturate(1.08);
     box-shadow:0 8px 22px rgba(0,0,0,.16);
   }
   #gallery-meadow .tile-nav:hover::after,
@@ -460,7 +462,7 @@
     content:""; position:absolute; inset:-2px;
     background:rgba(255,255,255,.18);
     -webkit-backdrop-filter:blur(5px) saturate(1.05);
-    backdrop-filter:blur(5px) saturate(1.05);
+            backdrop-filter:blur(5px) saturate(1.05);
     z-index:-1;
   }
   #gallery-meadow .tile-dots button.is-active::before,
@@ -834,7 +836,7 @@
         const notchBox = tile.querySelector('.notch-box');
         if(!svg || !label || !notchRect || !the_recessStroke || !notchBox) return;
 
-        const padCss = 4; /* tighter notch around the label */
+        const padCss = 2; /* tighter notch around the label */
         const labelRect = label.getBoundingClientRect();
         const tileRect  = svg.getBoundingClientRect();
 
