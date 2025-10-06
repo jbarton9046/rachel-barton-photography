@@ -477,6 +477,27 @@
     transform:rotate(45deg) scale(1.15);
   }
   </style>
+
+  <!-- OPTION 1: Helper bar style under subhead -->
+  <style id="section-help-style">
+    .section-help{
+      margin:10px 0 12px;
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#6e6a62;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      background:#fff;
+      border:1px solid var(--line);
+      box-shadow:0 2px 8px rgba(0,0,0,.04);
+    }
+    .section-help .help-ico{ font-size:12px; opacity:.85 }
+    /* Pull the grid a touch closer to the helper */
+    #portfolio .mosaic{ margin-top:6px; }
+  </style>
 </head>
 <body>
 
@@ -527,7 +548,12 @@
     <section id="portfolio" aria-labelledby="portfolio-title">
       <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
       <p class="section-sub">From sunlit meadows to Gulf sunsets, explore the feel of a session—connection, motion, and easy, unposed energy.</p>
-      <p class="section-sub">Preview & navigate: click the tile or use the arrows to move through images. Select the label to view the full gallery.</p>
+
+      <!-- Helper bar (Option 1) -->
+      <div class="section-help" role="note" aria-label="Gallery navigation help">
+        <span class="help-ico" aria-hidden="true">ⓘ</span>
+        Preview & navigate: click the tile or use the arrows to move through images. Select the label to view the full gallery.
+      </div>
 
       <div class="mosaic" id="grid">
         <!-- LEFT -->
@@ -835,7 +861,10 @@
         const notchBox = tile.querySelector('.notch-box');
         if(!svg || !label || !notchRect || !the_recessStroke || !notchBox) return;
 
-        const padCss = 4; /* tighter notch around the label */
+        const padCss = 4;            /* label padding inside the notch */
+        const liftCss = 10;          /* ↑ raise notch & title by this many px */
+        const dotsGapCss = 14;       /* ↑ extra space between notch & diamonds */
+
         const labelRect = label.getBoundingClientRect();
         const tileRect  = svg.getBoundingClientRect();
 
@@ -849,7 +878,7 @@
         const recessH = recessH_css * sy;
 
         const recessX = ((tileRect.width - recessW_css) / 2) * sx;
-        const recessY = 1000 - recessH - (padCss * sy);
+        const recessY = 1000 - recessH - (padCss * sy) - (liftCss * sy); /* lifted up */
 
         notchRect.setAttribute('x', recessX.toFixed(2));
         notchRect.setAttribute('y', recessY.toFixed(2));
@@ -861,17 +890,17 @@
         the_recessStroke.setAttribute('width', recessW.toFixed(2));
         the_recessStroke.setAttribute('height', recessH.toFixed(2));
 
+        /* position label box (title) – lifted to match notch */
         notchBox.style.width = recessW_css + 'px';
         notchBox.style.height = recessH_css + 'px';
-        notchBox.style.bottom = padCss + 'px';
+        notchBox.style.bottom = (padCss + liftCss) + 'px';
         notchBox.style.left = '50%';
         notchBox.style.transform = 'translateX(-50%)';
 
-        /* dots just above the notch */
+        /* diamonds (dots) just above the notch, with more separation */
         const dotsWrap = tile.querySelector('.tile-dots');
         if(dotsWrap){
-          const gap = 6; // px above the notch
-          dotsWrap.style.bottom = (padCss + recessH_css + gap) + 'px';
+          dotsWrap.style.bottom = (padCss + recessH_css + dotsGapCss + liftCss) + 'px';
         }
       }
 
