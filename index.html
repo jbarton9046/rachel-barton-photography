@@ -388,83 +388,92 @@
     }
   </style>
 
-  <!-- Transparent diamonds + gold arrows -->
-  <style id="transparent-diamonds">
-    /* --- NAV ARROWS (big diamonds) --- */
-    #gallery-meadow .tile-nav,
-    #gallery-family .tile-nav,
-    #gallery-beach  .tile-nav{
-      width:54px; height:54px;              /* a touch larger for elegance */
-      color:var(--accent);                  /* gold arrow color */
-    }
-    /* Diamond outline frame, no fill */
-    #gallery-meadow .tile-nav::before,
-    #gallery-family .tile-nav::before,
-    #gallery-beach  .tile-nav::before{
-      content:"";
-      position:absolute; inset:0;
-      margin:6px;                           /* frame thickness + breathing room */
-      transform:rotate(45deg);              /* make it a diamond */
-      border:1.5px solid var(--accent);     /* gold stroke */
-      background:transparent;               /* no white */
-      box-shadow:0 2px 8px rgba(0,0,0,.10); /* subtle depth */
-      pointer-events:none;
-    }
-    /* Keep the arrow icon centered above the frame */
-    #gallery-meadow .tile-nav svg,
-    #gallery-family .tile-nav svg,
-    #gallery-beach  .tile-nav svg{
-      position:relative;
-      width:22px; height:22px;
-      z-index:1;
-    }
-    /* Hover/focus gold warmth + glow, still transparent inside */
-    #gallery-meadow .tile-nav:hover,
-    #gallery-meadow .tile-nav:focus-visible,
-    #gallery-family .tile-nav:hover,
-    #gallery-family .tile-nav:focus-visible,
-    #gallery-beach  .tile-nav:hover,
-    #gallery-beach  .tile-nav:focus-visible{
-      color:#b79661;
-    }
-    #gallery-meadow .tile-nav:hover::before,
-    #gallery-meadow .tile-nav:focus-visible::before,
-    #gallery-family .tile-nav:hover::before,
-    #gallery-family .tile-nav:focus-visible::before,
-    #gallery-beach  .tile-nav:hover::before,
-    #gallery-beach  .tile-nav:focus-visible::before{
-      border-color:#b79661;
-      box-shadow:0 6px 18px rgba(0,0,0,.18);
-    }
+  <!-- ======== PROFESSIONAL FROSTED DIAMONDS (OVERRIDES) ======== -->
+  <style id="professional-glass-diamonds">
+  /* BIG ARROW DIAMONDS (frosted plate + gold outline + gold arrow) */
+  #gallery-meadow .tile-nav,
+  #gallery-family .tile-nav,
+  #gallery-beach  .tile-nav{
+    width:56px; height:56px;
+    background:transparent !important; border:0 !important;
+    padding:0;
+  }
+  #gallery-meadow .tile-nav::before,
+  #gallery-family .tile-nav::before,
+  #gallery-beach  .tile-nav::before{
+    content:""; position:absolute; inset:0; margin:7px;
+    transform:rotate(45deg);
+    background:rgba(255,255,255,.22);
+    -webkit-backdrop-filter:blur(7px) saturate(1.05);
+    backdrop-filter:blur(7px) saturate(1.05);
+    box-shadow:0 6px 18px rgba(0,0,0,.14);
+    z-index:0;
+  }
+  #gallery-meadow .tile-nav::after,
+  #gallery-family .tile-nav::after,
+  #gallery-beach  .tile-nav::after{
+    content:""; position:absolute; inset:0; margin:7px;
+    transform:rotate(45deg);
+    border:1.5px solid var(--accent);
+    z-index:1; pointer-events:none;
+  }
+  #gallery-meadow .tile-nav svg,
+  #gallery-family .tile-nav svg,
+  #gallery-beach  .tile-nav svg{
+    width:22px; height:22px; z-index:2; position:relative;
+  }
+  #gallery-meadow .tile-nav:hover::before,
+  #gallery-family .tile-nav:hover::before,
+  #gallery-beach  .tile-nav:hover::before,
+  #gallery-meadow .tile-nav:focus-visible::before,
+  #gallery-family .tile-nav:focus-visible::before,
+  #gallery-beach  .tile-nav:focus-visible::before{
+    -webkit-backdrop-filter:blur(8px) saturate(1.08);
+    backdrop-filter:blur(8px) saturate(1.08);
+    box-shadow:0 8px 22px rgba(0,0,0,.16);
+  }
+  #gallery-meadow .tile-nav:hover::after,
+  #gallery-family .tile-nav:hover::after,
+  #gallery-beach  .tile-nav:hover::after,
+  #gallery-meadow .tile-nav:focus-visible::after,
+  #gallery-family .tile-nav:focus-visible::after,
+  #gallery-beach  .tile-nav:focus-visible::after{
+    border-color:#b79661;
+  }
 
-    /* --- PAGINATION DOTS (small diamonds) --- */
-    #gallery-meadow .tile-dots button,
-    #gallery-family .tile-dots button,
-    #gallery-beach  .tile-dots button{
-      width:10px; height:10px;
-      transform:rotate(45deg);
-      border:1px solid var(--accent);       /* gold stroke */
-      background:transparent;               /* no white */
-      opacity:.95;
-      border-radius:0;                      /* make sure they're square before rotate */
-    }
-    /* Active state: translucent gold so it reads, still airy */
-    #gallery-meadow .tile-dots button.is-active,
-    #gallery-family .tile-dots button.is-active,
-    #gallery-beach  .tile-dots button.is-active{
-      background:rgba(168,138,90,.18);
-      border-color:var(--accent);
-    }
-    /* Hover/focus affordance */
-    #gallery-meadow .tile-dots button:hover,
-    #gallery-meadow .tile-dots button:focus-visible,
-    #gallery-family .tile-dots button:hover,
-    #gallery-family .tile-dots button:focus-visible,
-    #gallery-beach  .tile-dots button:hover,
-    #gallery-beach  .tile-dots button:focus-visible{
-      transform:rotate(45deg) scale(1.15);
-      outline:none;
-    }
+  /* SMALL DOT DIAMONDS (frosted plate under border) */
+  #gallery-meadow .tile-dots button,
+  #gallery-family .tile-dots button,
+  #gallery-beach  .tile-dots button{
+    position:relative;
+    width:10px; height:10px;
+    transform:rotate(45deg);
+    border:1px solid var(--accent);
+    background:transparent !important;
+    border-radius:0;
+  }
+  #gallery-meadow .tile-dots button::before,
+  #gallery-family .tile-dots button::before,
+  #gallery-beach  .tile-dots button::before{
+    content:""; position:absolute; inset:-2px;
+    background:rgba(255,255,255,.18);
+    -webkit-backdrop-filter:blur(5px) saturate(1.05);
+    backdrop-filter:blur(5px) saturate(1.05);
+    z-index:-1;
+  }
+  #gallery-meadow .tile-dots button.is-active::before,
+  #gallery-family .tile-dots button.is-active::before,
+  #gallery-beach  .tile-dots button.is-active::before{
+    background:rgba(168,138,90,.22);
+  }
+  #gallery-meadow .tile-dots button:hover,
+  #gallery-meadow .tile-dots button:focus-visible,
+  #gallery-family .tile-dots button:hover,
+  #gallery-family .tile-dots button:focus-visible,
+  #gallery-beach  .tile-dots button:hover,
+  #gallery-beach  .tile-dots button:focus-visible{
+    transform:rotate(45deg) scale(1.15);
+  }
   </style>
 </head>
 <body>
@@ -607,7 +616,7 @@
             </g>
           </svg>
 
-          <!-- NEW: arrows for the middle tile -->
+          <!-- floating gold prev/next controls -->
           <button class="tile-nav tile-prev" type="button" aria-label="Previous">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -715,7 +724,7 @@
       <h2 class="section-title" id="reviews-title">Kind Words</h2>
       <p class="section-sub">We’ll add 3–6 short testimonials here as they come in.</p>
 
-    <div class="quotes">
+      <div class="quotes">
         <blockquote>Rachel kept our toddler smiling the whole time — so many genuine moments.<footer>— S. Miller</footer></blockquote>
         <blockquote>Booking was simple, communication was clear, and the photos are stunning.<footer>— A. Nguyen</footer></blockquote>
         <blockquote>She noticed the little details and made us feel relaxed and ourselves.<footer>— J. Rivera</footer></blockquote>
