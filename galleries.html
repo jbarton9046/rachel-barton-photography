@@ -499,205 +499,311 @@
     #portfolio .mosaic{ margin-top:6px; }
   </style>
 
-<style>
-  /* Galleries page tweaks */
-  .topbar.container{ align-items:center; display:flex; justify-content:center; gap:28px; padding:12px var(--gap); }
-  .topbar .brand{ flex:0 0 auto; }
-  .topbar nav.primary ul{ justify-content:center; }
-  #portfolio .mosaic{ margin-top:10px; }
-</style>
-
+  <style>
+    /* Galleries page tweaks */
+    .topbar.container{ align-items:center; display:flex; justify-content:center; gap:28px; padding:12px var(--gap); }
+    .topbar .brand{ flex:0 0 auto; }
+    .topbar nav.primary ul{ justify-content:center; }
+    #portfolio .mosaic{ margin-top:10px; }
+  </style>
 </head>
 <body>
-<div class="topbar container">
-      <div class="brand"></div>
-<main id='content'>
-<div class="container">
-<section id="portfolio" aria-labelledby="portfolio-title">
-      <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
-      <p class="section-sub">From sunlit meadows to Gulf sunsets, explore the feel of a session—connection, motion, and easy, unposed energy.</p>
+  <!-- Floating centered navbar with dropdown (matches index) -->
+  <div class="topbar container">
+    <div class="brand"></div>
+    <nav class="primary" aria-label="Primary">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li class="has-sub">
+          <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
+          <ul class="dropdown" aria-label="Galleries submenu">
+            <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
+            <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
+            <li><a href="/galleries/friend-portrait.html">Friend Portraits</a></li>
+          </ul>
+        </li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#book">Book</a></li>
+      </ul>
+    </nav>
+  </div>
 
-      <!-- Helper bar (Option 1) -->
-      <div class="section-help" role="note" aria-label="Gallery navigation help">
-        <span class="help-ico" aria-hidden="true">ⓘ</span>
-        Preview & navigate: click the tile or use the arrows to move through images. Select the label to view the full gallery.
-      </div>
+  <main id='content'>
+    <div class="container">
+      <section id="portfolio" aria-labelledby="portfolio-title">
+        <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
+        <p class="section-sub">From sunlit meadows to Gulf sunsets, explore the feel of a session—connection, motion, and easy, unposed energy.</p>
 
-      <div class="mosaic" id="grid">
-        <!-- LEFT -->
-        <figure class="captioned notch" id="gallery-meadow" aria-label="Oona & Ivy – Meadow Light"
-                data-images='[
-                  "pictures/oonaIvy/E26A0761.jpg",
-                  "pictures/firstTileGal/E26A0671%20(2).jpg",
-                  "pictures/firstTileGal/E26A0698.jpg",
-                  "pictures/firstTileGal/E26A0699.jpg",
-                  "pictures/firstTileGal/E26A0712.jpg",
-                  "pictures/firstTileGal/E26A0718.jpg",
-                  "pictures/firstTileGal/E26A0739.jpg",
-                  "pictures/firstTileGal/E26A0753.jpg",
-                  "pictures/firstTileGal/E26A0758.jpg",
-                  "pictures/firstTileGal/E26A0759.jpg",
-                  "pictures/firstTileGal/E26A0764.jpg"
-                ]'>
-          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs>
-              <mask id="notchMask-3a">
-                <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
-              </mask>
-              <filter id="frameShadow-3a" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-              </filter>
-            </defs>
-            <image href="pictures/oonaIvy/E26A0761.jpg" x="0" y="0" width="800" height="1000"
-                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
-            <g class="frameGroup" filter="url(#frameShadow-3a)">
-              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
-            </g>
-          </svg>
-          <!-- floating gold prev/next controls -->
-          <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M15 18L9 12l6-6"/>
+        <!-- Helper bar (Option 1) -->
+        <div class="section-help" role="note" aria-label="Gallery navigation help">
+          <span class="help-ico" aria-hidden="true">ⓘ</span>
+          Preview & navigate: click the tile or use the arrows to move through images. Select the label to view the full gallery.
+        </div>
+
+        <div class="mosaic" id="grid">
+          <!-- LEFT -->
+          <figure class="captioned notch" id="gallery-meadow" aria-label="Oona & Ivy – Meadow Light"
+                  data-images='[
+                    "pictures/oonaIvy/E26A0761.jpg",
+                    "pictures/firstTileGal/E26A0671%20(2).jpg",
+                    "pictures/firstTileGal/E26A0698.jpg",
+                    "pictures/firstTileGal/E26A0699.jpg",
+                    "pictures/firstTileGal/E26A0712.jpg",
+                    "pictures/firstTileGal/E26A0718.jpg",
+                    "pictures/firstTileGal/E26A0739.jpg",
+                    "pictures/firstTileGal/E26A0753.jpg",
+                    "pictures/firstTileGal/E26A0758.jpg",
+                    "pictures/firstTileGal/E26A0759.jpg",
+                    "pictures/firstTileGal/E26A0764.jpg"
+                  ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <mask id="notchMask-3a">
+                  <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                  <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
+                </mask>
+                <filter id="frameShadow-3a" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+                </filter>
+              </defs>
+              <image href="pictures/oonaIvy/E26A0761.jpg" x="0" y="0" width="800" height="1000"
+                     preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
+              <g class="frameGroup" filter="url(#frameShadow-3a)">
+                <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+                <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+              </g>
             </svg>
-          </button>
-          <button class="tile-nav tile-next" type="button" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 18l6-6-6-6"/>
+            <!-- floating gold prev/next controls -->
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 18L9 12l6-6"/>
+              </svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+
+            <!-- pagination dots -->
+            <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
+
+            <div class="notch-box">
+              <!-- UPDATED LINK -->
+              <a class="cap-label" href="/galleries/sibling-portrait.html">Sibling Portraits</a>
+            </div>
+          </figure>
+
+          <!-- MIDDLE -->
+          <figure class="captioned notch" id="gallery-family" aria-label="Family Portrait Gallery"
+                  data-images='[
+                    "pictures/familyPortrait/image5.jpg",
+                    "pictures/secondTileGal/E26A2465-2%20(1).jpg",
+                    "pictures/secondTileGal/E26A2470%20(1).jpg",
+                    "pictures/secondTileGal/E26A2490%20(1).jpg",
+                    "pictures/secondTileGal/E26A2507.jpg",
+                    "pictures/secondTileGal/E26A2525%20(1).jpg",
+                    "pictures/secondTileGal/E26A2547%20(1).jpg",
+                    "pictures/secondTileGal/E26A2572.jpg",
+                    "pictures/secondTileGal/E26A2595.jpg",
+                    "pictures/secondTileGal/E26A2665.jpg",
+                    "pictures/secondTileGal/E26A2704%20(1).jpg"
+                  ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <mask id="notchMask-1">
+                  <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                  <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
+                </mask>
+                <filter id="frameShadow-1" x="-20%" y="-20%" width="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+                </filter>
+              </defs>
+              <!-- keep original first image visible -->
+              <image href="pictures/familyPortrait/image5.jpg" x="0" y="0" width="800" height="1000"
+                     preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
+              <g class="frameGroup" filter="url(#frameShadow-1)">
+                <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+                <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+              </g>
             </svg>
-          </button>
 
-          <!-- pagination dots -->
-          <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
+            <!-- floating gold prev/next controls -->
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 18L9 12l6-6"/>
+              </svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
 
-          <div class="notch-box">
-            <!-- UPDATED LINK -->
-            <a class="cap-label" href="/galleries/sibling-portrait.html">Sibling Portraits</a>
-          </div>
-        </figure>
+            <!-- pagination dots -->
+            <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
-        <!-- MIDDLE -->
-        <figure class="captioned notch" id="gallery-family" aria-label="Family Portrait Gallery"
-                data-images='[
-                  "pictures/familyPortrait/image5.jpg",
-                  "pictures/secondTileGal/E26A2465-2%20(1).jpg",
-                  "pictures/secondTileGal/E26A2470%20(1).jpg",
-                  "pictures/secondTileGal/E26A2490%20(1).jpg",
-                  "pictures/secondTileGal/E26A2507.jpg",
-                  "pictures/secondTileGal/E26A2525%20(1).jpg",
-                  "pictures/secondTileGal/E26A2547%20(1).jpg",
-                  "pictures/secondTileGal/E26A2572.jpg",
-                  "pictures/secondTileGal/E26A2595.jpg",
-                  "pictures/secondTileGal/E26A2665.jpg",
-                  "pictures/secondTileGal/E26A2704%20(1).jpg"
-                ]'>
-          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs>
-              <mask id="notchMask-1">
-                <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
-              </mask>
-              <filter id="frameShadow-1" x="-20%" y="-20%" width="140%">
-                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-              </filter>
-            </defs>
-            <!-- keep original first image visible -->
-            <image href="pictures/familyPortrait/image5.jpg" x="0" y="0" width="800" height="1000"
-                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
-            <g class="frameGroup" filter="url(#frameShadow-1)">
-              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
-            </g>
-          </svg>
+            <div class="notch-box">
+              <a class="cap-label" href="/galleries/family-portrait.html">Family Portraits</a>
+            </div>
+          </figure>
 
-          <!-- floating gold prev/next controls -->
-          <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M15 18L9 12l6-6"/>
+          <!-- RIGHT -->
+          <figure class="captioned notch" id="gallery-beach" aria-label="Friend Portraits"
+                  data-images='[
+                    "pictures/thirdTileGal/E26A2022%20(1).jpg",
+                    "pictures/thirdTileGal/E26A1931.jpg",
+                    "pictures/thirdTileGal/E26A1938.jpg",
+                    "pictures/thirdTileGal/E26A1944.jpg",
+                    "pictures/thirdTileGal/E26A1945.jpg",
+                    "pictures/thirdTileGal/E26A1986.jpg",
+                    "pictures/thirdTileGal/E26A2017.jpg",
+                    "pictures/thirdTileGal/E26A2047-2.jpg",
+                    "pictures/thirdTileGal/E26A2106.jpg",
+                    "pictures/thirdTileGal/E26A2226.jpg",
+                    "pictures/thirdTileGal/E26A2245.jpg"
+                  ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <mask id="notchMask-2">
+                  <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                  <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
+                </mask>
+                <filter id="frameShadow-2" x="-20%" y="-20%" width="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+                </filter>
+              </defs>
+              <!-- make E26A2022 (1).jpg the first/visible image -->
+              <image href="pictures/thirdTileGal/E26A2022%20(1).jpg" x="0" y="0" width="800" height="1000"
+                     preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
+              <g class="frameGroup" filter="url(#frameShadow-2)">
+                <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+                <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+              </g>
             </svg>
-          </button>
-          <button class="tile-nav tile-next" type="button" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 18l6-6-6-6"/>
-            </svg>
-          </button>
 
-          <!-- pagination dots -->
-          <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
+            <!-- floating gold prev/next controls -->
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 18L9 12l6-6"/>
+              </svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
 
-          <div class="notch-box">
-            <a class="cap-label" href="/galleries/family-portrait.html">Family Portraits</a>
-          </div>
-        </figure>
+            <!-- pagination dots -->
+            <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
 
-        <!-- RIGHT -->
-        <figure class="captioned notch" id="gallery-beach" aria-label="Friend Portraits"
-                data-images='[
-                  "pictures/thirdTileGal/E26A2022%20(1).jpg",
-                  "pictures/thirdTileGal/E26A1931.jpg",
-                  "pictures/thirdTileGal/E26A1938.jpg",
-                  "pictures/thirdTileGal/E26A1944.jpg",
-                  "pictures/thirdTileGal/E26A1945.jpg",
-                  "pictures/thirdTileGal/E26A1986.jpg",
-                  "pictures/thirdTileGal/E26A2017.jpg",
-                  "pictures/thirdTileGal/E26A2047-2.jpg",
-                  "pictures/thirdTileGal/E26A2106.jpg",
-                  "pictures/thirdTileGal/E26A2226.jpg",
-                  "pictures/thirdTileGal/E26A2245.jpg"
-                ]'>
-          <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs>
-              <mask id="notchMask-2">
-                <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
-              </mask>
-              <filter id="frameShadow-2" x="-20%" y="-20%" width="140%">
-                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-              </filter>
-            </defs>
-            <!-- make E26A2022 (1).jpg the first/visible image -->
-            <image href="pictures/thirdTileGal/E26A2022%20(1).jpg" x="0" y="0" width="800" height="1000"
-                   preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
-            <g class="frameGroup" filter="url(#frameShadow-2)">
-              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-              <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
-            </g>
-          </svg>
+            <div class="notch-box">
+              <a class="cap-label" href="/galleries/friend-portrait.html">Friend Portraits</a>
+            </div>
+          </figure>
+        </div>
 
-          <!-- floating gold prev/next controls -->
-          <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M15 18L9 12l6-6"/>
-            </svg>
-          </button>
-          <button class="tile-nav tile-next" type="button" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 18l6-6-6-6"/>
-            </svg>
-          </button>
+        <div class="cta" style="margin-top:18px">
+          <a class="btn" href="#book">Check availability</a>
+        </div>
+      </section>
+    </div>
+  </main>
 
-          <!-- pagination dots -->
-          <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
+  <footer>— S. Miller</footer>
 
-          <div class="notch-box">
-            <a class="cap-label" href="/galleries/friend-portrait.html">Friend Portraits</a>
-          </div>
-        </figure>
-      </div>
+  <!-- Tile logic: positions notch, draws diamonds, wires prev/next and image cycling -->
+  <script>
+    (function(){
+      const tiles = document.querySelectorAll('.mosaic .captioned.notch');
+      if(!tiles.length) return;
 
-      <div class="cta" style="margin-top:18px">
-        <a class="btn" href="#book">Check availability</a>
-      </div>
-    </section>
-</div>
-</main>
-<footer>— S. Miller</footer>
+      function updateTile(tile){
+        const svg = tile.querySelector('svg.notch-figure');
+        const notchRect = svg.querySelector('.notchRect');
+        const recessStroke = svg.querySelector('.recessStroke');
+        const label = tile.querySelector('.cap-label');
+        const notchBox = tile.querySelector('.notch-box');
+
+        const padX = 28; // breathing room around label
+        // measure with safe fallback when hidden
+        const labelWidth = Math.ceil((label.getBoundingClientRect().width || label.offsetWidth || 120)) + padX;
+        const w = Math.max(140, Math.min(560, labelWidth)); // clamp a bit for sanity
+        const x = (800 - w)/2;
+        const y = 920;
+        const h = 80;
+
+        notchRect.setAttribute('x', x);
+        notchRect.setAttribute('y', y);
+        notchRect.setAttribute('width', w);
+        notchRect.setAttribute('height', h);
+
+        recessStroke.setAttribute('x', x);
+        recessStroke.setAttribute('y', y);
+        recessStroke.setAttribute('width', w);
+        recessStroke.setAttribute('height', h);
+
+        notchBox.style.transform = `translate(${x}px, ${y}px)`;
+        notchBox.style.width = w + 'px';
+
+        // place the diamond dots a touch above the recess
+        const dots = tile.querySelector('.tile-dots');
+        if(dots){
+          const target = y - 22;
+          dots.style.bottom = (1000 - target) + 'px';
+        }
+      }
+
+      tiles.forEach(tile => {
+        const images = JSON.parse(tile.getAttribute('data-images')||'[]');
+        const img = tile.querySelector('image');
+        let idx = 0;
+
+        function render(i){
+          if(!images.length) return;
+          idx = (i + images.length) % images.length;
+          img.setAttribute('href', images[idx]);
+          updateTile(tile);
+          updateDots();
+        }
+
+        const dots = tile.querySelector('.tile-dots');
+        function updateDots(){
+          if(!dots) return;
+          dots.innerHTML = '';
+          images.forEach((_, i) => {
+            const b = document.createElement('button');
+            b.className = 'dot' + (i===idx ? ' is-active':'');
+            b.setAttribute('aria-label', `Slide ${i+1}`);
+            b.addEventListener('click', e => { e.stopPropagation(); render(i); });
+            dots.appendChild(b);
+          });
+        }
+
+        const prevBtn = tile.querySelector('.tile-prev');
+        const nextBtn = tile.querySelector('.tile-next');
+        if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); render(idx-1); });
+        if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); render(idx+1); });
+
+        tile.querySelector('svg.notch-figure')?.addEventListener('click', () => render(idx+1));
+
+        // init
+        render(0);
+      });
+
+      // keep positions tight on resize/font-load
+      window.addEventListener('resize', () => {
+        document.querySelectorAll('.mosaic .captioned.notch').forEach(updateTile);
+      });
+    })();
+  </script>
 </body>
 </html>
