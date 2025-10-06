@@ -65,9 +65,10 @@
     /* HERO (not used on galleries page; left for consistency) */
     .hero{ display:none; }
 
-    /* Top bar – brand hidden, centered nav */
+    /* Top bar – brand hidden, centered nav (NOT sticky) */
     .topbar{
-      position:sticky; left:0; right:0; top:0;
+      position:relative; /* was sticky */
+      left:0; right:0; top:0;
       display:flex; align-items:center; justify-content:center;
       padding:16px var(--gap); z-index:10; background:transparent;
     }
@@ -87,22 +88,30 @@
       border-bottom:0;
     }
 
-    /* Base dropdown (text-only floating) */
+    /* Dropdown (same floating text menu as index) */
     .has-sub{ position:relative; }
     .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
     .dropdown{
-      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
-      background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
-      padding:6px 8px; display:flex; flex-direction:column; gap:2px; min-width:220px;
-      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:3; backdrop-filter:saturate(1.05);
+      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%,0);
+      background:transparent; border:0; box-shadow:none;
+      padding:0; display:flex; flex-direction:column; gap:6px; min-width:unset;
+      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:3;
     }
-    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{ opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px); }
+    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
+      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%,2px);
+    }
     .dropdown li{list-style:none}
     .dropdown a{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-weight:700;
-      font-size:clamp(13px, 1.65vw, 15px); letter-spacing:.02em; line-height:1.05; padding:0; color:#3f3a33; border-bottom:0; white-space:nowrap;
+      font-size:clamp(13px,1.65vw,15px); letter-spacing:.02em; line-height:1.05;
+      padding:0; color:#3f3a33; border-bottom:0; white-space:nowrap; background:transparent;
     }
-    .dropdown a:hover, .dropdown a:focus-visible{ background:transparent; border-bottom:0; color:var(--accent); outline:none; }
+    .dropdown a:hover, .dropdown a:focus-visible{ color:var(--accent); outline:none; border-bottom:0; background:transparent; }
+
+    /* Add space under navbar so dropdown never overlaps the section header */
+    .nav-spacer{
+      height:clamp(80px, 12vw, 160px);
+    }
 
     section{padding:calc(var(--gap)*2) 0}
     .section-title{ font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-size:clamp(24px,3.5vw,38px); margin:0 0 8px }
@@ -120,6 +129,28 @@
       pointer-events:auto; transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease
     }
     .mosaic .cap-label:hover{background:#e2d7bd; box-shadow:0 6px 18px rgba(0,0,0,.08); transform:translateY(-1px)}
+
+    /* Buttons: black outline, turns gold on hover */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-weight:700; letter-spacing:.02em;
+      background:transparent; color:#3f3a33;
+      border:1px solid rgba(0,0,0,.9);
+      padding:10px 16px; border-radius:0;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
+      text-decoration:none;
+    }
+    .btn:hover, .btn:focus-visible{
+      color:var(--accent);
+      border-color:var(--accent);
+      background:#f9f6ef;
+      transform:translateY(-1px);
+      outline:none;
+      box-shadow:0 10px 24px rgba(0,0,0,.08);
+    }
+    .btn:active{ transform:translateY(0); box-shadow:0 4px 12px rgba(0,0,0,.06); }
 
     /* Floating diamond arrows */
     #gallery-meadow .tile-nav,
@@ -186,14 +217,16 @@
 
     @media (max-width:960px){
       .mosaic{grid-template-columns:1fr 1fr}
+      .nav-spacer{ height:clamp(72px, 14vw, 140px); }
     }
     @media (max-width:640px){
       .mosaic{grid-template-columns:1fr}
+      .nav-spacer{ height:clamp(64px, 18vw, 120px); }
     }
   </style>
 </head>
 <body>
-  <!-- Floating centered navbar with dropdown (matches index) -->
+  <!-- Centered navbar with floating text dropdown -->
   <div class="topbar container">
     <div class="brand"></div>
     <nav class="primary" aria-label="Primary">
@@ -214,6 +247,9 @@
       </ul>
     </nav>
   </div>
+
+  <!-- Extra space so dropdown never overlaps the section header -->
+  <div class="nav-spacer" aria-hidden="true"></div>
 
   <main id='content'>
     <div class="container">
