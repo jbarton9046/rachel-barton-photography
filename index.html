@@ -228,9 +228,10 @@
     .mosaic .notch-figure{display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .mosaic .u-stroke{fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round}
     .mosaic .notch-box{position:absolute; bottom:0; left:50%; transform:translateX(-50%); display:flex; align-items:center; justify-content:center; pointer-events:none}
+    /* Tighter label padding (closer fit) */
     .mosaic .cap-label{
       background:var(--accent-2); color:#5b5243; border:1px solid var(--line);
-      padding:8px 14px; font-size:13px; letter-spacing:.08em; font-weight:600; white-space:nowrap; line-height:1.2;
+      padding:6px 10px; font-size:13px; letter-spacing:.08em; font-weight:600; white-space:nowrap; line-height:1.2;
       pointer-events:auto; transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease
     }
     .mosaic .cap-label:hover{background:#e2d7bd; box-shadow:0 6px 18px rgba(0,0,0,.08); transform:translateY(-1px)}
@@ -349,6 +350,14 @@
     #gallery-beach .tile-nav:focus-visible{
       color:#b79661; box-shadow:0 6px 18px rgba(0,0,0,.18); outline:none;
     }
+
+    /* REMOVE the blurred square backplate behind the big diamond arrow */
+    #gallery-meadow .tile-nav::before,
+    #gallery-family .tile-nav::before,
+    #gallery-beach .tile-nav::before{
+      content:none !important;
+      display:none !important;
+    }
   </style>
 
   <!-- Pagination dots (gold) default; JS will place them just above the notch -->
@@ -386,94 +395,6 @@
       background:var(--accent);
       opacity:1;
     }
-  </style>
-
-  <!-- ======== PROFESSIONAL FROSTED DIAMONDS (OVERRIDES) ======== -->
-  <style id="professional-glass-diamonds">
-  /* BIG ARROW DIAMONDS (frosted plate + gold outline + gold arrow) */
-  #gallery-meadow .tile-nav,
-  #gallery-family .tile-nav,
-  #gallery-beach  .tile-nav{
-    width:56px; height:56px;
-    background:transparent !important; border:0 !important;
-    padding:0;
-  }
-  #gallery-meadow .tile-nav::before,
-  #gallery-family .tile-nav::before,
-  #gallery-beach  .tile-nav::before{
-    content:""; position:absolute; inset:0; margin:7px;
-    transform:rotate(45deg);
-    background:rgba(255,255,255,.22);
-    -webkit-backdrop-filter:blur(7px) saturate(1.05);
-    backdrop-filter:blur(7px) saturate(1.05);
-    box-shadow:0 6px 18px rgba(0,0,0,.14);
-    z-index:0;
-  }
-  #gallery-meadow .tile-nav::after,
-  #gallery-family .tile-nav::after,
-  #gallery-beach  .tile-nav::after{
-    content:""; position:absolute; inset:0; margin:7px;
-    transform:rotate(45deg);
-    border:1.5px solid var(--accent);
-    z-index:1; pointer-events:none;
-  }
-  #gallery-meadow .tile-nav svg,
-  #gallery-family .tile-nav svg,
-  #gallery-beach  .tile-nav svg{
-    width:22px; height:22px; z-index:2; position:relative;
-  }
-  #gallery-meadow .tile-nav:hover::before,
-  #gallery-family .tile-nav:hover::before,
-  #gallery-beach  .tile-nav:hover::before,
-  #gallery-meadow .tile-nav:focus-visible::before,
-  #gallery-family .tile-nav:focus-visible::before,
-  #gallery-beach  .tile-nav:focus-visible::before{
-    -webkit-backdrop-filter:blur(8px) saturate(1.08);
-    backdrop-filter:blur(8px) saturate(1.08);
-    box-shadow:0 8px 22px rgba(0,0,0,.16);
-  }
-  #gallery-meadow .tile-nav:hover::after,
-  #gallery-family .tile-nav:hover::after,
-  #gallery-beach  .tile-nav:hover::after,
-  #gallery-meadow .tile-nav:focus-visible::after,
-  #gallery-family .tile-nav:focus-visible::after,
-  #gallery-beach  .tile-nav:focus-visible::after{
-    border-color:#b79661;
-  }
-
-  /* SMALL DOT DIAMONDS (frosted plate under border) */
-  #gallery-meadow .tile-dots button,
-  #gallery-family .tile-dots button,
-  #gallery-beach  .tile-dots button{
-    position:relative;
-    width:10px; height:10px;
-    transform:rotate(45deg);
-    border:1px solid var(--accent);
-    background:transparent !important;
-    border-radius:0;
-  }
-  #gallery-meadow .tile-dots button::before,
-  #gallery-family .tile-dots button::before,
-  #gallery-beach  .tile-dots button::before{
-    content:""; position:absolute; inset:-2px;
-    background:rgba(255,255,255,.18);
-    -webkit-backdrop-filter:blur(5px) saturate(1.05);
-    backdrop-filter:blur(5px) saturate(1.05);
-    z-index:-1;
-  }
-  #gallery-meadow .tile-dots button.is-active::before,
-  #gallery-family .tile-dots button.is-active::before,
-  #gallery-beach  .tile-dots button.is-active::before{
-    background:rgba(168,138,90,.22);
-  }
-  #gallery-meadow .tile-dots button:hover,
-  #gallery-meadow .tile-dots button:focus-visible,
-  #gallery-family .tile-dots button:hover,
-  #gallery-family .tile-dots button:focus-visible,
-  #gallery-beach  .tile-dots button:hover,
-  #gallery-beach  .tile-dots button:focus-visible{
-    transform:rotate(45deg) scale(1.15);
-  }
   </style>
 </head>
 <body>
@@ -616,7 +537,7 @@
             </g>
           </svg>
 
-          <!-- floating gold prev/next controls -->
+          <!-- NEW: arrows for the middle tile -->
           <button class="tile-nav tile-prev" type="button" aria-label="Previous">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -724,7 +645,7 @@
       <h2 class="section-title" id="reviews-title">Kind Words</h2>
       <p class="section-sub">We’ll add 3–6 short testimonials here as they come in.</p>
 
-      <div class="quotes">
+    <div class="quotes">
         <blockquote>Rachel kept our toddler smiling the whole time — so many genuine moments.<footer>— S. Miller</footer></blockquote>
         <blockquote>Booking was simple, communication was clear, and the photos are stunning.<footer>— A. Nguyen</footer></blockquote>
         <blockquote>She noticed the little details and made us feel relaxed and ourselves.<footer>— J. Rivera</footer></blockquote>
@@ -832,7 +753,8 @@
         const notchBox = tile.querySelector('.notch-box');
         if(!svg || !label || !notchRect || !the_recessStroke || !notchBox) return;
 
-        const padCss = 8;
+        /* Tighter recess around the label */
+        const padCss = 4; /* was 8 */
         const labelRect = label.getBoundingClientRect();
         const tileRect  = svg.getBoundingClientRect();
 
