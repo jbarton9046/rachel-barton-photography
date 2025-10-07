@@ -16,92 +16,72 @@
   <meta property="og:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
   <meta property="og:url" content="https://rachelsphotography.netlify.app/galleries/friend-portrait.html" />
   <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
-  <meta property="og:image:secure_url" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts -->
+  <!-- Fonts (same as layout.html) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
-      --accent:#A88A5A; --line:#e9e6df; --frame:#ecebea; --shadow:0 10px 30px rgba(0,0,0,.08);
+      --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#7a766e;
+      --accent:#A88A5A; --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
     }
     *{box-sizing:border-box}
     html,body{
-      margin:0; padding:0; background:var(--bg); color:var(--ink);
-      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      margin:0; background:var(--bg); color:var(--ink);
+      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-      overflow-x:hidden;
     }
     a{color:inherit; text-decoration:none; transition:color .15s ease}
-    a:hover, a:focus-visible{ color:var(--accent); outline:none }
-    img{max-width:100%; height:auto; display:block; border:1px solid var(--frame); box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    a:hover,a:focus-visible{color:var(--accent); outline:none}
+    img{max-width:100%; height:auto; display:block; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    /* Shared container (aligns footer with grid) */
-    .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap); }
-
-    /* ===== NAV (sticky, no bottom line) ===== */
+    /* ===== Topbar (match layout.html: NOT sticky) ===== */
     .topbar{
-      position:sticky; top:0; z-index:50;
-      background:rgba(250,250,248,.85);
-      backdrop-filter:saturate(1.05) blur(6px);
+      position:relative;
+      display:flex; align-items:center; justify-content:center;
+      padding:16px var(--gap); z-index:10; background:transparent;
     }
-    .topbar .container{display:flex; align-items:center; justify-content:center; padding:16px var(--gap)}
+    .brand{display:none}
     nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
-    nav.primary li{ position:relative; }
+    nav.primary li{position:relative}
     nav.primary a{
-      font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-weight:500; font-size:clamp(16px,1.8vw,20px); letter-spacing:.02em; border-bottom:0; padding:4px 2px;
+      font-family:"Raleway",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-weight:500; font-size:clamp(16px,1.8vw,20px); letter-spacing:.02em; border-bottom:0; padding:4px 2px
     }
-    nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
-    .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
+    nav.primary a:hover,nav.primary a:focus-visible{color:var(--accent); border-bottom:0}
+    .has-sub:hover> a,.has-sub:focus-within> a{color:var(--accent)}
 
-    /* ===== DROPDOWN — horizontal row (matches other pages) ===== */
-    .has-sub{ position:relative; }
-    /* little hover buffer so you can move the mouse down without flicker */
-    .has-sub::after{ content:""; position:absolute; left:-10px; right:-10px; top:100%; height:10px; }
-
+    /* ===== Dropdown: vertical & ultra-tight (same as layout.html) ===== */
+    .has-sub{position:relative}
+    .has-sub::after{content:""; position:absolute; left:-8px; right:-8px; top:100%; height:10px; background:transparent}
     .dropdown{
-      position:absolute;
-      top:calc(100% + 2px);
-      left:50%; transform:translateX(-50%);
-      /* make it a single row */
-      display:flex; flex-direction:row; align-items:flex-start; gap:56px;
-      margin:0; padding:0;
-      list-style:none;
+      position:absolute; top:calc(100% + 4px); left:50%; transform:translate(-50%,0);
       background:transparent; border:0; box-shadow:none;
-      opacity:0; visibility:hidden; pointer-events:none;
-      transition:opacity .12s ease, transform .12s ease;
-      white-space:nowrap;
-      z-index:999;
+      display:flex; flex-direction:column; gap:0; margin:0; padding:0; list-style:none; min-width:unset;
+      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:999;
     }
-    .has-sub:hover .dropdown,
-    .has-sub:focus-within .dropdown,
-    .dropdown:hover{
-      opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(2px);
+    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
+      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
     }
     .dropdown li{margin:0; padding:0; list-style:none}
     .dropdown a{
-      display:inline-block;
+      display:block;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
-      font-weight:700 !important;
-      font-size:clamp(13px,1.3vw,15px) !important;
-      line-height:1 !important;           /* no extra blue space */
-      padding:0 !important;
-      margin:0 !important;
+      font-weight:700 !important; font-size:clamp(12px,1.35vw,14px) !important;
+      line-height:1.0 !important; padding:0 !important; margin:0 !important; border:0 !important; white-space:nowrap;
       background:transparent !important;
-      border:0 !important;
     }
 
-    /* ===== PAGE HEADER ===== */
+    /* ===== Page header ===== */
     .container-page{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
     .page-head{padding:28px 0 10px}
     .page-head h1{
@@ -110,16 +90,16 @@
     }
     .lede{color:#6e6a62; margin:0 0 18px}
 
-    /* ===== GALLERY GRID ===== */
-    .gallery-grid{display:grid; gap:clamp(10px,1.6vw,16px); margin-bottom:32px;} /* nice space before divider */
-    @media(min-width:640px){ .gallery-grid{ grid-template-columns:repeat(2,1fr);} }
-    @media(min-width:980px){ .gallery-grid{ grid-template-columns:repeat(3,1fr);} }
+    /* ===== Gallery grid (same tile sizing) ===== */
+    .gallery-grid{display:grid; gap:clamp(10px,1.6vw,16px); margin-bottom:32px;} /* space before divider */
+    @media (min-width:640px){ .gallery-grid{ grid-template-columns:repeat(2,1fr);} }
+    @media (min-width:980px){ .gallery-grid{ grid-template-columns:repeat(3,1fr);} }
     .gallery-grid a{ display:block }
     .gallery-grid img{ width:100%; aspect-ratio:4/5; object-fit:cover }
 
-    /* ===== LIGHTBOX ===== */
+    /* ===== Lightbox ===== */
     #lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.88); display:none; align-items:center; justify-content:center; z-index:1200; }
-    #lightbox img{ max-width:92vw; max-height:88vh; border:1px solid var(--frame); box-shadow:0 12px 50px rgba(0,0,0,.5); background:#111; }
+    #lightbox img{ max-width:92vw; max-height:88vh; border:1px solid #ecebea; box-shadow:0 12px 50px rgba(0,0,0,.5); background:#111; }
     #lb-close,#lb-prev,#lb-next{
       position:absolute; border:1px solid rgba(255,255,255,.65); background:transparent; color:#fff; cursor:pointer;
       width:40px; height:40px; display:grid; place-items:center; box-shadow:0 8px 22px rgba(0,0,0,.35); text-shadow:0 1px 2px rgba(0,0,0,.4);
@@ -129,39 +109,36 @@
     #lb-close:focus-visible,#lb-prev:focus-visible,#lb-next:focus-visible{ outline:none; border-color:#fff; background:rgba(255,255,255,.12); }
     body.modal-open{ overflow:hidden; }
 
-    /* ===== FOOTER (aligned with grid + divider) ===== */
-    footer{
-      border-top:1px solid var(--line);
-      padding:24px 0 32px;
-      color:#7f7f7f;
-    }
+    /* ===== Footer (same as layout.html) ===== */
+    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px}
+    footer .container{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+    @media (max-width:720px){footer .container{justify-content:center; text-align:center}}
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <header class="topbar">
-    <div class="container">
-      <nav class="primary" aria-label="Primary">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about.html">Meet Rachel</a></li>
-          <li class="has-sub">
-            <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
-            <ul class="dropdown" aria-label="Galleries submenu">
-              <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
-              <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
-              <li><a href="/galleries/friend-portrait.html">Friend Portraits</a></li>
-            </ul>
-          </li>
-          <li><a href="/testimonials.html">Testimonials</a></li>
-          <li><a href="/faq.html">FAQ</a></li>
-          <li><a href="/#contact">Contact</a></li>
-          <li><a href="/#book">Book</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <!-- Global nav (identical to layout.html) -->
+  <div class="topbar container">
+    <div class="brand"></div>
+    <nav class="primary" aria-label="Primary">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">Meet Rachel</a></li>
+        <li class="has-sub">
+          <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
+          <ul class="dropdown" aria-label="Galleries submenu">
+            <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
+            <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
+            <li><a href="/galleries/friend-portrait.html" aria-current="page">Friend Portraits</a></li>
+          </ul>
+        </li>
+        <li><a href="/#reviews">Testimonials</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/#book">Book</a></li>
+      </ul>
+    </nav>
+  </div>
 
   <main id="content" class="container-page">
     <section class="page-head" aria-labelledby="friend-title">
@@ -201,16 +178,16 @@
     <button id="lb-next" aria-label="Next image">›</button>
   </div>
 
-  <!-- FOOTER (aligned with grid + divider) -->
+  <!-- Footer (identical to layout.html) -->
   <footer>
-    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+    <div class="container">
       <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
       <div><a href="mailto:rachelbartonphotography@gmail.com">rachelbartonphotography@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></div>
     </div>
   </footer>
 
   <script>
-    // Lightbox
+    // Lightbox behavior
     (function(){
       const lightbox = document.getElementById('lightbox');
       const imgEl = document.getElementById('lb-img');
