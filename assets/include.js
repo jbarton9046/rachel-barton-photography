@@ -1,16 +1,12 @@
-// Replace any <div data-include="/path.html"></div> with the file's contents
 (async () => {
-  const nodes = document.querySelectorAll('[data-include]');
-  for (const el of nodes) {
+  const includeTargets = document.querySelectorAll('[data-include]');
+  for (const el of includeTargets) {
     const url = el.getAttribute('data-include');
     try {
-      const html = await fetch(url, { cache: 'no-cache' }).then(r => r.text());
-      el.outerHTML = html;
+      const res = await fetch(url, {cache: 'no-cache'});
+      el.outerHTML = await res.text();
     } catch (e) {
-      console.error('Include failed for', url, e);
+      console.warn('Include failed:', url, e);
     }
   }
-  // Set year if footer has the span
-  const y = document.getElementById('year');
-  if (y) y.textContent = new Date().getFullYear();
 })();
