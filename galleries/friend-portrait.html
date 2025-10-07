@@ -20,9 +20,6 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
-  <meta name="twitter:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
-  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,16 +30,9 @@
 
   <style>
     :root{
-      --bg:#FAFAF8;
-      --paper:#ffffff;
-      --ink:#3e3e3a;
-      --muted:#7a766e;
-      --accent:#A88A5A;
-      --line:#e9e6df;
-      --frame:#ecebea;
-      --shadow:0 10px 30px rgba(0,0,0,.08);
-      --gap:clamp(16px,3vw,32px);
-      --maxw:1200px;
+      --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
+      --accent:#A88A5A; --line:#e9e6df; --frame:#ecebea; --shadow:0 10px 30px rgba(0,0,0,.08);
+      --gap:clamp(16px,3vw,32px); --maxw:1200px;
     }
     *{box-sizing:border-box}
     html,body{
@@ -55,52 +45,44 @@
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
     img{max-width:100%; height:auto; display:block; border:1px solid var(--frame); box-shadow:0 6px 18px rgba(0,0,0,.06)}
 
-    /* ===== NAV (match index; no bottom line) ===== */
+    /* ===== NAV (no bottom line) ===== */
     .topbar{
       position:sticky; top:0; z-index:50;
       background:rgba(250,250,248,.85);
       backdrop-filter:saturate(1.05) blur(6px);
-      /* no border-bottom */
     }
     .topbar .container{max-width:var(--maxw); margin:0 auto; padding:16px var(--gap); display:flex; align-items:center; justify-content:center}
     nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
     nav.primary li{ position:relative; }
     nav.primary a{
       font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-weight:500;
-      font-size:clamp(16px,1.8vw,20px);
-      letter-spacing:.02em;
-      border-bottom:0;
-      padding:4px 2px;
+      font-weight:500; font-size:clamp(16px,1.8vw,20px); letter-spacing:.02em; border-bottom:0; padding:4px 2px;
     }
     nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
     .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
 
-    /* ===== TEXT-ONLY DROPDOWN (index hero style, compact spacing) ===== */
+    /* ===== TEXT-ONLY DROPDOWN — compact like your screenshot ===== */
     .has-sub{ position:relative; }
-    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
+    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; }
     .dropdown{
-      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
+      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%,0);
       background:transparent; border:0; box-shadow:none;
-      padding:0; display:flex; flex-direction:column; gap:2px; /* tighter like screenshot */
+      padding:0; display:flex; flex-direction:column; gap:0; /* zero gap between items */
       min-width:unset;
-      opacity:0; visibility:hidden; pointer-events:none;
-      transition:opacity .15s ease, transform .15s ease; z-index:999;
+      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:999;
     }
     .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
       opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
     }
-    .dropdown li{list-style:none}
+    .dropdown li{list-style:none; margin:0;}
     .dropdown a{
+      display:block;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
       font-weight:700 !important;
-      font-size:clamp(13px, 1.65vw, 15px) !important;
-      line-height:1.02 !important;   /* compact line height */
-      padding:0 !important;
-      background:transparent !important;
-      border-bottom:0 !important;
-      white-space:nowrap;
-      display:block;
+      font-size:clamp(13px,1.45vw,15px) !important; /* compact size */
+      line-height:1.0 !important;                   /* tight vertical rhythm */
+      padding:0 !important; margin:2px 0 !important;/* tiny margins only */
+      background:transparent !important; border:0 !important; white-space:nowrap;
     }
 
     /* ===== PAGE HEADER ===== */
@@ -112,45 +94,26 @@
     }
     .lede{color:#6e6a62; margin:0 0 18px}
 
-    /* ===== GALLERY GRID — same 4:5 tile size as family ===== */
+    /* ===== GALLERY GRID ===== */
     .gallery-grid{display:grid; gap:clamp(10px,1.6vw,16px)}
     @media(min-width:640px){ .gallery-grid{ grid-template-columns:repeat(2,1fr);} }
     @media(min-width:980px){ .gallery-grid{ grid-template-columns:repeat(3,1fr);} }
     .gallery-grid a{ display:block }
     .gallery-grid img{ width:100%; aspect-ratio:4/5; object-fit:cover }
 
-    /* ===== LIGHTBOX — white floating controls ===== */
-    #lightbox{
-      position:fixed; inset:0; background:rgba(0,0,0,.88);
-      display:none; align-items:center; justify-content:center; z-index:1200;
-    }
-    #lightbox img{
-      max-width:92vw; max-height:88vh;
-      border:1px solid var(--frame);
-      box-shadow:0 12px 50px rgba(0,0,0,.5);
-      background:#111;
-    }
-
+    /* ===== LIGHTBOX ===== */
+    #lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.88); display:none; align-items:center; justify-content:center; z-index:1200; }
+    #lightbox img{ max-width:92vw; max-height:88vh; border:1px solid var(--frame); box-shadow:0 12px 50px rgba(0,0,0,.5); background:#111; }
     #lb-close,#lb-prev,#lb-next{
-      position:absolute; border:1px solid rgba(255,255,255,.65);
-      background:transparent; color:#fff; cursor:pointer;
-      width:40px; height:40px; display:grid; place-items:center;
-      box-shadow:0 8px 22px rgba(0,0,0,.35);
-      text-shadow:0 1px 2px rgba(0,0,0,.4);
+      position:absolute; border:1px solid rgba(255,255,255,.65); background:transparent; color:#fff; cursor:pointer;
+      width:40px; height:40px; display:grid; place-items:center; box-shadow:0 8px 22px rgba(0,0,0,.35); text-shadow:0 1px 2px rgba(0,0,0,.4);
     }
-    #lb-close{ top:18px; right:18px }
-    #lb-prev{ left:18px; top:50%; transform:translateY(-50%) }
-    #lb-next{ right:18px; top:50%; transform:translateY(-50%) }
+    #lb-close{ top:18px; right:18px } #lb-prev{ left:18px; top:50%; transform:translateY(-50%) } #lb-next{ right:18px; top:50%; transform:translateY(-50%) }
     #lb-close:hover,#lb-prev:hover,#lb-next:hover,
-    #lb-close:focus-visible,#lb-prev:focus-visible,#lb-next:focus-visible{
-      outline:none;
-      border-color:#fff;
-      background:rgba(255,255,255,.12);
-    }
-
+    #lb-close:focus-visible,#lb-prev:focus-visible,#lb-next:focus-visible{ outline:none; border-color:#fff; background:rgba(255,255,255,.12); }
     body.modal-open{ overflow:hidden; }
 
-    /* Footer (exactly like index — no divider line) */
+    /* ===== FOOTER (exact layout; no divider) ===== */
     footer{border-top:0; padding:28px 0; color:#7f7f7f}
   </style>
 </head>
@@ -194,83 +157,4 @@
         <a href="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg" alt="Friend portraits image 3"></a>
         <a href="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg" alt="Friend portraits image 4"></a>
         <a href="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg" alt="Friend portraits image 5"></a>
-        <a href="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg" alt="Friend portraits image 6"></a>
-        <a href="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg" alt="Friend portraits image 7"></a>
-        <a href="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg" alt="Friend portraits image 8"></a>
-        <a href="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg" alt="Friend portraits image 9"></a>
-        <a href="/pictures/friendPortraitGal/E26A2047.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2047.jpg" alt="Friend portraits image 10"></a>
-        <a href="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg" alt="Friend portraits image 11"></a>
-        <a href="/pictures/friendPortraitGal/E26A2140.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2140.jpg" alt="Friend portraits image 12"></a>
-        <a href="/pictures/friendPortraitGal/E26A2161.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2161.jpg" alt="Friend portraits image 13"></a>
-        <a href="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg" alt="Friend portraits image 14"></a>
-        <a href="/pictures/friendPortraitGal/E26A2237.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2237.jpg" alt="Friend portraits image 15"></a>
-        <a href="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg" alt="Friend portraits image 16"></a>
-        <a href="/pictures/friendPortraitGal/E26A2302.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2302.jpg" alt="Friend portraits image 17"></a>
-      </div>
-    </section>
-  </main>
-
-  <!-- LIGHTBOX -->
-  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-    <button id="lb-close" aria-label="Close">✕</button>
-    <button id="lb-prev" aria-label="Previous image">‹</button>
-    <img id="lb-img" alt="" />
-    <button id="lb-next" aria-label="Next image">›</button>
-  </div>
-
-  <!-- FOOTER (exactly like index; no dividing line) -->
-  <footer>
-    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
-      <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
-      <div><a href="mailto:rachelbartonphotography@gmail.com">rachelbartonphotography@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></div>
-    </div>
-  </footer>
-
-  <script>
-    // Lightbox behavior (match family page)
-    (function(){
-      const lightbox = document.getElementById('lightbox');
-      const imgEl = document.getElementById('lb-img');
-      const closeBtn = document.getElementById('lb-close');
-      const prevBtn = document.getElementById('lb-prev');
-      const nextBtn = document.getElementById('lb-next');
-
-      const links = Array.from(document.querySelectorAll('#friend-grid a'));
-      let idx = -1;
-
-      function openAt(i){
-        idx = (i + links.length) % links.length;
-        imgEl.src = links[idx].getAttribute('href');
-        lightbox.style.display = 'flex';
-        document.body.classList.add('modal-open');
-      }
-      function closeBox(){
-        lightbox.style.display = 'none';
-        imgEl.removeAttribute('src');
-        document.body.classList.remove('modal-open');
-      }
-      function prev(){ openAt(idx - 1); }
-      function next(){ openAt(idx + 1); }
-
-      links.forEach((a,i)=> a.addEventListener('click', e=>{ e.preventDefault(); openAt(i); }));
-      closeBtn.addEventListener('click', closeBox);
-      prevBtn.addEventListener('click', prev);
-      nextBtn.addEventListener('click', next);
-
-      // keyboard controls
-      window.addEventListener('keydown', e=>{
-        if(lightbox.style.display !== 'flex') return;
-        if(e.key === 'Escape') closeBox();
-        if(e.key === 'ArrowLeft') prev();
-        if(e.key === 'ArrowRight') next();
-      });
-
-      // click outside to close
-      lightbox.addEventListener('click', e=>{ if(e.target === lightbox) closeBox(); });
-    })();
-
-    // Footer year (match index.html)
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+        <a href="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg"
