@@ -68,33 +68,45 @@
     nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
     .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
 
-    /* ===== TEXT-ONLY DROPDOWN — ZERO extra vertical space ===== */
+    /* ===== TEXT-ONLY DROPDOWN — NO extra vertical space ===== */
     .has-sub{ position:relative; }
     .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:6px; } /* tiny hover buffer */
+
+    /* Kill any inherited list spacing */
+    .dropdown,
+    .dropdown ul,
+    .dropdown li{
+      margin:0 !important;
+      padding:0 !important;
+      list-style:none;
+    }
+
     .dropdown{
       position:absolute;
       top:calc(100% + 1px);            /* very close to "Galleries" label */
       left:50%; transform:translate(-50%,0);
       background:transparent; border:0; box-shadow:none;
-      display:flex; flex-direction:column;
-      gap:0;                           /* no gap between items */
-      margin:0; padding:0;             /* remove UL defaults */
+      /* Use block so flex gap can never apply */
+      display:block;
+      line-height:1 !important;        /* tighten container line-height */
       min-width:unset;
-      list-style:none;
       opacity:0; visibility:hidden; pointer-events:none;
       transition:opacity .15s ease, transform .15s ease; z-index:999;
     }
-    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
+    .has-sub:hover .dropdown,
+    .has-sub:focus-within .dropdown,
+    .dropdown:hover{
       opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
     }
-    .dropdown li{margin:0; padding:0; list-style:none}
-    .dropdown li + li{ margin-top:0 }  /* ensure zero gap between siblings */
+
+    .dropdown li + li{ margin-top:0 !important; } /* force zero gap */
+
     .dropdown a{
-      display:block;
+      display:inline-block;            /* avoid block-level extra height quirks */
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
       font-weight:700 !important;
       font-size:clamp(13px,1.3vw,15px) !important;
-      line-height:1 !important;       /* tight vertical rhythm */
+      line-height:1 !important;        /* tight vertical rhythm */
       margin:0 !important;
       padding:0 !important;
       background:transparent !important; border:0 !important; white-space:nowrap;
