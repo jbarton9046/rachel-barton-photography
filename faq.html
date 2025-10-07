@@ -68,7 +68,6 @@
       grid-template-columns: minmax(0,1fr) minmax(260px, 420px); /* bars + photo column */
       gap:12px;
       margin:18px 0 40px;
-      grid-auto-flow:row dense; /* lets bars wrap under the photo cleanly */
     }
     /* Photo card that the bars flow around */
     .faq-photo{
@@ -78,8 +77,8 @@
     .faq-photo img{aspect-ratio:4/5;object-fit:cover;background:#fff}
     .faq-photo figcaption{margin-top:8px;font-size:13px;color:#6e6a62;text-align:center}
 
-    /* FAQ bars */
-    details{background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:0}
+    /* FAQ bars (stay in left column while photo runs) */
+    details{background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:0; grid-column:1;}
     summary{list-style:none; cursor:pointer; padding:16px 18px; user-select:none; font-weight:700; display:flex; gap:12px; transition:color .15s ease}
     summary::-webkit-details-marker{display:none}
     /* Gold hover for questions */
@@ -88,10 +87,14 @@
     .answer{padding:0 18px 16px; color:#4a463f}
     .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;border:1px solid var(--line);padding:10px 16px;box-shadow:0 6px 18px rgba(0,0,0,.06);text-decoration:none}
 
-    /* When the photo ends, bars can occupy both columns naturally */
+    /* Full-width block for items that come AFTER the photo */
+    .after-photo{grid-column:1 / -1; display:grid; gap:12px;}
+    .after-photo > details{grid-column:1 / -1;}
+
     @media (max-width:900px){
       .faq{grid-template-columns:1fr}
-      .faq-photo{grid-column:auto; grid-row:auto; order:4} /* stacks nicely in the list */
+      .faq-photo{grid-column:auto; grid-row:auto; order:4}
+      .after-photo{grid-column:auto}
     }
 
     footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px}
@@ -142,7 +145,7 @@
         <figcaption>Sunset session on Siesta Key</figcaption>
       </figure>
 
-      <!-- FAQ bars (they’ll flow around and then below the photo) -->
+      <!-- FAQ bars (stay left while photo runs) -->
       <details>
         <summary><span class="qmark">Q</span> How do I book?</summary>
         <div class="answer">
@@ -197,51 +200,54 @@
         </div>
       </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> How are images delivered?</summary>
-        <div class="answer">
-          <p>Via an online gallery—download in high-resolution and web-size. You can also order professional prints right from the gallery.</p>
-        </div>
-      </details>
+      <!-- Everything below the photo spans full width -->
+      <div class="after-photo">
+        <details>
+          <summary><span class="qmark">Q</span> How are images delivered?</summary>
+          <div class="answer">
+            <p>Via an online gallery—download in high-resolution and web-size. You can also order professional prints right from the gallery.</p>
+          </div>
+        </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> Do you work with newborns?</summary>
-        <div class="answer">
-          <p>Yes—natural, in-home lifestyle sessions focused on connection over posing. Ideal timing is within the first 2–6 weeks, but truly lovely anytime.</p>
-        </div>
-      </details>
+        <details>
+          <summary><span class="qmark">Q</span> Do you work with newborns?</summary>
+          <div class="answer">
+            <p>Yes—natural, in-home lifestyle sessions focused on connection over posing. Ideal timing is within the first 2–6 weeks, but truly lovely anytime.</p>
+          </div>
+        </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> Can we bring pets?</summary>
-        <div class="answer">
-          <p>Absolutely! Please let me know in advance so we can choose a pet-friendly location and plan for a helper if needed.</p>
-        </div>
-      </details>
+        <details>
+          <summary><span class="qmark">Q</span> Can we bring pets?</summary>
+          <div class="answer">
+            <p>Absolutely! Please let me know in advance so we can choose a pet-friendly location and plan for a helper if needed.</p>
+          </div>
+        </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> What’s your payment and cancellation policy?</summary>
-        <div class="answer">
-          <p>A retainer is due at booking to hold your date; the balance is due by session day. If you need to reschedule, just reach out—life happens!</p>
-        </div>
-      </details>
+        <details>
+          <summary><span class="qmark">Q</span> What’s your payment and cancellation policy?</summary>
+          <div class="answer">
+            <p>A retainer is due at booking to hold your date; the balance is due by session day. If you need to reschedule, just reach out—life happens!</p>
+          </div>
+        </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> Any travel fees?</summary>
-        <div class="answer">
-          <p>No travel fee within the local Sarasota/Manatee area. Small fees may apply for farther beaches or parks—I'll confirm before booking.</p>
-        </div>
-      </details>
+        <details>
+          <summary><span class="qmark">Q</span> Any travel fees?</summary>
+          <div class="answer">
+            <p>No travel fee within the local Sarasota/Manatee area. Small fees may apply for farther beaches or parks—I'll confirm before booking.</p>
+          </div>
+        </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> Accessibility & comfort</summary>
-        <div class="answer">
-          <p>If stairs, sand, or walking distances are a concern, we’ll choose an easy-access spot. Tell me what you need and I’ll handle the details.</p>
-        </div>
-      </details>
+        <details>
+          <summary><span class="qmark">Q</span> Accessibility & comfort</summary>
+          <div class="answer">
+            <p>If stairs, sand, or walking distances are a concern, we’ll choose an easy-access spot. Tell me what you need and I’ll handle the details.</p>
+          </div>
+        </details>
 
-      <div style="margin-top:18px">
-        Still wondering about something?
-        <a class="btn" href="/#contact">Contact Me</a>
+        <div style="margin-top:18px">
+          Still wondering about something?
+          <a class="btn" href="/#contact">Contact Me</a>
+        </div>
       </div>
     </section>
   </main>
