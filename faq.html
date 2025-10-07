@@ -37,7 +37,7 @@
     a:hover,a:focus-visible{color:var(--accent);outline:none}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
 
-    /* ===== Topbar (copied from index.html) ===== */
+    /* Topbar (exactly like index) */
     .topbar{
       position:relative;
       display:flex; align-items:center; justify-content:center;
@@ -57,7 +57,7 @@
     nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
     .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
 
-    /* === EXACT dropdown from index.html (text-only variant) === */
+    /* Dropdown (exactly like index) */
     .has-sub{ position:relative; }
     .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
     .dropdown{
@@ -74,9 +74,6 @@
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-weight:700;
       font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; line-height:1.08; padding:2px 6px; color:#3f3a33; border-bottom:0; white-space:nowrap;
     }
-    .dropdown a:hover, .dropdown a:focus-visible{ background:transparent; border-bottom:0; color:var(--accent); outline:none; }
-
-    /* Force the text-only dropdown look just like index hero */
     .topbar nav.primary .has-sub > .dropdown{
       background:transparent !important; border:0 !important; box-shadow:none !important;
       padding:0 !important; gap:6px !important; min-width:unset !important;
@@ -88,8 +85,13 @@
       font-weight:700 !important; font-size:clamp(13px, 1.65vw, 15px) !important; line-height:1.05 !important;
     }
 
-    /* Spacer so dropdown doesn't overlap page title on non-hero pages */
-    .nav-spacer{ height:clamp(10px, 2vw, 22px); }
+    /* Spacer under nav so dropdown never overlaps the header */
+    .nav-spacer{ height:clamp(36px, 5vw, 56px); transition:height .15s ease; }
+    /* When dropdown is open, grow the spacer to fit it */
+    .topbar:has(.has-sub:hover) + .nav-spacer,
+    .topbar:has(.has-sub:focus-within) + .nav-spacer{
+      height:clamp(84px, 12vw, 110px);
+    }
 
     /* Page header + FAQ styles */
     header.page{padding:18px 0 8px}
@@ -111,7 +113,7 @@
 </head>
 <body>
 
-  <!-- Top navigation (order matches index: Meet Rachel before Galleries) -->
+  <!-- Top navigation (Meet Rachel before Galleries) -->
   <div class="topbar container">
     <div class="brand"></div>
     <nav class="primary" aria-label="Primary">
@@ -146,6 +148,7 @@
 
   <main class="container">
     <section class="faq" aria-label="FAQ">
+      <!-- (FAQ items unchanged) -->
       <details>
         <summary><span class="qmark">Q</span> How do I book?</summary>
         <div class="answer">
