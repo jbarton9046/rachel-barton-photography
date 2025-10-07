@@ -38,10 +38,9 @@
       --ink:#3e3e3a;
       --muted:#7a766e;
       --accent:#A88A5A;
-      --accent-2:#E8DFC9;
       --line:#e9e6df;
-      --ring: rgba(168,138,90,.25);
-      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --frame:#ecebea;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px);
       --maxw:1200px;
     }
@@ -50,17 +49,18 @@
       margin:0; padding:0; background:var(--bg); color:var(--ink);
       font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      overflow-x:hidden;
     }
-    a{color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease}
+    a{color:inherit; text-decoration:none; transition:color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
-    img{max-width:100%; height:auto; display:block}
+    img{max-width:100%; height:auto; display:block; border:1px solid var(--frame); box-shadow:0 6px 18px rgba(0,0,0,.06)}
 
-    /* ===== NAV (matches index.html) ===== */
+    /* ===== NAV (match index; no bottom line) ===== */
     .topbar{
       position:sticky; top:0; z-index:50;
       background:rgba(250,250,248,.85);
       backdrop-filter:saturate(1.05) blur(6px);
-      border-bottom:1px solid var(--line);
+      /* removed border-bottom */
     }
     .topbar .container{max-width:var(--maxw); margin:0 auto; padding:16px var(--gap); display:flex; align-items:center; justify-content:center}
     nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
@@ -76,92 +76,68 @@
     nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
     .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
 
-    /* Dropdown (floating text — same overrides used on index hero) */
+    /* Dropdown structure (same as index/family) */
     .has-sub{ position:relative; }
     .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
     .dropdown{
       position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
-      background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
-      padding:6px 8px; display:flex; flex-direction:column; gap:2px; min-width:220px;
-      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:999; backdrop-filter:saturate(1.05);
+      background:transparent; border:0; box-shadow:none;
+      padding:0; display:flex; flex-direction:column; gap:6px; min-width:unset;
+      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:999;
     }
     .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
       opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
     }
     .dropdown li{list-style:none}
     .dropdown a{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-weight:700;
-      font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; line-height:1.08; padding:2px 6px; color:#3f3a33; border-bottom:0; white-space:nowrap;
-    }
-    /* text-only dropdown look used on index hero */
-    .topbar nav.primary .has-sub > .dropdown{
-      background:transparent !important; border:0 !important; box-shadow:none !important;
-      padding:0 !important; gap:6px !important; min-width:unset !important;
-      left:50% !important; transform:translateX(-50%) !important;
-    }
-    .topbar nav.primary .dropdown a{
-      border-bottom:0 !important; padding:0 !important; background:transparent !important;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
-      font-weight:700 !important; font-size:clamp(13px, 1.65vw, 15px) !important; line-height:1.05 !important;
+      font-weight:700 !important;
+      font-size:clamp(13px, 1.65vw, 15px) !important;
+      line-height:1.05 !important;
+      padding:0 !important; background:transparent !important; border-bottom:0 !important;
     }
 
     /* ===== PAGE HEADER ===== */
     .container-page{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
     .page-head{padding:28px 0 10px}
-    .page-head h1{font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(30px,4.8vw,54px); line-height:1.08; margin:0 0 6px}
+    .page-head h1{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
+      font-weight:700; font-size:clamp(30px,4.8vw,54px); line-height:1.08; margin:0 0 6px
+    }
     .lede{color:#6e6a62; margin:0 0 18px}
 
-    /* ===== GALLERY GRID — match family page: taller (4:5) and a bit larger ===== */
-    .gallery-grid{display:grid; gap:clamp(12px,1.6vw,18px)}
+    /* ===== GALLERY GRID — same 4:5 tile size as family ===== */
+    .gallery-grid{display:grid; gap:clamp(10px,1.6vw,16px)}
     @media(min-width:640px){ .gallery-grid{ grid-template-columns:repeat(2,1fr);} }
     @media(min-width:980px){ .gallery-grid{ grid-template-columns:repeat(3,1fr);} }
-    .tile{
-      position:relative; border:1px solid var(--line); background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); overflow:hidden;
-      aspect-ratio:4/5;   /* TALLER like family portraits */
-      cursor:zoom-in;
-    }
-    .tile img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .gallery-grid a{ display:block }
+    .gallery-grid img{ width:100%; aspect-ratio:4/5; object-fit:cover }
 
-    /* ===== LIGHTBOX — match screenshot: framed on white, modest size, white square controls ===== */
-    .lightbox{
-      position:fixed; inset:0; background:rgba(20,18,16,.88);
-      display:none; align-items:center; justify-content:center; z-index:100; padding:24px;
+    /* ===== LIGHTBOX — identical behavior to family-portrait.html ===== */
+    #lightbox{
+      position:fixed; inset:0; background:rgba(0,0,0,.88);
+      display:none; align-items:center; justify-content:center; z-index:1200;
     }
-    .lightbox.is-open{ display:flex; }
-    .lightbox__frame{
-      background:#fff; padding:14px; border:1px solid rgba(0,0,0,.08);
-      box-shadow:0 28px 60px rgba(0,0,0,.45);
-      max-width:min(80vw, 1100px);   /* modest width */
-      max-height:80vh;               /* modest height */
+    #lightbox img{
+      max-width:92vw; max-height:88vh;
+      border:1px solid var(--frame);
+      box-shadow:0 12px 50px rgba(0,0,0,.5);
+      background:#111;
     }
-    .lightbox__img{ width:100%; height:100%; object-fit:contain; display:block; background:#111; }
+    #lb-close,#lb-prev,#lb-next{
+      position:absolute; border:0; background:#ffffff; color:#7A5B3B; cursor:pointer;
+      padding:8px 12px; border-radius:0; box-shadow:0 2px 8px rgba(0,0,0,.2)
+    }
+    #lb-close{ top:18px; right:18px }
+    #lb-prev{ left:18px; top:50%; transform:translateY(-50%) }
+    #lb-next{ right:18px; top:50%; transform:translateY(-50%) }
 
-    /* Controls: small white squares with gold chevrons / close */
-    .lb-btn{
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:36px; height:36px; display:grid; place-items:center;
-      background:#fff; border:1px solid #e8e5de; color:var(--accent);
-      box-shadow:0 8px 18px rgba(0,0,0,.25); cursor:pointer;
-    }
-    .lb-prev{ left:20px; }
-    .lb-next{ right:20px; }
-    .lb-btn:hover, .lb-btn:focus-visible{ border-color:#d9d2c2; outline:none; }
-
-    .lb-close{
-      position:absolute; top:26px; right:26px;
-      width:32px; height:32px; display:grid; place-items:center;
-      background:#fff; border:1px solid #e8e5de; color:#3f3a33; cursor:pointer;
-      box-shadow:0 8px 18px rgba(0,0,0,.25);
-    }
-    .lb-close:hover, .lb-close:focus-visible{ color:var(--accent); border-color:#d9d2c2; outline:none; }
-
-    /* Prevent background scroll when modal is open */
     body.modal-open{ overflow:hidden; }
   </style>
 </head>
 <body>
 
-  <!-- NAV (mirrors index) -->
+  <!-- NAV -->
   <header class="topbar">
     <div class="container">
       <nav class="primary" aria-label="Primary">
@@ -194,91 +170,78 @@
     <!-- GALLERY GRID -->
     <section aria-label="Friend portrait gallery">
       <div class="gallery-grid" id="friend-grid">
-        <!-- Thumbnails (tall 4:5 like family page) -->
-        <a class="tile" href="/pictures/friendPortraitGal/E26A1852.jpg"><img src="/pictures/friendPortraitGal/E26A1852.jpg" alt="Friend portraits image 1"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg" alt="Friend portraits image 2"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg" alt="Friend portraits image 3"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg" alt="Friend portraits image 4"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg" alt="Friend portraits image 5"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg" alt="Friend portraits image 6"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg" alt="Friend portraits image 7"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg"><img src="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg" alt="Friend portraits image 8"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg" alt="Friend portraits image 9"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A2047.jpg"><img src="/pictures/friendPortraitGal/E26A2047.jpg" alt="Friend portraits image 10"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg" alt="Friend portraits image 11"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A2140.jpg"><img src="/pictures/friendPortraitGal/E26A2140.jpg" alt="Friend portraits image 12"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A2161.jpg"><img src="/pictures/friendPortraitGal/E26A2161.jpg" alt="Friend portraits image 13"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg" alt="Friend portraits image 14"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A2237.jpg"><img src="/pictures/friendPortraitGal/E26A2237.jpg" alt="Friend portraits image 15"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg" alt="Friend portraits image 16"></a>
-        <a class="tile" href="/pictures/friendPortraitGal/E26A2302.jpg"><img src="/pictures/friendPortraitGal/E26A2302.jpg" alt="Friend portraits image 17"></a>
+        <a href="/pictures/friendPortraitGal/E26A1852.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1852.jpg" alt="Friend portraits image 1"></a>
+        <a href="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg" alt="Friend portraits image 2"></a>
+        <a href="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg" alt="Friend portraits image 3"></a>
+        <a href="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg" alt="Friend portraits image 4"></a>
+        <a href="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg" alt="Friend portraits image 5"></a>
+        <a href="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg" alt="Friend portraits image 6"></a>
+        <a href="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg" alt="Friend portraits image 7"></a>
+        <a href="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg" alt="Friend portraits image 8"></a>
+        <a href="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg" alt="Friend portraits image 9"></a>
+        <a href="/pictures/friendPortraitGal/E26A2047.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2047.jpg" alt="Friend portraits image 10"></a>
+        <a href="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg" alt="Friend portraits image 11"></a>
+        <a href="/pictures/friendPortraitGal/E26A2140.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2140.jpg" alt="Friend portraits image 12"></a>
+        <a href="/pictures/friendPortraitGal/E26A2161.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2161.jpg" alt="Friend portraits image 13"></a>
+        <a href="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg" alt="Friend portraits image 14"></a>
+        <a href="/pictures/friendPortraitGal/E26A2237.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2237.jpg" alt="Friend portraits image 15"></a>
+        <a href="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg" alt="Friend portraits image 16"></a>
+        <a href="/pictures/friendPortraitGal/E26A2302.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2302.jpg" alt="Friend portraits image 17"></a>
       </div>
     </section>
   </main>
 
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
-    <button class="lb-btn lb-prev" id="lb-prev" aria-label="Previous image">‹</button>
-    <div class="lightbox__frame">
-      <img class="lightbox__img" id="lightbox-img" alt="">
-    </div>
-    <button class="lb-btn lb-next" id="lb-next" aria-label="Next image">›</button>
-    <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+  <!-- LIGHTBOX (same structure/CSS as family page) -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lb-close" aria-label="Close">✕</button>
+    <button id="lb-prev" aria-label="Previous image">‹</button>
+    <img id="lb-img" alt="" />
+    <button id="lb-next" aria-label="Next image">›</button>
   </div>
 
   <footer class="container-page" style="padding:32px 0; color:#7f7f7f">— S. Miller</footer>
 
   <script>
-    // Lightbox logic (no dependencies)
+    // Lightbox behavior copied to match family-portrait.html
     (function(){
-      const grid = document.getElementById('friend-grid');
-      const links = Array.from(grid.querySelectorAll('a.tile'));
       const lightbox = document.getElementById('lightbox');
-      const img = document.getElementById('lightbox-img');
+      const imgEl = document.getElementById('lb-img');
+      const closeBtn = document.getElementById('lb-close');
       const prevBtn = document.getElementById('lb-prev');
       const nextBtn = document.getElementById('lb-next');
-      const closeBtn = document.getElementById('lb-close');
 
-      const sources = links.map(a => a.getAttribute('href'));
-      let index = 0;
+      const links = Array.from(document.querySelectorAll('#friend-grid a'));
+      let idx = -1;
 
-      function open(i){
-        index = i;
-        img.src = sources[index];
-        img.alt = links[index].querySelector('img')?.alt || 'Gallery image';
-        lightbox.classList.add('is-open');
-        lightbox.setAttribute('aria-hidden','false');
+      function openAt(i){
+        idx = (i + links.length) % links.length;
+        imgEl.src = links[idx].getAttribute('href');
+        lightbox.style.display = 'flex';
         document.body.classList.add('modal-open');
-        nextBtn.focus({preventScroll:true});
       }
-      function close(){
-        lightbox.classList.remove('is-open');
-        lightbox.setAttribute('aria-hidden','true');
+      function closeBox(){
+        lightbox.style.display = 'none';
+        imgEl.removeAttribute('src');
         document.body.classList.remove('modal-open');
       }
-      function prev(){ index = (index - 1 + sources.length) % sources.length; img.src = sources[index]; }
-      function next(){ index = (index + 1) % sources.length; img.src = sources[index]; }
+      function prev(){ openAt(idx - 1); }
+      function next(){ openAt(idx + 1); }
 
-      links.forEach((a,i)=>{
-        a.addEventListener('click', (e)=>{ e.preventDefault(); open(i); }, {passive:false});
-      });
+      links.forEach((a,i)=> a.addEventListener('click', e=>{ e.preventDefault(); openAt(i); }));
+      closeBtn.addEventListener('click', closeBox);
       prevBtn.addEventListener('click', prev);
       nextBtn.addEventListener('click', next);
-      closeBtn.addEventListener('click', close);
 
-      // Keyboard controls
-      window.addEventListener('keydown', (e)=>{
-        if(!lightbox.classList.contains('is-open')) return;
-        if(e.key === 'Escape') close();
+      // keyboard controls
+      window.addEventListener('keydown', e=>{
+        if(lightbox.style.display !== 'flex') return;
+        if(e.key === 'Escape') closeBox();
         if(e.key === 'ArrowLeft') prev();
         if(e.key === 'ArrowRight') next();
       });
 
-      // Click outside the white frame to close
-      lightbox.addEventListener('click', (e)=>{
-        const frame = document.querySelector('.lightbox__frame');
-        if(!frame.contains(e.target) && !e.target.classList.contains('lb-btn')) close();
-      });
+      // click outside to close
+      lightbox.addEventListener('click', e=>{ if(e.target === lightbox) closeBox(); });
     })();
   </script>
 </body>
