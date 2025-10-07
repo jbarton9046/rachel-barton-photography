@@ -38,6 +38,7 @@
       --ink:#3e3e3a;
       --muted:#7a766e;
       --accent:#A88A5A;
+      --accent-2:#E8DFC9;
       --line:#e9e6df;
       --ring: rgba(168,138,90,.25);
       --shadow: 0 10px 30px rgba(0,0,0,.08);
@@ -54,105 +55,115 @@
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
     img{max-width:100%; height:auto; display:block}
 
-    /* NAV — duplicated to match index.html */
+    /* ===== NAV (matches index.html) ===== */
     .topbar{
       position:sticky; top:0; z-index:50;
       background:rgba(250,250,248,.85);
       backdrop-filter:saturate(1.05) blur(6px);
       border-bottom:1px solid var(--line);
     }
-    .topbar .wrap{max-width:var(--maxw); margin:0 auto; padding:12px var(--gap); display:flex; align-items:center; justify-content:center}
-    nav.primary ul{display:flex; gap:34px; list-style:none; margin:0; padding:0}
+    .topbar .container{max-width:var(--maxw); margin:0 auto; padding:16px var(--gap); display:flex; align-items:center; justify-content:center}
+    nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
     nav.primary li{ position:relative; }
     nav.primary a{
       font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-weight:500; font-size:clamp(16px,1.8vw,20px); letter-spacing:.02em; padding:4px 2px;
+      font-weight:500;
+      font-size:clamp(16px,1.8vw,20px);
+      letter-spacing:.02em;
       border-bottom:0;
+      padding:4px 2px;
     }
     nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
+    .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
 
-    /* Dropdown matches home: floating serif items, no card/border */
-    .has-sub .dropdown{
-      position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%);
-      background:transparent; border:0; box-shadow:none; padding:0; display:flex; flex-direction:column; gap:8px;
-      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease;
+    /* Dropdown (floating text — same overrides used on index hero) */
+    .has-sub{ position:relative; }
+    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
+    .dropdown{
+      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
+      background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
+      padding:6px 8px; display:flex; flex-direction:column; gap:2px; min-width:220px;
+      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:999; backdrop-filter:saturate(1.05);
     }
-    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown{
-      opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(2px);
+    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
+      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
     }
+    .dropdown li{list-style:none}
     .dropdown a{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700; font-size:clamp(13px,1.65vw,15px); line-height:1.05;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-weight:700;
+      font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; line-height:1.08; padding:2px 6px; color:#3f3a33; border-bottom:0; white-space:nowrap;
+    }
+    /* text-only dropdown look used on index hero */
+    .topbar nav.primary .has-sub > .dropdown{
+      background:transparent !important; border:0 !important; box-shadow:none !important;
+      padding:0 !important; gap:6px !important; min-width:unset !important;
+      left:50% !important; transform:translateX(-50%) !important;
+    }
+    .topbar nav.primary .dropdown a{
+      border-bottom:0 !important; padding:0 !important; background:transparent !important;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
+      font-weight:700 !important; font-size:clamp(13px, 1.65vw, 15px) !important; line-height:1.05 !important;
     }
 
-    /* PAGE HEADER */
-    .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
+    /* ===== PAGE HEADER ===== */
+    .container-page{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
     .page-head{padding:28px 0 10px}
     .page-head h1{font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(30px,4.8vw,54px); line-height:1.08; margin:0 0 6px}
     .lede{color:#6e6a62; margin:0 0 18px}
 
-    /* GALLERY GRID — square tiles */
-    .gallery-grid{display:grid; gap:clamp(10px,1.4vw,16px)}
+    /* ===== GALLERY GRID — match family page: taller (4:5) and a bit larger ===== */
+    .gallery-grid{display:grid; gap:clamp(12px,1.6vw,18px)}
     @media(min-width:640px){ .gallery-grid{ grid-template-columns:repeat(2,1fr);} }
     @media(min-width:980px){ .gallery-grid{ grid-template-columns:repeat(3,1fr);} }
     .tile{
       position:relative; border:1px solid var(--line); background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); overflow:hidden;
-      aspect-ratio:1/1; /* SQUARE */
+      aspect-ratio:4/5;   /* TALLER like family portraits */
       cursor:zoom-in;
     }
     .tile img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    /* LIGHTBOX — smaller than before */
+    /* ===== LIGHTBOX — match screenshot: framed on white, modest size, white square controls ===== */
     .lightbox{
       position:fixed; inset:0; background:rgba(20,18,16,.88);
-      display:none; align-items:center; justify-content:center; z-index:100;
-      padding:24px; /* adds breathing room on small screens */
+      display:none; align-items:center; justify-content:center; z-index:100; padding:24px;
     }
     .lightbox.is-open{ display:flex; }
-    .lightbox__inner{
-      position:relative;
-      width:100%;
-      max-width:min(88vw, 1000px);   /* narrower */
-      max-height:78vh;               /* shorter */
-      margin:auto;
+    .lightbox__frame{
+      background:#fff; padding:14px; border:1px solid rgba(0,0,0,.08);
+      box-shadow:0 28px 60px rgba(0,0,0,.45);
+      max-width:min(80vw, 1100px);   /* modest width */
+      max-height:80vh;               /* modest height */
     }
-    .lightbox__img{
-      width:100%; height:100%; object-fit:contain; background:#111;
-      border:1px solid rgba(255,255,255,.08); border-radius:6px;
-      box-shadow:0 18px 36px rgba(0,0,0,.35);
-    }
-    .lightbox__close,
-    .lightbox__prev,
-    .lightbox__next{
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:44px; height:44px; display:grid; place-items:center;
-      border:1px solid rgba(255,255,255,.65); background:transparent; color:#fff; cursor:pointer;
-      box-shadow:0 6px 18px rgba(0,0,0,.45);
-    }
-    .lightbox__close{
-      top:-14px; right:-14px; transform:none;
-      width:40px; height:40px; border-color:rgba(255,255,255,.55)
-    }
-    .lightbox__prev{ left:-56px; }
-    .lightbox__next{ right:-56px; }
-    @media(max-width:1100px){
-      .lightbox__prev{ left:8px;}
-      .lightbox__next{ right:8px;}
-    }
-    .lightbox__close:hover,
-    .lightbox__prev:hover,
-    .lightbox__next:hover{ border-color:var(--accent); color:var(--accent); background:transparent; }
-    .lightbox__scrim{ position:absolute; inset:0; }
+    .lightbox__img{ width:100%; height:100%; object-fit:contain; display:block; background:#111; }
 
-    /* Prevent background scroll when modal open */
+    /* Controls: small white squares with gold chevrons / close */
+    .lb-btn{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:36px; height:36px; display:grid; place-items:center;
+      background:#fff; border:1px solid #e8e5de; color:var(--accent);
+      box-shadow:0 8px 18px rgba(0,0,0,.25); cursor:pointer;
+    }
+    .lb-prev{ left:20px; }
+    .lb-next{ right:20px; }
+    .lb-btn:hover, .lb-btn:focus-visible{ border-color:#d9d2c2; outline:none; }
+
+    .lb-close{
+      position:absolute; top:26px; right:26px;
+      width:32px; height:32px; display:grid; place-items:center;
+      background:#fff; border:1px solid #e8e5de; color:#3f3a33; cursor:pointer;
+      box-shadow:0 8px 18px rgba(0,0,0,.25);
+    }
+    .lb-close:hover, .lb-close:focus-visible{ color:var(--accent); border-color:#d9d2c2; outline:none; }
+
+    /* Prevent background scroll when modal is open */
     body.modal-open{ overflow:hidden; }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- NAV (mirrors index) -->
   <header class="topbar">
-    <div class="wrap">
+    <div class="container">
       <nav class="primary" aria-label="Primary">
         <ul>
           <li><a href="/">Home</a></li>
@@ -174,7 +185,7 @@
     </div>
   </header>
 
-  <main id="content" class="container">
+  <main id="content" class="container-page">
     <section class="page-head" aria-labelledby="friend-title">
       <h1 id="friend-title">Friend Portraits</h1>
       <p class="lede">A selection of friend portrait sessions — candid, joyful, and true-to-life.</p>
@@ -183,7 +194,7 @@
     <!-- GALLERY GRID -->
     <section aria-label="Friend portrait gallery">
       <div class="gallery-grid" id="friend-grid">
-        <!-- Thumbnails (square) -->
+        <!-- Thumbnails (tall 4:5 like family page) -->
         <a class="tile" href="/pictures/friendPortraitGal/E26A1852.jpg"><img src="/pictures/friendPortraitGal/E26A1852.jpg" alt="Friend portraits image 1"></a>
         <a class="tile" href="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg" alt="Friend portraits image 2"></a>
         <a class="tile" href="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg" alt="Friend portraits image 3"></a>
@@ -207,16 +218,15 @@
 
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
-    <div class="lightbox__scrim" data-close></div>
-    <div class="lightbox__inner">
+    <button class="lb-btn lb-prev" id="lb-prev" aria-label="Previous image">‹</button>
+    <div class="lightbox__frame">
       <img class="lightbox__img" id="lightbox-img" alt="">
-      <button class="lightbox__close" aria-label="Close" data-close>&times;</button>
-      <button class="lightbox__prev" aria-label="Previous image" id="lb-prev">&#10094;</button>
-      <button class="lightbox__next" aria-label="Next image" id="lb-next">&#10095;</button>
     </div>
+    <button class="lb-btn lb-next" id="lb-next" aria-label="Next image">›</button>
+    <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
   </div>
 
-  <footer class="container" style="padding:32px 0; color:#7f7f7f">— S. Miller</footer>
+  <footer class="container-page" style="padding:32px 0; color:#7f7f7f">— S. Miller</footer>
 
   <script>
     // Lightbox logic (no dependencies)
@@ -227,7 +237,7 @@
       const img = document.getElementById('lightbox-img');
       const prevBtn = document.getElementById('lb-prev');
       const nextBtn = document.getElementById('lb-next');
-      const closeEls = lightbox.querySelectorAll('[data-close]');
+      const closeBtn = document.getElementById('lb-close');
 
       const sources = links.map(a => a.getAttribute('href'));
       let index = 0;
@@ -250,17 +260,13 @@
       function next(){ index = (index + 1) % sources.length; img.src = sources[index]; }
 
       links.forEach((a,i)=>{
-        a.addEventListener('click', (e)=>{
-          e.preventDefault();
-          open(i);
-        }, {passive:false});
+        a.addEventListener('click', (e)=>{ e.preventDefault(); open(i); }, {passive:false});
       });
-
       prevBtn.addEventListener('click', prev);
       nextBtn.addEventListener('click', next);
-      closeEls.forEach(el => el.addEventListener('click', close));
+      closeBtn.addEventListener('click', close);
 
-      // Keyboard
+      // Keyboard controls
       window.addEventListener('keydown', (e)=>{
         if(!lightbox.classList.contains('is-open')) return;
         if(e.key === 'Escape') close();
@@ -268,13 +274,11 @@
         if(e.key === 'ArrowRight') next();
       });
 
-      // Make overlay itself clickable to close
+      // Click outside the white frame to close
       lightbox.addEventListener('click', (e)=>{
-        if(e.target.hasAttribute('data-close')) close();
+        const frame = document.querySelector('.lightbox__frame');
+        if(!frame.contains(e.target) && !e.target.classList.contains('lb-btn')) close();
       });
-
-      // Focus trap entry
-      lightbox.setAttribute('tabindex','-1');
     })();
   </script>
 </body>
