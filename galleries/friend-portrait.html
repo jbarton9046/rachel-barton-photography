@@ -45,13 +45,20 @@
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
     img{max-width:100%; height:auto; display:block; border:1px solid var(--frame); box-shadow:0 6px 18px rgba(0,0,0,.06)}
 
+    /* shared container (so footer lines up with the grid) */
+    .container{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:0 var(--gap);
+    }
+
     /* ===== NAV (no bottom line) ===== */
     .topbar{
       position:sticky; top:0; z-index:50;
       background:rgba(250,250,248,.85);
       backdrop-filter:saturate(1.05) blur(6px);
     }
-    .topbar .container{max-width:var(--maxw); margin:0 auto; padding:16px var(--gap); display:flex; align-items:center; justify-content:center}
+    .topbar .container{display:flex; align-items:center; justify-content:center; padding:16px var(--gap)}
     nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
     nav.primary li{ position:relative; }
     nav.primary a{
@@ -61,27 +68,34 @@
     nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
     .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
 
-    /* ===== TEXT-ONLY DROPDOWN — compact like your screenshot ===== */
+    /* ===== TEXT-ONLY DROPDOWN — tightened ===== */
     .has-sub{ position:relative; }
-    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; }
+    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:8px; }
     .dropdown{
-      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%,0);
+      position:absolute;
+      top:calc(100% + 2px);           /* closer to the label */
+      left:50%; transform:translate(-50%,0);
       background:transparent; border:0; box-shadow:none;
-      padding:0; display:flex; flex-direction:column; gap:0;          /* zero gap between items */
+      display:flex; flex-direction:column;
+      gap:0;                           /* no gap between items */
+      margin:0; padding:0;             /* remove UL defaults */
       min-width:unset;
-      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:999;
+      list-style:none;
+      opacity:0; visibility:hidden; pointer-events:none;
+      transition:opacity .15s ease, transform .15s ease; z-index:999;
     }
     .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
       opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
     }
-    .dropdown li{list-style:none; margin:0;}
+    .dropdown li{margin:0; padding:0}
     .dropdown a{
       display:block;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
       font-weight:700 !important;
-      font-size:clamp(13px,1.45vw,15px) !important;                  /* compact size */
-      line-height:1.0 !important;                                     /* tight vertical rhythm */
-      padding:0 !important; margin:2px 0 !important;                  /* tiny margins only */
+      font-size:clamp(13px,1.35vw,15px) !important;
+      line-height:1.0 !important;      /* tight vertical rhythm */
+      padding:0 !important;
+      margin:0 !important;
       background:transparent !important; border:0 !important; white-space:nowrap;
     }
 
@@ -113,7 +127,7 @@
     #lb-close:focus-visible,#lb-prev:focus-visible,#lb-next:focus-visible{ outline:none; border-color:#fff; background:rgba(255,255,255,.12); }
     body.modal-open{ overflow:hidden; }
 
-    /* ===== FOOTER (exact layout; no dividing line) ===== */
+    /* ===== FOOTER (constrained like the grid) ===== */
     footer{border-top:0; padding:28px 0; color:#7f7f7f}
   </style>
 </head>
@@ -181,7 +195,7 @@
     <button id="lb-next" aria-label="Next image">›</button>
   </div>
 
-  <!-- FOOTER (exact layout; no dividing line) -->
+  <!-- FOOTER (now aligned with grid edges) -->
   <footer>
     <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
       <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
