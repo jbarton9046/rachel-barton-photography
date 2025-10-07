@@ -9,13 +9,14 @@
   <meta name="description" content="Friend portrait sessions — candid, joyful, true-to-life." />
   <link rel="canonical" href="https://rachelsphotography.netlify.app/galleries/friend-portrait.html" />
 
-  <!-- Open Graph / Twitter -->
+  <!-- Social share -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Rachel Barton Photography" />
   <meta property="og:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
   <meta property="og:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
   <meta property="og:url" content="https://rachelsphotography.netlify.app/galleries/friend-portrait.html" />
   <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
+  <meta property="og:image:secure_url" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -44,8 +45,12 @@
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
     img{max-width:100%; height:auto; display:block; border:1px solid var(--frame); box-shadow:0 6px 18px rgba(0,0,0,.06)}
 
-    /* Shared container so nav/grid/footer align */
-    .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap); }
+    /* shared container (so footer lines up with the grid) */
+    .container{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:0 var(--gap);
+    }
 
     /* ===== NAV ===== */
     .topbar{
@@ -63,30 +68,34 @@
     nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
     .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
 
-    /* ===== Dropdown — ultra compact ===== */
+    /* ===== TEXT-ONLY DROPDOWN — packed tightly (to match your screenshot/family page) ===== */
     .has-sub{ position:relative; }
-    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:6px; }
+    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:6px; } /* tiny hover buffer */
     .dropdown{
-      position:absolute; top:calc(100% + 1px); left:50%; transform:translate(-50%,0);
+      position:absolute;
+      top:calc(100% + 1px);            /* very close to "Galleries" label */
+      left:50%; transform:translate(-50%,0);
       background:transparent; border:0; box-shadow:none;
       display:flex; flex-direction:column;
-      gap:0; margin:0; padding:0; list-style:none;
+      gap:0;                           /* zero gap between items */
+      margin:0; padding:0;             /* remove UL defaults */
       min-width:unset;
+      list-style:none;
       opacity:0; visibility:hidden; pointer-events:none;
       transition:opacity .15s ease, transform .15s ease; z-index:999;
     }
     .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
       opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
     }
-    .dropdown li{margin:0; padding:0}
+    .dropdown li{margin:0; padding:0; list-style:none}
     .dropdown a{
       display:block;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
       font-weight:700 !important;
-      font-size:clamp(13px,1.30vw,15px) !important;
-      line-height:1.0 !important;   /* tight */
+      font-size:clamp(13px,1.3vw,15px) !important;
+      line-height:1.0 !important;      /* tight vertical rhythm */
       padding:0 !important;
-      margin:0 !important;
+      margin:0 !important;             /* no extra space between links */
       background:transparent !important; border:0 !important; white-space:nowrap;
     }
 
@@ -100,7 +109,7 @@
     .lede{color:#6e6a62; margin:0 0 18px}
 
     /* ===== GALLERY GRID ===== */
-    .gallery-grid{display:grid; gap:clamp(10px,1.6vw,16px)}
+    .gallery-grid{display:grid; gap:clamp(10px,1.6vw,16px); margin-bottom:32px;} /* polished space before divider */
     @media(min-width:640px){ .gallery-grid{ grid-template-columns:repeat(2,1fr);} }
     @media(min-width:980px){ .gallery-grid{ grid-template-columns:repeat(3,1fr);} }
     .gallery-grid a{ display:block }
@@ -118,12 +127,11 @@
     #lb-close:focus-visible,#lb-prev:focus-visible,#lb-next:focus-visible{ outline:none; border-color:#fff; background:rgba(255,255,255,.12); }
     body.modal-open{ overflow:hidden; }
 
-    /* ===== FOOTER (match screenshot: thin divider + constrained content) ===== */
+    /* ===== FOOTER (aligned to grid + divider line) ===== */
     footer{
-      border-top:1px solid var(--line);   /* divider line restored */
-      padding:28px 0;
+      border-top:1px solid var(--line);   /* divider line back on */
+      padding:24px 0 32px;               /* comfortable space above/below like other gallery */
       color:#7f7f7f;
-      background:transparent;
     }
   </style>
 </head>
@@ -191,7 +199,7 @@
     <button id="lb-next" aria-label="Next image">›</button>
   </div>
 
-  <!-- FOOTER (divider + aligned to grid) -->
+  <!-- FOOTER (aligned with grid + divider) -->
   <footer>
     <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
       <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
