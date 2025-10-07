@@ -5,11 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Friend Portraits | Rachel Barton Photography</title>
 
-  <!-- Primary SEO -->
+  <!-- SEO -->
   <meta name="description" content="Friend portrait sessions — candid, joyful, true-to-life." />
   <link rel="canonical" href="https://rachelsphotography.netlify.app/galleries/friend-portrait.html" />
-
-  <!-- Social share -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Rachel Barton Photography" />
   <meta property="og:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
@@ -20,125 +18,52 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts (same as layout.html) -->
+  <!-- Fonts (same as layout) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Shared layout styles (nav/footer) -->
+  <link rel="stylesheet" href="/assets/layout.css">
+
+  <!-- Page-specific styles only -->
   <style>
-    :root{
-      --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#7a766e;
-      --accent:#A88A5A; --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
-      --gap:clamp(16px,3vw,32px); --maxw:1200px;
-    }
+    :root{ --bg:#FAFAF8; --ink:#3e3e3a; --line:#e9e6df; --gap:clamp(16px,3vw,32px); --maxw:1200px; --frame:#ecebea }
     *{box-sizing:border-box}
-    html,body{
-      margin:0; background:var(--bg); color:var(--ink);
-      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-      line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-    }
-    a{color:inherit; text-decoration:none; transition:color .15s ease}
-    a:hover,a:focus-visible{color:var(--accent); outline:none}
-    img{max-width:100%; height:auto; display:block; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
-    .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
-
-    /* ===== Topbar (NOT sticky) ===== */
-    .topbar{
-      position:relative;
-      display:flex; align-items:center; justify-content:center;
-      padding:16px var(--gap); z-index:10; background:transparent;
-    }
-    .brand{display:none}
-    nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
-    nav.primary li{position:relative}
-    nav.primary a{
-      font-family:"Raleway",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      font-weight:500; font-size:clamp(16px,1.8vw,20px); letter-spacing:.02em; border-bottom:0; padding:4px 2px
-    }
-    nav.primary a:hover,nav.primary a:focus-visible{color:var(--accent); border-bottom:0}
-    .has-sub:hover> a,.has-sub:focus-within> a{color:var(--accent)}
-
-    /* ===== Dropdown: vertical & RELAXED (match layout) ===== */
-    .has-sub{position:relative}
-    .has-sub::after{content:""; position:absolute; left:-8px; right:-8px; top:100%; height:10px; background:transparent}
-    .dropdown{
-      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%,0);
-      background:transparent; border:0; box-shadow:none;
-      display:flex; flex-direction:column; gap:12px; margin:0; padding:0; list-style:none; min-width:unset;
-      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:999;
-    }
-    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
-      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
-    }
-    .dropdown li{margin:0; padding:0; list-style:none}
-    .dropdown a{
-      display:block;
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
-      font-weight:700 !important; font-size:clamp(16px,1.9vw,18px) !important;
-      line-height:1.15 !important; padding:0 !important; margin:0 !important; border:0 !important; white-space:nowrap;
-      background:transparent !important;
-    }
-
-    /* ===== Page header ===== */
-    .container-page{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
+    html,body{margin:0;background:var(--bg);color:var(--ink);
+      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65}
+    img{max-width:100%;height:auto;display:block;border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .container-page{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
     .page-head{padding:28px 0 10px}
     .page-head h1{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
-      font-weight:700; font-size:clamp(30px,4.8vw,54px); line-height:1.08; margin:0 0 6px
-    }
-    .lede{color:#6e6a62; margin:0 0 18px}
+      font-weight:700;font-size:clamp(30px,4.8vw,54px);line-height:1.08;margin:0 0 6px}
+    .lede{color:#6e6a62;margin:0 0 18px}
 
-    /* ===== Gallery grid ===== */
-    .gallery-grid{display:grid; gap:clamp(10px,1.6vw,16px); margin-bottom:32px;}
-    @media (min-width:640px){ .gallery-grid{ grid-template-columns:repeat(2,1fr);} }
-    @media (min-width:980px){ .gallery-grid{ grid-template-columns:repeat(3,1fr);} }
-    .gallery-grid a{ display:block }
-    .gallery-grid img{ width:100%; aspect-ratio:4/5; object-fit:cover }
+    /* Gallery */
+    .gallery-grid{display:grid;gap:clamp(10px,1.6vw,16px);margin-bottom:32px}
+    @media (min-width:640px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (min-width:980px){.gallery-grid{grid-template-columns:repeat(3,1fr)}}
+    .gallery-grid img{width:100%;aspect-ratio:4/5;object-fit:cover}
 
-    /* ===== Lightbox ===== */
-    #lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.88); display:none; align-items:center; justify-content:center; z-index:1200; }
-    #lightbox img{ max-width:92vw; max-height:88vh; border:1px solid #ecebea; box-shadow:0 12px 50px rgba(0,0,0,.5); background:#111; }
+    /* Lightbox */
+    #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:1200}
+    #lightbox img{max-width:92vw;max-height:88vh;border:1px solid var(--frame);box-shadow:0 12px 50px rgba(0,0,0,.5);background:#111}
     #lb-close,#lb-prev,#lb-next{
-      position:absolute; border:1px solid rgba(255,255,255,.65); background:transparent; color:#fff; cursor:pointer;
-      width:40px; height:40px; display:grid; place-items:center; box-shadow:0 8px 22px rgba(0,0,0,.35); text-shadow:0 1px 2px rgba(0,0,0,.4);
-    }
-    #lb-close{ top:18px; right:18px } #lb-prev{ left:18px; top:50%; transform:translateY(-50%) } #lb-next{ right:18px; top:50%; transform:translateY(-50%) }
+      position:absolute;border:1px solid rgba(255,255,255,.65);background:transparent;color:#fff;cursor:pointer;
+      width:40px;height:40px;display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,0,0,.35)}
+    #lb-close{top:18px;right:18px}#lb-prev{left:18px;top:50%;transform:translateY(-50%)}#lb-next{right:18px;top:50%;transform:translateY(-50%)}
     #lb-close:hover,#lb-prev:hover,#lb-next:hover,
-    #lb-close:focus-visible,#lb-prev:focus-visible,#lb-next:focus-visible{ outline:none; border-color:#fff; background:rgba(255,255,255,.12); }
-    body.modal-open{ overflow:hidden; }
-
-    /* ===== Footer ===== */
-    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px}
-    footer .container{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
-    @media (max-width:720px){footer .container{justify-content:center; text-align:center}}
+    #lb-close:focus-visible,#lb-prev:focus-visible,#lb-next:focus-visible{outline:none;border-color:#fff;background:rgba(255,255,255,.12)}
+    body.modal-open{overflow:hidden}
   </style>
 </head>
 <body>
 
-  <!-- Global nav -->
-  <div class="topbar container">
-    <div class="brand"></div>
-    <nav class="primary" aria-label="Primary">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about.html">Meet Rachel</a></li>
-        <li class="has-sub">
-          <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
-          <ul class="dropdown" aria-label="Galleries submenu">
-            <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
-            <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
-            <li><a href="/galleries/friend-portrait.html" aria-current="page">Friend Portraits</a></li>
-          </ul>
-        </li>
-        <li><a href="/#reviews">Testimonials</a></li>
-        <li><a href="/faq.html">FAQ</a></li>
-        <li><a href="/#contact">Contact</a></li>
-        <li><a href="/#book">Book</a></li>
-      </ul>
-    </nav>
-  </div>
+  <!-- Shared Top Nav (injected) -->
+  <div data-include="/partials/topnav.html"></div>
 
   <main id="content" class="container-page">
     <section class="page-head" aria-labelledby="friend-title">
@@ -146,7 +71,6 @@
       <p class="lede">A selection of friend portrait sessions — candid, joyful, and true-to-life.</p>
     </section>
 
-    <!-- GALLERY GRID -->
     <section aria-label="Friend portrait gallery">
       <div class="gallery-grid" id="friend-grid">
         <a href="/pictures/friendPortraitGal/E26A1852.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1852.jpg" alt="Friend portraits image 1"></a>
@@ -170,26 +94,25 @@
     </section>
   </main>
 
-  <!-- LIGHTBOX -->
-  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-    <button id="lb-close" aria-label="Close">✕</button>
-    <button id="lb-prev" aria-label="Previous image">‹</button>
-    <img id="lb-img" alt="" />
-    <button id="lb-next" aria-label="Next image">›</button>
-  </div>
+  <!-- Shared Footer (injected) -->
+  <div data-include="/partials/footer.html"></div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
-      <div><a href="mailto:rachelbartonphotography@gmail.com">rachelbartonphotography@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></div>
-    </div>
-  </footer>
+  <!-- Include helper (pulls in partials) -->
+  <script src="/assets/include.js"></script>
 
+  <!-- Lightbox -->
   <script>
-    // Lightbox
     (function(){
       const lightbox = document.getElementById('lightbox');
+      if (!lightbox) {
+        // Inject lightbox container once (safe if nav/footer partials don’t include it)
+        const lb = document.createElement('div');
+        lb.id = 'lightbox';
+        lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true'); lb.setAttribute('aria-label','Image viewer');
+        lb.innerHTML = '<button id="lb-close" aria-label="Close">✕</button><button id="lb-prev" aria-label="Previous image">‹</button><img id="lb-img" alt=""/><button id="lb-next" aria-label="Next image">›</button>';
+        document.body.appendChild(lb);
+      }
+      const lx = document.getElementById('lightbox');
       const imgEl = document.getElementById('lb-img');
       const closeBtn = document.getElementById('lb-close');
       const prevBtn = document.getElementById('lb-prev');
@@ -201,14 +124,10 @@
       function openAt(i){
         idx = (i + links.length) % links.length;
         imgEl.src = links[idx].getAttribute('href');
-        lightbox.style.display = 'flex';
+        lx.style.display = 'flex';
         document.body.classList.add('modal-open');
       }
-      function closeBox(){
-        lightbox.style.display = 'none';
-        imgEl.removeAttribute('src');
-        document.body.classList.remove('modal-open');
-      }
+      function closeBox(){ lx.style.display='none'; imgEl.removeAttribute('src'); document.body.classList.remove('modal-open'); }
       function prev(){ openAt(idx - 1); }
       function next(){ openAt(idx + 1); }
 
@@ -216,19 +135,9 @@
       closeBtn.addEventListener('click', closeBox);
       prevBtn.addEventListener('click', prev);
       nextBtn.addEventListener('click', next);
-
-      window.addEventListener('keydown', e=>{
-        if(lightbox.style.display !== 'flex') return;
-        if(e.key === 'Escape') closeBox();
-        if(e.key === 'ArrowLeft') prev();
-        if(e.key === 'ArrowRight') next();
-      });
-
-      lightbox.addEventListener('click', e=>{ if(e.target === lightbox) closeBox(); });
+      window.addEventListener('keydown', e=>{ if(lx.style.display!=='flex') return; if(e.key==='Escape') closeBox(); if(e.key==='ArrowLeft') prev(); if(e.key==='ArrowRight') next(); });
+      lx.addEventListener('click', e=>{ if(e.target===lx) closeBox(); });
     })();
-
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
