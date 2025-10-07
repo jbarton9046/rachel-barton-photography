@@ -95,6 +95,7 @@
       font-size:clamp(13px, 1.65vw, 15px) !important;
       line-height:1.05 !important;
       padding:0 !important; background:transparent !important; border-bottom:0 !important;
+      white-space:nowrap;                 /* prevent two-line items like on index */
     }
 
     /* ===== PAGE HEADER ===== */
@@ -144,7 +145,8 @@
 
     body.modal-open{ overflow:hidden; }
 
-    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f}
+    /* Footer (remove the dividing line) */
+    footer{border-top:0; padding:28px 0; color:#7f7f7f}
   </style>
 </head>
 <body>
@@ -211,7 +213,7 @@
     <button id="lb-next" aria-label="Next image">›</button>
   </div>
 
-  <!-- FOOTER (matches index.html) -->
+  <!-- FOOTER (matches index.html layout; no dividing line) -->
   <footer>
     <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
       <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
