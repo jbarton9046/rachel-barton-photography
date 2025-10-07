@@ -135,8 +135,10 @@
       font-weight:700; text-decoration:none; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
       transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
+    /* Hover should NOT change the background color */
     .btn:hover, .btn:focus-visible{
-      background:#f9f6ef; border-color:#dcd4c3; color:var(--accent);
+      background:#fff; /* keep the same as default */
+      border-color:#dcd4c3; color:var(--accent);
       box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
       outline:none;
     }
@@ -188,7 +190,7 @@
             <li><a href="/galleries/friend-portrait.html">Friend Portraits</a></li>
           </ul>
         </li>
-        <li><a href="/#reviews">Testimonials</a></li>
+        <li><a href="/testimonials.html">Testimonials</a></li>
         <li><a href="/faq.html">FAQ</a></li>
         <li><a href="/#contact">Contact</a></li>
         <li><a href="/#book">Book</a></li>
