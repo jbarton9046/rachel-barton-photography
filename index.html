@@ -100,7 +100,6 @@
     /* Dropdown (floating text—matches galleries.html, hero-friendly) */
     .has-sub{ position:relative; }
     .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
-    /* Base dropdown look */
     .dropdown{
       position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
       background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
@@ -128,7 +127,7 @@
       font-weight:700 !important; font-size:clamp(13px, 1.65vw, 15px) !important; line-height:1.05 !important;
     }
 
-    /* Hero copy card (the “Welcome to” table) — restored as-is */
+    /* Hero copy card (the “Welcome to” table) */
     .hero .copy{
       position:relative; z-index:1;
       display:inline-block;
@@ -151,6 +150,8 @@
     }
 
     .cta{display:flex; gap:22px; margin-top:16px; flex-wrap:wrap; justify-content:center}
+    /* More space above & below the hero CTA button */
+    .hero .cta { margin: 24px 0 22px; }
 
     /* Button */
     .btn{
