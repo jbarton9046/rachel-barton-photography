@@ -31,9 +31,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Preload hero image -->
-  <link rel="preload" as="image" href="pictures/heroImage.jpg">
-
   <style>
     :root{
       --bg:#FAFAF8;
@@ -43,11 +40,8 @@
       --accent:#A88A5A;
       --accent-2:#E8DFC9;
       --line:#e9e6df;
-      --butter-bar: rgba(255,248,238,0.92);
-      --butter-stroke: rgba(0,0,0,0.04);
       --ring: rgba(168,138,90,.25);
       --shadow: 0 10px 30px rgba(0,0,0,.08);
-      --radius:0;
       --gap:clamp(16px,3vw,32px);
       --maxw:1200px;
     }
@@ -59,505 +53,206 @@
     }
     a{color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
-    img{max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
-    .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
+    img{max-width:100%; height:auto; display:block}
 
-    /* HERO */
-    .hero{
-      position:relative;
-      min-height:100svh;
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      align-items:center;
-      background:url('pictures/oonaIvy/E26A0671.jpg') center 15%/cover no-repeat;
-      width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
-    }
-    .hero::after{ content:none; }
-
-    /* Top bar – brand hidden, centered nav */
+    /* NAV — mirrors index */
     .topbar{
-      position:absolute; left:0; right:0; top:0;
-      display:flex; align-items:center; justify-content:center;
-      padding:16px var(--gap); z-index:2;
+      position:sticky; top:0; z-index:50;
+      background:rgba(250,250,248,.85);
+      backdrop-filter:saturate(1.05) blur(6px);
+      border-bottom:1px solid var(--line);
     }
-    .brand{display:none}
+    .topbar .wrap{max-width:var(--maxw); margin:0 auto; padding:10px var(--gap); display:flex; align-items:center; justify-content:center}
     nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
     nav.primary li{ position:relative; }
     nav.primary a{
       font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-weight:500;
-      font-size:clamp(16px,1.8vw,20px);
-      letter-spacing:.02em;
-      border-bottom:0;            /* no underline */
-      padding:4px 2px;
+      font-weight:500; font-size:clamp(16px,1.8vw,20px); letter-spacing:.02em; padding:4px 2px;
+      border-bottom:0;
     }
-    nav.primary a:hover, nav.primary a:focus-visible{
-      color:var(--accent);
-      border-bottom:0;            /* keep no underline on hover */
+    nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
+    .has-sub .dropdown{
+      position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%);
+      background:transparent; border:0; box-shadow:none; padding:0; display:flex; flex-direction:column; gap:6px;
+      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease;
     }
+    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown{ opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(2px); }
+    .dropdown a{ font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-weight:700; font-size:clamp(13px,1.65vw,15px); line-height:1.05; }
 
-    /* Base dropdown (will be overridden below for “floating text”) */
-    .has-sub{ position:relative; }
-    .has-sub::after{
-      content:"";
-      position:absolute;
-      left:-8px; right:-8px;
-      top:100%;
-      height:12px;
-      background:transparent;
-    }
-    .dropdown{
-      position:absolute;
-      top:calc(100% + 6px);
-      left:50%;
-      transform:translate(-50%, 0);
-      background:rgba(255,255,255,.65);
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
-      padding:6px 8px;
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-      min-width:220px;
-      opacity:0; visibility:hidden; pointer-events:none;
-      transition:opacity .15s ease, transform .15s ease;
-      z-index:3;
-      backdrop-filter:saturate(1.05);
-    }
-    .has-sub:hover .dropdown,
-    .has-sub:focus-within .dropdown,
-    .dropdown:hover{
-      opacity:1; visibility:visible; pointer-events:auto;
-      transform:translate(-50%, 2px);
-    }
-    .dropdown li{list-style:none}
-    .dropdown a{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700;
-      font-size:clamp(18px,2.2vw,20px);
-      letter-spacing:.02em;
-      line-height:1.1;
-      padding:2px 6px;
-      color:#3f3a33;
-      border-bottom:0;            /* no underline */
-      white-space:nowrap;
-    }
-    .dropdown a:hover, .dropdown a:focus-visible{
-      background:transparent;
-      border-bottom:0;            /* keep no underline */
-      color:var(--accent);
-      outline:none;
-    }
+    /* PAGE HEADER */
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
+    .page-head{padding:28px 0 10px}
+    .page-head h1{font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(30px,4.8vw,54px); line-height:1.08; margin:0 0 4px}
+    .lede{color:#6e6a62; margin:0 0 18px}
 
-    /* Hero copy card */
-    .hero .copy{
-      position:relative; z-index:1;
-      display:inline-block;
-      background:rgba(255,255,255,.65);
-      border:1px solid var(--line);
-      padding:24px 28px;
-      width:fit-content;
-      max-width:min(92vw, 900px);
-      margin:0;
-      box-shadow:var(--shadow);
-      text-align:center;
-      grid-column:2;
-      justify-self:center;
+    /* GALLERY GRID — square tiles */
+    .gallery-grid{display:grid; gap:clamp(10px,1.4vw,16px)}
+    @media(min-width:640px){ .gallery-grid{ grid-template-columns:repeat(2,1fr);} }
+    @media(min-width:980px){ .gallery-grid{ grid-template-columns:repeat(3,1fr);} }
+    .tile{
+      position:relative; border:1px solid var(--line); background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); overflow:hidden;
+      aspect-ratio:1/1; /* SQUARE */
+      cursor:zoom-in;
     }
+    .tile img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    .eyebrow{color:#8d7a5c; font-weight:700; letter-spacing:.16em; text-transform:uppercase; font-size:12px; margin-bottom:6px}
-    h1{
-      font-family:"Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
-      font-size:clamp(34px,6vw,60px); line-height:1.1; margin:.25em 0; font-weight:700; color:#3f3a33
+    /* LIGHTBOX */
+    .lightbox{
+      position:fixed; inset:0; background:rgba(20,18,16,.88);
+      display:none; align-items:center; justify-content:center; z-index:100;
     }
-
-    .cta{display:flex; gap:22px; margin-top:16px; flex-wrap:wrap; justify-content:center}
-
-    /* Button: thin black border, tighter padding; no underline ever */
-    .btn{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      background:transparent;
-      border:1px solid rgba(0,0,0,.85);
-      padding:3px 8px;            /* tighter so it hugs text */
-      color:#3f3a33;
-      font-weight:700;
-      cursor:pointer;
-      border-radius:0;
+    .lightbox.is-open{ display:flex; }
+    .lightbox__inner{ position:relative; max-width:min(94vw, 1200px); max-height:88vh; width:100%; }
+    .lightbox__img{ width:100%; height:100%; object-fit:contain; background:#111; border:1px solid rgba(255,255,255,.08) }
+    .lightbox__close,
+    .lightbox__prev,
+    .lightbox__next{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:48px; height:48px; display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.65); background:transparent; color:#fff; cursor:pointer;
+      box-shadow:0 6px 18px rgba(0,0,0,.45);
     }
-    .hero .btn{ font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; }
-    .hero .btn:hover, .hero .btn:focus-visible{
-      color:var(--accent);
-      border-color:var(--accent); /* hover border matches gold text */
-      outline:none;
+    .lightbox__close{ top:12px; right:12px; transform:none; width:44px; height:44px; border-color:rgba(255,255,255,.55) }
+    .lightbox__prev{ left:-64px; }
+    .lightbox__next{ right:-64px; }
+    @media(max-width:900px){
+      .lightbox__prev{ left:8px;}
+      .lightbox__next{ right:8px;}
     }
+    .lightbox__close:hover,
+    .lightbox__prev:hover,
+    .lightbox__next:hover{ border-color:var(--accent); color:var(--accent); background:transparent; }
+    .lightbox__scrim{ position:absolute; inset:0; }
 
-    .localities{color:#5c5850; margin-top:6px; line-height:1.75}
-    .localities .dot::after{content:" • "; color:#8a857a}
-    .localities .dot:last-child::after{content:""}
-
-    .scallop{
-      --h:18px; position:relative; height:var(--h);
-      background:var(--butter-bar); border-bottom:1px solid var(--butter-stroke);
-    }
-    .scallop::after{
-      content:""; position:absolute; left:0; right:0; bottom:-1px; height:var(--h);
-      background:radial-gradient(var(--h) at 50% 0, var(--bg) 98%, transparent 100%) center bottom/var(--h) var(--h) repeat-x;
-      pointer-events:none;
-    }
-
-    section{padding:calc(var(--gap)*2) 0}
-    .section-title{
-      font-family:"Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
-      font-size:clamp(24px,3.5vw,38px); margin:0 0 8px
-    }
-    .section-sub{color:#67635b; margin:0 0 22px}
-
-    .features .feature h3{
-      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-      font-weight:700;
-    }
-
-    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
-    .card{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column}
-    .card .body{padding:18px}
-    .meta{color:#7b786f; font-size:14px}
-
-    .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px)}
-    .mosaic figure{margin:0}
-    .mosaic .captioned.notch{position:relative; display:block}
-    .mosaic .notch-figure{display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06)}
-    .mosaic .u-stroke{fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round}
-    .mosaic .notch-box{position:absolute; bottom:0; left:50%; transform:translateX(-50%); display:flex; align-items:center; justify-content:center; pointer-events:none}
-    .mosaic .cap-label{
-      background:var(--accent-2); color:#5b5243; border:1px solid var(--line);
-      padding:8px 14px; font-size:13px; letter-spacing:.08em; font-weight:600; white-space:nowrap; line-height:1.2;
-      pointer-events:auto; transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease
-    }
-    .mosaic .cap-label:hover{background:#e2d7bd; box-shadow:0 6px 18px rgba(0,0,0,.08); transform:translateY(-1px)}
-
-    .features{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
-    .feature{background:var(--paper); padding:18px; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
-    .quotes{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
-    blockquote{background:#fff; border:1px solid var(--line); padding:18px; margin:0; border-radius:0; position:relative; color:#504a42}
-    blockquote:before{content:"“"; font-family:"Fraunces",serif; font-size:48px; color:#d9d3c6; position:absolute; left:12px; top:-10px}
-    blockquote footer{color:#7b786f; font-size:14px; margin-top:8px}
-
-    .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
-    .left-col, .right-col{display:flex; flex-direction:column; gap:var(--gap);}
-    form{background:#fff; padding:18px; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
-    label{display:block; font-weight:600; margin:10px 0 6px; color:#4b463f}
-    input, textarea, select{width:100%; padding:12px 14px; border-radius:0; border:1px solid var(--line); background:#fff; outline:none}
-    input:focus, textarea:focus, select:focus{border-color:#c9b792; box-shadow:0 0 0 4px var(--ring)}
-    textarea{min-height:120px}
-
-    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f}
-
-    @media (max-width:960px){
-      .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr 1fr}
-      .hero{ grid-template-columns:1fr; }
-      .hero .copy{ grid-column:1; justify-self:center; }
-    }
-    @media (max-width:640px){ .cards,.mosaic,.features,.quotes,.contact-grid{grid-template-columns:1fr} }
-
-    main .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33; font-weight:700; text-decoration:none; border-radius:0;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
-    }
-    main .btn:hover, main .btn:focus-visible{
-      background:#f9f6ef; border-color:#dcd4c3; box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); color:var(--accent);
-      outline:none;
-    }
-    main .btn:active{ transform:translateY(0); box-shadow:0 4px 12px rgba(0,0,0,.06); }
-    main button.btn{ appearance:none; -webkit-appearance:none; cursor:pointer; }
-
-    .scheduler-card{position:relative; display:flex; justify-content:center; align-items:flex-start;}
-    .iframe-wrap{position:relative; width:100%; background:#fff;}
-    .iframe-wrap iframe{ display:block; width:100%; border:0; height:0; min-height:650px; overflow:hidden; }
+    /* Hide background scrolling when modal open */
+    body.modal-open{ overflow:hidden; }
   </style>
-
-  <!-- FINAL OVERRIDES: floating dropdown text + spacing; remove underline everywhere -->
-  <style id="dropdown-float-overrides">
-    /* Dropdown floats: strip card/background/borders and add a little spacing */
-    .topbar nav.primary .has-sub > .dropdown{
-      background:transparent !important;
-      border:0 !important;
-      box-shadow:none !important;
-      padding:0 !important;
-      gap:6px !important;                /* a little padding between lines */
-      min-width:unset !important;        /* let width fit the text */
-      left:50% !important;
-      transform:translateX(-50%) !important;
-    }
-    .topbar nav.primary .dropdown a{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
-      font-weight:700 !important;
-      padding:0 !important;              /* text sits cleanly */
-      border-bottom:0 !important;        /* no underline ever */
-      background:transparent !important;
-    }
-    .topbar nav.primary .dropdown a:hover,
-    .topbar nav.primary .dropdown a:focus-visible{
-      border-bottom:0 !important;
-      background:transparent !important;
-      color:var(--accent) !important;
-      outline:none !important;
-    }
-  </style>
-
-  <!-- NEW: 75% size + match “Book a Session” font for dropdown items -->
-  <style id="dropdown-75pct-fontmatch">
-    .topbar nav.primary .dropdown a{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
-      font-weight:700 !important;
-      /* 75% of previous 18–20px → ~13.5–15px */
-      font-size:clamp(13px, 1.65vw, 15px) !important;
-      line-height:1.05 !important;
-    }
-  </style>
-
-  <!-- NEW: small spacing bump above/below Book a Session -->
-  <style id="hero-cta-spacing">
-    .hero .cta{ margin-top:34px; margin-bottom:26px; }
-  </style>
-
-  <!-- Slider arrows (now for ALL three tiles) -->
-  <style id="tile-slider-arrows">
-    /* Floating gold arrows for tile sliders */
-    #gallery-meadow .tile-nav,
-    #gallery-family .tile-nav,
-    #gallery-beach .tile-nav{
-      position:absolute; top:50%; transform:translateY(-50%) scale(.98);
-      background:transparent !important; border:0 !important;
-      width:42px; height:42px; display:grid; place-items:center;
-      color:var(--accent);
-      cursor:pointer; user-select:none; z-index:4;
-      opacity:0; transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease;
-      outline:none;
-    }
-    #gallery-meadow:hover .tile-nav,
-    #gallery-family:hover .tile-nav,
-    #gallery-beach:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
-    #gallery-meadow .tile-prev, #gallery-family .tile-prev, #gallery-beach .tile-prev{ left:10px; }
-    #gallery-meadow .tile-next, #gallery-family .tile-next, #gallery-beach .tile-next{ right:10px; }
-    #gallery-meadow .tile-nav svg,
-    #gallery-family .tile-nav svg,
-    #gallery-beach .tile-nav svg{ width:22px; height:22px; display:block }
-    #gallery-meadow .tile-nav:hover, 
-    #gallery-meadow .tile-nav:focus-visible,
-    #gallery-family .tile-nav:hover, 
-    #gallery-family .tile-nav:focus-visible,
-    #gallery-beach .tile-nav:hover, 
-    #gallery-beach .tile-nav:focus-visible{
-      color:#b79661; box-shadow:0 6px 18px rgba(0,0,0,.18); outline:none;
-    }
-  </style>
-
-  <!-- Pagination dots (gold) default; JS will place them just above the notch -->
-  <style id="tile-slider-dots">
-    #gallery-meadow .tile-dots,
-    #gallery-family .tile-dots,
-    #gallery-beach .tile-dots{
-      position:absolute;
-      left:50%; transform:translateX(-50%);
-      bottom:40px;                 /* baseline; overridden by JS for exact placement */
-      display:flex; gap:8px;
-      z-index:4; pointer-events:auto;
-    }
-    #gallery-meadow .tile-dots button,
-    #gallery-family .tile-dots button,
-    #gallery-beach .tile-dots button{
-      width:8px; height:8px; border-radius:50%;
-      border:1px solid var(--accent);
-      background:transparent;
-      padding:0; cursor:pointer;
-      opacity:.85; transition:transform .15s ease, background-color .15s ease, opacity .15s ease;
-    }
-    #gallery-meadow .tile-dots button:hover,
-    #gallery-meadow .tile-dots button:focus-visible,
-    #gallery-family .tile-dots button:hover,
-    #gallery-family .tile-dots button:focus-visible,
-    #gallery-beach .tile-dots button:hover,
-    #gallery-beach .tile-dots button:focus-visible{
-      outline:none; transform:scale(1.15);
-      opacity:1;
-    }
-    #gallery-meadow .tile-dots button.is-active,
-    #gallery-family .tile-dots button.is-active,
-    #gallery-beach .tile-dots button.is-active{
-      background:var(--accent);
-      opacity:1;
-    }
-  </style>
-
-  <!-- ======== PROFESSIONAL FROSTED DIAMONDS (diamond plate exactly under outline) ======== -->
-  <style id="professional-glass-diamonds">
-  #gallery-meadow .tile-nav,
-  #gallery-family .tile-nav,
-  #gallery-beach  .tile-nav{
-    width:56px; height:56px;
-    background:transparent !important; border:0 !important;
-    padding:0; position:absolute;
-  }
-  /* Frosted diamond plate */
-  #gallery-meadow .tile-nav::before,
-  #gallery-family .tile-nav::before,
-  #gallery-beach  .tile-nav::before{
-    content:""; position:absolute; inset:0; margin:7px;
-    transform:rotate(45deg);
-    background:rgba(255,255,255,.22);
-    -webkit-backdrop-filter:blur(7px) saturate(1.05);
-    backdrop-filter:blur(7px) saturate(1.05);
-    box-shadow:0 6px 18px rgba(0,0,0,.14);
-    z-index:0;
-  }
-  /* Gold outline uses same inset so it sits exactly atop the plate */
-  #gallery-meadow .tile-nav::after,
-  #gallery-family .tile-nav::after,
-  #gallery-beach  .tile-nav::after{
-    content:""; position:absolute; inset:0; margin:7px;
-    transform:rotate(45deg);
-    border:1.5px solid var(--accent);
-    z-index:1; pointer-events:none;
-  }
-  #gallery-meadow .tile-nav svg,
-  #gallery-family .tile-nav svg,
-  #gallery-beach  .tile-nav svg{
-    width:22px; height:22px; z-index:2; position:relative;
-  }
-  #gallery-meadow .tile-nav:hover::before,
-  #gallery-family .tile-nav:hover::before,
-  #gallery-beach  .tile-nav:hover::before,
-  #gallery-meadow .tile-nav:focus-visible::before,
-  #gallery-family .tile-nav:focus-visible::before,
-  #gallery-beach  .tile-nav:focus-visible::before{
-    -webkit-backdrop-filter:blur(8px) saturate(1.08);
-    backdrop-filter:blur(8px) saturate(1.08);
-    box-shadow:0 8px 22px rgba(0,0,0,.16);
-  }
-  #gallery-meadow .tile-nav:hover::after,
-  #gallery-family .tile-nav:hover::after,
-  #gallery-beach  .tile-nav:hover::after,
-  #gallery-meadow .tile-nav:focus-visible::after,
-  #gallery-family .tile-nav:focus-visible::after,
-  #gallery-beach  .tile-nav:focus-visible::after{
-    border-color:#b79661;
-  }
-
-  /* SMALL DOT DIAMONDS (unchanged look) */
-  #gallery-meadow .tile-dots button,
-  #gallery-family .tile-dots button,
-  #gallery-beach  .tile-dots button{
-    position:relative;
-    width:10px; height:10px;
-    transform:rotate(45deg);
-    border:1px solid var(--accent);
-    background:transparent !important;
-    border-radius:0;
-  }
-  #gallery-meadow .tile-dots button::before,
-  #gallery-family .tile-dots button::before,
-  #gallery-beach  .tile-dots button::before{
-    content:""; position:absolute; inset:-2px;
-    background:rgba(255,255,255,.18);
-    -webkit-backdrop-filter:blur(5px) saturate(1.05);
-    backdrop-filter:blur(5px) saturate(1.05);
-    z-index:-1;
-  }
-  #gallery-meadow .tile-dots button.is-active::before,
-  #gallery-family .tile-dots button.is-active::before,
-  #gallery-beach  .tile-dots button.is-active::before{
-    background:rgba(168,138,90,.22);
-  }
-  #gallery-meadow .tile-dots button:hover,
-  #gallery-meadow .tile-dots button:focus-visible,
-  #gallery-family .tile-dots button:hover,
-  #gallery-family .tile-dots button:focus-visible,
-  #gallery-beach  .tile-dots button:hover,
-  #gallery-beach  .tile-dots button:focus-visible{
-    transform:rotate(45deg) scale(1.15);
-  }
-  </style>
-
-  <!-- OPTION 1: Helper bar style under subhead -->
-  <style id="section-help-style">
-    .section-help{
-      margin:10px 0 12px;
-      font-size:13px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:#6e6a62;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:6px 10px;
-      background:#fff;
-      border:1px solid var(--line);
-      box-shadow:0 2px 8px rgba(0,0,0,.04);
-    }
-    .section-help .help-ico{ font-size:12px; opacity:.85 }
-    /* Pull the grid a touch closer to the helper */
-    #portfolio .mosaic{ margin-top:6px; }
-  </style>
-
-<style>
-  .gallery-page { max-width: 1200px; margin: 0 auto; padding: 56px 20px 80px; }
-  .gallery-page h1 { font-family: var(--h-font, 'Playfair Display', serif); font-weight: 600; letter-spacing:.3px; margin: 0 0 14px; }
-  .gallery-page .lede { color: var(--muted-ink, #6e6a62); margin: 0 0 28px; }
-  .gallery-grid { display:grid; grid-template-columns: 1fr; gap: 12px; }
-  @media(min-width:600px){ .gallery-grid{ grid-template-columns: repeat(2, 1fr);} }
-  @media(min-width:980px){ .gallery-grid{ grid-template-columns: repeat(3, 1fr);} }
-  .gallery-grid a { display:block; border-radius: 10px; overflow:hidden; border: 1px solid var(--line,#e8e5de); background:#fff; }
-  .gallery-grid img { width:100%; height:100%; object-fit:cover; display:block; }
-</style>
-
 </head>
 <body>
-  <nav class="primary" aria-label="Primary">
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li class="has-sub">
-        <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
-        <ul class="dropdown" aria-label="Galleries submenu">
-          <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
-          <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
-          <li><a href="/galleries/friend-portrait.html">Friend Portraits</a></li>
-        </ul>
-      </li>
-      <li><a href="/about.html">About</a></li>
-      <li><a href="/testimonials.html">Reviews</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="#book">Book</a></li>
-    </ul>
-  </nav>
-  
-<main id="content">
-  <section class="gallery-page" aria-labelledby="friend-title">
-    <h1 id="friend-title">Friend Portraits</h1>
-    <p class="lede">A selection of friend portrait sessions — candid, joyful, and true-to-life.</p>
-    <div class="gallery-grid">
-      <a href="/pictures/friendPortraitGal/E26A1852.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A1852.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A2047.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A2047.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A2140.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A2140.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A2161.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A2161.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A2237.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A2237.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg" alt="Friend portraits image"></a>
-      <a href="/pictures/friendPortraitGal/E26A2302.jpg" target="_blank" rel="noopener"><img src="/pictures/friendPortraitGal/E26A2302.jpg" alt="Friend portraits image"></a>
-    </div>
-  </section>
-</main>
 
-  <footer>— S. Miller</footer>
+  <!-- NAV -->
+  <header class="topbar">
+    <div class="wrap">
+      <nav class="primary" aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li class="has-sub">
+            <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
+            <ul class="dropdown" aria-label="Galleries submenu">
+              <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
+              <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
+              <li><a href="/galleries/friend-portrait.html">Friend Portraits</a></li>
+            </ul>
+          </li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/testimonials.html">Testimonials</a></li>
+          <li><a href="/#contact">Contact</a></li>
+          <li><a href="/#book">Book</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="container">
+    <section class="page-head" aria-labelledby="friend-title">
+      <h1 id="friend-title">Friend Portraits</h1>
+      <p class="lede">A selection of friend portrait sessions — candid, joyful, and true-to-life.</p>
+    </section>
+
+    <!-- GALLERY GRID -->
+    <section aria-label="Friend portrait gallery">
+      <div class="gallery-grid" id="friend-grid">
+        <!-- Thumbnails (square) -->
+        <a class="tile" href="/pictures/friendPortraitGal/E26A1852.jpg"><img src="/pictures/friendPortraitGal/E26A1852.jpg" alt="Friend portraits image 1"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg" alt="Friend portraits image 2"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg" alt="Friend portraits image 3"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg" alt="Friend portraits image 4"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg" alt="Friend portraits image 5"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg" alt="Friend portraits image 6"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg" alt="Friend portraits image 7"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg"><img src="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg" alt="Friend portraits image 8"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg" alt="Friend portraits image 9"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A2047.jpg"><img src="/pictures/friendPortraitGal/E26A2047.jpg" alt="Friend portraits image 10"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg" alt="Friend portraits image 11"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A2140.jpg"><img src="/pictures/friendPortraitGal/E26A2140.jpg" alt="Friend portraits image 12"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A2161.jpg"><img src="/pictures/friendPortraitGal/E26A2161.jpg" alt="Friend portraits image 13"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg" alt="Friend portraits image 14"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A2237.jpg"><img src="/pictures/friendPortraitGal/E26A2237.jpg" alt="Friend portraits image 15"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg"><img src="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg" alt="Friend portraits image 16"></a>
+        <a class="tile" href="/pictures/friendPortraitGal/E26A2302.jpg"><img src="/pictures/friendPortraitGal/E26A2302.jpg" alt="Friend portraits image 17"></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+    <div class="lightbox__scrim" data-close></div>
+    <div class="lightbox__inner">
+      <img class="lightbox__img" id="lightbox-img" alt="">
+      <button class="lightbox__close" aria-label="Close" data-close>&times;</button>
+      <button class="lightbox__prev" aria-label="Previous image" id="lb-prev">&#10094;</button>
+      <button class="lightbox__next" aria-label="Next image" id="lb-next">&#10095;</button>
+    </div>
+  </div>
+
+  <footer class="container" style="padding:32px 0; color:#7f7f7f">— S. Miller</footer>
+
+  <script>
+    // Lightbox logic (no dependencies)
+    (function(){
+      const grid = document.getElementById('friend-grid');
+      const links = Array.from(grid.querySelectorAll('a.tile'));
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      const prevBtn = document.getElementById('lb-prev');
+      const nextBtn = document.getElementById('lb-next');
+      const closeEls = lightbox.querySelectorAll('[data-close]');
+
+      const sources = links.map(a => a.getAttribute('href'));
+      let index = 0;
+
+      function open(i){
+        index = i;
+        img.src = sources[index];
+        img.alt = links[index].querySelector('img')?.alt || 'Gallery image';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden','false');
+        document.body.classList.add('modal-open');
+        nextBtn.focus({preventScroll:true});
+      }
+      function close(){
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden','true');
+        document.body.classList.remove('modal-open');
+      }
+      function prev(){ index = (index - 1 + sources.length) % sources.length; img.src = sources[index]; }
+      function next(){ index = (index + 1) % sources.length; img.src = sources[index]; }
+
+      links.forEach((a,i)=>{
+        a.addEventListener('click', (e)=>{
+          e.preventDefault();
+          open(i);
+        }, {passive:false});
+      });
+
+      prevBtn.addEventListener('click', prev);
+      nextBtn.addEventListener('click', next);
+      closeEls.forEach(el => el.addEventListener('click', close));
+
+      lightbox.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape') close();
+        if(e.key === 'ArrowLeft') prev();
+        if(e.key === 'ArrowRight') next();
+      });
+
+      // Allow keyboard when focused inside
+      lightbox.addEventListener('transitionend', ()=> {
+        if (lightbox.classList.contains('is-open')) lightbox.focus();
+      });
+
+      // Opened state should trap keys
+      lightbox.setAttribute('tabindex','-1');
+    })();
+  </script>
 </body>
 </html>
