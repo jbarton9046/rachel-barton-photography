@@ -58,48 +58,56 @@
     /* Keep page header snug to dropdown (no shift on hover) */
     .nav-spacer{height:clamp(64px,9vw,90px)}
 
-    header.page{padding:18px 0 8px}
-    h1{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;font-size:clamp(32px,5vw,52px);line-height:1.1;margin:.25em 0 .2em}
-    .lead{color:#635f57;margin:0 0 18px}
-
-    /* ===== Integrated photo inside FAQ grid ===== */
+    /* ===== FAQ layout =====
+       Grid with two columns: left = text/FAQ bars; right = photo.
+       The intro block (title/lead/badge) top-aligns with the photo.
+       A set of FAQ bars sit to the left of the photo; the rest go full-width below. */
     .faq{
       display:grid;
-      grid-template-columns: minmax(0,1fr) minmax(260px, 420px); /* bars + photo column */
+      grid-template-columns:minmax(0,1fr) minmax(260px,420px);
       gap:12px;
       margin:18px 0 40px;
+      align-items:start;
     }
-    /* Photo card that the bars flow around */
+
+    .faq-intro{grid-column:1}
+    .faq-intro h1{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-size:clamp(32px,5vw,52px);line-height:1.1;margin:.25em 0 .2em
+    }
+    .lead{color:#635f57;margin:0 0 18px}
+
     .faq-photo{
-      grid-column:2; grid-row:1 / span 6; align-self:start;
+      grid-column:2; grid-row:1 / span 6; /* lets several bars tuck alongside */
       background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:10px;
+      align-self:start;
     }
     .faq-photo img{aspect-ratio:4/5;object-fit:cover;background:#fff}
     .faq-photo figcaption{margin-top:8px;font-size:13px;color:#6e6a62;text-align:center}
 
-    /* FAQ bars (stay in left column while photo runs) */
-    details{background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:0; grid-column:1;}
-    summary{list-style:none; cursor:pointer; padding:16px 18px; user-select:none; font-weight:700; display:flex; gap:12px; transition:color .15s ease}
+    /* Bars that sit next to the photo */
+    details{background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);padding:0;grid-column:1}
+    summary{list-style:none;cursor:pointer;padding:16px 18px;user-select:none;font-weight:700;display:flex;gap:12px;transition:color .15s ease}
     summary::-webkit-details-marker{display:none}
-    /* Gold hover for questions */
-    summary:hover, summary:focus-visible{ color:var(--accent); outline:none; }
-    .qmark{font-family:"Fraunces",serif; font-size:20px; line-height:1; color:#b7a486; margin-top:2px}
-    .answer{padding:0 18px 16px; color:#4a463f}
+    summary:hover,summary:focus-visible{color:var(--accent);outline:none}
+    .qmark{font-family:"Fraunces",serif;font-size:20px;line-height:1;color:#b7a486;margin-top:2px}
+    .answer{padding:0 18px 16px;color:#4a463f}
     .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;border:1px solid var(--line);padding:10px 16px;box-shadow:0 6px 18px rgba(0,0,0,.06);text-decoration:none}
 
-    /* Full-width block for items that come AFTER the photo */
-    .after-photo{grid-column:1 / -1; display:grid; gap:12px;}
-    .after-photo > details{grid-column:1 / -1;}
+    /* Everything after the image goes full-width */
+    .after-photo{grid-column:1 / -1;display:grid;gap:12px}
+    .after-photo > details{grid-column:1 / -1}
 
     @media (max-width:900px){
       .faq{grid-template-columns:1fr}
-      .faq-photo{grid-column:auto; grid-row:auto; order:4}
+      .faq-photo{grid-column:auto;grid-row:auto;order:3}
+      details{grid-column:auto}
       .after-photo{grid-column:auto}
     }
 
-    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px}
+    footer{border-top:1px solid var(--line);padding:28px 0;color:#7f7f7f;margin-top:32px}
     footer .container{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
-    @media (max-width:720px){ footer .container{justify-content:center; text-align:center} }
+    @media (max-width:720px){footer .container{justify-content:center;text-align:center}}
   </style>
 </head>
 <body>
@@ -129,23 +137,23 @@
 
   <div class="nav-spacer" aria-hidden="true"></div>
 
-  <header class="page">
-    <div class="container">
-      <h1>Frequently Asked Questions</h1>
-      <p class="lead">Quick answers about booking, sessions, styling, weather plans, delivery, and more.</p>
-      <span style="display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6e6a62;background:#fff;border:1px solid var(--line);padding:4px 8px">Updated <span id="year"></span></span>
-    </div>
-  </header>
-
   <main class="container">
     <section class="faq" aria-label="FAQ">
-      <!-- The integrated photo -->
+
+      <!-- Left: Title/lead/badge (top-aligned with the photo) -->
+      <div class="faq-intro">
+        <h1>Frequently Asked Questions</h1>
+        <p class="lead">Quick answers about booking, sessions, styling, weather plans, delivery, and more.</p>
+        <span style="display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6e6a62;background:#fff;border:1px solid var(--line);padding:4px 8px">Updated <span id="year"></span></span>
+      </div>
+
+      <!-- Right: Photo card -->
       <figure class="faq-photo">
         <img src="/pictures/heroImage.jpg" alt="Family at the beach during golden hour">
         <figcaption>Sunset session on Siesta Key</figcaption>
       </figure>
 
-      <!-- FAQ bars (stay left while photo runs) -->
+      <!-- FAQ bars that “butt up” beside the image -->
       <details>
         <summary><span class="qmark">Q</span> How do I book?</summary>
         <div class="answer">
@@ -200,7 +208,7 @@
         </div>
       </details>
 
-      <!-- Everything below the photo spans full width -->
+      <!-- Everything below the image spans the full width -->
       <div class="after-photo">
         <details>
           <summary><span class="qmark">Q</span> How are images delivered?</summary>
