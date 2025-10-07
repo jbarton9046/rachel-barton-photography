@@ -26,9 +26,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Shared layout styles (nav/footer) -->
-  <link rel="stylesheet" href="/assets/layout.css">
+  <link rel="stylesheet" href="../assets/layout.css">
 
-  <!-- Page-specific styles only -->
+  <!-- Page-specific styles -->
   <style>
     :root{ --bg:#FAFAF8; --ink:#3e3e3a; --line:#e9e6df; --gap:clamp(16px,3vw,32px); --maxw:1200px; --frame:#ecebea }
     *{box-sizing:border-box}
@@ -63,7 +63,7 @@
 <body>
 
   <!-- Shared Top Nav (injected) -->
-  <div data-include="/partials/topnav.html"></div>
+  <div data-include="../partials/topnav.html"></div>
 
   <main id="content" class="container-page">
     <section class="page-head" aria-labelledby="friend-title">
@@ -95,17 +95,16 @@
   </main>
 
   <!-- Shared Footer (injected) -->
-  <div data-include="/partials/footer.html"></div>
+  <div data-include="../partials/footer.html"></div>
 
   <!-- Include helper (pulls in partials) -->
-  <script src="/assets/include.js"></script>
+  <script src="../assets/include.js"></script>
 
   <!-- Lightbox -->
   <script>
     (function(){
       const lightbox = document.getElementById('lightbox');
       if (!lightbox) {
-        // Inject lightbox container once (safe if nav/footer partials don’t include it)
         const lb = document.createElement('div');
         lb.id = 'lightbox';
         lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true'); lb.setAttribute('aria-label','Image viewer');
@@ -121,12 +120,7 @@
       const links = Array.from(document.querySelectorAll('#friend-grid a'));
       let idx = -1;
 
-      function openAt(i){
-        idx = (i + links.length) % links.length;
-        imgEl.src = links[idx].getAttribute('href');
-        lx.style.display = 'flex';
-        document.body.classList.add('modal-open');
-      }
+      function openAt(i){ idx = (i + links.length) % links.length; imgEl.src = links[idx].getAttribute('href'); lx.style.display='flex'; document.body.classList.add('modal-open'); }
       function closeBox(){ lx.style.display='none'; imgEl.removeAttribute('src'); document.body.classList.remove('modal-open'); }
       function prev(){ openAt(idx - 1); }
       function next(){ openAt(idx + 1); }
