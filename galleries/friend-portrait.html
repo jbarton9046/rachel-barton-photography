@@ -25,8 +25,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- SHARED NAV/FOOTER STYLES (use relative path from /galleries/) -->
-  <link rel="stylesheet" href="../assets/layout.css">
+  <!-- SHARED NAV/FOOTER STYLES (ROOT-ABSOLUTE + cache-bust) -->
+  <link rel="stylesheet" href="/assets/layout.css?v=nav-1">
 
   <!-- Page-specific styles only (do NOT restyle nav here) -->
   <style>
@@ -63,7 +63,7 @@
 <body>
 
   <!-- SHARED TOP NAV (pulled in by include.js) -->
-  <div data-include="../partials/topnav.html"></div>
+  <div data-include="/partials/topnav.html"></div>
 
   <main id="content" class="container-page">
     <section class="page-head" aria-labelledby="friend-title">
@@ -95,10 +95,10 @@
   </main>
 
   <!-- SHARED FOOTER (pulled in by include.js) -->
-  <div data-include="../partials/footer.html"></div>
+  <div data-include="/partials/footer.html"></div>
 
-  <!-- Include helper (must be last so it can swap in the partials) -->
-  <script src="../assets/include.js"></script>
+  <!-- Include helper (ROOT-ABSOLUTE so it always loads) -->
+  <script src="/assets/include.js?v=nav-1"></script>
 
   <!-- Lightbox -->
   <script>
