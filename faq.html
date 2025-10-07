@@ -85,13 +85,8 @@
       font-weight:700 !important; font-size:clamp(13px, 1.65vw, 15px) !important; line-height:1.05 !important;
     }
 
-    /* Spacer under nav so dropdown never overlaps the header */
-    .nav-spacer{ height:clamp(36px, 5vw, 56px); transition:height .15s ease; }
-    /* When dropdown is open, grow the spacer to fit it */
-    .topbar:has(.has-sub:hover) + .nav-spacer,
-    .topbar:has(.has-sub:focus-within) + .nav-spacer{
-      height:clamp(84px, 12vw, 110px);
-    }
+    /* Fixed spacer so the dropdown never overlaps the page header, without moving content on hover */
+    .nav-spacer{ height:clamp(84px, 12vw, 110px); }
 
     /* Page header + FAQ styles */
     header.page{padding:18px 0 8px}
@@ -100,8 +95,12 @@
 
     .faq{display:grid;gap:12px;margin:18px 0 40px}
     details{background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:0}
-    summary{list-style:none; cursor:pointer; padding:16px 18px; user-select:none; font-weight:700; display:flex; gap:12px}
-    summary::-webkit-details-marker{display:none}
+    summary{
+      list-style:none; cursor:pointer; padding:16px 18px; user-select:none;
+      font-weight:700; display:flex; gap:12px; transition:color .15s ease;
+    }
+    /* Gold hover for FAQ questions */
+    summary:hover, summary:focus-visible{ color:var(--accent); outline:none; }
     .qmark{font-family:"Fraunces",serif; font-size:20px; line-height:1; color:#b7a486; margin-top:2px}
     .answer{padding:0 18px 16px; color:#4a463f}
     .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;border:1px solid var(--line);padding:10px 16px;box-shadow:0 6px 18px rgba(0,0,0,.06);text-decoration:none}
@@ -148,7 +147,7 @@
 
   <main class="container">
     <section class="faq" aria-label="FAQ">
-      <!-- (FAQ items unchanged) -->
+      <!-- FAQ items unchanged -->
       <details>
         <summary><span class="qmark">Q</span> How do I book?</summary>
         <div class="answer">
