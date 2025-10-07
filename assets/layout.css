@@ -1,76 +1,87 @@
+/* =========  layout.css  ========= */
+
+/* Design tokens */
 :root{
   --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#7a766e;
   --accent:#A88A5A; --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
   --gap:clamp(16px,3vw,32px); --maxw:1200px;
 }
 
-/* Layout helpers */
+/* Shared container width */
 .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
 
-/* ========== Topbar (not sticky) ========== */
+/* ========== TOPBAR (shared) ========== */
+/* Default (interior pages): centered row, NOT sticky */
 .topbar{
-  position:relative;display:flex;align-items:center;justify-content:center;
-  padding:16px var(--gap);z-index:10;background:transparent
+  position:relative;
+  display:flex; align-items:center; justify-content:center;
+  padding:16px var(--gap); z-index:10; background:transparent;
 }
 .brand{display:none}
 
-/* Primary nav row */
 nav.primary ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
 nav.primary li{position:relative}
-
-/* Reset link defaults so we never get blue/purple underlines */
-nav.primary a,
-nav.primary a:link,
-nav.primary a:visited,
-.topbar .dropdown a,
-.topbar .dropdown a:link,
-.topbar .dropdown a:visited{
-  color:var(--ink);
-  text-decoration:none;
-}
-
-/* Top-level links */
 nav.primary a{
   font-family:"Raleway",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  font-weight:500;font-size:clamp(16px,1.8vw,20px);letter-spacing:.02em;
-  border-bottom:0;padding:4px 2px
+  font-weight:500; font-size:clamp(16px,1.8vw,20px); letter-spacing:.02em;
+  padding:4px 2px; border-bottom:0; color:inherit; text-decoration:none;
+  transition:color .15s ease;
 }
-nav.primary a:hover,nav.primary a:focus-visible{color:var(--accent)}
+nav.primary a:hover,nav.primary a:focus-visible{color:var(--accent); outline:none}
 .has-sub:hover> a,.has-sub:focus-within> a{color:var(--accent)}
 
-/* ========== Dropdown — RELAXED & CENTERED like your screenshot ========== */
+/* Dropdown (default “panel” style used on interior pages) */
 .has-sub{position:relative}
-
-/* Hover bridge so the menu doesn’t collapse when moving down */
-.has-sub::after{
-  content:"";position:absolute;left:-8px;right:-8px;top:100%;height:12px;background:transparent
-}
+/* hover bridge to prevent flicker moving toward the menu */
+.has-sub::after{content:"";position:absolute;left:-8px;right:-8px;top:100%;height:12px;background:transparent}
 
 .dropdown{
-  position:absolute;top:calc(100% + 10px);left:50%;transform:translate(-50%,0);
-  background:transparent;border:0;box-shadow:none;
-  display:flex;flex-direction:column;
-  align-items:center;                    /* center the list */
-  text-align:center;                     /* center the text */
-  gap:24px;                              /* generous relaxed spacing */
-  margin:0;padding:0;min-width:unset;list-style:none;
-  opacity:0;visibility:hidden;pointer-events:none;
-  transition:opacity .15s ease,transform .15s ease;z-index:999
+  position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%,0);
+  background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
+  padding:6px 8px; display:flex; flex-direction:column; gap:2px; min-width:220px;
+  margin:0; list-style:none;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .15s ease, transform .15s ease; z-index:999;
+  -webkit-backdrop-filter:saturate(1.05); backdrop-filter:saturate(1.05);
 }
 .has-sub:hover .dropdown,
 .has-sub:focus-within .dropdown,
-.dropdown:hover{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,2px)}
+.dropdown:hover{
+  opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%,2px);
+}
 
 .dropdown li{list-style:none;margin:0;padding:0}
 .dropdown a{
   display:block;
-  font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
-  font-weight:700 !important;
-  font-size:clamp(19px,2.1vw,22px) !important; /* slightly larger, like your shot */
-  line-height:1.2 !important;                   /* relaxed line height */
-  padding:0 !important;margin:0 !important;border:0 !important;background:transparent !important;
-  white-space:nowrap
+  font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+  font-weight:700;
+  font-size:clamp(18px,2.2vw,20px);
+  letter-spacing:.02em; line-height:1.08;
+  padding:2px 6px; border:0; background:transparent; white-space:nowrap; color:#3f3a33;
+  transition:color .15s ease;
+}
+.dropdown a:hover,.dropdown a:focus-visible{color:var(--accent); outline:none}
+
+/* ========== HERO-SPECIFIC OVERRIDES (exactly like index.html) ========== */
+/* When the nav lives inside a .hero section, make the bar sit over the hero
+   and render the dropdown as floating text (no panel), with smaller type. */
+.hero .topbar{
+  position:absolute; left:0; right:0; top:0; z-index:2;
 }
 
-/* ========== Footer ========== */
+.hero .topbar .has-sub > .dropdown{
+  background:transparent !important; border:0 !important; box-shadow:none !important;
+  padding:0 !important; gap:6px !important; min-width:unset !important;
+  left:50% !important; transform:translateX(-50%) !important;
+}
+
+.hero .topbar .dropdown a{
+  border-bottom:0 !important; padding:0 !important; background:transparent !important;
+  font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
+  font-weight:700 !important;
+  font-size:clamp(13px,1.65vw,15px) !important;
+  line-height:1.05 !important; color:#3f3a33;
+}
+
+/* ========== FOOTER (unchanged) ========== */
 footer{border-top:1px solid var(--line);padding:28px 0;color:#7f7f7f;margin-top:32px}
