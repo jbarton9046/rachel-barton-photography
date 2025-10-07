@@ -43,32 +43,37 @@ nav.primary a:focus-visible{ color:var(--accent); outline:none }
   height:12px; background:transparent; /* hover bridge */
 }
 
-/* make sure no box appears; text-only */
+/* hidden by default; no box — text-only */
 nav.primary .has-sub > .dropdown{
   position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%);
   background:transparent !important; border:0 !important; box-shadow:none !important;
-  display:flex; flex-direction:column; align-items:center;
-  gap:16px;                /* relaxed vertical spacing – matches your screenshot */
+  display:none;                      /* <-- start hidden */
+  flex-direction:column; align-items:center;
+  gap:16px;                          /* relaxed vertical spacing */
   margin:0; padding:0 !important; list-style:none; min-width:unset;
 
   opacity:0; visibility:hidden; pointer-events:none;
   transition:opacity .15s ease, transform .15s ease;
   z-index:999;
 }
-.has-sub:hover .dropdown,
-.has-sub:focus-within .dropdown,
-.dropdown:hover{
-  opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
+
+/* show on hover/focus (and keep open while hovering the list) */
+.has-sub:hover > .dropdown,
+.has-sub:focus-within > .dropdown,
+nav.primary .dropdown:hover{
+  display:flex;                     /* <-- force visible */
+  opacity:1; visibility:visible; pointer-events:auto;
+  transform:translate(-50%, 2px);
 }
 
 nav.primary .dropdown li{ list-style:none; margin:0; padding:0 }
 
-/* bump specificity so submenu doesn’t inherit the Raleway sizing */
+/* serif styling for submenu items */
 nav.primary .dropdown a{
   display:block;
   font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
   font-weight:700;
-  font-size:clamp(16px,1.9vw,18px);   /* slightly smaller = the “nice” size */
+  font-size:clamp(16px,1.9vw,18px);   /* the “nice” size */
   line-height:1.15;                   /* airy but refined */
   letter-spacing:.02em;
   padding:0; margin:0; border:0; background:transparent; white-space:nowrap;
