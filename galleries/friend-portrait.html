@@ -60,7 +60,7 @@
       position:sticky; top:0; z-index:50;
       background:rgba(250,250,248,.85);
       backdrop-filter:saturate(1.05) blur(6px);
-      /* removed border-bottom */
+      /* no border-bottom */
     }
     .topbar .container{max-width:var(--maxw); margin:0 auto; padding:16px var(--gap); display:flex; align-items:center; justify-content:center}
     nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
@@ -76,7 +76,7 @@
     nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
     .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
 
-    /* Dropdown structure (same as index/family) */
+    /* ===== TEXT-ONLY DROPDOWN (exact hero-style look) ===== */
     .has-sub{ position:relative; }
     .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
     .dropdown{
@@ -113,7 +113,7 @@
     .gallery-grid a{ display:block }
     .gallery-grid img{ width:100%; aspect-ratio:4/5; object-fit:cover }
 
-    /* ===== LIGHTBOX — identical behavior to family-portrait.html ===== */
+    /* ===== LIGHTBOX — same behavior; WHITE FLOATING CONTROLS ===== */
     #lightbox{
       position:fixed; inset:0; background:rgba(0,0,0,.88);
       display:none; align-items:center; justify-content:center; z-index:1200;
@@ -124,13 +124,25 @@
       box-shadow:0 12px 50px rgba(0,0,0,.5);
       background:#111;
     }
+
+    /* white, floating arrows & X */
     #lb-close,#lb-prev,#lb-next{
-      position:absolute; border:0; background:#ffffff; color:#7A5B3B; cursor:pointer;
-      padding:8px 12px; border-radius:0; box-shadow:0 2px 8px rgba(0,0,0,.2)
+      position:absolute; border:1px solid rgba(255,255,255,.65);
+      background:transparent; color:#fff; cursor:pointer;
+      width:40px; height:40px; display:grid; place-items:center;
+      box-shadow:0 8px 22px rgba(0,0,0,.35);
+      text-shadow:0 1px 2px rgba(0,0,0,.4);
     }
     #lb-close{ top:18px; right:18px }
     #lb-prev{ left:18px; top:50%; transform:translateY(-50%) }
     #lb-next{ right:18px; top:50%; transform:translateY(-50%) }
+
+    #lb-close:hover,#lb-prev:hover,#lb-next:hover,
+    #lb-close:focus-visible,#lb-prev:focus-visible,#lb-next:focus-visible{
+      outline:none;
+      border-color:#fff;
+      background:rgba(255,255,255,.12);
+    }
 
     body.modal-open{ overflow:hidden; }
   </style>
@@ -191,7 +203,7 @@
     </section>
   </main>
 
-  <!-- LIGHTBOX (same structure/CSS as family page) -->
+  <!-- LIGHTBOX -->
   <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button id="lb-close" aria-label="Close">✕</button>
     <button id="lb-prev" aria-label="Previous image">‹</button>
@@ -202,7 +214,7 @@
   <footer class="container-page" style="padding:32px 0; color:#7f7f7f">— S. Miller</footer>
 
   <script>
-    // Lightbox behavior copied to match family-portrait.html
+    // Lightbox behavior (match family page)
     (function(){
       const lightbox = document.getElementById('lightbox');
       const imgEl = document.getElementById('lb-img');
