@@ -97,7 +97,7 @@
     }
     .dropdown a:hover, .dropdown a:focus-visible{ background:transparent; border-bottom:0; color:var(--accent); outline:none; }
 
-    /* EXACT index overrides (text-only floating & 75% sizing) */
+    /* EXACT index overrides (floating text & 75% sizing) */
     .topbar nav.primary .has-sub > .dropdown{
       background:transparent !important; border:0 !important; box-shadow:none !important;
       padding:0 !important; gap:6px !important; min-width:unset !important;
@@ -112,12 +112,18 @@
       border-bottom:0 !important; background:transparent !important; color:var(--accent) !important; outline:none !important;
     }
 
-    /* Spacer so dropdown never overlaps the section header */
-    .nav-spacer{ height:clamp(96px, 13vw, 168px); }
+    /* ---- Polished header spacing ----
+       Small by default; expands ONLY while the dropdown is open
+       (modern browsers support :has). */
+    .nav-spacer{ height:clamp(28px, 5.5vw, 64px); transition:height .15s ease; }
+    .topbar:has(.has-sub:hover .dropdown),
+    .topbar:has(.has-sub:focus-within .dropdown) + .nav-spacer{
+      height:clamp(84px, 12vw, 140px);
+    }
 
     section{padding:calc(var(--gap)*2) 0}
     .section-title{ font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-size:clamp(24px,3.5vw,38px); margin:0 0 8px }
-    .section-sub{color:#67635b; margin:0 0 22px}
+    .section-sub{color:#67635b; margin:0 0 18px}
 
     /* Mosaic */
     .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px)}
@@ -183,11 +189,17 @@
 
     @media (max-width:960px){
       .mosaic{grid-template-columns:1fr 1fr}
-      .nav-spacer{ height:clamp(84px, 16vw, 156px); }
+      /* Give a tad more breathing room on hover for touch/pen */
+      .topbar:has(.has-sub:hover .dropdown) + .nav-spacer{
+        height:clamp(96px, 16vw, 156px);
+      }
     }
     @media (max-width:640px){
       .mosaic{grid-template-columns:1fr}
-      .nav-spacer{ height:clamp(76px, 20vw, 144px); }
+      .nav-spacer{ height:clamp(36px, 9vw, 56px); }
+      .topbar:has(.has-sub:hover .dropdown) + .nav-spacer{
+        height:clamp(76px, 18vw, 132px);
+      }
     }
   </style>
 </head>
@@ -214,7 +226,7 @@
     </nav>
   </div>
 
-  <!-- Spacer so dropdown stops above the header -->
+  <!-- Smart spacer: small by default, grows only while dropdown is open -->
   <div class="nav-spacer" aria-hidden="true"></div>
 
   <main id='content'>
@@ -223,7 +235,8 @@
         <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
         <p class="section-sub">From sunlit meadows to Gulf sunsets, explore the feel of a session—connection, motion, and easy, unposed energy.</p>
 
-        <div class="section-help" role="note" aria-label="Gallery navigation help" style="margin:10px 0 12px; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:#6e6a62; display:inline-flex; align-items:center; gap:8px; padding:6px 10px; background:#fff; border:1px solid var(--line); box-shadow:0 2px 8px rgba(0,0,0,.04);">
+        <!-- Helper bar -->
+        <div class="section-help" role="note" aria-label="Gallery navigation help" style="margin:8px 0 10px; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:#6e6a62; display:inline-flex; align-items:center; gap:8px; padding:6px 10px; background:#fff; border:1px solid var(--line); box-shadow:0 2px 8px rgba(0,0,0,.04);">
           <span class="help-ico" aria-hidden="true">ⓘ</span>
           Preview & navigate: click the tile or use the arrows to move through images. Select the label to view the full gallery.
         </div>
