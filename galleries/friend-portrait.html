@@ -25,10 +25,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Shared layout styles (nav/footer) -->
-  <link rel="stylesheet" href="../assets/layout.css">
+  <!-- Shared layout styles (nav/footer) — use ROOT-RELATIVE path -->
+  <link rel="stylesheet" href="/assets/layout.css">
 
-  <!-- Page-specific styles -->
+  <!-- Page-specific styles ONLY (gallery + lightbox). Do NOT re-style the nav here. -->
   <style>
     :root{ --bg:#FAFAF8; --ink:#3e3e3a; --line:#e9e6df; --gap:clamp(16px,3vw,32px); --maxw:1200px; --frame:#ecebea }
     *{box-sizing:border-box}
@@ -62,31 +62,8 @@
 </head>
 <body>
 
-  <!-- INLINE Top Nav (matches layout.css expectations exactly) -->
-  <div class="topbar container">
-    <div class="brand"></div>
-    <nav class="primary" aria-label="Primary">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about.html">Meet Rachel</a></li>
-
-        <li class="has-sub">
-          <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
-          <!-- Relaxed vertical dropdown -->
-          <ul class="dropdown" aria-label="Galleries submenu">
-            <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
-            <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
-            <li><a href="/galleries/friend-portrait.html" aria-current="page">Friend Portraits</a></li>
-          </ul>
-        </li>
-
-        <li><a href="/#reviews">Testimonials</a></li>
-        <li><a href="/faq.html">FAQ</a></li>
-        <li><a href="/#contact">Contact</a></li>
-        <li><a href="/#book">Book</a></li>
-      </ul>
-    </nav>
-  </div>
+  <!-- Shared Top Nav (injected via include.js) -->
+  <div data-include="/partials/topnav.html"></div>
 
   <main id="content" class="container-page">
     <section class="page-head" aria-labelledby="friend-title">
@@ -118,10 +95,10 @@
   </main>
 
   <!-- Shared Footer (injected) -->
-  <div data-include="../partials/footer.html"></div>
+  <div data-include="/partials/footer.html"></div>
 
-  <!-- Include helper (pulls in partials) -->
-  <script src="../assets/include.js"></script>
+  <!-- Include helper (pulls in partials) — ROOT-RELATIVE -->
+  <script src="/assets/include.js"></script>
 
   <!-- Lightbox -->
   <script>
