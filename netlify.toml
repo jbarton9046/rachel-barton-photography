@@ -1,3 +1,2 @@
 ﻿[build]
-  publish = "/"
-  command = ""
+publish = "."
