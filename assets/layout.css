@@ -42,12 +42,14 @@ nav.primary a:focus-visible{ color:var(--accent); outline:none }
   content:""; position:absolute; left:-8px; right:-8px; top:100%;
   height:12px; background:transparent; /* hover bridge */
 }
-.dropdown{
+
+/* make sure no box appears; text-only */
+nav.primary .has-sub > .dropdown{
   position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%);
-  background:transparent; border:0; box-shadow:none;
+  background:transparent !important; border:0 !important; box-shadow:none !important;
   display:flex; flex-direction:column; align-items:center;
-  gap:22px;                /* relaxed vertical spacing – like your screenshot */
-  margin:0; padding:0; list-style:none; min-width:unset;
+  gap:16px;                /* relaxed vertical spacing – matches your screenshot */
+  margin:0; padding:0 !important; list-style:none; min-width:unset;
 
   opacity:0; visibility:hidden; pointer-events:none;
   transition:opacity .15s ease, transform .15s ease;
@@ -59,16 +61,20 @@ nav.primary a:focus-visible{ color:var(--accent); outline:none }
   opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
 }
 
-.dropdown li{ list-style:none; margin:0; padding:0 }
-.dropdown a{
+nav.primary .dropdown li{ list-style:none; margin:0; padding:0 }
+
+/* bump specificity so submenu doesn’t inherit the Raleway sizing */
+nav.primary .dropdown a{
   display:block;
   font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
   font-weight:700;
-  font-size:clamp(18px,2.2vw,20px);   /* larger, elegant serif */
+  font-size:clamp(16px,1.9vw,18px);   /* slightly smaller = the “nice” size */
   line-height:1.15;                   /* airy but refined */
   letter-spacing:.02em;
   padding:0; margin:0; border:0; background:transparent; white-space:nowrap;
 }
+nav.primary .dropdown a:hover,
+nav.primary .dropdown a:focus-visible{ color:var(--accent); outline:none }
 
 /* Footer */
 footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px }
