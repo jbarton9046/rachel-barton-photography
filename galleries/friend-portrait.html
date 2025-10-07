@@ -127,11 +127,11 @@
 
       links.forEach((a,i)=> a.addEventListener('click', e=>{ e.preventDefault(); openAt(i); }));
       closeBtn.addEventListener('click', closeBox);
-      prevBtn.addEventListener('click', prev);
-      nextBtn.addEventListener('click', next);
-      window.addEventListener('keydown', e=>{ if(lx.style.display!=='flex') return; if(e.key==='Escape') closeBox(); if(e.key==='ArrowLeft') prev(); if(e.key==='ArrowRight') next(); });
+      prevow.addEventListener('keydown', e=>{ if(lx.style.display!=='flex') return; if(e.key==='Escape') closeBox(); if(e.key==='ArrowLeft') prev(); if(e.key==='ArrowRight') next(); });
       lx.addEventListener('click', e=>{ if(e.target===lx) closeBox(); });
-    })();
+    })();Btn.addEventListener('click', prev);
+      nextBtn.addEventListener('click', next);
+      wind
   </script>
 </body>
 </html>
