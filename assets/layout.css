@@ -59,7 +59,7 @@ nav.primary .has-sub > .dropdown{
   flex-direction:column; align-items:center;
 
   /* tighter vertical spacing */
-  gap:10px;
+  gap:8px;
 
   margin:0; padding:0; list-style:none; min-width:unset;
 
@@ -85,9 +85,9 @@ nav.primary .dropdown a{
   font-weight:700;
 
   /* smaller, denser type to match your reference */
-  font-size:clamp(15px,1.55vw,17px);
-  line-height:1.05;
-  letter-spacing:.01em;
+  font-size:clamp(14px,1.35vw,16px);
+  line-height:1.02;
+  letter-spacing:.005em;
 
   padding:0; margin:0; border:0; background:transparent; white-space:nowrap;
 }
