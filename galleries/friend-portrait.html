@@ -45,14 +45,10 @@
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
     img{max-width:100%; height:auto; display:block; border:1px solid var(--frame); box-shadow:0 6px 18px rgba(0,0,0,.06)}
 
-    /* shared container (so footer lines up with the grid) */
-    .container{
-      max-width:var(--maxw);
-      margin:0 auto;
-      padding:0 var(--gap);
-    }
+    /* Shared container (aligns footer with grid) */
+    .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap); }
 
-    /* ===== NAV ===== */
+    /* ===== NAV (sticky, no bottom line) ===== */
     .topbar{
       position:sticky; top:0; z-index:50;
       background:rgba(250,250,248,.85);
@@ -68,48 +64,41 @@
     nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
     .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
 
-    /* ===== TEXT-ONLY DROPDOWN — NO extra vertical space ===== */
+    /* ===== DROPDOWN — horizontal row (matches other pages) ===== */
     .has-sub{ position:relative; }
-    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:6px; } /* tiny hover buffer */
-
-    /* Kill any inherited list spacing */
-    .dropdown,
-    .dropdown ul,
-    .dropdown li{
-      margin:0 !important;
-      padding:0 !important;
-      list-style:none;
-    }
+    /* little hover buffer so you can move the mouse down without flicker */
+    .has-sub::after{ content:""; position:absolute; left:-10px; right:-10px; top:100%; height:10px; }
 
     .dropdown{
       position:absolute;
-      top:calc(100% + 1px);            /* very close to "Galleries" label */
-      left:50%; transform:translate(-50%,0);
+      top:calc(100% + 2px);
+      left:50%; transform:translateX(-50%);
+      /* make it a single row */
+      display:flex; flex-direction:row; align-items:flex-start; gap:56px;
+      margin:0; padding:0;
+      list-style:none;
       background:transparent; border:0; box-shadow:none;
-      /* Use block so flex gap can never apply */
-      display:block;
-      line-height:1 !important;        /* tighten container line-height */
-      min-width:unset;
       opacity:0; visibility:hidden; pointer-events:none;
-      transition:opacity .15s ease, transform .15s ease; z-index:999;
+      transition:opacity .12s ease, transform .12s ease;
+      white-space:nowrap;
+      z-index:999;
     }
     .has-sub:hover .dropdown,
     .has-sub:focus-within .dropdown,
     .dropdown:hover{
-      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
+      opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(2px);
     }
-
-    .dropdown li + li{ margin-top:0 !important; } /* force zero gap */
-
+    .dropdown li{margin:0; padding:0; list-style:none}
     .dropdown a{
-      display:inline-block;            /* avoid block-level extra height quirks */
+      display:inline-block;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
       font-weight:700 !important;
       font-size:clamp(13px,1.3vw,15px) !important;
-      line-height:1 !important;        /* tight vertical rhythm */
-      margin:0 !important;
+      line-height:1 !important;           /* no extra blue space */
       padding:0 !important;
-      background:transparent !important; border:0 !important; white-space:nowrap;
+      margin:0 !important;
+      background:transparent !important;
+      border:0 !important;
     }
 
     /* ===== PAGE HEADER ===== */
@@ -122,11 +111,7 @@
     .lede{color:#6e6a62; margin:0 0 18px}
 
     /* ===== GALLERY GRID ===== */
-    .gallery-grid{
-      display:grid;
-      gap:clamp(10px,1.6vw,16px);
-      margin-bottom:36px;  /* polished space before footer divider */
-    }
+    .gallery-grid{display:grid; gap:clamp(10px,1.6vw,16px); margin-bottom:32px;} /* nice space before divider */
     @media(min-width:640px){ .gallery-grid{ grid-template-columns:repeat(2,1fr);} }
     @media(min-width:980px){ .gallery-grid{ grid-template-columns:repeat(3,1fr);} }
     .gallery-grid a{ display:block }
@@ -144,7 +129,7 @@
     #lb-close:focus-visible,#lb-prev:focus-visible,#lb-next:focus-visible{ outline:none; border-color:#fff; background:rgba(255,255,255,.12); }
     body.modal-open{ overflow:hidden; }
 
-    /* ===== FOOTER (aligned to grid + divider) ===== */
+    /* ===== FOOTER (aligned with grid + divider) ===== */
     footer{
       border-top:1px solid var(--line);
       padding:24px 0 32px;
