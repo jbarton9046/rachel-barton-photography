@@ -38,86 +38,61 @@
     img{max-width:100%;height:auto;display:block;border-radius:0;border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
 
-    /* Topbar (exactly like index) */
-    .topbar{
-      position:relative;
-      display:flex; align-items:center; justify-content:center;
-      padding:16px var(--gap); z-index:10; background:transparent;
-    }
+    /* ===== Topbar (exact match to index.html) ===== */
+    .topbar{position:relative;display:flex;align-items:center;justify-content:center;padding:16px var(--gap);z-index:10;background:transparent}
     .brand{display:none}
-    nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
-    nav.primary li{ position:relative; }
-    nav.primary a{
-      font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-weight:500; font-size:clamp(16px,1.8vw,20px); letter-spacing:.02em;
-      border-bottom:0; padding:4px 2px;
-    }
-    nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
-    .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
-
-    /* Dropdown (exactly like index) */
-    .has-sub{ position:relative; }
-    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
-    .dropdown{
-      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
-      background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
-      padding:6px 8px; display:flex; flex-direction:column; gap:2px; min-width:220px;
-      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:999; backdrop-filter:saturate(1.05);
-    }
-    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
-      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
-    }
+    nav.primary ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+    nav.primary li{position:relative}
+    nav.primary a{font-family:"Raleway",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-weight:500;font-size:clamp(16px,1.8vw,20px);letter-spacing:.02em;border-bottom:0;padding:4px 2px}
+    nav.primary a:hover,nav.primary a:focus-visible{color:var(--accent);border-bottom:0}
+    .has-sub:hover> a,.has-sub:focus-within> a{color:var(--accent)}
+    .has-sub{position:relative}
+    .has-sub::after{content:"";position:absolute;left:-8px;right:-8px;top:100%;height:12px;background:transparent}
+    .dropdown{position:absolute;top:calc(100% + 6px);left:50%;transform:translate(-50%,0);background:rgba(255,255,255,.65);border:1px solid var(--line);box-shadow:var(--shadow);padding:6px 8px;display:flex;flex-direction:column;gap:2px;min-width:220px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s ease,transform .15s ease;z-index:999;backdrop-filter:saturate(1.05)}
+    .has-sub:hover .dropdown,.has-sub:focus-within .dropdown,.dropdown:hover{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,2px)}
     .dropdown li{list-style:none}
-    .dropdown a{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-weight:700;
-      font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; line-height:1.08; padding:2px 6px; color:#3f3a33; border-bottom:0; white-space:nowrap;
-    }
-    .topbar nav.primary .has-sub > .dropdown{
-      background:transparent !important; border:0 !important; box-shadow:none !important;
-      padding:0 !important; gap:6px !important; min-width:unset !important;
-      left:50% !important; transform:translateX(-50%) !important;
-    }
-    .topbar nav.primary .dropdown a{
-      border-bottom:0 !important; padding:0 !important; background:transparent !important;
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
-      font-weight:700 !important; font-size:clamp(13px, 1.65vw, 15px) !important; line-height:1.05 !important;
-    }
+    .dropdown a{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;font-weight:700;font-size:clamp(18px,2.2vw,20px);letter-spacing:.02em;line-height:1.08;padding:2px 6px;color:#3f3a33;border-bottom:0;white-space:nowrap}
+    .topbar nav.primary .has-sub > .dropdown{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;gap:6px!important;min-width:unset!important;left:50%!important;transform:translateX(-50%)!important}
+    .topbar nav.primary .dropdown a{border-bottom:0!important;padding:0!important;background:transparent!important;font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif!important;font-weight:700!important;font-size:clamp(13px,1.65vw,15px)!important;line-height:1.05!important}
 
-    /* Fixed spacer so the dropdown never overlaps the page header (snug) */
-    .nav-spacer{ height:clamp(64px, 9vw, 90px); }
+    /* Keep page header snug to dropdown (no shift on hover) */
+    .nav-spacer{height:clamp(64px,9vw,90px)}
 
-    /* Page header layout */
     header.page{padding:18px 0 8px}
-    .page-grid{
-      display:grid; grid-template-columns:2fr 1.2fr; gap:var(--gap); align-items:end;
-    }
-    @media (max-width:860px){
-      .page-grid{ grid-template-columns:1fr; align-items:start; }
-      .faq-figure{ order:2; }
-    }
-    h1{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-size:clamp(32px,5vw,52px); line-height:1.1; margin:.25em 0 .2em
-    }
+    h1{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;font-size:clamp(32px,5vw,52px);line-height:1.1;margin:.25em 0 .2em}
     .lead{color:#635f57;margin:0 0 18px}
 
-    /* Photo beside the header */
-    .faq-figure img{
-      aspect-ratio: 4 / 5; object-fit:cover; background:#fff;
+    /* ===== Integrated photo inside FAQ grid ===== */
+    .faq{
+      display:grid;
+      grid-template-columns: minmax(0,1fr) minmax(260px, 420px); /* bars + photo column */
+      gap:12px;
+      margin:18px 0 40px;
+      grid-auto-flow:row dense; /* lets bars wrap under the photo cleanly */
     }
+    /* Photo card that the bars flow around */
+    .faq-photo{
+      grid-column:2; grid-row:1 / span 6; align-self:start;
+      background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:10px;
+    }
+    .faq-photo img{aspect-ratio:4/5;object-fit:cover;background:#fff}
+    .faq-photo figcaption{margin-top:8px;font-size:13px;color:#6e6a62;text-align:center}
 
-    /* FAQ list */
-    .faq{display:grid;gap:12px;margin:18px 0 40px}
+    /* FAQ bars */
     details{background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:0}
-    summary{
-      list-style:none; cursor:pointer; padding:16px 18px; user-select:none;
-      font-weight:700; display:flex; gap:12px; transition:color .15s ease;
-    }
-    /* Gold hover for FAQ questions */
+    summary{list-style:none; cursor:pointer; padding:16px 18px; user-select:none; font-weight:700; display:flex; gap:12px; transition:color .15s ease}
+    summary::-webkit-details-marker{display:none}
+    /* Gold hover for questions */
     summary:hover, summary:focus-visible{ color:var(--accent); outline:none; }
     .qmark{font-family:"Fraunces",serif; font-size:20px; line-height:1; color:#b7a486; margin-top:2px}
     .answer{padding:0 18px 16px; color:#4a463f}
     .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;border:1px solid var(--line);padding:10px 16px;box-shadow:0 6px 18px rgba(0,0,0,.06);text-decoration:none}
+
+    /* When the photo ends, bars can occupy both columns naturally */
+    @media (max-width:900px){
+      .faq{grid-template-columns:1fr}
+      .faq-photo{grid-column:auto; grid-row:auto; order:4} /* stacks nicely in the list */
+    }
 
     footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px}
     footer .container{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
@@ -126,7 +101,7 @@
 </head>
 <body>
 
-  <!-- Top navigation (Meet Rachel before Galleries) -->
+  <!-- Top navigation -->
   <div class="topbar container">
     <div class="brand"></div>
     <nav class="primary" aria-label="Primary">
@@ -153,24 +128,21 @@
 
   <header class="page">
     <div class="container">
-      <div class="page-grid">
-        <div>
-          <h1>Frequently Asked Questions</h1>
-          <p class="lead">Quick answers about booking, sessions, styling, weather plans, delivery, and more.</p>
-          <span style="display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6e6a62;background:#fff;border:1px solid var(--line);padding:4px 8px">Updated <span id="year"></span></span>
-        </div>
-
-        <!-- Swap this src to any photo you’d like -->
-        <figure class="faq-figure" aria-hidden="true">
-          <img src="/pictures/heroImage.jpg" alt="Family at the beach during golden hour">
-        </figure>
-      </div>
+      <h1>Frequently Asked Questions</h1>
+      <p class="lead">Quick answers about booking, sessions, styling, weather plans, delivery, and more.</p>
+      <span style="display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6e6a62;background:#fff;border:1px solid var(--line);padding:4px 8px">Updated <span id="year"></span></span>
     </div>
   </header>
 
   <main class="container">
     <section class="faq" aria-label="FAQ">
-      <!-- (FAQ items unchanged) -->
+      <!-- The integrated photo -->
+      <figure class="faq-photo">
+        <img src="/pictures/heroImage.jpg" alt="Family at the beach during golden hour">
+        <figcaption>Sunset session on Siesta Key</figcaption>
+      </figure>
+
+      <!-- FAQ bars (they’ll flow around and then below the photo) -->
       <details>
         <summary><span class="qmark">Q</span> How do I book?</summary>
         <div class="answer">
