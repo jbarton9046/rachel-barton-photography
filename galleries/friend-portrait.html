@@ -18,21 +18,17 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts (same as layout) -->
+  <!-- Fonts (same set used sitewide) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Shared layout styles (nav/footer) — use ROOT-RELATIVE path -->
+  <!-- SHARED NAV/FOOTER STYLES (use relative path from /galleries/) -->
   <link rel="stylesheet" href="../assets/layout.css">
-  <div data-include="../partials/topnav.html"></div>
-  <div data-include="../partials/footer.html"></div>
-  <script src="../assets/include.js"></script>
 
-
-  <!-- Page-specific styles ONLY (gallery + lightbox). Do NOT re-style the nav here. -->
+  <!-- Page-specific styles only (do NOT restyle nav here) -->
   <style>
     :root{ --bg:#FAFAF8; --ink:#3e3e3a; --line:#e9e6df; --gap:clamp(16px,3vw,32px); --maxw:1200px; --frame:#ecebea }
     *{box-sizing:border-box}
@@ -66,8 +62,8 @@
 </head>
 <body>
 
-  <!-- Shared Top Nav (injected via include.js) -->
-  <div data-include="/partials/topnav.html"></div>
+  <!-- SHARED TOP NAV (pulled in by include.js) -->
+  <div data-include="../partials/topnav.html"></div>
 
   <main id="content" class="container-page">
     <section class="page-head" aria-labelledby="friend-title">
@@ -98,11 +94,11 @@
     </section>
   </main>
 
-  <!-- Shared Footer (injected) -->
-  <div data-include="/partials/footer.html"></div>
+  <!-- SHARED FOOTER (pulled in by include.js) -->
+  <div data-include="../partials/footer.html"></div>
 
-  <!-- Include helper (pulls in partials) — ROOT-RELATIVE -->
-  <script src="/assets/include.js"></script>
+  <!-- Include helper (must be last so it can swap in the partials) -->
+  <script src="../assets/include.js"></script>
 
   <!-- Lightbox -->
   <script>
