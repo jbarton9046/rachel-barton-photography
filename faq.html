@@ -55,13 +55,10 @@
     .topbar nav.primary .has-sub > .dropdown{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;gap:6px!important;min-width:unset!important;left:50%!important;transform:translateX(-50%)!important}
     .topbar nav.primary .dropdown a{border-bottom:0!important;padding:0!important;background:transparent!important;font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif!important;font-weight:700!important;font-size:clamp(13px,1.65vw,15px)!important;line-height:1.05!important}
 
-    /* Keep page header snug to dropdown (no shift on hover) */
-    .nav-spacer{height:clamp(64px,9vw,90px)}
+    /* Tighten space under nav (still prevents overlap with dropdown) */
+    .nav-spacer{height:clamp(48px,7vw,72px)}
 
-    /* ===== FAQ layout =====
-       Grid with two columns: left = text/FAQ bars; right = photo.
-       The intro block (title/lead/badge) top-aligns with the photo.
-       A set of FAQ bars sit to the left of the photo; the rest go full-width below. */
+    /* ===== FAQ layout ===== */
     .faq{
       display:grid;
       grid-template-columns:minmax(0,1fr) minmax(260px,420px);
@@ -78,7 +75,7 @@
     .lead{color:#635f57;margin:0 0 18px}
 
     .faq-photo{
-      grid-column:2; grid-row:1 / span 6; /* lets several bars tuck alongside */
+      grid-column:2; grid-row:1 / span 6;
       background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:10px;
       align-self:start;
     }
@@ -194,22 +191,22 @@
         </div>
       </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> What should we wear?</summary>
-        <div class="answer">
-          <p>Neutral, soft tones photograph beautifully on the Gulf Coast. I’ll send a simple styling guide with palettes and do-and-don’ts once you book.</p>
-        </div>
-      </details>
-
-      <details>
-        <summary><span class="qmark">Q</span> When will we receive our photos?</summary>
-        <div class="answer">
-          <p>Galleries are typically delivered within 2–3 weeks. I always send a few sneak peeks within a couple of days when possible.</p>
-        </div>
-      </details>
-
       <!-- Everything below the image spans the full width -->
       <div class="after-photo">
+        <details>
+          <summary><span class="qmark">Q</span> What should we wear?</summary>
+          <div class="answer">
+            <p>Neutral, soft tones photograph beautifully on the Gulf Coast. I’ll send a simple styling guide with palettes and do-and-don’ts once you book.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="qmark">Q</span> When will we receive our photos?</summary>
+          <div class="answer">
+            <p>Galleries are typically delivered within 2–3 weeks. I always send a few sneak peeks within a couple of days when possible.</p>
+          </div>
+        </details>
+
         <details>
           <summary><span class="qmark">Q</span> How are images delivered?</summary>
           <div class="answer">
