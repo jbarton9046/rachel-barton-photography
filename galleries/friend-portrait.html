@@ -67,7 +67,7 @@
     .dropdown{
       position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%,0);
       background:transparent; border:0; box-shadow:none;
-      padding:0; display:flex; flex-direction:column; gap:0; /* zero gap between items */
+      padding:0; display:flex; flex-direction:column; gap:0;          /* zero gap between items */
       min-width:unset;
       opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:999;
     }
@@ -79,9 +79,9 @@
       display:block;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
       font-weight:700 !important;
-      font-size:clamp(13px,1.45vw,15px) !important; /* compact size */
-      line-height:1.0 !important;                   /* tight vertical rhythm */
-      padding:0 !important; margin:2px 0 !important;/* tiny margins only */
+      font-size:clamp(13px,1.45vw,15px) !important;                  /* compact size */
+      line-height:1.0 !important;                                     /* tight vertical rhythm */
+      padding:0 !important; margin:2px 0 !important;                  /* tiny margins only */
       background:transparent !important; border:0 !important; white-space:nowrap;
     }
 
@@ -113,7 +113,7 @@
     #lb-close:focus-visible,#lb-prev:focus-visible,#lb-next:focus-visible{ outline:none; border-color:#fff; background:rgba(255,255,255,.12); }
     body.modal-open{ overflow:hidden; }
 
-    /* ===== FOOTER (exact layout; no divider) ===== */
+    /* ===== FOOTER (exact layout; no dividing line) ===== */
     footer{border-top:0; padding:28px 0; color:#7f7f7f}
   </style>
 </head>
