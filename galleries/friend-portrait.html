@@ -157,4 +157,81 @@
         <a href="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg" alt="Friend portraits image 3"></a>
         <a href="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg" alt="Friend portraits image 4"></a>
         <a href="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg" alt="Friend portraits image 5"></a>
-        <a href="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg"
+        <a href="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg" alt="Friend portraits image 6"></a>
+        <a href="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg" alt="Friend portraits image 7"></a>
+        <a href="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg" alt="Friend portraits image 8"></a>
+        <a href="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg" alt="Friend portraits image 9"></a>
+        <a href="/pictures/friendPortraitGal/E26A2047.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2047.jpg" alt="Friend portraits image 10"></a>
+        <a href="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg" alt="Friend portraits image 11"></a>
+        <a href="/pictures/friendPortraitGal/E26A2140.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2140.jpg" alt="Friend portraits image 12"></a>
+        <a href="/pictures/friendPortraitGal/E26A2161.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2161.jpg" alt="Friend portraits image 13"></a>
+        <a href="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg" alt="Friend portraits image 14"></a>
+        <a href="/pictures/friendPortraitGal/E26A2237.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2237.jpg" alt="Friend portraits image 15"></a>
+        <a href="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg" alt="Friend portraits image 16"></a>
+        <a href="/pictures/friendPortraitGal/E26A2302.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2302.jpg" alt="Friend portraits image 17"></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lb-close" aria-label="Close">✕</button>
+    <button id="lb-prev" aria-label="Previous image">‹</button>
+    <img id="lb-img" alt="" />
+    <button id="lb-next" aria-label="Next image">›</button>
+  </div>
+
+  <!-- FOOTER (exact layout; no dividing line) -->
+  <footer>
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
+      <div><a href="mailto:rachelbartonphotography@gmail.com">rachelbartonphotography@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Lightbox
+    (function(){
+      const lightbox = document.getElementById('lightbox');
+      const imgEl = document.getElementById('lb-img');
+      const closeBtn = document.getElementById('lb-close');
+      const prevBtn = document.getElementById('lb-prev');
+      const nextBtn = document.getElementById('lb-next');
+
+      const links = Array.from(document.querySelectorAll('#friend-grid a'));
+      let idx = -1;
+
+      function openAt(i){
+        idx = (i + links.length) % links.length;
+        imgEl.src = links[idx].getAttribute('href');
+        lightbox.style.display = 'flex';
+        document.body.classList.add('modal-open');
+      }
+      function closeBox(){
+        lightbox.style.display = 'none';
+        imgEl.removeAttribute('src');
+        document.body.classList.remove('modal-open');
+      }
+      function prev(){ openAt(idx - 1); }
+      function next(){ openAt(idx + 1); }
+
+      links.forEach((a,i)=> a.addEventListener('click', e=>{ e.preventDefault(); openAt(i); }));
+      closeBtn.addEventListener('click', closeBox);
+      prevBtn.addEventListener('click', prev);
+      nextBtn.addEventListener('click', next);
+
+      window.addEventListener('keydown', e=>{
+        if(lightbox.style.display !== 'flex') return;
+        if(e.key === 'Escape') closeBox();
+        if(e.key === 'ArrowLeft') prev();
+        if(e.key === 'ArrowRight') next();
+      });
+
+      lightbox.addEventListener('click', e=>{ if(e.target === lightbox) closeBox(); });
+    })();
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
