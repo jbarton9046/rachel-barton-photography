@@ -62,8 +62,31 @@
 </head>
 <body>
 
-  <!-- Shared Top Nav (injected) -->
-  <div data-include="../partials/topnav.html"></div>
+  <!-- INLINE Top Nav (matches layout.css expectations exactly) -->
+  <div class="topbar container">
+    <div class="brand"></div>
+    <nav class="primary" aria-label="Primary">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">Meet Rachel</a></li>
+
+        <li class="has-sub">
+          <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
+          <!-- Relaxed vertical dropdown -->
+          <ul class="dropdown" aria-label="Galleries submenu">
+            <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
+            <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
+            <li><a href="/galleries/friend-portrait.html" aria-current="page">Friend Portraits</a></li>
+          </ul>
+        </li>
+
+        <li><a href="/#reviews">Testimonials</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/#book">Book</a></li>
+      </ul>
+    </nav>
+  </div>
 
   <main id="content" class="container-page">
     <section class="page-head" aria-labelledby="friend-title">
