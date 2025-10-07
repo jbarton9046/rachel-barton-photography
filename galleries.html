@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,7 +31,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Preload hero image -->
+  <!-- Preload hero image (optional) -->
   <link rel="preload" as="image" href="pictures/heroImage.jpg">
 
   <style>
@@ -59,13 +59,9 @@
     img{max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    /* HERO (not used here) */
-    .hero{ display:none; }
-
     /* Top bar — centered, NOT sticky */
     .topbar{
-      position:relative;
-      left:0; right:0; top:0;
+      position:relative; left:0; right:0; top:0;
       display:flex; align-items:center; justify-content:center;
       padding:16px var(--gap); z-index:10; background:transparent;
     }
@@ -80,61 +76,50 @@
       border-bottom:0;
       padding:4px 2px;
     }
-    /* Trigger turns gold while menu is open */
-    .has-sub:hover > a,
-    .has-sub:focus-within > a{ color:var(--accent); }
+    .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
 
-    /* EXACT dropdown look (matches your screenshot / index) */
+    /* Base dropdown (same structure as index) */
     .has-sub{ position:relative; }
+    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
     .dropdown{
-      position:absolute;
-      top:calc(100% + 8px);
-      left:50%;
-      transform:translateX(-50%);
-      background:transparent;
-      border:0;
-      box-shadow:none;
-      padding:0;
-      display:flex;
-      flex-direction:column;
-      gap:14px; /* comfy vertical space */
-      min-width:unset;
-      opacity:0; visibility:hidden; pointer-events:none;
-      transition:opacity .15s ease, transform .15s ease;
-      z-index:3;
+      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
+      background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
+      padding:6px 8px; display:flex; flex-direction:column; gap:2px; min-width:220px;
+      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:3; backdrop-filter:saturate(1.05);
     }
-    .has-sub:hover .dropdown,
-    .has-sub:focus-within .dropdown{
-      opacity:1; visibility:visible; pointer-events:auto;
-      transform:translateX(-50%) translateY(2px);
+    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
+      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
     }
     .dropdown li{list-style:none}
     .dropdown a{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700;
-      font-size:clamp(18px,2.2vw,20px);
-      line-height:1.2;
-      letter-spacing:.01em;
-      color:#3f3a33;
-      padding:0;
-      background:transparent;
-      border:0;
-      white-space:nowrap;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-weight:700;
+      font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; line-height:1.1; padding:2px 6px; color:#3f3a33; border-bottom:0; white-space:nowrap;
     }
-    .dropdown a:hover,
-    .dropdown a:focus-visible{
-      color:var(--accent);
-      outline:none;
+    .dropdown a:hover, .dropdown a:focus-visible{ background:transparent; border-bottom:0; color:var(--accent); outline:none; }
+
+    /* EXACT index overrides (text-only floating & 75% sizing) */
+    .topbar nav.primary .has-sub > .dropdown{
+      background:transparent !important; border:0 !important; box-shadow:none !important;
+      padding:0 !important; gap:6px !important; min-width:unset !important;
+      left:50% !important; transform:translateX(-50%) !important;
+    }
+    .topbar nav.primary .dropdown a{
+      border-bottom:0 !important; padding:0 !important; background:transparent !important;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
+      font-weight:700 !important; font-size:clamp(13px, 1.65vw, 15px) !important; line-height:1.05 !important;
+    }
+    .topbar nav.primary .dropdown a:hover, .topbar nav.primary .dropdown a:focus-visible{
+      border-bottom:0 !important; background:transparent !important; color:var(--accent) !important; outline:none !important;
     }
 
-    /* Spacer so dropdown never overlaps the header */
+    /* Spacer so dropdown never overlaps the section header */
     .nav-spacer{ height:clamp(96px, 13vw, 168px); }
 
     section{padding:calc(var(--gap)*2) 0}
     .section-title{ font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-size:clamp(24px,3.5vw,38px); margin:0 0 8px }
     .section-sub{color:#67635b; margin:0 0 22px}
 
-    /* Mosaic tiles */
+    /* Mosaic */
     .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px)}
     .mosaic figure{margin:0}
     .mosaic .captioned.notch{position:relative; display:block}
@@ -148,7 +133,7 @@
     }
     .mosaic .cap-label:hover{background:#e2d7bd; box-shadow:0 6px 18px rgba(0,0,0,.08); transform:translateY(-1px)}
 
-    /* CTA button: black outline → gold on hover */
+    /* CTA button: black outline → gold hover */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
@@ -161,48 +146,27 @@
       text-decoration:none;
     }
     .btn:hover, .btn:focus-visible{
-      color:var(--accent);
-      border-color:var(--accent);
-      background:#f9f6ef;
-      transform:translateY(-1px);
-      outline:none;
-      box-shadow:0 10px 24px rgba(0,0,0,.08);
+      color:var(--accent); border-color:var(--accent); background:#f9f6ef; transform:translateY(-1px); outline:none; box-shadow:0 10px 24px rgba(0,0,0,.08);
     }
     .btn:active{ transform:translateY(0); box-shadow:0 4px 12px rgba(0,0,0,.06); }
 
-    /* Floating diamond arrows */
-    #gallery-meadow .tile-nav,
-    #gallery-family .tile-nav,
-    #gallery-beach  .tile-nav{
+    /* Tile arrows + dots (diamond style kept) */
+    #gallery-meadow .tile-nav, #gallery-family .tile-nav, #gallery-beach .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
-      background:transparent !important; border:0 !important;
-      width:56px; height:56px; display:grid; place-items:center;
-      color:var(--accent);
-      cursor:pointer; user-select:none; z-index:4;
-      opacity:0; transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease; outline:none;
-      padding:0;
+      background:transparent !important; border:0 !important; width:56px; height:56px; display:grid; place-items:center;
+      color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0; transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease; outline:none;
     }
-    #gallery-meadow:hover .tile-nav,
-    #gallery-family:hover .tile-nav,
-    #gallery-beach:hover  .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
+    #gallery-meadow:hover .tile-nav, #gallery-family:hover .tile-nav, #gallery-beach:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
     #gallery-meadow .tile-prev, #gallery-family .tile-prev, #gallery-beach .tile-prev{ left:10px; }
     #gallery-meadow .tile-next, #gallery-family .tile-next, #gallery-beach .tile-next{ right:10px; }
-    #gallery-meadow .tile-nav svg, #gallery-family .tile-nav svg, #gallery-beach .tile-nav svg{ width:22px; height:22px; display:block; position:relative; z-index:2 }
-    #gallery-meadow .tile-nav::before,
-    #gallery-family .tile-nav::before,
-    #gallery-beach  .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
-      background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05);
-      box-shadow:0 6px 18px rgba(0,0,0,.14); z-index:0;
+    #gallery-meadow .tile-nav::before, #gallery-family .tile-nav::before, #gallery-beach .tile-nav::before{
+      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05); box-shadow:0 6px 18px rgba(0,0,0,.14); z-index:0;
     }
-    #gallery-meadow .tile-nav::after,
-    #gallery-family .tile-nav::after,
-    #gallery-beach  .tile-nav::after{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
-      border:1.5px solid var(--accent); z-index:1; pointer-events:none;
+    #gallery-meadow .tile-nav::after, #gallery-family .tile-nav::after, #gallery-beach .tile-nav::after{
+      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); border:1.5px solid var(--accent); z-index:1; pointer-events:none;
     }
+    #gallery-meadow .tile-nav svg, #gallery-family .tile-nav svg, #gallery-beach .tile-nav svg{ width:22px; height:22px; position:relative; z-index:2 }
 
-    /* Pagination dots (diamond) */
     #gallery-meadow .tile-dots, #gallery-family .tile-dots, #gallery-beach .tile-dots{
       position:absolute; left:50%; transform:translateX(-50%); bottom:40px; display:flex; gap:8px; z-index:4; pointer-events:auto;
     }
@@ -228,7 +192,7 @@
   </style>
 </head>
 <body>
-  <!-- Centered navbar with exact dropdown -->
+  <!-- Centered navbar with EXACT index dropdown -->
   <div class="topbar container">
     <div class="brand"></div>
     <nav class="primary" aria-label="Primary">
@@ -259,7 +223,6 @@
         <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
         <p class="section-sub">From sunlit meadows to Gulf sunsets, explore the feel of a session—connection, motion, and easy, unposed energy.</p>
 
-        <!-- Optional helper note -->
         <div class="section-help" role="note" aria-label="Gallery navigation help" style="margin:10px 0 12px; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:#6e6a62; display:inline-flex; align-items:center; gap:8px; padding:6px 10px; background:#fff; border:1px solid var(--line); box-shadow:0 2px 8px rgba(0,0,0,.04);">
           <span class="help-ico" aria-hidden="true">ⓘ</span>
           Preview & navigate: click the tile or use the arrows to move through images. Select the label to view the full gallery.
@@ -440,48 +403,73 @@
         const recessH_css = labelRect.height + padCss * 2;
 
         const sx = 800 / tileRect.width;
-        public_sy = 1000 / tileRect.height; // typo fix not needed; keep sy
+        const sy = 1000 / tileRect.height;
+
+        const recessW = recessW_css * sx;
+        const recessH = recessH_css * sy;
+
+        const recessX = ((tileRect.width - recessW_css) / 2) * sx;
+        const recessY = 1000 - recessH - (padCss * sy) - (liftCss * sy);
+
+        notchRect.setAttribute('x', recessX.toFixed(2));
+        notchRect.setAttribute('y', recessY.toFixed(2));
+        notchRect.setAttribute('width', recessW.toFixed(2));
+        notchRect.setAttribute('height', recessH.toFixed(2));
+
+        recessStroke.setAttribute('x', recessX.toFixed(2));
+        recessStroke.setAttribute('y', recessY.toFixed(2));
+        recessStroke.setAttribute('width', recessW.toFixed(2));
+        recessStroke.setAttribute('height', recessH.toFixed(2));
+
+        notchBox.style.width = recessW_css + 'px';
+        notchBox.style.height = recessH_css + 'px';
+        notchBox.style.bottom = (padCss + liftCss) + 'px';
+        notchBox.style.left = '50%';
+        notchBox.style.transform = 'translateX(-50%)';
+
+        const dotsWrap = tile.querySelector('.tile-dots');
+        if(dotsWrap){
+          dotsWrap.style.bottom = (padCss + recessH_css + dotsGapCss + liftCss) + 'px';
+        }
       }
+
+      function updateAll(){ tiles.forEach(t => updateTile(t)); }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(()=>{ requestAnimationFrame(updateAll); });
+      } else {
+        window.addEventListener('load', updateAll);
+      }
+      window.addEventListener('resize', ()=>{ requestAnimationFrame(updateAll); });
+      setTimeout(updateAll, 0);
     })();
   </script>
-  <!-- (Keeping your existing slider JS from your last version below) -->
 
   <!-- Slider: tile #1 -->
   <script>
     (function(){
       const tile = document.getElementById('gallery-meadow');
       if(!tile) return;
+      const imgEl = tile.querySelector('svg image'); if(!imgEl) return;
 
-      const imgEl = tile.querySelector('svg image');
-      if(!imgEl) return;
-
-      let list;
-      try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
+      let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
       if(!Array.isArray(list) || list.length <= 1) return;
 
       let idx = 0;
 
-      // build dots
       const dotsWrap = tile.querySelector('.tile-dots');
       const dots = [];
       if(dotsWrap){
         for(let i=0;i<list.length;i++){
           const b = document.createElement('button');
-          b.type = 'button';
-          b.setAttribute('role','tab');
-          b.setAttribute('aria-label','Go to slide ' + (i+1));
+          b.type = 'button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide ' + (i+1));
           b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
-          dotsWrap.appendChild(b);
-          dots.push(b);
+          dotsWrap.appendChild(b); dots.push(b);
         }
       }
 
       function updateDots(){
         if(!dots.length) return;
-        dots.forEach((d,i)=>{
-          if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); }
-          else{ d.classList.remove('is-active'); d.removeAttribute('aria-selected'); }
-        });
+        dots.forEach((d,i)=>{ if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); } else { d.classList.remove('is-active'); d.removeAttribute('aria-selected'); } });
       }
 
       function show(i){
@@ -508,12 +496,9 @@
     (function(){
       const tile = document.getElementById('gallery-family');
       if(!tile) return;
+      const imgEl = tile.querySelector('svg image'); if(!imgEl) return;
 
-      const imgEl = tile.querySelector('svg image');
-      if(!imgEl) return;
-
-      let list;
-      try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
+      let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
       if(!Array.isArray(list) || list.length <= 1) return;
 
       let idx = 0;
@@ -523,21 +508,15 @@
       if(dotsWrap){
         for(let i=0;i<list.length;i++){
           const b = document.createElement('button');
-          b.type = 'button';
-          b.setAttribute('role','tab');
-          b.setAttribute('aria-label','Go to slide ' + (i+1));
+          b.type = 'button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide ' + (i+1));
           b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
-          dotsWrap.appendChild(b);
-          dots.push(b);
+          dotsWrap.appendChild(b); dots.push(b);
         }
       }
 
       function updateDots(){
         if(!dots.length) return;
-        dots.forEach((d,i)=>{
-          if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); }
-          else{ d.classList.remove('is-active'); d.removeAttribute('aria-selected'); }
-        });
+        dots.forEach((d,i)=>{ if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); } else { d.classList.remove('is-active'); d.removeAttribute('aria-selected'); } });
       }
 
       function show(i){
@@ -564,12 +543,9 @@
     (function(){
       const tile = document.getElementById('gallery-beach');
       if(!tile) return;
+      const imgEl = tile.querySelector('svg image'); if(!imgEl) return;
 
-      const imgEl = tile.querySelector('svg image');
-      if(!imgEl) return;
-
-      let list;
-      try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
+      let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
       if(!Array.isArray(list) || list.length <= 1) return;
 
       let idx = 0;
@@ -579,21 +555,15 @@
       if(dotsWrap){
         for(let i=0;i<list.length;i++){
           const b = document.createElement('button');
-          b.type = 'button';
-          b.setAttribute('role','tab');
-          b.setAttribute('aria-label','Go to slide ' + (i+1));
+          b.type = 'button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide ' + (i+1));
           b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
-          dotsWrap.appendChild(b);
-          dots.push(b);
+          dotsWrap.appendChild(b); dots.push(b);
         }
       }
 
       function updateDots(){
         if(!dots.length) return;
-        dots.forEach((d,i)=>{
-          if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); }
-          else{ d.classList.remove('is-active'); d.removeAttribute('aria-selected'); }
-        });
+        dots.forEach((d,i)=>{ if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); } else { d.classList.remove('is-active'); d.removeAttribute('aria-selected'); } });
       }
 
       function show(i){
