@@ -139,15 +139,11 @@
     .mosaic .u-stroke{fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round}
     .mosaic .notch-box{position:absolute; bottom:0; left:50%; transform:translateX(-50%); display:flex; align-items:center; justify-content:center; pointer-events:none}
 
-    /* === UPDATED CAPTION LABEL ===
-       - Same font as "Featured Galleries"
-       - Parchment/glass background with double border
-       - Slight lift on hover
-    */
+    /* === UPDATED CAPTION LABEL === */
     .mosaic .cap-label{
       position:relative;
       pointer-events:auto;
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; /* match header */
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-weight:700;
       font-size:clamp(14px,1.6vw,18px);
       letter-spacing:.01em;
@@ -158,6 +154,7 @@
       border:1px solid rgba(63,58,51,.18);
       box-shadow:0 10px 22px rgba(0,0,0,.12);
       backdrop-filter:saturate(1.05) blur(1px);
+      transition:color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
     }
     .mosaic .cap-label::before{
       content:"";
@@ -174,7 +171,7 @@
       outline:none;
     }
 
-    /* CTA button */
+    /* CTA button (no jitter; bg stays transparent; text + outline turn gold) */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
@@ -183,11 +180,15 @@
       border:1px solid rgba(0,0,0,.9);
       padding:10px 16px; border-radius:0;
       box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
       text-decoration:none;
+      transition:color .15s ease, border-color .15s ease; /* no transform/background changes */
     }
     .btn:hover, .btn:focus-visible{
-      color:var(--accent); border-color:var(--accent); background:#f9f6ef; transform:translateY(-1px); outline:none; box-shadow:0 10px 24px rgba(0,0,0,.08);
+      color:var(--accent);
+      border-color:var(--accent);
+      background:transparent;   /* keep background steady */
+      box-shadow:0 6px 18px rgba(0,0,0,.06); /* same shadow = no visual jitter */
+      outline:none;
     }
 
     /* Tile arrows + dots (diamond look) */
@@ -219,7 +220,7 @@
     }
     #gallery-meadow .tile-dots button.is-active::before, #gallery-family .tile-dots button.is-active::before, #gallery-beach .tile-dots button.is-active::before{ background:rgba(168,138,90,.22); }
 
-    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; text-align:center}
+    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; text-align:center; display:none;} /* hidden since we removed the credit */
 
     @media (max-width:960px){
       .mosaic{grid-template-columns:1fr 1fr}
@@ -412,13 +413,14 @@
         </div>
 
         <div class="cta" style="margin-top:16px; display:flex; justify-content:center">
-          <a class="btn" href="#book">Check availability</a>
+          <a class="btn" href="#book">Book a Session</a>
         </div>
       </section>
     </div>
   </main>
 
-  <footer>— S. Miller</footer>
+  <!-- Footer credit removed as requested -->
+  <footer></footer>
 
   <!-- Notch/label/dots positioning -->
   <script>
