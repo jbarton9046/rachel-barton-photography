@@ -27,9 +27,16 @@
 
   <style>
     :root{
-      --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#7a766e;
-      --accent:#A88A5A; --line:#e9e6df; --ring:rgba(168,138,90,.25);
-      --shadow:0 10px 30px rgba(0,0,0,.08); --gap:clamp(16px,3vw,32px); --maxw:1100px;
+      --bg:#FAFAF8;
+      --paper:#fff;
+      --ink:#3e3e3a;
+      --muted:#7a766e;
+      --accent:#A88A5A;
+      --line:#e9e6df;
+      --ring:rgba(168,138,90,.25);
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --gap:clamp(16px,3vw,32px);
+      --maxw:1100px;
     }
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65}
@@ -37,33 +44,50 @@
     a:hover,a:focus-visible{color:var(--accent);outline:none}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
 
-    /* Topbar (centered, non-sticky) */
-    .topbar{position:relative;display:flex;justify-content:center;padding:16px var(--gap)}
+    /* ===== Topbar (matches index.html) ===== */
+    .topbar{
+      position:relative;
+      display:flex;align-items:center;justify-content:center;
+      padding:16px var(--gap);
+      z-index:10;background:transparent;
+    }
     .brand{display:none}
     nav.primary ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
     nav.primary li{position:relative}
-    nav.primary a{font-family:"Raleway",ui-sans-serif; font-weight:500; font-size:clamp(16px,1.8vw,20px); letter-spacing:.02em; padding:4px 2px}
-    .has-sub:hover> a,.has-sub:focus-within> a{color:var(--accent)}
+    nav.primary a{
+      font-family:"Raleway",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-weight:500;font-size:clamp(16px,1.8vw,20px);letter-spacing:.02em;border-bottom:0;padding:4px 2px;
+    }
+    nav.primary a:hover, nav.primary a:focus-visible{color:var(--accent);border-bottom:0}
+    .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
 
-    /* Floating text dropdown (matches galleries.html text-only look) */
-    .has-sub{position:relative}
-    .has-sub::after{content:"";position:absolute;left:-8px;right:-8px;top:100%;height:12px}
+    /* Dropdown (floating text—exact look from index’s hero) */
+    .has-sub{ position:relative; }
+    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; }
     .dropdown{
-      position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%);
-      background:transparent; border:0; box-shadow:none; padding:0;
-      display:flex; flex-direction:column; gap:6px; min-width:unset;
+      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%,0);
+      background:transparent; border:0; box-shadow:none;
+      padding:0; display:flex; flex-direction:column; gap:6px; min-width:unset;
       opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:5;
     }
-    .has-sub:hover .dropdown,.has-sub:focus-within .dropdown,.dropdown:hover{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,2px)}
+    .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
+      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%,2px);
+    }
     .dropdown li{list-style:none}
     .dropdown a{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700; font-size:clamp(13px,1.65vw,15px); line-height:1.05; padding:0; white-space:nowrap;
+      font-weight:700; font-size:clamp(13px,1.65vw,15px); line-height:1.05; padding:0; white-space:nowrap; border-bottom:0;
     }
+
+    /* Slim spacer so dropdown doesn't overlap the page heading on this non-hero page */
+    .nav-spacer{ height:clamp(10px, 2vw, 22px); }
 
     /* Page header */
     header.page{padding:18px 0 8px;border-top:1px solid transparent}
-    h1{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;font-size:clamp(32px,5vw,52px);line-height:1.1;margin:.25em 0 .2em}
+    h1{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-size:clamp(32px,5vw,52px);line-height:1.1;margin:.25em 0 .2em
+    }
     .lead{color:#635f57;margin:0 0 18px}
 
     /* FAQ list */
@@ -81,7 +105,7 @@
     .answer{padding:0 18px 16px; color:#4a463f}
     .answer p{margin:10px 0}
     .answer ul{margin:8px 0 0 18px}
-    .badge{display:inline-block; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#6e6a62; background:#fff; border:1px solid var(--line); padding:4px 8px}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700}
 
     footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px}
     footer .container{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
@@ -90,12 +114,13 @@
 </head>
 <body>
 
-  <!-- Top navigation -->
+  <!-- Top navigation (order: Home, Meet Rachel, Galleries + dropdown, Testimonials, FAQ, Contact, Book) -->
   <div class="topbar container">
     <div class="brand"></div>
     <nav class="primary" aria-label="Primary">
       <ul>
         <li><a href="/">Home</a></li>
+        <li><a href="/about.html">Meet Rachel</a></li>
         <li class="has-sub">
           <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
           <ul class="dropdown" aria-label="Galleries submenu">
@@ -104,7 +129,6 @@
             <li><a href="/galleries/friend-portrait.html">Friend Portraits</a></li>
           </ul>
         </li>
-        <li><a href="/about.html">Meet Rachel</a></li>
         <li><a href="/#reviews">Testimonials</a></li>
         <li><a href="/faq.html" aria-current="page">FAQ</a></li>
         <li><a href="/#contact">Contact</a></li>
@@ -113,11 +137,14 @@
     </nav>
   </div>
 
+  <!-- Spacer to keep dropdown off the heading -->
+  <div class="nav-spacer" aria-hidden="true"></div>
+
   <header class="page">
     <div class="container">
       <h1>Frequently Asked Questions</h1>
       <p class="lead">Quick answers about booking, sessions, styling, weather plans, delivery, and more.</p>
-      <span class="badge">Updated <span id="year"></span></span>
+      <span class="badge" style="display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6e6a62;background:#fff;border:1px solid var(--line);padding:4px 8px">Updated <span id="year"></span></span>
     </div>
   </header>
 
@@ -220,7 +247,8 @@
       </details>
 
       <div style="margin-top:18px">
-        Still wondering about something? <a class="btn" href="/#contact" style="border:1px solid var(--line);padding:10px 16px;box-shadow:0 6px 18px rgba(0,0,0,.06);font-weight:700;text-decoration:none">Contact Me</a>
+        Still wondering about something?
+        <a class="btn" href="/#contact" style="border:1px solid var(--line);padding:10px 16px;box-shadow:0 6px 18px rgba(0,0,0,.06);text-decoration:none">Contact Me</a>
       </div>
     </section>
   </main>
