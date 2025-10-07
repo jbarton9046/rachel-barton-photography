@@ -171,7 +171,7 @@
       outline:none;
     }
 
-    /* CTA button (no jitter; bg stays transparent; text + outline turn gold) */
+    /* CTA button */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
@@ -181,13 +181,13 @@
       padding:10px 16px; border-radius:0;
       box-shadow:0 6px 18px rgba(0,0,0,.06);
       text-decoration:none;
-      transition:color .15s ease, border-color .15s ease; /* no transform/background changes */
+      transition:color .15s ease, border-color .15s ease;
     }
     .btn:hover, .btn:focus-visible{
       color:var(--accent);
       border-color:var(--accent);
-      background:transparent;   /* keep background steady */
-      box-shadow:0 6px 18px rgba(0,0,0,.06); /* same shadow = no visual jitter */
+      background:transparent;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
       outline:none;
     }
 
@@ -220,7 +220,22 @@
     }
     #gallery-meadow .tile-dots button.is-active::before, #gallery-family .tile-dots button.is-active::before, #gallery-beach .tile-dots button.is-active::before{ background:rgba(168,138,90,.22); }
 
-    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; text-align:center; display:none;} /* hidden since we removed the credit */
+    /* Footer (now visible) */
+    footer{
+      border-top:1px solid var(--line);
+      padding:28px 0;
+      color:#7f7f7f;
+    }
+    footer .container{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    @media (max-width:720px){
+      footer .container{ justify-content:center; text-align:center; }
+    }
 
     @media (max-width:960px){
       .mosaic{grid-template-columns:1fr 1fr}
@@ -419,8 +434,13 @@
     </div>
   </main>
 
-  <!-- Footer credit removed as requested -->
-  <footer></footer>
+  <!-- Footer with contact -->
+  <footer>
+    <div class="container">
+      <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
+      <div><a href="mailto:rachelbartonphotgraphy@gmail.com">rachelbartonphotgraphy@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></div>
+    </div>
+  </footer>
 
   <!-- Notch/label/dots positioning -->
   <script>
@@ -484,6 +504,9 @@
       window.addEventListener('resize', ()=>{ requestAnimationFrame(updateAll); });
       setTimeout(updateAll, 0);
     })();
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 
   <!-- Slider: tile #1 -->
