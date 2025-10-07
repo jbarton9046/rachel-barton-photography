@@ -27,16 +27,9 @@
 
   <style>
     :root{
-      --bg:#FAFAF8;
-      --paper:#fff;
-      --ink:#3e3e3a;
-      --muted:#7a766e;
-      --accent:#A88A5A;
-      --line:#e9e6df;
-      --ring:rgba(168,138,90,.25);
-      --shadow:0 10px 30px rgba(0,0,0,.08);
-      --gap:clamp(16px,3vw,32px);
-      --maxw:1100px;
+      --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#7a766e;
+      --accent:#A88A5A; --line:#e9e6df; --ring:rgba(168,138,90,.25);
+      --shadow:0 10px 30px rgba(0,0,0,.08); --gap:clamp(16px,3vw,32px); --maxw:1100px;
     }
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65}
@@ -44,68 +37,72 @@
     a:hover,a:focus-visible{color:var(--accent);outline:none}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
 
-    /* ===== Topbar (matches index.html) ===== */
+    /* ===== Topbar (copied from index.html) ===== */
     .topbar{
       position:relative;
-      display:flex;align-items:center;justify-content:center;
-      padding:16px var(--gap);
-      z-index:10;background:transparent;
+      display:flex; align-items:center; justify-content:center;
+      padding:16px var(--gap); z-index:10; background:transparent;
     }
     .brand{display:none}
-    nav.primary ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
-    nav.primary li{position:relative}
+    nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
+    nav.primary li{ position:relative; }
     nav.primary a{
-      font-family:"Raleway",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      font-weight:500;font-size:clamp(16px,1.8vw,20px);letter-spacing:.02em;border-bottom:0;padding:4px 2px;
+      font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight:500;
+      font-size:clamp(16px,1.8vw,20px);
+      letter-spacing:.02em;
+      border-bottom:0;
+      padding:4px 2px;
     }
-    nav.primary a:hover, nav.primary a:focus-visible{color:var(--accent);border-bottom:0}
+    nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); border-bottom:0; }
     .has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent); }
 
-    /* Dropdown (floating text—exact look from index’s hero) */
+    /* === EXACT dropdown from index.html (text-only variant) === */
     .has-sub{ position:relative; }
-    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; }
+    .has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent; }
     .dropdown{
-      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%,0);
-      background:transparent; border:0; box-shadow:none;
-      padding:0; display:flex; flex-direction:column; gap:6px; min-width:unset;
-      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:5;
+      position:absolute; top:calc(100% + 6px); left:50%; transform:translate(-50%, 0);
+      background:rgba(255,255,255,.65); border:1px solid var(--line); box-shadow:var(--shadow);
+      padding:6px 8px; display:flex; flex-direction:column; gap:2px; min-width:220px;
+      opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:999; backdrop-filter:saturate(1.05);
     }
     .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
-      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%,2px);
+      opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
     }
     .dropdown li{list-style:none}
     .dropdown a{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700; font-size:clamp(13px,1.65vw,15px); line-height:1.05; padding:0; white-space:nowrap; border-bottom:0;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif; font-weight:700;
+      font-size:clamp(18px,2.2vw,20px); letter-spacing:.02em; line-height:1.08; padding:2px 6px; color:#3f3a33; border-bottom:0; white-space:nowrap;
+    }
+    .dropdown a:hover, .dropdown a:focus-visible{ background:transparent; border-bottom:0; color:var(--accent); outline:none; }
+
+    /* Force the text-only dropdown look just like index hero */
+    .topbar nav.primary .has-sub > .dropdown{
+      background:transparent !important; border:0 !important; box-shadow:none !important;
+      padding:0 !important; gap:6px !important; min-width:unset !important;
+      left:50% !important; transform:translateX(-50%) !important;
+    }
+    .topbar nav.primary .dropdown a{
+      border-bottom:0 !important; padding:0 !important; background:transparent !important;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif !important;
+      font-weight:700 !important; font-size:clamp(13px, 1.65vw, 15px) !important; line-height:1.05 !important;
     }
 
-    /* Slim spacer so dropdown doesn't overlap the page heading on this non-hero page */
+    /* Spacer so dropdown doesn't overlap page title on non-hero pages */
     .nav-spacer{ height:clamp(10px, 2vw, 22px); }
 
-    /* Page header */
-    header.page{padding:18px 0 8px;border-top:1px solid transparent}
-    h1{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-size:clamp(32px,5vw,52px);line-height:1.1;margin:.25em 0 .2em
-    }
+    /* Page header + FAQ styles */
+    header.page{padding:18px 0 8px}
+    h1{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;font-size:clamp(32px,5vw,52px);line-height:1.1;margin:.25em 0 .2em}
     .lead{color:#635f57;margin:0 0 18px}
 
-    /* FAQ list */
     .faq{display:grid;gap:12px;margin:18px 0 40px}
-    details{
-      background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow);
-      padding:0; border-radius:0; overflow:hidden;
-    }
-    summary{
-      list-style:none; cursor:pointer; padding:16px 18px; user-select:none;
-      font-weight:700; display:flex; align-items:flex-start; gap:12px;
-    }
+    details{background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:0}
+    summary{list-style:none; cursor:pointer; padding:16px 18px; user-select:none; font-weight:700; display:flex; gap:12px}
     summary::-webkit-details-marker{display:none}
     .qmark{font-family:"Fraunces",serif; font-size:20px; line-height:1; color:#b7a486; margin-top:2px}
     .answer{padding:0 18px 16px; color:#4a463f}
-    .answer p{margin:10px 0}
-    .answer ul{margin:8px 0 0 18px}
-    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;border:1px solid var(--line);padding:10px 16px;box-shadow:0 6px 18px rgba(0,0,0,.06);text-decoration:none}
 
     footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px}
     footer .container{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
@@ -114,7 +111,7 @@
 </head>
 <body>
 
-  <!-- Top navigation (order: Home, Meet Rachel, Galleries + dropdown, Testimonials, FAQ, Contact, Book) -->
+  <!-- Top navigation (order matches index: Meet Rachel before Galleries) -->
   <div class="topbar container">
     <div class="brand"></div>
     <nav class="primary" aria-label="Primary">
@@ -137,14 +134,13 @@
     </nav>
   </div>
 
-  <!-- Spacer to keep dropdown off the heading -->
   <div class="nav-spacer" aria-hidden="true"></div>
 
   <header class="page">
     <div class="container">
       <h1>Frequently Asked Questions</h1>
       <p class="lead">Quick answers about booking, sessions, styling, weather plans, delivery, and more.</p>
-      <span class="badge" style="display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6e6a62;background:#fff;border:1px solid var(--line);padding:4px 8px">Updated <span id="year"></span></span>
+      <span style="display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6e6a62;background:#fff;border:1px solid var(--line);padding:4px 8px">Updated <span id="year"></span></span>
     </div>
   </header>
 
@@ -248,7 +244,7 @@
 
       <div style="margin-top:18px">
         Still wondering about something?
-        <a class="btn" href="/#contact" style="border:1px solid var(--line);padding:10px 16px;box-shadow:0 6px 18px rgba(0,0,0,.06);text-decoration:none">Contact Me</a>
+        <a class="btn" href="/#contact">Contact Me</a>
       </div>
     </section>
   </main>
