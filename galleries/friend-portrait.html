@@ -51,7 +51,9 @@
       padding:16px var(--gap); z-index:10; background:transparent;
     }
     .brand{display:none}
-    nav.primary ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
+
+    /* Only the top-level list gets spacing */
+    nav.primary > ul{display:flex; gap:28px; list-style:none; margin:0; padding:0}
     nav.primary li{position:relative}
     nav.primary a{
       font-family:"Raleway",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
@@ -66,7 +68,7 @@
     .dropdown{
       position:absolute; top:calc(100% + 4px); left:50%; transform:translate(-50%,0);
       background:transparent; border:0; box-shadow:none;
-      display:flex; flex-direction:column; gap:0; margin:0; padding:0; list-style:none; min-width:unset;
+      display:flex; flex-direction:column; gap:0 !important; row-gap:0 !important; margin:0; padding:0; list-style:none; min-width:unset;
       opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:999;
     }
     .has-sub:hover .dropdown, .has-sub:focus-within .dropdown, .dropdown:hover{
@@ -90,8 +92,8 @@
     }
     .lede{color:#6e6a62; margin:0 0 18px}
 
-    /* ===== Gallery grid (same tile sizing) ===== */
-    .gallery-grid{display:grid; gap:clamp(10px,1.6vw,16px); margin-bottom:32px;} /* space before divider */
+    /* ===== Gallery grid ===== */
+    .gallery-grid{display:grid; gap:clamp(10px,1.6vw,16px); margin-bottom:32px;}
     @media (min-width:640px){ .gallery-grid{ grid-template-columns:repeat(2,1fr);} }
     @media (min-width:980px){ .gallery-grid{ grid-template-columns:repeat(3,1fr);} }
     .gallery-grid a{ display:block }
@@ -109,7 +111,7 @@
     #lb-close:focus-visible,#lb-prev:focus-visible,#lb-next:focus-visible{ outline:none; border-color:#fff; background:rgba(255,255,255,.12); }
     body.modal-open{ overflow:hidden; }
 
-    /* ===== Footer (same as layout.html) ===== */
+    /* ===== Footer ===== */
     footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px}
     footer .container{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
     @media (max-width:720px){footer .container{justify-content:center; text-align:center}}
@@ -117,7 +119,7 @@
 </head>
 <body>
 
-  <!-- Global nav (identical to layout.html) -->
+  <!-- Global nav -->
   <div class="topbar container">
     <div class="brand"></div>
     <nav class="primary" aria-label="Primary">
@@ -178,7 +180,7 @@
     <button id="lb-next" aria-label="Next image">›</button>
   </div>
 
-  <!-- Footer (identical to layout.html) -->
+  <!-- Footer -->
   <footer>
     <div class="container">
       <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
@@ -187,7 +189,7 @@
   </footer>
 
   <script>
-    // Lightbox behavior
+    // Lightbox
     (function(){
       const lightbox = document.getElementById('lightbox');
       const imgEl = document.getElementById('lb-img');
