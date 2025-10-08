@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Shared layout (same version as portrait pages) -->
+  <!-- Shared layout -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
   <!-- Preload hero image -->
@@ -39,32 +39,35 @@
     .hero{
       position:relative;
       min-height:100svh;
-      display:grid;
-      place-items:center;                 /* center card both axes */
       background:url('pictures/oonaIvy/E26A0671.jpg') center 15%/cover no-repeat;
       width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
     }
-    /* overlay navbar with the same spacing */
+    /* overlay navbar (universal) */
     .hero .topbar{
       position:absolute; left:0; right:0; top:0;
       display:flex; align-items:center; justify-content:center;
       padding:16px var(--gap); z-index:2;
     }
 
+    /* Card (centered by default) */
     .hero .copy{
-      position:relative; z-index:1;
+      position:absolute; z-index:1;
+      top:50%; left:50%; transform:translate(-50%,-50%);
       background:rgba(255,255,255,.68);
       border:1px solid var(--line);
-      /* bigger, but responsive */
       padding:clamp(22px,3.2vw,42px) clamp(26px,3.6vw,48px);
-      width:min(92vw, 1040px);            /* wider card */
-      box-shadow:0 10px 30px rgba(0,0,0,.08);
+      width:min(92vw, 1040px);
       text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,.08);
     }
 
-    /* Nudge the hero card a bit to the right on desktop to free the left subject */
-    @media (min-width:1024px){
-      .hero .copy{ transform: translateX(6vw); } /* adjust 4–8vw to taste */
+    /* Desktop: center card between daughter's right edge and viewport right edge */
+    @media (min-width: 1024px){
+      :root{ --subject-right: 46vw; } /* tweak this until the midpoint looks perfect */
+      .hero .copy{
+        left: calc( (var(--subject-right) + 100vw) / 2 );
+        transform: translate(-50%, -50%);
+      }
     }
 
     .eyebrow{
@@ -73,7 +76,7 @@
     }
     h1{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-size:clamp(42px,7vw,72px);     /* scaled up */
+      font-size:clamp(42px,7vw,72px);
       line-height:1.08;margin:.25em 0;font-weight:700;color:#3f3a33
     }
 
@@ -84,7 +87,7 @@
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       background:#fff;
       border:1px solid rgba(63,58,51,.9);
-      padding:12px 20px;                  /* larger buttons */
+      padding:12px 20px;
       font-size:clamp(16px,1.5vw,18px);
       color:#3f3a33; font-weight:700; cursor:pointer; border-radius:0;
       box-shadow:0 6px 18px rgba(0,0,0,.06);
