@@ -90,6 +90,12 @@
     .stack{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
     @media (max-width:900px){ .stack{grid-template-columns:1fr} }
 
+    /* Make columns end at the same bottom edge on desktop */
+    @media (min-width:900px){
+      .grid{ align-items:stretch; }
+      .card{ height:100%; }
+    }
+
     /* Footer */
     footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f}
     footer .container{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between}
@@ -164,6 +170,41 @@
 
   <!-- include shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Auto-align photo column top to header text top on desktop
+    function alignContactPhoto(){
+      const title = document.getElementById('contact-title');
+      const photos = document.querySelector('.photos');
+      if(!title || !photos) return;
+
+      // reset first
+      photos.style.marginTop = '';
+
+      if (window.innerWidth < 900) return; // mobile/tablet: no lift
+
+      const titleTop  = title.getBoundingClientRect().top;
+      const photosTop = photos.getBoundingClientRect().top;
+      const delta = photosTop - titleTop;
+
+      // Shift photos up by exactly the difference
+      photos.style.marginTop = (-delta) + 'px';
+    }
+
+    // Run after fonts & images settle, and on resize
+    (function(){
+      const firstImg = document.querySelector('.photos img');
+      if (firstImg) firstImg.addEventListener('load', alignContactPhoto, { once:true });
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => requestAnimationFrame(alignContactPhoto));
+      } else {
+        window.addEventListener('load', () => requestAnimationFrame(alignContactPhoto));
+      }
+      window.addEventListener('resize', () => requestAnimationFrame(alignContactPhoto));
+      // small async nudge
+      setTimeout(alignContactPhoto, 0);
+    })();
+  </script>
 </body>
 </html>
