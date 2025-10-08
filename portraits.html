@@ -3,36 +3,34 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rachel Barton Photography | Sarasota Family & Lifestyle Photographer</title>
+  <title>Portraits | Rachel Barton Photography</title>
 
   <!-- Primary SEO -->
-  <meta name="description" content="Candid, timeless, true-to-life family, maternity, newborn & portrait photography across Sarasota and Florida’s Gulf Coast — with a soft, whimsical touch." />
-  <link rel="canonical" href="https://rachelsphotography.netlify.app/" />
+  <meta name="description" content="Portrait sessions that feel like real life—family, maternity, newborn, seniors & couples. Clean, candid, true-to-life photography across Sarasota and Florida’s Gulf Coast." />
+  <link rel="canonical" href="https://rachelsphotography.netlify.app/portraits.html" />
 
   <!-- Social share -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Rachel Barton Photography" />
-  <meta property="og:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
-  <meta property="og:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
-  <meta property="og:url" content="https://rachelsphotography.netlify.app/" />
-  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
-  <meta property="og:image:secure_url" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
+  <meta property="og:title" content="Portraits — Family, Maternity, Newborn, Seniors & Couples" />
+  <meta property="og:description" content="Calm, kid-wise, story-driven portrait sessions in soft Gulf light. True-to-life color, timeless edits." />
+  <meta property="og:url" content="https://rachelsphotography.netlify.app/portraits.html" />
+  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/introPortPics/E26A2614%20(1).jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
-  <meta name="twitter:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
-  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
+  <meta name="twitter:title" content="Portraits — Family, Maternity, Newborn, Seniors & Couples" />
+  <meta name="twitter:description" content="Clean, candid, true-to-life photography along Florida’s Gulf Coast." />
+  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/introPortPics/E26A2614%20(1).jpg" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Shared layout (nav/footer) -->
-  <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
+  <link rel="stylesheet" href="/assets/layout.css?v=nav-5" />
 
   <style>
     :root{
@@ -40,20 +38,11 @@
       --accent:#A88A5A; --accent-2:#E8DFC9; --line:#e9e6df;
       --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-
-      /* PAGE-ONLY NAV spacing to match homepage exactly */
-      --nav-gap-top: 16px;   /* distance from top of viewport to TOP of nav links */
-      --nav-gap-bottom: 40px; /* breathing room below nav */
+      /* Site-wide nav spacing (per your preference) */
+      --nav-gap-top:16px; --nav-gap-bottom:40px;
     }
-
-    /* Force the shared topbar to use the exact spacing */
-    .topbar{
-      padding-top: var(--nav-gap-top) !important;
-      padding-bottom: var(--nav-gap-bottom) !important;
-    }
-
-    /* Kill any legacy spacers if present */
-    .nav-spacer, .page-top-spacer { height: 0 !important; }
+    .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
+    .nav-spacer, .page-top-spacer { height:0!important; }
 
     *{box-sizing:border-box}
     html,body{
@@ -66,124 +55,89 @@
     img{max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    section{padding:calc(var(--gap)*2) 0}
-    .section-title{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-size:clamp(24px,3.5vw,38px);
-      margin:0 0 14px;
-    }
-    .section-sub{color:#67635b; margin:0 0 22px}
-
-    /* Title + button on one row (align tops) */
-    .title-row{
-      display:flex;
-      align-items:flex-start;           /* align the tops */
-      justify-content:space-between;
-      gap:16px;
-    }
-    .title-row .btn{ align-self:flex-start; }
-
-    /* FIRST section sits higher */
-    #portfolio{ padding-top:0; }
-    #portfolio .mosaic{ margin-top:4px; }
-
-    /* Actions row (help pill only now) */
-    .actions-row{
-      display:flex; align-items:flex-start; justify-content:flex-start;
-      gap:16px; margin:8px 0 10px; flex-wrap:wrap;
-    }
-    .section-help{
-      font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:#6e6a62;
-      display:inline-flex; align-items:flex-end; gap:8px;
-      padding:4px 10px;
-      background:#fff; border:1px solid var(--line); box-shadow:0 2px 8px rgba(0,0,0,.04);
-      line-height:1.2;
-    }
-    .help-ico{opacity:.8; position:relative; top:.5px}
-
+    /* HERO */
+    .hero{ padding:clamp(26px,6vw,60px) 0 clamp(8px,2vw,16px); }
+    .hero .kicker{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
+    .hero h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(30px,5.2vw,56px); line-height:1.05; margin:.35em 0 .2em }
+    .hero .lead{ font-size:clamp(16px,2.1vw,20px); color:#58554e; max-width:72ch; }
+    .hero-cta{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700; letter-spacing:.02em;
-      background:#fff; color:#3f3a33;
-      border:1px solid rgba(63,58,51,.85);
-      padding:10px 16px; border-radius:0;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      text-decoration:none;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700;
+      background:#fff; color:#3f3a33; border:1px solid rgba(63,58,51,.85);
+      padding:10px 16px; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
       transition:color .15s ease, border-color .15s ease, transform .15s ease, box-shadow .15s ease;
     }
-    .btn:hover, .btn:focus-visible{
-      color:var(--accent);
-      border-color:var(--accent);
-      transform:translateY(-1px);
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      outline:none;
+    .btn:hover{ color:var(--accent); border-color:var(--accent); transform:translateY(-1px); box-shadow:0 10px 22px rgba(0,0,0,.08); }
+
+    /* TRUST STRIP */
+    .trust{ padding:12px 0 6px; color:#6a665e; font-size:14px; }
+    .trust .row{ display:flex; flex-wrap:wrap; gap:18px 28px; align-items:center; }
+    .trust .item{ display:flex; align-items:center; gap:8px; }
+    .trust .dot{ width:8px; height:8px; transform:rotate(45deg); border:1px solid var(--accent); }
+
+    /* STORY SECTION */
+    .story{ padding:clamp(20px,5vw,40px) 0 }
+    .story .grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap:clamp(16px,2.4vw,28px) }
+    .story h2{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 14px; font-size:clamp(24px,3.5vw,38px) }
+    .story p{ margin:0 0 12px; color:#5b574f }
+    .story .card{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+
+    /* TILE MOSAIC (six portrait types) */
+    .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px); margin-top:8px}
+    .mosaic figure{margin:0; position:relative}
+    .captioned.notch .notch-figure{display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .u-stroke{fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round}
+    .tile-label{
+      position:absolute; left:50%; transform:translateX(-50%); bottom:14px;
+      background:rgba(255,255,255,.86); backdrop-filter:blur(6px) saturate(1.02);
+      border:1px solid rgba(63,58,51,.85); padding:6px 10px; font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700;
+      box-shadow:0 6px 18px rgba(0,0,0,.12); user-select:none;
     }
-
-    /* Mosaic */
-    .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px)}
-    .mosaic figure{margin:0}
-    .mosaic .captioned.notch{position:relative; display:block}
-    .mosaic .notch-figure{display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06)}
-    .mosaic .u-stroke{fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round}
-    .mosaic .notch-box{position:absolute; bottom:0; left:50%; transform:translateX(-50%); display:flex; align-items:center; justify-content:center; pointer-events:none}
-
-    /* Caption label */
-    .mosaic .cap-label{
-      position:relative; pointer-events:auto;
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700; font-size:clamp(14px,1.6vw,18px); letter-spacing:.01em; line-height:1.15; color:#3f3a33;
-      padding:10px 18px; background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(249,246,239,.92));
-      border:1px solid rgba(63,58,51,.18); box-shadow:0 10px 22px rgba(0,0,0,.12); backdrop-filter:saturate(1.05) blur(1px);
-      transition:color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
-    }
-    .mosaic .cap-label::before{ content:""; position:absolute; inset:3px; border:1px solid rgba(63,58,51,.14); pointer-events:none; }
-    .mosaic .cap-label:hover, .mosaic .cap-label:focus-visible{ transform:translateY(-1px); color:var(--accent); border-color:rgba(168,138,90,.55); box-shadow:0 14px 26px rgba(0,0,0,.14); outline:none; }
-
-    /* Tile arrows + dots (diamond look) */
-    #gallery-meadow .tile-nav, #gallery-family .tile-nav, #gallery-beach .tile-nav{
+    .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       background:transparent !important; border:0 !important; width:56px; height:56px; display:grid; place-items:center;
-      color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0; transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease; outline:none;
+      color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0; transition:opacity .2s ease, transform .2s ease;
     }
-    #gallery-meadow:hover .tile-nav, #gallery-family:hover .tile-nav, #gallery-beach:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
-    #gallery-meadow .tile-prev, #gallery-family .tile-prev, #gallery-beach .tile-prev{ left:10px; }
-    #gallery-meadow .tile-next, #gallery-family .tile-next, #gallery-beach .tile-next{ right:10px; }
-    #gallery-meadow .tile-nav::before, #gallery-family .tile-nav::before, #gallery-beach .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05); box-shadow:0 6px 18px rgba(0,0,0,.14); z-index:0;
+    .captioned.notch:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
+    .tile-prev{ left:10px } .tile-next{ right:10px }
+    .tile-nav::before{
+      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
+      background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05); box-shadow:0 6px 18px rgba(0,0,0,.14);
     }
-    #gallery-meadow .tile-nav::after, #gallery-family .tile-nav::after, #gallery-beach .tile-nav::after{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); border:1.5px solid var(--accent); z-index:1; pointer-events:none;
-    }
-    #gallery-meadow .tile-nav svg, #gallery-family .tile-nav svg, #gallery-beach .tile-nav svg{ width:22px; height:22px; position:relative; z-index:2 }
+    .tile-nav::after{ content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); border:1.5px solid var(--accent) }
+    .tile-nav svg{ width:22px; height:22px; position:relative; z-index:2 }
 
-    #gallery-meadow .tile-dots, #gallery-family .tile-dots, #gallery-beach .tile-dots{
-      position:absolute; left:50%; transform:translateX(-50%); bottom:40px; display:flex; gap:8px; z-index:4; pointer-events:auto;
+    .tile-dots{
+      position:absolute; left:50%; transform:translateX(-50%); bottom:48px;
+      display:flex; gap:10px; z-index:4; pointer-events:auto;
     }
-    #gallery-meadow .tile-dots button, #gallery-family .tile-dots button, #gallery-beach .tile-dots button{
-      position:relative; width:10px; height:10px; transform:rotate(45deg); border:1px solid var(--accent); background:transparent !important; border-radius:0; padding:0; cursor:pointer; opacity:.95;
-      transition:transform .15s ease, background-color .15s ease, opacity .15s ease;
+    .tile-dots button{
+      position:relative; width:12px; height:12px; transform:rotate(45deg);
+      border:1px solid var(--accent); background:transparent !important; border-radius:0; padding:0; cursor:pointer; opacity:.95;
+      transition:transform .15s ease, opacity .15s ease, border-color .15s ease;
     }
-    #gallery-meadow .tile-dots button::before, #gallery-family .tile-dots button::before, #gallery-beach .tile-dots button::before{
-      content:""; position:absolute; inset:-2px; background:rgba(255,255,255,.18); -webkit-backdrop-filter:blur(5px) saturate(1.05); backdrop-filter:blur(5px) saturate(1.05); z-index:-1;
-    }
-    #gallery-meadow .tile-dots button.is-active::before, #gallery-family .tile-dots button.is-active::before{ background:rgba(168,138,90,.22); }
+    .tile-dots button.is-active{ border-color:var(--accent); }
 
-    /* Footer */
+    /* OFFER + CTA */
+    .offer{ padding:clamp(22px,6vw,48px) 0 }
+    .offer .wrap{ display:grid; grid-template-columns: 1fr 1fr; gap:clamp(16px,2.4vw,28px) }
+    .offer .panel{ background:#fff; border:1px solid var(--line); padding:18px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+    .offer h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 8px; font-size:clamp(20px,2.6vw,28px) }
+    .offer ul{ margin:8px 0 0 18px; padding:0; color:#5b574f }
+    .offer li{ margin:4px 0 }
+
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; }
     footer .container{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; }
-    @media (max-width:720px){ footer .container{ justify-content:center; text-align:center; } }
 
+    @media (max-width:1024px){
+      .story .grid, .offer .wrap{ grid-template-columns:1fr }
+    }
     @media (max-width:960px){
-      .mosaic{grid-template-columns:1fr 1fr}
-      :root{ --nav-gap-top: 24px; --nav-gap-bottom: 8px; }
+      .mosaic{ grid-template-columns:1fr 1fr }
     }
     @media (max-width:640px){
-      .mosaic{grid-template-columns:1fr}
-      :root{ --nav-gap-top: 24px; --nav-gap-bottom: 8px; }
-      .section-title{ margin-bottom:12px }
-      .section-sub{ margin-bottom:18px }
-      .title-row{ flex-direction:column; align-items:flex-start; gap:10px; }
+      .mosaic{ grid-template-columns:1fr }
     }
   </style>
 </head>
@@ -191,380 +145,409 @@
   <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
-  <main id='content'>
-    <div class="container">
-      <section id="portfolio" aria-labelledby="portfolio-title">
-        <!-- Title row with button aligned to the top of the title -->
-        <div class="title-row">
-          <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
+  <main id="content">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="kicker">Portraits</div>
+        <h1>Clean, candid, true-to-life portraits you’ll be proud to share</h1>
+        <p class="lead">
+          Calm, organized, kid-wise sessions in Sarasota & along Florida’s Gulf Coast. Natural poses, flattering light, and edits that stand the test of time—so your photos feel like <em>you</em>, in the best light.
+        </p>
+        <div class="hero-cta">
           <a class="btn" href="/book.html">Book a Session</a>
+          <a class="btn" href="/contact.html">Ask a Question</a>
         </div>
+      </div>
+    </section>
 
-        <p class="section-sub">From sunlit meadows to Gulf sunsets, explore the feel of a session—connection, motion, and easy, unposed energy.</p>
+    <!-- TRUST STRIP -->
+    <section class="trust" aria-label="Session highlights">
+      <div class="container">
+        <div class="row">
+          <span class="item"><span class="dot"></span> Kid-wise guidance (zero awkward)</span>
+          <span class="item"><span class="dot"></span> Golden-hour & home-light expertise</span>
+          <span class="item"><span class="dot"></span> Clear prep & fast communication</span>
+          <span class="item"><span class="dot"></span> Timeless color, true-to-life edits</span>
+        </div>
+      </div>
+    </section>
 
-        <!-- Help note row -->
-        <div class="actions-row">
-          <div class="section-help" role="note" aria-label="Gallery navigation help">
-            <span class="help-ico" aria-hidden="true">ⓘ</span>
-            Preview &amp; navigate: click the tile or use the arrows to move through images. Select the label to view the full gallery.
+    <!-- STORY / WHY ME -->
+    <section class="story">
+      <div class="container">
+        <div class="grid">
+          <div>
+            <h2>Sessions designed to feel natural</h2>
+            <p>We start with motion and easy prompts so everyone relaxes. I’ll guide hands, angles, and micro-adjustments to keep you flattering without feeling posed. Kids can be kids; I work with their energy, not against it.</p>
+            <p>You’ll receive a thoughtfully edited gallery—true-to-life color, clean skin tones, and gentle contrast—ready for prints, announcements, and sharing everywhere.</p>
+          </div>
+          <div class="card">
+            <h3>What to expect</h3>
+            <ul>
+              <li>Pre-session guide with wardrobe tips</li>
+              <li>45–90 min on-location session (sunset or soft morning)</li>
+              <li>Private online gallery with download & print store</li>
+              <li>Option to add film-style black & whites</li>
+            </ul>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="mosaic" id="grid">
-          <!-- LEFT -->
-          <figure class="captioned notch" id="gallery-meadow" aria-label="Oona & Ivy – Meadow Light"
+    <!-- PORTRAIT TYPES (TILES) -->
+    <section aria-labelledby="types-title">
+      <div class="container">
+        <h2 id="types-title" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,serif; margin:0 0 14px; font-size:clamp(24px,3.5vw,38px)">Choose your portrait story</h2>
+        <p style="color:#67635b; margin:0 0 18px">Explore the look and feel for each session type—then tap through for details and more examples.</p>
+
+        <div class="mosaic">
+          <!-- FAMILY -->
+          <figure class="captioned notch" id="tile-family" aria-label="Family Portraits"
+                  data-link="/galleries/family-portrait.html"
                   data-images='[
-                    "pictures/oonaIvy/E26A0761.jpg",
-                    "pictures/firstTileGal/E26A0671%20(2).jpg",
-                    "pictures/firstTileGal/E26A0698.jpg",
-                    "pictures/firstTileGal/E26A0699.jpg",
-                    "pictures/firstTileGal/E26A0712.jpg",
-                    "pictures/firstTileGal/E26A0718.jpg",
-                    "pictures/firstTileGal/E26A0739.jpg",
-                    "pictures/firstTileGal/E26A0753.jpg",
-                    "pictures/firstTileGal/E26A0758.jpg",
-                    "pictures/firstTileGal/E26A0759.jpg",
-                    "pictures/firstTileGal/E26A0764.jpg"
+                    "pictures/introPortPics/E26A2614%20(1).jpg",
+                    "pictures/introPortPics/E26A2237%20(1).jpg",
+                    "pictures/introPortPics/E26A2047-2%20(2).jpg",
+                    "pictures/introPortPics/E26A2665%20(1).jpg"
                   ]'>
-            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
               <defs>
-                <mask id="notchMask-3a">
+                <mask id="mask-family">
                   <rect x="0" y="0" width="100%" height="100%" fill="white" />
                   <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
                 </mask>
-                <filter id="frameShadow-3a" x="-20%" y="-20%" width="140%" height="140%">
+                <filter id="shadow-family" x="-20%" y="-20%" width="140%" height="140%">
                   <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                 </filter>
               </defs>
-              <image href="pictures/oonaIvy/E26A0761.jpg" x="0" y="0" width="800" height="1000"
-                     preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
-              <g class="frameGroup" filter="url(#frameShadow-3a)">
-                <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+              <image href="pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-family)" />
+              <g class="frameGroup" filter="url(#shadow-family)">
+                <path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
                 <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
               </g>
             </svg>
-
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18L9 12l6-6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
             </button>
             <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
-
-            <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
-
-            <div class="notch-box">
-              <a class="cap-label" href="/galleries/sibling-portrait.html">Sibling Portraits</a>
-            </div>
+            <div class="tile-dots" role="tablist" aria-label="Family slides"></div>
+            <a class="tile-label" href="/galleries/family-portrait.html">Family Portraits</a>
           </figure>
 
-          <!-- MIDDLE -->
-          <figure class="captioned notch" id="gallery-family" aria-label="Family Portrait Gallery"
+          <!-- MATERNITY -->
+          <figure class="captioned notch" id="tile-maternity" aria-label="Maternity Portraits"
+                  data-link="/galleries/maternity-portrait.html"
                   data-images='[
-                    "pictures/familyPortrait/image5.jpg",
-                    "pictures/secondTileGal/E26A2465-2%20(1).jpg",
-                    "pictures/secondTileGal/E26A2470%20(1).jpg",
-                    "pictures/secondTileGal/E26A2490%20(1).jpg",
-                    "pictures/secondTileGal/E26A2507.jpg",
-                    "pictures/secondTileGal/E26A2525%20(1).jpg",
-                    "pictures/secondTileGal/E26A2547%20(1).jpg",
-                    "pictures/secondTileGal/E26A2572.jpg",
-                    "pictures/secondTileGal/E26A2595.jpg",
-                    "pictures/secondTileGal/E26A2665.jpg",
-                    "pictures/secondTileGal/E26A2704%20(1).jpg"
+                    "pictures/introPortPics/E26A0702%20(1).jpg",
+                    "pictures/introPortPics/E26A0739%20(2).jpg",
+                    "pictures/introPortPics/E26A0753%20(2).jpg"
                   ]'>
-            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
               <defs>
-                <mask id="notchMask-1">
+                <mask id="mask-maternity">
                   <rect x="0" y="0" width="100%" height="100%" fill="white" />
                   <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
                 </mask>
-                <filter id="frameShadow-1" x="-20%" y="-20%" width="140%">
+                <filter id="shadow-maternity" x="-20%" y="-20%" width="140%" height="140%">
                   <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                 </filter>
               </defs>
-              <image href="pictures/familyPortrait/image5.jpg" x="0" y="0" width="800" height="1000"
-                     preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
-              <g class="frameGroup" filter="url(#frameShadow-1)">
-                <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+              <image href="pictures/introPortPics/E26A0702%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-maternity)" />
+              <g class="frameGroup" filter="url(#shadow-maternity)">
+                <path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
                 <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
               </g>
             </svg>
-
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18L9 12l6-6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
             </button>
             <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
-
-            <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
-
-            <div class="notch-box">
-              <a class="cap-label" href="/galleries/family-portrait.html">Family Portraits</a>
-            </div>
+            <div class="tile-dots" role="tablist" aria-label="Maternity slides"></div>
+            <a class="tile-label" href="/galleries/maternity-portrait.html">Maternity</a>
           </figure>
 
-          <!-- RIGHT -->
-          <figure class="captioned notch" id="gallery-beach" aria-label="Friend Portraits"
+          <!-- NEWBORN -->
+          <figure class="captioned notch" id="tile-newborn" aria-label="Newborn Portraits"
+                  data-link="/galleries/newborn-portrait.html"
                   data-images='[
-                    "pictures/thirdTileGal/E26A2022%20(1).jpg",
-                    "pictures/thirdTileGal/E26A1931.jpg",
-                    "pictures/thirdTileGal/E26A1938.jpg",
-                    "pictures/thirdTileGal/E26A1944.jpg",
-                    "pictures/thirdTileGal/E26A1945.jpg",
-                    "pictures/thirdTileGal/E26A1986.jpg",
-                    "pictures/thirdTileGal/E26A2017.jpg",
-                    "pictures/thirdTileGal/E26A2047-2.jpg",
-                    "pictures/thirdTileGal/E26A2106.jpg",
-                    "pictures/thirdTileGal/E26A2226.jpg",
-                    "pictures/thirdTileGal/E26A2245.jpg"
+                    "pictures/introPortPics/E26A2245%20(2).jpg",
+                    "pictures/introPortPics/E26A2237%20(1).jpg",
+                    "pictures/introPortPics/E26A2047-2%20(2).jpg"
                   ]'>
-            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
               <defs>
-                <mask id="notchMask-2">
+                <mask id="mask-newborn">
                   <rect x="0" y="0" width="100%" height="100%" fill="white" />
                   <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
                 </mask>
-                <filter id="frameShadow-2" x="-20%" y="-20%" width="140%">
+                <filter id="shadow-newborn" x="-20%" y="-20%" width="140%" height="140%">
                   <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                 </filter>
               </defs>
-              <image href="pictures/thirdTileGal/E26A2022%20(1).jpg" x="0" y="0" width="800" height="1000"
-                     preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
-              <g class="frameGroup" filter="url(#frameShadow-2)">
-                <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+              <image href="pictures/introPortPics/E26A2245%20(2).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-newborn)" />
+              <g class="frameGroup" filter="url(#shadow-newborn)">
+                <path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
                 <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
               </g>
             </svg>
-
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18L9 12l6-6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
             </button>
             <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
+            <div class="tile-dots" role="tablist" aria-label="Newborn slides"></div>
+            <a class="tile-label" href="/galleries/newborn-portrait.html">Newborn</a>
+          </figure>
 
-            <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
+          <!-- SENIORS -->
+          <figure class="captioned notch" id="tile-seniors" aria-label="Senior Portraits"
+                  data-link="/galleries/senior-portrait.html"
+                  data-images='[
+                    "pictures/introPortPics/E26A0712%20(2).jpg",
+                    "pictures/introPortPics/E26A0739%20(2).jpg",
+                    "pictures/introPortPics/E26A0753%20(2).jpg"
+                  ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <mask id="mask-seniors">
+                  <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                  <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
+                </mask>
+                <filter id="shadow-seniors" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+                </filter>
+              </defs>
+              <image href="pictures/introPortPics/E26A0712%20(2).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-seniors)" />
+              <g class="frameGroup" filter="url(#shadow-seniors)">
+                <path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+                <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+              </g>
+            </svg>
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+            <div class="tile-dots" role="tablist" aria-label="Senior slides"></div>
+            <a class="tile-label" href="/galleries/senior-portrait.html">Seniors/Grads</a>
+          </figure>
 
-            <div class="notch-box">
-              <a class="cap-label" href="/galleries/friend-portrait.html">Friend Portraits</a>
-            </div>
+          <!-- COUPLES -->
+          <figure class="captioned notch" id="tile-couples" aria-label="Couples Portraits"
+                  data-link="/galleries/couples-portrait.html"
+                  data-images='[
+                    "pictures/introPortPics/E26A2465-2%20(2).jpg",
+                    "pictures/introPortPics/E26A2237%20(1).jpg",
+                    "pictures/introPortPics/E26A2614%20(1).jpg"
+                  ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <mask id="mask-couples">
+                  <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                  <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
+                </mask>
+                <filter id="shadow-couples" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+                </filter>
+              </defs>
+              <image href="pictures/introPortPics/E26A2465-2%20(2).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-couples)" />
+              <g class="frameGroup" filter="url(#shadow-couples)">
+                <path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+                <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+              </g>
+            </svg>
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+            <div class="tile-dots" role="tablist" aria-label="Couples slides"></div>
+            <a class="tile-label" href="/galleries/couples-portrait.html">Couples</a>
+          </figure>
+
+          <!-- LIFESTYLE / AT-HOME -->
+          <figure class="captioned notch" id="tile-lifestyle" aria-label="Lifestyle at-home Portraits"
+                  data-link="/galleries/lifestyle-portrait.html"
+                  data-images='[
+                    "pictures/introPortPics/E26A1931%20(2).jpg",
+                    "pictures/introPortPics/E26A0753%20(2).jpg",
+                    "pictures/introPortPics/E26A0712%20(2).jpg"
+                  ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <mask id="mask-lifestyle">
+                  <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                  <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
+                </mask>
+                <filter id="shadow-lifestyle" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+                </filter>
+              </defs>
+              <image href="pictures/introPortPics/E26A1931%20(2).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-lifestyle)" />
+              <g class="frameGroup" filter="url(#shadow-lifestyle)">
+                <path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+                <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+              </g>
+            </svg>
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+            <div class="tile-dots" role="tablist" aria-label="Lifestyle slides"></div>
+            <a class="tile-label" href="/galleries/lifestyle-portrait.html">Lifestyle at-Home</a>
           </figure>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <!-- OFFER + CTA -->
+    <section class="offer" aria-label="Packages">
+      <div class="container">
+        <div class="wrap">
+          <div class="panel">
+            <h3>Signature Portrait</h3>
+            <ul>
+              <li>45–60 minutes • one location</li>
+              <li>Style & prep guide included</li>
+              <li>40+ edited images in private gallery</li>
+              <li>Prints & albums available</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Heirloom Session</h3>
+            <ul>
+              <li>90 minutes • 2 mini-locations or at-home + nearby</li>
+              <li>Wardrobe support & timeline planning</li>
+              <li>70+ edited images + complimentary B&W set</li>
+              <li>Priority editing available</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hero-cta" style="margin-top:16px">
+          <a class="btn" href="/book.html">Book Your Portraits</a>
+          <a class="btn" href="/contact.html">Request Availability</a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Shared Footer (site-wide Instagram + auto-year) -->
+  <!-- Shared Footer -->
   <div data-include="/partials/footer.html"></div>
-
-  <!-- Pull in shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Notch/label/dots positioning -->
+  <!-- Tile logic: shared slider + notch sizing + click-through -->
   <script>
     (function(){
-      const tiles = document.querySelectorAll('.mosaic .captioned.notch');
-      if(!tiles.length) return;
+      const tiles = document.querySelectorAll('.captioned.notch');
 
-      function updateTile(tile){
+      function initTile(tile){
+        const link = tile.getAttribute('data-link') || '#';
         const svg = tile.querySelector('svg.notch-figure');
+        const imgEl = svg?.querySelector('image');
         const notchRect = svg?.querySelector('.notchRect');
         const recessStroke = svg?.querySelector('.recessStroke');
-        const label = tile.querySelector('.cap-label');
-        const notchBox = tile.querySelector('.notch-box');
-        if(!svg || !label || !notchRect || !recessStroke || !notchBox) return;
+        const label = tile.querySelector('.tile-label');
+        if(!svg || !imgEl || !notchRect || !recessStroke){ return; }
 
-        const padCss = 4, liftCss = 10, dotsGapCss = 14;
+        // Prime list
+        let list;
+        try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
+        if(!Array.isArray(list) || !list.length){ list = [imgEl.getAttribute('href')].filter(Boolean); }
+        let idx = 0;
 
-        const labelRect = label.getBoundingClientRect();
-        const tileRect  = svg.getBoundingClientRect();
-
-        const recessW_css = labelRect.width + padCss * 2;
-        const recessH_css = labelRect.height + padCss * 2;
-
-        const sx = 800 / tileRect.width;
-        const sy = 1000 / tileRect.height;
-
-        const recessW = recessW_css * sx;
-        const recessH = recessH_css * sy;
-
-        const recessX = ((tileRect.width - recessW_css) / 2) * sx;
-        const recessY = 1000 - recessH - (padCss * sy) - (liftCss * sy);
-
-        notchRect.setAttribute('x', recessX.toFixed(2));
-        notchRect.setAttribute('y', recessY.toFixed(2));
-        notchRect.setAttribute('width', recessW.toFixed(2));
-        notchRect.setAttribute('height', recessH.toFixed(2));
-
-        recessStroke.setAttribute('x', recessX.toFixed(2));
-        recessStroke.setAttribute('y', recessY.toFixed(2));
-        recessStroke.setAttribute('width', recessW.toFixed(2));
-        recessStroke.setAttribute('height', recessH.toFixed(2));
-
-        notchBox.style.width = recessW_css + 'px';
-        notchBox.style.height = recessH_css + 'px';
-        notchBox.style.bottom = (padCss + liftCss) + 'px';
-        notchBox.style.left = '50%';
-        notchBox.style.transform = 'translateX(-50%)';
-
+        // Dots
         const dotsWrap = tile.querySelector('.tile-dots');
+        const dots = [];
         if(dotsWrap){
-          dotsWrap.style.bottom = (padCss + recessH_css + dotsGapCss + liftCss) + 'px';
+          dotsWrap.innerHTML = '';
+          for(let i=0;i<list.length;i++){
+            const b = document.createElement('button');
+            b.type = 'button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide ' + (i+1));
+            b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
+            dotsWrap.appendChild(b); dots.push(b);
+          }
         }
+        function updateDots(){
+          dots.forEach((d,i)=>{ d.classList.toggle('is-active', i===idx); d.setAttribute('aria-selected', i===idx ? 'true' : 'false'); });
+        }
+
+        function show(i){
+          idx = (i + list.length) % list.length;
+          const src = list[idx];
+          imgEl.setAttribute('href', src);
+          imgEl.setAttributeNS('http://www.w3.org/1999/xlink', 'href', src);
+          updateDots();
+        }
+
+        const prevBtn = tile.querySelector('.tile-prev');
+        const nextBtn = tile.querySelector('.tile-next');
+        if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
+        if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
+
+        // Click image or label to open detail page
+        svg.addEventListener('click', ()=>{ window.location.href = link; });
+        if(label) label.addEventListener('click', (e)=>{ e.stopPropagation(); /* normal link */ });
+
+        // Notch sizing to label (kept tight & centered)
+        function sizeNotch(){
+          const tileRect  = svg.getBoundingClientRect();
+          const labelRect = label?.getBoundingClientRect();
+          if(!tileRect.width || !labelRect){ return; }
+          const sx = 800 / tileRect.width;
+          const sy = 1000 / tileRect.height;
+          const pad = 4, lift = 10;
+
+          const recessW_css = labelRect.width + pad * 2;
+          const recessH_css = labelRect.height + pad * 2;
+          const recessW = recessW_css * sx;
+          const recessH = recessH_css * sy;
+          const recessX = ((tileRect.width - recessW_css) / 2) * sx;
+          const recessY = 1000 - recessH - (pad * sy) - (lift * sy);
+
+          notchRect.setAttribute('x', recessX.toFixed(2));
+          notchRect.setAttribute('y', recessY.toFixed(2));
+          notchRect.setAttribute('width', recessW.toFixed(2));
+          notchRect.setAttribute('height', recessH.toFixed(2));
+
+          recessStroke.setAttribute('x', recessX.toFixed(2));
+          recessStroke.setAttribute('y', recessY.toFixed(2));
+          recessStroke.setAttribute('width', recessW.toFixed(2));
+          recessStroke.setAttribute('height', recessH.toFixed(2));
+        }
+
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(()=>{ show(0); sizeNotch(); updateDots(); });
+        } else {
+          window.addEventListener('load', ()=>{ show(0); sizeNotch(); updateDots(); });
+        }
+        window.addEventListener('resize', ()=>{ requestAnimationFrame(sizeNotch); });
       }
 
-      function updateAll(){ tiles.forEach(t => updateTile(t)); }
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(()=>{ requestAnimationFrame(updateAll); });
-      } else {
-        window.addEventListener('load', updateAll);
-      }
-      window.addEventListener('resize', ()=>{ requestAnimationFrame(updateAll); });
-      setTimeout(updateAll, 0);
+      tiles.forEach(initTile);
     })();
   </script>
 
-  <!-- Slider: tile #1 -->
-  <script>
-    (function(){
-      const tile = document.getElementById('gallery-meadow');
-      if(!tile) return;
-      const imgEl = tile.querySelector('svg image'); if(!imgEl) return;
-
-      let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
-      if(!Array.isArray(list) || list.length <= 1) return;
-
-      let idx = 0;
-
-      const dotsWrap = tile.querySelector('.tile-dots');
-      const dots = [];
-      if(dotsWrap){
-        for(let i=0;i<list.length;i++){
-          const b = document.createElement('button');
-          b.type = 'button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide ' + (i+1));
-          b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
-          dotsWrap.appendChild(b); dots.push(b);
-        }
-      }
-
-      function updateDots(){
-        if(!dots.length) return;
-        dots.forEach((d,i)=>{ if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); } else { d.classList.remove('is-active'); d.removeAttribute('aria-selected'); } });
-      }
-
-      function show(i){
-        idx = (i + list.length) % list.length;
-        const src = list[idx];
-        imgEl.setAttribute('href', src);
-        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
-        updateDots();
-      }
-
-      const prevBtn = tile.querySelector('.tile-prev');
-      const nextBtn = tile.querySelector('.tile-next');
-      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
-      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
-
-      tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
-
-      updateDots();
-    })();
-  </script>
-
-  <!-- Slider: tile #2 -->
-  <script>
-    (function(){
-      const tile = document.getElementById('gallery-family');
-      if(!tile) return;
-      const imgEl = tile.querySelector('svg image'); if(!imgEl) return;
-
-      let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
-      if(!Array.isArray(list) || list.length <= 1) return;
-
-      let idx = 0;
-
-      const dotsWrap = tile.querySelector('.tile-dots');
-      const dots = [];
-      if(dotsWrap){
-        for(let i=0;i<list.length;i++){
-          const b = document.createElement('button');
-          b.type = 'button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide ' + (i+1));
-          b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
-          dotsWrap.appendChild(b); dots.push(b);
-        }
-      }
-
-      function updateDots(){
-        if(!dots.length) return;
-        dots.forEach((d,i)=>{ if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); } else { d.classList.remove('is-active'); d.removeAttribute('aria-selected'); } });
-      }
-
-      function show(i){
-        idx = (i + list.length) % list.length;
-        const src = list[idx];
-        imgEl.setAttribute('href', src);
-        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
-        updateDots();
-      }
-
-      const prevBtn = tile.querySelector('.tile-prev');
-      const nextBtn = tile.querySelector('.tile-next');
-      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
-      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
-
-      tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
-
-      updateDots();
-    })();
-  </script>
-
-  <!-- Slider: tile #3 -->
-  <script>
-    (function(){
-      const tile = document.getElementById('gallery-beach');
-      if(!tile) return;
-      const imgEl = tile.querySelector('svg image'); if(!imgEl) return;
-
-      let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
-      if(!Array.isArray(list) || list.length <= 1) return;
-
-      let idx = 0;
-
-      const dotsWrap = tile.querySelector('.tile-dots');
-      const dots = [];
-      if(dotsWrap){
-        for(let i=0;i<list.length;i++){
-          const b = document.createElement('button');
-          b.type = 'button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide ' + (i+1));
-          b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
-          dotsWrap.appendChild(b); dots.push(b);
-        }
-      }
-
-      function updateDots(){
-        if(!dots.length) return;
-        dots.forEach((d,i)=>{ if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); } else { d.classList.remove('is-active'); d.removeAttribute('aria-selected'); } });
-      }
-
-      function show(i){
-        idx = (i + list.length) % list.length;
-        const src = list[idx];
-        imgEl.setAttribute('href', src);
-        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
-        updateDots();
-      }
-
-      const prevBtn = tile.querySelector('.tile-prev');
-      const nextBtn = tile.querySelector('.tile-next');
-      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
-      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
-
-      tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
-
-      updateDots();
-    })();
+  <!-- JSON-LD Service (helpful for SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Service",
+    "name":"Portrait Photography",
+    "provider":{"@type":"LocalBusiness","name":"Rachel Barton Photography"},
+    "areaServed":{"@type":"AdministrativeArea","name":"Sarasota, FL"},
+    "serviceType":"Family, maternity, newborn, seniors and couples photography",
+    "url":"https://rachelsphotography.netlify.app/portraits.html"
+  }
   </script>
 </body>
 </html>
