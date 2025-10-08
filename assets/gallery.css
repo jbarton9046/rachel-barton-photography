@@ -7,10 +7,10 @@
   --accent-lite:#C9B38C;     /* lighter gold for subtle accents */
 }
 
-/* Header block */
+/* Header block (pulled slightly toward the top) */
 .gallery-head{
   max-width:var(--maxw);
-  margin:calc(var(--gap)*3) auto var(--gap);
+  margin:calc(var(--gap)*2.5) auto var(--gap);  /* was *3 */
   padding:0 var(--gap);
 }
 .gallery-head .crumb{ margin:0 0 6px; color:#7a766e }
@@ -117,3 +117,15 @@ main section{ padding:0 0 calc(var(--gap)*1.5) }
   transition:transform .15s ease, box-shadow .15s ease;
 }
 .grid a:hover img{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.08) }
+
+/* ===== Lightbox: keep everything hidden until opened ===== */
+#lightbox{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.88);
+  display:none;                   /* hidden by default */
+  align-items:center; justify-content:center;
+  z-index:1200;
+}
+#lightbox > *{ display:none; }    /* hide inner controls/buttons too */
+#lightbox.open{ display:flex; }   /* show overlay when opened */
+#lightbox.open > *{ display:initial; } /* reveal its children only when open */
