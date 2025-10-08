@@ -6,20 +6,20 @@
   <title>Portraits | Rachel Barton Photography</title>
 
   <!-- Primary SEO -->
-  <meta name="description" content="Portrait sessions that feel like real life—family, maternity, newborn, seniors & couples. Clean, candid, true-to-life photography across Sarasota and Florida’s Gulf Coast." />
+  <meta name="description" content="Portrait sessions that feel like real life—family, siblings, and friend sessions. Clean, candid, true-to-life photography across Sarasota and Florida’s Gulf Coast." />
   <link rel="canonical" href="https://rachelsphotography.netlify.app/portraits.html" />
 
   <!-- Social share -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Rachel Barton Photography" />
-  <meta property="og:title" content="Portraits — Family, Maternity, Newborn, Seniors & Couples" />
+  <meta property="og:title" content="Portraits — Family, Siblings, Friend" />
   <meta property="og:description" content="Calm, kid-wise, story-driven portrait sessions in soft Gulf light. True-to-life color, timeless edits." />
   <meta property="og:url" content="https://rachelsphotography.netlify.app/portraits.html" />
   <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/introPortPics/E26A2614%20(1).jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Portraits — Family, Maternity, Newborn, Seniors & Couples" />
+  <meta name="twitter:title" content="Portraits — Family, Siblings, Friend" />
   <meta name="twitter:description" content="Clean, candid, true-to-life photography along Florida’s Gulf Coast." />
   <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/introPortPics/E26A2614%20(1).jpg" />
 
@@ -38,7 +38,7 @@
       --accent:#A88A5A; --accent-2:#E8DFC9; --line:#e9e6df;
       --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-      /* Site-wide nav spacing (per your preference) */
+      /* Site-wide nav spacing */
       --nav-gap-top:16px; --nav-gap-bottom:40px;
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
@@ -83,9 +83,10 @@
     .story p{ margin:0 0 12px; color:#5b574f }
     .story .card{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
 
-    /* TILE MOSAIC (six portrait types) */
-    .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px); margin-top:8px}
-    .mosaic figure{margin:0; position:relative}
+    /* TILE MOSAIC — EXACTLY THREE TILES */
+    .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,1.8vw,18px); margin-top:8px}
+    .mosaic figure{margin:0; position:relative; transition:transform .18s ease, box-shadow .18s ease}
+    .mosaic figure:hover{ transform:translateY(-2px); }
     .captioned.notch .notch-figure{display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .u-stroke{fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round}
     .tile-label{
@@ -195,11 +196,11 @@
       </div>
     </section>
 
-    <!-- PORTRAIT TYPES (TILES) -->
+    <!-- PORTRAIT TYPES — EXACTLY THREE TILES -->
     <section aria-labelledby="types-title">
       <div class="container">
         <h2 id="types-title" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,serif; margin:0 0 14px; font-size:clamp(24px,3.5vw,38px)">Choose your portrait story</h2>
-        <p style="color:#67635b; margin:0 0 18px">Explore the look and feel for each session type—then tap through for details and more examples.</p>
+        <p style="color:#67635b; margin:0 0 18px">Explore the look and feel—then tap through for details, galleries, and booking.</p>
 
         <div class="mosaic">
           <!-- FAMILY -->
@@ -237,60 +238,26 @@
             <a class="tile-label" href="/galleries/family-portrait.html">Family Portraits</a>
           </figure>
 
-          <!-- MATERNITY -->
-          <figure class="captioned notch" id="tile-maternity" aria-label="Maternity Portraits"
-                  data-link="/galleries/maternity-portrait.html"
+          <!-- SIBLINGS -->
+          <figure class="captioned notch" id="tile-siblings" aria-label="Sibling Portraits"
+                  data-link="/galleries/sibling-portrait.html"
                   data-images='[
-                    "pictures/introPortPics/E26A0702%20(1).jpg",
-                    "pictures/introPortPics/E26A0739%20(2).jpg",
-                    "pictures/introPortPics/E26A0753%20(2).jpg"
-                  ]'>
-            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-              <defs>
-                <mask id="mask-maternity">
-                  <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                  <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
-                </mask>
-                <filter id="shadow-maternity" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-                </filter>
-              </defs>
-              <image href="pictures/introPortPics/E26A0702%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-maternity)" />
-              <g class="frameGroup" filter="url(#shadow-maternity)">
-                <path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-                <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
-              </g>
-            </svg>
-            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-            </button>
-            <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-            <div class="tile-dots" role="tablist" aria-label="Maternity slides"></div>
-            <a class="tile-label" href="/galleries/maternity-portrait.html">Maternity</a>
-          </figure>
-
-          <!-- NEWBORN -->
-          <figure class="captioned notch" id="tile-newborn" aria-label="Newborn Portraits"
-                  data-link="/galleries/newborn-portrait.html"
-                  data-images='[
-                    "pictures/introPortPics/E26A2245%20(2).jpg",
                     "pictures/introPortPics/E26A2237%20(1).jpg",
+                    "pictures/introPortPics/E26A2245%20(2).jpg",
                     "pictures/introPortPics/E26A2047-2%20(2).jpg"
                   ]'>
             <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
               <defs>
-                <mask id="mask-newborn">
+                <mask id="mask-siblings">
                   <rect x="0" y="0" width="100%" height="100%" fill="white" />
                   <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
                 </mask>
-                <filter id="shadow-newborn" x="-20%" y="-20%" width="140%" height="140%">
+                <filter id="shadow-siblings" x="-20%" y="-20%" width="140%" height="140%">
                   <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                 </filter>
               </defs>
-              <image href="pictures/introPortPics/E26A2245%20(2).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-newborn)" />
-              <g class="frameGroup" filter="url(#shadow-newborn)">
+              <image href="pictures/introPortPics/E26A2237%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-siblings)" />
+              <g class="frameGroup" filter="url(#shadow-siblings)">
                 <path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
                 <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
               </g>
@@ -301,64 +268,30 @@
             <button class="tile-nav tile-next" type="button" aria-label="Next">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
-            <div class="tile-dots" role="tablist" aria-label="Newborn slides"></div>
-            <a class="tile-label" href="/galleries/newborn-portrait.html">Newborn</a>
+            <div class="tile-dots" role="tablist" aria-label="Sibling slides"></div>
+            <a class="tile-label" href="/galleries/sibling-portrait.html">Siblings</a>
           </figure>
 
-          <!-- SENIORS -->
-          <figure class="captioned notch" id="tile-seniors" aria-label="Senior Portraits"
-                  data-link="/galleries/senior-portrait.html"
-                  data-images='[
-                    "pictures/introPortPics/E26A0712%20(2).jpg",
-                    "pictures/introPortPics/E26A0739%20(2).jpg",
-                    "pictures/introPortPics/E26A0753%20(2).jpg"
-                  ]'>
-            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-              <defs>
-                <mask id="mask-seniors">
-                  <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                  <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
-                </mask>
-                <filter id="shadow-seniors" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-                </filter>
-              </defs>
-              <image href="pictures/introPortPics/E26A0712%20(2).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-seniors)" />
-              <g class="frameGroup" filter="url(#shadow-seniors)">
-                <path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-                <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
-              </g>
-            </svg>
-            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-            </button>
-            <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-            <div class="tile-dots" role="tablist" aria-label="Senior slides"></div>
-            <a class="tile-label" href="/galleries/senior-portrait.html">Seniors/Grads</a>
-          </figure>
-
-          <!-- COUPLES -->
-          <figure class="captioned notch" id="tile-couples" aria-label="Couples Portraits"
-                  data-link="/galleries/couples-portrait.html"
+          <!-- FRIEND -->
+          <figure class="captioned notch" id="tile-friend" aria-label="Friend Portraits"
+                  data-link="/galleries/friend-portrait.html"
                   data-images='[
                     "pictures/introPortPics/E26A2465-2%20(2).jpg",
-                    "pictures/introPortPics/E26A2237%20(1).jpg",
-                    "pictures/introPortPics/E26A2614%20(1).jpg"
+                    "pictures/introPortPics/E26A0712%20(2).jpg",
+                    "pictures/introPortPics/E26A0739%20(2).jpg"
                   ]'>
             <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
               <defs>
-                <mask id="mask-couples">
+                <mask id="mask-friend">
                   <rect x="0" y="0" width="100%" height="100%" fill="white" />
                   <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
                 </mask>
-                <filter id="shadow-couples" x="-20%" y="-20%" width="140%" height="140%">
+                <filter id="shadow-friend" x="-20%" y="-20%" width="140%" height="140%">
                   <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                 </filter>
               </defs>
-              <image href="pictures/introPortPics/E26A2465-2%20(2).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-couples)" />
-              <g class="frameGroup" filter="url(#shadow-couples)">
+              <image href="pictures/introPortPics/E26A2465-2%20(2).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-friend)" />
+              <g class="frameGroup" filter="url(#shadow-friend)">
                 <path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
                 <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
               </g>
@@ -369,42 +302,8 @@
             <button class="tile-nav tile-next" type="button" aria-label="Next">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
-            <div class="tile-dots" role="tablist" aria-label="Couples slides"></div>
-            <a class="tile-label" href="/galleries/couples-portrait.html">Couples</a>
-          </figure>
-
-          <!-- LIFESTYLE / AT-HOME -->
-          <figure class="captioned notch" id="tile-lifestyle" aria-label="Lifestyle at-home Portraits"
-                  data-link="/galleries/lifestyle-portrait.html"
-                  data-images='[
-                    "pictures/introPortPics/E26A1931%20(2).jpg",
-                    "pictures/introPortPics/E26A0753%20(2).jpg",
-                    "pictures/introPortPics/E26A0712%20(2).jpg"
-                  ]'>
-            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-              <defs>
-                <mask id="mask-lifestyle">
-                  <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                  <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black" />
-                </mask>
-                <filter id="shadow-lifestyle" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-                </filter>
-              </defs>
-              <image href="pictures/introPortPics/E26A1931%20(2).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid meet" mask="url(#mask-lifestyle)" />
-              <g class="frameGroup" filter="url(#shadow-lifestyle)">
-                <path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-                <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
-              </g>
-            </svg>
-            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-            </button>
-            <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-            <div class="tile-dots" role="tablist" aria-label="Lifestyle slides"></div>
-            <a class="tile-label" href="/galleries/lifestyle-portrait.html">Lifestyle at-Home</a>
+            <div class="tile-dots" role="tablist" aria-label="Friend slides"></div>
+            <a class="tile-label" href="/galleries/friend-portrait.html">Friend Portraits</a>
           </figure>
         </div>
       </div>
@@ -498,7 +397,7 @@
         svg.addEventListener('click', ()=>{ window.location.href = link; });
         if(label) label.addEventListener('click', (e)=>{ e.stopPropagation(); /* normal link */ });
 
-        // Notch sizing to label (kept tight & centered)
+        // Notch sizing to label (tight & centered)
         function sizeNotch(){
           const tileRect  = svg.getBoundingClientRect();
           const labelRect = label?.getBoundingClientRect();
@@ -537,7 +436,7 @@
     })();
   </script>
 
-  <!-- JSON-LD Service (helpful for SEO) -->
+  <!-- JSON-LD Service -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -545,7 +444,7 @@
     "name":"Portrait Photography",
     "provider":{"@type":"LocalBusiness","name":"Rachel Barton Photography"},
     "areaServed":{"@type":"AdministrativeArea","name":"Sarasota, FL"},
-    "serviceType":"Family, maternity, newborn, seniors and couples photography",
+    "serviceType":"Family, siblings, and friend portraits",
     "url":"https://rachelsphotography.netlify.app/portraits.html"
   }
   </script>
