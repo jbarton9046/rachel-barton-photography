@@ -1,8 +1,9 @@
-/* ====== GALLERY SHARED STYLES (v8) ====== */
+/* ====== GALLERY SHARED STYLES (v9) ====== */
 :root{
   --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#6a6760;
   --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
   --gap:clamp(14px,2vw,18px); --maxw:1200px; --frame:#ecebea;
+  --accent:#A88A5A;
 }
 
 /* Header block */
@@ -17,26 +18,25 @@
 .gallery-head .lede{ margin:0 0 14px; color:#5f5a52 }
 
 /* actions: square floating pills */
-.gallery-head .actions{
-  display:flex; align-items:center; gap:14px; margin:0;
-}
+.gallery-head .actions{ display:flex; align-items:center; gap:14px; margin:0; }
 .gallery-head .actions .dot{ display:none; }
 .gallery-head .actions a{
   font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
   font-weight:700; text-decoration:none;
   display:inline-flex; align-items:center; justify-content:center;
   padding:10px 16px;
-  background:#fff; color:#3f3a33;
-  border:1px solid var(--line);
+  background:#fff;                 /* stays white */
+  color:#3f3a33;
+  border:1px solid var(--line);    /* light outline by default */
   box-shadow:var(--shadow);
-  transition:background-color .15s ease, border-color .15s ease,
-             box-shadow .15s ease, transform .15s ease, color .15s ease;
+  transition: border-color .15s ease, color .15s ease,
+              box-shadow .15s ease, transform .15s ease;
 }
 .gallery-head .actions a:hover,
 .gallery-head .actions a:focus-visible{
-  background:#f9f6ef;            /* light gold */
-  border-color:#dcd4c3;
-  color:var(--accent);
+  background:#fff;                 /* do NOT change on hover */
+  border-color:var(--accent);      /* gold outline */
+  color:var(--accent);             /* gold text */
   box-shadow:0 10px 24px rgba(0,0,0,.08);
   transform:translateY(-1px);
   outline:none;
@@ -57,12 +57,12 @@
   .gallery-head h1{ grid-area:title; }
   .gallery-head .lede{
     grid-area:lede; margin:0;
-    align-self:end;                 /* bottom-align the text block */
+    align-self:end;                 /* bottom-align text */
   }
   .gallery-head .actions{
     grid-area:actions; justify-self:end;
-    align-self:end;                 /* bottom-align the pill group */
-    transform:translateY(-2px);     /* tiny nudge so pill border = text baseline */
+    align-self:end;                 /* bottom-align pills with text */
+    transform:translateY(-2px);     /* tiny nudge to match baselines */
   }
 }
 
@@ -73,12 +73,8 @@ main section{ padding:0 0 calc(var(--gap)*1.5) }
   grid-template-columns:repeat(3, 1fr);
   gap:clamp(10px,1.6vw,16px);
 }
-@media (max-width: 980px){
-  .grid{ grid-template-columns:repeat(2, 1fr); }
-}
-@media (max-width: 640px){
-  .grid{ grid-template-columns:1fr; }
-}
+@media (max-width: 980px){ .grid{ grid-template-columns:repeat(2, 1fr); } }
+@media (max-width: 640px){ .grid{ grid-template-columns:1fr; } }
 
 /* Cells */
 .grid figure{ margin:0 }
