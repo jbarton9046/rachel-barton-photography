@@ -4,6 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Portraits | Rachel Barton Photography</title>
+
+<!-- Shared layout (nav/footer) -->
 <link rel="stylesheet" href="/assets/layout.css?v=nav-5" />
 
 <style>
@@ -17,25 +19,33 @@
     --tile-radius:0;
     --dot-size:9px;     /* smaller diamonds */
     --dot-gap:8px;
-    --arrow-size:54px;  /* same feel as other page */
+    --arrow-size:54px;  /* match other page style */
     --arrow-inset:12px;
 
-    /* Badge */
-    --badge-minw:170px;
-    --badge-pad:10px 12px;
+    /* Ribbon label */
+    --rib-w:34px;
+    --rib-pad:8px 10px;
+    --rib-bg:rgba(255,255,255,.78);
   }
 
   .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
   .nav-spacer,.page-top-spacer{ height:0!important; }
-  html,body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; line-height:1.65 }
+
+  html,body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; line-height:1.65
+  }
   a{ color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease }
   a:hover,a:focus-visible{ color:var(--accent) }
   .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-  /* Headline */
-  .hero{ padding:clamp(26px,6vw,60px) 0 10px }
+  /* Hero */
+  .hero{ padding:clamp(26px,6vw,56px) 0 8px }
   .kicker{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
-  h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(30px,5.2vw,56px); line-height:1.05; margin:.35em 0 .2em }
+  h1{
+    font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700;
+    font-size:clamp(30px,5.2vw,56px); line-height:1.05; margin:.35em 0 .2em
+  }
   .lead{ font-size:clamp(16px,2vw,20px); color:#58554e; max-width:72ch }
 
   /* Mosaic */
@@ -46,25 +56,23 @@
   figure.tile{
     margin:0; position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:var(--tile-radius);
     border:1px solid var(--line); box-shadow:0 6px 22px rgba(0,0,0,.06);
-    background:#ddd; isolation:isolate;
-    transition:transform .2s ease, box-shadow .2s ease;
+    background:#ddd; isolation:isolate; transition:transform .25s ease, box-shadow .25s ease;
   }
   figure.tile:hover{ transform:translateY(-2px) }
 
   .tile-media{
-    position:absolute; inset:0; width:100%; height:100%;
-    object-fit:cover; object-position:center;
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;
     display:block; user-select:none; -webkit-user-drag:none;
   }
 
-  /* Ultra-thin top fade so diamonds read without banding the image */
+  /* Whisper-thin top fade so diamonds read without banding the image */
   .tile-topfade{
-    position:absolute; inset:0 0 auto 0; height:22%;
+    position:absolute; inset:0 0 auto 0; height:18%;
     background:linear-gradient(to bottom, rgba(0,0,0,.16), rgba(0,0,0,0));
     pointer-events:none; z-index:1;
   }
 
-  /* Arrows — glass diamonds (match other page) */
+  /* Arrows — glass diamonds */
   .tile-nav{
     position:absolute; top:50%; transform:translateY(-50%) scale(.98);
     width:var(--arrow-size); height:var(--arrow-size);
@@ -82,16 +90,14 @@
   .tile-nav::after{ content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); border:1.5px solid var(--accent) }
   .tile-nav svg{ width:22px; height:22px; position:relative; z-index:1 }
 
-  /* Diamonds (pagination) — small, translucent, high placement */
+  /* Diamonds (pagination) — small, translucent, placed at very top center */
   .tile-dots{
     position:absolute; left:50%; transform:translateX(-50%); z-index:4;
-    display:flex; gap:var(--dot-gap); pointer-events:auto;
-    top:12px;  /* move to top to avoid faces */
+    display:flex; gap:var(--dot-gap); pointer-events:auto; top:10px;
   }
   .tile-dots button{
     width:var(--dot-size); height:var(--dot-size); transform:rotate(45deg);
-    border:1px solid var(--accent);
-    background:rgba(255,255,255,.34); /* translucent fill */
+    border:1px solid var(--accent); background:rgba(255,255,255,.34);
     backdrop-filter:blur(2.5px); box-shadow:0 3px 10px rgba(0,0,0,.10);
     cursor:pointer; padding:0; border-radius:0;
     transition:transform .12s ease, border-color .12s ease, background-color .12s ease;
@@ -99,41 +105,43 @@
   .tile-dots button:hover{ transform:rotate(45deg) scale(1.06) }
   .tile-dots button.is-active{ background:rgba(232,223,201,.45); border-color:var(--accent) }
 
-  /* NEW: Corner "edge badge" caption — tiny by default, expands on hover */
-  .tile-badge{
-    position:absolute; top:12px; left:12px; z-index:6;
-    min-width:var(--badge-minw);
-    padding:var(--badge-pad);
-    background:rgba(255,255,255,.78);
-    -webkit-backdrop-filter:blur(6px) saturate(1.05); backdrop-filter:blur(6px) saturate(1.05);
-    border:1px solid rgba(63,58,51,.18);
+  /* NEW: ultra-slim vertical ribbon (edge label) — barely touches the photo */
+  .tile-ribbon{
+    position:absolute; top:10px; left:8px; z-index:6;
+    width:var(--rib-w); padding:var(--rib-pad);
+    background:var(--rib-bg); -webkit-backdrop-filter:blur(6px) saturate(1.05); backdrop-filter:blur(6px) saturate(1.05);
+    border:1px solid rgba(63,58,51,.18); border-radius:8px;
+    transform:rotate(-90deg) translateX(-8px); transform-origin:left top;
     box-shadow:0 10px 22px rgba(0,0,0,.10);
-    border-radius:8px;
-    display:grid; gap:4px;
-    transform:translateZ(0);  /* crisper text over image */
-    transition:background .2s ease, box-shadow .2s ease;
   }
-  .tile-badge:hover{ background:rgba(255,255,255,.9); box-shadow:0 12px 26px rgba(0,0,0,.12) }
-  .tile-badge h3{
-    margin:0; font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:16px; letter-spacing:.2px;
+  .tile-ribbon .label{
+    font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:14px; letter-spacing:.2px; white-space:nowrap;
   }
-  .tile-badge p{
-    margin:0; color:#5b574f; font-size:13px; line-height:1.35;
-    max-width:36ch; display:none;
+  .tile-ribbon .sub{
+    font-size:12px; color:#5b574f; display:none; margin-left:6px;
   }
-  figure.tile:hover .tile-badge p, .tile-badge:focus-within p{ display:block } /* reveal line on hover/focus */
-  .tile-badge .cta{
-    width:max-content; display:inline-flex; align-items:center; gap:6px;
+  figure.tile:hover .tile-ribbon{ background:rgba(255,255,255,.9) }
+  figure.tile:hover .tile-ribbon .sub{ display:inline-block }
+
+  /* Micro-CTA chip at bottom-left (appears on hover only) */
+  .tile-chip{
+    position:absolute; left:12px; bottom:12px; z-index:6;
+    display:none; align-items:center; gap:8px;
     font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:14px;
-    border-bottom:1px solid rgba(63,58,51,.65);
+    background:rgba(255,255,255,.85); border:1px solid rgba(63,58,51,.18); border-radius:999px; padding:8px 12px;
+    -webkit-backdrop-filter:blur(6px) saturate(1.05); backdrop-filter:blur(6px) saturate(1.05);
+    box-shadow:0 10px 22px rgba(0,0,0,.10);
   }
-  .tile-badge .cta svg{ width:16px; height:16px }
+  figure.tile:hover .tile-chip{ display:inline-flex }
+  .tile-chip svg{ width:16px; height:16px }
 </style>
 </head>
 <body>
+  <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
+    <!-- HERO -->
     <section class="hero">
       <div class="container">
         <div class="kicker">Portraits</div>
@@ -142,25 +150,50 @@
       </div>
     </section>
 
-    <section>
+    <!-- THREE TILE MOSAIC -->
+    <section aria-labelledby="types-title">
       <div class="container">
+        <h2 id="types-title" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,serif; margin:0 0 14px; font-size:clamp(24px,3.5vw,38px)">Choose your portrait story</h2>
+
         <div class="mosaic">
-          <!-- FAMILY -->
+          <!-- FAMILY (merged Family + Sibling libraries) -->
           <figure class="tile" id="tile-family" data-link="/galleries/family-portrait.html"
-                  data-all-images='[
-                    "/pictures/familyPortrait/image1.jpg",
-                    "/pictures/familyPortrait/image2.jpg",
-                    "/pictures/familyPortrait/image3.jpg",
-                    "/pictures/familyPortrait/image4.jpg",
-                    "/pictures/familyPortrait/image5.jpg",
-                    "/pictures/familyPortrait/image6.jpg",
-                    "/pictures/familyPortrait/image7.jpg",
-                    "/pictures/familyPortrait/image8.jpg",
-                    "/pictures/familyPortrait/image9.jpg",
-                    "/pictures/familyPortrait/image10.jpg",
-                    "/pictures/familyPortrait/image11.jpg",
-                    "/pictures/familyPortrait/image12.jpg"
-                  ]'>
+            data-all-images='[
+              "/pictures/familyPortrait/image1.jpg",
+              "/pictures/familyPortrait/image2.jpg",
+              "/pictures/familyPortrait/image3.jpg",
+              "/pictures/familyPortrait/image4.jpg",
+              "/pictures/familyPortrait/image5.jpg",
+              "/pictures/familyPortrait/image6.jpg",
+              "/pictures/familyPortrait/image7.jpg",
+              "/pictures/familyPortrait/image8.jpg",
+              "/pictures/familyPortrait/image9.jpg",
+              "/pictures/familyPortrait/image10.jpg",
+              "/pictures/familyPortrait/image11.jpg",
+              "/pictures/familyPortrait/image12.jpg",
+
+              "/pictures/siblingPortraitGal/E26A0671%20(3).jpg",
+              "/pictures/siblingPortraitGal/E26A0674.jpg",
+              "/pictures/siblingPortraitGal/E26A0691.jpg",
+              "/pictures/siblingPortraitGal/E26A0693.jpg",
+              "/pictures/siblingPortraitGal/E26A0695.jpg",
+              "/pictures/siblingPortraitGal/E26A0698%20(1).jpg",
+              "/pictures/siblingPortraitGal/E26A0699%20(1).jpg",
+              "/pictures/siblingPortraitGal/E26A0701%20(2).jpg",
+              "/pictures/siblingPortraitGal/E26A0702.jpg",
+              "/pictures/siblingPortraitGal/E26A0712%20(1).jpg",
+              "/pictures/siblingPortraitGal/E26A0718%20(1).jpg",
+              "/pictures/siblingPortraitGal/E26A0720.jpg",
+              "/pictures/siblingPortraitGal/E26A0722.jpg",
+              "/pictures/siblingPortraitGal/E26A0734%20(1).jpg",
+              "/pictures/siblingPortraitGal/E26A0739%20(1).jpg",
+              "/pictures/siblingPortraitGal/E26A0753%20(1).jpg",
+              "/pictures/siblingPortraitGal/E26A0755.jpg",
+              "/pictures/siblingPortraitGal/E26A0758%20(1).jpg",
+              "/pictures/siblingPortraitGal/E26A0759%20(1).jpg",
+              "/pictures/siblingPortraitGal/E26A0761%20(1).jpg",
+              "/pictures/siblingPortraitGal/E26A0764%20(1).jpg"
+            ]'>
             <img class="tile-media" src="/pictures/familyPortrait/image1.jpg" alt="Family portraits preview" loading="lazy" />
             <div class="tile-topfade" aria-hidden="true"></div>
 
@@ -172,42 +205,30 @@
             </button>
             <div class="tile-dots" role="tablist" aria-label="Family slides"></div>
 
-            <div class="tile-badge">
-              <h3>Family Portraits</h3>
-              <p>Movement-first sessions; relaxed, connected, and true to your crew.</p>
-              <a class="cta" href="/galleries/family-portrait.html" aria-label="Open Family Portraits gallery">
-                View →
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </a>
+            <div class="tile-ribbon">
+              <span class="label">Family</span><span class="sub">  · relaxed & connected</span>
             </div>
+            <a class="tile-chip" href="/galleries/family-portrait.html" aria-label="Open Family Portraits gallery">
+              View Gallery
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
           </figure>
 
-          <!-- SIBLINGS -->
-          <figure class="tile" id="tile-siblings" data-link="/galleries/sibling-portrait.html"
-                  data-all-images='[
-                    "/pictures/siblingPortraitGal/E26A0671%20(3).jpg",
-                    "/pictures/siblingPortraitGal/E26A0674.jpg",
-                    "/pictures/siblingPortraitGal/E26A0691.jpg",
-                    "/pictures/siblingPortraitGal/E26A0693.jpg",
-                    "/pictures/siblingPortraitGal/E26A0695.jpg",
-                    "/pictures/siblingPortraitGal/E26A0698%20(1).jpg",
-                    "/pictures/siblingPortraitGal/E26A0699%20(1).jpg",
-                    "/pictures/siblingPortraitGal/E26A0701%20(2).jpg",
-                    "/pictures/siblingPortraitGal/E26A0702.jpg",
-                    "/pictures/siblingPortraitGal/E26A0712%20(1).jpg",
-                    "/pictures/siblingPortraitGal/E26A0718%20(1).jpg",
-                    "/pictures/siblingPortraitGal/E26A0720.jpg",
-                    "/pictures/siblingPortraitGal/E26A0722.jpg",
-                    "/pictures/siblingPortraitGal/E26A0734%20(1).jpg",
-                    "/pictures/siblingPortraitGal/E26A0739%20(1).jpg",
-                    "/pictures/siblingPortraitGal/E26A0753%20(1).jpg",
-                    "/pictures/siblingPortraitGal/E26A0755.jpg",
-                    "/pictures/siblingPortraitGal/E26A0758%20(1).jpg",
-                    "/pictures/siblingPortraitGal/E26A0759%20(1).jpg",
-                    "/pictures/siblingPortraitGal/E26A0761%20(1).jpg",
-                    "/pictures/siblingPortraitGal/E26A0764%20(1).jpg"
-                  ]'>
-            <img class="tile-media" src="/pictures/siblingPortraitGal/E26A0671%20(3).jpg" alt="Sibling portraits preview" loading="lazy" />
+          <!-- ADVENTURE (andrewsBaldPics) -->
+          <figure class="tile" id="tile-adventure" data-link="/adventure.html"
+            data-all-images='[
+              "/pictures/andrewsBaldPics/E26A1013.jpg",
+              "/pictures/andrewsBaldPics/E26A1022.jpg",
+              "/pictures/andrewsBaldPics/E26A1033.jpg",
+              "/pictures/andrewsBaldPics/E26A1045.jpg",
+              "/pictures/andrewsBaldPics/E26A1062.jpg",
+              "/pictures/andrewsBaldPics/E26A1063-2.jpg",
+              "/pictures/andrewsBaldPics/E26A1087.jpg",
+              "/pictures/andrewsBaldPics/E26A1094.jpg",
+              "/pictures/andrewsBaldPics/E26A1095.jpg",
+              "/pictures/andrewsBaldPics/E26A1098.jpg"
+            ]'>
+            <img class="tile-media" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Adventure session preview" loading="lazy" />
             <div class="tile-topfade" aria-hidden="true"></div>
 
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
@@ -216,39 +237,38 @@
             <button class="tile-nav tile-next" type="button" aria-label="Next">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
-            <div class="tile-dots" role="tablist" aria-label="Sibling slides"></div>
+            <div class="tile-dots" role="tablist" aria-label="Adventure slides"></div>
 
-            <div class="tile-badge">
-              <h3>Siblings</h3>
-              <p>Playful prompts, real chemistry—personality-forward portraits.</p>
-              <a class="cta" href="/galleries/sibling-portrait.html" aria-label="Open Sibling Portraits gallery">
-                View →
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </a>
+            <div class="tile-ribbon">
+              <span class="label">Adventure</span><span class="sub">  · hills, dunes & play</span>
             </div>
+            <a class="tile-chip" href="/adventure.html" aria-label="Open Adventure gallery">
+              View Gallery
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
           </figure>
 
           <!-- FRIEND -->
           <figure class="tile" id="tile-friend" data-link="/galleries/friend-portrait.html"
-                  data-all-images='[
-                    "/pictures/friendPortraitGal/E26A1852.jpg",
-                    "/pictures/friendPortraitGal/E26A1931%20(1).jpg",
-                    "/pictures/friendPortraitGal/E26A1938%20(1).jpg",
-                    "/pictures/friendPortraitGal/E26A1944%20(1).jpg",
-                    "/pictures/friendPortraitGal/E26A1945%20(1).jpg",
-                    "/pictures/friendPortraitGal/E26A1986%20(1).jpg",
-                    "/pictures/friendPortraitGal/E26A2017%20(1).jpg",
-                    "/pictures/friendPortraitGal/E26A2022%20(2).jpg",
-                    "/pictures/friendPortraitGal/E26A2047-2%20(1).jpg",
-                    "/pictures/friendPortraitGal/E26A2047.jpg",
-                    "/pictures/friendPortraitGal/E26A2106%20(1).jpg",
-                    "/pictures/friendPortraitGal/E26A2140.jpg",
-                    "/pictures/friendPortraitGal/E26A2161.jpg",
-                    "/pictures/friendPortraitGal/E26A2226%20(1).jpg",
-                    "/pictures/friendPortraitGal/E26A2237.jpg",
-                    "/pictures/friendPortraitGal/E26A2245%20(1).jpg",
-                    "/pictures/friendPortraitGal/E26A2302.jpg"
-                  ]'>
+            data-all-images='[
+              "/pictures/friendPortraitGal/E26A1852.jpg",
+              "/pictures/friendPortraitGal/E26A1931%20(1).jpg",
+              "/pictures/friendPortraitGal/E26A1938%20(1).jpg",
+              "/pictures/friendPortraitGal/E26A1944%20(1).jpg",
+              "/pictures/friendPortraitGal/E26A1945%20(1).jpg",
+              "/pictures/friendPortraitGal/E26A1986%20(1).jpg",
+              "/pictures/friendPortraitGal/E26A2017%20(1).jpg",
+              "/pictures/friendPortraitGal/E26A2022%20(2).jpg",
+              "/pictures/friendPortraitGal/E26A2047-2%20(1).jpg",
+              "/pictures/friendPortraitGal/E26A2047.jpg",
+              "/pictures/friendPortraitGal/E26A2106%20(1).jpg",
+              "/pictures/friendPortraitGal/E26A2140.jpg",
+              "/pictures/friendPortraitGal/E26A2161.jpg",
+              "/pictures/friendPortraitGal/E26A2226%20(1).jpg",
+              "/pictures/friendPortraitGal/E26A2237.jpg",
+              "/pictures/friendPortraitGal/E26A2245%20(1).jpg",
+              "/pictures/friendPortraitGal/E26A2302.jpg"
+            ]'>
             <img class="tile-media" src="/pictures/friendPortraitGal/E26A1852.jpg" alt="Friend portraits preview" loading="lazy" />
             <div class="tile-topfade" aria-hidden="true"></div>
 
@@ -260,24 +280,24 @@
             </button>
             <div class="tile-dots" role="tablist" aria-label="Friend slides"></div>
 
-            <div class="tile-badge">
-              <h3>Friend Portraits</h3>
-              <p>Light, stylish, authentic—editorial energy without trying.</p>
-              <a class="cta" href="/galleries/friend-portrait.html" aria-label="Open Friend Portraits gallery">
-                View →
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </a>
+            <div class="tile-ribbon">
+              <span class="label">Friend</span><span class="sub">  · editorial & easy</span>
             </div>
+            <a class="tile-chip" href="/galleries/friend-portrait.html" aria-label="Open Friend Portraits gallery">
+              View Gallery
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
           </figure>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- Shared Footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Randomize to exactly 10 per tile; arrows + diamonds -->
+  <!-- Randomize to exactly 10 per tile; arrows + diamonds; edge-label behavior -->
   <script>
     (function(){
       const MAX_IMGS = 10;
@@ -297,11 +317,12 @@
         const prevBtn = tile.querySelector('.tile-prev');
         const nextBtn = tile.querySelector('.tile-next');
 
+        // images
         let all = [];
         try { all = JSON.parse(tile.getAttribute('data-all-images') || '[]'); } catch {}
         if(!Array.isArray(all) || !all.length) return;
-
         const list = pickTen(all);
+
         let idx = 0;
 
         // dots
@@ -327,10 +348,10 @@
         prevBtn?.addEventListener('click', e=>{ e.stopPropagation(); show(idx-1); });
         nextBtn?.addEventListener('click', e=>{ e.stopPropagation(); show(idx+1); });
 
-        // click anywhere except controls -> open gallery
+        // click anywhere except controls -> navigate
         const link = tile.getAttribute('data-link') || '#';
         tile.addEventListener('click', (e)=>{
-          if (e.target.closest('.tile-nav') || e.target.closest('.tile-dots button') || e.target.closest('.tile-badge .cta')) return;
+          if (e.target.closest('.tile-nav') || e.target.closest('.tile-dots button') || e.target.closest('.tile-chip')) return;
           window.location.href = link;
         });
 
