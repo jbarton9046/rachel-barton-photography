@@ -18,45 +18,43 @@
   <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts -->
+  <!-- Fonts (match the rest of the site) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shared layout (universal navbar + footer) -->
+  <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
   <style>
     :root{
       --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#7a766e;
       --accent:#A88A5A; --line:#e9e6df; --ring:rgba(168,138,90,.25);
-      --shadow:0 10px 30px rgba(0,0,0,.08); --gap:clamp(16px,3vw,32px); --maxw:1100px;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --gap:clamp(16px,3vw,32px); --maxw:1100px;
+
+      /* Universal navbar spacing (same across site) */
+      --nav-gap-top: 16px;      /* distance from viewport top to TOP of nav links */
+      --nav-gap-bottom: 40px;   /* breathing room below nav */
     }
+
+    /* Normalize universal nav spacing; all other nav styles come from layout.css */
+    .topbar{
+      padding-top: var(--nav-gap-top) !important;
+      padding-bottom: var(--nav-gap-bottom) !important;
+    }
+
     *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65}
+    html,body{
+      margin:0;background:var(--bg);color:var(--ink);
+      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    }
     a{color:inherit;text-decoration:none;transition:color .15s ease}
     a:hover,a:focus-visible{color:var(--accent);outline:none}
     img{max-width:100%;height:auto;display:block;border-radius:0;border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
-
-    /* ===== Topbar (exact match to index.html) ===== */
-    .topbar{position:relative;display:flex;align-items:center;justify-content:center;padding:16px var(--gap);z-index:10;background:transparent}
-    .brand{display:none}
-    nav.primary ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
-    nav.primary li{position:relative}
-    nav.primary a{font-family:"Raleway",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-weight:500;font-size:clamp(16px,1.8vw,20px);letter-spacing:.02em;border-bottom:0;padding:4px 2px}
-    nav.primary a:hover,nav.primary a:focus-visible{color:var(--accent);border-bottom:0}
-    .has-sub:hover> a,.has-sub:focus-within> a{color:var(--accent)}
-    .has-sub{position:relative}
-    .has-sub::after{content:"";position:absolute;left:-8px;right:-8px;top:100%;height:12px;background:transparent}
-    .dropdown{position:absolute;top:calc(100% + 6px);left:50%;transform:translate(-50%,0);background:rgba(255,255,255,.65);border:1px solid var(--line);box-shadow:var(--shadow);padding:6px 8px;display:flex;flex-direction:column;gap:2px;min-width:220px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s ease,transform .15s ease;z-index:999;backdrop-filter:saturate(1.05)}
-    .has-sub:hover .dropdown,.has-sub:focus-within .dropdown,.dropdown:hover{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,2px)}
-    .dropdown li{list-style:none}
-    .dropdown a{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;font-weight:700;font-size:clamp(18px,2.2vw,20px);letter-spacing:.02em;line-height:1.08;padding:2px 6px;color:#3f3a33;border-bottom:0;white-space:nowrap}
-    .topbar nav.primary .has-sub > .dropdown{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;gap:6px!important;min-width:unset!important;left:50%!important;transform:translateX(-50%)!important}
-    .topbar nav.primary .dropdown a{border-bottom:0!important;padding:0!important;background:transparent!important;font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif!important;font-weight:700!important;font-size:clamp(13px,1.65vw,15px)!important;line-height:1.05!important}
-
-    /* Tighten space under nav (still prevents overlap with dropdown) */
-    .nav-spacer{height:clamp(48px,7vw,72px)}
 
     /* ===== FAQ layout ===== */
     .faq{
@@ -87,7 +85,7 @@
     summary{list-style:none;cursor:pointer;padding:16px 18px;user-select:none;font-weight:700;display:flex;gap:12px;transition:color .15s ease}
     summary::-webkit-details-marker{display:none}
     summary:hover,summary:focus-visible{color:var(--accent);outline:none}
-    .qmark{font-family:"Fraunces",serif;font-size:20px;line-height:1;color:#b7a486;margin-top:2px}
+    .qmark{font-family:"Playfair Display",serif;font-size:20px;line-height:1;color:#b7a486;margin-top:2px}
     .answer{padding:0 18px 16px;color:#4a463f}
     .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;border:1px solid var(--line);padding:10px 16px;box-shadow:0 6px 18px rgba(0,0,0,.06);text-decoration:none}
 
@@ -109,30 +107,8 @@
 </head>
 <body>
 
-  <!-- Top navigation -->
-  <div class="topbar container">
-    <div class="brand"></div>
-    <nav class="primary" aria-label="Primary">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about.html">Meet Rachel</a></li>
-        <li class="has-sub">
-          <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
-          <ul class="dropdown" aria-label="Galleries submenu">
-            <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
-            <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
-            <li><a href="/galleries/friend-portrait.html">Friend Portraits</a></li>
-          </ul>
-        </li>
-        <li><a href="/#reviews">Testimonials</a></li>
-        <li><a href="/faq.html" aria-current="page">FAQ</a></li>
-        <li><a href="/#contact">Contact</a></li>
-        <li><a href="/#book">Book</a></li>
-      </ul>
-    </nav>
-  </div>
-
-  <div class="nav-spacer" aria-hidden="true"></div>
+  <!-- Universal navbar pulled from the shared partial -->
+  <div data-include="/partials/topnav.html"></div>
 
   <main class="container">
     <section class="faq" aria-label="FAQ">
@@ -263,8 +239,8 @@
     </div>
   </footer>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <!-- include shared nav/footer partials -->
+  <script src="/assets/include.js?v=nav-5" defer></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
