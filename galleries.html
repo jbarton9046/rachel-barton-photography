@@ -40,7 +40,21 @@
       --accent:#A88A5A; --accent-2:#E8DFC9; --line:#e9e6df;
       --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
+
+      /* NAV spacing (kept uniform with homepage) */
+      --nav-gap-top: 36px;    /* distance from top of viewport to top of nav links */
+      --nav-gap-bottom: 12px; /* breathing room below nav */
     }
+
+    /* Force the shared topbar to use the exact spacing */
+    .topbar{
+      padding-top: var(--nav-gap-top) !important;
+      padding-bottom: var(--nav-gap-bottom) !important;
+    }
+
+    /* Kill any legacy spacers if present */
+    .nav-spacer, .page-top-spacer { height: 0 !important; }
+
     *{box-sizing:border-box}
     html,body{
       margin:0; padding:0; background:var(--bg); color:var(--ink);
@@ -56,9 +70,9 @@
     .section-title{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-size:clamp(24px,3.5vw,38px);
-      margin:0 0 4px;
+      margin:0 0 14px; /* opened up from 4px */
     }
-    .section-sub{color:#67635b; margin:0 0 12px}
+    .section-sub{color:#67635b; margin:0 0 22px} /* opened up from 12px */
 
     /* FIRST section sits higher */
     #portfolio{ padding-top:0; }
@@ -153,9 +167,13 @@
 
     @media (max-width:960px){
       .mosaic{grid-template-columns:1fr 1fr}
+      :root{ --nav-gap-top: 32px; --nav-gap-bottom: 10px; }
     }
     @media (max-width:640px){
       .mosaic{grid-template-columns:1fr}
+      :root{ --nav-gap-top: 32px; --nav-gap-bottom: 10px; }
+      .section-title{ margin-bottom:12px }
+      .section-sub{ margin-bottom:18px }
     }
   </style>
 </head>
