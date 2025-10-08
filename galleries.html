@@ -42,17 +42,10 @@
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
       /* PAGE-ONLY NAV spacing to match homepage exactly */
-      --nav-gap-top: 16px;   /* distance from top of viewport to TOP of nav links */
-      --nav-gap-bottom: 40px; /* breathing room below nav */
+      --nav-gap-top: 16px;
+      --nav-gap-bottom: 40px;
     }
-
-    /* Force the shared topbar to use the exact spacing */
-    .topbar{
-      padding-top: var(--nav-gap-top) !important;
-      padding-bottom: var(--nav-gap-bottom) !important;
-    }
-
-    /* Kill any legacy spacers if present */
+    .topbar{ padding-top: var(--nav-gap-top) !important; padding-bottom: var(--nav-gap-bottom) !important; }
     .nav-spacer, .page-top-spacer { height: 0 !important; }
 
     *{box-sizing:border-box}
@@ -74,29 +67,17 @@
     }
     .section-sub{color:#67635b; margin:0 0 22px}
 
-    /* Title + button on one row (align tops) */
-    .title-row{
-      display:flex;
-      align-items:flex-start;           /* align the tops */
-      justify-content:space-between;
-      gap:16px;
-    }
+    .title-row{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
     .title-row .btn{ align-self:flex-start; }
 
-    /* FIRST section sits higher */
     #portfolio{ padding-top:0; }
     #portfolio .mosaic{ margin-top:4px; }
 
-    /* Actions row (help pill only now) */
-    .actions-row{
-      display:flex; align-items:flex-start; justify-content:flex-start;
-      gap:16px; margin:8px 0 10px; flex-wrap:wrap;
-    }
+    .actions-row{ display:flex; align-items:flex-start; justify-content:flex-start; gap:16px; margin:8px 0 10px; flex-wrap:wrap; }
     .section-help{
       font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:#6e6a62;
       display:inline-flex; align-items:flex-end; gap:8px;
-      padding:4px 10px;
-      background:#fff; border:1px solid var(--line); box-shadow:0 2px 8px rgba(0,0,0,.04);
+      padding:4px 10px; background:#fff; border:1px solid var(--line); box-shadow:0 2px 8px rgba(0,0,0,.04);
       line-height:1.2;
     }
     .help-ico{opacity:.8; position:relative; top:.5px}
@@ -117,10 +98,8 @@
       border-color:var(--accent);
       transform:translateY(-1px);
       box-shadow:0 10px 22px rgba(0,0,0,.08);
-      outline:none;
     }
 
-    /* Mosaic */
     .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px)}
     .mosaic figure{margin:0}
     .mosaic .captioned.notch{position:relative; display:block}
@@ -128,7 +107,6 @@
     .mosaic .u-stroke{fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round}
     .mosaic .notch-box{position:absolute; bottom:0; left:50%; transform:translateX(-50%); display:flex; align-items:center; justify-content:center; pointer-events:none}
 
-    /* Caption label */
     .mosaic .cap-label{
       position:relative; pointer-events:auto;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
@@ -138,22 +116,21 @@
       transition:color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
     }
     .mosaic .cap-label::before{ content:""; position:absolute; inset:3px; border:1px solid rgba(63,58,51,.14); pointer-events:none; }
-    .mosaic .cap-label:hover, .mosaic .cap-label:focus-visible{ transform:translateY(-1px); color:var(--accent); border-color:rgba(168,138,90,.55); box-shadow:0 14px 26px rgba(0,0,0,.14); outline:none; }
+    .mosaic .cap-label:hover, .mosaic .cap-label:focus-visible{ transform:translateY(-1px); color:var(--accent); border-color:rgba(168,138,90,.55); box-shadow:0 14px 26px rgba(0,0,0,.14); }
 
-    /* Tile arrows + dots (diamond look) */
     #gallery-meadow .tile-nav, #gallery-family .tile-nav, #gallery-beach .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       background:transparent !important; border:0 !important; width:56px; height:56px; display:grid; place-items:center;
-      color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0; transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease; outline:none;
+      color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0; transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease;
     }
     #gallery-meadow:hover .tile-nav, #gallery-family:hover .tile-nav, #gallery-beach:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
     #gallery-meadow .tile-prev, #gallery-family .tile-prev, #gallery-beach .tile-prev{ left:10px; }
     #gallery-meadow .tile-next, #gallery-family .tile-next, #gallery-beach .tile-next{ right:10px; }
     #gallery-meadow .tile-nav::before, #gallery-family .tile-nav::before, #gallery-beach .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05); box-shadow:0 6px 18px rgba(0,0,0,.14); z-index:0;
+      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05); box-shadow:0 6px 18px rgba(0,0,0,.14);
     }
     #gallery-meadow .tile-nav::after, #gallery-family .tile-nav::after, #gallery-beach .tile-nav::after{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); border:1.5px solid var(--accent); z-index:1; pointer-events:none;
+      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); border:1.5px solid var(--accent);
     }
     #gallery-meadow .tile-nav svg, #gallery-family .tile-nav svg, #gallery-beach .tile-nav svg{ width:22px; height:22px; position:relative; z-index:2 }
 
@@ -169,11 +146,9 @@
     }
     #gallery-meadow .tile-dots button.is-active::before, #gallery-family .tile-dots button.is-active::before{ background:rgba(168,138,90,.22); }
 
-    /* Footer */
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; }
     footer .container{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; }
     @media (max-width:720px){ footer .container{ justify-content:center; text-align:center; } }
-
     @media (max-width:960px){
       .mosaic{grid-template-columns:1fr 1fr}
       :root{ --nav-gap-top: 24px; --nav-gap-bottom: 8px; }
@@ -194,7 +169,6 @@
   <main id='content'>
     <div class="container">
       <section id="portfolio" aria-labelledby="portfolio-title">
-        <!-- Title row with button aligned to the top of the title -->
         <div class="title-row">
           <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
           <a class="btn" href="/book.html">Book a Session</a>
@@ -202,7 +176,6 @@
 
         <p class="section-sub">From sunlit meadows to Gulf sunsets, explore the feel of a session—connection, motion, and easy, unposed energy.</p>
 
-        <!-- Help note row -->
         <div class="actions-row">
           <div class="section-help" role="note" aria-label="Gallery navigation help">
             <span class="help-ico" aria-hidden="true">ⓘ</span>
@@ -211,7 +184,7 @@
         </div>
 
         <div class="mosaic" id="grid">
-          <!-- LEFT — now PORTRAITS -->
+          <!-- LEFT — PORTRAITS -->
           <figure class="captioned notch" id="gallery-meadow" aria-label="Portraits"
                   data-images='[
                     "pictures/introPortPics/E26A0702%20(1).jpg",
@@ -258,7 +231,7 @@
             </div>
           </figure>
 
-          <!-- MIDDLE — now BRANDING (placeholder image for now) -->
+          <!-- MIDDLE — BRANDING (placeholder) -->
           <figure class="captioned notch" id="gallery-family" aria-label="Branding"
                   data-images='[
                     "pictures/branding/placeholder-branding-cover.jpg"
@@ -295,7 +268,7 @@
             </div>
           </figure>
 
-          <!-- RIGHT — now EVENTS -->
+          <!-- RIGHT — EVENTS -->
           <figure class="captioned notch" id="gallery-beach" aria-label="Events"
                   data-images='[
                     "pictures/introEventPics/E26A1193.jpg",
@@ -317,7 +290,8 @@
                   <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                 </filter>
               </defs>
-              <image href="pictures/introEventPics/E26A1193.jpg" x="0" y="0" width="800" height="1000"
+              <!-- Start on the preferred kids photo -->
+              <image href="pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000"
                      preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
               <g class="frameGroup" filter="url(#frameShadow-2)">
                 <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
@@ -343,10 +317,7 @@
     </div>
   </main>
 
-  <!-- Shared Footer (site-wide Instagram + auto-year) -->
   <div data-include="/partials/footer.html"></div>
-
-  <!-- Pull in shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
 
   <!-- Notch/label/dots positioning -->
@@ -410,6 +381,66 @@
       }
       window.addEventListener('resize', ()=>{ requestAnimationFrame(updateAll); });
       setTimeout(updateAll, 0);
+    })();
+  </script>
+
+  <!-- NEW: Randomize Portraits & Events; force E26A1309.jpg first for Events -->
+  <script>
+    (function () {
+      const PORTRAITS_ID = "gallery-meadow"; // left tile
+      const EVENTS_ID    = "gallery-beach";  // right tile
+      const PREFERRED_EVENTS_FIRST = "pictures/introEventPics/E26A1309.jpg";
+
+      function shuffle(arr){
+        for(let i = arr.length - 1; i > 0; i--){
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      function parseList(tile){
+        try { return JSON.parse(tile.getAttribute("data-images") || "[]"); }
+        catch { return []; }
+      }
+
+      function writeListAndPrimeImage(tile, list){
+        tile.setAttribute("data-images", JSON.stringify(list));
+        const imgEl = tile.querySelector("svg image");
+        if (imgEl && list[0]) {
+          imgEl.setAttribute("href", list[0]);
+          imgEl.setAttributeNS("http://www.w3.org/1999/xlink", "href", list[0]);
+        }
+      }
+
+      // Portraits: full shuffle
+      (function(){
+        const tile = document.getElementById(PORTRAITS_ID);
+        if(!tile) return;
+        const list = parseList(tile);
+        if(!Array.isArray(list) || list.length <= 1) return;
+        shuffle(list);
+        writeListAndPrimeImage(tile, list);
+      })();
+
+      // Events: shuffle but make sure preferred photo is first
+      (function(){
+        const tile = document.getElementById(EVENTS_ID);
+        if(!tile) return;
+        const list = parseList(tile);
+        if(!Array.isArray(list) || list.length <= 1) return;
+
+        shuffle(list);
+        const idx = list.indexOf(PREFERRED_EVENTS_FIRST);
+        if (idx > -1) {
+          const [hit] = list.splice(idx, 1);
+          list.unshift(hit);
+        } else {
+          // If not present, ensure it gets added to the front just in case
+          list.unshift(PREFERRED_EVENTS_FIRST);
+        }
+        writeListAndPrimeImage(tile, list);
+      })();
     })();
   </script>
 
