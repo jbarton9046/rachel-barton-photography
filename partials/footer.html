@@ -33,36 +33,32 @@
       align-items:center; justify-content:space-between;
     }
 
-    /* Align the whole right group on the baseline for perfect icon/text alignment */
     .footer-right{
       display:inline-flex; align-items:baseline; gap:8px; flex-wrap:wrap;
       line-height:1.4;
     }
     .sep{ opacity:.55; }
 
-    /* Instagram link */
     .ig{
       display:inline-flex; align-items:baseline; padding:0 2px;
       color:inherit; border:0; text-decoration:none;
-      transition:color .15s ease, transform .15s ease;
+      transition:color .15s ease;            /* no movement on hover */
     }
-    .ig:hover{ color:var(--accent); transform:translateY(-1px); }
+    .ig:hover{ color:var(--accent); }        /* gold only, no transform */
 
-    /* SVG tracks the font size and is nudged to sit on the text baseline optically */
+    /* Slightly lower the glyph to sit perfectly on the text baseline */
     .ig svg{
       width:1em; height:1em;
       stroke:currentColor; fill:none; stroke-width:1.6;
       display:block;
-      transform:translateY(.08em);
+      transform:translateY(.16em);           /* was .08em; nudged down */
     }
   </style>
 
   <!-- Auto year -->
   <script>
     (function(){
-      try {
-        document.getElementById('year').textContent = new Date().getFullYear();
-      } catch(e){}
+      try { document.getElementById('year').textContent = new Date().getFullYear(); } catch(e){}
     })();
   </script>
 </footer>
