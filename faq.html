@@ -99,10 +99,6 @@
       details{grid-column:auto}
       .after-photo{grid-column:auto}
     }
-
-    footer{border-top:1px solid var(--line);padding:28px 0;color:#7f7f7f;margin-top:32px}
-    footer .container{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
-    @media (max-width:720px){footer .container{justify-content:center;text-align:center}}
   </style>
 </head>
 <body>
@@ -232,15 +228,10 @@
     </section>
   </main>
 
-  <footer>
-    <div class="container">
-      <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
-      <div><a href="mailto:rachelbartonphotography@gmail.com">rachelbartonphotography@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></div>
-    </div>
-  </footer>
+  <!-- Shared footer (site-wide via partial) -->
+  <div data-include="/partials/footer.html"></div>
 
   <!-- include shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
