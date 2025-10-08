@@ -70,17 +70,26 @@
     .section-title{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-size:clamp(24px,3.5vw,38px);
-      margin:0 0 14px; /* opened up from 4px */
+      margin:0 0 14px;
     }
-    .section-sub{color:#67635b; margin:0 0 22px} /* opened up from 12px */
+    .section-sub{color:#67635b; margin:0 0 22px}
+
+    /* Title + button on one row (align tops) */
+    .title-row{
+      display:flex;
+      align-items:flex-start;           /* align the tops */
+      justify-content:space-between;
+      gap:16px;
+    }
+    .title-row .btn{ align-self:flex-start; }
 
     /* FIRST section sits higher */
     #portfolio{ padding-top:0; }
     #portfolio .mosaic{ margin-top:4px; }
 
-    /* Actions row (help pill + button) */
+    /* Actions row (help pill only now) */
     .actions-row{
-      display:flex; align-items:flex-start; justify-content:space-between; /* align tops */
+      display:flex; align-items:flex-start; justify-content:flex-start;
       gap:16px; margin:8px 0 10px; flex-wrap:wrap;
     }
     .section-help{
@@ -167,13 +176,14 @@
 
     @media (max-width:960px){
       .mosaic{grid-template-columns:1fr 1fr}
-      :root{ --nav-gap-top: 24px; --nav-gap-bottom: 8px; } /* keep consistent on tablet */
+      :root{ --nav-gap-top: 24px; --nav-gap-bottom: 8px; }
     }
     @media (max-width:640px){
       .mosaic{grid-template-columns:1fr}
-      :root{ --nav-gap-top: 24px; --nav-gap-bottom: 8px; } /* keep consistent on mobile */
+      :root{ --nav-gap-top: 24px; --nav-gap-bottom: 8px; }
       .section-title{ margin-bottom:12px }
       .section-sub{ margin-bottom:18px }
+      .title-row{ flex-direction:column; align-items:flex-start; gap:10px; }
     }
   </style>
 </head>
@@ -184,16 +194,20 @@
   <main id='content'>
     <div class="container">
       <section id="portfolio" aria-labelledby="portfolio-title">
-        <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
+        <!-- Title row with button aligned to the top of the title -->
+        <div class="title-row">
+          <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
+          <a class="btn" href="/book.html">Book a Session</a>
+        </div>
+
         <p class="section-sub">From sunlit meadows to Gulf sunsets, explore the feel of a session—connection, motion, and easy, unposed energy.</p>
 
-        <!-- Help note + Book button on one row -->
+        <!-- Help note row -->
         <div class="actions-row">
           <div class="section-help" role="note" aria-label="Gallery navigation help">
             <span class="help-ico" aria-hidden="true">ⓘ</span>
             Preview &amp; navigate: click the tile or use the arrows to move through images. Select the label to view the full gallery.
           </div>
-          <a class="btn" href="/book.html">Book a Session</a>
         </div>
 
         <div class="mosaic" id="grid">
