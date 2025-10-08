@@ -110,3 +110,67 @@ footer{
   color:#7f7f7f;
   margin-top:32px;
 }
+
+/* =================================================================== */
+/* ============== SHARED NAVBAR (site-header partial) ================ */
+/* These styles power /partials/topnav.html on non-hero pages.        */
+/* Scoped to .site-header so they don't affect the hero overlay nav.  */
+/* =================================================================== */
+
+/* reset nested lists so bullets never show */
+.site-header .topnav,
+.site-header .topnav ul{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+/* exact spacing you use: centered, 28px gap, 18px vertical padding */
+.site-header .topnav{
+  display:flex;
+  gap:28px;
+  justify-content:center;
+  padding:18px 0;
+}
+
+/* dropdown behavior */
+.site-header .topnav .has-sub{ position:relative; }
+.site-header .topnav .has-sub > .dropdown{
+  position:absolute;
+  top:calc(100% + 6px);
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  min-width:unset;
+  z-index:1000;
+}
+
+/* show on hover and keyboard focus */
+.site-header .topnav .has-sub:hover > .dropdown,
+.site-header .topnav .has-sub:focus-within > .dropdown{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+/* submenu link typography to match your hero/galleries */
+.site-header .topnav .dropdown a{
+  font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+  font-weight:700;
+  font-size:clamp(13px,1.65vw,15px);
+  line-height:1.05;
+  padding:0;
+  border:0;
+  background:transparent;
+  white-space:nowrap;
+}
