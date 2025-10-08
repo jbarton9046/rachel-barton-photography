@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book a Session | Rachel Barton Photography</title>
+  <meta name="description" content="Book a family, maternity, newborn, or portrait session in Sarasota and Florida’s Gulf Coast." />
+
+  <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
+
+  <style>
+    :root{ --bg:#FAFAF8; --ink:#3e3e3a; --line:#e9e6df; --accent:#A88A5A; --ring:rgba(168,138,90,.25); --gap:clamp(16px,3vw,32px); --maxw:960px; --nav-top:36px; }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
+    .page-top-spacer{height:var(--nav-top)}
+    .nav-spacer{height:12px}
+    main section{padding:calc(var(--gap)*2) 0}
+    h1{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;font-size:clamp(28px,4vw,44px);margin:0 0 8px}
+    .lead{color:#67635b;margin:0 0 20px}
+    .card{background:#fff;border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.06);padding:clamp(16px,2.6vw,28px)}
+    .iframe-wrap{position:relative;width:100%}
+    .iframe-wrap iframe{display:block;width:100%;height:820px;border:0}
+  </style>
+</head>
+<body>
+  <div class="page-top-spacer" aria-hidden="true"></div>
+  <div data-include="/partials/topnav.html"></div>
+  <div class="nav-spacer" aria-hidden="true"></div>
+
+  <main>
+    <section>
+      <div class="container">
+        <h1>Book a Session</h1>
+        <p class="lead">Pick a date that works for you. If you don’t see your ideal time, <a href="/contact.html">send a note</a> and I’ll try to accommodate.</p>
+
+        <div class="card">
+          <div class="iframe-wrap">
+            <iframe
+              src="https://app.acuityscheduling.com/schedule.php?owner=37092379&embedded=1"
+              title="Book a Session with Rachel Barton Photography"
+              allow="payment *"
+              loading="eager">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:28px 0;border-top:1px solid var(--line);color:#7f7f7f">
+      <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
+      <div><a href="mailto:rachelbartonphotography@gmail.com">rachelbartonphotography@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></div>
+    </div>
+  </footer>
+
+  <script src="/assets/include.js?v=nav-5" defer></script>
+  <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
+  <script src="https://embed.acuityscheduling.com/js/embed.js" async></script>
+</body>
+</html>
