@@ -40,7 +40,7 @@
       position:relative;
       min-height:100svh;
       display:grid;
-      place-items:center;                 /* center box both axes */
+      place-items:center;                 /* center card both axes */
       background:url('pictures/oonaIvy/E26A0671.jpg') center 15%/cover no-repeat;
       width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
     }
@@ -57,10 +57,16 @@
       border:1px solid var(--line);
       /* bigger, but responsive */
       padding:clamp(22px,3.2vw,42px) clamp(26px,3.6vw,48px);
-      width:min(92vw, 980px);            /* larger card */
+      width:min(92vw, 1040px);            /* wider card */
       box-shadow:0 10px 30px rgba(0,0,0,.08);
       text-align:center;
     }
+
+    /* Nudge the hero card a bit to the right on desktop to free the left subject */
+    @media (min-width:1024px){
+      .hero .copy{ transform: translateX(6vw); } /* adjust 4–8vw to taste */
+    }
+
     .eyebrow{
       color:#8d7a5c;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
       font-size:clamp(12px,1.2vw,14px);margin-bottom:10px
