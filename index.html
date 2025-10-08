@@ -9,12 +9,14 @@
   <meta name="description" content="Candid, timeless, true-to-life family, maternity, newborn & portrait photography across Sarasota and Florida’s Gulf Coast — with a soft, whimsical touch." />
   <link rel="canonical" href="https://rachelsphotography.netlify.app/" />
 
-  <!-- Fonts -->
+  <!-- Fonts (sitewide) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shared layout -->
+  <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
   <!-- Preload hero image -->
   <link rel="preload" as="image" href="pictures/heroImage.jpg">
@@ -27,42 +29,16 @@
     img{max-width:100%;height:auto;display:block;border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
 
-    /* HERO + topbar (kept from your original) */
+    /* HERO (no nav inside; shared nav is included above the hero) */
     .hero{
-      position:relative;min-height:100svh;display:grid;grid-template-columns:repeat(2,1fr);align-items:center;
+      min-height:100svh;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      align-items:center;
       background:url('pictures/oonaIvy/E26A0671.jpg') center 15%/cover no-repeat;
-      width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)
-    }
-    .topbar{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;justify-content:center;padding:16px var(--gap);z-index:2}
-    nav.primary ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
-    nav.primary a{
-      font-family:"Raleway",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      font-weight:500;font-size:clamp(16px,1.8vw,20px);letter-spacing:.02em;padding:4px 2px
-    }
-    nav.primary a:hover{color:var(--accent)}
-
-    /* Dropdown (FIXED: hidden by default, shown on hover/focus) */
-    .has-sub{position:relative}
-    .dropdown{
-      position:absolute;top:calc(100% + 6px);left:50%;transform:translate(-50%,0);
-      display:flex;flex-direction:column;gap:6px;
-      margin:0;padding:0;list-style:none;
-
-      /* hide by default */
-      opacity:0; visibility:hidden; pointer-events:none;
-      transition:opacity .15s ease, transform .15s ease;
-      background:transparent;border:0;box-shadow:none;min-width:unset;z-index:1000;
-    }
-    .has-sub:hover > .dropdown,
-    .has-sub:focus-within > .dropdown,
-    .dropdown:hover{
-      opacity:1; visibility:visible; pointer-events:auto;
-      transform:translate(-50%, 2px);
-    }
-    .dropdown li{list-style:none}
-    .dropdown a{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700;font-size:clamp(13px, 1.65vw, 15px);line-height:1.05;padding:0
+      width:100vw;
+      margin-left:calc(50% - 50vw);
+      margin-right:calc(50% - 50vw);
     }
 
     .hero .copy{
@@ -72,41 +48,32 @@
     }
     .eyebrow{color:#8d7a5c;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px;margin-bottom:6px}
     h1{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;font-size:clamp(34px,6vw,60px);line-height:1.1;margin:.25em 0;font-weight:700;color:#3f3a33}
+
     .cta{display:flex;gap:22px;margin:40px 0 38px;flex-wrap:wrap;justify-content:center}
-    .btn{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;background:transparent;border:1px solid rgba(0,0,0,.85);padding:3px 8px;color:#3f3a33;font-weight:700;cursor:pointer;border-radius:0}
+    .btn{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      background:transparent;border:1px solid rgba(0,0,0,.85);padding:3px 8px;color:#3f3a33;
+      font-weight:700;cursor:pointer;border-radius:0
+    }
     .btn:hover{color:var(--accent);border-color:var(--accent)}
+
     .localities{color:#5c5850;margin-top:6px;line-height:1.75}
     .localities .dot::after{content:" • ";color:#8a857a}
     .localities .dot:last-child::after{content:""}
+
     .scallop{--h:18px;position:relative;height:var(--h);background:rgba(255,248,238,.92);border-bottom:1px solid rgba(0,0,0,.04)}
     .scallop::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:var(--h);background:radial-gradient(var(--h) at 50% 0, var(--bg) 98%, transparent 100%) center bottom/var(--h) var(--h) repeat-x}
+
+    footer{border-top:1px solid var(--line);padding:28px 0;color:#7f7f7f}
   </style>
 </head>
 <body>
 
+  <!-- Shared Top Nav (exactly like friend-portrait.html) -->
+  <div data-include="/partials/topnav.html"></div>
+
   <!-- HERO -->
   <section class="hero" aria-label="Hero">
-    <div class="topbar container">
-      <nav class="primary" aria-label="Primary">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about.html">Meet Rachel</a></li>
-          <li class="has-sub">
-            <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
-            <ul class="dropdown" aria-label="Galleries submenu">
-              <li><a href="/galleries/sibling-portrait.html">Sibling Portraits</a></li>
-              <li><a href="/galleries/family-portrait.html">Family Portraits</a></li>
-              <li><a href="/galleries/friend-portrait.html">Friend Portraits</a></li>
-            </ul>
-          </li>
-          <li><a href="/testimonials.html">Testimonials</a></li>
-          <li><a href="/faq.html">FAQ</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="/book.html">Book</a></li>
-        </ul>
-      </nav>
-    </div>
-
     <div class="copy">
       <div class="eyebrow">Welcome to</div>
       <h1>Rachel Barton<br>Photography</h1>
@@ -127,16 +94,19 @@
   <div class="scallop"></div>
 
   <main class="container">
-    <!-- Your other homepage sections can live here (features, quotes, etc.) -->
+    <!-- your homepage sections go here -->
   </main>
 
+  <!-- Shared Footer (optional; keep if you use a footer partial sitewide) -->
   <footer>
-    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:28px 0;border-top:1px solid #e9e6df;color:#7f7f7f">
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
       <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
       <div><a href="mailto:rachelbartonphotography@gmail.com">rachelbartonphotography@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></div>
     </div>
   </footer>
 
+  <!-- Partials loader (same version as portrait pages) -->
+  <script src="/assets/include.js?v=nav-5" defer></script>
   <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
 </body>
 </html>
