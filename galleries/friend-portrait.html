@@ -18,140 +18,107 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts (same set used sitewide) -->
+  <!-- Fonts (sitewide) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- SHARED NAV/FOOTER STYLES (ROOT-ABSOLUTE + cache-bust) -->
+  <!-- Shared layout + Gallery styles -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
-
-  <!-- Page-specific styles only (do NOT restyle nav here) -->
-  <style>
-    :root{ --bg:#FAFAF8; --ink:#3e3e3a; --line:#e9e6df; --gap:clamp(16px,3vw,32px); --maxw:1200px; --frame:#ecebea }
-    *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--ink);
-      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65}
-    img{max-width:100%;height:auto;display:block;border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.06)}
-    .container-page{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
-    .page-head{padding:28px 0 10px}
-    .page-head h1{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
-      font-weight:700;font-size:clamp(30px,4.8vw,54px);line-height:1.08;margin:0 0 6px}
-    .lede{color:#6e6a62;margin:0 0 18px}
-
-    /* Gallery */
-    .gallery-grid{display:grid;gap:clamp(10px,1.6vw,16px);margin-bottom:32px}
-    @media (min-width:640px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
-    @media (min-width:980px){.gallery-grid{grid-template-columns:repeat(3,1fr)}}
-    .gallery-grid img{width:100%;aspect-ratio:4/5;object-fit:cover}
-
-    /* Lightbox (container styles only) */
-    #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:1200}
-    #lightbox img{max-width:92vw;max-height:88vh;border:1px solid var(--frame);box-shadow:0 12px 50px rgba(0,0,0,.5);background:#111}
-    #lb-close,#lb-prev,#lb-next{
-      position:absolute;border:1px solid rgba(255,255,255,.65);background:transparent;color:#fff;cursor:pointer;
-      width:40px;height:40px;display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,0,0,.35)}
-    #lb-close{top:18px;right:18px}#lb-prev{left:18px;top:50%;transform:translateY(-50%)}#lb-next{right:18px;top:50%;transform:translateY(-50%)}
-    #lb-close:hover,#lb-prev:hover,#lb-next:hover,
-    #lb-close:focus-visible,#lb-prev:focus-visible,#lb-next:focus-visible{outline:none;border-color:#fff;background:rgba(255,255,255,.12)}
-    body.modal-open{overflow:hidden}
-  </style>
+  <link rel="stylesheet" href="/assets/gallery.css?v=14">
 </head>
 <body>
 
-  <!-- SHARED TOP NAV (pulled in by include.js) -->
+  <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
-  <main id="content" class="container-page">
-    <section class="page-head" aria-labelledby="friend-title">
-      <h1 id="friend-title">Friend Portraits</h1>
-      <p class="lede">A selection of friend portrait sessions — candid, joyful, and true-to-life.</p>
-    </section>
+  <!-- Compact left-aligned header (matches Family) -->
+  <header class="gallery-head container" role="region" aria-label="Gallery intro">
+    <p class="crumb"><a href="/galleries.html">← All Galleries</a></p>
+    <h1>Friend Portraits</h1>
+    <p class="lede">A selection of friend portrait sessions — candid, joyful, and true-to-life.</p>
+    <div class="actions">
+      <a href="/#book">Book a Session</a>
+      <a href="/#contact">Say Hello</a>
+    </div>
+  </header>
 
+  <main class="container">
     <section aria-label="Friend portrait gallery">
-      <div class="gallery-grid" id="friend-grid">
-        <a href="/pictures/friendPortraitGal/E26A1852.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1852.jpg" alt="Friend portraits image 1"></a>
-        <a href="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg" alt="Friend portraits image 2"></a>
-        <a href="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg" alt="Friend portraits image 3"></a>
-        <a href="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg" alt="Friend portraits image 4"></a>
-        <a href="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg" alt="Friend portraits image 5"></a>
-        <a href="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg" alt="Friend portraits image 6"></a>
-        <a href="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg" alt="Friend portraits image 7"></a>
-        <a href="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg" alt="Friend portraits image 8"></a>
-        <a href="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg" alt="Friend portraits image 9"></a>
-        <a href="/pictures/friendPortraitGal/E26A2047.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2047.jpg" alt="Friend portraits image 10"></a>
-        <a href="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg" alt="Friend portraits image 11"></a>
-        <a href="/pictures/friendPortraitGal/E26A2140.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2140.jpg" alt="Friend portraits image 12"></a>
-        <a href="/pictures/friendPortraitGal/E26A2161.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2161.jpg" alt="Friend portraits image 13"></a>
-        <a href="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg" alt="Friend portraits image 14"></a>
-        <a href="/pictures/friendPortraitGal/E26A2237.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2237.jpg" alt="Friend portraits image 15"></a>
-        <a href="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg" alt="Friend portraits image 16"></a>
-        <a href="/pictures/friendPortraitGal/E26A2302.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2302.jpg" alt="Friend portraits image 17"></a>
+      <div class="grid" id="gallery">
+        <figure><a href="/pictures/friendPortraitGal/E26A1852.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1852.jpg" alt="Friend portraits image 1"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1931%20%281%29.jpg" alt="Friend portraits image 2"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1938%20%281%29.jpg" alt="Friend portraits image 3"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1944%20%281%29.jpg" alt="Friend portraits image 4"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1945%20%281%29.jpg" alt="Friend portraits image 5"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A1986%20%281%29.jpg" alt="Friend portraits image 6"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2017%20%281%29.jpg" alt="Friend portraits image 7"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2022%20%282%29.jpg" alt="Friend portraits image 8"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2047-2%20%281%29.jpg" alt="Friend portraits image 9"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A2047.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2047.jpg" alt="Friend portraits image 10"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2106%20%281%29.jpg" alt="Friend portraits image 11"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A2140.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2140.jpg" alt="Friend portraits image 12"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A2161.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2161.jpg" alt="Friend portraits image 13"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2226%20%281%29.jpg" alt="Friend portraits image 14"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A2237.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2237.jpg" alt="Friend portraits image 15"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2245%20%281%29.jpg" alt="Friend portraits image 16"></a></figure>
+        <figure><a href="/pictures/friendPortraitGal/E26A2302.jpg"><img loading="lazy" src="/pictures/friendPortraitGal/E26A2302.jpg" alt="Friend portraits image 17"></a></figure>
       </div>
     </section>
   </main>
 
-  <!-- SHARED FOOTER (pulled in by include.js) -->
+  <!-- Shared Footer -->
   <div data-include="/partials/footer.html"></div>
 
-  <!-- Include helper (ROOT-ABSOLUTE so it always loads) -->
-  <script src="/assets/include.js?v=nav-4" defer></script>
+  <!-- Partials loader -->
+  <script src="/assets/include.js?v=nav-5" defer></script>
 
   <!-- Lightbox -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lb-close" aria-label="Close">✕</button>
+    <button id="lb-prev" aria-label="Previous image">‹</button>
+    <img id="lb-img" alt="" />
+    <button id="lb-next" aria-label="Next image">›</button>
+  </div>
   <script>
-    (function(){
-      // Inject lightbox container if missing
-      if (!document.getElementById('lightbox')) {
-        const lb = document.createElement('div');
-        lb.id = 'lightbox';
-        lb.setAttribute('role','dialog');
-        lb.setAttribute('aria-modal','true');
-        lb.setAttribute('aria-label','Image viewer');
-        lb.innerHTML = '<button id="lb-close" aria-label="Close">✕</button><button id="lb-prev" aria-label="Previous image">‹</button><img id="lb-img" alt=""/><button id="lb-next" aria-label="Next image">›</button>';
-        document.body.appendChild(lb);
-      }
+  (function(){
+    const box = document.getElementById('lightbox');
+    const imgEl = document.getElementById('lb-img');
+    const closeBtn = document.getElementById('lb-close');
+    const prevBtn = document.getElementById('lb-prev');
+    const nextBtn = document.getElementById('lb-next');
+    const links = Array.from(document.querySelectorAll('#gallery a'));
+    let idx = -1;
 
-      const lx = document.getElementById('lightbox');
-      const imgEl = document.getElementById('lb-img');
-      const closeBtn = document.getElementById('lb-close');
-      const prevBtn = document.getElementById('lb-prev');
-      const nextBtn = document.getElementById('lb-next');
+    function openAt(i){
+      if (!links.length) return;
+      idx = (i + links.length) % links.length;
+      imgEl.src = links[idx].getAttribute('href');
+      box.classList.add('open');            // uses gallery.css v14 rules
+      document.body.classList.add('modal-open');
+    }
+    function closeBox(){
+      box.classList.remove('open');
+      imgEl.removeAttribute('src');
+      document.body.classList.remove('modal-open');
+    }
+    function prev(){ openAt(idx - 1); }
+    function next(){ openAt(idx + 1); }
 
-      const links = Array.from(document.querySelectorAll('#friend-grid a'));
-      let idx = -1;
+    links.forEach((a,i)=> a.addEventListener('click', e=>{ e.preventDefault(); openAt(i); }));
+    closeBtn.addEventListener('click', closeBox);
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
 
-      function openAt(i){
-        if (!links.length) return;
-        idx = (i + links.length) % links.length;
-        imgEl.src = links[idx].getAttribute('href');
-        lx.style.display = 'flex';
-        document.body.classList.add('modal-open');
-      }
-      function closeBox(){
-        lx.style.display = 'none';
-        imgEl.removeAttribute('src');
-        document.body.classList.remove('modal-open');
-      }
-      function prev(){ openAt(idx - 1); }
-      function next(){ openAt(idx + 1); }
-
-      links.forEach((a,i)=> a.addEventListener('click', e=>{ e.preventDefault(); openAt(i); }));
-      closeBtn.addEventListener('click', closeBox);
-      prevBtn.addEventListener('click', prev);
-      nextBtn.addEventListener('click', next);
-
-      window.addEventListener('keydown', e=>{
-        if (lx.style.display !== 'flex') return;
-        if (e.key === 'Escape') closeBox();
-        if (e.key === 'ArrowLeft') prev();
-        if (e.key === 'ArrowRight') next();
-      });
-
-      lx.addEventListener('click', e=>{ if (e.target === lx) closeBox(); });
-    })();
+    window.addEventListener('keydown', e=>{
+      if (!box.classList.contains('open')) return;
+      if (e.key === 'Escape') closeBox();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    });
+    box.addEventListener('click', e=>{ if (e.target === box) closeBox(); });
+  })();
   </script>
 </body>
 </html>
