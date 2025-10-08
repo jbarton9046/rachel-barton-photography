@@ -49,21 +49,22 @@
       padding:16px var(--gap); z-index:2;
     }
 
-    /* Card (centered by default) */
+    /* Card: content-sized (no fixed width), gently capped */
     .hero .copy{
       position:absolute; z-index:1;
       top:50%; left:50%; transform:translate(-50%,-50%);
+      display:inline-block;                      /* shrink to content */
+      max-width:min(92vw, 900px);                /* gentle cap */
       background:rgba(255,255,255,.68);
       border:1px solid var(--line);
-      padding:clamp(22px,3.2vw,42px) clamp(26px,3.6vw,48px);
-      width:min(92vw, 1040px);
+      padding:clamp(20px,2.6vw,36px) clamp(22px,3vw,36px);
       text-align:center;
       box-shadow:0 10px 30px rgba(0,0,0,.08);
     }
 
-    /* Desktop: center card between daughter's right edge and viewport right edge */
-    @media (min-width: 1024px){
-      :root{ --subject-right: 46vw; } /* tweak this until the midpoint looks perfect */
+    /* Desktop: center the card between daughter's right edge and the viewport right edge */
+    @media (min-width:1024px){
+      :root{ --subject-right: 46vw; }            /* nudge this a hair if needed */
       .hero .copy{
         left: calc( (var(--subject-right) + 100vw) / 2 );
         transform: translate(-50%, -50%);
@@ -81,19 +82,25 @@
     }
 
     .cta{
-      display:flex;gap:22px;margin:32px 0 30px;flex-wrap:wrap;justify-content:center
+      display:flex;gap:22px;margin:30px 0;flex-wrap:wrap;justify-content:center
     }
+    /* Pills: transparent background; gold hover text + outline only */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      background:#fff;
+      background:transparent;                    /* no fill */
       border:1px solid rgba(63,58,51,.9);
       padding:12px 20px;
       font-size:clamp(16px,1.5vw,18px);
       color:#3f3a33; font-weight:700; cursor:pointer; border-radius:0;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:color .15s ease,border-color .15s ease,transform .15s ease,box-shadow .15s ease;
+      box-shadow:none;
+      transition:color .15s ease,border-color .15s ease,transform .15s ease;
     }
-    .btn:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-1px);box-shadow:0 10px 22px rgba(0,0,0,.08)}
+    .btn:hover, .btn:focus-visible{
+      color:var(--accent);
+      border-color:var(--accent);
+      transform:translateY(-1px);
+      outline:none;
+    }
 
     .localities{color:#5c5850;margin-top:6px;line-height:1.75}
     .localities .dot::after{content:" • ";color:#8a857a}
