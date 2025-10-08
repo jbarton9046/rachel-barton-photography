@@ -103,6 +103,45 @@ nav.primary li.has-sub:hover > ul.dropdown{
   transform:translate(-50%, 2px) !important;
 }
 
+/* ------ Right-side Instagram action (icon button on topbar) ------ */
+.nav-actions{
+  position:absolute;
+  right:var(--gap);
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.nav-actions .ig{
+  display:inline-grid; place-items:center;
+  width:34px; height:34px; border-radius:50%;
+  background:rgba(255,255,255,.66);
+  border:1px solid rgba(63,58,51,.65);
+  color:#3f3a33; text-decoration:none;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  transition:color .15s ease, border-color .15s ease,
+             transform .15s ease, box-shadow .15s ease,
+             background-color .15s ease;
+  -webkit-backdrop-filter:saturate(1.05) blur(2px);
+  backdrop-filter:saturate(1.05) blur(2px);
+}
+.nav-actions .ig:hover,
+.nav-actions .ig:focus-visible{
+  color:var(--accent);
+  border-color:var(--accent);
+  transform:translateY(-1px);
+  box-shadow:0 10px 22px rgba(0,0,0,.08);
+  outline:none;
+}
+.nav-actions .ig svg{ width:18px; height:18px; display:block; }
+
+@media (max-width:720px){
+  .nav-actions{ right:calc(var(--gap) - 4px); }
+  .nav-actions .ig{ width:32px; height:32px; }
+}
+
 /* Footer */
 footer{
   border-top:1px solid var(--line);
