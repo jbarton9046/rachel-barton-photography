@@ -3,26 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rachel Barton Photography | Sarasota Family & Lifestyle Photographer</title>
+  <title>Galleries & Services | Rachel Barton Photography</title>
 
   <!-- Primary SEO -->
-  <meta name="description" content="Candid, timeless, true-to-life family, maternity, newborn & portrait photography across Sarasota and Florida’s Gulf Coast — with a soft, whimsical touch." />
-  <link rel="canonical" href="https://rachelsphotography.netlify.app/" />
+  <meta name="description" content="Explore Rachel Barton’s signature galleries—Portraits, Branding, and Events—then jump into the service that fits. Clean, candid, true-to-life photography along Florida’s Gulf Coast." />
+  <link rel="canonical" href="https://rachelsphotography.netlify.app/galleries.html" />
 
   <!-- Social share -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Rachel Barton Photography" />
-  <meta property="og:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
-  <meta property="og:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
-  <meta property="og:url" content="https://rachelsphotography.netlify.app/" />
-  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
-  <meta property="og:image:secure_url" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
+  <meta property="og:title" content="Galleries & Services — Portraits, Branding, Events" />
+  <meta property="og:description" content="See the look, feel the energy, and book the service that fits your story." />
+  <meta property="og:url" content="https://rachelsphotography.netlify.app/galleries.html" />
+  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/introEventPics/E26A1309.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Rachel Barton Photography – Sarasota Family & Lifestyle" />
-  <meta name="twitter:description" content="Joyful, candid photography in Sarasota, Siesta Key, Lido, Longboat Key, and beyond." />
-  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
+  <meta name="twitter:title" content="Galleries & Services — Portraits, Branding, Events" />
+  <meta name="twitter:description" content="Clean, candid, true-to-life photography along Florida’s Gulf Coast." />
+  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/introEventPics/E26A1309.jpg" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,13 +39,10 @@
       --accent:#A88A5A; --accent-2:#E8DFC9; --line:#e9e6df;
       --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-
-      /* PAGE-ONLY NAV spacing to match homepage exactly */
-      --nav-gap-top: 16px;
-      --nav-gap-bottom: 40px;
+      --nav-gap-top:16px; --nav-gap-bottom:40px;
     }
-    .topbar{ padding-top: var(--nav-gap-top) !important; padding-bottom: var(--nav-gap-bottom) !important; }
-    .nav-spacer, .page-top-spacer { height: 0 !important; }
+    .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
+    .nav-spacer, .page-top-spacer { height:0!important; }
 
     *{box-sizing:border-box}
     html,body{
@@ -59,7 +55,13 @@
     img{max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    section{padding:calc(var(--gap)*2) 0}
+    /* Page intro */
+    header.page-intro{ padding:clamp(24px,6vw,56px) 0 8px; text-align:center }
+    .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
+    .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(28px,5vw,52px); line-height:1.08; margin:8px 0 10px }
+    .lead{ font-size:clamp(16px,2.1vw,20px); color:#58554e; max-width:72ch; margin:0 auto }
+
+    section{padding:calc(var(--gap)*1.4) 0}
     .section-title{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-size:clamp(24px,3.5vw,38px);
@@ -70,46 +72,16 @@
     .title-row{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
     .title-row .btn{ align-self:flex-start; }
 
-    #portfolio{ padding-top:0; }
-    #portfolio .mosaic{ margin-top:4px; }
-
-    .actions-row{ display:flex; align-items:flex-start; justify-content:flex-start; gap:16px; margin:8px 0 10px; flex-wrap:wrap; }
-    .section-help{
-      font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:#6e6a62;
-      display:inline-flex; align-items:flex-end; gap:8px;
-      padding:4px 10px; background:#fff; border:1px solid var(--line); box-shadow:0 2px 8px rgba(0,0,0,.04);
-      line-height:1.2;
-    }
-    .help-ico{opacity:.8; position:relative; top:.5px}
-
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700; letter-spacing:.02em;
-      background:#fff; color:#3f3a33;
-      border:1px solid rgba(63,58,51,.85);
-      padding:10px 16px; border-radius:0;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      text-decoration:none;
-      transition:color .15s ease, border-color .15s ease, transform .15s ease, box-shadow .15s ease;
-    }
-    .btn:hover, .btn:focus-visible{
-      color:var(--accent);
-      border-color:var(--accent);
-      transform:translateY(-1px);
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-    }
-
+    /* Mosaic tiles */
     .mosaic{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px)}
     .mosaic figure{margin:0}
     .mosaic .captioned.notch{position:relative; display:block}
     .mosaic .notch-figure{display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .mosaic .u-stroke{fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round}
     .mosaic .notch-box{position:absolute; bottom:0; left:50%; transform:translateX(-50%); display:flex; align-items:center; justify-content:center; pointer-events:none}
-
     .mosaic .cap-label{
       position:relative; pointer-events:auto;
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
       font-weight:700; font-size:clamp(14px,1.6vw,18px); letter-spacing:.01em; line-height:1.15; color:#3f3a33;
       padding:10px 18px; background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(249,246,239,.92));
       border:1px solid rgba(63,58,51,.18); box-shadow:0 10px 22px rgba(0,0,0,.12); backdrop-filter:saturate(1.05) blur(1px);
@@ -118,6 +90,7 @@
     .mosaic .cap-label::before{ content:""; position:absolute; inset:3px; border:1px solid rgba(63,58,51,.14); pointer-events:none; }
     .mosaic .cap-label:hover, .mosaic .cap-label:focus-visible{ transform:translateY(-1px); color:var(--accent); border-color:rgba(168,138,90,.55); box-shadow:0 14px 26px rgba(0,0,0,.14); }
 
+    /* Tile controls */
     #gallery-meadow .tile-nav, #gallery-family .tile-nav, #gallery-beach .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       background:transparent !important; border:0 !important; width:56px; height:56px; display:grid; place-items:center;
@@ -146,43 +119,44 @@
     }
     #gallery-meadow .tile-dots button.is-active::before, #gallery-family .tile-dots button.is-active::before{ background:rgba(168,138,90,.22); }
 
+    /* Service blurbs under the tiles */
+    .service-blurbs{ margin-top:clamp(18px,3vw,28px); }
+    .service-blurbs .row{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px); }
+    .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+    .blurb h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:20px }
+    .blurb p{ margin:0 0 10px; color:#5b574f }
+    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; background:#fff; color:#3f3a33; border:1px solid rgba(63,58,51,.85); padding:10px 16px; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06); transition:color .15s ease, border-color .15s ease, transform .15s ease, box-shadow .15s ease; }
+    .btn:hover{ color:var(--accent); border-color:var(--accent); transform:translateY(-1px); box-shadow:0 10px 22px rgba(0,0,0,.08); }
+
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; }
     footer .container{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; }
-    @media (max-width:720px){ footer .container{ justify-content:center; text-align:center; } }
-    @media (max-width:960px){
-      .mosaic{grid-template-columns:1fr 1fr}
-      :root{ --nav-gap-top: 24px; --nav-gap-bottom: 8px; }
-    }
-    @media (max-width:640px){
-      .mosaic{grid-template-columns:1fr}
-      :root{ --nav-gap-top: 24px; --nav-gap-bottom: 8px; }
-      .section-title{ margin-bottom:12px }
-      .section-sub{ margin-bottom:18px }
-      .title-row{ flex-direction:column; align-items:flex-start; gap:10px; }
-    }
+    @media (max-width:960px){ .mosaic{grid-template-columns:1fr 1fr} .service-blurbs .row{ grid-template-columns:1fr 1fr } }
+    @media (max-width:640px){ .mosaic{grid-template-columns:1fr} .service-blurbs .row{ grid-template-columns:1fr } }
   </style>
 </head>
 <body>
   <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
-  <main id='content'>
-    <div class="container">
-      <section id="portfolio" aria-labelledby="portfolio-title">
-        <div class="title-row">
-          <h2 class="section-title" id="portfolio-title">Featured Galleries</h2>
+  <main id="content">
+    <header class="page-intro">
+      <div class="container">
+        <div class="eyebrow">Galleries & Services</div>
+        <h1 class="h1">Choose your story—then let’s make it beautiful</h1>
+        <p class="lead">These living tiles preview how each service feels. Click through the images, then tap the label to explore Portraits, Branding, or Events in depth.</p>
+      </div>
+    </header>
+
+    <section id="portfolio" aria-labelledby="portfolio-title">
+      <div class="container">
+        <div class="title-row" style="align-items:end;">
+          <h2 class="section-title" id="portfolio-title">Signature Galleries</h2>
           <a class="btn" href="/book.html">Book a Session</a>
         </div>
 
-        <p class="section-sub">From sunlit meadows to Gulf sunsets, explore the feel of a session—connection, motion, and easy, unposed energy.</p>
+        <p class="section-sub">Candid, timeless, true-to-life work—made to feel like you, in the best light.</p>
 
-        <div class="actions-row">
-          <div class="section-help" role="note" aria-label="Gallery navigation help">
-            <span class="help-ico" aria-hidden="true">ⓘ</span>
-            Preview &amp; navigate: click the tile or use the arrows to move through images. Select the label to view the full gallery.
-          </div>
-        </div>
-
+        <!-- Tiles -->
         <div class="mosaic" id="grid">
           <!-- LEFT — PORTRAITS -->
           <figure class="captioned notch" id="gallery-meadow" aria-label="Portraits"
@@ -231,7 +205,7 @@
             </div>
           </figure>
 
-          <!-- MIDDLE — BRANDING (now populated) -->
+          <!-- MIDDLE — BRANDING -->
           <figure class="captioned notch" id="gallery-family" aria-label="Branding"
                   data-images='[
                     "pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg",
@@ -275,7 +249,7 @@
             </div>
           </figure>
 
-          <!-- RIGHT — EVENTS -->
+          <!-- RIGHT — EVENTS (kids photo first) -->
           <figure class="captioned notch" id="gallery-beach" aria-label="Events"
                   data-images='[
                     "pictures/introEventPics/E26A1193.jpg",
@@ -297,7 +271,6 @@
                   <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                 </filter>
               </defs>
-              <!-- Start on the preferred kids photo -->
               <image href="pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000"
                      preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
               <g class="frameGroup" filter="url(#frameShadow-2)">
@@ -320,10 +293,32 @@
             </div>
           </figure>
         </div>
-      </section>
-    </div>
+
+        <!-- Brief service explanations (no FAQs) -->
+        <div class="service-blurbs">
+          <div class="row">
+            <article class="blurb">
+              <h3>Portraits</h3>
+              <p>Warm, movement-filled portraits that feel like real life—family, maternity, and newborn sessions in soft Gulf light. Gentle direction, natural connection, and edits that stand the test of time.</p>
+              <a class="btn" href="/portraits.html">Explore Portraits</a>
+            </article>
+            <article class="blurb">
+              <h3>Branding</h3>
+              <p>Strategy-backed imagery for entrepreneurs and teams—headshots, lifestyle, product, and space. Cohesive visuals that look premium on your site, socials, and launch campaigns.</p>
+              <a class="btn" href="/branding.html">Explore Branding</a>
+            </article>
+            <article class="blurb">
+              <h3>Events</h3>
+              <p>Story-driven coverage with flattering light and quick turnarounds. From intimate gatherings to conferences, you’ll get a highlight library your audience can feel.</p>
+              <a class="btn" href="/events.html">Explore Events</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
+  <!-- Shared Footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
@@ -342,7 +337,6 @@
         if(!svg || !label || !notchRect || !recessStroke || !notchBox) return;
 
         const padCss = 4, liftCss = 10, dotsGapCss = 14;
-
         const labelRect = label.getBoundingClientRect();
         const tileRect  = svg.getBoundingClientRect();
 
@@ -443,7 +437,6 @@
           const [hit] = list.splice(idx, 1);
           list.unshift(hit);
         } else {
-          // If not present, ensure it gets added to the front just in case
           list.unshift(PREFERRED_EVENTS_FIRST);
         }
         writeListAndPrimeImage(tile, list);
