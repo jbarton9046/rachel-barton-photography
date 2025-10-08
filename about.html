@@ -58,7 +58,6 @@
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
     /* ===== Page heading (left-aligned, tight) ===== */
-    .page-head{ margin:10px 0 8px; }
     h1,h2{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif}
     h1{
       font-size:clamp(32px,6vw,56px);
@@ -67,25 +66,35 @@
       font-weight:700; color:#202022;
       text-align:left;
     }
-    .section-sub{
-      color:#5c5850; margin:6px 0 12px;
-      text-align:left;
+    .section-sub{ color:#5c5850; margin:6px 0 0; text-align:left; }
+
+    /* ===== HERO GRID: header (left) + headshot (right) aligned at the top ===== */
+    .about-hero{
+      display:grid;
+      grid-template-columns: 2fr 1fr;
+      gap:clamp(12px,2vw,20px);
+      align-items:start;                 /* <-- makes tops align */
+      margin:clamp(10px,2vw,18px) 0;     /* same vertical rhythm as the site */
+    }
+    .about-hero .headshot{
+      align-self:start;                  /* explicit for clarity */
+      border:0; box-shadow:none;        /* show more of the photo */
+    }
+    .about-hero .headshot img{
+      border:1px solid var(--frame);    /* keep the subtle image frame only */
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
     }
 
-    /* Layout / cards */
-    main section{padding:clamp(10px,2vw,18px) 0}
+    /* ===== Body section: bio card under the header, still two columns overall ===== */
     .cards{
       display:grid;
-      grid-template-columns:2fr 1fr;
+      grid-template-columns: 2fr 1fr;
       gap:clamp(12px,2vw,20px);
       align-items:start;
+      margin-top:clamp(10px,1.5vw,14px);
     }
     .card{background:#fff; border:1px solid var(--line); box-shadow:var(--shadow)}
     .card .body{padding:14px}
-
-    /* Headshot column (no frame to show more of the image) */
-    .image-card{ background:transparent; border:0; box-shadow:none; }
-    .image-card .no-frame{ border:0; box-shadow:none; }
 
     /* Buttons */
     .btn{
@@ -105,7 +114,7 @@
     /* ===== My Approach ===== */
     .approach-head{
       font-size:clamp(28px,4.5vw,48px);
-      margin:8px 0 6px;
+      margin:22px 0 6px;  /* a touch more space after the bio block */
       color:#202022;
       text-align:left;
     }
@@ -128,7 +137,8 @@
     footer{border-top:1px solid var(--line); padding:22px 0; color:#7f7f7f; margin-top:20px}
 
     @media (max-width:900px){
-      .cards{grid-template-columns:1fr}
+      .about-hero{ grid-template-columns:1fr; }
+      .cards{ grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -138,13 +148,19 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main class="container">
-    <!-- Page heading -->
-    <header class="page-head" aria-labelledby="about-title">
-      <h1 id="about-title">Meet Rachel</h1>
-      <p class="section-sub">Mom of two, outdoors lover, and detail-driven photographer who keeps sessions calm, playful, and effortless.</p>
-    </header>
+    <!-- HERO GRID: heading (left) + headshot (right) aligned at the top -->
+    <section class="about-hero" aria-label="About hero">
+      <header>
+        <h1 id="about-title">Meet Rachel</h1>
+        <p class="section-sub">Mom of two, outdoors lover, and detail-driven photographer who keeps sessions calm, playful, and effortless.</p>
+      </header>
 
-    <!-- Bio / headshot -->
+      <figure class="headshot">
+        <img src="/pictures/rahcelHeadshot.JPG" alt="Rachel Barton, Sarasota family photographer headshot" />
+      </figure>
+    </section>
+
+    <!-- Bio card sits under the header, same 2-col grid overall -->
     <section aria-label="About content">
       <div class="cards">
         <div class="card">
@@ -166,10 +182,8 @@
           </div>
         </div>
 
-        <!-- Headshot -->
-        <div class="image-card">
-          <img class="no-frame" loading="lazy" src="/pictures/rahcelHeadshot.JPG" alt="Rachel Barton, Sarasota family photographer headshot" />
-        </div>
+        <!-- right column left empty on desktop to keep layout consistent -->
+        <div aria-hidden="true"></div>
       </div>
     </section>
 
@@ -206,8 +220,6 @@
 
   <!-- Include shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
