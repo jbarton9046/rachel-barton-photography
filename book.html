@@ -6,10 +6,10 @@
   <title>Book a Session | Rachel Barton Photography</title>
   <meta name="description" content="Book a family, maternity, newborn, or portrait session in Sarasota and Florida’s Gulf Coast." />
 
-  <!-- Fonts (match site) -->
+  <!-- Fonts (same stack used sitewide / on Contact) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
@@ -20,21 +20,23 @@
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:960px;
 
-      /* Site-standard nav spacing (keep consistent everywhere) */
+      /* NAV spacing — keep uniform with the rest of the site */
       --nav-gap-top: 16px;     /* distance from viewport top to TOP of nav links */
       --nav-gap-bottom: 40px;  /* breathing room below nav */
     }
 
-    /* Use the universal nav exactly as defined in layout.css; only normalize spacing & weight */
+    /* Make the shared nav behave exactly like other pages */
     .topbar{
       padding-top: var(--nav-gap-top) !important;
       padding-bottom: var(--nav-gap-bottom) !important;
     }
-    /* Ensure nav links are not bold here */
+    /* Ensure nav link weight matches (no bold) */
     .topbar a,
     .topbar a:visited,
     .topbar .active,
-    .topbar .is-active{ font-weight:400 !important; }
+    .topbar .is-active{
+      font-weight: 400 !important;
+    }
 
     *{box-sizing:border-box}
     html,body{
@@ -50,26 +52,32 @@
     main section{padding:calc(var(--gap)*2) 0}
     h1{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-size:clamp(28px,4vw,44px); margin:0 0 10px;
+      font-size:clamp(28px,4vw,44px);
+      margin:0 0 10px;
     }
     .lead{color:#67635b; margin:0 0 20px}
 
-    .card{background:#fff; border:1px solid var(--line); box-shadow:0 10px 30px rgba(0,0,0,.06); padding:clamp(16px,2.6vw,28px)}
+    .card{
+      background:#fff; border:1px solid var(--line);
+      box-shadow:0 10px 30px rgba(0,0,0,.06);
+      padding:clamp(16px,2.6vw,28px);
+    }
 
     /* Scheduling embed */
     .iframe-wrap{position:relative}
     .iframe-wrap iframe{display:block; width:100%; height:820px; border:0}
     @media (max-width:640px){
-      .iframe-wrap iframe{height:900px} /* give a bit more room on small screens */
+      .iframe-wrap iframe{height:900px}
     }
 
+    /* Footer */
     footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f}
     footer .container{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between}
     @media (max-width:720px){ footer .container{ justify-content:center; text-align:center } }
   </style>
 </head>
 <body>
-  <!-- Shared universal navbar (spacing handled by .topbar rules above) -->
+  <!-- Universal navbar (spacing handled by .topbar above) -->
   <div data-include="/partials/topnav.html"></div>
 
   <main>
