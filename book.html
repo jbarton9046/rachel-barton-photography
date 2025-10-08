@@ -6,10 +6,10 @@
   <title>Book a Session | Rachel Barton Photography</title>
   <meta name="description" content="Book a family, maternity, newborn, or portrait session in Sarasota and Florida’s Gulf Coast." />
 
-  <!-- Fonts (same stack used sitewide / on Contact) -->
+  <!-- Fonts (match rest of site / contact.html) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
@@ -20,22 +20,15 @@
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:960px;
 
-      /* NAV spacing — keep uniform with the rest of the site */
+      /* Site-standard nav spacing (match contact.html exactly) */
       --nav-gap-top: 16px;     /* distance from viewport top to TOP of nav links */
       --nav-gap-bottom: 40px;  /* breathing room below nav */
     }
 
-    /* Make the shared nav behave exactly like other pages */
+    /* Use the universal nav exactly as defined in layout.css; only normalize spacing */
     .topbar{
       padding-top: var(--nav-gap-top) !important;
       padding-bottom: var(--nav-gap-bottom) !important;
-    }
-    /* Ensure nav link weight matches (no bold) */
-    .topbar a,
-    .topbar a:visited,
-    .topbar .active,
-    .topbar .is-active{
-      font-weight: 400 !important;
     }
 
     *{box-sizing:border-box}
