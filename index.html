@@ -22,24 +22,29 @@
   <link rel="preload" as="image" href="pictures/heroImage.jpg">
 
   <style>
-    :root{ --bg:#FAFAF8; --ink:#3e3e3a; --accent:#A88A5A; --line:#e9e6df; --ring:rgba(168,138,90,.25); --gap:clamp(16px,3vw,32px); --maxw:1200px; }
+    :root{
+      --bg:#FAFAF8; --ink:#3e3e3a; --accent:#A88A5A; --line:#e9e6df;
+      --ring:rgba(168,138,90,.25); --gap:clamp(16px,3vw,32px); --maxw:1200px;
+    }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65}
+    html,body{
+      margin:0;padding:0;background:var(--bg);color:var(--ink);
+      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65
+    }
     a{color:inherit;text-decoration:none}
     img{max-width:100%;height:auto;display:block;border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
 
-    /* HERO (nav sits inside and overlays, like the portrait pages) */
+    /* HERO */
     .hero{
       position:relative;
       min-height:100svh;
       display:grid;
-      grid-template-columns:repeat(2,1fr);
-      align-items:center;
+      place-items:center;                 /* center box both axes */
       background:url('pictures/oonaIvy/E26A0671.jpg') center 15%/cover no-repeat;
       width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
     }
-    /* overlay navbar with the exact same spacing */
+    /* overlay navbar with the same spacing */
     .hero .topbar{
       position:absolute; left:0; right:0; top:0;
       display:flex; align-items:center; justify-content:center;
@@ -48,25 +53,38 @@
 
     .hero .copy{
       position:relative; z-index:1;
-      display:inline-block;
-      background:rgba(255,255,255,.65);
+      background:rgba(255,255,255,.68);
       border:1px solid var(--line);
-      padding:24px 28px;
-      width:fit-content; max-width:min(92vw, 900px);
-      margin:0; box-shadow:0 10px 30px rgba(0,0,0,.08);
+      /* bigger, but responsive */
+      padding:clamp(22px,3.2vw,42px) clamp(26px,3.6vw,48px);
+      width:min(92vw, 980px);            /* larger card */
+      box-shadow:0 10px 30px rgba(0,0,0,.08);
       text-align:center;
-      grid-column:2; justify-self:center;
     }
-    .eyebrow{color:#8d7a5c;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px;margin-bottom:6px}
-    h1{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;font-size:clamp(34px,6vw,60px);line-height:1.1;margin:.25em 0;font-weight:700;color:#3f3a33}
+    .eyebrow{
+      color:#8d7a5c;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+      font-size:clamp(12px,1.2vw,14px);margin-bottom:10px
+    }
+    h1{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-size:clamp(42px,7vw,72px);     /* scaled up */
+      line-height:1.08;margin:.25em 0;font-weight:700;color:#3f3a33
+    }
 
-    .cta{display:flex;gap:22px;margin:40px 0 38px;flex-wrap:wrap;justify-content:center}
+    .cta{
+      display:flex;gap:22px;margin:32px 0 30px;flex-wrap:wrap;justify-content:center
+    }
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      background:transparent; border:1px solid rgba(0,0,0,.85);
-      padding:3px 8px; color:#3f3a33; font-weight:700; cursor:pointer; border-radius:0;
+      background:#fff;
+      border:1px solid rgba(63,58,51,.9);
+      padding:12px 20px;                  /* larger buttons */
+      font-size:clamp(16px,1.5vw,18px);
+      color:#3f3a33; font-weight:700; cursor:pointer; border-radius:0;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:color .15s ease,border-color .15s ease,transform .15s ease,box-shadow .15s ease;
     }
-    .btn:hover{color:var(--accent);border-color:var(--accent)}
+    .btn:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-1px);box-shadow:0 10px 22px rgba(0,0,0,.08)}
 
     .localities{color:#5c5850;margin-top:6px;line-height:1.75}
     .localities .dot::after{content:" • ";color:#8a857a}
@@ -80,7 +98,7 @@
 </head>
 <body>
 
-  <!-- HERO with shared Top Nav injected inside (exactly like friend-portrait.html expects) -->
+  <!-- HERO with shared Top Nav injected inside -->
   <section class="hero" aria-label="Hero">
     <div data-include="/partials/topnav.html"></div>
 
@@ -90,7 +108,7 @@
 
       <div class="cta">
         <a class="btn" href="/book.html" aria-label="Book a Session">Book a Session</a>
-        <a class="btn" href="/contact.html" aria-label="Contact Rachel">Contact</a>
+        <a class="btn" href="/contact.html" aria-label="Say Hello">Say Hello</a>
       </div>
 
       <div class="localities">
@@ -104,7 +122,7 @@
   <div class="scallop"></div>
 
   <main class="container">
-    <!-- your homepage sections go here -->
+    <!-- homepage sections -->
   </main>
 
   <footer>
@@ -114,7 +132,7 @@
     </div>
   </footer>
 
-  <!-- Partials loader (same version as portrait pages) -->
+  <!-- Partials loader -->
   <script src="/assets/include.js?v=nav-5" defer></script>
   <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
 </body>
