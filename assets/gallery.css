@@ -1,4 +1,4 @@
-/* ====== GALLERY SHARED STYLES (v12) ====== */
+/* ====== GALLERY SHARED STYLES (v14) ====== */
 :root{
   --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#6a6760;
   --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
@@ -22,15 +22,15 @@
   font-size:clamp(28px,5.4vw,52px);
   line-height:1.08;
   color:#3f3a33;
-  margin:.25em 0 .14em;      /* slightly tighter under the title */
+  margin:.25em 0 .10em;      /* tighter gap above the lede */
 }
 
-/* Lede with slim accent rule (larger text + accent, same spacing) */
+/* Lede with slim accent rule (taller, not thicker) */
 .gallery-head .lede{
-  margin:0 0 12px;           /* keep vertical spacing the same */
+  margin:0 0 12px;           /* keep overall spacing the same */
   color:#5f5a52;
   position:relative;
-  padding-left:22px;          /* a bit more room for thicker rule */
+  padding-left:22px;          /* space for the rule */
   font-size:clamp(17px, 1.7vw, 21px);
   line-height:1.5;
 }
@@ -38,33 +38,35 @@
   content:"";
   position:absolute;
   left:0;
-  top:.28em;                  /* maintain optical top/bottom balance */
-  bottom:.28em;
-  width:3px;                  /* slightly thicker accent */
+  /* extend above & below without affecting layout */
+  top:-0.25em;
+  bottom:-0.25em;
+  width:2px;                  /* slim – not thicker */
   background:var(--accent-lite);
   border-radius:2px;
 }
 
-/* Actions: square floating pills */
-.gallery-head .actions{ display:flex; align-items:center; gap:14px; margin:0; }
+/* Actions: larger square floating pills */
+.gallery-head .actions{ display:flex; align-items:center; gap:16px; margin:0; }
 .gallery-head .actions .dot{ display:none; }
 .gallery-head .actions a{
   font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
   font-weight:700; text-decoration:none;
   display:inline-flex; align-items:center; justify-content:center;
-  padding:10px 16px;
-  background:#fff;                 /* stays white */
+  padding:12px 20px;                 /* larger pill */
+  font-size:clamp(16px,1.4vw,18px);  /* larger label */
+  background:#fff;                   /* stays white */
   color:#3f3a33;
-  border:1px solid var(--line);    /* light outline by default */
+  border:1px solid var(--line);      /* light outline by default */
   box-shadow:var(--shadow);
   transition: border-color .15s ease, color .15s ease,
               box-shadow .15s ease, transform .15s ease;
 }
 .gallery-head .actions a:hover,
 .gallery-head .actions a:focus-visible{
-  background:#fff;                 /* do NOT change on hover */
-  border-color:var(--accent);      /* gold outline */
-  color:var(--accent);             /* gold text */
+  background:#fff;                   /* no bg change */
+  border-color:var(--accent);        /* gold outline */
+  color:var(--accent);               /* gold text */
   box-shadow:0 10px 24px rgba(0,0,0,.08);
   transform:translateY(-1px);
   outline:none;
