@@ -41,9 +41,9 @@
       --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
-      /* NAV spacing (kept uniform with homepage) */
-      --nav-gap-top: 36px;    /* distance from top of viewport to top of nav links */
-      --nav-gap-bottom: 12px; /* breathing room below nav */
+      /* PAGE-ONLY NAV spacing to match homepage exactly */
+      --nav-gap-top: 24px;   /* distance from top of viewport to TOP of nav links */
+      --nav-gap-bottom: 8px; /* breathing room below nav */
     }
 
     /* Force the shared topbar to use the exact spacing */
@@ -167,18 +167,18 @@
 
     @media (max-width:960px){
       .mosaic{grid-template-columns:1fr 1fr}
-      :root{ --nav-gap-top: 32px; --nav-gap-bottom: 10px; }
+      :root{ --nav-gap-top: 24px; --nav-gap-bottom: 8px; } /* keep consistent on tablet */
     }
     @media (max-width:640px){
       .mosaic{grid-template-columns:1fr}
-      :root{ --nav-gap-top: 32px; --nav-gap-bottom: 10px; }
+      :root{ --nav-gap-top: 24px; --nav-gap-bottom: 8px; } /* keep consistent on mobile */
       .section-title{ margin-bottom:12px }
       .section-sub{ margin-bottom:18px }
     }
   </style>
 </head>
 <body>
-  <!-- Shared Top Nav (uses same .topbar padding = same top spacing as homepage) -->
+  <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
   <main id='content'>
