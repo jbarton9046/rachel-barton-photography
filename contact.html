@@ -21,13 +21,21 @@
 
       /* Page-only NAV spacing to match the rest of the site */
       --nav-gap-top: 16px;     /* distance from top of viewport to TOP of nav links */
-      --nav-gap-bottom: 40px;  /* breathing room below nav (kept consistent) */
+      --nav-gap-bottom: 40px;  /* breathing room below nav */
     }
 
     /* Make the shared nav use the same spacing as other pages */
     .topbar{
       padding-top: var(--nav-gap-top) !important;
       padding-bottom: var(--nav-gap-bottom) !important;
+    }
+
+    /* NAV WEIGHT OVERRIDE — ensure links aren’t bold on this page */
+    .topbar a,
+    .topbar a:visited,
+    .topbar .active,
+    .topbar .is-active {
+      font-weight: 400 !important;
     }
 
     /* Remove any legacy spacers if they sneak in */
