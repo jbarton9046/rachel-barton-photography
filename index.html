@@ -25,6 +25,10 @@
     :root{
       --bg:#FAFAF8; --ink:#3e3e3a; --accent:#A88A5A; --line:#e9e6df;
       --ring:rgba(168,138,90,.25); --gap:clamp(16px,3vw,32px); --maxw:1200px;
+
+      /* Tuning knobs */
+      --card-max: 1100px;   /* allow one-line “Rachel Barton” */
+      --subject-right: 40vw;/* move card slightly left */
     }
     *{box-sizing:border-box}
     html,body{
@@ -49,22 +53,22 @@
       padding:16px var(--gap); z-index:2;
     }
 
-    /* Card: content-sized (no fixed width), gently capped */
+    /* Card: content-sized, slightly capped */
     .hero .copy{
       position:absolute; z-index:1;
       top:50%; left:50%; transform:translate(-50%,-50%);
-      display:inline-block;                      /* shrink to content */
-      max-width:min(92vw, 900px);                /* gentle cap */
+      display:inline-block;
+      max-width:min(94vw, var(--card-max));
       background:rgba(255,255,255,.68);
       border:1px solid var(--line);
-      padding:clamp(20px,2.6vw,36px) clamp(22px,3vw,36px);
+      padding:clamp(20px,2.6vw,34px) clamp(24px,3vw,38px);
       text-align:center;
-      box-shadow:0 10px 30px rgba(0,0,0,.08);
+      box-shadow:0 12px 34px rgba(0,0,0,.10);
+      backdrop-filter:saturate(1.05) blur(.5px);
     }
 
-    /* Desktop: center the card between daughter's right edge and the viewport right edge */
+    /* Desktop: center between daughter's right edge and viewport right edge */
     @media (min-width:1024px){
-      :root{ --subject-right: 46vw; }            /* nudge this a hair if needed */
       .hero .copy{
         left: calc( (var(--subject-right) + 100vw) / 2 );
         transform: translate(-50%, -50%);
@@ -73,24 +77,25 @@
 
     .eyebrow{
       color:#8d7a5c;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-      font-size:clamp(12px,1.2vw,14px);margin-bottom:10px
+      font-size:clamp(12px,1.2vw,14px);margin-bottom:12px
     }
     h1{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-size:clamp(42px,7vw,72px);
-      line-height:1.08;margin:.25em 0;font-weight:700;color:#3f3a33
+      font-size:clamp(44px,7.2vw,74px);
+      line-height:1.08;margin:.25em 0 .15em;font-weight:700;color:#3f3a33
     }
+    .nowrap{white-space:nowrap;} /* keep “Rachel Barton” on one line */
 
     .cta{
-      display:flex;gap:22px;margin:30px 0;flex-wrap:wrap;justify-content:center
+      display:flex;gap:22px;margin:28px 0;flex-wrap:wrap;justify-content:center
     }
-    /* Pills: transparent background; gold hover text + outline only */
+    /* Pills: transparent; gold hover for text + outline only */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       background:transparent;                    /* no fill */
       border:1px solid rgba(63,58,51,.9);
-      padding:12px 20px;
-      font-size:clamp(16px,1.5vw,18px);
+      padding:12px 22px;
+      font-size:clamp(16px,1.55vw,18px);
       color:#3f3a33; font-weight:700; cursor:pointer; border-radius:0;
       box-shadow:none;
       transition:color .15s ease,border-color .15s ease,transform .15s ease;
@@ -120,7 +125,7 @@
 
     <div class="copy">
       <div class="eyebrow">Welcome to</div>
-      <h1>Rachel Barton<br>Photography</h1>
+      <h1><span class="nowrap">Rachel Barton</span><br>Photography</h1>
 
       <div class="cta">
         <a class="btn" href="/book.html" aria-label="Book a Session">Book a Session</a>
