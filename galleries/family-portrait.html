@@ -17,108 +17,24 @@
   <meta property="og:url" content="https://rachelsphotography.netlify.app/galleries/family-portrait.html" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts (match site) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Shared layout (nav/footer) -->
+  <!-- Shared layout (nav/footer) + gallery styles -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
-  <!-- Optional: keep your gallery.css if other pages use it -->
-  <link rel="stylesheet" href="/assets/gallery.css?v=1">
-
-  <!-- Page-specific styles (no hero) -->
-  <style>
-    :root{
-      --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
-      --accent:#A88A5A; --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
-      --gap:clamp(16px,3vw,32px); --maxw:1200px; --frame:#ecebea;
-    }
-    *{ box-sizing:border-box }
-    html,body{
-      margin:0; background:var(--bg); color:var(--ink);
-      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-      line-height:1.65;
-    }
-    a{ color:inherit; text-decoration:none; transition:color .15s ease }
-    a:hover, a:focus-visible{ color:var(--accent); outline:none }
-
-    img{ max-width:100%; height:auto; display:block; border:1px solid var(--frame); box-shadow:0 6px 18px rgba(0,0,0,.06) }
-    .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
-
-    /* Compact gallery head (no card) */
-    .gallery-head{
-      margin:calc(var(--gap)*3.2) auto var(--gap); /* breathing room below nav */
-      text-align:center;
-    }
-    .gallery-head .crumb{
-      margin:0 0 6px;
-      color:#6b665e;
-      font-size:14px;
-    }
-    .gallery-head h1{
-      margin:.2em 0 .15em;
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
-      font-weight:700;
-      font-size:clamp(30px,5vw,48px);
-      line-height:1.1;
-      color:#3f3a33;
-    }
-    .gallery-head .lede{
-      margin:0 0 10px;
-      color:#5c5850;
-    }
-    .gallery-head .actions{
-      display:flex;
-      gap:14px;
-      justify-content:center;
-      align-items:center;
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
-      font-weight:700;
-      font-size:18px;
-    }
-    .dot{opacity:.35}
-
-    /* Gallery grid */
-    main section{ padding:0 0 calc(var(--gap)*1.5) }
-    .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px) }
-    .grid figure{ margin:0 }
-    .grid img{ width:100%; aspect-ratio:4/5; object-fit:cover; transition:transform .15s ease, box-shadow .15s ease }
-    .grid a:hover img{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.08) }
-    @media (max-width:960px){ .grid{ grid-template-columns:repeat(2,1fr) } }
-    @media (max-width:640px){ .grid{ grid-template-columns:1fr } }
-
-    /* FAQ (card grid) */
-    .faq{ margin-top:calc(var(--gap)*1.2) }
-    .faq-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap) }
-    .faq-card{ background:#fff; border:1px solid var(--line); box-shadow:var(--shadow); padding:18px }
-    .faq-card h3{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      margin:0 0 8px; font-size:18px; font-weight:700; color:#3f3a33
-    }
-    .faq-card p{ margin:0; color:#5c5850 }
-
-    /* Lightbox */
-    #lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.88); display:none; align-items:center; justify-content:center; z-index:1200 }
-    #lightbox img{ max-width:92vw; max-height:88vh; border:1px solid var(--frame); box-shadow:0 12px 50px rgba(0,0,0,.5) }
-    #lb-close,#lb-prev,#lb-next{
-      position:absolute; border:0; background:#ffffff; color:#7A5B3B; cursor:pointer;
-      padding:8px 12px; border-radius:0; box-shadow:0 2px 8px rgba(0,0,0,.2)
-    }
-    #lb-close{ top:18px; right:18px }
-    #lb-prev{ left:18px; top:50%; transform:translateY(-50%) }
-    #lb-next{ right:18px; top:50%; transform:translateY(-50%) }
-  </style>
+  <link rel="stylesheet" href="/assets/gallery.css?v=2">
 </head>
 <body>
 
   <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
-  <!-- Compact header (no hero) -->
+  <!-- Compact left-aligned header -->
   <header class="gallery-head container" role="region" aria-label="Gallery intro">
-    <p class="crumb"><a href="/#portfolio">← All Galleries</a></p>
+    <p class="crumb"><a href="/galleries.html">← All Galleries</a></p>
     <h1>Family Portraits</h1>
     <p class="lede">Candid, movement-filled portraits with warm, true-to-life color.</p>
     <div class="actions">
