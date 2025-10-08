@@ -125,55 +125,55 @@ main section{ padding:0 0 calc(var(--gap)*1.5) }
 }
 .grid a:hover img{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.08) }
 
-/* ===== Lightbox: keep everything hidden until opened ===== */
+/* ===== Lightbox: hidden by default; only interactive when .open ===== */
 #lightbox{
   position:fixed; inset:0;
   background:rgba(0,0,0,.88);
-  display:none;                   /* hidden by default */
+  display:flex;                           /* layout is ready */
   align-items:center; justify-content:center;
   z-index:1200;
-}
-#lightbox > *{ display:none; }    /* hide inner controls/buttons too */
-#lightbox.open{ display:flex; }   /* show overlay when opened */
-#lightbox.open > *{ display:initial; } /* reveal its children only when open */
 
-/* ===== Lightbox layout (fit image, no cropping) ===== */
+  /* make absolutely sure it doesn't block or darken until opened */
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .15s ease;
+}
+#lightbox > *{ opacity:0; }               /* controls/img hidden until open */
+#lightbox.open{
+  opacity:1; visibility:visible; pointer-events:auto;
+}
+#lightbox.open > *{ opacity:1; }
+
+/* Fit image; never crop */
 #lightbox #lb-img{
   max-width:94vw;
   max-height:90vh;
   width:auto; height:auto;
-  object-fit:contain;                 /* never crop */
+  object-fit:contain;
   box-shadow:0 10px 30px rgba(0,0,0,.45);
   border:1px solid rgba(255,255,255,.2);
 }
 
-/* ===== Lightbox controls: plain white glyphs, no circles, no motion ===== */
+/* Floating controls (no white circles, no hover movement) */
 #lightbox button{
   position:absolute;
-  padding:0;
-  width:auto; height:auto;            /* no fixed circle */
-  background:none;
-  border:0;                           /* remove ring */
-  box-shadow:none;
-  color:#fff;                         /* pure white icons */
-  line-height:1;                      /* tight glyphs */
-  cursor:pointer;
-  user-select:none;
-  transition:none;                    /* no hover animation */
+  display:grid; place-items:center;
+  width:44px; height:44px; border-radius:999px;
+  color:#fff;
+  background:transparent;
+  border:1.5px solid rgba(255,255,255,.95);
+  box-shadow:0 12px 28px rgba(0,0,0,.35);
+  cursor:pointer; user-select:none;
+  transition:opacity .15s ease, border-color .15s ease;
+}
+#lightbox button:hover,
+#lightbox button:focus-visible{
+  border-color:#fff; outline:none;         /* no movement */
 }
 
 /* Positions */
-#lb-close{ top:22px; right:22px; font-size:28px; }
-#lb-prev{ left:22px; top:50%; transform:translateY(-50%); font-size:42px; }
-#lb-next{ right:22px; top:50%; transform:translateY(-50%); font-size:42px; }
-
-/* Hover/focus: keep static and white */
-#lightbox button:hover,
-#lightbox button:focus-visible{
-  color:#fff;
-  transform:none;                     /* don’t nudge */
-  outline:none;
-}
+#lb-close{ top:22px; right:22px; font-size:18px; line-height:1; }
+#lb-prev{ left:22px; top:50%; transform:translateY(-50%); font-size:28px; }
+#lb-next{ right:22px; top:50%; transform:translateY(-50%); font-size:28px; }
 
 /* Prevent background scroll while open */
 body.modal-open{ overflow:hidden; }
