@@ -137,7 +137,7 @@ main section{ padding:0 0 calc(var(--gap)*1.5) }
 #lightbox.open{ display:flex; }   /* show overlay when opened */
 #lightbox.open > *{ display:initial; } /* reveal its children only when open */
 
-/* ===== Lightbox layout & controls (fit image, floating white buttons) ===== */
+/* ===== Lightbox layout (fit image, no cropping) ===== */
 #lightbox #lb-img{
   max-width:94vw;
   max-height:90vh;
@@ -147,28 +147,33 @@ main section{ padding:0 0 calc(var(--gap)*1.5) }
   border:1px solid rgba(255,255,255,.2);
 }
 
-/* Floating controls */
+/* ===== Lightbox controls: plain white glyphs, no circles, no motion ===== */
 #lightbox button{
   position:absolute;
-  display:grid; place-items:center;
-  width:44px; height:44px; border-radius:999px;
-  color:#fff;
-  background:transparent;
-  border:1.5px solid rgba(255,255,255,.95);
-  box-shadow:0 12px 28px rgba(0,0,0,.35);
-  cursor:pointer; user-select:none;
-  transition:transform .15s ease, opacity .15s ease, border-color .15s ease;
-}
-#lightbox button:hover,
-#lightbox button:focus-visible{
-  transform:translateY(-1px);
-  border-color:#fff; outline:none;
+  padding:0;
+  width:auto; height:auto;            /* no fixed circle */
+  background:none;
+  border:0;                           /* remove ring */
+  box-shadow:none;
+  color:#fff;                         /* pure white icons */
+  line-height:1;                      /* tight glyphs */
+  cursor:pointer;
+  user-select:none;
+  transition:none;                    /* no hover animation */
 }
 
 /* Positions */
-#lb-close{ top:22px; right:22px; font-size:18px; line-height:1; }
-#lb-prev{ left:22px; top:50%; transform:translateY(-50%); font-size:28px; }
-#lb-next{ right:22px; top:50%; transform:translateY(-50%); font-size:28px; }
+#lb-close{ top:22px; right:22px; font-size:28px; }
+#lb-prev{ left:22px; top:50%; transform:translateY(-50%); font-size:42px; }
+#lb-next{ right:22px; top:50%; transform:translateY(-50%); font-size:42px; }
+
+/* Hover/focus: keep static and white */
+#lightbox button:hover,
+#lightbox button:focus-visible{
+  color:#fff;
+  transform:none;                     /* don’t nudge */
+  outline:none;
+}
 
 /* Prevent background scroll while open */
 body.modal-open{ overflow:hidden; }
