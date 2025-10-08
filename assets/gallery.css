@@ -1,4 +1,4 @@
-/* ====== GALLERY SHARED STYLES (v7) ====== */
+/* ====== GALLERY SHARED STYLES (v8) ====== */
 :root{
   --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#6a6760;
   --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
@@ -26,8 +26,7 @@
   font-weight:700; text-decoration:none;
   display:inline-flex; align-items:center; justify-content:center;
   padding:10px 16px;
-  background:#fff;
-  color:#3f3a33;
+  background:#fff; color:#3f3a33;
   border:1px solid var(--line);
   box-shadow:var(--shadow);
   transition:background-color .15s ease, border-color .15s ease,
@@ -53,12 +52,18 @@
       "crumb  crumb"
       "title  title"
       "lede   actions";
-    align-items:center;
   }
   .gallery-head .crumb{ grid-area:crumb; }
   .gallery-head h1{ grid-area:title; }
-  .gallery-head .lede{ grid-area:lede; margin:0; }
-  .gallery-head .actions{ grid-area:actions; justify-self:end; }
+  .gallery-head .lede{
+    grid-area:lede; margin:0;
+    align-self:end;                 /* bottom-align the text block */
+  }
+  .gallery-head .actions{
+    grid-area:actions; justify-self:end;
+    align-self:end;                 /* bottom-align the pill group */
+    transform:translateY(-2px);     /* tiny nudge so pill border = text baseline */
+  }
 }
 
 /* Grid — ALWAYS 3 / 2 / 1 columns */
