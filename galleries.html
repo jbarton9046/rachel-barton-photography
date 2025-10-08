@@ -356,12 +356,8 @@
     </div>
   </main>
 
-  <footer>
-    <div class="container">
-      <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
-      <div><a href="mailto:rachelbartonphotgraphy@gmail.com">rachelbartonphotgraphy@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></div>
-    </div>
-  </footer>
+  <!-- Shared Footer (site-wide Instagram + auto-year) -->
+  <div data-include="/partials/footer.html"></div>
 
   <!-- Pull in shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
@@ -428,9 +424,6 @@
       window.addEventListener('resize', ()=>{ requestAnimationFrame(updateAll); });
       setTimeout(updateAll, 0);
     })();
-
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 
   <!-- Slider: tile #1 -->
