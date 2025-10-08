@@ -18,16 +18,26 @@
     :root{
       --bg:#FAFAF8; --ink:#3e3e3a; --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:1100px;
-      /* keep spacing EXACTLY as set site-wide */
-      --nav-top: 36px;
+
+      /* Page-only NAV spacing to match the rest of the site */
+      --nav-gap-top: 16px;     /* distance from top of viewport to TOP of nav links */
+      --nav-gap-bottom: 40px;  /* breathing room below nav (kept consistent) */
     }
+
+    /* Make the shared nav use the same spacing as other pages */
+    .topbar{
+      padding-top: var(--nav-gap-top) !important;
+      padding-bottom: var(--nav-gap-bottom) !important;
+    }
+
+    /* Remove any legacy spacers if they sneak in */
+    .page-top-spacer, .nav-spacer { height:0 !important; }
+
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65}
     a{color:inherit;text-decoration:none}
 
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
-    .page-top-spacer{height:var(--nav-top)}
-    .nav-spacer{height:12px}
 
     main section{padding:calc(var(--gap)*2) 0}
     h1{
@@ -70,10 +80,8 @@
   </style>
 </head>
 <body>
-  <!-- exact spacing above/below the shared nav -->
-  <div class="page-top-spacer" aria-hidden="true"></div>
+  <!-- Shared nav (spacing handled by .topbar above) -->
   <div data-include="/partials/topnav.html"></div>
-  <div class="nav-spacer" aria-hidden="true"></div>
 
   <main>
     <section>
