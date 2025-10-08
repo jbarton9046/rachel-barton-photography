@@ -6,10 +6,10 @@
   <title>Contact | Rachel Barton Photography</title>
   <meta name="description" content="Say hello and tell me about your session ideas. I’d love to plan something beautiful with you." />
 
-  <!-- Fonts -->
+  <!-- Fonts (match the rest of the site; Manrope required for nav) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
@@ -20,17 +20,17 @@
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
-      /* Site-standard nav spacing (same as other pages) */
+      /* Site-standard nav spacing (your preference) */
       --nav-gap-top: 16px;     /* distance from viewport top to TOP of nav links */
       --nav-gap-bottom: 40px;  /* breathing room below nav */
     }
 
-    /* Make the shared nav look/space exactly like the rest */
+    /* Make the shared nav use the same spacing and weight as other pages */
     .topbar{
       padding-top: var(--nav-gap-top) !important;
       padding-bottom: var(--nav-gap-bottom) !important;
     }
-    /* Ensure nav links aren’t bold on this page (some pages bump weight) */
+    /* Ensure nav links use normal weight (no bold surprise) */
     .topbar a,
     .topbar a:visited,
     .topbar .active,
