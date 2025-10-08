@@ -136,3 +136,39 @@ main section{ padding:0 0 calc(var(--gap)*1.5) }
 #lightbox > *{ display:none; }    /* hide inner controls/buttons too */
 #lightbox.open{ display:flex; }   /* show overlay when opened */
 #lightbox.open > *{ display:initial; } /* reveal its children only when open */
+
+/* ===== Lightbox layout & controls (fit image, floating white buttons) ===== */
+#lightbox #lb-img{
+  max-width:94vw;
+  max-height:90vh;
+  width:auto; height:auto;
+  object-fit:contain;                 /* never crop */
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+  border:1px solid rgba(255,255,255,.2);
+}
+
+/* Floating controls */
+#lightbox button{
+  position:absolute;
+  display:grid; place-items:center;
+  width:44px; height:44px; border-radius:999px;
+  color:#fff;
+  background:transparent;
+  border:1.5px solid rgba(255,255,255,.95);
+  box-shadow:0 12px 28px rgba(0,0,0,.35);
+  cursor:pointer; user-select:none;
+  transition:transform .15s ease, opacity .15s ease, border-color .15s ease;
+}
+#lightbox button:hover,
+#lightbox button:focus-visible{
+  transform:translateY(-1px);
+  border-color:#fff; outline:none;
+}
+
+/* Positions */
+#lb-close{ top:22px; right:22px; font-size:18px; line-height:1; }
+#lb-prev{ left:22px; top:50%; transform:translateY(-50%); font-size:28px; }
+#lb-next{ right:22px; top:50%; transform:translateY(-50%); font-size:28px; }
+
+/* Prevent background scroll while open */
+body.modal-open{ overflow:hidden; }
