@@ -19,27 +19,21 @@
       --bg:#FAFAF8; --ink:#3e3e3a; --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:1100px;
 
-      /* Page-only NAV spacing to match the rest of the site */
-      --nav-gap-top: 16px;     /* distance from top of viewport to TOP of nav links */
-      --nav-gap-bottom: 40px;  /* breathing room below nav */
+      /* Site-standard nav spacing */
+      --nav-gap-top: 16px;      /* distance from viewport top to TOP of nav links */
+      --nav-gap-bottom: 40px;   /* breathing room below nav */
     }
 
-    /* Make the shared nav use the same spacing as other pages */
+    /* Make the shared nav look/space exactly like the rest */
     .topbar{
       padding-top: var(--nav-gap-top) !important;
       padding-bottom: var(--nav-gap-bottom) !important;
     }
-
-    /* NAV WEIGHT OVERRIDE — ensure links aren’t bold on this page */
+    /* Ensure nav links aren't bold here (some pages add a stronger weight) */
     .topbar a,
     .topbar a:visited,
     .topbar .active,
-    .topbar .is-active {
-      font-weight: 400 !important;
-    }
-
-    /* Remove any legacy spacers if they sneak in */
-    .page-top-spacer, .nav-spacer { height:0 !important; }
+    .topbar .is-active{ font-weight:400 !important; }
 
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65}
@@ -88,7 +82,7 @@
   </style>
 </head>
 <body>
-  <!-- Shared nav (spacing handled by .topbar above) -->
+  <!-- Shared nav (spacing handled above via .topbar) -->
   <div data-include="/partials/topnav.html"></div>
 
   <main>
