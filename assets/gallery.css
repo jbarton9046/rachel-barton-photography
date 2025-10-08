@@ -153,27 +153,30 @@ main section{ padding:0 0 calc(var(--gap)*1.5) }
   border:1px solid rgba(255,255,255,.2);
 }
 
-/* Floating controls (no white circles, no hover movement) */
+/* Floating controls (NO circles, NO hover movement) */
 #lightbox button{
   position:absolute;
-  display:grid; place-items:center;
-  width:44px; height:44px; border-radius:999px;
-  color:#fff;
+  display:block;
+  padding:0;
+  width:auto; height:auto;
   background:transparent;
-  border:1.5px solid rgba(255,255,255,.95);
-  box-shadow:0 12px 28px rgba(0,0,0,.35);
+  border:0;               /* no outline circle */
+  box-shadow:none;        /* no glow */
+  border-radius:0;        /* no round shape */
+  color:#fff;
+  line-height:1;
   cursor:pointer; user-select:none;
-  transition:opacity .15s ease, border-color .15s ease;
+  transition:none;        /* nothing animates on hover */
 }
 #lightbox button:hover,
 #lightbox button:focus-visible{
-  border-color:#fff; outline:none;         /* no movement */
+  outline:none;           /* still no movement/animation */
 }
 
 /* Positions */
-#lb-close{ top:22px; right:22px; font-size:18px; line-height:1; }
-#lb-prev{ left:22px; top:50%; transform:translateY(-50%); font-size:28px; }
-#lb-next{ right:22px; top:50%; transform:translateY(-50%); font-size:28px; }
+#lb-close{ top:22px; right:22px; font-size:28px; }
+#lb-prev{  left:22px; top:50%; transform:translateY(-50%); font-size:40px; }
+#lb-next{ right:22px; top:50%; transform:translateY(-50%); font-size:40px; }
 
 /* Prevent background scroll while open */
 body.modal-open{ overflow:hidden; }

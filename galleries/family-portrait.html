@@ -78,20 +78,21 @@
       const box = document.getElementById('lightbox');
       const imgEl = document.getElementById('lb-img');
       const closeBtn = document.getElementById('lb-close');
-      const prevBtn = document.getElementById('lb-prev');
-      const nextBtn = document.getElementById('lb-next');
+      const prevBtn  = document.getElementById('lb-prev');
+      const nextBtn  = document.getElementById('lb-next');
       const links = Array.from(document.querySelectorAll('#gallery a'));
       let idx = -1;
 
       function openAt(i){
         if (!links.length) return;
         idx = (i + links.length) % links.length;
-        imgEl.src = links[idx].getAttribute('href');
-        box.style.display = 'flex';
+        const src = links[idx].getAttribute('href');
+        imgEl.src = src;
+        box.classList.add('open');             // match gallery.css visibility rules
         document.body.classList.add('modal-open');
       }
       function closeBox(){
-        box.style.display = 'none';
+        box.classList.remove('open');
         imgEl.removeAttribute('src');
         document.body.classList.remove('modal-open');
       }
@@ -104,12 +105,13 @@
       nextBtn.addEventListener('click', next);
 
       window.addEventListener('keydown', e=>{
-        if (box.style.display !== 'flex') return;
-        if (e.key === 'Escape') closeBox();
-        if (e.key === 'ArrowLeft') prev();
+        if (!box.classList.contains('open')) return;
+        if (e.key === 'Escape')     closeBox();
+        if (e.key === 'ArrowLeft')  prev();
         if (e.key === 'ArrowRight') next();
       });
 
+      // click outside the image closes
       box.addEventListener('click', e=>{ if (e.target === box) closeBox(); });
     })();
   </script>
