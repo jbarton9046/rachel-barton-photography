@@ -25,16 +25,19 @@
       --nav-gap-bottom: 40px;  /* breathing room below nav */
     }
 
-    /* Make the shared nav use the same spacing and weight as other pages */
+    /* Make the shared nav use the same spacing as other pages */
     .topbar{
       padding-top: var(--nav-gap-top) !important;
       padding-bottom: var(--nav-gap-bottom) !important;
     }
-    /* Ensure nav links use normal weight (no bold surprise) */
-    .topbar a,
-    .topbar a:visited,
-    .topbar .active,
-    .topbar .is-active{ font-weight:400 !important; }
+
+    /* LOCK NAV TYPOGRAPHY to match the rest of the site (Manrope 400, no transforms) */
+    .topbar, .topbar *{
+      font-family:"Manrope", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif !important;
+      font-weight: 400 !important;
+      letter-spacing: 0 !important;
+      text-transform: none !important;
+    }
 
     *{box-sizing:border-box}
     html,body{
