@@ -36,15 +36,17 @@
       --shadow: 0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
-      /* Site-wide nav spacing (your preference) */
+      /* Site-wide nav spacing */
       --nav-gap-top:16px; --nav-gap-bottom:40px;
 
       /* Tile tuning */
       --tile-radius:0;
       --cap-pad:14px;
       --cap-min:88px;   /* min caption height for dot placement math */
-      --dot-size:12px;
-      --dot-gap:10px;
+      --dot-size:10px;  /* smaller diamonds */
+      --dot-gap:9px;
+      --arrow-size:56px;
+      --arrow-inset:10px;
     }
 
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
@@ -101,7 +103,25 @@
       display:block; user-select:none; -webkit-user-drag:none;
     }
 
-    /* Diamonds (pagination) — placed just above caption, perfectly centered */
+    /* Arrows — same glass diamond style as your other page */
+    .tile-nav{
+      position:absolute; top:50%; transform:translateY(-50%) scale(.98);
+      width:var(--arrow-size); height:var(--arrow-size);
+      display:grid; place-items:center; color:var(--accent); cursor:pointer; user-select:none;
+      background:transparent !important; border:0 !important; z-index:4; opacity:0;
+      transition:opacity .2s ease, transform .2s ease, color .2s ease, box-shadow .2s ease;
+    }
+    figure.tile:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
+    .tile-prev{ left:var(--arrow-inset) } .tile-next{ right:var(--arrow-inset) }
+    .tile-nav::before{
+      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
+      background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05);
+      box-shadow:0 6px 18px rgba(0,0,0,.14);
+    }
+    .tile-nav::after{ content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); border:1.5px solid var(--accent) }
+    .tile-nav svg{ width:22px; height:22px; position:relative; z-index:2 }
+
+    /* Diamonds (pagination) — smaller, centered above caption */
     .tile-dots{
       position:absolute; left:50%; transform:translateX(-50%); z-index:4;
       display:flex; gap:var(--dot-gap); pointer-events:auto;
@@ -117,11 +137,11 @@
     .tile-dots button:hover{ transform:rotate(45deg) scale(1.06) }
     .tile-dots button.is-active{ border-color:var(--accent) }
 
-    /* Caption panel — integrated, glassy card; no separate bottom title */
+    /* Caption panel — integrated glass card; no separate bottom title */
     .tile-caption{
       position:absolute; left:0; right:0; bottom:0; z-index:3;
       min-height:var(--cap-min);
-      background:linear-gradient(to top, rgba(255,255,255,.92), rgba(255,255,255,.82));
+      background:linear-gradient(to top, rgba(255,255,255,.94), rgba(255,255,255,.86));
       border-top:1px solid rgba(63,58,51,.12);
       padding:var(--cap-pad) calc(var(--cap-pad) + 2px);
       display:grid; gap:6px;
@@ -130,9 +150,7 @@
       margin:0; font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(18px,2.2vw,22px);
       letter-spacing:.2px;
     }
-    .tile-caption p{
-      margin:0; color:#5b574f; font-size:clamp(14px,1.9vw,16px)
-    }
+    .tile-caption p{ margin:0; color:#5b574f; font-size:clamp(14px,1.9vw,16px) }
     .tile-caption .cta{
       display:inline-flex; align-items:center; gap:8px; width:max-content; margin-top:4px;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700;
@@ -142,7 +160,7 @@
 
     /* OFFER + CTA */
     .offer{ padding:clamp(22px,6vw,48px) 0 }
-    .offer .wrap{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,2.4vw,28px) }
+    .offer .wrap{ display:grid; grid-template-columns: 1fr 1fr; gap:clamp(16px,2.4vw,28px) }
     .offer .panel{ background:#fff; border:1px solid var(--line); padding:18px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .offer h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 8px; font-size:clamp(20px,2.6vw,28px) }
     .offer ul{ margin:8px 0 0 18px; padding:0; color:#5b574f }
@@ -206,13 +224,19 @@
                     "/pictures/familyPortrait/image12.jpg"
                   ]'>
             <img class="tile-media" src="/pictures/familyPortrait/image1.jpg" alt="Family portraits preview" loading="lazy" />
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
             <div class="tile-dots" role="tablist" aria-label="Family slides"></div>
             <figcaption class="tile-caption">
               <h3>Family Portraits</h3>
               <p>Movement-first sessions that keep everyone relaxed and connected. Clean color, gentle direction, and galleries that feel like your crew.</p>
               <a class="cta" href="/galleries/family-portrait.html" aria-label="Open Family Portraits gallery">
                 View Gallery
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </a>
             </figcaption>
           </figure>
@@ -243,13 +267,19 @@
                     "/pictures/siblingPortraitGal/E26A0764%20(1).jpg"
                   ]'>
             <img class="tile-media" src="/pictures/siblingPortraitGal/E26A0671%20(3).jpg" alt="Sibling portraits preview" loading="lazy" />
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
             <div class="tile-dots" role="tablist" aria-label="Sibling slides"></div>
             <figcaption class="tile-caption">
               <h3>Siblings</h3>
               <p>Play, teasing, and genuine connection—captured with soft direction so personalities lead. Perfect for gifts and framed moments.</p>
               <a class="cta" href="/galleries/sibling-portrait.html" aria-label="Open Sibling Portraits gallery">
                 View Gallery
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </a>
             </figcaption>
           </figure>
@@ -276,13 +306,19 @@
                     "/pictures/friendPortraitGal/E26A2302.jpg"
                   ]'>
             <img class="tile-media" src="/pictures/friendPortraitGal/E26A1852.jpg" alt="Friend portraits preview" loading="lazy" />
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
             <div class="tile-dots" role="tablist" aria-label="Friend slides"></div>
             <figcaption class="tile-caption">
               <h3>Friend Portraits</h3>
               <p>Easygoing, stylish, and authentic. We keep it light so the laughs are real—and your gallery looks editorial without trying.</p>
               <a class="cta" href="/galleries/friend-portrait.html" aria-label="Open Friend Portraits gallery">
                 View Gallery
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </a>
             </figcaption>
           </figure>
@@ -325,7 +361,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Slider + diamonds placement -->
+  <!-- Slider + arrows + diamonds placement (consistent with other page) -->
   <script>
     (function(){
       const tiles = document.querySelectorAll('figure.tile');
@@ -334,6 +370,9 @@
         const media = tile.querySelector('.tile-media');
         const dotsWrap = tile.querySelector('.tile-dots');
         const cap = tile.querySelector('.tile-caption');
+        const prevBtn = tile.querySelector('.tile-prev');
+        const nextBtn = tile.querySelector('.tile-next');
+
         let list = [];
         try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
         if(!Array.isArray(list) || !list.length){ return; }
@@ -363,15 +402,15 @@
           updateDots();
         }
 
-        // Click anywhere on image or caption headline/cta to open gallery
+        // Arrows
+        if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
+        if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
+
+        // Click anywhere to open gallery (except when clicking controls/links)
         const link = tile.getAttribute('data-link') || '#';
         tile.addEventListener('click', (e)=>{
-          const isButton = e.target.closest('button, .tile-dots button');
-          if(isButton) return;
+          if (e.target.closest('.tile-nav') || e.target.closest('.tile-dots button') || e.target.closest('.tile-caption .cta')) return;
           window.location.href = link;
-        });
-        cap.querySelectorAll('a').forEach(a=>{
-          a.addEventListener('click', e=> e.stopPropagation());
         });
 
         // Keep diamonds neatly above caption regardless of line-wrap
