@@ -78,7 +78,7 @@
       display:grid;
       grid-template-columns:2fr 1fr;
       gap:clamp(12px,2vw,20px);
-      align-items:start;
+      align-items:start; /* overridden on desktop below */
     }
     .card{background:#fff; border:1px solid var(--line); box-shadow:var(--shadow)}
     .card .body{padding:14px}
@@ -89,7 +89,12 @@
 
     /* Align headshot top with header text (desktop only) */
     @media (min-width: 900px){
-      .image-card{ margin-top:-115px; } /* adjust this value by a few px if needed */
+      .image-card{ margin-top:-115px; }
+
+      /* Make text card bottom align to photo */
+      .cards{ align-items:stretch; }     /* stretch both columns to the tallest */
+      .card{ height:100%; }              /* let the text card fill the stretched height */
+      .card .body{ height:100%; }        /* keep the white background to the very bottom */
     }
 
     /* Buttons */
