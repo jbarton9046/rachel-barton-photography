@@ -11,17 +11,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Shared layout (nav/footer) -->
+  <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
   <style>
     :root{
-      --bg:#FAFAF8; --ink:#3e3e3a; --line:#e9e6df; --accent:#A88A5A;
-      --gap:clamp(16px,3vw,32px); --maxw:1100px;
+      --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#6e6a62;
+      --line:#e9e6df; --accent:#A88A5A;
+      --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
-      /* Site-standard nav spacing */
-      --nav-gap-top: 16px;      /* distance from viewport top to TOP of nav links */
-      --nav-gap-bottom: 40px;   /* breathing room below nav */
+      /* Site-standard nav spacing (same as other pages) */
+      --nav-gap-top: 16px;     /* distance from viewport top to TOP of nav links */
+      --nav-gap-bottom: 40px;  /* breathing room below nav */
     }
 
     /* Make the shared nav look/space exactly like the rest */
@@ -29,66 +30,85 @@
       padding-top: var(--nav-gap-top) !important;
       padding-bottom: var(--nav-gap-bottom) !important;
     }
-    /* Ensure nav links aren't bold here (some pages add a stronger weight) */
+    /* Ensure nav links aren’t bold on this page (some pages bump weight) */
     .topbar a,
     .topbar a:visited,
     .topbar .active,
     .topbar .is-active{ font-weight:400 !important; }
 
     *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.65}
-    a{color:inherit;text-decoration:none}
+    html,body{
+      margin:0; background:var(--bg); color:var(--ink);
+      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease}
+    a:hover, a:focus-visible{ color:var(--accent); outline:none }
+    img{max-width:100%; height:auto; display:block; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
 
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
+    /* Page layout */
     main section{padding:calc(var(--gap)*2) 0}
     h1{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-size:clamp(28px,4vw,44px); margin:0 0 8px;
+      font-size:clamp(28px,4vw,44px);
+      margin:0 0 10px;
     }
-    .lead{color:#67635b;margin:0 0 22px}
+    .lead{color:#67635b; margin:0 0 22px}
 
-    .grid{display:grid;grid-template-columns:1.25fr .75fr;gap:var(--gap)}
+    /* Content grid */
+    .grid{display:grid; grid-template-columns:1.25fr .75fr; gap:var(--gap)}
     @media (max-width:900px){ .grid{grid-template-columns:1fr} }
 
-    .card{background:#fff;border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.06)}
+    /* Card + form */
+    .card{background:#fff; border:1px solid var(--line); box-shadow:0 10px 30px rgba(0,0,0,.06)}
     .pad{padding:clamp(16px,2.6vw,28px)}
 
-    form{display:grid;gap:14px}
-    label{font-weight:600;font-size:14px}
+    form{display:grid; gap:14px}
+    label{font-weight:600; font-size:14px}
     input, select, textarea{
-      width:100%;background:#fff;border:1px solid #ddd;padding:12px;font:inherit;color:inherit;outline:none;
+      width:100%; background:#fff; border:1px solid #ddd; padding:12px; font:inherit; color:inherit; outline:none;
       transition:border-color .15s ease, box-shadow .15s ease;
     }
-    input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(168,138,90,.25)}
-    textarea{min-height:140px;resize:vertical}
+    input:focus, select:focus, textarea:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(168,138,90,.25) }
+    textarea{min-height:140px; resize:vertical}
 
-    .actions{display:flex;gap:12px;align-items:center}
+    .actions{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:.02em;
-      background:#fff;color:#3f3a33;border:1px solid rgba(63,58,51,.85);padding:10px 16px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.06)
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-weight:700; letter-spacing:.02em;
+      background:#fff; color:#3f3a33;
+      border:1px solid rgba(63,58,51,.85);
+      padding:10px 16px; cursor:pointer;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:color .15s ease, border-color .15s ease, transform .15s ease, box-shadow .15s ease;
     }
-    .btn:hover{color:var(--accent);border-color:var(--accent)}
+    .btn:hover, .btn:focus-visible{
+      color:var(--accent); border-color:var(--accent);
+      transform:translateY(-1px); box-shadow:0 10px 22px rgba(0,0,0,.08); outline:none;
+    }
 
     /* Photos */
-    .photos{display:grid;gap:var(--gap)}
-    .stack{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+    .photos{display:grid; gap:var(--gap)}
+    .stack{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
     @media (max-width:900px){ .stack{grid-template-columns:1fr} }
-    .photos img{display:block;width:100%;height:auto;border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.06)}
 
-    footer{border-top:1px solid var(--line);padding:28px 0;color:#7f7f7f}
-    footer .container{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+    /* Footer */
+    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f}
+    footer .container{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between}
+    @media (max-width:720px){ footer .container{ justify-content:center; text-align:center } }
   </style>
 </head>
 <body>
-  <!-- Shared nav (spacing handled above via .topbar) -->
+  <!-- Shared universal navbar (spacing handled by .topbar rules above) -->
   <div data-include="/partials/topnav.html"></div>
 
-  <main>
-    <section>
+  <main id="content">
+    <section aria-labelledby="contact-title">
       <div class="container">
-        <h1>Say Hello</h1>
+        <h1 id="contact-title">Say Hello</h1>
         <p class="lead">Tell me about your crew and the kind of session you’re envisioning. I reply quickly!</p>
 
         <div class="grid">
@@ -120,7 +140,7 @@
 
               <div class="actions">
                 <button class="btn" type="submit">Send</button>
-                <span style="font-size:13px;color:#6e6a62">
+                <span style="font-size:13px;color:var(--muted)">
                   Or reach me: <a href="mailto:rachelbartonphotography@gmail.com">rachelbartonphotography@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a>
                 </span>
               </div>
@@ -128,7 +148,7 @@
           </div>
 
           <!-- Photos -->
-          <div class="photos">
+          <div class="photos" aria-hidden="true">
             <img src="/pictures/familyPortrait/image5.jpg" alt="Candid family moment by the water">
             <div class="stack">
               <img src="/pictures/thirdTileGal/E26A2022%20(1).jpg" alt="Golden-hour portrait at the beach">
@@ -149,6 +169,6 @@
 
   <!-- include shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
-  <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
