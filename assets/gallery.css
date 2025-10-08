@@ -7,6 +7,13 @@
   --accent-lite:#C9B38C;     /* lighter gold for subtle accents */
 }
 
+/* NEW: disable any reveal/fade-in behavior site-wide for gallery */
+.reveal, [data-reveal], .fade-in, .io-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
 /* Header block (pulled slightly toward the top) */
 .gallery-head{
   max-width:var(--maxw);
@@ -114,7 +121,7 @@ main section{ padding:0 0 calc(var(--gap)*1.5) }
   display:block;
   border:1px solid var(--frame);
   box-shadow:0 6px 18px rgba(0,0,0,.06);
-  transition:transform .15s ease, box-shadow .15s ease;
+  transition:transform .15s ease, box-shadow .15s ease; /* keep only hover transitions */
 }
 .grid a:hover img{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.08) }
 
