@@ -96,7 +96,7 @@
     }
     #gallery-meadow .tile-nav svg, #gallery-family .tile-nav svg, #gallery-beach .tile-nav svg{ width:22px; height:22px; position:relative; z-index:2 }
 
-    /* Dots: tucked closer & a touch larger */
+    /* Dots */
     #gallery-meadow .tile-dots, #gallery-family .tile-dots, #gallery-beach .tile-dots{
       position:absolute; left:50%; transform:translateX(-50%); bottom:22px;
       display:flex; gap:10px; z-index:4; pointer-events:auto;
@@ -168,7 +168,7 @@
                     "pictures/introPortPics/E26A2614%20(1).jpg",
                     "pictures/introPortPics/E26A2665%20(1).jpg"
                   ]'>
-            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
               <defs>
                 <mask id="notchMask-3a">
                   <rect x="0" y="0" width="100%" height="100%" fill="white" />
@@ -178,9 +178,8 @@
                   <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                 </filter>
               </defs>
-              <!-- Start on the requested Portrait image -->
               <image href="pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000"
-                     preserveAspectRatio="xMidYMid meet" mask="url(#notchMask-3a)"></image>
+                     preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
               <g class="frameGroup" filter="url(#frameShadow-3a)">
                 <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
                 <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
@@ -195,7 +194,6 @@
             </button>
 
             <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
-            <!-- label removed as requested -->
           </figure>
 
           <!-- MIDDLE — BRANDING -->
@@ -210,7 +208,7 @@
                     "pictures/introBrandPics/s-o-c-i-a-l-c-u-t-7KkDiSs5UdQ-unsplash.jpg",
                     "pictures/introBrandPics/tim-mossholder-qvWnGmoTbik-unsplash.jpg"
                   ]'>
-            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
               <defs>
                 <mask id="notchMask-1">
                   <rect x="0" y="0" width="100%" height="100%" fill="white" />
@@ -221,7 +219,7 @@
                 </filter>
               </defs>
               <image href="pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" x="0" y="0" width="800" height="1000"
-                     preserveAspectRatio="xMidYMid meet" mask="url(#notchMask-1)"></image>
+                     preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
               <g class="frameGroup" filter="url(#frameShadow-1)">
                 <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
                 <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
@@ -236,10 +234,9 @@
             </button>
 
             <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
-            <!-- label removed as requested -->
           </figure>
 
-          <!-- RIGHT — EVENTS (kids photo first) -->
+          <!-- RIGHT — EVENTS -->
           <figure class="captioned notch" id="gallery-beach" aria-label="Events"
                   data-images='[
                     "pictures/introEventPics/E26A1193.jpg",
@@ -251,7 +248,7 @@
                     "pictures/introEventPics/E26A1312.jpg",
                     "pictures/introEventPics/E26A1314.jpg"
                   ]'>
-            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
               <defs>
                 <mask id="notchMask-2">
                   <rect x="0" y="0" width="100%" height="100%" fill="white" />
@@ -261,9 +258,8 @@
                   <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                 </filter>
               </defs>
-              <!-- Start on the preferred kids photo -->
               <image href="pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000"
-                     preserveAspectRatio="xMidYMid meet" mask="url(#notchMask-2)"></image>
+                     preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
               <g class="frameGroup" filter="url(#frameShadow-2)">
                 <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
                 <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
@@ -278,11 +274,10 @@
             </button>
 
             <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
-            <!-- label removed as requested -->
           </figure>
         </div>
 
-        <!-- Brief service explanations (no FAQs) -->
+        <!-- Brief service explanations -->
         <div class="service-blurbs">
           <div class="row">
             <article class="blurb">
@@ -320,14 +315,13 @@
         const svg = tile.querySelector('svg.notch-figure');
         const notchRect = svg?.querySelector('.notchRect');
         const recessStroke = svg?.querySelector('.recessStroke');
-        const label = tile.querySelector('.cap-label'); // may not exist now
-        const notchBox = tile.querySelector('.notch-box'); // removed
+        const label = tile.querySelector('.cap-label');
         if(!svg || !notchRect || !recessStroke) return;
 
         // If no label exists, collapse the notch so the image remains a full rectangle
         if(!label){
-          notchRect.setAttribute('x', 400);    // center
-          notchRect.setAttribute('y', 1000);   // below frame
+          notchRect.setAttribute('x', 400);
+          notchRect.setAttribute('y', 1000);
           notchRect.setAttribute('width', 0.01);
           notchRect.setAttribute('height', 0.01);
           recessStroke.setAttribute('x', 400);
@@ -337,38 +331,6 @@
           const dotsWrap = tile.querySelector('.tile-dots');
           if(dotsWrap){ dotsWrap.style.bottom = '22px'; }
           return;
-        }
-
-        // (Kept for backward-compat if labels are re-enabled)
-        const padCss = 4, liftCss = 10, dotsGapCss = 14;
-        const labelRect = label.getBoundingClientRect();
-        const tileRect  = svg.getBoundingClientRect();
-
-        const recessW_css = labelRect.width + padCss * 2;
-        const recessH_css = labelRect.height + padCss * 2;
-
-        const sx = 800 / tileRect.width;
-        const sy = 1000 / tileRect.height;
-
-        const recessW = recessW_css * sx;
-        const recessH = recessH_css * sy;
-
-        const recessX = ((tileRect.width - recessW_css) / 2) * sx;
-        const recessY = 1000 - recessH - (padCss * sy) - (liftCss * sy);
-
-        notchRect.setAttribute('x', recessX.toFixed(2));
-        notchRect.setAttribute('y', recessY.toFixed(2));
-        notchRect.setAttribute('width', recessW.toFixed(2));
-        notchRect.setAttribute('height', recessH.toFixed(2));
-
-        recessStroke.setAttribute('x', recessX.toFixed(2));
-        recessStroke.setAttribute('y', recessY.toFixed(2));
-        recessStroke.setAttribute('width', recessW.toFixed(2));
-        recessStroke.setAttribute('height', recessH.toFixed(2));
-
-        const dotsWrap = tile.querySelector('.tile-dots');
-        if(dotsWrap){
-          dotsWrap.style.bottom = (padCss + recessH_css + dotsGapCss + liftCss) + 'px';
         }
       }
 
@@ -386,8 +348,8 @@
   <!-- Randomize Portraits & Events; force specific first images -->
   <script>
     (function () {
-      const PORTRAITS_ID = "gallery-meadow"; // left tile
-      const EVENTS_ID    = "gallery-beach";  // right tile
+      const PORTRAITS_ID = "gallery-meadow";
+      const EVENTS_ID    = "gallery-beach";
       const PREFERRED_EVENTS_FIRST   = "pictures/introEventPics/E26A1309.jpg";
       const PREFERRED_PORTRAIT_FIRST = "pictures/introPortPics/E26A2614%20(1).jpg";
 
@@ -410,10 +372,11 @@
         if (imgEl && list[0]) {
           imgEl.setAttribute("href", list[0]);
           imgEl.setAttributeNS("http://www.w3.org/1999/xlink", "href", list[0]);
+          imgEl.setAttribute("preserveAspectRatio","xMidYMid slice");
         }
       }
 
-      // Portraits: shuffle, but keep preferred portrait first
+      // Portraits
       (function(){
         const tile = document.getElementById(PORTRAITS_ID);
         if(!tile) return;
@@ -431,7 +394,7 @@
         writeListAndPrimeImage(tile, list);
       })();
 
-      // Events: shuffle but make sure preferred photo is first
+      // Events
       (function(){
         const tile = document.getElementById(EVENTS_ID);
         if(!tile) return;
@@ -470,7 +433,7 @@
           const b = document.createElement('button');
           b.type = 'button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide ' + (i+1));
           b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
-        dotsWrap.appendChild(b); dots.push(b);
+          dotsWrap.appendChild(b); dots.push(b);
         }
       }
 
@@ -484,6 +447,7 @@
         const src = list[idx];
         imgEl.setAttribute('href', src);
         imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+        imgEl.setAttribute('preserveAspectRatio','xMidYMid slice');
         updateDots();
       }
 
@@ -531,6 +495,7 @@
         const src = list[idx];
         imgEl.setAttribute('href', src);
         imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+        imgEl.setAttribute('preserveAspectRatio','xMidYMid slice');
         updateDots();
       }
 
@@ -578,6 +543,7 @@
         const src = list[idx];
         imgEl.setAttribute('href', src);
         imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+        imgEl.setAttribute('preserveAspectRatio','xMidYMid slice');
         updateDots();
       }
 
