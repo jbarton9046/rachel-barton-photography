@@ -1,4 +1,4 @@
-/* ====== GALLERY SHARED STYLES (v11) ====== */
+/* ====== GALLERY SHARED STYLES (v12) ====== */
 :root{
   --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#6a6760;
   --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
@@ -25,20 +25,22 @@
   margin:.25em 0 .14em;      /* slightly tighter under the title */
 }
 
-/* Lede with slim accent rule */
+/* Lede with slim accent rule (larger text + accent, same spacing) */
 .gallery-head .lede{
-  margin:0 0 12px;           /* a touch tighter */
+  margin:0 0 12px;           /* keep vertical spacing the same */
   color:#5f5a52;
   position:relative;
-  padding-left:18px;          /* space for the rule */
+  padding-left:22px;          /* a bit more room for thicker rule */
+  font-size:clamp(17px, 1.7vw, 21px);
+  line-height:1.5;
 }
 .gallery-head .lede::before{
   content:"";
   position:absolute;
   left:0;
-  top:.35em;                  /* shorter rule height */
-  bottom:.35em;
-  width:2px;                  /* slimmer rule */
+  top:.28em;                  /* maintain optical top/bottom balance */
+  bottom:.28em;
+  width:3px;                  /* slightly thicker accent */
   background:var(--accent-lite);
   border-radius:2px;
 }
