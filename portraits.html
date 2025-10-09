@@ -15,22 +15,22 @@
     --nav-gap-top:16px; --nav-gap-bottom:40px;
 
     /* Square theme */
-    --radius:0; /* everything squared */
+    --radius:0;
 
-    /* Controls */
-    --dot-size:9px;      /* small diamonds */
+    /* Controls (consistent “glass” treatments like branding.html) */
+    --dot-size:9px;
     --dot-gap:8px;
     --arrow-size:54px;
     --arrow-inset:12px;
 
     /* Labels / strips */
-    --tab-pad:6px 12px;  /* small top label */
-    --strip-h:42px;      /* one-line description bar height */
+    --tab-pad:6px 12px;
+    --strip-h:42px;
     --strip-pad:10px 12px;
 
-    /* Translucent glass token (uniform across buttons/dots/arrows/labels) */
+    /* Translucent “glass” token */
     --glass-bg: rgba(255,255,255,.28);
-    --glass-bg-strong: rgba(255,255,255,.85);
+    --glass-bg-strong: rgba(255,255,255,.86);
     --glass-blur: blur(7px) saturate(1.05);
     --glass-border: 1px solid rgba(63,58,51,.18);
     --glass-shadow: 0 10px 22px rgba(0,0,0,.10);
@@ -41,28 +41,45 @@
 
   html,body{
     margin:0; background:var(--bg); color:var(--ink);
-    font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-    line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; line-height:1.65;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   }
   a{ color:inherit; text-decoration:none; transition:color .15s ease }
   a:hover,a:focus-visible{ color:var(--accent) }
   .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-  /* Hero */
-  .hero{ padding:clamp(26px,6vw,56px) 0 6px }
-  .kicker{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
-  h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(30px,5.2vw,56px); line-height:1.05; margin:.35em 0 .2em }
-  .lead{ font-size:clamp(16px,2vw,20px); color:#58554e; max-width:72ch }
+  /* Flow sections (branding-like rhythm) */
+  .section{ padding:clamp(28px,6vw,60px) 0 }
+  .split{ display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(18px,4vw,48px); align-items:center }
+  .split.reverse{ grid-template-columns:.9fr 1.1fr }
+  @media (max-width:960px){ .split, .split.reverse { grid-template-columns:1fr } }
 
-  /* Mosaic */
-  .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,1.8vw,18px); margin:18px 0 0 }
+  .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
+  h1, h2{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700 }
+  h1{ font-size:clamp(30px,5.2vw,56px); line-height:1.06; margin:.35em 0 .3em }
+  h2{ font-size:clamp(24px,3.6vw,38px); margin:0 0 10px }
+  .lead{ font-size:clamp(16px,2vw,20px); color:#58554e; max-width:62ch }
+
+  .pill{ display:inline-block; padding:6px 12px; border:1px solid var(--line); background:#fff; border-radius:var(--radius) }
+
+  /* Feature grid (like branding value props) */
+  .features{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px); margin-top:18px }
+  .card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+  .card h3{ margin:0 0 6px; font-size:18px }
+  .card p{ margin:0; color:#5b574f }
+
+  @media (max-width:960px){ .features{ grid-template-columns:1fr 1fr } }
+  @media (max-width:640px){ .features{ grid-template-columns:1fr } }
+
+  /* Tile grid embedded in flow */
+  .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,1.8vw,18px) }
   @media (max-width:960px){ .mosaic{ grid-template-columns:1fr 1fr } }
   @media (max-width:640px){ .mosaic{ grid-template-columns:1fr } }
 
   figure.tile{
     margin:0; position:relative; aspect-ratio:4/5; overflow:hidden;
-    border-radius:var(--radius); border:1px solid var(--line); background:#ddd;
-    box-shadow:0 6px 22px rgba(0,0,0,.06); isolation:isolate;
+    border-radius:var(--radius); border:1px solid var(--line);
+    background:#ddd; box-shadow:0 6px 22px rgba(0,0,0,.06); isolation:isolate;
     transition:transform .2s ease, box-shadow .2s ease;
   }
   figure.tile:hover{ transform:translateY(-2px) }
@@ -72,7 +89,7 @@
     object-fit:cover; object-position:center; display:block; user-select:none; -webkit-user-drag:none;
   }
 
-  /* Diamonds (pagination) — translucent, top-centered */
+  /* Diamonds (top-centered, translucent) */
   .tile-dots{
     position:absolute; left:50%; transform:translateX(-50%); top:10px; z-index:4;
     display:flex; gap:var(--dot-gap); pointer-events:auto;
@@ -88,7 +105,7 @@
   .tile-dots button:hover{ transform:rotate(45deg) scale(1.06) }
   .tile-dots button.is-active{ background:rgba(232,223,201,.45); border-color:var(--accent) }
 
-  /* Arrows — glass diamond buttons with the same translucent background */
+  /* Arrows (glass diamond buttons) */
   .tile-nav{
     position:absolute; top:50%; transform:translateY(-50%) scale(.98);
     width:var(--arrow-size); height:var(--arrow-size);
@@ -105,7 +122,7 @@
   }
   .tile-nav svg{ width:22px; height:22px; position:relative; z-index:1 }
 
-  /* Top tab label — squared, tiny, same translucent glass */
+  /* Tiny top tab label */
   .tile-tab{
     position:absolute; top:10px; left:12px; z-index:6;
     padding:var(--tab-pad);
@@ -114,7 +131,7 @@
     font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:14px; letter-spacing:.2px;
   }
 
-  /* Bottom description strip — one line, squared, translucent glass */
+  /* Bottom one-line description strip */
   .tile-strip{
     position:absolute; left:0; right:0; bottom:0; height:var(--strip-h); z-index:6;
     display:flex; align-items:center; justify-content:space-between; gap:10px;
@@ -128,29 +145,31 @@
     font-weight:600; letter-spacing:.15px;
   }
   .tile-strip .cta{
-    display:inline-flex; align-items:center; gap:8px; font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
-    font-weight:700; border:1px solid rgba(63,58,51,.55); padding:6px 10px; border-radius:var(--radius);
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700;
+    border:1px solid rgba(63,58,51,.55); padding:6px 10px; border-radius:var(--radius);
     background:var(--glass-bg-strong); -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
   }
   .tile-strip .cta svg{ width:16px; height:16px }
 
-  /* “Why Portraits with Rachel” */
-  .why{ padding:clamp(22px,6vw,48px) 0 }
-  .why h3{
-    margin:0 0 8px; font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
-    font-weight:700; font-size:clamp(20px,2.7vw,28px);
+  /* Process / CTA (branding-like) */
+  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
+  .step{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+  .step .num{ font-weight:700; font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62; margin-bottom:6px }
+  .step h4{ margin:0 0 6px; font-size:16px }
+  .step p{ margin:0; color:#5b574f }
+  @media (max-width:960px){ .steps{ grid-template-columns:1fr 1fr } }
+  @media (max-width:640px){ .steps{ grid-template-columns:1fr } }
+
+  .cta-bar{
+    display:flex; flex-wrap:wrap; gap:12px; margin-top:14px
   }
-  .why .grid{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px);
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:12px 16px; border:1px solid rgba(63,58,51,.9);
+    background:#fff; border-radius:var(--radius); font-weight:700; box-shadow:0 6px 18px rgba(0,0,0,.06)
   }
-  .why .card{
-    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
-    padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06);
-  }
-  .why .card h4{ margin:0 0 6px; font-size:16px; font-weight:700 }
-  .why .card p{ margin:0; color:#5b574f; font-size:14px }
-  @media (max-width:960px){ .why .grid{ grid-template-columns:1fr 1fr } }
-  @media (max-width:640px){ .why .grid{ grid-template-columns:1fr } }
+  .btn-primary:hover{ color:var(--accent); border-color:var(--accent) }
 </style>
 </head>
 <body>
@@ -158,17 +177,42 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <section class="hero">
-      <div class="container">
-        <div class="kicker">Portraits</div>
-        <h1>Clean, candid, true-to-life portraits you’ll be proud to share</h1>
-        <p class="lead">Calm, organized sessions across Sarasota and Florida’s Gulf Coast. Natural direction, flattering light, and timeless edits—so your photos feel like <em>you</em>, in the best light.</p>
+    <!-- HERO (branding-like) -->
+    <section class="section">
+      <div class="container split">
+        <div>
+          <div class="eyebrow">Portraits</div>
+          <h1>Clean, candid, true-to-life portraits you’ll be proud to share</h1>
+          <p class="lead">Calm, organized sessions across Sarasota & Florida’s Gulf Coast. Natural direction, flattering light, and timeless edits—so your photos feel like <em>you</em>, in the best light.</p>
+          <div class="cta-bar">
+            <a class="btn-primary" href="/book.html">Book a Session</a>
+            <span class="pill">Average session: 60–90 minutes</span>
+          </div>
+        </div>
+        <div>
+          <div class="features">
+            <div class="card">
+              <h3>Kid-wise, camera-calm</h3>
+              <p>Playful prompts and soft direction—no stiff poses. We keep energy natural.</p>
+            </div>
+            <div class="card">
+              <h3>True-to-life color</h3>
+              <p>Timeless edits and real skin tones—your gallery won’t date next season.</p>
+            </div>
+            <div class="card">
+              <h3>Seamless experience</h3>
+              <p>Clear prep, quick communication, and delivery built for sharing & print.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section aria-labelledby="types-title">
+    <!-- GALLERIES (tiles embedded mid-flow like branding) -->
+    <section class="section" aria-labelledby="galleries-title">
       <div class="container">
-        <h2 id="types-title" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,serif; margin:0 0 12px; font-size:clamp(24px,3.4vw,38px)">Choose your portrait story</h2>
+        <h2 id="galleries-title">Signature Galleries</h2>
+        <p class="lead" style="margin-bottom:18px">Explore the look and feel of each session type, then open the gallery that fits your story.</p>
 
         <div class="mosaic">
           <!-- FAMILY (Family + Sibling combined; 10 random) -->
@@ -211,18 +255,16 @@
             ]'>
             <img class="tile-media" src="/pictures/familyPortrait/image1.jpg" alt="Family portraits preview" loading="lazy" />
             <div class="tile-dots" role="tablist" aria-label="Family slides"></div>
-
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
             </button>
             <button class="tile-nav tile-next" type="button" aria-label="Next">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
-
             <div class="tile-tab">Family</div>
             <div class="tile-strip">
-              <span class="desc">Warm, movement-first portraits that feel like your crew—natural direction, true-to-life color.</span>
-              <a class="cta" href="/galleries/family-portrait.html" aria-label="Open Family Portraits gallery">
+              <span class="desc">Warm, movement-first portraits that feel like your crew.</span>
+              <a class="cta" href="/galleries/family-portrait.html">
                 View Gallery
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </a>
@@ -245,18 +287,16 @@
             ]'>
             <img class="tile-media" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Adventure session preview" loading="lazy" />
             <div class="tile-dots" role="tablist" aria-label="Adventure slides"></div>
-
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
             </button>
             <button class="tile-nav tile-next" type="button" aria-label="Next">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
-
             <div class="tile-tab">Adventure</div>
             <div class="tile-strip">
-              <span class="desc">Hills, dunes, wind, and play—story-driven sessions with movement and big landscapes.</span>
-              <a class="cta" href="/adventure.html" aria-label="Open Adventure gallery">
+              <span class="desc">Hills, dunes & play—big landscapes, real movement.</span>
+              <a class="cta" href="/adventure.html">
                 View Gallery
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </a>
@@ -286,18 +326,16 @@
             ]'>
             <img class="tile-media" src="/pictures/friendPortraitGal/E26A1852.jpg" alt="Friend portraits preview" loading="lazy" />
             <div class="tile-dots" role="tablist" aria-label="Friend slides"></div>
-
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
             </button>
             <button class="tile-nav tile-next" type="button" aria-label="Next">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
-
             <div class="tile-tab">Friend</div>
             <div class="tile-strip">
-              <span class="desc">Easygoing, stylish, and authentic—editorial energy without trying.</span>
-              <a class="cta" href="/galleries/friend-portrait.html" aria-label="Open Friend Portraits gallery">
+              <span class="desc">Easygoing, stylish, and authentic—editorial energy.</span>
+              <a class="cta" href="/galleries/friend-portrait.html">
                 View Gallery
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </a>
@@ -307,23 +345,30 @@
       </div>
     </section>
 
-    <!-- Why Portraits with Rachel -->
-    <section class="why" aria-label="Why portraits with Rachel">
+    <!-- PROCESS (branding-style clarity) -->
+    <section class="section" aria-labelledby="process-title">
       <div class="container">
-        <h3>Why portraits with Rachel</h3>
-        <div class="grid">
-          <div class="card">
-            <h4>Kid-wise, camera-calm</h4>
-            <p>We guide with play and natural prompts—no stiff poses, just easy direction.</p>
+        <h2 id="process-title">How portrait sessions work</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">Step 1</div>
+            <h4>Plan the session</h4>
+            <p>Simple questionnaire, location & wardrobe guidance, and a relaxed timeline.</p>
           </div>
-          <div class="card">
-            <h4>True-to-life color</h4>
-            <p>Timeless edits that won’t date next season—skin tones stay real and flattering.</p>
+          <div class="step">
+            <div class="num">Step 2</div>
+            <h4>Shoot day</h4>
+            <p>We lead with prompts—not poses—so everyone feels comfortable and looks natural.</p>
           </div>
-          <div class="card">
-            <h4>Seamless experience</h4>
-            <p>Clear prep, quick communication, and galleries you’ll be proud to frame.</p>
+          <div class="step">
+            <div class="num">Step 3</div>
+            <h4>Delivery you can use</h4>
+            <p>Curated gallery with download-ready files and print options that last.</p>
           </div>
+        </div>
+        <div class="cta-bar">
+          <a class="btn-primary" href="/book.html">Book a Session</a>
+          <a class="btn-primary" href="/pricing.html">See Pricing</a>
         </div>
       </div>
     </section>
@@ -333,7 +378,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Exactly 10 random images/tile + arrows + diamonds -->
+  <!-- Exactly 10 random images/tile + arrows + diamonds, click-thru -->
   <script>
     (function(){
       const MAX_IMGS = 10;
@@ -353,14 +398,14 @@
         const prevBtn = tile.querySelector('.tile-prev');
         const nextBtn = tile.querySelector('.tile-next');
 
-        // Get & sample images
         let all = [];
         try { all = JSON.parse(tile.getAttribute('data-all-images') || '[]'); } catch{}
         if(!Array.isArray(all) || !all.length) return;
+
         const list = sampleTen(all);
         let idx = 0;
 
-        // Build dots
+        // Build diamonds
         dotsWrap.innerHTML = '';
         const dots = list.map((_,i)=>{
           const b = document.createElement('button');
@@ -378,10 +423,11 @@
             d.setAttribute('aria-selected', i===idx ? 'true' : 'false');
           });
         }
+
         function show(i){
           idx = (i + list.length) % list.length;
           const src = list[idx];
-          if(src){ media.src = src; }
+          if (src) media.src = src;
           updateDots();
         }
 
@@ -389,7 +435,7 @@
         prevBtn?.addEventListener('click', e=>{ e.stopPropagation(); show(idx-1); });
         nextBtn?.addEventListener('click', e=>{ e.stopPropagation(); show(idx+1); });
 
-        // Click anywhere (except controls) -> navigate
+        // Click anywhere (except controls/cta) to open the gallery
         const link = tile.getAttribute('data-link') || '#';
         tile.addEventListener('click', (e)=>{
           if (e.target.closest('.tile-nav') || e.target.closest('.tile-dots button') || e.target.closest('.tile-strip .cta')) return;
