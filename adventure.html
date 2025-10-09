@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adventure Sessions at Andrews Bald | Rachel Barton Photography</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Adventure portrait sessions at Andrews Bald near Gatlinburg, Tennessee. Sunrise light, wind in the grass, and story-driven images that feel alive." />
+  <link rel="canonical" href="https://rachelsphotography.netlify.app/adventure.html" />
+
+  <!-- Social share -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Rachel Barton Photography" />
+  <meta property="og:title" content="Adventure Sessions at Andrews Bald" />
+  <meta property="og:description" content="Sunrise on the ridge—wind, movement, and photographs that feel like the day you’ll never forget." />
+  <meta property="og:url" content="https://rachelsphotography.netlify.app/adventure.html" />
+  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/andrewsBaldPics/E26A1013.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Adventure Sessions at Andrews Bald" />
+  <meta name="twitter:description" content="Story-driven portraits in the Smokies." />
+  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/andrewsBaldPics/E26A1013.jpg" />
+
+  <!-- Fonts & shared layout (same as branding/portraits) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
+
+  <style>
+    :root{
+      --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
+      --accent:#A88A5A; --accent-2:#E8DFC9; --line:#e9e6df;
+      --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --gap:clamp(16px,3vw,32px); --maxw:1200px;
+      --nav-gap-top:16px; --nav-gap-bottom:40px;
+
+      /* Glass tokens (match portraits/branding) */
+      --arrow-size:56px;
+      --arrow-inset:14px;
+      --dot-size:10px;
+      --dot-gap:9px;
+      --glass-bg: rgba(255,255,255,.28);
+      --glass-blur: blur(7px) saturate(1.05);
+      --glass-border: 1px solid rgba(63,58,51,.18);
+      --glass-shadow: 0 10px 22px rgba(0,0,0,.10);
+    }
+    .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
+    .nav-spacer,.page-top-spacer{ height:0!important; }
+
+    *{box-sizing:border-box}
+    html,body{ margin:0; background:var(--bg); color:var(--ink);
+      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Inter, Arial, sans-serif; line-height:1.65; }
+    a{ color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease }
+    a:hover,a:focus-visible{ color:var(--accent) }
+    .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
+
+    /* HERO — wide, airy */
+    .hero{
+      padding:clamp(16px,4vw,36px) 0 0;
+    }
+    .hero-figure{
+      position:relative; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.07);
+      margin:0; overflow:hidden;
+    }
+    .hero-figure img{
+      width:100%; height:min(68vh, 760px); object-fit:cover; object-position:center;
+      display:block;
+    }
+    .hero-badge{
+      position:absolute; left:14px; top:14px; background:#fff; border:1px solid var(--line);
+      padding:6px 10px; box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px;
+    }
+    .hero-copy{
+      padding:clamp(18px,4vw,28px) 0 clamp(8px,2.5vw,16px);
+      display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(18px,3.6vw,36px); align-items:start;
+    }
+    @media (max-width:980px){ .hero-copy{ grid-template-columns:1fr } }
+
+    .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
+    .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
+    .lead{ font-size:clamp(16px,2.2vw,20px); color:#58554e; max-width:68ch }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
+      font-weight:700; background:#fff; color:#3f3a33; border:1px solid rgba(63,58,51,.85);
+      padding:12px 18px; box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .btn:hover{ transform:translateY(-1px); box-shadow:0 10px 22px rgba(0,0,0,.08); border-color:var(--accent); color:var(--accent) }
+    .btn.alt{ background:linear-gradient(180deg, #fff, #f8f5ee); border-color:rgba(63,58,51,.3) }
+
+    /* STORY */
+    .story{ padding:clamp(16px,5vw,44px) 0 }
+    .story .cards{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(14px,3vw,22px) }
+    .story .card{ background:#fff; border:1px solid var(--line); padding:20px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+    .story h2{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 8px; font-size:clamp(22px,3.4vw,30px) }
+    @media (max-width:900px){ .story .cards{ grid-template-columns:1fr } }
+
+    /* CAROUSEL (glass diamonds + arrows) */
+    .carousel{ position:relative; margin:6px 0; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.07) }
+    .carousel img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block }
+    @media (max-width:900px){ .carousel img{ aspect-ratio:4/3 } }
+
+    .dots{
+      position:absolute; left:50%; transform:translateX(-50%); top:12px; z-index:3;
+      display:flex; gap:var(--dot-gap);
+    }
+    .dots button{
+      width:var(--dot-size); height:var(--dot-size); transform:rotate(45deg); cursor:pointer;
+      background:var(--glass-bg); border:1px solid var(--accent);
+      -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
+      box-shadow:0 3px 10px rgba(0,0,0,.10);
+      transition:transform .12s ease, background-color .12s ease;
+    }
+    .dots button:hover{ transform:rotate(45deg) scale(1.06) }
+    .dots button.is-active{ background:rgba(232,223,201,.45) }
+
+    .nav{
+      position:absolute; top:50%; transform:translateY(-50%); width:var(--arrow-size); height:var(--arrow-size);
+      display:grid; place-items:center; color:var(--accent); z-index:3; cursor:pointer; border:0; background:transparent;
+    }
+    .nav::before{
+      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
+      background:var(--glass-bg); border:var(--glass-border);
+      -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
+      box-shadow:var(--glass-shadow);
+    }
+    .nav svg{ width:22px; height:22px; position:relative; z-index:1 }
+    .prev{ left:var(--arrow-inset) } .next{ right:var(--arrow-inset) }
+
+    /* FIELD NOTES */
+    .notes{ padding:clamp(18px,5vw,48px) 0 }
+    .notes .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
+    .note{ background:#fff; border:1px solid var(--line); padding:18px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+    .note h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:20px }
+    .note p{ margin:0 }
+    @media (max-width:900px){ .notes .grid{ grid-template-columns:1fr } }
+
+    /* CTA (pricing after consult) */
+    .cta{ background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; margin:32px 0 18px }
+    .cta .row{ display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap }
+    .cta small{ color:#6e6a62 }
+
+    footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
+  </style>
+</head>
+<body>
+  <!-- Shared Top Nav -->
+  <div data-include="/partials/topnav.html"></div>
+
+  <main id="content">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <figure class="hero-figure">
+          <span class="hero-badge">Sunrise • Smokies • Movement</span>
+          <img src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Sunrise adventure session on the grassy ridge at Andrews Bald" />
+        </figure>
+        <div class="hero-copy">
+          <div>
+            <div class="eyebrow">Adventure Sessions</div>
+            <h1 class="h1">Andrews Bald, Tennessee</h1>
+            <p class="lead">
+              High above Gatlinburg, the trail opens to a broad, wind-brushed meadow where the light hits different.
+              Our adventure sessions are built around movement and laughter—less posing, more story—so the pictures
+              feel like the day itself.
+            </p>
+            <div style="display:flex; gap:10px; margin-top:10px;">
+              <a class="btn" href="/book.html">Book an Adventure</a>
+              <a class="btn alt" href="/contact.html">Ask a Question</a>
+            </div>
+          </div>
+          <div>
+            <p style="margin:0">
+              We started before dawn, coffee steaming in the cool air, and reached the ridge as the sky softened from
+              slate to peach. The grass leaned with the wind, clouds slipped along the valleys, and the Smokies did what
+              they always do—turned every small moment into something cinematic. We walked, we laughed, we warmed our hands,
+              then let the morning unfold: twirls in the tall grass, a quiet pause facing the mountains, and the kind of
+              frames you only get when the sun breaks the horizon.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAROUSEL -->
+    <section>
+      <div class="container">
+        <figure class="carousel" id="adv-carousel"
+          data-images='[
+            "/pictures/andrewsBaldPics/E26A1013.jpg",
+            "/pictures/andrewsBaldPics/E26A1022.jpg",
+            "/pictures/andrewsBaldPics/E26A1033.jpg",
+            "/pictures/andrewsBaldPics/E26A1045.jpg",
+            "/pictures/andrewsBaldPics/E26A1062.jpg",
+            "/pictures/andrewsBaldPics/E26A1063-2.jpg",
+            "/pictures/andrewsBaldPics/E26A1087.jpg",
+            "/pictures/andrewsBaldPics/E26A1094.jpg",
+            "/pictures/andrewsBaldPics/E26A1095.jpg",
+            "/pictures/andrewsBaldPics/E26A1098.jpg"
+          ]'>
+          <img id="adv-frame" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Adventure gallery slide" />
+          <div class="dots" id="adv-dots" aria-label="Adventure slides" role="tablist"></div>
+          <button class="nav prev" type="button" aria-label="Previous slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+          </button>
+          <button class="nav next" type="button" aria-label="Next slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </figure>
+      </div>
+    </section>
+
+    <!-- FIELD NOTES -->
+    <section class="notes">
+      <div class="container">
+        <div class="eyebrow">Field notes</div>
+        <div class="grid">
+          <div class="note">
+            <h3>Best light</h3>
+            <p>Sunrise or late golden hour keeps the mountains soft and the meadow glowing. Morning usually brings calmer trails and fresher air.</p>
+          </div>
+          <div class="note">
+            <h3>Move-friendly wardrobe</h3>
+            <p>Layers and textures photograph beautifully in the wind. Comfortable shoes and hands-free bags keep us nimble on the trail.</p>
+          </div>
+          <div class="note">
+            <h3>Weather = mood</h3>
+            <p>Fog, sun, clouds—every scenario tells a different story here. We’ll watch the forecast and adjust as needed for the best experience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA (pricing after consultation) -->
+    <section class="cta">
+      <div class="container row">
+        <p class="lead" style="margin:0">Ready to plan your Smokies adventure?</p>
+        <div style="display:flex; gap:10px;">
+          <a class="btn" href="/book.html">Book an Adventure</a>
+          <a class="btn alt" href="/contact.html">Start a Consultation</a>
+        </div>
+        <small>Pricing is provided after consultation to tailor coverage, timing, and hiking logistics.</small>
+      </div>
+    </section>
+  </main>
+
+  <!-- Shared Footer -->
+  <div data-include="/partials/footer.html"></div>
+  <script src="/assets/include.js?v=nav-5" defer></script>
+
+  <!-- Simple carousel logic (glass diamonds + diamond arrows) -->
+  <script>
+    (function(){
+      const figure = document.getElementById('adv-carousel');
+      if(!figure) return;
+
+      let images = [];
+      try { images = JSON.parse(figure.getAttribute('data-images') || '[]'); } catch {}
+      if(!images.length) return;
+
+      const frame = document.getElementById('adv-frame');
+      const dotsWrap = document.getElementById('adv-dots');
+      const prev = figure.querySelector('.prev');
+      const next = figure.querySelector('.next');
+
+      let i = 0;
+
+      // Build dots
+      const dots = images.map((_, idx) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('role','tab');
+        b.setAttribute('aria-label','Go to slide ' + (idx + 1));
+        b.addEventListener('click', () => show(idx));
+        dotsWrap.appendChild(b);
+        return b;
+      });
+
+      function paint(){
+        frame.src = images[i];
+        dots.forEach((d, idx) => {
+          d.classList.toggle('is-active', idx === i);
+          d.setAttribute('aria-selected', idx === i ? 'true' : 'false');
+        });
+      }
+      function show(n){
+        i = (n + images.length) % images.length;
+        paint();
+      }
+      prev.addEventListener('click', () => show(i - 1));
+      next.addEventListener('click', () => show(i + 1));
+
+      // Init
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => paint());
+      } else {
+        window.addEventListener('load', paint);
+      }
+    })();
+  </script>
+</body>
+</html>
