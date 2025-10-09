@@ -88,11 +88,12 @@
     .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(8px,1.6vw,14px) }
     .grid img{ border-radius:0 }
 
-    /* Packages (no hard pricing) */
+    /* Packages (consultation pricing) */
     .packages{ padding:clamp(20px,6vw,50px) 0 }
     .pack{ background:#fff; border:1px solid var(--line); padding:22px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .pack h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:22px }
     .pack ul{ margin:10px 0 0; padding-left:18px }
+    .note{ color:#6e6a62; font-size:15px; margin:8px 0 0 }
 
     /* Testimonials */
     .quotes{ padding:clamp(20px,6vw,50px) 0 }
@@ -119,7 +120,7 @@
     }
   </style>
 
-  <!-- Schema.org: Service -->
+  <!-- Schema.org: Service (no fixed prices; price-on-request via description) -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -127,16 +128,7 @@
     "name":"Brand Photography",
     "provider":{"@type":"LocalBusiness","name":"Rachel Barton Photography"},
     "areaServed":"Sarasota, FL and Florida’s Gulf Coast",
-    "description":"Strategy-first brand photography producing on-message, on-brand image libraries for websites, social, and ads.",
-    "hasOfferCatalog":{
-      "@type":"OfferCatalog",
-      "name":"Brand Photography Packages",
-      "itemListElement":[
-        {"@type":"Offer","name":"Essentials Session","description":"Focused 60–90min shoot, 1–2 looks"},
-        {"@type":"Offer","name":"Half-Day Content Library","description":"3–4 hours, multiple looks & locations"},
-        {"@type":"Offer","name":"Launch Day Coverage","description":"Event + story coverage for launches & activations"}
-      ]
-    }
+    "description":"Strategy-first brand photography producing on-message, on-brand image libraries for websites, social, and ads. Pricing is shared after a brief consultation to tailor scope."
   }
   </script>
 </head>
@@ -158,7 +150,7 @@
           </p>
           <div style="display:flex; gap:12px; margin-top:14px;">
             <a class="btn" href="/book.html">Book a Branding Session</a>
-            <a class="btn alt" href="#packages">View Packages</a>
+            <a class="btn alt" href="/contact.html">Request Pricing</a>
           </div>
         </div>
         <figure class="hero-fig">
@@ -227,11 +219,12 @@
       </div>
     </section>
 
-    <!-- PACKAGES -->
+    <!-- PACKAGES (pricing after consult) -->
     <section class="packages" id="packages">
       <div class="container">
         <div class="eyebrow">Packages</div>
         <h2 class="h1" style="font-size:clamp(24px,3.6vw,36px)">Choose your session</h2>
+        <p class="note">Pricing is shared after a quick consultation so we can tailor scope, locations, and deliverables to your goals.</p>
         <div class="cards">
           <div class="card pack">
             <h3>Essentials Session</h3>
@@ -241,7 +234,7 @@
               <li>1–2 looks, headshots + lifestyle</li>
               <li>30+ edited images, web & hi-res</li>
             </ul>
-            <div style="margin-top:12px;"><a class="btn" href="/book.html">Book Essentials</a></div>
+            <div style="margin-top:12px;"><a class="btn alt" href="/contact.html">Request Pricing</a></div>
           </div>
           <div class="card pack">
             <h3>Half-Day Content Library</h3>
@@ -251,7 +244,7 @@
               <li>Product, process, and team coverage</li>
               <li>90+ edited images with crops</li>
             </ul>
-            <div style="margin-top:12px;"><a class="btn" href="/book.html">Start Your Library</a></div>
+            <div style="margin-top:12px;"><a class="btn alt" href="/contact.html">Request Pricing</a></div>
           </div>
           <div class="card pack">
             <h3>Launch Day Coverage</h3>
@@ -261,7 +254,7 @@
               <li>Detail, behind-the-scenes, portraits</li>
               <li>Fast web set for same-week posts</li>
             </ul>
-            <div style="margin-top:12px;"><a class="btn" href="/book.html">Reserve a Launch</a></div>
+            <div style="margin-top:12px;"><a class="btn alt" href="/contact.html">Request Pricing</a></div>
           </div>
         </div>
       </div>
@@ -304,7 +297,7 @@
         <p class="lead" style="margin:0">Ready to look like your brand everywhere you show up?</p>
         <div style="display:flex; gap:10px;">
           <a class="btn" href="/book.html">Book Your Session</a>
-          <a class="btn alt" href="/contact.html">Ask a Question</a>
+          <a class="btn alt" href="/contact.html">Request Pricing</a>
         </div>
       </div>
     </section>
