@@ -93,8 +93,29 @@
       outline:none;
     }
 
-    /* Auto-span class */
-    details.span-below-photo{ grid-column:1 / -1; }
+    /* ===== Waterflow splitter styles (revised: layout-safe, no overlay) ===== */
+    details.is-split{
+      overflow:hidden;                 /* hides the clipped bottom in left column */
+      border-bottom:0;                 /* bottom border is drawn by the ghost slice */
+    }
+    .flow-under{
+      grid-column:1 / -1;              /* runs full width under the photo */
+      height:var(--cut,0px);           /* exactly the under-photo portion */
+      pointer-events:none;             /* mirror only */
+      overflow:hidden;
+      z-index:0;
+    }
+    .flow-under details{
+      /* shift the mirror up so only the bottom portion shows */
+      transform:translateY(calc(-1 * (var(--bar-h,0px) - var(--cut,0px))));
+      border-top:1px solid var(--line);
+      border-right:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      border-left:1px solid var(--line);
+      box-shadow:var(--shadow);
+      background:var(--paper);
+    }
+    .flow-under summary{ display:none } /* mirror: no header, only content */
 
     /* Everything after the image goes full-width */
     .after-photo{ grid-column:1 / -1; display:grid; gap:12px }
@@ -105,6 +126,8 @@
       .faq-photo{ grid-column:auto; grid-row:auto; order:3 }
       details{ grid-column:auto }
       .after-photo{ grid-column:auto }
+      .flow-under{ display:none }
+      details.is-split{ overflow:visible; border-bottom:1px solid var(--line) }
     }
   </style>
 </head>
@@ -231,38 +254,80 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Auto-span: two-pass measure so it collapses back up when cards close -->
+  <!-- Waterflow under-photo splitter (revised) -->
   <script>
     (function(){
       const photo = document.querySelector('.faq-photo');
-      const bars  = Array.from(document.querySelectorAll('.faq > details')); // only left-column bars
-
+      const bars  = Array.from(document.querySelectorAll('.faq > details')); // only those beside the photo
       if (!photo || !bars.length) return;
 
-      function absTop(el){ const r = el.getBoundingClientRect(); return r.top + window.scrollY; }
-      function absBottom(el){ const r = el.getBoundingClientRect(); return r.bottom + window.scrollY; }
+      const abs = el => {
+        const r = el.getBoundingClientRect();
+        const y = r.top + window.scrollY;
+        return { top: y, bottom: y + r.height, height: r.height };
+      };
 
-      function updateSpans(){
-        const photoBottom = absBottom(photo);
+      function removeGhost(bar){
+        bar.classList.remove('is-split');
+        bar.style.removeProperty('--cut');
+        bar.style.removeProperty('max-height');
+        bar.style.overflow = '';
+        const ghost = bar.nextElementSibling;
+        if (ghost && ghost.classList.contains('flow-under')) ghost.remove();
+      }
 
-        // 1) remove spans so we measure natural positions
-        bars.forEach(d => d.classList.remove('span-below-photo'));
+      function ensureGhostAfter(bar){
+        let ghost = bar.nextElementSibling;
+        if (!(ghost && ghost.classList.contains('flow-under'))){
+          ghost = document.createElement('div');
+          ghost.className = 'flow-under';
+          bar.insertAdjacentElement('afterend', ghost);
+        }
+        return ghost;
+      }
 
-        // force a reflow to ensure positions are current
-        void document.body.offsetHeight;
+      function mirrorInto(ghost, bar, cut, barH){
+        ghost.style.setProperty('--cut', cut + 'px');
+        ghost.style.setProperty('--bar-h', barH + 'px');
+        ghost.innerHTML = '';
+        const mirror = bar.cloneNode(true);
+        // reflect open state
+        if (bar.hasAttribute('open')) mirror.setAttribute('open',''); else mirror.removeAttribute('open');
+        ghost.appendChild(mirror);
+      }
 
-        // 2) add span where needed
-        bars.forEach(d => {
-          const top = absTop(d);
-          if (top >= photoBottom - 1) d.classList.add('span-below-photo');
+      function update(){
+        const p = abs(photo);
+
+        bars.forEach(bar => {
+          // Reset to natural layout
+          removeGhost(bar);
+
+          const r = abs(bar);
+          const overlaps = (r.top < p.bottom) && (r.bottom > p.bottom);
+          if (!overlaps) return;
+
+          const cut = Math.max(0, r.bottom - p.bottom);
+          if (cut < 1) return;
+
+          // Top slice stays in the left column
+          bar.classList.add('is-split');
+          bar.style.maxHeight = (r.height - cut) + 'px';
+          bar.style.overflow = 'hidden';
+          bar.style.setProperty('--cut', cut + 'px');
+
+          // Bottom slice flows under the photo at full width
+          const ghost = ensureGhostAfter(bar);
+          mirrorInto(ghost, bar, cut, r.height);
         });
       }
 
-      // Recalculate on open/close, resize, load, and after fonts settle
-      bars.forEach(d => d.addEventListener('toggle', updateSpans));
-      window.addEventListener('resize', () => requestAnimationFrame(updateSpans));
-      window.addEventListener('load', updateSpans);
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateSpans);
+      bars.forEach(d => d.addEventListener('toggle', () => requestAnimationFrame(update)));
+      window.addEventListener('resize',  () => requestAnimationFrame(update));
+      window.addEventListener('scroll',  () => requestAnimationFrame(update));
+      window.addEventListener('load',    update);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
+      setTimeout(update, 0);
     })();
   </script>
 </body>
