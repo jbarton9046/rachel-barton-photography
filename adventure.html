@@ -84,14 +84,23 @@
     .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.2vw,20px); color:#58554e; max-width:68ch }
+
+    /* === REPLACED: Button style to match about.html exactly === */
     .btn{
-      display:inline-flex; align-items:center; gap:10px; font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
-      font-weight:700; background:#fff; color:#3f3a33; border:1px solid rgba(63,58,51,.85);
-      padding:12px 18px; box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33;
+      font-weight:700; text-decoration:none; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
-    .btn:hover{ transform:translateY(-1px); box-shadow:0 10px 22px rgba(0,0,0,.08); border-color:var(--accent); color:var(--accent) }
-    .btn.alt{ background:linear-gradient(180deg, #fff, #f8f5ee); border-color:rgba(63,58,51,.3) }
+    .btn:hover, .btn:focus-visible{
+      background:#fff;
+      border-color:#dcd4c3; color:var(--accent);
+      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
+      outline:none;
+    }
+    /* Keep .alt, but style same as base outlined button */
+    .btn.alt{ background:#fff; border-color:var(--line); }
 
     /* STORY */
     .story{ padding:clamp(16px,5vw,44px) 0 }
@@ -299,7 +308,7 @@
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => paint());
       } else {
-        window.addEventListener('load', paint);
+        window.addEventListener('load', paint());
       }
     })();
   </script>
