@@ -90,7 +90,7 @@
     .card h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 8px; font-size:22px }
     .card p{ margin:0 }
 
-    /* TILE STRIP (embedded like branding’s mini-portfolio but with interactive tiles) */
+    /* TILE STRIP */
     .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,1.6vw,16px) }
     @media (max-width:960px){ .mosaic{ grid-template-columns:1fr 1fr } }
     @media (max-width:640px){ .mosaic{ grid-template-columns:1fr } }
@@ -99,14 +99,14 @@
       margin:0; position:relative; aspect-ratio:4/5; overflow:hidden;
       border-radius:0; border:1px solid var(--line); background:#ddd;
       box-shadow:0 6px 18px rgba(0,0,0,.06); isolation:isolate;
-      transition:transform .2s ease, box-shadow .2s ease;
+      transition:transform .2s ease, box-shadow .2s ease; cursor:pointer;
     }
     figure.tile:hover{ transform:translateY(-2px) }
     .tile-media{
       position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;
     }
 
-    /* Diamonds (pagination) — small & translucent, top center (branding look) */
+    /* Diamonds (pagination) */
     .tile-dots{
       position:absolute; left:50%; transform:translateX(-50%); top:12px; z-index:4;
       display:flex; gap:var(--dot-gap); pointer-events:auto;
@@ -121,7 +121,7 @@
     .tile-dots button:hover{ transform:rotate(45deg) scale(1.06) }
     .tile-dots button.is-active{ background:rgba(232,223,201,.45); border-color:var(--accent) }
 
-    /* Arrow controls — “glass diamond” buttons (branding) */
+    /* Arrow controls */
     .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       width:var(--arrow-size); height:var(--arrow-size);
@@ -138,7 +138,7 @@
     }
     .tile-nav svg{ width:22px; height:22px; position:relative; z-index:1 }
 
-    /* BELOW-TILES EXPLAINER (table-style but on-brand) */
+    /* BELOW-TILES EXPLAINER */
     .explain{ padding:clamp(16px,5vw,40px) 0 0 }
     .explain .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
     .explain .item{ background:#fff; border:1px solid var(--line); padding:18px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
@@ -147,7 +147,7 @@
     .explain ul{ margin:0; padding-left:18px }
     .explain .btns{ display:flex; gap:10px; margin-top:10px; flex-wrap:wrap }
 
-    /* Packages (Mini / Standard / Deluxe) */
+    /* Packages */
     .packages{ padding:clamp(24px,6vw,56px) 0 }
     .pack{ background:#fff; border:1px solid var(--line); padding:22px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .pack h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:22px }
@@ -171,7 +171,7 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <!-- HERO (branding style) -->
+    <!-- HERO -->
     <section class="hero">
       <div class="container hero-wrap">
         <div>
@@ -192,7 +192,7 @@
       </div>
     </section>
 
-    <!-- VALUE PROPS (refreshed copy) -->
+    <!-- VALUE PROPS -->
     <section class="value">
       <div class="container">
         <div class="cards">
@@ -212,14 +212,14 @@
       </div>
     </section>
 
-    <!-- GALLERIES (tiles styled exactly like branding) -->
+    <!-- GALLERIES (tiles) -->
     <section class="value" aria-labelledby="galleries-title">
       <div class="container">
         <div class="eyebrow">Galleries</div>
         <h2 class="h1" style="font-size:clamp(24px,3.6vw,36px)" id="galleries-title">Explore the feel of each session</h2>
         <div class="mosaic">
           <!-- FAMILY (Family + Sibling combined; 10 random) -->
-          <figure class="tile" id="tile-family"
+          <figure class="tile" id="tile-family" data-link="/galleries/family-portrait.html"
             data-all-images='[
               "/pictures/familyPortrait/image1.jpg",
               "/pictures/familyPortrait/image2.jpg",
@@ -267,7 +267,7 @@
           </figure>
 
           <!-- ADVENTURE (andrewsBaldPics; 10 total available) -->
-          <figure class="tile" id="tile-adventure"
+          <figure class="tile" id="tile-adventure" data-link="/adventure.html"
             data-all-images='[
               "/pictures/andrewsBaldPics/E26A1013.jpg",
               "/pictures/andrewsBaldPics/E26A1022.jpg",
@@ -291,7 +291,7 @@
           </figure>
 
           <!-- FRIEND (10 random from larger set) -->
-          <figure class="tile" id="tile-friend"
+          <figure class="tile" id="tile-friend" data-link="/galleries/friend-portrait.html"
             data-all-images='[
               "/pictures/friendPortraitGal/E26A1852.jpg",
               "/pictures/friendPortraitGal/E26A1931%20(1).jpg",
@@ -334,7 +334,7 @@
                 <li>Timeless edits and easy delivery</li>
               </ul>
               <div class="btns">
-                <a class="btn alt" href="/action.html#family">View Family Gallery</a>
+                <a class="btn alt" href="/galleries/family-portrait.html">View Family Gallery</a>
               </div>
             </div>
             <div class="item">
@@ -346,7 +346,7 @@
                 <li>Cinematic, editorial energy</li>
               </ul>
               <div class="btns">
-                <a class="btn alt" href="/action.html#adventure">View Adventure Gallery</a>
+                <a class="btn alt" href="/adventure.html">View Adventure Gallery</a>
               </div>
             </div>
             <div class="item">
@@ -358,7 +358,7 @@
                 <li>Natural direction—no stiff posing</li>
               </ul>
               <div class="btns">
-                <a class="btn alt" href="/action.html#friend">View Friend Gallery</a>
+                <a class="btn alt" href="/galleries/friend-portrait.html">View Friend Gallery</a>
               </div>
             </div>
           </div>
@@ -367,7 +367,7 @@
       </div>
     </section>
 
-    <!-- PACKAGES: Mini / Standard / Deluxe with durations + prices -->
+    <!-- PACKAGES -->
     <section class="packages" id="packages">
       <div class="container">
         <div class="eyebrow">Packages</div>
@@ -421,7 +421,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Tiles: exactly 10 random images, diamond dots + diamond arrows -->
+  <!-- Tiles: exactly 10 random images, diamond dots + diamond arrows + click-through -->
   <script>
     (function(){
       const MAX_IMGS = 10;
@@ -440,6 +440,7 @@
         const dotsWrap= tile.querySelector('.tile-dots');
         const prevBtn = tile.querySelector('.tile-prev');
         const nextBtn = tile.querySelector('.tile-next');
+        const link    = tile.getAttribute('data-link');
 
         let all = [];
         try { all = JSON.parse(tile.getAttribute('data-all-images') || '[]'); } catch{}
@@ -476,6 +477,12 @@
         // Arrows
         prevBtn?.addEventListener('click', e=>{ e.stopPropagation(); show(idx-1); });
         nextBtn?.addEventListener('click', e=>{ e.stopPropagation(); show(idx+1); });
+
+        // Click-through anywhere on the tile (except controls)
+        tile.addEventListener('click', (e)=>{
+          if (e.target.closest('.tile-nav') || e.target.closest('.tile-dots')) return;
+          if (link) window.location.href = link;
+        });
 
         // Init
         if (document.fonts && document.fonts.ready) {
