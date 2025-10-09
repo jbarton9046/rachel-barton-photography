@@ -120,8 +120,27 @@
     .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .blurb h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:20px }
     .blurb p{ margin:0 0 10px; color:#5b574f }
-    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; background:#fff; color:#3f3a33; border:1px solid rgba(63,58,51,.85); padding:10px 16px; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06); transition:color .15s ease, border-color .15s ease, transform .15s ease, box-shadow .15s ease; }
-    .btn:hover{ color:var(--accent); border-color:var(--accent); transform:translateY(-1px); box-shadow:0 10px 22px rgba(0,0,0,.08); }
+
+    /* Buttons — unified style */
+    .btn{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 16px;
+      background:#fff; color:#3f3a33;
+      border:1px solid var(--line);
+      border-radius:0;
+      font-weight:700; text-decoration:none;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease, border-color .15s ease,
+                 box-shadow .15s ease, transform .15s ease, color .15s ease;
+    }
+    .btn:hover, .btn:focus-visible{
+      background:#fff;
+      border-color:#dcd4c3; color:var(--accent);
+      box-shadow:0 10px 24px rgba(0,0,0,.08);
+      transform:translateY(-1px);
+      outline:none;
+    }
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; }
     footer .container{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; }
