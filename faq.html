@@ -93,7 +93,7 @@
       outline:none;
     }
 
-    /* Auto-span class */
+    /* Make a bar span both columns when it needs to run under the photo */
     details.span-below-photo{ grid-column:1 / -1; }
 
     /* Everything after the image goes full-width */
@@ -231,38 +231,42 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Auto-span: two-pass measure so it collapses back up when cards close -->
+  <!-- Overlap-aware auto-span: only the part below the photo goes full width -->
   <script>
+    // If a details bar overlaps the photo's bottom (even partially),
+    // make it full-width so the lower portion flows under the photo.
     (function(){
       const photo = document.querySelector('.faq-photo');
-      const bars  = Array.from(document.querySelectorAll('.faq > details')); // only left-column bars
-
+      const bars  = Array.from(document.querySelectorAll('.faq > details')); // only those beside the photo
       if (!photo || !bars.length) return;
 
-      function absTop(el){ const r = el.getBoundingClientRect(); return r.top + window.scrollY; }
-      function absBottom(el){ const r = el.getBoundingClientRect(); return r.bottom + window.scrollY; }
+      const abs = el => {
+        const r = el.getBoundingClientRect();
+        const y = r.top + window.scrollY;
+        return { top: y, bottom: y + r.height };
+      };
 
       function updateSpans(){
-        const photoBottom = absBottom(photo);
-
-        // 1) remove spans so we measure natural positions
-        bars.forEach(d => d.classList.remove('span-below-photo'));
-
-        // force a reflow to ensure positions are current
-        void document.body.offsetHeight;
-
-        // 2) add span where needed
+        const p = abs(photo);
         bars.forEach(d => {
-          const top = absTop(d);
-          if (top >= photoBottom - 1) d.classList.add('span-below-photo');
+          const r = abs(d);
+          const overlaps = (r.top < p.bottom) && (r.bottom > p.bottom);   // crosses the boundary
+          const below    = (r.top >= p.bottom - 1);                       // entirely below
+          if (overlaps || below){
+            d.classList.add('span-below-photo');
+          } else {
+            d.classList.remove('span-below-photo');
+          }
         });
       }
 
-      // Recalculate on open/close, resize, load, and after fonts settle
+      // Recalculate on open/close, resize, load, scroll, and small async nudge
       bars.forEach(d => d.addEventListener('toggle', updateSpans));
       window.addEventListener('resize', () => requestAnimationFrame(updateSpans));
+      window.addEventListener('scroll',  () => requestAnimationFrame(updateSpans));
       window.addEventListener('load', updateSpans);
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateSpans);
+      document.addEventListener('DOMContentLoaded', updateSpans);
+      setTimeout(updateSpans, 0);
     })();
   </script>
 </body>
