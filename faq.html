@@ -18,12 +18,12 @@
   <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts -->
+  <!-- Fonts (match the rest of the site) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Shared layout -->
+  <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
   <style>
@@ -32,22 +32,31 @@
       --accent:#A88A5A; --line:#e9e6df; --ring:rgba(168,138,90,.25);
       --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1100px;
-      --nav-gap-top:16px; --nav-gap-bottom:40px;
+
+      /* Universal navbar spacing (same across site) */
+      --nav-gap-top: 16px;
+      --nav-gap-bottom: 40px;
     }
-    .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
+
+    /* Normalize universal nav spacing; all other nav styles come from layout.css */
+    .topbar{
+      padding-top: var(--nav-gap-top) !important;
+      padding-bottom: var(--nav-gap-bottom) !important;
+    }
 
     *{box-sizing:border-box}
     html,body{
-      margin:0; background:var(--bg); color:var(--ink);
+      margin:0;background:var(--bg);color:var(--ink);
       font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-      line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
     }
-    a{ color:inherit; text-decoration:none; transition:color .15s ease }
-    a:hover, a:focus-visible{ color:var(--accent); outline:none }
-    img{ max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06) }
-    .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
+    a{color:inherit;text-decoration:none;transition:color .15s ease}
+    a:hover,a:focus-visible{color:var(--accent);outline:none}
+    img{max-width:100%;height:auto;display:block;border-radius:0;border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gap)}
 
-    /* Layout */
+    /* ===== FAQ layout ===== */
     .faq{
       display:grid;
       grid-template-columns:minmax(0,1fr) minmax(260px,420px);
@@ -55,30 +64,31 @@
       margin:18px 0 40px;
       align-items:start;
     }
-    .faq-intro{ grid-column:1 }
+
+    .faq-intro{grid-column:1}
     .faq-intro h1{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-size:clamp(32px,5vw,52px); line-height:1.1; margin:.25em 0 .2em;
+      font-size:clamp(32px,5vw,52px);line-height:1.1;margin:.25em 0 .2em
     }
-    .lead{ color:#635f57; margin:0 0 18px }
+    .lead{color:#635f57;margin:0 0 18px}
 
     .faq-photo{
       grid-column:2; grid-row:1 / span 6;
       background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:10px;
       align-self:start;
     }
-    .faq-photo img{ aspect-ratio:4/5; object-fit:cover; background:#fff }
-    .faq-photo figcaption{ margin-top:8px; font-size:13px; color:#6e6a62; text-align:center }
+    .faq-photo img{aspect-ratio:4/5;object-fit:cover;background:#fff}
+    .faq-photo figcaption{margin-top:8px;font-size:13px;color:#6e6a62;text-align:center}
 
-    /* Bars */
-    details{ background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:0; grid-column:1 }
-    summary{ list-style:none; cursor:pointer; padding:16px 18px; user-select:none; font-weight:700; display:flex; gap:12px; transition:color .15s ease }
-    summary::-webkit-details-marker{ display:none }
-    summary:hover, summary:focus-visible{ color:var(--accent) }
-    .qmark{ font-family:"Playfair Display",serif; font-size:20px; line-height:1; color:#b7a486; margin-top:2px }
-    .answer{ padding:0 18px 16px; color:#4a463f }
+    /* Bars that sit next to the photo */
+    details{background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);padding:0;grid-column:1}
+    summary{list-style:none;cursor:pointer;padding:16px 18px;user-select:none;font-weight:700;display:flex;gap:12px;transition:color .15s ease}
+    summary::-webkit-details-marker{display:none}
+    summary:hover,summary:focus-visible{color:var(--accent);outline:none}
+    .qmark{font-family:"Playfair Display",serif;font-size:20px;line-height:1;color:#b7a486;margin-top:2px}
+    .answer{padding:0 18px 16px;color:#4a463f}
 
-    /* Button (site-wide outlined style) */
+    /* === Button updated to match about.html exactly === */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
@@ -88,64 +98,48 @@
       transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
     .btn:hover, .btn:focus-visible{
-      background:#fff; border-color:#dcd4c3; color:var(--accent);
+      background:#fff;
+      border-color:#dcd4c3; color:var(--accent);
       box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
       outline:none;
     }
 
-    /* ===== Waterflow splitter styles (revised: layout-safe, no overlay) ===== */
-    details.is-split{
-      overflow:hidden;                 /* hides the clipped bottom in left column */
-      border-bottom:0;                 /* bottom border is drawn by the ghost slice */
-    }
-    .flow-under{
-      grid-column:1 / -1;              /* runs full width under the photo */
-      height:var(--cut,0px);           /* exactly the under-photo portion */
-      pointer-events:none;             /* mirror only */
-      overflow:hidden;
-      z-index:0;
-    }
-    .flow-under details{
-      /* shift the mirror up so only the bottom portion shows */
-      transform:translateY(calc(-1 * (var(--bar-h,0px) - var(--cut,0px))));
-      border-top:1px solid var(--line);
-      border-right:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      border-left:1px solid var(--line);
-      box-shadow:var(--shadow);
-      background:var(--paper);
-    }
-    .flow-under summary{ display:none } /* mirror: no header, only content */
+    /* When a bar drops below the photo, it will span both columns */
+    details.span-below-photo{ grid-column:1 / -1; }
 
     /* Everything after the image goes full-width */
-    .after-photo{ grid-column:1 / -1; display:grid; gap:12px }
-    .after-photo > details{ grid-column:1 / -1 }
+    .after-photo{grid-column:1 / -1;display:grid;gap:12px}
+    .after-photo > details{grid-column:1 / -1}
 
     @media (max-width:900px){
-      .faq{ grid-template-columns:1fr }
-      .faq-photo{ grid-column:auto; grid-row:auto; order:3 }
-      details{ grid-column:auto }
-      .after-photo{ grid-column:auto }
-      .flow-under{ display:none }
-      details.is-split{ overflow:visible; border-bottom:1px solid var(--line) }
+      .faq{grid-template-columns:1fr}
+      .faq-photo{grid-column:auto;grid-row:auto;order:3}
+      details{grid-column:auto}
+      .after-photo{grid-column:auto}
     }
   </style>
 </head>
 <body>
+
+  <!-- Universal navbar pulled from the shared partial -->
   <div data-include="/partials/topnav.html"></div>
 
   <main class="container">
     <section class="faq" aria-label="FAQ">
+
+      <!-- Left: Title/lead (top-aligned with the photo) -->
       <div class="faq-intro">
         <h1>Frequently Asked Questions</h1>
         <p class="lead">Quick answers about booking, sessions, styling, weather plans, delivery, and more.</p>
       </div>
 
+      <!-- Right: Photo card -->
       <figure class="faq-photo">
         <img src="/pictures/heroImage.jpg" alt="Family at the beach during golden hour">
         <figcaption>Sunset session on Siesta Key</figcaption>
       </figure>
 
+      <!-- FAQ bars that “butt up” beside the image -->
       <details>
         <summary><span class="qmark">Q</span> How do I book?</summary>
         <div class="answer">
@@ -186,6 +180,7 @@
         </div>
       </details>
 
+      <!-- Everything below the image spans the full width -->
       <div class="after-photo">
         <details>
           <summary><span class="qmark">Q</span> What should we wear?</summary>
@@ -251,83 +246,48 @@
     </section>
   </main>
 
+  <!-- Shared footer (site-wide via partial) -->
   <div data-include="/partials/footer.html"></div>
+
+  <!-- include shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Waterflow under-photo splitter (revised) -->
+  <!-- Auto-span logic: any details that sit at/below the photo's bottom will span both columns -->
   <script>
     (function(){
       const photo = document.querySelector('.faq-photo');
-      const bars  = Array.from(document.querySelectorAll('.faq > details')); // only those beside the photo
+      const bars  = Array.from(document.querySelectorAll('.faq > details')); // only the ones beside the photo
+
       if (!photo || !bars.length) return;
 
-      const abs = el => {
+      function absoluteTop(el){
         const r = el.getBoundingClientRect();
-        const y = r.top + window.scrollY;
-        return { top: y, bottom: y + r.height, height: r.height };
-      };
-
-      function removeGhost(bar){
-        bar.classList.remove('is-split');
-        bar.style.removeProperty('--cut');
-        bar.style.removeProperty('max-height');
-        bar.style.overflow = '';
-        const ghost = bar.nextElementSibling;
-        if (ghost && ghost.classList.contains('flow-under')) ghost.remove();
+        return r.top + window.scrollY;
+      }
+      function absoluteBottom(el){
+        const r = el.getBoundingClientRect();
+        return r.bottom + window.scrollY;
       }
 
-      function ensureGhostAfter(bar){
-        let ghost = bar.nextElementSibling;
-        if (!(ghost && ghost.classList.contains('flow-under'))){
-          ghost = document.createElement('div');
-          ghost.className = 'flow-under';
-          bar.insertAdjacentElement('afterend', ghost);
-        }
-        return ghost;
-      }
+      function updateSpans(){
+        const photoBottom = absoluteBottom(photo);
 
-      function mirrorInto(ghost, bar, cut, barH){
-        ghost.style.setProperty('--cut', cut + 'px');
-        ghost.style.setProperty('--bar-h', barH + 'px');
-        ghost.innerHTML = '';
-        const mirror = bar.cloneNode(true);
-        // reflect open state
-        if (bar.hasAttribute('open')) mirror.setAttribute('open',''); else mirror.removeAttribute('open');
-        ghost.appendChild(mirror);
-      }
-
-      function update(){
-        const p = abs(photo);
-
-        bars.forEach(bar => {
-          // Reset to natural layout
-          removeGhost(bar);
-
-          const r = abs(bar);
-          const overlaps = (r.top < p.bottom) && (r.bottom > p.bottom);
-          if (!overlaps) return;
-
-          const cut = Math.max(0, r.bottom - p.bottom);
-          if (cut < 1) return;
-
-          // Top slice stays in the left column
-          bar.classList.add('is-split');
-          bar.style.maxHeight = (r.height - cut) + 'px';
-          bar.style.overflow = 'hidden';
-          bar.style.setProperty('--cut', cut + 'px');
-
-          // Bottom slice flows under the photo at full width
-          const ghost = ensureGhostAfter(bar);
-          mirrorInto(ghost, bar, cut, r.height);
+        bars.forEach(d => {
+          const top = absoluteTop(d);
+          // If the top of this bar is at/under the bottom of the photo, span full width
+          if (top >= photoBottom - 1) {
+            d.classList.add('span-below-photo');
+          } else {
+            d.classList.remove('span-below-photo');
+          }
         });
       }
 
-      bars.forEach(d => d.addEventListener('toggle', () => requestAnimationFrame(update)));
-      window.addEventListener('resize',  () => requestAnimationFrame(update));
-      window.addEventListener('scroll',  () => requestAnimationFrame(update));
-      window.addEventListener('load',    update);
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
-      setTimeout(update, 0);
+      // Recalculate on open/close and on resize
+      bars.forEach(d => d.addEventListener('toggle', updateSpans));
+      window.addEventListener('resize', () => { requestAnimationFrame(updateSpans); });
+      window.addEventListener('load', updateSpans);
+      document.addEventListener('DOMContentLoaded', updateSpans);
     })();
   </script>
 </body>
