@@ -70,20 +70,23 @@
     textarea{min-height:140px; resize:vertical}
 
     .actions{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+
+    /* === BUTTON: exactly the same pill/outline style used on about.html === */
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-weight:700; letter-spacing:.02em;
-      background:#fff; color:#3f3a33;
-      border:1px solid rgba(63,58,51,.85);
-      padding:10px 16px; cursor:pointer;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:color .15s ease, border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33;
+      font-weight:700; text-decoration:none; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
+      cursor:pointer;
     }
     .btn:hover, .btn:focus-visible{
-      color:var(--accent); border-color:var(--accent);
-      transform:translateY(-1px); box-shadow:0 10px 22px rgba(0,0,0,.08); outline:none;
+      background:#fff;
+      border-color:#dcd4c3; color:var(--accent);
+      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
+      outline:none;
     }
+    /* ============================================ */
 
     /* Photos */
     .photos{display:grid; gap:var(--gap)}
