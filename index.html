@@ -36,7 +36,7 @@
     /* Lock the page to one fixed screen; no scrollbars */
     html, body{
       height:100%;
-      overflow:hidden;            /* no vertical or horizontal scrolling */
+      overflow:hidden;
       margin:0;
       background:var(--bg);
       color:var(--ink);
@@ -52,9 +52,8 @@
     /* HERO fills the entire viewport and is fixed behind everything */
     .hero{
       position:fixed;
-      inset:0; /* top:0; right:0; bottom:0; left:0 */
+      inset:0;
       background:url('pictures/oonaIvy/E26A0671.jpg') center 15% / cover no-repeat fixed;
-      /* no margins or 100vw tricks -> prevents stray scrollbars */
     }
 
     /* overlay navbar (universal, injected) */
@@ -100,20 +99,24 @@
     .cta{
       display:flex; gap:22px; margin:28px 0; flex-wrap:wrap; justify-content:center;
     }
-    /* Pills: transparent; gold hover for text + outline only */
+
+    /* Buttons — unified site style */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      background:transparent;            /* no fill */
-      border:1px solid rgba(63,58,51,.9);
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
       padding:12px 22px;
-      font-size:clamp(16px,1.55vw,18px);
-      color:#3f3a33; font-weight:700; cursor:pointer; border-radius:0;
-      box-shadow:none;
-      transition:color .15s ease,border-color .15s ease,transform .15s ease;
+      background:#fff; color:#3f3a33;
+      border:1px solid var(--line);
+      border-radius:0;
+      font-weight:700; text-decoration:none;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease, border-color .15s ease,
+                 box-shadow .15s ease, transform .15s ease, color .15s ease;
     }
     .btn:hover, .btn:focus-visible{
-      color:var(--accent);
-      border-color:var(--accent);
+      background:#fff;
+      border-color:#dcd4c3; color:var(--accent);
+      box-shadow:0 10px 24px rgba(0,0,0,.08);
       transform:translateY(-1px);
       outline:none;
     }
