@@ -34,8 +34,8 @@
       --gap:clamp(16px,3vw,32px); --maxw:1100px;
 
       /* Universal navbar spacing (same across site) */
-      --nav-gap-top: 16px;      /* distance from viewport top to TOP of nav links */
-      --nav-gap-bottom: 40px;   /* breathing room below nav */
+      --nav-gap-top: 16px;
+      --nav-gap-bottom: 40px;
     }
 
     /* Normalize universal nav spacing; all other nav styles come from layout.css */
@@ -87,7 +87,25 @@
     summary:hover,summary:focus-visible{color:var(--accent);outline:none}
     .qmark{font-family:"Playfair Display",serif;font-size:20px;line-height:1;color:#b7a486;margin-top:2px}
     .answer{padding:0 18px 16px;color:#4a463f}
-    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;border:1px solid var(--line);padding:10px 16px;box-shadow:0 6px 18px rgba(0,0,0,.06);text-decoration:none}
+
+    /* === Button updated to match about.html exactly === */
+    .btn{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33;
+      font-weight:700; text-decoration:none; border-radius:0;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
+    }
+    .btn:hover, .btn:focus-visible{
+      background:#fff;
+      border-color:#dcd4c3; color:var(--accent);
+      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
+      outline:none;
+    }
+
+    /* When a bar drops below the photo, it will span both columns */
+    details.span-below-photo{ grid-column:1 / -1; }
 
     /* Everything after the image goes full-width */
     .after-photo{grid-column:1 / -1;display:grid;gap:12px}
@@ -233,5 +251,44 @@
 
   <!-- include shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
+
+  <!-- Auto-span logic: any details that sit at/below the photo's bottom will span both columns -->
+  <script>
+    (function(){
+      const photo = document.querySelector('.faq-photo');
+      const bars  = Array.from(document.querySelectorAll('.faq > details')); // only the ones beside the photo
+
+      if (!photo || !bars.length) return;
+
+      function absoluteTop(el){
+        const r = el.getBoundingClientRect();
+        return r.top + window.scrollY;
+      }
+      function absoluteBottom(el){
+        const r = el.getBoundingClientRect();
+        return r.bottom + window.scrollY;
+      }
+
+      function updateSpans(){
+        const photoBottom = absoluteBottom(photo);
+
+        bars.forEach(d => {
+          const top = absoluteTop(d);
+          // If the top of this bar is at/under the bottom of the photo, span full width
+          if (top >= photoBottom - 1) {
+            d.classList.add('span-below-photo');
+          } else {
+            d.classList.remove('span-below-photo');
+          }
+        });
+      }
+
+      // Recalculate on open/close and on resize
+      bars.forEach(d => d.addEventListener('toggle', updateSpans));
+      window.addEventListener('resize', () => { requestAnimationFrame(updateSpans); });
+      window.addEventListener('load', updateSpans);
+      document.addEventListener('DOMContentLoaded', updateSpans);
+    })();
+  </script>
 </body>
 </html>
