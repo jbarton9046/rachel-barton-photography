@@ -53,11 +53,6 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    /* crumb link */
-    .crumb{ font-size:14px; color:#6e6a62; margin:6px 0 8px }
-    .crumb a{ border-bottom:1px solid #dcd4c3; }
-    .crumb a:hover{ color:var(--accent); border-color:var(--accent); }
-
     /* --- BUTTONS: EXACT COPY OF about.html --- */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
@@ -153,11 +148,6 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <!-- Back to Galleries -->
-    <div class="container">
-      <p class="crumb"><a href="/galleries.html">← Back to Galleries</a></p>
-    </div>
-
     <!-- HERO -->
     <section class="hero">
       <div class="container hero-wrap">
@@ -346,7 +336,7 @@
       if(!grid) return;
 
       // Simple shuffle for variety across visits
-      for (let i = BRAND_IMAGES.length - 1; i > 0; i++) {
+      for (let i = BRAND_IMAGES.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [BRAND_IMAGES[i], BRAND_IMAGES[j]] = [BRAND_IMAGES[j], BRAND_IMAGES[i]];
       }
