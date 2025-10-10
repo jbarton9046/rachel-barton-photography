@@ -88,6 +88,10 @@
     /* keep .btn.alt present but identical to .btn (no gradient) */
     .btn.alt{ background:#fff; }
 
+    /* Small breadcrumb link */
+    .crumb{ font-size:14px; color:#7a766e; margin-bottom:6px }
+    .crumb a{ text-decoration:underline; text-underline-offset:3px }
+
     /* Hero (mirrors branding) */
     .hero{ padding:clamp(24px,6vw,56px) 0 }
     .hero-wrap{ display:grid; grid-template-columns: 1.1fr .9fr; gap:clamp(20px,4vw,40px); align-items:center }
@@ -195,6 +199,7 @@
     <section class="hero">
       <div class="container hero-wrap">
         <div>
+          <p class="crumb"><a href="/gallaries.html">← Back to Galleries</a></p>
           <div class="eyebrow">Portraits</div>
           <h1 class="h1">Clean, candid, true-to-life portraits you’ll be proud to share.</h1>
           <p class="lead">
