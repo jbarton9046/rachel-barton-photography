@@ -121,6 +121,23 @@
       outline:none;
     }
 
+    /* ======= Homepage override: make hero CTAs transparent ======= */
+    .hero .copy .btn{
+      background:transparent !important;
+      border:1px solid rgba(63,58,51,.9);
+      box-shadow:none;
+      backdrop-filter:none;
+    }
+    .hero .copy .btn:hover,
+    .hero .copy .btn:focus-visible{
+      background:transparent;
+      color:var(--accent);
+      border-color:var(--accent);
+      transform:translateY(-1px);
+      outline:none;
+    }
+    /* ============================================================= */
+
     .localities{ color:#5c5850; margin-top:6px; line-height:1.75 }
     .localities .dot::after{ content:" • "; color:#8a857a }
     .localities .dot:last-child::after{ content:"" }
