@@ -435,10 +435,26 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Tiles JS (preferred image first, rest shuffled) -->
+  <!-- Tiles JS (preferred image first, rest shuffled + focal points) -->
   <script>
     (function(){
       const MAX_IMGS = 10;
+
+      /* Per-image focal points (where the subject is).
+         Format: "x% y%" — lower y% lifts the crop upward.
+         Edit these values whenever you want to nudge the subject. */
+      const FOCALS = {
+        "/pictures/thirdTileGal/E26A2017.jpg":  "50% 38%",
+        "/pictures/thirdTileGal/E26A2022 (1).jpg": "50% 35%",
+        "/pictures/thirdTileGal/E26A2047-2.jpg": "50% 42%",
+        "/pictures/thirdTileGal/E26A2106.jpg":  "48% 40%",
+        "/pictures/thirdTileGal/E26A2245.jpg":  "50% 36%",
+        "/pictures/thirdTileGal/E26A2746.jpg":  "52% 38%",
+        "/pictures/thirdTileGal/E26A2768.jpg":  "50% 34%",
+        "/pictures/thirdTileGal/E26A2771.jpg":  "50% 32%", // always-first
+        "/pictures/thirdTileGal/E26A2854.jpg":  "50% 40%",
+        "/pictures/thirdTileGal/E26A2860.jpg":  "50% 37%"
+      };
 
       function shuffled(arr){
         const a = arr.slice();
@@ -487,22 +503,31 @@
             d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
           });
         }
+
+        function applyFocal(src){
+          media.style.objectPosition = FOCALS[src] ? FOCALS[src] : "50% 50%";
+        }
+
         function show(i){
           idx = (i + list.length) % list.length;
           const src = list[idx];
-          if (src) media.src = src;
+          if (src){
+            media.src = src;
+            applyFocal(src);
+          }
           updateDots();
         }
 
         prevBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx - 1); });
         nextBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx + 1); });
 
+        // Click-through anywhere on the tile (except controls)
         tile.addEventListener('click', e => {
           if (e.target.closest('.tile-nav') || e.target.closest('.tile-dots')) return;
           if (link) window.location.href = link;
         });
 
-        // Init
+        // Init after fonts settle to avoid layout jumps
         if (document.fonts && document.fonts.ready) {
           document.fonts.ready.then(()=> show(0));
         } else {
