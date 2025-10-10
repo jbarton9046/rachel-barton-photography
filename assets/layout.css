@@ -12,6 +12,10 @@
   /* NEW: easy knobs for the “Galleries” dropdown */
   --submenu-offset: 1px;  /* space between “Galleries” word and first item */
   --submenu-gap:    8px;  /* space between Portraits / Branding / Events */
+
+  /* NEW: mobile icon/menu controls */
+  --mobile-icon: 54px;         /* size of the mobile icon button */
+  --mobile-menu-offset: 18px;  /* space between icon and dropdown panel */
 }
 
 /* Base */
@@ -266,17 +270,16 @@ footer{
     display:inline-flex !important;
     position:fixed !important;      /* pin to viewport left */
     left:12px; top:12px;
-    width:60px; height:60px;        /* nice big target */
+    width:var(--mobile-icon);
+    height:var(--mobile-icon);
     background:#fff;                /* like buttons */
     border:1px solid var(--line);   /* same border as buttons */
     border-radius:0;                /* square */
     box-shadow:0 6px 18px rgba(0,0,0,.06); /* same soft shadow */
     padding:0; margin:0; z-index:1000;
-    position:fixed;
   }
   /* FILL THE SQUARE — no inner white space */
   .nav-toggle .bar{ display:none !important; }
-  .nav-toggle{ position:fixed; }
   .nav-toggle::before{
     content:"";
     position:absolute; inset:0;     /* fill the square fully */
@@ -286,7 +289,7 @@ footer{
 
   /* slide-down panel — lowered and with NO top border (remove thin line) */
   nav.primary{
-    position:absolute; left:0; right:0; top:calc(100% + 18px);
+    position:absolute; left:0; right:0; top:calc(100% + var(--mobile-menu-offset));
     background:#fff; border-top:0;             /* <- removed gold line */
     box-shadow:0 10px 24px rgba(0,0,0,.08);
     max-height:0; overflow:hidden; transition:max-height .25s ease;
