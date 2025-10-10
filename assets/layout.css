@@ -218,3 +218,20 @@ footer{
   background:transparent;
   white-space:nowrap;
 }
+
+/* =================================================================== */
+/* ================= Sidebar “Galleries” block spacing ================ */
+/* Makes the gap above "Portraits" equal to the gap between links.     */
+/* Add class="side-galleries" to the nav wrapper and class="links" to  */
+/* the <ul> containing Portraits/Branding/Events.                      */
+/* =================================================================== */
+.side-galleries{ --gap:14px; }     /* tweak this value to taste */
+.side-galleries h3{ margin:0; }
+.side-galleries .links{
+  display:grid;
+  row-gap:var(--gap);               /* space between items */
+  padding-top:var(--gap);           /* same space above first item */
+  margin:0;
+  list-style:none;
+}
+.side-galleries .links a{ display:block; }
