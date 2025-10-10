@@ -225,7 +225,7 @@ footer{
 /* Add class="side-galleries" to the nav wrapper and class="links" to  */
 /* the <ul> containing Portraits/Branding/Events.                      */
 /* =================================================================== */
-.side-galleries{ --gap:14px; }     /* tweak this value to taste */
+.side-galleries{ --gap:10px; }     /* tweak this value to taste */
 .side-galleries h3{ margin:0; }
 .side-galleries .links{
   display:grid;
