@@ -8,6 +8,10 @@
   --shadow:0 10px 30px rgba(0,0,0,.08);
   --gap:clamp(16px,3vw,32px);
   --maxw:1200px;
+
+  /* NEW: easy knobs for the “Galleries” dropdown */
+  --submenu-offset: 6px;  /* space between “Galleries” word and first item */
+  --submenu-gap:    8px;  /* space between Portraits / Branding / Events */
 }
 
 /* Base */
@@ -61,15 +65,16 @@ nav.primary a:focus-visible{ color:var(--accent); outline:none }
 
 /* Keep laid out so hover never “misses”; hide via visibility */
 nav.primary .has-sub > .dropdown{
-  position:absolute; top:calc(100% + 6px); left:50%;
+  position:absolute;
+  top:calc(100% + var(--submenu-offset));   /* <-- now variable-driven */
+  left:50%;
   transform:translateX(-50%);
   background:transparent; border:0; box-shadow:none;
 
   display:flex;                      /* keep laid out */
   flex-direction:column; align-items:center;
 
-  /* tighter vertical spacing */
-  gap:8px;
+  gap:var(--submenu-gap);            /* <-- variable-driven */
 
   margin:0; padding:0; list-style:none; min-width:unset;
 
@@ -181,12 +186,12 @@ footer{
 .site-header .topnav .has-sub{ position:relative; }
 .site-header .topnav .has-sub > .dropdown{
   position:absolute;
-  top:calc(100% + 6px);
+  top:calc(100% + var(--submenu-offset)); /* <-- now variable-driven */
   left:50%;
   transform:translateX(-50%);
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:var(--submenu-gap);                /* <-- variable-driven */
 
   opacity:0;
   visibility:hidden;
@@ -225,7 +230,7 @@ footer{
 /* Add class="side-galleries" to the nav wrapper and class="links" to  */
 /* the <ul> containing Portraits/Branding/Events.                      */
 /* =================================================================== */
-.side-galleries{ --gap:2px; }     /* tweak this value to taste */
+.side-galleries{ --gap:14px; }     /* tweak this value to taste */
 .side-galleries h3{ margin:0; }
 .side-galleries .links{
   display:grid;
