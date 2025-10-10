@@ -240,3 +240,71 @@ footer{
   list-style:none;
 }
 .side-galleries .links a{ display:block; }
+
+/* =================================================================== */
+/* ======================= MOBILE NAV ADDITIONS ====================== */
+/* Hamburger + slide-down panel for phones. Desktop remains centered. */
+/* =================================================================== */
+
+/* hidden checkbox and toggle default state */
+.navchk{ position:absolute; opacity:0; pointer-events:none; }
+.nav-toggle{ display:none; }
+
+/* Desktop: nothing changes (your existing styles handle it) */
+@media (min-width:821px){
+  /* ensure list lays out horizontally on large screens */
+  nav.primary ul{ display:flex; gap:28px; align-items:center; }
+}
+
+/* ---------- Mobile styles ---------- */
+@media (max-width:820px){
+  /* topbar tighter and space between brand/hamburger */
+  .topbar{
+    justify-content:space-between;
+    padding-top:10px !important;
+    padding-bottom:10px !important;
+  }
+  .brand{ display:block; width:36px; height:36px; }
+
+  /* show hamburger button on mobile */
+  .nav-toggle{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:38px; height:38px; border:1px solid var(--line); background:#fff;
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
+  }
+  .nav-toggle .bar{ width:20px; height:2px; background:#3f3a33; display:block; }
+  .nav-toggle .bar + .bar{ margin-top:5px; }
+
+  /* slide-down panel */
+  nav.primary{
+    position:absolute; left:0; right:0; top:calc(100% + 0px);
+    background:#fff; border-top:1px solid var(--line);
+    box-shadow:0 10px 24px rgba(0,0,0,.08);
+    max-height:0; overflow:hidden; transition:max-height .25s ease;
+    z-index:50;
+  }
+  /* open when checked */
+  .navchk:checked ~ .nav-toggle{ border-color:#dcd4c3; }
+  .navchk:checked ~ nav.primary{ max-height:75vh; }
+
+  /* vertical list */
+  nav.primary ul{
+    display:flex; flex-direction:column; align-items:flex-start;
+    gap:6px; margin:0; padding:12px var(--gap); list-style:none;
+  }
+  nav.primary a{
+    display:block; width:100%; font-size:16px; line-height:1.35; padding:8px 0;
+  }
+
+  /* show Galleries submenu inline for simplicity */
+  nav.primary .has-sub > a{ font-weight:700; }
+  nav.primary .has-sub .dropdown{
+    position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
+    display:block; background:transparent; border:0; box-shadow:none;
+    margin:2px 0 8px 0; padding-left:14px;
+  }
+  nav.primary .has-sub .dropdown a{ font-weight:400; font-size:15px; padding:6px 0; }
+
+  /* prevent desktop hover behavior from hiding submenu */
+  .has-sub:hover > .dropdown{ opacity:1; visibility:visible; }
+}

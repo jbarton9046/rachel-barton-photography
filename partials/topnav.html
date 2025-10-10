@@ -1,7 +1,15 @@
-<!-- Top nav (same structure as about.html) -->
+<!-- Top nav -->
 <div class="topbar container">
-  <div class="brand"></div>
-  <nav class="primary" aria-label="Primary">
+  <!-- brand (kept empty in your markup; link added for tap target) -->
+  <a class="brand" href="/" aria-label="Home"></a>
+
+  <!-- mobile toggle (checkbox hack = no JS) -->
+  <input id="navchk" class="navchk" type="checkbox" aria-hidden="true" />
+  <label for="navchk" class="nav-toggle" aria-label="Open menu" role="button" aria-controls="site-menu" aria-expanded="false">
+    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+  </label>
+
+  <nav class="primary" id="site-menu" aria-label="Primary">
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/about.html">Meet Rachel</a></li>
