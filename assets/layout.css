@@ -162,6 +162,7 @@ footer{
 
 /* =================================================================== */
 /* ============== SHARED NAVBAR (site-header partial) ================ */
+/* These styles power /partials/topnav.html on non-hero pages.        */
 /* Scoped to .site-header so they don't affect the hero overlay nav.  */
 /* =================================================================== */
 
@@ -225,6 +226,10 @@ footer{
 
 /* =================================================================== */
 /* ================= Sidebar “Galleries” block spacing ================ */
+/* Makes the gap above "Portraits" equal to the gap between links.     */
+/* Add class="side-galleries" to the nav wrapper and class="links" to  */
+/* the <ul> containing Portraits/Branding/Events.                      */
+/* =================================================================== */
 .side-galleries{ --gap:14px; }     /* tweak this value to taste */
 .side-galleries h3{ margin:0; }
 .side-galleries .links{
@@ -238,80 +243,79 @@ footer{
 
 /* =================================================================== */
 /* ======================= MOBILE NAV ADDITIONS ====================== */
-/* Hamburger + slide-down panel for phones. Desktop remains centered. */
+/* Hamburger -> photo icon + slide-down panel for phones.             */
 /* =================================================================== */
 
+/* hidden checkbox and toggle default state */
 .navchk{ position:absolute; opacity:0; pointer-events:none; }
 .nav-toggle{ display:none; }
 
-/* Desktop keeps centered menu */
+/* Desktop: nothing changes */
 @media (min-width:821px){
   nav.primary ul{ display:flex; gap:28px; align-items:center; }
 }
 
-/* ---------------- Mobile styles ---------------- */
+/* ---------- Mobile styles ---------- */
 @media (max-width:820px){
-  /* force left alignment regardless of prior rules */
+  /* tighter top bar, space-between layout */
   .topbar{
-    justify-content:flex-start !important;
-    padding-top:10px !important;
-    padding-bottom:10px !important;
+    justify-content:space-between;
+    padding:10px var(--gap) !important;
   }
+
+  /* We use the TOGGLE as the left icon; hide the brand on mobile */
   .brand{ display:none !important; }
 
-  /* PIN THE TOGGLE TO THE FAR LEFT (viewport) */
+  /* photo-icon toggle (no white border, no shadow) */
   .nav-toggle{
-    display:inline-grid !important; place-items:center;
-    position:fixed !important;      /* pin to viewport */
-    top:12px; left:12px;            /* far-left placement */
-    width:44px; height:44px;
-    border-radius:12px;
-    background:rgba(255,255,255,.9);
-    border:1px solid rgba(63,58,51,.18);
-    box-shadow:0 8px 18px rgba(0,0,0,.06);
-    -webkit-backdrop-filter:saturate(1.05) blur(4px);
-    backdrop-filter:saturate(1.05) blur(4px);
-    z-index:1000;                   /* above hero art */
+    display:inline-flex;
+    order:-1;                        /* ensure it sits at the far left */
+    width:56px; height:56px;         /* larger touch target */
+    padding:0; margin:0;
+    background:transparent; border:0; box-shadow:none;
+    -webkit-tap-highlight-color:transparent;
   }
-
-  /* USE YOUR PHOTO AS THE ICON */
-  .nav-toggle .bar{ display:none; } /* hide old bars */
+  /* draw the image inside the label */
   .nav-toggle::before{
     content:"";
-    position:absolute; inset:6px;   /* inner padding inside the rounded button */
-    background:url("/pictures/topnavIcon/E26A2872%20(1).jpg") center/cover no-repeat;
-    border-radius:8px;
+    display:block; width:100%; height:100%;
+    background-image:url('/pictures/topnavIcon/E26A2872%20(1).jpg');
+    background-size:cover; background-position:center;
+    border-radius:12px;              /* subtle rounding; change/remove if you want square */
   }
+  /* hide the old hamburger bars on mobile */
+  .nav-toggle .bar{ display:none !important; }
 
-  /* slide-down panel (no thin line) */
+  /* slide-down panel, pushed lower so it doesn’t overlap the icon */
   nav.primary{
-    position:absolute; left:0; right:0; top:calc(100% + 0px);
-    background:#fff;
-    border-top:0;
+    position:absolute; left:0; right:0; top:calc(100% + 12px);
+    background:#fff; border-top:1px solid var(--line);
     box-shadow:0 10px 24px rgba(0,0,0,.08);
     max-height:0; overflow:hidden; transition:max-height .25s ease;
     z-index:50;
   }
+  /* open when checked */
   .navchk:checked ~ nav.primary{ max-height:75vh; }
-  .navchk:checked ~ .nav-toggle{ border-color:#dcd4c3; }
+  .navchk:checked ~ .nav-toggle{ outline:2px solid transparent; } /* keep from shifting */
 
   /* vertical list */
   nav.primary ul{
     display:flex; flex-direction:column; align-items:flex-start;
-    gap:6px; margin:0; padding:12px var(--gap); list-style:none;
+    gap:10px; margin:0; padding:14px var(--gap); list-style:none;
   }
   nav.primary a{
-    display:block; width:100%; font-size:16px; line-height:1.35; padding:8px 0;
+    display:block; width:100%; font-size:18px; line-height:1.35; padding:8px 0;
   }
 
-  /* submenu inline on mobile */
+  /* show Galleries submenu inline */
   nav.primary .has-sub > a{ font-weight:700; }
   nav.primary .has-sub .dropdown{
     position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
     display:block; background:transparent; border:0; box-shadow:none;
-    margin:2px 0 8px 0; padding-left:14px;
+    margin:2px 0 10px 0; padding-left:16px;
   }
-  nav.primary .has-sub .dropdown a{ font-weight:400; font-size:15px; padding:6px 0; }
+  nav.primary .has-sub .dropdown a{ font-weight:400; font-size:16px; padding:6px 0; }
 
+  /* prevent desktop hover behavior from hiding submenu */
   .has-sub:hover > .dropdown{ opacity:1; visibility:visible; }
 }
