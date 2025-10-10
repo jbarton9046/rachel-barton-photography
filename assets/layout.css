@@ -13,9 +13,10 @@
   --submenu-offset: 1px;  /* space between “Galleries” word and first item */
   --submenu-gap:    8px;  /* space between Portraits / Branding / Events */
 
-  /* NEW: mobile icon/menu controls */
-  --mobile-icon: 40px;         /* size of the mobile icon button */
-  --mobile-menu-offset: 18px;  /* space between icon and dropdown panel */
+  /* NEW: mobile controls */
+  --mobile-icon: 54px;               /* size of the mobile icon button */
+  --mobile-menu-offset: 18px;        /* not used by drawer, kept for compatibility */
+  --drawer-w: clamp(260px, 33vw, 380px); /* ≈ one-third of viewport */
 }
 
 /* Base */
@@ -242,7 +243,7 @@ footer{
 
 /* =================================================================== */
 /* ======================= MOBILE NAV ADDITIONS ====================== */
-/* Hamburger + slide-down panel for phones. Desktop remains centered. */
+/* Hamburger + left drawer for phones. Desktop remains centered. */
 /* =================================================================== */
 
 .navchk{ position:absolute; opacity:0; pointer-events:none; }
@@ -253,68 +254,81 @@ footer{
   nav.primary ul{ display:flex; gap:28px; align-items:center; }
 }
 
-/* ---------------- Mobile styles ---------------- */
+/* ---------------- Mobile styles: LEFT DRAWER ---------------- */
 @media (max-width:820px){
-  /* force left alignment regardless of prior rules */
+  /* top bar polish + left icon */
   .topbar{
     justify-content:flex-start !important;
     padding-top:10px !important;
     padding-bottom:10px !important;
     gap:12px;
-    border:0 !important; /* make sure no header divider shows */
+    border:0 !important;
   }
   .brand{ display:none !important; }
 
-  /* SQUARE PHOTO ICON — button-style border + shadow, pinned left */
+  /* Photo icon button on the FAR LEFT */
   .nav-toggle{
     display:inline-flex !important;
-    position:fixed !important;      /* pin to viewport left */
-    left:12px; top:12px;
-    width:var(--mobile-icon);
-    height:var(--mobile-icon);
-    background:#fff;                /* like buttons */
-    border:1px solid var(--line);   /* same border as buttons */
-    border-radius:0;                /* square */
-    box-shadow:0 6px 18px rgba(0,0,0,.06); /* same soft shadow */
-    padding:0; margin:0; z-index:1000;
+    position:fixed !important; left:12px; top:12px;
+    width:var(--mobile-icon); height:var(--mobile-icon);
+    background:#fff; border:1px solid var(--line); border-radius:0;
+    box-shadow:0 6px 18px rgba(0,0,0,.06);
+    padding:0; margin:0; z-index:1100; cursor:pointer;
   }
-  /* FILL THE SQUARE — no inner white space */
   .nav-toggle .bar{ display:none !important; }
   .nav-toggle::before{
-    content:"";
-    position:absolute; inset:0;     /* fill the square fully */
+    content:""; position:absolute; inset:0;
     background:url("/pictures/topnavIcon/E26A2872%20(1).jpg") center/cover no-repeat;
     border-radius:0;
   }
 
-  /* slide-down panel — lowered and with NO top border (remove thin line) */
+  /* === Drawer === */
   nav.primary{
-    position:absolute; left:0; right:0; top:calc(100% + var(--mobile-menu-offset));
-    background:#fff; border-top:0;             /* <- removed gold line */
+    position:fixed; inset:0 auto 0 0;           /* left side */
+    width:var(--drawer-w);
+    height:100dvh;                               /* full device height */
+    background:#fff; border-right:1px solid var(--line);
     box-shadow:0 10px 24px rgba(0,0,0,.08);
-    max-height:0; overflow:hidden; transition:max-height .25s ease;
-    z-index:50;
+    transform:translateX(-100%);                 /* hidden by default */
+    transition:transform .28s ease;
+    z-index:1050;
+    overflow:auto;                               /* scroll if needed */
   }
-  .navchk:checked ~ nav.primary{ max-height:75vh; }
-  .navchk:checked ~ .nav-toggle{ border-color:#dcd4c3; }
+  .navchk:checked ~ nav.primary{ transform:translateX(0); }
 
-  /* vertical list */
+  /* Drawer list styling */
   nav.primary ul{
     display:flex; flex-direction:column; align-items:flex-start;
-    gap:10px; margin:0; padding:14px var(--gap); list-style:none;
+    gap:12px; margin:0; padding:18px var(--gap); list-style:none;
   }
-  nav.primary a{
-    display:block; width:100%; font-size:18px; line-height:1.35; padding:8px 0;
-  }
-
-  /* submenu inline on mobile */
+  nav.primary a{ display:block; width:100%; font-size:18px; line-height:1.35; padding:8px 0; }
   nav.primary .has-sub > a{ font-weight:700; }
   nav.primary .has-sub .dropdown{
     position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
     display:block; background:transparent; border:0; box-shadow:none;
-    margin:2px 0 10px 0; padding-left:16px;
+    margin:4px 0 10px 0; padding-left:16px;
   }
   nav.primary .has-sub .dropdown a{ font-weight:400; font-size:16px; padding:6px 0; }
 
+  /* Hide the icon and turn the label into a full scrim when open */
+  .navchk:checked ~ .nav-toggle{
+    opacity:0; pointer-events:none;             /* icon disappears */
+  }
+  /* Click-anywhere-to-close scrim using the label */
+  .navchk:checked ~ .nav-toggle::after{
+    content:""; position:fixed; inset:0 0 0 var(--drawer-w);
+    background:rgba(0,0,0,.18);
+    opacity:1; pointer-events:auto;             /* tap closes via label */
+  }
+
+  /* Push the whole page right while open (supported on modern iOS) */
+  body{ transition:transform .28s ease; }
+  body:has(#navchk:checked){
+    transform:translateX(var(--drawer-w));
+    overflow:hidden;                             /* avoid background scroll */
+    touch-action:none;
+  }
+
+  /* keep submenu visible on touch */
   .has-sub:hover > .dropdown{ opacity:1; visibility:visible; }
 }
