@@ -175,7 +175,7 @@
             </button>
           </figure>
 
-          <!-- GALLERY 2 (add data-focal here to nudge ALL images in this tile the same way if you want) -->
+          <!-- GALLERY 2 -->
           <figure class="tile"
             data-title="Friend Session Two"
             data-link="/galleries/kidBeachPortrait.html"
@@ -214,28 +214,31 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Tiles JS (preferred first, rest shuffled + focal controls) -->
+  <!-- Tiles JS (preferred first, rest shuffled + robust focal lookup) -->
   <script>
     (function(){
       const MAX_IMGS = 10;
 
-      /* Per-image focal points.
-         Format: "x% y%" — lower y% lifts the crop upward; higher y% pushes it down.
-         Add or tweak entries below as needed. */
+      /* FOCALS: Set custom crop focus for specific images.
+         You can key by the full path OR just the filename.
+         Format value: "x% y%" — smaller y% shows more TOP, larger y% shows more BOTTOM. */
       const FOCALS = {
-        // --- Tile 1 (optional examples; adjust or remove if centered is fine)
-        "/pictures/friend1Tile/E26A1931 (4).jpg": "50% 50%",
-        "/pictures/friend1Tile/E26A2017 (2).jpg": "50% 42%",
-        "/pictures/friend1Tile/E26A2047 (1).jpg": "50% 45%",
-        "/pictures/friend1Tile/E26A2106 (2).jpg": "48% 44%",
-        "/pictures/friend1Tile/E26A2245 (3).jpg": "50% 40%",
+        // --- Tile 1 (adjust if needed)
+        "E26A1931 (4).jpg": "50% 50%",
+        "E26A2017 (2).jpg": "50% 42%",
+        "E26A2047 (1).jpg": "50% 45%",
+        "E26A2106 (2).jpg": "48% 44%",
+        "E26A2245 (3).jpg": "50% 40%",
 
-        // --- Tile 2 (you said you want to adjust these specifically)
-        "/pictures/friend2Tile/E26A2746 (1).jpg": "50% 38%",
-        "/pictures/friend2Tile/E26A2768 (1).jpg": "50% 35%",
-        "/pictures/friend2Tile/E26A2855.jpg":     "52% 42%",
-        "/pictures/friend2Tile/E26A2890.jpg":     "50% 46%",
-        "/pictures/friend2Tile/E26A2973.jpg":     "50% 36%"
+        // --- Tile 2 (you wanted to tweak these)
+        "E26A2746 (1).jpg": "50% 38%",
+        "E26A2768 (1).jpg": "50% 35%",
+        "E26A2855.jpg":     "52% 42%",
+        "E26A2890.jpg":     "30% 46%",
+        "E26A2973.jpg":     "50% 36%",
+
+        // (You can also use full paths as keys; both work.)
+        "/pictures/friend2Tile/E26A2890.jpg": "50% 46%"
       };
 
       function shuffled(arr){
@@ -247,6 +250,21 @@
         return a;
       }
 
+      const decode = s => { try { return decodeURIComponent(s); } catch { return s; } };
+      const basename = s => {
+        const d = decode(s);
+        const qless = d.split('?')[0].split('#')[0];
+        return qless.substring(qless.lastIndexOf('/') + 1);
+      };
+
+      // Build a map that contains both original keys and their basenames for robust matching
+      const focalMap = new Map();
+      Object.keys(FOCALS).forEach(k => {
+        focalMap.set(k, FOCALS[k]);                  // original key (maybe full path)
+        focalMap.set(decode(k), FOCALS[k]);          // decoded key (spaces instead of %20)
+        focalMap.set(basename(k), FOCALS[k]);        // basename only
+      });
+
       document.querySelectorAll('figure.tile').forEach(tile=>{
         const media     = tile.querySelector('.tile-media');
         const dotsWrap  = tile.querySelector('.tile-dots');
@@ -254,18 +272,13 @@
         const nextBtn   = tile.querySelector('.tile-next');
         const link      = tile.getAttribute('data-link');
         const preferred = (tile.getAttribute('data-preferred') || '').trim();
-        const tileFocal = (tile.getAttribute('data-focal') || '').trim(); // fallback focal for the whole tile
-
-        // Helper to decode %20 etc. so keys match what you typed into FOCALS above
-        const decode = s => {
-          try { return decodeURIComponent(s); } catch { return s; }
-        };
+        const tileFocal = (tile.getAttribute('data-focal') || '').trim(); // fallback for this tile
 
         let all = [];
         try { all = JSON.parse(tile.getAttribute('data-all-images') || '[]'); } catch{}
         if (!Array.isArray(all) || !all.length) return;
 
-        // Build list with preferred first (if provided), others shuffled, limit MAX_IMGS
+        // Build list with preferred first, others shuffled, limit MAX_IMGS
         const others = all.filter(src => src !== preferred);
         const mixed  = shuffled(others);
         const list   = preferred ? [preferred, ...mixed.slice(0, Math.max(0, MAX_IMGS - 1))]
@@ -292,10 +305,11 @@
           });
         }
 
-        function applyFocal(src){
-          const decoded = decode(src);
-          const perImage = FOCALS[decoded];
-          media.style.objectPosition = perImage ? perImage : (tileFocal || "50% 50%");
+        function focalFor(src){
+          // Try exact, decoded, then basename
+          const dec = decode(src);
+          const base = basename(src);
+          return focalMap.get(src) || focalMap.get(dec) || focalMap.get(base) || tileFocal || "50% 50%";
         }
 
         function show(i){
@@ -303,7 +317,7 @@
           const src = list[idx];
           if (src){
             media.src = src;
-            applyFocal(src);
+            media.style.objectPosition = focalFor(src);
           }
           updateDots();
         }
