@@ -53,9 +53,9 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    /* Back link (crumb) */
-    .page-crumbs{ padding-top:clamp(12px,2.4vw,18px) }
-    .crumb{ margin:0 0 8px }
+    /* --- Back-to-Galleries crumb (matches portraits.html pattern) --- */
+    .gallery-head{ padding-top:clamp(12px,2.4vw,18px); }
+    .crumb{ margin:0 0 8px; }
     .crumb a{
       display:inline-block; font-size:15px; color:#6e6a62;
       border-bottom:1px solid var(--accent-2); padding-bottom:3px;
@@ -78,7 +78,7 @@
       box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
       outline:none;
     }
-    .btn.alt{ background:#fff; } /* keep .alt but same look */
+    .btn.alt{ background:#fff; }
 
     /* Hero */
     .hero{ padding:clamp(24px,6vw,56px) 0 }
@@ -108,7 +108,7 @@
     .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(8px,1.6vw,14px) }
     .grid img{ border-radius:0 }
 
-    /* Packages (consultation pricing) */
+    /* Packages */
     .packages{ padding:clamp(20px,6vw,50px) 0 }
     .pack{ background:#fff; border:1px solid var(--line); padding:22px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .pack h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:22px }
@@ -140,7 +140,7 @@
     }
   </style>
 
-  <!-- Schema.org: Service (no fixed prices; price-on-request via description) -->
+  <!-- Schema.org: Service -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -156,8 +156,8 @@
   <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
-  <!-- Back to Galleries (right on top) -->
-  <header class="container page-crumbs" role="region" aria-label="Back navigation">
+  <!-- SAME HEADER BLOCK AS PORTRAITS -->
+  <header class="gallery-head container" role="region" aria-label="Back navigation">
     <p class="crumb"><a href="/galleries.html">← Back to Galleries</a></p>
   </header>
 
@@ -244,7 +244,7 @@
       </div>
     </section>
 
-    <!-- PACKAGES (pricing after consult) -->
+    <!-- PACKAGES -->
     <section class="packages" id="packages">
       <div class="container">
         <div class="eyebrow">Packages</div>
