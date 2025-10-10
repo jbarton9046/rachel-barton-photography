@@ -100,43 +100,33 @@
       display:flex; gap:22px; margin:28px 0; flex-wrap:wrap; justify-content:center;
     }
 
-    /* Buttons — unified site style */
+    /* Buttons — transparent with site-outline + accessible focus ring */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
       padding:12px 22px;
-      background:#fff; color:#3f3a33;
-      border:1px solid var(--line);
-      border-radius:0;
-      font-weight:700; text-decoration:none;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:background-color .15s ease, border-color .15s ease,
-                 box-shadow .15s ease, transform .15s ease, color .15s ease;
-    }
-    .btn:hover, .btn:focus-visible{
-      background:#fff;
-      border-color:#dcd4c3; color:var(--accent);
-      box-shadow:0 10px 24px rgba(0,0,0,.08);
-      transform:translateY(-1px);
-      outline:none;
-    }
 
-    /* ======= Homepage override: transparent CTAs with site outline ======= */
-    .hero .copy .btn{
-      background:transparent !important;
-      border:1px solid rgba(63,58,51,.85);   /* match site outline */
+      background:transparent;                   /* transparent fill */
       color:#3f3a33;
-      box-shadow:none;                       /* no fill look */
+      border:1px solid var(--line);             /* same outline as other pages */
+      border-radius:0;
+
+      font-weight:700; text-decoration:none;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);     /* soft lift like other buttons */
+      transition:border-color .15s ease, color .15s ease,
+                 box-shadow .15s ease, transform .15s ease;
     }
-    .hero .copy .btn:hover,
-    .hero .copy .btn:focus-visible{
-      background:transparent;
+    .btn:hover{
       color:var(--accent);
-      border-color:var(--accent);            /* gold hover outline */
+      border-color:#dcd4c3;                     /* subtle gold-ish hover, not black */
       transform:translateY(-1px);
-      outline:none;
+      box-shadow:0 10px 24px rgba(0,0,0,.08);
     }
-    /* ==================================================================== */
+    .btn:focus-visible{
+      outline:0;
+      box-shadow:0 0 0 3px var(--ring), 0 10px 24px rgba(0,0,0,.08); /* soft gold focus */
+      border-color:var(--accent);
+    }
 
     .localities{ color:#5c5850; margin-top:6px; line-height:1.75 }
     .localities .dot::after{ content:" • "; color:#8a857a }
@@ -169,7 +159,7 @@
     </div>
   </section>
 
-  <!-- Partials loader -->
+  <!-- Partials loader (still fine; page is fixed so nothing below will appear) -->
   <script src="/assets/include.js?v=nav-5" defer></script>
 </body>
 </html>
