@@ -100,12 +100,12 @@
       display:flex; gap:22px; margin:28px 0; flex-wrap:wrap; justify-content:center;
     }
 
-    /* Frosted-glass buttons: soft translucent, gentle border, subtle blur */
+    /* Translucent buttons with soft grey outline (no blur) */
     .btn{
-      --btn-bg: rgba(255,255,255,.18);              /* base translucency */
-      --btn-border: rgba(63,58,51,.22);             /* soft neutral outline */
-      --btn-border-hover: rgba(168,138,90,.45);     /* warm gold tint */
-      --btn-bg-hover: rgba(255,255,255,.28);
+      /* tweak these two if you want lighter/darker later */
+      --btn-bg: rgba(255,255,255,.14);        /* translucent fill */
+      --btn-border: rgba(62,62,58,.28);       /* soft neutral grey */
+      --btn-border-hover: rgba(62,62,58,.45); /* a touch stronger on hover */
 
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
@@ -116,14 +116,8 @@
       border:1px solid var(--btn-border);
       border-radius:0;
 
-      /* frosted feel */
-      -webkit-backdrop-filter: blur(3px) saturate(1.05);
-      backdrop-filter: blur(3px) saturate(1.05);
-
-      /* gentle lift + inner highlight so edges read over the photo */
-      box-shadow:
-        0 6px 18px rgba(0,0,0,.06),
-        inset 0 1px 0 rgba(255,255,255,.35);
+      /* gentle lift; same vibe as rest of site */
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
 
       font-weight:700; text-decoration:none;
       transition:
@@ -134,20 +128,15 @@
         transform .18s ease;
     }
     .btn:hover{
-      background:var(--btn-bg-hover);
+      background:rgba(255,255,255,.20);
       border-color:var(--btn-border-hover);
       color:var(--accent);
       transform:translateY(-1px);
-      box-shadow:
-        0 10px 24px rgba(0,0,0,.08),
-        inset 0 1px 0 rgba(255,255,255,.45);
+      box-shadow:0 10px 24px rgba(0,0,0,.08);
     }
     .btn:focus-visible{
       outline:0;
-      box-shadow:
-        0 0 0 3px var(--ring),
-        0 10px 24px rgba(0,0,0,.08),
-        inset 0 1px 0 rgba(255,255,255,.4);
+      box-shadow:0 0 0 3px var(--ring), 0 10px 24px rgba(0,0,0,.08);
       border-color:var(--btn-border-hover);
     }
 
@@ -182,7 +171,7 @@
     </div>
   </section>
 
-  <!-- Partials loader (still fine; page is fixed so nothing below will appear) -->
+  <!-- Partials loader -->
   <script src="/assets/include.js?v=nav-5" defer></script>
 </body>
 </html>
