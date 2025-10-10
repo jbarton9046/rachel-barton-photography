@@ -251,45 +251,42 @@ footer{
 
 /* ---------------- Mobile styles ---------------- */
 @media (max-width:820px){
-  /* move the control to the far-left, professional spacing */
+  /* force left alignment regardless of prior rules */
   .topbar{
-    justify-content:flex-start;
+    justify-content:flex-start !important;
     padding-top:10px !important;
     padding-bottom:10px !important;
   }
-  /* hide the empty brand link on phones */
   .brand{ display:none !important; }
 
-  /* NEW: refined hamburger button */
+  /* PIN THE TOGGLE TO THE FAR LEFT (viewport) */
   .nav-toggle{
-    display:inline-grid; place-items:center;
+    display:inline-grid !important; place-items:center;
+    position:fixed !important;      /* pin to viewport */
+    top:12px; left:12px;            /* far-left placement */
     width:44px; height:44px;
-    margin-left:var(--gap);                 /* far-left, aligned with content */
     border-radius:12px;
     background:rgba(255,255,255,.9);
     border:1px solid rgba(63,58,51,.18);
     box-shadow:0 8px 18px rgba(0,0,0,.06);
     -webkit-backdrop-filter:saturate(1.05) blur(4px);
     backdrop-filter:saturate(1.05) blur(4px);
+    z-index:1000;                   /* above hero art */
   }
 
-  /* the 3 bars with comfortable spacing */
-  .nav-toggle .bar{
-    width:22px; height:2px; border-radius:2px;
-    background:#3f3a33; display:block;
-    transition:transform .18s ease, opacity .18s ease;
+  /* USE YOUR PHOTO AS THE ICON */
+  .nav-toggle .bar{ display:none; } /* hide old bars */
+  .nav-toggle::before{
+    content:"";
+    position:absolute; inset:6px;   /* inner padding inside the rounded button */
+    background:url("/pictures/topnavIcon/E26A2872%20(1).jpg") center/cover no-repeat;
+    border-radius:8px;
   }
-  .nav-toggle .bar + .bar{ margin-top:6px; }
 
-  /* animate to “X” when menu is open */
-  .navchk:checked + .nav-toggle .bar:nth-child(1){ transform: translateY(8px) rotate(45deg); }
-  .navchk:checked + .nav-toggle .bar:nth-child(2){ opacity:0; }
-  .navchk:checked + .nav-toggle .bar:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
-
-  /* slide-down panel */
+  /* slide-down panel (no thin line) */
   nav.primary{
     position:absolute; left:0; right:0; top:calc(100% + 0px);
-    background:#fff; /* clean panel; removed thin header line */
+    background:#fff;
     border-top:0;
     box-shadow:0 10px 24px rgba(0,0,0,.08);
     max-height:0; overflow:hidden; transition:max-height .25s ease;
@@ -307,7 +304,7 @@ footer{
     display:block; width:100%; font-size:16px; line-height:1.35; padding:8px 0;
   }
 
-  /* “Galleries” submenu inline */
+  /* submenu inline on mobile */
   nav.primary .has-sub > a{ font-weight:700; }
   nav.primary .has-sub .dropdown{
     position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
@@ -316,6 +313,5 @@ footer{
   }
   nav.primary .has-sub .dropdown a{ font-weight:400; font-size:15px; padding:6px 0; }
 
-  /* prevent desktop hover behavior from hiding submenu */
   .has-sub:hover > .dropdown{ opacity:1; visibility:visible; }
 }
