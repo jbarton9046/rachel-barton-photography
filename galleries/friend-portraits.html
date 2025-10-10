@@ -76,6 +76,10 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
+    /* Back link (small breadcrumb style) */
+    .crumb{ font-size:14px; color:#7a766e; margin-bottom:6px }
+    .crumb a{ text-decoration:underline; text-underline-offset:3px }
+
     /* Mosaic of tiles (2-up for two galleries) */
     .mosaic{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(12px,1.6vw,16px) }
     @media (max-width:960px){ .mosaic{ grid-template-columns:1fr } }
@@ -140,6 +144,7 @@
     <!-- HERO -->
     <section class="hero">
       <div class="container">
+        <p class="crumb"><a href="/portraits.html">← Back to Portraits</a></p>
         <div class="eyebrow">Friend Portraits</div>
         <h1 class="h1">Easygoing, stylish, and authentic.</h1>
         <p class="lead">Browse all friend & couple portrait galleries. Click any tile to open the full gallery.</p>
