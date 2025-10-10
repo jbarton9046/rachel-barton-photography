@@ -175,11 +175,12 @@
             </button>
           </figure>
 
-          <!-- GALLERY 2 -->
+          <!-- GALLERY 2 (add data-focal here to nudge ALL images in this tile the same way if you want) -->
           <figure class="tile"
             data-title="Friend Session Two"
             data-link="/galleries/kidBeachPortrait.html"
             data-preferred="/pictures/friend2Tile/E26A2746%20(1).jpg"
+            data-focal="50% 38%"
             data-all-images='[
               "/pictures/friend2Tile/E26A2746%20(1).jpg",
               "/pictures/friend2Tile/E26A2768%20(1).jpg",
@@ -213,10 +214,29 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Tiles JS (preferred first, rest shuffled) -->
+  <!-- Tiles JS (preferred first, rest shuffled + focal controls) -->
   <script>
     (function(){
       const MAX_IMGS = 10;
+
+      /* Per-image focal points.
+         Format: "x% y%" — lower y% lifts the crop upward; higher y% pushes it down.
+         Add or tweak entries below as needed. */
+      const FOCALS = {
+        // --- Tile 1 (optional examples; adjust or remove if centered is fine)
+        "/pictures/friend1Tile/E26A1931 (4).jpg": "50% 50%",
+        "/pictures/friend1Tile/E26A2017 (2).jpg": "50% 42%",
+        "/pictures/friend1Tile/E26A2047 (1).jpg": "50% 45%",
+        "/pictures/friend1Tile/E26A2106 (2).jpg": "48% 44%",
+        "/pictures/friend1Tile/E26A2245 (3).jpg": "50% 40%",
+
+        // --- Tile 2 (you said you want to adjust these specifically)
+        "/pictures/friend2Tile/E26A2746 (1).jpg": "50% 38%",
+        "/pictures/friend2Tile/E26A2768 (1).jpg": "50% 35%",
+        "/pictures/friend2Tile/E26A2855.jpg":     "52% 42%",
+        "/pictures/friend2Tile/E26A2890.jpg":     "10% 46%",
+        "/pictures/friend2Tile/E26A2973.jpg":     "50% 36%"
+      };
 
       function shuffled(arr){
         const a = arr.slice();
@@ -228,12 +248,18 @@
       }
 
       document.querySelectorAll('figure.tile').forEach(tile=>{
-        const media    = tile.querySelector('.tile-media');
-        const dotsWrap = tile.querySelector('.tile-dots');
-        const prevBtn  = tile.querySelector('.tile-prev');
-        const nextBtn  = tile.querySelector('.tile-next');
-        const link     = tile.getAttribute('data-link');
-        const preferred= (tile.getAttribute('data-preferred') || '').trim();
+        const media     = tile.querySelector('.tile-media');
+        const dotsWrap  = tile.querySelector('.tile-dots');
+        const prevBtn   = tile.querySelector('.tile-prev');
+        const nextBtn   = tile.querySelector('.tile-next');
+        const link      = tile.getAttribute('data-link');
+        const preferred = (tile.getAttribute('data-preferred') || '').trim();
+        const tileFocal = (tile.getAttribute('data-focal') || '').trim(); // fallback focal for the whole tile
+
+        // Helper to decode %20 etc. so keys match what you typed into FOCALS above
+        const decode = s => {
+          try { return decodeURIComponent(s); } catch { return s; }
+        };
 
         let all = [];
         try { all = JSON.parse(tile.getAttribute('data-all-images') || '[]'); } catch{}
@@ -266,10 +292,19 @@
           });
         }
 
+        function applyFocal(src){
+          const decoded = decode(src);
+          const perImage = FOCALS[decoded];
+          media.style.objectPosition = perImage ? perImage : (tileFocal || "50% 50%");
+        }
+
         function show(i){
           idx = (i + list.length) % list.length;
           const src = list[idx];
-          if (src) media.src = src;
+          if (src){
+            media.src = src;
+            applyFocal(src);
+          }
           updateDots();
         }
 
