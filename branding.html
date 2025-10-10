@@ -53,14 +53,14 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    /* crumb link (Back to Galleries) */
-    .crumb{ margin:12px 0 0 }
+    /* Back link (crumb) */
+    .page-crumbs{ padding-top:clamp(12px,2.4vw,18px) }
+    .crumb{ margin:0 0 8px }
     .crumb a{
-      font-size:14px; color:#6e6a62; border-bottom:1px solid #cfc8b7; padding-bottom:2px;
+      display:inline-block; font-size:15px; color:#6e6a62;
+      border-bottom:1px solid var(--accent-2); padding-bottom:3px;
     }
-    .crumb a:hover, .crumb a:focus-visible{
-      color:var(--accent); border-color:var(--accent); outline:none;
-    }
+    .crumb a:hover{ color:var(--accent); border-color:var(--accent); }
 
     /* --- BUTTONS: EXACT COPY OF about.html --- */
     .btn{
@@ -156,12 +156,12 @@
   <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
-  <main id="content">
-    <!-- Back to Galleries crumb -->
-    <header class="container" role="region" aria-label="Back link">
-      <p class="crumb"><a href="/galleries.html">← Back to Galleries</a></p>
-    </header>
+  <!-- Back to Galleries (right on top) -->
+  <header class="container page-crumbs" role="region" aria-label="Back navigation">
+    <p class="crumb"><a href="/galleries.html">← Back to Galleries</a></p>
+  </header>
 
+  <main id="content">
     <!-- HERO -->
     <section class="hero">
       <div class="container hero-wrap">
