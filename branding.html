@@ -53,16 +53,11 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    /* --- Back-to-Galleries crumb (matches portraits.html pattern) --- */
-    .gallery-head{ padding-top:clamp(12px,2.4vw,18px); }
-    .crumb{ margin:0 0 8px; }
-    .crumb a{
-      display:inline-block; font-size:15px; color:#6e6a62;
-      border-bottom:1px solid var(--accent-2); padding-bottom:3px;
-    }
-    .crumb a:hover{ color:var(--accent); border-color:var(--accent); }
+    /* Back link — exact pattern used on portraits.html */
+    .crumb{ font-size:14px; color:#7a766e; margin:0 0 6px }
+    .crumb a{ text-decoration:underline; text-underline-offset:3px }
 
-    /* --- BUTTONS: EXACT COPY OF about.html --- */
+    /* Buttons */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
@@ -73,10 +68,8 @@
       transition:background-color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease, color .15s ease;
     }
     .btn:hover, .btn:focus-visible{
-      background:#fff;
-      border-color:#dcd4c3; color:var(--accent);
-      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
-      outline:none;
+      background:#fff; border-color:#dcd4c3; color:var(--accent);
+      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none;
     }
     .btn.alt{ background:#fff; }
 
@@ -108,7 +101,7 @@
     .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(8px,1.6vw,14px) }
     .grid img{ border-radius:0 }
 
-    /* Packages */
+    /* Packages (consultation pricing) */
     .packages{ padding:clamp(20px,6vw,50px) 0 }
     .pack{ background:#fff; border:1px solid var(--line); padding:22px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .pack h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:22px }
@@ -156,16 +149,13 @@
   <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
-  <!-- SAME HEADER BLOCK AS PORTRAITS -->
-  <header class="gallery-head container" role="region" aria-label="Back navigation">
-    <p class="crumb"><a href="/galleries.html">← Back to Galleries</a></p>
-  </header>
-
   <main id="content">
     <!-- HERO -->
     <section class="hero">
       <div class="container hero-wrap">
         <div>
+          <!-- Back to Galleries sits directly above the eyebrow (same as portraits) -->
+          <p class="crumb"><a href="/galleries.html">← Back to Galleries</a></p>
           <div class="eyebrow">Brand Photography</div>
           <h1 class="h1">Images that make people choose you.</h1>
           <p class="lead">
@@ -244,7 +234,7 @@
       </div>
     </section>
 
-    <!-- PACKAGES -->
+    <!-- PACKAGES (pricing after consult) -->
     <section class="packages" id="packages">
       <div class="container">
         <div class="eyebrow">Packages</div>
