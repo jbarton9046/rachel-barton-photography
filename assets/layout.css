@@ -10,7 +10,7 @@
   --maxw:1200px;
 
   /* NEW: easy knobs for the “Galleries” dropdown */
-  --submenu-offset: 6px;  /* space between “Galleries” word and first item */
+  --submenu-offset: 2px;  /* space between “Galleries” word and first item */
   --submenu-gap:    8px;  /* space between Portraits / Branding / Events */
 }
 
