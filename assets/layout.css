@@ -257,6 +257,7 @@ footer{
     padding-top:10px !important;
     padding-bottom:10px !important;
     gap:12px;
+    border:0 !important; /* make sure no header divider shows */
   }
   .brand{ display:none !important; }
 
@@ -271,23 +272,22 @@ footer{
     border-radius:0;                /* square */
     box-shadow:0 6px 18px rgba(0,0,0,.06); /* same soft shadow */
     padding:0; margin:0; z-index:1000;
+    position:fixed;
   }
-  /* put the photo inside the square, inset so border shows all around */
+  /* FILL THE SQUARE — no inner white space */
   .nav-toggle .bar{ display:none !important; }
+  .nav-toggle{ position:fixed; }
   .nav-toggle::before{
     content:"";
-    display:block;
-    width:calc(100% - 8px);
-    height:calc(100% - 8px);
-    margin:4px;                     /* reveals the button border */
+    position:absolute; inset:0;     /* fill the square fully */
     background:url("/pictures/topnavIcon/E26A2872%20(1).jpg") center/cover no-repeat;
-    border-radius:0;                 /* square corners */
+    border-radius:0;
   }
 
-  /* slide-down panel — lowered so it doesn't overlap the icon */
+  /* slide-down panel — lowered and with NO top border (remove thin line) */
   nav.primary{
     position:absolute; left:0; right:0; top:calc(100% + 18px);
-    background:#fff; border-top:1px solid var(--line);
+    background:#fff; border-top:0;             /* <- removed gold line */
     box-shadow:0 10px 24px rgba(0,0,0,.08);
     max-height:0; overflow:hidden; transition:max-height .25s ease;
     z-index:50;
