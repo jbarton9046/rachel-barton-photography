@@ -162,7 +162,6 @@ footer{
 
 /* =================================================================== */
 /* ============== SHARED NAVBAR (site-header partial) ================ */
-/* These styles power /partials/topnav.html on non-hero pages.        */
 /* Scoped to .site-header so they don't affect the hero overlay nav.  */
 /* =================================================================== */
 
@@ -226,10 +225,6 @@ footer{
 
 /* =================================================================== */
 /* ================= Sidebar “Galleries” block spacing ================ */
-/* Makes the gap above "Portraits" equal to the gap between links.     */
-/* Add class="side-galleries" to the nav wrapper and class="links" to  */
-/* the <ul> containing Portraits/Branding/Events.                      */
-/* =================================================================== */
 .side-galleries{ --gap:14px; }     /* tweak this value to taste */
 .side-galleries h3{ margin:0; }
 .side-galleries .links{
@@ -243,60 +238,62 @@ footer{
 
 /* =================================================================== */
 /* ======================= MOBILE NAV ADDITIONS ====================== */
-/* Hamburger -> photo icon + slide-down panel for phones.             */
+/* Hamburger + slide-down panel for phones. Desktop remains centered. */
 /* =================================================================== */
 
-/* hidden checkbox and toggle default state */
 .navchk{ position:absolute; opacity:0; pointer-events:none; }
 .nav-toggle{ display:none; }
 
-/* Desktop: nothing changes */
+/* Desktop keeps centered menu */
 @media (min-width:821px){
   nav.primary ul{ display:flex; gap:28px; align-items:center; }
 }
 
-/* ---------- Mobile styles ---------- */
+/* ---------------- Mobile styles ---------------- */
 @media (max-width:820px){
-  /* tighter top bar, space-between layout */
+  /* force left alignment regardless of prior rules */
   .topbar{
-    justify-content:space-between;
-    padding:10px var(--gap) !important;
+    justify-content:flex-start !important;
+    padding-top:10px !important;
+    padding-bottom:10px !important;
+    gap:12px;
   }
-
-  /* We use the TOGGLE as the left icon; hide the brand on mobile */
   .brand{ display:none !important; }
 
-  /* photo-icon toggle (no white border, no shadow) */
+  /* SQUARE PHOTO ICON — button-style border + shadow, pinned left */
   .nav-toggle{
-    display:inline-flex;
-    order:-1;                        /* ensure it sits at the far left */
-    width:56px; height:56px;         /* larger touch target */
-    padding:0; margin:0;
-    background:transparent; border:0; box-shadow:none;
-    -webkit-tap-highlight-color:transparent;
+    display:inline-flex !important;
+    position:fixed !important;      /* pin to viewport left */
+    left:12px; top:12px;
+    width:60px; height:60px;        /* nice big target */
+    background:#fff;                /* like buttons */
+    border:1px solid var(--line);   /* same border as buttons */
+    border-radius:0;                /* square */
+    box-shadow:0 6px 18px rgba(0,0,0,.06); /* same soft shadow */
+    padding:0; margin:0; z-index:1000;
   }
-  /* draw the image inside the label */
+  /* put the photo inside the square, inset so border shows all around */
+  .nav-toggle .bar{ display:none !important; }
   .nav-toggle::before{
     content:"";
-    display:block; width:100%; height:100%;
-    background-image:url('/pictures/topnavIcon/E26A2872%20(1).jpg');
-    background-size:cover; background-position:center;
-    border-radius:12px;              /* subtle rounding; change/remove if you want square */
+    display:block;
+    width:calc(100% - 8px);
+    height:calc(100% - 8px);
+    margin:4px;                     /* reveals the button border */
+    background:url("/pictures/topnavIcon/E26A2872%20(1).jpg") center/cover no-repeat;
+    border-radius:0;                 /* square corners */
   }
-  /* hide the old hamburger bars on mobile */
-  .nav-toggle .bar{ display:none !important; }
 
-  /* slide-down panel, pushed lower so it doesn’t overlap the icon */
+  /* slide-down panel — lowered so it doesn't overlap the icon */
   nav.primary{
-    position:absolute; left:0; right:0; top:calc(100% + 12px);
+    position:absolute; left:0; right:0; top:calc(100% + 18px);
     background:#fff; border-top:1px solid var(--line);
     box-shadow:0 10px 24px rgba(0,0,0,.08);
     max-height:0; overflow:hidden; transition:max-height .25s ease;
     z-index:50;
   }
-  /* open when checked */
   .navchk:checked ~ nav.primary{ max-height:75vh; }
-  .navchk:checked ~ .nav-toggle{ outline:2px solid transparent; } /* keep from shifting */
+  .navchk:checked ~ .nav-toggle{ border-color:#dcd4c3; }
 
   /* vertical list */
   nav.primary ul{
@@ -307,7 +304,7 @@ footer{
     display:block; width:100%; font-size:18px; line-height:1.35; padding:8px 0;
   }
 
-  /* show Galleries submenu inline */
+  /* submenu inline on mobile */
   nav.primary .has-sub > a{ font-weight:700; }
   nav.primary .has-sub .dropdown{
     position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
@@ -316,6 +313,5 @@ footer{
   }
   nav.primary .has-sub .dropdown a{ font-weight:400; font-size:16px; padding:6px 0; }
 
-  /* prevent desktop hover behavior from hiding submenu */
   .has-sub:hover > .dropdown{ opacity:1; visibility:visible; }
 }
