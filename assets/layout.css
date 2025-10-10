@@ -15,7 +15,7 @@
 
   /* Mobile controls */
   --mobile-icon: 54px;
-  --mobile-menu-offset: 18px; /* kept for compat */
+  --mobile-menu-offset: 4px; /* kept for compat */
   /* Narrower drawer so it “hugs” the text. Adjust this number to tighten/loosen. */
   --drawer-w: clamp(220px, 58vw, 300px);
 }
