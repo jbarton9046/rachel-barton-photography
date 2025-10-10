@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beach Besties — Friend Portrait Gallery | Rachel Barton Photography</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Beach Besties — an easygoing, stylish friend portrait gallery on Florida’s Gulf Coast by Rachel Barton Photography." />
+  <link rel="canonical" href="https://rachelsphotography.netlify.app/galleries/kidBeachPortrait.html" />
+
+  <!-- Social share -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Rachel Barton Photography" />
+  <meta property="og:title" content="Beach Besties — Friend Portrait Gallery" />
+  <meta property="og:description" content="Explore the Beach Besties gallery — natural direction, flattering light, timeless edits." />
+  <meta property="og:url" content="https://rachelsphotography.netlify.app/galleries/kidBeachPortrait.html" />
+  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/beachBesties/E26A2771%20(1).jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Beach Besties — Friend Portrait Gallery" />
+  <meta name="twitter:description" content="Clean, candid, true-to-life friend portraits at the beach." />
+  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/beachBesties/E26A2771%20(1).jpg" />
+
+  <!-- Fonts & shared layout -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
+
+  <style>
+    :root{
+      --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
+      --accent:#A88A5A; --line:#e9e6df;
+      --gap:clamp(16px,3vw,32px); --maxw:1200px;
+      --ring: rgba(168,138,90,.25);
+      --glass-bg: rgba(255,255,255,.75);
+      --glass-border: 1px solid rgba(63,58,51,.18);
+      --glass-blur: saturate(1.05) blur(.5px);
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+    .topbar{ padding-top:16px!important; padding-bottom:40px!important; }
+    .nav-spacer, .page-top-spacer { height:0!important; }
+
+    *{box-sizing:border-box}
+    html,body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; line-height:1.65 }
+    a{ color:inherit; text-decoration:none }
+    a:focus-visible{ outline:2px solid var(--ring); outline-offset:2px }
+
+    .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
+    img{ max-width:100%; display:block; height:auto; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06) }
+
+    .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
+    .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
+    .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
+
+    .hero{ padding:clamp(24px,6vw,56px) 0 }
+    .crumbs{ font-size:14px; color:#7a766e }
+    .crumbs a{ text-decoration:underline; text-underline-offset:3px; }
+
+    /* Grid */
+    .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px); padding-bottom:28px }
+    @media (max-width:980px){ .grid{ grid-template-columns:repeat(2,1fr) } }
+    @media (max-width:620px){ .grid{ grid-template-columns:1fr } }
+
+    .ph{
+      position:relative; aspect-ratio:4/5; overflow:hidden; background:#e8e6e1; cursor:pointer;
+      border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06);
+    }
+    .ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 50%; transition:transform .25s ease }
+    .ph:hover img{ transform:scale(1.02) }
+
+    /* Lightbox */
+    .lb{
+      position:fixed; inset:0; z-index:100; display:none; place-items:center;
+      background:rgba(0,0,0,.72);
+    }
+    .lb.is-open{ display:grid }
+    .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
+    .lb-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#111; border:1px solid rgba(255,255,255,.15) }
+
+    .lb-nav{
+      position:absolute; top:50%; transform:translateY(-50%); width:52px; height:52px;
+      display:grid; place-items:center; color:#fff; cursor:pointer; user-select:none; border:0; background:transparent;
+    }
+    .lb-prev{ left:8px } .lb-next{ right:8px }
+    .lb-x{
+      position:absolute; top:8px; right:8px; width:46px; height:46px; display:grid; place-items:center;
+      color:#3f3a33; background:var(--glass-bg); border:var(--glass-border); -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
+      box-shadow:0 10px 22px rgba(0,0,0,.10); cursor:pointer;
+    }
+    .lb-cap{
+      position:absolute; left:8px; bottom:8px; color:#3f3a33; background:var(--glass-bg); border:var(--glass-border);
+      -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur); padding:6px 10px; font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700;
+    }
+
+    footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
+  </style>
+</head>
+<body>
+  <!-- Shared Top Nav -->
+  <div data-include="/partials/topnav.html"></div>
+
+  <main id="content">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="crumbs"><a href="/galleries/friend-portraits.html">← All Friend Galleries</a></div>
+        <div class="eyebrow">Friend Gallery</div>
+        <h1 class="h1">Beach Besties</h1>
+        <p class="lead">Wind, waves, laughter — a golden-hour stroll with clean color and natural direction.</p>
+      </div>
+    </section>
+
+    <!-- GRID -->
+    <section>
+      <div class="container">
+        <div class="grid" id="gallery">
+          <!-- Each tile; add data-focal="x% y%" if you want a custom crop in the grid -->
+          <a class="ph" data-src="/pictures/beachBesties/E26A2746%20(2).jpg"><img src="/pictures/beachBesties/E26A2746%20(2).jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2768%20(2).jpg"><img src="/pictures/beachBesties/E26A2768%20(2).jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2771%20(1).jpg" data-focal="15% 32%"><img src="/pictures/beachBesties/E26A2771%20(1).jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2774.jpg"><img src="/pictures/beachBesties/E26A2774.jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2778.jpg"><img src="/pictures/beachBesties/E26A2778.jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2834.jpg"><img src="/pictures/beachBesties/E26A2834.jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2846.jpg"><img src="/pictures/beachBesties/E26A2846.jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2854%20(1).jpg"><img src="/pictures/beachBesties/E26A2854%20(1).jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2855%20(1).jpg"><img src="/pictures/beachBesties/E26A2855%20(1).jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2858.jpg"><img src="/pictures/beachBesties/E26A2858.jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2859.jpg"><img src="/pictures/beachBesties/E26A2859.jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2860%20(1).jpg"><img src="/pictures/beachBesties/E26A2860%20(1).jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2871.jpg"><img src="/pictures/beachBesties/E26A2871.jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2872.jpg"><img src="/pictures/beachBesties/E26A2872.jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2890%20(1).jpg"><img src="/pictures/beachBesties/E26A2890%20(1).jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2940.jpg"><img src="/pictures/beachBesties/E26A2940.jpg" alt=""></a>
+          <a class="ph" data-src="/pictures/beachBesties/E26A2973%20(1).jpg"><img src="/pictures/beachBesties/E26A2973%20(1).jpg" alt=""></a>
+        </div>
+
+        <!-- CTA -->
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center; margin:10px 0 40px;">
+          <a class="btn" href="/book.html">Book a Session</a>
+          <a class="btn alt" href="/contact.html">Ask a Question</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lb" id="lightbox" aria-hidden="true">
+    <div class="lb-frame">
+      <img class="lb-img" id="lbImg" alt="">
+      <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+      </button>
+      <button class="lb-nav lb-next" id="lbNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <div class="lb-cap">Beach Besties</div>
+      <button class="lb-x" id="lbClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Shared Footer -->
+  <div data-include="/partials/footer.html"></div>
+  <script src="/assets/include.js?v=nav-5" defer></script>
+
+  <!-- Gallery JS (grid focal control + lightbox) -->
+  <script>
+    (function(){
+      // Optional per-image focal overrides by filename
+      const FOCALS = {
+        "E26A2771 (1).jpg": "15% 32%", // example, adjust as you like
+        // Add more if you want: "filename.jpg": "x% y%"
+      };
+
+      const decode = s => { try { return decodeURIComponent(s); } catch { return s; } };
+      const base = s => decode(s).split('?')[0].split('#')[0].split('/').pop();
+
+      // Apply focal to grid thumbs (either from data-focal or from FOCALS map)
+      document.querySelectorAll(".ph").forEach(ph=>{
+        const img = ph.querySelector("img");
+        const explicit = ph.getAttribute("data-focal");
+        const fromMap = FOCALS[base(img.getAttribute("src"))];
+        img.style.objectPosition = explicit || fromMap || "50% 50%";
+      });
+
+      // Lightbox wiring
+      const tiles = Array.from(document.querySelectorAll(".ph"));
+      const lb    = document.getElementById("lightbox");
+      const lbImg = document.getElementById("lbImg");
+      const prev  = document.getElementById("lbPrev");
+      const next  = document.getElementById("lbNext");
+      const close = document.getElementById("lbClose");
+
+      let idx = -1;
+
+      function openAt(i){
+        idx = (i + tiles.length) % tiles.length;
+        const src = tiles[idx].getAttribute("data-src");
+        lbImg.src = src;
+        lb.classList.add("is-open");
+        lb.setAttribute("aria-hidden","false");
+      }
+      function closeLb(){
+        lb.classList.remove("is-open");
+        lb.setAttribute("aria-hidden","true");
+        lbImg.src = "";
+        idx = -1;
+      }
+      function nextImg(){ if(idx>-1) openAt(idx+1); }
+      function prevImg(){ if(idx>-1) openAt(idx-1); }
+
+      tiles.forEach((ph,i)=>{
+        ph.addEventListener("click", e => { e.preventDefault(); openAt(i); });
+      });
+      next.addEventListener("click", e=>{ e.stopPropagation(); nextImg(); });
+      prev.addEventListener("click", e=>{ e.stopPropagation(); prevImg(); });
+      close.addEventListener("click", e=>{ e.stopPropagation(); closeLb(); });
+      lb.addEventListener("click", e=>{ if(e.target===lb) closeLb(); });
+
+      // Keyboard support
+      window.addEventListener("keydown", e=>{
+        if(!lb.classList.contains("is-open")) return;
+        if(e.key==="Escape") closeLb();
+        if(e.key==="ArrowRight") nextImg();
+        if(e.key==="ArrowLeft") prevImg();
+      });
+    })();
+  </script>
+</body>
+</html>
