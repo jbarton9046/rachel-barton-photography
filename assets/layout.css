@@ -9,14 +9,18 @@
   --gap:clamp(16px,3vw,32px);
   --maxw:1200px;
 
-  /* NEW: easy knobs for the “Galleries” dropdown */
-  --submenu-offset: 1px;  /* space between “Galleries” word and first item */
-  --submenu-gap:    8px;  /* space between Portraits / Branding / Events */
+  /* Dropdown knobs */
+  --submenu-offset: 1px;
+  --submenu-gap:    8px;
 
-  /* NEW: mobile controls */
-  --mobile-icon: 54px;               /* size of the mobile icon button */
-  --mobile-menu-offset: 18px;        /* (kept for compat) */
-  --drawer-w: clamp(260px, 33vw, 380px); /* ≈ one-third of viewport */
+  /* Mobile controls */
+  --mobile-icon: 54px;                    /* icon size; tweak to taste */
+  --mobile-menu-offset: 18px;             /* (kept for compat) */
+
+  /* Drawer width controls (narrower, close to text) */
+  --drawer-min: 220px;                    /* minimum drawer width */
+  --drawer-max: 280px;                    /* maximum drawer width */
+  --drawer-w: var(--drawer-max);          /* used for page push (keep in sync) */
 }
 
 /* Base */
@@ -26,19 +30,13 @@ a{ color:inherit; text-decoration:none; transition:color .15s ease }
 img{ max-width:100%; height:auto; display:block }
 .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-/* ===== Reserve space for injected partials to prevent layout shift (CLS) ===== */
-[data-include="/partials/topnav.html"]{
-  display:block;
-  min-height:64px;  /* matches .topbar height so the page doesn't jump when nav loads */
-}
-[data-include="/partials/footer.html"]{
-  display:block;
-  min-height:68px;  /* reserves space for footer partial */
-}
+/* Reserve space for partials */
+[data-include="/partials/topnav.html"]{ display:block; min-height:64px; }
+[data-include="/partials/footer.html"]{ display:block; min-height:68px; }
 
-/* ================= TOP NAV (matches homepage/FAQ) ================= */
+/* ================= TOP NAV ================= */
 .topbar{
-  position:relative; /* not sticky */
+  position:relative;
   display:flex; align-items:center; justify-content:center;
   padding:16px var(--gap); z-index:10; background:transparent;
 }
@@ -60,26 +58,24 @@ nav.primary a:focus-visible{ color:var(--accent); outline:none }
 .has-sub:hover > a,
 .has-sub:focus-within > a{ color:var(--accent) }
 
-/* Dropdown: text-only, centered under “Galleries”, no box */
+/* Dropdown (desktop) */
 .has-sub{ position:relative }
 .has-sub::after{
   content:"";
   position:absolute; left:-8px; right:-8px; top:100%;
-  height:12px; background:transparent; /* hover bridge */
+  height:12px; background:transparent;
 }
 
-/* Keep laid out so hover never “misses”; hide via visibility */
 nav.primary .has-sub > .dropdown{
   position:absolute;
-  top:calc(100% + var(--submenu-offset));   /* <-- variable-driven */
+  top:calc(100% + var(--submenu-offset));
   left:50%;
   transform:translateX(-50%);
   background:transparent; border:0; box-shadow:none;
 
-  display:flex;                      /* keep laid out */
+  display:flex;
   flex-direction:column; align-items:center;
-
-  gap:var(--submenu-gap);            /* <-- variable-driven */
+  gap:var(--submenu-gap);
 
   margin:0; padding:0; list-style:none; min-width:unset;
 
@@ -87,8 +83,6 @@ nav.primary .has-sub > .dropdown{
   transition:opacity .15s ease, transform .15s ease;
   z-index:999;
 }
-
-/* Show on hover/focus and keep open while hovering the list */
 .has-sub:hover > .dropdown,
 .has-sub:focus-within > .dropdown,
 nav.primary .dropdown:hover{
@@ -97,26 +91,19 @@ nav.primary .dropdown:hover{
 }
 
 nav.primary .dropdown li{ list-style:none; margin:0; padding:0 }
-
-/* Serif styling for submenu items (compact “nice” look) */
 nav.primary .dropdown a{
   display:block;
   font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
   font-weight:700;
-
-  /* smaller, denser type to match your reference */
   font-size:clamp(14px,1.35vw,16px);
   line-height:1.02;
   letter-spacing:.005em;
-
   padding:0; margin:0; border:0; background:transparent; white-space:nowrap;
 }
-nav.primary .dropdown a:hover,
-nav.primary .dropdown a:focus-visible{ color:var(--accent); outline:none }
 
-/* ---------- Safety net: force visible even if something else hid it ---------- */
+/* Safety net */
 nav.primary li.has-sub:hover > ul.dropdown{
-  display:flex !important;           /* in case any other CSS set display:none */
+  display:flex !important;
   opacity:1 !important;
   visibility:visible !important;
   pointer-events:auto !important;
@@ -130,13 +117,7 @@ footer{
   color:#7f7f7f;
   margin-top:32px;
 }
-
-/* Footer social (Instagram) */
-.footer-social{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
+.footer-social{ display:flex; align-items:center; gap:10px; }
 .footer-social .social-ico{
   display:inline-grid; place-items:center;
   width:34px; height:34px; border-radius:50%;
@@ -159,91 +140,42 @@ footer{
   outline:none;
 }
 .footer-social .social-ico svg{ width:18px; height:18px; display:block; }
-
 @media (max-width:720px){
   footer .container{ justify-content:center !important; text-align:center }
   .footer-social{ justify-content:center; }
 }
 
-/* =================================================================== */
-/* ============== SHARED NAVBAR (site-header partial) ================ */
-/* Scoped to .site-header so they don't affect the hero overlay nav.  */
-/* =================================================================== */
-
-/* reset nested lists so bullets never show */
+/* ===== site-header partial (non-hero pages) ===== */
 .site-header .topnav,
-.site-header .topnav ul{
-  list-style:none;
-  margin:0;
-  padding:0;
-}
-
-/* exact spacing you use: centered, 28px gap, 18px vertical padding */
+.site-header .topnav ul{ list-style:none; margin:0; padding:0; }
 .site-header .topnav{
-  display:flex;
-  gap:28px;
-  justify-content:center;
-  padding:18px 0;
+  display:flex; gap:28px; justify-content:center; padding:18px 0;
 }
-
-/* dropdown behavior */
 .site-header .topnav .has-sub{ position:relative; }
 .site-header .topnav .has-sub > .dropdown{
-  position:absolute;
-  top:calc(100% + var(--submenu-offset)); /* <-- now variable-driven */
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  flex-direction:column;
-  gap:var(--submenu-gap);                /* <-- variable-driven */
-
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-
-  background:transparent;
-  border:0;
-  box-shadow:none;
-  min-width:unset;
-  z-index:1000;
+  position:absolute; top:calc(100% + var(--submenu-offset)); left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; gap:var(--submenu-gap);
+  opacity:0; visibility:hidden; pointer-events:none;
+  background:transparent; border:0; box-shadow:none; min-width:unset; z-index:1000;
 }
-
-/* show on hover and keyboard focus */
 .site-header .topnav .has-sub:hover > .dropdown,
 .site-header .topnav .has-sub:focus-within > .dropdown{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
+  opacity:1; visibility:visible; pointer-events:auto;
 }
-
-/* submenu link typography to match your hero/galleries */
 .site-header .topnav .dropdown a{
   font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-  font-weight:700;
-  font-size:clamp(13px,1.65vw,15px);
-  line-height:1.05;
-  padding:0;
-  border:0;
-  background:transparent;
-  white-space:nowrap;
+  font-weight:700; font-size:clamp(13px,1.65vw,15px); line-height:1.05;
+  padding:0; border:0; background:transparent; white-space:nowrap;
 }
 
-/* =================================================================== */
-/* ================= Sidebar “Galleries” block spacing ================ */
-.side-galleries{ --gap:14px; }     /* tweak this value to taste */
+/* ===== Sidebar Galleries spacing ===== */
+.side-galleries{ --gap:14px; }
 .side-galleries h3{ margin:0; }
-.side-galleries .links{
-  display:grid;
-  row-gap:var(--gap);               /* space between items */
-  padding-top:var(--gap);           /* same space above first item */
-  margin:0;
-  list-style:none;
-}
+.side-galleries .links{ display:grid; row-gap:var(--gap); padding-top:var(--gap); margin:0; list-style:none; }
 .side-galleries .links a{ display:block; }
 
 /* =================================================================== */
-/* ======================= MOBILE NAV ADDITIONS ====================== */
-/* Hamburger + left drawer for phones. Desktop remains centered. */
+/* ======================= MOBILE NAV: LEFT DRAWER =================== */
 /* =================================================================== */
 
 .navchk{ position:absolute; opacity:0; pointer-events:none; }
@@ -254,11 +186,11 @@ footer{
   nav.primary ul{ display:flex; gap:28px; align-items:center; }
 }
 
-/* ---------------- Mobile styles: LEFT DRAWER ---------------- */
+/* ---------------- Mobile ---------------- */
 @media (max-width:820px){
   html, body{ overflow-x:hidden; } /* prevent sideways scroll while pushed */
 
-  /* top bar polish + left icon */
+  /* top bar + left icon */
   .topbar{
     justify-content:flex-start !important;
     padding-top:10px !important;
@@ -284,34 +216,39 @@ footer{
     border-radius:0;
   }
 
-  /* === Drawer (left, fixed) === */
+  /* === Drawer (left, fixed) — no slide animation === */
   nav.primary{
     position:fixed; top:0; left:0; right:auto; bottom:0;   /* hard left */
-    width:var(--drawer-w);
+    /* Make width close to the text width, with safe bounds */
+    width:max-content;
+    min-width:var(--drawer-min);
+    max-width:var(--drawer-max);
     height:100dvh;
     background:#fff; border-right:1px solid var(--line);
     box-shadow:0 10px 24px rgba(0,0,0,.08);
-    transform:translateX(-100%);                 /* hidden by default */
-    transition:transform .28s ease;
+
+    /* hidden by default, pops in without animation */
+    transform:translateX(-100%);
+    transition:none;
+
     z-index:1050;
     overflow:auto;
-    will-change:transform;
   }
-  .navchk:checked ~ nav.primary{ transform:translateX(0); }
+  .navchk:checked ~ nav.primary{ transform:none; } /* appears instantly */
 
-  /* Drawer list styling */
+  /* Drawer list is tight */
   nav.primary ul{
     display:flex; flex-direction:column; align-items:flex-start;
-    gap:12px; margin:0; padding:18px var(--gap); list-style:none;
+    gap:8px; margin:0; padding:14px 16px; list-style:none;
   }
-  nav.primary a{ display:block; width:100%; font-size:18px; line-height:1.35; padding:8px 0; }
+  nav.primary a{ display:block; width:100%; font-size:18px; line-height:1.35; padding:6px 0; }
   nav.primary .has-sub > a{ font-weight:700; }
   nav.primary .has-sub .dropdown{
     position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
     display:block; background:transparent; border:0; box-shadow:none;
-    margin:4px 0 10px 0; padding-left:16px;
+    margin:4px 0 8px 0; padding-left:14px;
   }
-  nav.primary .has-sub .dropdown a{ font-weight:400; font-size:16px; padding:6px 0; }
+  nav.primary .has-sub .dropdown a{ font-weight:400; font-size:16px; padding:4px 0; }
 
   /* Hide the icon while open (page remains visible) */
   .navchk:checked ~ .nav-toggle{ opacity:0; pointer-events:none; }
@@ -319,14 +256,18 @@ footer{
   /* ---------- PUSH JUST THE PAGE (not the drawer) ---------- */
   #content,
   [data-include="/partials/footer.html"]{
-    transition:transform .28s ease;
+    transition:none; /* instant jump (no slide) */
     will-change:transform;
   }
+  /* Either via :has() or via a body class (for wider browser support) */
   body:has(#navchk:checked) #content,
-  body:has(#navchk:checked) [data-include="/partials/footer.html"]{
+  body:has(#navchk:checked) [data-include="/partials/footer.html"],
+  body.drawer-open #content,
+  body.drawer-open [data-include="/partials/footer.html"]{
     transform:translateX(var(--drawer-w));
   }
-  body:has(#navchk:checked){
+  body:has(#navchk:checked),
+  body.drawer-open{
     overflow:hidden; /* stop background scroll while open */
     touch-action:none;
   }

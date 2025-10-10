@@ -30,3 +30,35 @@
     </ul>
   </nav>
 </div>
+
+<script>
+  (function () {
+    const chk = document.getElementById('navchk');
+    if (!chk) return;
+
+    const sync = () => {
+      // Add/remove a body class so CSS can push the page on all browsers
+      document.body.classList.toggle('drawer-open', chk.checked);
+
+      // Keep ARIA in sync for accessibility
+      const label = document.querySelector('label[for="navchk"]');
+      if (label) label.setAttribute('aria-expanded', String(chk.checked));
+    };
+
+    // Close drawer when a nav link is clicked (nice UX)
+    const nav = document.getElementById('site-menu');
+    if (nav) {
+      nav.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (a) {
+          chk.checked = false;
+          sync();
+        }
+      });
+    }
+
+    chk.addEventListener('change', sync);
+    // Initial sync in case the partial loads after initial render
+    requestAnimationFrame(sync);
+  })();
+</script>
