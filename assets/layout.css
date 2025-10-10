@@ -9,15 +9,14 @@
   --gap:clamp(16px,3vw,32px);
   --maxw:1200px;
 
-  /* Dropdown knobs */
+  /* NEW: easy knobs for the “Galleries” dropdown */
   --submenu-offset: 1px;
   --submenu-gap:    8px;
 
-  /* Mobile controls */
+  /* NEW: mobile controls */
   --mobile-icon: 54px;
-  --mobile-menu-offset: 4px; /* kept for compat */
-  /* Narrower drawer so it “hugs” the text. Adjust this number to tighten/loosen. */
-  --drawer-w: clamp(220px, 58vw, 300px);
+  /* drawer width — make this smaller/bigger to fit the text nicely */
+  --drawer-w: clamp(220px, 55vw, 300px);
 }
 
 /* Base */
@@ -27,14 +26,13 @@ a{ color:inherit; text-decoration:none; transition:color .15s ease }
 img{ max-width:100%; height:auto; display:block }
 .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-/* Reserve space for partials */
-[data-include="/partials/topnav.html"]{ display:block; min-height:64px; }
-[data-include="/partials/footer.html"]{ display:block; min-height:68px; }
+/* ===== Reserve space for injected partials ===== */
+[data-include="/partials/topnav.html"]{ display:block; min-height:64px }
+[data-include="/partials/footer.html"]{ display:block; min-height:68px }
 
 /* ================= TOP NAV ================= */
 .topbar{
-  position:relative;
-  display:flex; align-items:center; justify-content:center;
+  position:relative; display:flex; align-items:center; justify-content:center;
   padding:16px var(--gap); z-index:10; background:transparent;
 }
 .brand{ display:none }
@@ -78,7 +76,7 @@ nav.primary li.has-sub:hover > ul.dropdown{
 }
 
 /* Footer */
-footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px; }
+footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px }
 .footer-social{ display:flex; align-items:center; gap:10px }
 .footer-social .social-ico{
   display:inline-grid; place-items:center; width:34px; height:34px; border-radius:50%;
@@ -91,13 +89,13 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   color:var(--accent); border-color:var(--accent); box-shadow:0 10px 22px rgba(0,0,0,.08);
   transform:translateY(-1px); outline:none;
 }
-.footer-social .social-ico svg{ width:18px; height:18px; display:block; }
+.footer-social .social-ico svg{ width:18px; height:18px; display:block }
 @media (max-width:720px){
   footer .container{ justify-content:center !important; text-align:center }
   .footer-social{ justify-content:center }
 }
 
-/* ===== site-header partial (non-hero pages) ===== */
+/* ===== site-header (non-hero pages) ===== */
 .site-header .topnav, .site-header .topnav ul{ list-style:none; margin:0; padding:0 }
 .site-header .topnav{ display:flex; gap:28px; justify-content:center; padding:18px 0 }
 .site-header .topnav .has-sub{ position:relative }
@@ -115,8 +113,8 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
 }
 
 /* ===== Sidebar Galleries spacing ===== */
-.side-galleries{ --gap:14px; }
-.side-galleries h3{ margin:0; }
+.side-galleries{ --gap:14px }
+.side-galleries h3{ margin:0 }
 .side-galleries .links{ display:grid; row-gap:var(--gap); padding-top:var(--gap); margin:0; list-style:none }
 .side-galleries .links a{ display:block }
 
@@ -124,28 +122,27 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
 /* ======================= MOBILE NAV: LEFT DRAWER =================== */
 /* =================================================================== */
 
-.navchk{ position:absolute; opacity:0; pointer-events:none; }
-.nav-toggle{ display:none; }
+.navchk{ position:absolute; opacity:0; pointer-events:none }
+.nav-toggle{ display:none }
 
 /* Desktop */
 @media (min-width:821px){
-  nav.primary ul{ display:flex; gap:28px; align-items:center; }
+  nav.primary ul{ display:flex; gap:28px; align-items:center }
 }
 
 /* Mobile */
 @media (max-width:820px){
-  html, body{ overflow-x:hidden; }
+  html, body{ overflow-x:hidden }
 
-  /* top bar + left icon */
   .topbar{
     justify-content:flex-start !important;
     padding-top:10px !important;
     padding-bottom:10px !important;
-    gap:12px;
-    border:0 !important;
+    gap:12px; border:0 !important;
   }
-  .brand{ display:none !important; }
+  .brand{ display:none !important }
 
+  /* Photo icon button on the far left */
   .nav-toggle{
     display:inline-flex !important;
     position:fixed !important; left:12px; top:12px;
@@ -154,56 +151,57 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     box-shadow:0 6px 18px rgba(0,0,0,.06);
     padding:0; margin:0; z-index:1100; cursor:pointer;
   }
-  .nav-toggle .bar{ display:none !important; }
+  .nav-toggle .bar{ display:none !important }
   .nav-toggle::before{
     content:""; position:absolute; inset:0;
-    background:url("/pictures/topnavIcon/E26A2872%20(1).jpg") center/cover no-repeat;
-    border-radius:0;
+    background:url("/pictures/topnavIcon/E26A2872%20(1).jpg") center/cover no-repeat; border-radius:0;
   }
 
-  /* Drawer: LEFT, fixed, narrower, equal side padding */
+  /* Drawer */
   nav.primary{
     position:fixed; top:0; left:0; right:auto; bottom:0;
     width:var(--drawer-w);
     height:100dvh;
-    background:#fff;
-    border-right:1px solid var(--line);
+    background:#fff; border-right:1px solid var(--line);
     box-shadow:0 10px 24px rgba(0,0,0,.08);
-    transform:translateX(-100%); /* hidden by default */
+    transform:translateX(-100%);               /* hidden */
     transition:transform .28s ease;
-    z-index:1050;
-    overflow:auto;
-    will-change:transform;
-    box-sizing:border-box;
+    z-index:1050; overflow:auto; will-change:transform;
   }
-  .navchk:checked ~ nav.primary{ transform:none; }
+  .navchk:checked ~ nav.primary{ transform:translateX(0) }
 
-  /* Even padding left & right so links “hug” evenly */
+  /* Equal padding on both sides inside the drawer */
   nav.primary ul{
     display:flex; flex-direction:column; align-items:flex-start;
-    gap:12px; margin:0; padding-inline:18px; padding-block:18px; list-style:none;
+    gap:12px; margin:0; padding:18px 16px;   /* <== equal left/right padding */
+    list-style:none;
   }
-  nav.primary a{ display:block; width:100%; font-size:18px; line-height:1.35; padding:8px 0; }
-  nav.primary .has-sub > a{ font-weight:700; }
+  nav.primary a{ display:block; width:100%; font-size:18px; line-height:1.35; padding:8px 0 }
+  nav.primary .has-sub > a{ font-weight:700 }
   nav.primary .has-sub .dropdown{
     position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
     display:block; background:transparent; border:0; box-shadow:none;
-    margin:4px 0 10px 0; padding-left:16px;
+    margin:4px 0 10px 0; padding-left:14px;
   }
-  nav.primary .has-sub .dropdown a{ font-weight:400; font-size:16px; padding:6px 0; }
+  nav.primary .has-sub .dropdown a{ font-weight:400; font-size:16px; padding:6px 0 }
 
-  /* Hide icon when open */
-  .navchk:checked ~ .nav-toggle{ opacity:0; pointer-events:none; }
+  /* Hide the icon while open */
+  .navchk:checked ~ .nav-toggle{ opacity:0; pointer-events:none }
 
-  /* Push the page (content wrapper + footer). Add id="content" OR class="pushable". */
-  :where(#content,.pushable,[data-include="/partials/footer.html"]){
-    transition:transform .28s ease;
-    will-change:transform;
+  /* Push just the page (fallback class + :has) */
+  #content,
+  [data-include="/partials/footer.html"]{
+    transition:transform .28s ease; will-change:transform;
   }
-  body.drawer-open :where(#content,.pushable,[data-include="/partials/footer.html"]){
+  body:has(#navchk:checked) #content,
+  body:has(#navchk:checked) [data-include="/partials/footer.html"]{
+    transform:translateX(var(--drawer-w));
+  }
+  /* Fallback if :has() isn’t available */
+  body.drawer-open #content,
+  body.drawer-open [data-include="/partials/footer.html"]{
     transform:translateX(var(--drawer-w));
   }
 
-  /* keep submenu visible on touch */
-  .has-sub:hover > .dropdown{ opacity:1; visibility:visible; }
+  .has-sub:hover > .dropdown{ opacity:1; visibility:visible }
 }
