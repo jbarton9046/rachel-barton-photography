@@ -53,6 +53,15 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
+    /* crumb link (Back to Galleries) */
+    .crumb{ margin:12px 0 0 }
+    .crumb a{
+      font-size:14px; color:#6e6a62; border-bottom:1px solid #cfc8b7; padding-bottom:2px;
+    }
+    .crumb a:hover, .crumb a:focus-visible{
+      color:var(--accent); border-color:var(--accent); outline:none;
+    }
+
     /* --- BUTTONS: EXACT COPY OF about.html --- */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
@@ -148,6 +157,11 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
+    <!-- Back to Galleries crumb -->
+    <header class="container" role="region" aria-label="Back link">
+      <p class="crumb"><a href="/galleries.html">← Back to Galleries</a></p>
+    </header>
+
     <!-- HERO -->
     <section class="hero">
       <div class="container hero-wrap">
