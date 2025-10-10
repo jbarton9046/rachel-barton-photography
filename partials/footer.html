@@ -23,6 +23,29 @@
           <circle cx="17.5" cy="6.5" r="1.3"></circle>
         </svg>
       </a>
+
+      <span class="sep">·</span>
+
+      <!-- Pixieset -->
+      <a
+        class="px"
+        href="https://rachelbartonphotography38.pixieset.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Pixieset client galleries"
+        title="Pixieset"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <!-- outer rounded square -->
+          <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+          <!-- 'p' -->
+          <path d="M9 8v8" />
+          <path d="M9 10.5h2.2a2.2 2.2 0 1 0 0-4.4H9" />
+          <!-- 'x' -->
+          <path d="M14.4 14.2l3.2 3.2" />
+          <path d="M17.6 14.2l-3.2 3.2" />
+        </svg>
+      </a>
     </div>
   </div>
 
@@ -31,11 +54,8 @@
     .footer-wrap{
       display:flex; flex-wrap:wrap; gap:12px;
       align-items:center; justify-content:space-between;
-      /* flip the sides */
-      flex-direction:row-reverse;
+      flex-direction:row-reverse; /* swapped sides */
     }
-
-    /* right-align the © block on wide screens */
     .copyright{ text-align:right; }
 
     .footer-right{
@@ -44,21 +64,19 @@
     }
     .sep{ opacity:.55; }
 
-    .ig{
-      display:inline-flex; align-items:baseline; padding:0 2px;
+    .ig, .px{
+      display:inline-flex; align-items:center; padding:0 2px;
       color:inherit; border:0; text-decoration:none;
       transition:color .15s ease;
     }
-    .ig:hover{ color:var(--accent); }
+    .ig:hover, .px:hover{ color:var(--accent); }
 
-    .ig svg{
+    .ig svg, .px svg{
       width:1em; height:1em;
       stroke:currentColor; fill:none; stroke-width:1.6;
-      display:block;
-      transform:translateY(.16em);
+      display:block; transform:translateY(.16em);
     }
 
-    /* Optional: on narrow screens, center when stacked */
     @media (max-width:640px){
       .footer-wrap{ justify-content:center; gap:10px 24px; }
       .copyright{ text-align:center; width:100%; }
