@@ -310,28 +310,22 @@
             </button>
           </figure>
 
-          <!-- FRIEND -->
-          <figure class="tile" id="tile-friend" data-link="/galleries/friend-portrait.html"
+          <!-- FRIEND (thirdTileGal; preferred first) -->
+          <figure class="tile" id="tile-friend" data-link="/galleries/friend-portraits.html"
+            data-preferred="/pictures/thirdTileGal/E26A2771.jpg"
             data-all-images='[
-              "/pictures/friendPortraitGal/E26A1852.jpg",
-              "/pictures/friendPortraitGal/E26A1931%20(1).jpg",
-              "/pictures/friendPortraitGal/E26A1938%20(1).jpg",
-              "/pictures/friendPortraitGal/E26A1944%20(1).jpg",
-              "/pictures/friendPortraitGal/E26A1945%20(1).jpg",
-              "/pictures/friendPortraitGal/E26A1986%20(1).jpg",
-              "/pictures/friendPortraitGal/E26A2017%20(1).jpg",
-              "/pictures/friendPortraitGal/E26A2022%20(2).jpg",
-              "/pictures/friendPortraitGal/E26A2047-2%20(1).jpg",
-              "/pictures/friendPortraitGal/E26A2047.jpg",
-              "/pictures/friendPortraitGal/E26A2106%20(1).jpg",
-              "/pictures/friendPortraitGal/E26A2140.jpg",
-              "/pictures/friendPortraitGal/E26A2161.jpg",
-              "/pictures/friendPortraitGal/E26A2226%20(1).jpg",
-              "/pictures/friendPortraitGal/E26A2237.jpg",
-              "/pictures/friendPortraitGal/E26A2245%20(1).jpg",
-              "/pictures/friendPortraitGal/E26A2302.jpg"
+              "/pictures/thirdTileGal/E26A2017.jpg",
+              "/pictures/thirdTileGal/E26A2022%20(1).jpg",
+              "/pictures/thirdTileGal/E26A2047-2.jpg",
+              "/pictures/thirdTileGal/E26A2106.jpg",
+              "/pictures/thirdTileGal/E26A2245.jpg",
+              "/pictures/thirdTileGal/E26A2746.jpg",
+              "/pictures/thirdTileGal/E26A2768.jpg",
+              "/pictures/thirdTileGal/E26A2771.jpg",
+              "/pictures/thirdTileGal/E26A2854.jpg",
+              "/pictures/thirdTileGal/E26A2860.jpg"
             ]'>
-            <img class="tile-media" src="/pictures/friendPortraitGal/E26A1852.jpg" alt="Friend portraits preview" loading="lazy" />
+            <img class="tile-media" src="/pictures/thirdTileGal/E26A2771.jpg" alt="Friend portraits preview" loading="lazy" />
             <div class="tile-dots" role="tablist" aria-label="Friend slides"></div>
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
@@ -441,74 +435,78 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Tiles JS -->
+  <!-- Tiles JS (preferred image first, rest shuffled) -->
   <script>
     (function(){
       const MAX_IMGS = 10;
 
-      function sampleTen(arr){
-        const copy = arr.slice();
-        for(let i=copy.length-1;i>0;i--){
-          const j = Math.floor(Math.random()*(i+1));
-          [copy[i],copy[j]] = [copy[j],copy[i]];
+      function shuffled(arr){
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--){
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
         }
-        return copy.slice(0, Math.min(MAX_IMGS, copy.length));
+        return a;
       }
 
       document.querySelectorAll('figure.tile').forEach(tile=>{
-        const media   = tile.querySelector('.tile-media');
-        const dotsWrap= tile.querySelector('.tile-dots');
-        const prevBtn = tile.querySelector('.tile-prev');
-        const nextBtn = tile.querySelector('.tile-next');
-        const link    = tile.getAttribute('data-link');
+        const media    = tile.querySelector('.tile-media');
+        const dotsWrap = tile.querySelector('.tile-dots');
+        const prevBtn  = tile.querySelector('.tile-prev');
+        const nextBtn  = tile.querySelector('.tile-next');
+        const link     = tile.getAttribute('data-link');
+        const preferred= (tile.getAttribute('data-preferred') || '').trim();
 
         let all = [];
         try { all = JSON.parse(tile.getAttribute('data-all-images') || '[]'); } catch{}
-        if(!Array.isArray(all) || !all.length) return;
+        if (!Array.isArray(all) || !all.length) return;
 
-        const list = sampleTen(all);
+        // Build list with preferred first (if provided), others shuffled, limit MAX_IMGS
+        const others = all.filter(src => src !== preferred);
+        const mixed  = shuffled(others);
+        const list   = preferred ? [preferred, ...mixed.slice(0, Math.max(0, MAX_IMGS - 1))]
+                                 : mixed.slice(0, MAX_IMGS);
+
         let idx = 0;
 
-        // Build diamonds
+        // Dots (diamonds)
         dotsWrap.innerHTML = '';
         const dots = list.map((_,i)=>{
           const b = document.createElement('button');
           b.type = 'button';
           b.setAttribute('role','tab');
-          b.setAttribute('aria-label','Go to slide '+(i+1));
-          b.addEventListener('click', e=>{ e.stopPropagation(); show(i); });
+          b.setAttribute('aria-label','Go to slide ' + (i+1));
+          b.addEventListener('click', e => { e.stopPropagation(); show(i); });
           dotsWrap.appendChild(b);
           return b;
         });
 
         function updateDots(){
           dots.forEach((d,i)=>{
-            d.classList.toggle('is-active', i===idx);
-            d.setAttribute('aria-selected', i===idx ? 'true' : 'false');
+            d.classList.toggle('is-active', i === idx);
+            d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
           });
         }
         function show(i){
           idx = (i + list.length) % list.length;
           const src = list[idx];
-          if(src){ media.src = src; }
+          if (src) media.src = src;
           updateDots();
         }
 
-        // Arrows
-        prevBtn?.addEventListener('click', e=>{ e.stopPropagation(); show(idx-1); });
-        nextBtn?.addEventListener('click', e=>{ e.stopPropagation(); show(idx+1); });
+        prevBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx - 1); });
+        nextBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx + 1); });
 
-        // Click-through anywhere on the tile (except controls)
-        tile.addEventListener('click', (e)=>{
+        tile.addEventListener('click', e => {
           if (e.target.closest('.tile-nav') || e.target.closest('.tile-dots')) return;
           if (link) window.location.href = link;
         });
 
         // Init
         if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(()=>{ show(0); });
+          document.fonts.ready.then(()=> show(0));
         } else {
-          window.addEventListener('load', ()=>{ show(0); });
+          window.addEventListener('load', ()=> show(0));
         }
       });
     })();
