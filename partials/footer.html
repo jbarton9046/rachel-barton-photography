@@ -1,6 +1,6 @@
 <footer>
   <div class="container footer-wrap">
-    <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
+    <div class="copyright">© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
 
     <div class="footer-right">
       <a href="mailto:rachelbartonphotography@gmail.com">rachelbartonphotography@gmail.com</a>
@@ -31,7 +31,12 @@
     .footer-wrap{
       display:flex; flex-wrap:wrap; gap:12px;
       align-items:center; justify-content:space-between;
+      /* flip the sides */
+      flex-direction:row-reverse;
     }
+
+    /* right-align the © block on wide screens */
+    .copyright{ text-align:right; }
 
     .footer-right{
       display:inline-flex; align-items:baseline; gap:8px; flex-wrap:wrap;
@@ -42,16 +47,21 @@
     .ig{
       display:inline-flex; align-items:baseline; padding:0 2px;
       color:inherit; border:0; text-decoration:none;
-      transition:color .15s ease;            /* no movement on hover */
+      transition:color .15s ease;
     }
-    .ig:hover{ color:var(--accent); }        /* gold only, no transform */
+    .ig:hover{ color:var(--accent); }
 
-    /* Slightly lower the glyph to sit perfectly on the text baseline */
     .ig svg{
       width:1em; height:1em;
       stroke:currentColor; fill:none; stroke-width:1.6;
       display:block;
-      transform:translateY(.16em);           /* was .08em; nudged down */
+      transform:translateY(.16em);
+    }
+
+    /* Optional: on narrow screens, center when stacked */
+    @media (max-width:640px){
+      .footer-wrap{ justify-content:center; gap:10px 24px; }
+      .copyright{ text-align:center; width:100%; }
     }
   </style>
 
