@@ -100,32 +100,55 @@
       display:flex; gap:22px; margin:28px 0; flex-wrap:wrap; justify-content:center;
     }
 
-    /* Buttons — transparent with site-outline + accessible focus ring */
+    /* Frosted-glass buttons: soft translucent, gentle border, subtle blur */
     .btn{
+      --btn-bg: rgba(255,255,255,.18);              /* base translucency */
+      --btn-border: rgba(63,58,51,.22);             /* soft neutral outline */
+      --btn-border-hover: rgba(168,138,90,.45);     /* warm gold tint */
+      --btn-bg-hover: rgba(255,255,255,.28);
+
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:12px 22px;
 
-      background:transparent;                   /* transparent fill */
-      color:#3f3a33;
-      border:1px solid var(--line);             /* same outline as other pages */
+      padding:12px 22px;
+      background:var(--btn-bg);
+      color:#2f2a24;
+      border:1px solid var(--btn-border);
       border-radius:0;
 
+      /* frosted feel */
+      -webkit-backdrop-filter: blur(3px) saturate(1.05);
+      backdrop-filter: blur(3px) saturate(1.05);
+
+      /* gentle lift + inner highlight so edges read over the photo */
+      box-shadow:
+        0 6px 18px rgba(0,0,0,.06),
+        inset 0 1px 0 rgba(255,255,255,.35);
+
       font-weight:700; text-decoration:none;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);     /* soft lift like other buttons */
-      transition:border-color .15s ease, color .15s ease,
-                 box-shadow .15s ease, transform .15s ease;
+      transition:
+        background-color .18s ease,
+        border-color .18s ease,
+        color .18s ease,
+        box-shadow .18s ease,
+        transform .18s ease;
     }
     .btn:hover{
+      background:var(--btn-bg-hover);
+      border-color:var(--btn-border-hover);
       color:var(--accent);
-      border-color:#dcd4c3;                     /* subtle gold-ish hover, not black */
       transform:translateY(-1px);
-      box-shadow:0 10px 24px rgba(0,0,0,.08);
+      box-shadow:
+        0 10px 24px rgba(0,0,0,.08),
+        inset 0 1px 0 rgba(255,255,255,.45);
     }
     .btn:focus-visible{
       outline:0;
-      box-shadow:0 0 0 3px var(--ring), 0 10px 24px rgba(0,0,0,.08); /* soft gold focus */
-      border-color:var(--accent);
+      box-shadow:
+        0 0 0 3px var(--ring),
+        0 10px 24px rgba(0,0,0,.08),
+        inset 0 1px 0 rgba(255,255,255,.4);
+      border-color:var(--btn-border-hover);
     }
 
     .localities{ color:#5c5850; margin-top:6px; line-height:1.75 }
