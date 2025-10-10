@@ -53,41 +53,31 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    /* ================== Unified translucent button style ================== */
+    /* ===== Buttons: match the standard site style (solid white, soft border) ===== */
     .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
       font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
       font-weight:700;
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
       padding:12px 18px;
 
-      /* translucent background + soft border */
-      background:rgba(255,255,255,.58);
-      border:1px solid rgba(63,58,51,.28);
+      background:#fff;
       color:#3f3a33;
-
+      border:1px solid var(--line);
       border-radius:0;
       text-decoration:none;
       box-shadow:0 6px 18px rgba(0,0,0,.06);
-      -webkit-backdrop-filter:saturate(1.02) blur(1.5px);
-      backdrop-filter:saturate(1.02) blur(1.5px);
-      transition:
-        background-color .15s ease,
-        border-color .15s ease,
-        box-shadow .15s ease,
-        transform .15s ease,
-        color .15s ease;
+      transition:background-color .15s ease, border-color .15s ease,
+                 box-shadow .15s ease, transform .15s ease, color .15s ease;
     }
-    .btn:hover,
-    .btn:focus-visible{
-      background:rgba(255,255,255,.72);
-      border-color:#dcd4c3;       /* warms slightly on hover */
+    .btn:hover, .btn:focus-visible{
+      background:#fff;
+      border-color:#dcd4c3;
       color:var(--accent);
-      transform:translateY(-1px);
       box-shadow:0 10px 22px rgba(0,0,0,.08);
+      transform:translateY(-1px);
       outline:none;
     }
-    /* alt uses the same base look so all buttons are consistent */
-    .btn.alt{ background:rgba(255,255,255,.58); border-color:rgba(63,58,51,.22); }
+    .btn.alt{ background:#fff; border-color:var(--line); }
 
     /* Hero */
     .hero{ padding:clamp(24px,6vw,56px) 0 }
@@ -359,7 +349,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Build the mini-portfolio grid from your event folder (kids image first, rest randomized) -->
+  <!-- Build the mini-portfolio grid -->
   <script>
     (function(){
       const PREFERRED = "/pictures/introEventPics/E26A1309.jpg";
@@ -374,11 +364,9 @@
         "/pictures/introEventPics/E26A1314.jpg"
       ];
 
-      // Deduplicate and ensure preferred first
       let list = Array.from(new Set(EVENT_IMAGES));
       const idx = list.indexOf(PREFERRED);
-      if (idx > -1) { list.splice(idx,1); }
-      // Shuffle remaining
+      if (idx > -1) list.splice(idx,1);
       for (let i = list.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [list[i], list[j]] = [list[j], list[i]];
