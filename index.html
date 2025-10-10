@@ -121,22 +121,22 @@
       outline:none;
     }
 
-    /* ======= Homepage override: make hero CTAs transparent ======= */
+    /* ======= Homepage override: transparent CTAs with site outline ======= */
     .hero .copy .btn{
       background:transparent !important;
-      border:1px solid rgba(63,58,51,.9);
-      box-shadow:none;
-      backdrop-filter:none;
+      border:1px solid rgba(63,58,51,.85);   /* match site outline */
+      color:#3f3a33;
+      box-shadow:none;                       /* no fill look */
     }
     .hero .copy .btn:hover,
     .hero .copy .btn:focus-visible{
       background:transparent;
       color:var(--accent);
-      border-color:var(--accent);
+      border-color:var(--accent);            /* gold hover outline */
       transform:translateY(-1px);
       outline:none;
     }
-    /* ============================================================= */
+    /* ==================================================================== */
 
     .localities{ color:#5c5850; margin-top:6px; line-height:1.75 }
     .localities .dot::after{ content:" • "; color:#8a857a }
@@ -169,7 +169,7 @@
     </div>
   </section>
 
-  <!-- Partials loader (still fine; page is fixed so nothing below will appear) -->
+  <!-- Partials loader -->
   <script src="/assets/include.js?v=nav-5" defer></script>
 </body>
 </html>
