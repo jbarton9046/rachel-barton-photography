@@ -14,7 +14,7 @@
   --submenu-gap:    8px;  /* space between Portraits / Branding / Events */
 
   /* NEW: mobile icon/menu controls */
-  --mobile-icon: 54px;         /* size of the mobile icon button */
+  --mobile-icon: 40px;         /* size of the mobile icon button */
   --mobile-menu-offset: 18px;  /* space between icon and dropdown panel */
 }
 
