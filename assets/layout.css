@@ -14,13 +14,10 @@
   --submenu-gap:    8px;
 
   /* Mobile controls */
-  --mobile-icon: 54px;                    /* icon size; tweak to taste */
-  --mobile-menu-offset: 18px;             /* (kept for compat) */
-
-  /* Drawer width controls (narrower, close to text) */
-  --drawer-min: 220px;                    /* minimum drawer width */
-  --drawer-max: 280px;                    /* maximum drawer width */
-  --drawer-w: var(--drawer-max);          /* used for page push (keep in sync) */
+  --mobile-icon: 54px;
+  --mobile-menu-offset: 18px; /* kept for compat */
+  /* Narrower drawer so it “hugs” the text. Adjust this number to tighten/loosen. */
+  --drawer-w: clamp(220px, 58vw, 300px);
 }
 
 /* Base */
@@ -47,132 +44,81 @@ nav.primary ul{ display:flex; gap:28px; list-style:none; margin:0; padding:0 }
 nav.primary li{ position:relative }
 nav.primary a{
   font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight:500;
-  font-size:clamp(16px,1.8vw,20px);
-  letter-spacing:.02em;
-  padding:4px 2px;
-  border:0;
+  font-weight:500; font-size:clamp(16px,1.8vw,20px);
+  letter-spacing:.02em; padding:4px 2px; border:0;
 }
-nav.primary a:hover,
-nav.primary a:focus-visible{ color:var(--accent); outline:none }
-.has-sub:hover > a,
-.has-sub:focus-within > a{ color:var(--accent) }
+nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); outline:none }
+.has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent) }
 
 /* Dropdown (desktop) */
 .has-sub{ position:relative }
-.has-sub::after{
-  content:"";
-  position:absolute; left:-8px; right:-8px; top:100%;
-  height:12px; background:transparent;
-}
+.has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent }
 
 nav.primary .has-sub > .dropdown{
-  position:absolute;
-  top:calc(100% + var(--submenu-offset));
-  left:50%;
-  transform:translateX(-50%);
+  position:absolute; top:calc(100% + var(--submenu-offset)); left:50%; transform:translateX(-50%);
   background:transparent; border:0; box-shadow:none;
-
-  display:flex;
-  flex-direction:column; align-items:center;
-  gap:var(--submenu-gap);
-
+  display:flex; flex-direction:column; align-items:center; gap:var(--submenu-gap);
   margin:0; padding:0; list-style:none; min-width:unset;
-
   opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .15s ease, transform .15s ease;
-  z-index:999;
+  transition:opacity .15s ease, transform .15s ease; z-index:999;
 }
-.has-sub:hover > .dropdown,
-.has-sub:focus-within > .dropdown,
-nav.primary .dropdown:hover{
-  opacity:1; visibility:visible; pointer-events:auto;
-  transform:translate(-50%, 2px);
+.has-sub:hover > .dropdown, .has-sub:focus-within > .dropdown, nav.primary .dropdown:hover{
+  opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
 }
-
 nav.primary .dropdown li{ list-style:none; margin:0; padding:0 }
 nav.primary .dropdown a{
-  display:block;
-  font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-  font-weight:700;
-  font-size:clamp(14px,1.35vw,16px);
-  line-height:1.02;
-  letter-spacing:.005em;
+  display:block; font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+  font-weight:700; font-size:clamp(14px,1.35vw,16px); line-height:1.02; letter-spacing:.005em;
   padding:0; margin:0; border:0; background:transparent; white-space:nowrap;
 }
-
 /* Safety net */
 nav.primary li.has-sub:hover > ul.dropdown{
-  display:flex !important;
-  opacity:1 !important;
-  visibility:visible !important;
-  pointer-events:auto !important;
-  transform:translate(-50%, 2px) !important;
+  display:flex !important; opacity:1 !important; visibility:visible !important;
+  pointer-events:auto !important; transform:translate(-50%, 2px) !important;
 }
 
 /* Footer */
-footer{
-  border-top:1px solid var(--line);
-  padding:28px 0;
-  color:#7f7f7f;
-  margin-top:32px;
-}
-.footer-social{ display:flex; align-items:center; gap:10px; }
+footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px; }
+.footer-social{ display:flex; align-items:center; gap:10px }
 .footer-social .social-ico{
-  display:inline-grid; place-items:center;
-  width:34px; height:34px; border-radius:50%;
-  background:rgba(255,255,255,.7);
-  border:1px solid rgba(63,58,51,.6);
-  color:#3f3a33;
-  text-decoration:none;
-  box-shadow:0 6px 18px rgba(0,0,0,.06);
-  -webkit-backdrop-filter:saturate(1.05) blur(2px);
-  backdrop-filter:saturate(1.05) blur(2px);
-  transition:color .15s ease, border-color .15s ease,
-             box-shadow .15s ease, transform .15s ease;
+  display:inline-grid; place-items:center; width:34px; height:34px; border-radius:50%;
+  background:rgba(255,255,255,.7); border:1px solid rgba(63,58,51,.6); color:#3f3a33;
+  text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,.06);
+  -webkit-backdrop-filter:saturate(1.05) blur(2px); backdrop-filter:saturate(1.05) blur(2px);
+  transition:color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
 }
-.footer-social .social-ico:hover,
-.footer-social .social-ico:focus-visible{
-  color:var(--accent);
-  border-color:var(--accent);
-  box-shadow:0 10px 22px rgba(0,0,0,.08);
-  transform:translateY(-1px);
-  outline:none;
+.footer-social .social-ico:hover, .footer-social .social-ico:focus-visible{
+  color:var(--accent); border-color:var(--accent); box-shadow:0 10px 22px rgba(0,0,0,.08);
+  transform:translateY(-1px); outline:none;
 }
 .footer-social .social-ico svg{ width:18px; height:18px; display:block; }
 @media (max-width:720px){
   footer .container{ justify-content:center !important; text-align:center }
-  .footer-social{ justify-content:center; }
+  .footer-social{ justify-content:center }
 }
 
 /* ===== site-header partial (non-hero pages) ===== */
-.site-header .topnav,
-.site-header .topnav ul{ list-style:none; margin:0; padding:0; }
-.site-header .topnav{
-  display:flex; gap:28px; justify-content:center; padding:18px 0;
-}
-.site-header .topnav .has-sub{ position:relative; }
+.site-header .topnav, .site-header .topnav ul{ list-style:none; margin:0; padding:0 }
+.site-header .topnav{ display:flex; gap:28px; justify-content:center; padding:18px 0 }
+.site-header .topnav .has-sub{ position:relative }
 .site-header .topnav .has-sub > .dropdown{
   position:absolute; top:calc(100% + var(--submenu-offset)); left:50%; transform:translateX(-50%);
   display:flex; flex-direction:column; gap:var(--submenu-gap);
-  opacity:0; visibility:hidden; pointer-events:none;
-  background:transparent; border:0; box-shadow:none; min-width:unset; z-index:1000;
+  opacity:0; visibility:hidden; pointer-events:none; background:transparent; border:0; box-shadow:none; min-width:unset; z-index:1000;
 }
-.site-header .topnav .has-sub:hover > .dropdown,
-.site-header .topnav .has-sub:focus-within > .dropdown{
+.site-header .topnav .has-sub:hover > .dropdown, .site-header .topnav .has-sub:focus-within > .dropdown{
   opacity:1; visibility:visible; pointer-events:auto;
 }
 .site-header .topnav .dropdown a{
   font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-  font-weight:700; font-size:clamp(13px,1.65vw,15px); line-height:1.05;
-  padding:0; border:0; background:transparent; white-space:nowrap;
+  font-weight:700; font-size:clamp(13px,1.65vw,15px); line-height:1.05; padding:0; border:0; background:transparent; white-space:nowrap;
 }
 
 /* ===== Sidebar Galleries spacing ===== */
 .side-galleries{ --gap:14px; }
 .side-galleries h3{ margin:0; }
-.side-galleries .links{ display:grid; row-gap:var(--gap); padding-top:var(--gap); margin:0; list-style:none; }
-.side-galleries .links a{ display:block; }
+.side-galleries .links{ display:grid; row-gap:var(--gap); padding-top:var(--gap); margin:0; list-style:none }
+.side-galleries .links a{ display:block }
 
 /* =================================================================== */
 /* ======================= MOBILE NAV: LEFT DRAWER =================== */
@@ -181,14 +127,14 @@ footer{
 .navchk{ position:absolute; opacity:0; pointer-events:none; }
 .nav-toggle{ display:none; }
 
-/* Desktop keeps centered menu */
+/* Desktop */
 @media (min-width:821px){
   nav.primary ul{ display:flex; gap:28px; align-items:center; }
 }
 
-/* ---------------- Mobile ---------------- */
+/* Mobile */
 @media (max-width:820px){
-  html, body{ overflow-x:hidden; } /* prevent sideways scroll while pushed */
+  html, body{ overflow-x:hidden; }
 
   /* top bar + left icon */
   .topbar{
@@ -200,7 +146,6 @@ footer{
   }
   .brand{ display:none !important; }
 
-  /* Photo icon button on the FAR LEFT */
   .nav-toggle{
     display:inline-flex !important;
     position:fixed !important; left:12px; top:12px;
@@ -216,60 +161,47 @@ footer{
     border-radius:0;
   }
 
-  /* === Drawer (left, fixed) — no slide animation === */
+  /* Drawer: LEFT, fixed, narrower, equal side padding */
   nav.primary{
-    position:fixed; top:0; left:0; right:auto; bottom:0;   /* hard left */
-    /* Make width close to the text width, with safe bounds */
-    width:max-content;
-    min-width:var(--drawer-min);
-    max-width:var(--drawer-max);
+    position:fixed; top:0; left:0; right:auto; bottom:0;
+    width:var(--drawer-w);
     height:100dvh;
-    background:#fff; border-right:1px solid var(--line);
+    background:#fff;
+    border-right:1px solid var(--line);
     box-shadow:0 10px 24px rgba(0,0,0,.08);
-
-    /* hidden by default, pops in without animation */
-    transform:translateX(-100%);
-    transition:none;
-
+    transform:translateX(-100%); /* hidden by default */
+    transition:transform .28s ease;
     z-index:1050;
     overflow:auto;
+    will-change:transform;
+    box-sizing:border-box;
   }
-  .navchk:checked ~ nav.primary{ transform:none; } /* appears instantly */
+  .navchk:checked ~ nav.primary{ transform:none; }
 
-  /* Drawer list is tight */
+  /* Even padding left & right so links “hug” evenly */
   nav.primary ul{
     display:flex; flex-direction:column; align-items:flex-start;
-    gap:8px; margin:0; padding:14px 16px; list-style:none;
+    gap:12px; margin:0; padding-inline:18px; padding-block:18px; list-style:none;
   }
-  nav.primary a{ display:block; width:100%; font-size:18px; line-height:1.35; padding:6px 0; }
+  nav.primary a{ display:block; width:100%; font-size:18px; line-height:1.35; padding:8px 0; }
   nav.primary .has-sub > a{ font-weight:700; }
   nav.primary .has-sub .dropdown{
     position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
     display:block; background:transparent; border:0; box-shadow:none;
-    margin:4px 0 8px 0; padding-left:14px;
+    margin:4px 0 10px 0; padding-left:16px;
   }
-  nav.primary .has-sub .dropdown a{ font-weight:400; font-size:16px; padding:4px 0; }
+  nav.primary .has-sub .dropdown a{ font-weight:400; font-size:16px; padding:6px 0; }
 
-  /* Hide the icon while open (page remains visible) */
+  /* Hide icon when open */
   .navchk:checked ~ .nav-toggle{ opacity:0; pointer-events:none; }
 
-  /* ---------- PUSH JUST THE PAGE (not the drawer) ---------- */
-  #content,
-  [data-include="/partials/footer.html"]{
-    transition:none; /* instant jump (no slide) */
+  /* Push the page (content wrapper + footer). Add id="content" OR class="pushable". */
+  :where(#content,.pushable,[data-include="/partials/footer.html"]){
+    transition:transform .28s ease;
     will-change:transform;
   }
-  /* Either via :has() or via a body class (for wider browser support) */
-  body:has(#navchk:checked) #content,
-  body:has(#navchk:checked) [data-include="/partials/footer.html"],
-  body.drawer-open #content,
-  body.drawer-open [data-include="/partials/footer.html"]{
+  body.drawer-open :where(#content,.pushable,[data-include="/partials/footer.html"]){
     transform:translateX(var(--drawer-w));
-  }
-  body:has(#navchk:checked),
-  body.drawer-open{
-    overflow:hidden; /* stop background scroll while open */
-    touch-action:none;
   }
 
   /* keep submenu visible on touch */
