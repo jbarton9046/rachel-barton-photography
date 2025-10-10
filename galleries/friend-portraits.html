@@ -15,13 +15,13 @@
   <meta property="og:title" content="Friend Portrait Galleries — Rachel Barton Photography" />
   <meta property="og:description" content="Explore friend & couple portrait galleries—easygoing sessions with timeless edits." />
   <meta property="og:url" content="https://rachelsphotography.netlify.app/galleries/friend-portraits.html" />
-  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/thirdTileGal/E26A2771.jpg" />
+  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/friend1Tile/E26A1931%20(4).jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Friend Portrait Galleries — Rachel Barton Photography" />
   <meta name="twitter:description" content="Browse easygoing, stylish friend portrait sessions." />
-  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/thirdTileGal/E26A2771.jpg" />
+  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/friend1Tile/E26A1931%20(4).jpg" />
 
   <!-- Fonts & shared layout -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,10 +76,9 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    /* Mosaic of tiles */
-    .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,1.6vw,16px) }
-    @media (max-width:960px){ .mosaic{ grid-template-columns:1fr 1fr } }
-    @media (max-width:640px){ .mosaic{ grid-template-columns:1fr } }
+    /* Mosaic of tiles (2-up for two galleries) */
+    .mosaic{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(12px,1.6vw,16px) }
+    @media (max-width:960px){ .mosaic{ grid-template-columns:1fr } }
 
     figure.tile{
       margin:0; position:relative; aspect-ratio:4/5; overflow:hidden;
@@ -153,21 +152,21 @@
         <div class="eyebrow" id="galleries-title">Galleries</div>
         <div class="mosaic">
 
-          <!-- GALLERY 1 (example) -->
+          <!-- GALLERY 1 -->
           <figure class="tile"
-            data-title="Downtown Stroll"
-            data-link="/galleries/friend/downtown-stroll.html"
-            data-preferred="/pictures/friendTiles/downtown/E26A0101.jpg"
+            data-title="Friend Session One"
+            data-link="/galleries/friend-portrait.html"
+            data-preferred="/pictures/friend1Tile/E26A1931%20(4).jpg"
             data-all-images='[
-              "/pictures/friendTiles/downtown/E26A0101.jpg",
-              "/pictures/friendTiles/downtown/E26A0112.jpg",
-              "/pictures/friendTiles/downtown/E26A0158.jpg",
-              "/pictures/friendTiles/downtown/E26A0184.jpg",
-              "/pictures/friendTiles/downtown/E26A0202.jpg"
+              "/pictures/friend1Tile/E26A1931%20(4).jpg",
+              "/pictures/friend1Tile/E26A2017%20(2).jpg",
+              "/pictures/friend1Tile/E26A2047%20(1).jpg",
+              "/pictures/friend1Tile/E26A2106%20(2).jpg",
+              "/pictures/friend1Tile/E26A2245%20(3).jpg"
             ]'>
-            <img class="tile-media" src="/pictures/friendTiles/downtown/E26A0101.jpg" alt="Downtown friend portraits preview" loading="lazy" />
-            <figcaption class="tile-title">Downtown Stroll</figcaption>
-            <div class="tile-dots" role="tablist" aria-label="Downtown slides"></div>
+            <img class="tile-media" src="/pictures/friend1Tile/E26A1931%20(4).jpg" alt="Friend session 1 preview" loading="lazy" />
+            <figcaption class="tile-title">Friend Session One</figcaption>
+            <div class="tile-dots" role="tablist"></div>
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
             </button>
@@ -176,44 +175,21 @@
             </button>
           </figure>
 
-          <!-- GALLERY 2 (example) -->
+          <!-- GALLERY 2 -->
           <figure class="tile"
-            data-title="Beach Sunset"
-            data-link="/galleries/friend/beach-sunset.html"
-            data-preferred="/pictures/friendTiles/beach/E26A1309.jpg"
+            data-title="Friend Session Two"
+            data-link="/galleries/kidBeachPortrait.html"
+            data-preferred="/pictures/friend2Tile/E26A2746%20(1).jpg"
             data-all-images='[
-              "/pictures/friendTiles/beach/E26A1309.jpg",
-              "/pictures/friendTiles/beach/E26A1312.jpg",
-              "/pictures/friendTiles/beach/E26A1314.jpg",
-              "/pictures/friendTiles/beach/E26A1196.jpg",
-              "/pictures/friendTiles/beach/E26A1211.jpg"
+              "/pictures/friend2Tile/E26A2746%20(1).jpg",
+              "/pictures/friend2Tile/E26A2768%20(1).jpg",
+              "/pictures/friend2Tile/E26A2855.jpg",
+              "/pictures/friend2Tile/E26A2890.jpg",
+              "/pictures/friend2Tile/E26A2973.jpg"
             ]'>
-            <img class="tile-media" src="/pictures/friendTiles/beach/E26A1309.jpg" alt="Beach friend portraits preview" loading="lazy" />
-            <figcaption class="tile-title">Beach Sunset</figcaption>
-            <div class="tile-dots" role="tablist" aria-label="Beach slides"></div>
-            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-            </button>
-            <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </figure>
-
-          <!-- GALLERY 3 (example) -->
-          <figure class="tile"
-            data-title="Coffee & Laughter"
-            data-link="/galleries/friend/coffee-and-laughter.html"
-            data-preferred="/pictures/friendTiles/coffee/E26A2771.jpg"
-            data-all-images='[
-              "/pictures/friendTiles/coffee/E26A2771.jpg",
-              "/pictures/friendTiles/coffee/E26A2768.jpg",
-              "/pictures/friendTiles/coffee/E26A2746.jpg",
-              "/pictures/friendTiles/coffee/E26A2854.jpg",
-              "/pictures/friendTiles/coffee/E26A2860.jpg"
-            ]'>
-            <img class="tile-media" src="/pictures/friendTiles/coffee/E26A2771.jpg" alt="Cafe friend portraits preview" loading="lazy" />
-            <figcaption class="tile-title">Coffee &amp; Laughter</figcaption>
-            <div class="tile-dots" role="tablist" aria-label="Cafe slides"></div>
+            <img class="tile-media" src="/pictures/friend2Tile/E26A2746%20(1).jpg" alt="Friend session 2 preview" loading="lazy" />
+            <figcaption class="tile-title">Friend Session Two</figcaption>
+            <div class="tile-dots" role="tablist"></div>
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
             </button>
@@ -266,7 +242,8 @@
         // Build list with preferred first (if provided), others shuffled, limit MAX_IMGS
         const others = all.filter(src => src !== preferred);
         const mixed  = shuffled(others);
-        const list   = preferred ? [preferred, ...mixed.slice(0, Math.max(0, MAX_IMGS - 1))] : mixed.slice(0, MAX_IMGS);
+        const list   = preferred ? [preferred, ...mixed.slice(0, Math.max(0, MAX_IMGS - 1))]
+                                 : mixed.slice(0, MAX_IMGS);
 
         let idx = 0;
 
