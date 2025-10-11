@@ -36,13 +36,26 @@
     const chk = document.getElementById('navchk');
     if (!chk) return;
 
-    const sync = () => {
-      // Add/remove a body class so CSS can push the page on all browsers
-      document.body.classList.toggle('drawer-open', chk.checked);
+    // Elements to push when the drawer is open (JS safety net)
+    const targets = () => [
+      document.getElementById('content'),
+      document.querySelector('[data-include="/partials/footer.html"]'),
+      document.querySelector('.hero')
+    ].filter(Boolean);
 
-      // Keep ARIA in sync for accessibility
+    const applyShift = (on) => {
+      const tx = on ? 'translateX(var(--drawer-w))' : '';
+      for (const el of targets()) el.style.transform = tx;
+    };
+
+    const sync = () => {
+      // Body class for CSS fallback + ARIA state for the toggle
+      document.body.classList.toggle('drawer-open', chk.checked);
       const label = document.querySelector('label[for="navchk"]');
       if (label) label.setAttribute('aria-expanded', String(chk.checked));
+
+      // Ensure the page always displaces even if :has() isn't supported
+      applyShift(chk.checked);
     };
 
     // Close drawer when a nav link is clicked (nice UX)
@@ -57,8 +70,32 @@
       });
     }
 
+    // ✅ Outside-click close WITHOUT blocking page buttons/links
+    // If drawer is open and the click is outside nav/label, close it,
+    // but do NOT stop the click — the underlying button/link still works.
+    document.addEventListener('click', (e) => {
+      if (!chk.checked) return; // drawer not open → ignore
+      if (e.target.closest('nav.primary') || e.target.closest('label[for="navchk"]')) return;
+      chk.checked = false;
+      sync();
+      // don't preventDefault — allow the original click to continue
+    }, true); // capture to run before navigation mutates the DOM
+
+    // Esc key closes the drawer
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && chk.checked) {
+        chk.checked = false;
+        sync();
+      }
+    });
+
     chk.addEventListener('change', sync);
+
     // Initial sync in case the partial loads after initial render
-    requestAnimationFrame(sync);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', sync);
+    } else {
+      requestAnimationFrame(sync);
+    }
   })();
 </script>
