@@ -16,7 +16,7 @@
   /* Mobile knobs */
   --mobile-icon: 54px;
   /* drawer width — tweak this to taste */
-  --drawer-w: clamp(150px, 30vw, 150px);
+  --drawer-w: clamp(140px, 27vw, 140px);
 }
 
 /* Base */
