@@ -56,11 +56,11 @@
       background:url('pictures/oonaIvy/E26A0671.jpg') center 15% / cover no-repeat fixed;
     }
 
-    /* overlay navbar (universal, injected) */
-    .hero .topbar{
-      position:absolute; left:0; right:0; top:0;
+    /* overlay navbar (universal partial sits outside hero; make it fixed for this page) */
+    .topbar{
+      position:fixed; left:0; right:0; top:0;
       display:flex; align-items:center; justify-content:center;
-      padding:16px var(--gap); z-index:2;
+      padding:16px var(--gap); z-index:2; background:transparent;
     }
 
     /* Card: content-sized, slightly capped, centered vertically */
@@ -150,10 +150,12 @@
 </head>
 <body>
 
-  <!-- HERO with shared Top Nav injected inside -->
+  <!-- Shared Top Nav lives OUTSIDE the hero so the drawer stays fixed left -->
+  <div data-include="/partials/topnav.html"></div>
+
+  <!-- HERO -->
   <!-- NOTE: id="content" lets the left drawer push this whole screen to the right -->
   <section id="content" class="hero" aria-label="Hero">
-    <div data-include="/partials/topnav.html"></div>
 
     <div class="copy">
       <div class="eyebrow">Welcome to</div>
