@@ -26,9 +26,12 @@
       --bg:#FAFAF8; --ink:#3e3e3a; --accent:#A88A5A; --line:#e9e6df;
       --ring:rgba(168,138,90,.25); --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
-      /* Tuning knobs */
-      --card-max: 1100px;     /* allow one-line “Rachel Barton” on desktop */
-      --subject-right: 46vw;  /* nudge card slightly more to the right on desktop */
+      /* Positioning knobs */
+      --card-max: 1100px;       /* allow one-line “Rachel Barton” on desktop */
+      --subject-right: 46vw;    /* desktop: daughter's right edge (left bound) */
+
+      /* Mobile positioning knob (adjust 36–44vw to taste) */
+      --subject-right-mobile: 40vw;
     }
 
     *{ box-sizing:border-box }
@@ -63,7 +66,7 @@
       padding:16px var(--gap); z-index:2; background:transparent;
     }
 
-    /* Card: content-sized, slightly capped, centered vertically */
+    /* Card */
     .hero .copy{
       position:absolute; z-index:1;
       top:50%; left:50%; transform:translate(-50%,-50%);
@@ -77,7 +80,7 @@
       backdrop-filter:saturate(1.05) blur(.5px);
     }
 
-    /* Desktop: center the card between daughter's right edge and viewport right edge */
+    /* Desktop: center between daughter's right edge and viewport right edge */
     @media (min-width:1024px){
       .hero .copy{
         left: calc( (var(--subject-right) + 100vw) / 2 );
@@ -94,65 +97,62 @@
       font-size:clamp(44px,7.2vw,74px);
       line-height:1.08; margin:.25em 0 .15em; font-weight:700; color:#3f3a33;
     }
-    .nowrap{ white-space:nowrap; } /* keep “Rachel Barton” on one line */
+    .nowrap{ white-space:nowrap; }
 
+    /* CTA layout */
     .cta{
       display:flex; gap:22px; margin:28px 0; flex-wrap:wrap; justify-content:center;
     }
 
-    /* Buttons — no borders, premium translucent fill, clear affordance */
+    /* Buttons — text links (no background), classy underline reveal + subtle text shadow */
     .btn{
-      --btn-bg: rgba(255,255,255,.22);
-
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:8px 2px; border:0; background:transparent; border-radius:0;
+      color:#2f2a24; cursor:pointer; font-weight:700; white-space:nowrap;
 
-      padding:12px 22px;
-      background:var(--btn-bg);
-      color:#2f2a24;
-      border:0;                       /* removed outline */
-      border-radius:0;
-      box-shadow:0 8px 24px rgba(0,0,0,.10);   /* stronger lift */
-      cursor:pointer;
+      /* elegant underline reveal */
+      background-image: linear-gradient(currentColor, currentColor);
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      background-size: 0 1px;
+      transition: background-size .2s ease, color .18s ease, transform .18s ease, text-shadow .18s ease;
 
-      font-weight:700; text-decoration:none;
-      transition:
-        background-color .18s ease,
-        color .18s ease,
-        box-shadow .18s ease,
-        transform .18s ease;
-      white-space:nowrap;
+      /* gentle text shadow for readability over photo */
+      text-shadow:
+        0 1px 0 rgba(255,255,255,.35),
+        0 8px 20px rgba(0,0,0,.18);
     }
     .btn:hover{
-      background:rgba(255,255,255,.32);
       color:var(--accent);
-      transform:translateY(-1px) scale(1.01);
-      box-shadow:0 14px 30px rgba(0,0,0,.12);
+      background-size: 100% 1px;
+      transform: translateY(-1px);
+      text-shadow:
+        0 1px 0 rgba(255,255,255,.4),
+        0 10px 26px rgba(0,0,0,.22);
     }
     .btn:focus-visible{
       outline:0;
-      box-shadow:0 0 0 3px var(--ring), 0 12px 30px rgba(0,0,0,.12); /* elegant focus ring only */
+      box-shadow:0 0 0 3px var(--ring);
+      background-size:100% 1px;
     }
 
     .localities{ color:#5c5850; margin-top:6px; line-height:1.75 }
     .localities .dot::after{ content:" • "; color:#8a857a }
     .localities .dot:last-child::after{ content:"" }
 
-    /* ---------------- MOBILE OPTIMIZATION (wider + shorter + position tweak) ---------------- */
+    /* ---------------- MOBILE OPTIMIZATION ---------------- */
     @media (max-width: 820px){
-      /* Wider than before, shorter overall */
+      /* Center between daughter's right edge (mobile var) and viewport right edge; lift slightly */
       .hero .copy{
         max-width: 96vw;
-        padding: 12px 20px;
-        /* Nudge the whole card a bit right and up to align with daughter's right edge */
-        left: 56%;
-        top: 46%;
+        left: calc( (var(--subject-right-mobile) + 100vw) / 2 );
+        top: 44%;
         transform: translate(-50%, -50%);
+        padding: 12px 20px;
       }
       .eyebrow{
-        font-size: 11px;
-        letter-spacing: .14em;
-        margin-bottom: 4px;
+        font-size: 11px; letter-spacing: .14em; margin-bottom: 4px;
       }
       h1{
         font-size: clamp(34px, 7.8vw, 44px);
@@ -160,29 +160,22 @@
         margin: .05em 0 .05em;
       }
 
-      /* Two equal buttons, side-by-side */
+      /* Two equal links side-by-side */
       .cta{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
+        display:grid; grid-template-columns:1fr 1fr; gap:10px;
         margin: 12px 0 6px;
       }
       .btn{
-        width: 100%;
-        padding: 10px 0;
-        font-size: 16px;
+        justify-content:center; width:100%; padding:10px 0; font-size:16px;
       }
 
       .localities{
-        font-size: 13px;
-        line-height: 1.45;
-        margin-top: 6px;
-        opacity: .95;
+        font-size: 13px; line-height: 1.45; margin-top: 6px; opacity: .95;
       }
     }
 
     @media (max-width: 380px){
-      .hero .copy{ padding: 10px 16px; left:57%; top:46%; }
+      .hero .copy{ padding: 10px 16px; top: 44%; }
       h1{ font-size: clamp(28px, 8.4vw, 36px); }
       .btn{ font-size: 15px; padding: 9px 0; }
       .localities{ font-size: 12.5px; line-height: 1.4; }
@@ -198,9 +191,7 @@
   <div data-include="/partials/topnav.html"></div>
 
   <!-- HERO -->
-  <!-- NOTE: id="content" lets the left drawer push this whole screen to the right -->
   <section id="content" class="hero" aria-label="Hero">
-
     <div class="copy">
       <div class="eyebrow">Welcome to</div>
       <h1><span class="nowrap">Rachel Barton</span><br>Photography</h1>
