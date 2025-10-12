@@ -27,9 +27,9 @@
       --ring:rgba(168,138,90,.25); --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
       /* Positioning knobs (decrease to nudge the card LEFT) */
-      --card-max: 1100px;       /* allow one-line “Rachel Barton” on desktop */
-      --subject-right: 42vw;    /* desktop: approx daughter's right edge */
-      --subject-right-mobile: 42vw; /* mobile: same idea; tweak 40–44vw to taste */
+      --card-max: 1100px;           /* allow one-line “Rachel Barton” on desktop */
+      --subject-right: 40vw;        /* desktop: approx daughter's right edge */
+      --subject-right-mobile: 36vw; /* mobile: same idea; tweak 34–40vw to taste */
     }
 
     *{ box-sizing:border-box }
@@ -100,6 +100,7 @@
     /* CTA layout */
     .cta{
       display:flex; gap:22px; margin:28px 0; flex-wrap:wrap; justify-content:center;
+      text-align:center; /* center link text within the card */
     }
 
     /* ---------- DESKTOP BUTTON STYLE (unchanged premium outlined) ---------- */
@@ -118,7 +119,7 @@
       border-radius:0;
       box-shadow:0 6px 18px rgba(0,0,0,.06);
 
-      font-weight:700; text-decoration:none;
+      font-weight:700; text-decoration:none; text-align:center;
       transition:background-color .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease, transform .18s ease;
       white-space:nowrap;
     }
@@ -145,7 +146,7 @@
       .hero .copy{
         max-width: 96vw;
         left: calc( (var(--subject-right-mobile) + 100vw) / 2 );
-        top: 44%;
+        top: 43.5%;
         transform: translate(-50%, -50%);
         padding: 12px 20px;
       }
@@ -158,24 +159,24 @@
         margin: .05em 0 .05em;
       }
 
-      /* Two equal links side-by-side */
+      /* Two equal links side-by-side; ensure they're centered in their cells */
       .cta{
         display:grid; grid-template-columns:1fr 1fr; gap:10px;
         margin: 12px 0 6px;
+        place-items:center; /* centers the anchors inside the grid cells */
       }
 
       /* ---------- MOBILE BUTTON STYLE (text links with elegant underline) ---------- */
       .btn{
-        justify-content:center; width:100%; padding:10px 0; font-size:16px;
-
+        padding:10px 0; font-size:16px;
         border:0; background:transparent; box-shadow:none; border-radius:0;
-        color:#2f2a24;
+        color:#2f2a24; text-align:center;
 
         /* underline reveal */
         background-image: linear-gradient(currentColor, currentColor);
         background-repeat: no-repeat;
-        background-position: 0 100%;
-        background-size: 0 1px;
+        background-position: 50% 100%; /* center the underline */
+        background-size: 0% 1px;
         transition: background-size .2s ease, color .18s ease, transform .18s ease, text-shadow .18s ease;
 
         /* subtle readability */
@@ -203,7 +204,7 @@
     }
 
     @media (max-width: 380px){
-      .hero .copy{ padding: 10px 16px; top: 44%; }
+      .hero .copy{ padding: 10px 16px; top: 43.5%; }
       h1{ font-size: clamp(28px, 8.4vw, 36px); }
       .btn{ font-size: 15px; padding: 9px 0; }
       .localities{ font-size: 12.5px; line-height: 1.4; }
