@@ -1,11 +1,11 @@
-<!-- TOP NAV (mobile-only header cluster: hamburger + brand on the left) -->
+<!-- MOBILE HEADER (option 8) -->
 <div class="topbar container mobile-header-8">
-  <!-- checkbox hack for the drawer -->
+  <!-- drawer checkbox -->
   <input id="navchk" class="navchk" type="checkbox" aria-hidden="true" />
 
-  <!-- Left cluster: hamburger first, brand next -->
+  <!-- Left cluster: icon + brand (left-aligned) -->
   <div class="left-cluster">
-    <!-- Option 8: floating three lines (no background) -->
+    <!-- OPTION 8: floating stepped lines, no background -->
     <label for="navchk"
            class="nav-toggle-8"
            aria-label="Open menu"
@@ -17,19 +17,18 @@
       <span class="bar"></span>
     </label>
 
-    <!-- Brand to the RIGHT of the hamburger -->
+    <!-- Brand to the RIGHT of the lines -->
     <a class="brand-name" href="/" aria-label="Rachel Barton Photography – Home">
       <span class="rbp-1">Rachel Barton</span>
-      <span class="rbp-2">Photography</span>
+      <span class="rbp-2">PHOTOGRAPHY</span>
     </a>
   </div>
 
-  <!-- Drawer nav (unchanged) -->
+  <!-- Drawer (unchanged) -->
   <nav class="primary" id="site-menu" aria-label="Primary">
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/about.html">Meet Rachel</a></li>
-
       <li class="has-sub">
         <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
         <ul class="dropdown" aria-label="Galleries submenu">
@@ -38,7 +37,6 @@
           <li><a href="/events.html">Events</a></li>
         </ul>
       </li>
-
       <li><a href="/testimonials.html">Testimonials</a></li>
       <li><a href="/faq.html">FAQ</a></li>
       <li><a href="/contact.html">Contact</a></li>
@@ -48,43 +46,49 @@
 </div>
 
 <style>
-/* Hide the mobile cluster on desktop */
+/* Hide this whole cluster on desktop */
 @media (min-width:821px){
-  .mobile-header-8 .left-cluster{ display:none !important; }
+  .mobile-header-8{ display:none !important; }
 }
 
-/* Mobile-only header polish */
+/* MOBILE ONLY */
 @media (max-width:820px){
   .mobile-header-8{
-    position:fixed; top:8px; left:0; right:0;
+    position:fixed; inset:auto 0 auto 0; top:10px;
     display:flex; align-items:center; justify-content:flex-start;
-    padding:0 10px; z-index:1200; background:transparent;
-  }
-  .mobile-header-8 .left-cluster{
-    display:flex; align-items:center; gap:10px;
+    padding:0 12px; gap:0; z-index:1200; background:transparent;
+    transition:transform .28s ease; will-change:transform;
   }
 
-  /* Option 8 hamburger: floating lines, no background box */
+  .mobile-header-8 .left-cluster{
+    display:flex; align-items:center; gap:12px; /* spacing between icon and brand */
+  }
+
+  /* ---- Option 8: FLOATING stepped bars (no background) ---- */
   .mobile-header-8 .nav-toggle-8{
     appearance:none; -webkit-appearance:none;
     display:inline-flex; align-items:center; justify-content:center;
-    width:auto; height:auto; padding:12px;
-    cursor:pointer; border:0; background:transparent !important; box-shadow:none !important;
-    color:#2f2a24; /* bars inherit this */
+    width:auto; height:auto; padding:8px 6px; cursor:pointer;
+    border:0; background:transparent !important; box-shadow:none !important;
+    color:#2f2a24; /* bars use currentColor */
   }
   .mobile-header-8 .nav-toggle-8 .bar{
-    display:block; width:26px; height:2px; border-radius:2px;
-    background:currentColor;
-    box-shadow:0 .5px 0 rgba(255,255,255,.45), 0 6px 10px rgba(0,0,0,.18); /* subtle visibility */
+    display:block; height:2px; border-radius:2px; background:currentColor;
+    /* subtle readability over photo */
+    box-shadow:0 .5px 0 rgba(255,255,255,.45), 0 6px 10px rgba(0,0,0,.18);
+    transition:transform .18s ease, opacity .18s ease;
   }
-  .mobile-header-8 .nav-toggle-8 .bar + .bar{ margin-top:5px }
-  .mobile-header-8 .nav-toggle-8:active .bar{ transform:scaleX(.96) }
+  /* stepped widths & offsets (matches the option sheet look) */
+  .mobile-header-8 .nav-toggle-8 .bar:nth-child(1){ width:16px; transform:translateX(8px); }
+  .mobile-header-8 .nav-toggle-8 .bar:nth-child(2){ width:22px; transform:translateX(4px); margin-top:5px; }
+  .mobile-header-8 .nav-toggle-8 .bar:nth-child(3){ width:28px; transform:translateX(0);   margin-top:5px; }
+  .mobile-header-8 .nav-toggle-8:active .bar{ transform:translateX(0) scaleX(.96); }
 
-  /* Brand immediately to the right of the hamburger */
+  /* Brand to the RIGHT of the icon, left-aligned as a unit */
   .mobile-header-8 .brand-name{
     display:inline-flex; flex-direction:column; justify-content:center;
     text-decoration:none; line-height:1.02; color:#2f2a24;
-    text-shadow:0 1px 0 rgba(255,255,255,.45), 0 8px 18px rgba(0,0,0,.18); /* readable over photo */
+    text-shadow:0 1px 0 rgba(255,255,255,.45), 0 8px 18px rgba(0,0,0,.18);
   }
   .mobile-header-8 .rbp-1{
     font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
@@ -92,17 +96,18 @@
   }
   .mobile-header-8 .rbp-2{
     font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    font-weight:600; font-size:11.5px; letter-spacing:.18em; text-transform:uppercase;
+    font-weight:600; font-size:11px; letter-spacing:.18em; text-transform:uppercase;
     color:#6a5b45;
   }
 
-  /* Ensure any older icon styles don't add backgrounds */
-  .nav-toggle{ background:transparent !important; border:0 !important; box-shadow:none !important; }
+  /* Make the header cluster slide with the drawer (CSS + JS fallback) */
+  body:has(#navchk:checked) .mobile-header-8{ transform:translateX(var(--drawer-w)); }
+  body.drawer-open .mobile-header-8{ transform:translateX(var(--drawer-w)); } /* fallback */
 }
 </style>
 
 <script>
-/* Same drawer logic; updated to watch the new label selector */
+/* Same drawer logic; keep the header cluster moving with it */
 (function () {
   const chk = document.getElementById('navchk');
   if (!chk) return;
@@ -116,38 +121,35 @@
   const applyShift = (on) => {
     const tx = on ? 'translateX(var(--drawer-w))' : '';
     for (const el of targets()) el.style.transform = tx;
-  };
-
-  const sync = () => {
-    document.body.classList.toggle('drawer-open', chk.checked);
+    // move the header too (fallback when :has() isn't available)
+    document.body.classList.toggle('drawer-open', on);
     const label = document.querySelector('.nav-toggle-8');
-    if (label) label.setAttribute('aria-expanded', String(chk.checked));
-    applyShift(chk.checked);
+    if (label) label.setAttribute('aria-expanded', String(on));
   };
 
   const nav = document.getElementById('site-menu');
   if (nav) {
     nav.addEventListener('click', (e) => {
       const a = e.target.closest('a');
-      if (a) { chk.checked = false; sync(); }
+      if (a) { chk.checked = false; applyShift(false); }
     });
   }
 
   document.addEventListener('click', (e) => {
     if (!chk.checked) return;
     if (e.target.closest('nav.primary') || e.target.closest('.nav-toggle-8')) return;
-    chk.checked = false; sync();
+    chk.checked = false; applyShift(false);
   }, true);
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && chk.checked) { chk.checked = false; sync(); }
+    if (e.key === 'Escape' && chk.checked) { chk.checked = false; applyShift(false); }
   });
 
-  chk.addEventListener('change', sync);
+  chk.addEventListener('change', () => applyShift(chk.checked));
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', sync);
+    document.addEventListener('DOMContentLoaded', () => applyShift(chk.checked));
   } else {
-    requestAnimationFrame(sync);
+    requestAnimationFrame(() => applyShift(chk.checked));
   }
 })();
 </script>
