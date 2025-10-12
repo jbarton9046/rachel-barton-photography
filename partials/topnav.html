@@ -1,11 +1,10 @@
-<!-- MOBILE HEADER (option 8) -->
+<!-- /partials/topnav.html -->
 <div class="topbar container mobile-header-8">
-  <!-- drawer checkbox -->
+  <!-- checkbox controls the left drawer (works for mobile; harmless on desktop) -->
   <input id="navchk" class="navchk" type="checkbox" aria-hidden="true" />
 
-  <!-- Left cluster: icon + brand (left-aligned) -->
-  <div class="left-cluster">
-    <!-- OPTION 8: floating stepped lines, no background -->
+  <!-- LEFT CLUSTER (mobile only): Option 8 hamburger + brand -->
+  <div class="left-cluster mobile-only">
     <label for="navchk"
            class="nav-toggle-8"
            aria-label="Open menu"
@@ -17,18 +16,18 @@
       <span class="bar"></span>
     </label>
 
-    <!-- Brand to the RIGHT of the lines -->
     <a class="brand-name" href="/" aria-label="Rachel Barton Photography – Home">
       <span class="rbp-1">Rachel Barton</span>
-      <span class="rbp-2">PHOTOGRAPHY</span>
+      <span class="rbp-2">Photography</span>
     </a>
   </div>
 
-  <!-- Drawer (unchanged) -->
+  <!-- PRIMARY NAV (desktop = horizontal bar; mobile = left drawer) -->
   <nav class="primary" id="site-menu" aria-label="Primary">
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/about.html">Meet Rachel</a></li>
+
       <li class="has-sub">
         <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
         <ul class="dropdown" aria-label="Galleries submenu">
@@ -37,6 +36,7 @@
           <li><a href="/events.html">Events</a></li>
         </ul>
       </li>
+
       <li><a href="/testimonials.html">Testimonials</a></li>
       <li><a href="/faq.html">FAQ</a></li>
       <li><a href="/contact.html">Contact</a></li>
@@ -46,45 +46,48 @@
 </div>
 
 <style>
-/* Hide this whole cluster on desktop */
-@media (min-width:821px){
-  .mobile-header-8{ display:none !important; }
+/* Helpers to explicitly show/hide clusters by breakpoint */
+@media (min-width:821px){ .mobile-only{ display:none !important; } }
+@media (max-width:820px){ .desktop-only{ display:none !important; } }
+
+/* Keep the header visible and aligned on both views */
+.mobile-header-8{
+  position:relative;
+  display:flex; align-items:center; justify-content:center;
+  padding:16px var(--gap);
 }
 
-/* MOBILE ONLY */
+/* ===================== MOBILE-ONLY HEADER CLUSTER ===================== */
 @media (max-width:820px){
   .mobile-header-8{
-    position:fixed; inset:auto 0 auto 0; top:10px;
-    display:flex; align-items:center; justify-content:flex-start;
-    padding:0 12px; gap:0; z-index:1200; background:transparent;
-    transition:transform .28s ease; will-change:transform;
+    position:fixed; top:8px; left:0; right:0; z-index:1200;
+    padding:0 10px;
+    background:transparent;
+    justify-content:flex-start;
   }
-
   .mobile-header-8 .left-cluster{
-    display:flex; align-items:center; gap:12px; /* spacing between icon and brand */
+    display:flex; align-items:center; gap:12px;
+    transform:translateX(0); transition:transform .28s ease; /* shifts with drawer */
   }
 
-  /* ---- Option 8: FLOATING stepped bars (no background) ---- */
+  /* Option 8 hamburger — floating, stepped, thin lines (NO background box) */
   .mobile-header-8 .nav-toggle-8{
+    -webkit-tap-highlight-color:transparent;
     appearance:none; -webkit-appearance:none;
     display:inline-flex; align-items:center; justify-content:center;
-    width:auto; height:auto; padding:8px 6px; cursor:pointer;
-    border:0; background:transparent !important; box-shadow:none !important;
-    color:#2f2a24; /* bars use currentColor */
+    padding:10px 8px; border:0; background:transparent !important; box-shadow:none !important;
+    cursor:pointer; color:#2f2a24;
   }
   .mobile-header-8 .nav-toggle-8 .bar{
-    display:block; height:2px; border-radius:2px; background:currentColor;
-    /* subtle readability over photo */
-    box-shadow:0 .5px 0 rgba(255,255,255,.45), 0 6px 10px rgba(0,0,0,.18);
-    transition:transform .18s ease, opacity .18s ease;
+    display:block; height:2px; border-radius:999px; background:currentColor; opacity:.95;
   }
-  /* stepped widths & offsets (matches the option sheet look) */
-  .mobile-header-8 .nav-toggle-8 .bar:nth-child(1){ width:16px; transform:translateX(8px); }
-  .mobile-header-8 .nav-toggle-8 .bar:nth-child(2){ width:22px; transform:translateX(4px); margin-top:5px; }
-  .mobile-header-8 .nav-toggle-8 .bar:nth-child(3){ width:28px; transform:translateX(0);   margin-top:5px; }
-  .mobile-header-8 .nav-toggle-8:active .bar{ transform:translateX(0) scaleX(.96); }
+  /* stepped (short → medium → long) using precise widths & left margins */
+  .mobile-header-8 .nav-toggle-8 .bar:nth-child(1){ width:12px; margin-left:10px; }
+  .mobile-header-8 .nav-toggle-8 .bar:nth-child(2){ width:18px; margin-left:5px;  margin-top:5px; }
+  .mobile-header-8 .nav-toggle-8 .bar:nth-child(3){ width:24px; margin-left:0;   margin-top:5px; }
+  .mobile-header-8 .nav-toggle-8:active .bar{ opacity:.85; }
 
-  /* Brand to the RIGHT of the icon, left-aligned as a unit */
+  /* Brand immediately to the right of the hamburger; classic, elegant */
   .mobile-header-8 .brand-name{
     display:inline-flex; flex-direction:column; justify-content:center;
     text-decoration:none; line-height:1.02; color:#2f2a24;
@@ -96,18 +99,26 @@
   }
   .mobile-header-8 .rbp-2{
     font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    font-weight:600; font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    font-weight:600; font-size:11.5px; letter-spacing:.18em; text-transform:uppercase;
     color:#6a5b45;
+    margin-top:2px;
   }
 
-  /* Make the header cluster slide with the drawer (CSS + JS fallback) */
-  body:has(#navchk:checked) .mobile-header-8{ transform:translateX(var(--drawer-w)); }
-  body.drawer-open .mobile-header-8{ transform:translateX(var(--drawer-w)); } /* fallback */
+  /* Make sure any older .nav-toggle styles never add backgrounds */
+  .nav-toggle{ background:transparent !important; border:0 !important; box-shadow:none !important; }
+}
+
+/* When the drawer is open, nudge the mobile header over the same distance */
+@media (max-width:820px){
+  body:has(#navchk:checked) .mobile-header-8 .left-cluster,
+  body.drawer-open .mobile-header-8 .left-cluster{
+    transform:translateX(var(--drawer-w));
+  }
 }
 </style>
 
 <script>
-/* Same drawer logic; keep the header cluster moving with it */
+/* Drawer behavior + shift the hero/content/footer AND the mobile header cluster */
 (function () {
   const chk = document.getElementById('navchk');
   if (!chk) return;
@@ -115,41 +126,49 @@
   const targets = () => [
     document.getElementById('content'),
     document.querySelector('[data-include="/partials/footer.html"]'),
-    document.querySelector('.hero')
+    document.querySelector('.hero'),
+    document.querySelector('.mobile-header-8 .left-cluster') /* shift the header cluster too */
   ].filter(Boolean);
 
   const applyShift = (on) => {
     const tx = on ? 'translateX(var(--drawer-w))' : '';
     for (const el of targets()) el.style.transform = tx;
-    // move the header too (fallback when :has() isn't available)
-    document.body.classList.toggle('drawer-open', on);
-    const label = document.querySelector('.nav-toggle-8');
-    if (label) label.setAttribute('aria-expanded', String(on));
   };
 
+  const sync = () => {
+    document.body.classList.toggle('drawer-open', chk.checked);
+    const label = document.querySelector('.nav-toggle-8');
+    if (label) label.setAttribute('aria-expanded', String(chk.checked));
+    applyShift(chk.checked);
+  };
+
+  /* Close drawer when a menu link is tapped (mobile nicety) */
   const nav = document.getElementById('site-menu');
   if (nav) {
     nav.addEventListener('click', (e) => {
       const a = e.target.closest('a');
-      if (a) { chk.checked = false; applyShift(false); }
+      if (a) { chk.checked = false; sync(); }
     });
   }
 
+  /* Outside click closes the drawer without blocking underlying actions */
   document.addEventListener('click', (e) => {
     if (!chk.checked) return;
     if (e.target.closest('nav.primary') || e.target.closest('.nav-toggle-8')) return;
-    chk.checked = false; applyShift(false);
+    chk.checked = false; sync();
   }, true);
 
+  /* ESC closes the drawer */
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && chk.checked) { chk.checked = false; applyShift(false); }
+    if (e.key === 'Escape' && chk.checked) { chk.checked = false; sync(); }
   });
 
-  chk.addEventListener('change', () => applyShift(chk.checked));
+  chk.addEventListener('change', sync);
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => applyShift(chk.checked));
+    document.addEventListener('DOMContentLoaded', sync);
   } else {
-    requestAnimationFrame(() => applyShift(chk.checked));
+    requestAnimationFrame(sync);
   }
 })();
 </script>
