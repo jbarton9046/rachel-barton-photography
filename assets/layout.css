@@ -20,7 +20,6 @@
 
   /* Drawer polish knobs */
   --drawer-bg:#fff;
-  --drawer-tint:rgba(168,138,90,.05);
   --drawer-hover:rgba(168,138,90,.10);
   --drawer-rule:rgba(0,0,0,.06);
 }
@@ -168,7 +167,8 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     position:fixed; top:0; left:0; right:auto; bottom:0;
     width:var(--drawer-w);
     height:100dvh;
-    background:#fff; border-right:1px solid var(--line);
+    background:var(--drawer-bg);
+    border-right:1px solid var(--line);
     box-shadow:0 10px 24px rgba(0,0,0,.08);
     transform:translateX(-100%);               /* hidden */
     transition:transform .28s ease;
@@ -182,22 +182,20 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     gap:12px; margin:0; padding:18px 16px; /* equal L/R padding */
     list-style:none;
   }
-  nav.primary a{ display:block; width:100%; font-size:18px; line-height:1.35; padding:8px 0 }
+  nav.primary a{ display:block; width:100%; font-size:18px; line-height:1.35; padding:10px 10px; border-radius:10px }
   nav.primary .has-sub > a{ font-weight:700 }
   nav.primary .has-sub .dropdown{
     position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
     display:block; background:transparent; border:0; box-shadow:none;
-    margin:4px 0 10px 0; padding-left:14px;
+    margin:6px 0 12px 0; padding-left:10px;
   }
-  nav.primary .has-sub .dropdown a{ font-weight:400; font-size:16px; padding:6px 0 }
+  nav.primary .has-sub .dropdown a{ font-weight:400; font-size:16px; padding:6px 0 6px 14px; position:relative }
 
   /* Hide the icon while open */
   .navchk:checked ~ .nav-toggle{ opacity:0; pointer-events:none }
 
   /* ---------- PUSH THE PAGE/HERO (not the drawer) ---------- */
-  /* Give hero a smooth nudge */
   .hero{ transition:transform .28s ease; will-change:transform }
-
   #content,
   [data-include="/partials/footer.html"]{
     transition:transform .28s ease; will-change:transform;
@@ -221,37 +219,19 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
 
   /* ===== Drawer styling polish ===== */
 
-  /* soft paper + gentle right fade so content peek feels intentional */
-  nav.primary{
-    background:
-      linear-gradient(180deg, var(--drawer-tint), transparent 140px),
-      var(--drawer-bg);
-  }
-  nav.primary::after{
-    content:"";
-    position:absolute; top:0; right:-1px; bottom:0; width:14px;
-    pointer-events:none;
-    background:linear-gradient(to right, rgba(0,0,0,.10), rgba(0,0,0,0));
-    opacity:.25;
-  }
+  /* remove right-edge fade entirely (no ::after) and keep a clean paper look */
 
   /* list rhythm + full-row hit-area */
-  nav.primary ul{ row-gap:4px; }
-  nav.primary li{ width:100%; }
-  nav.primary a{
-    padding:10px 10px;         /* override tighter default */
-    border-radius:10px;
-  }
+  nav.primary ul{ row-gap:4px }
+  nav.primary li{ width:100% }
 
   /* top-level links: stronger type + pill on hover */
   nav.primary > ul > li > a{
-    font-size:18px; line-height:1.3;
-    letter-spacing:.01em;
+    font-size:18px; line-height:1.3; letter-spacing:.01em;
   }
   nav.primary > ul > li > a:hover,
   nav.primary > ul > li > a:focus-visible{
-    background:var(--drawer-hover); color:var(--ink);
-    outline:none;
+    background:var(--drawer-hover); color:var(--ink); outline:none;
   }
 
   /* optional active state (use aria-current="page" in HTML) */
@@ -265,29 +245,25 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     background:var(--accent); border-radius:2px;
   }
 
-  /* “Galleries” group refinements */
-  nav.primary .has-sub > a{
-    font-weight:700; margin-top:6px;
-  }
-  nav.primary .has-sub .dropdown{
-    margin:6px 0 12px 0; padding-left:10px;
-  }
+  /* “Galleries” submenu — use non-layout indicator (no shift) */
   nav.primary .has-sub .dropdown a{
-    font-size:16px; font-weight:400;
-    padding:6px 0 6px 12px !important;   /* ensure left indent */
-    border-left:2px solid var(--drawer-rule);
-    border-radius:0;
-    opacity:.95;
+    padding-left:16px; /* fixed padding that never changes */
+  }
+  nav.primary .has-sub .dropdown a::before{
+    content:""; position:absolute; left:0; top:6px; bottom:6px; width:2px;
+    background:var(--drawer-rule); border-radius:2px; opacity:1; transition:background-color .15s ease, opacity .15s ease;
   }
   nav.primary .has-sub .dropdown a:hover,
   nav.primary .has-sub .dropdown a:focus-visible{
-    border-left-color:var(--accent);
-    background:transparent; color:var(--accent);
-    outline:none;
+    color:var(--accent); outline:none;
+  }
+  nav.primary .has-sub .dropdown a:hover::before,
+  nav.primary .has-sub .dropdown a:focus-visible::before{
+    background:var(--accent); opacity:1;
   }
 
   /* subtle separators between major items */
-  nav.primary > ul > li + li{ position:relative; }
+  nav.primary > ul > li + li{ position:relative }
   nav.primary > ul > li + li::before{
     content:""; position:absolute; left:0; right:0; top:-3px; height:1px;
     background:linear-gradient(to right, transparent, var(--drawer-rule), transparent);
