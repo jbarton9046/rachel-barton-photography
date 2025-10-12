@@ -20,12 +20,12 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts (match site-wide set) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Shared layout (universal navbar + footer styles) -->
+  <!-- Shared layout -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
   <style>
@@ -86,7 +86,7 @@
     .card .body{padding:16px}
     .card .body p{ font-size:clamp(16px,2.9vw,19px); margin:0 0 14px; }
 
-    /* Headshot column (no frame to show more of the image) */
+    /* Headshot column (no frame) */
     .image-card{ background:transparent; border:0; box-shadow:none; }
     .image-card .no-frame{ border:0; box-shadow:none; }
 
@@ -154,8 +154,16 @@
       .card .body{ padding:14px; }
       .card .body p{ font-size:clamp(16px,4.2vw,18px); margin-bottom:12px; }
 
-      /* image below text on mobile (clean reading flow) */
-      .image-card{ margin-top:0; }
+      /* ✅ Mobile-only reordering: show the headshot ABOVE the bio text */
+      .cards{ grid-auto-flow:row; }
+      .image-card{
+        order:-1;                 /* move image above the text card */
+        margin:6px 0 10px;
+      }
+      .image-card .no-frame{
+        border:0; box-shadow:none;
+        width:100%; max-width:520px; margin:0 auto;
+      }
 
       /* “My Approach” stacks 1-per-row on phones (2-up on medium screens) */
       .approach-grid{ grid-template-columns:1fr; }
@@ -181,6 +189,7 @@
     <!-- Bio / headshot -->
     <section aria-label="About content">
       <div class="cards">
+        <!-- Text card -->
         <div class="card">
           <div class="body">
             <p>
@@ -200,7 +209,7 @@
           </div>
         </div>
 
-        <!-- Headshot -->
+        <!-- Headshot (reordered above text on mobile) -->
         <div class="image-card">
           <img class="no-frame" loading="lazy" src="/pictures/rahcelHeadshot.JPG" alt="Rachel Barton, Sarasota family photographer headshot" />
         </div>
@@ -231,10 +240,9 @@
     </section>
   </main>
 
-  <!-- Shared Footer (site-wide Instagram + auto-year) -->
+  <!-- Shared Footer -->
   <div data-include="/partials/footer.html"></div>
 
-  <!-- Include shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
 </body>
 </html>
