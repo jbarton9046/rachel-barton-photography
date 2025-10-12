@@ -5,121 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Galleries & Services | Rachel Barton Photography</title>
 
-  <!-- Primary SEO -->
+  <!-- SEO -->
   <meta name="description" content="Explore Rachel Barton’s signature galleries—Portraits, Branding, and Events—then jump into the service that fits. Clean, candid, true-to-life photography along Florida’s Gulf Coast." />
   <link rel="canonical" href="https://rachelsphotography.netlify.app/galleries.html" />
 
-  <!-- Social share -->
+  <!-- Social -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Rachel Barton Photography" />
   <meta property="og:title" content="Galleries & Services — Portraits, Branding, Events" />
   <meta property="og:description" content="See the look, feel the energy, and book the service that fits your story." />
   <meta property="og:url" content="https://rachelsphotography.netlify.app/galleries.html" />
   <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/introEventPics/E26A1309.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts -->
+  <!-- Fonts + shared layout -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Shared layout (nav/footer) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
   <style>
     :root{
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
       --accent:#A88A5A; --line:#e9e6df;
-      --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --ring:rgba(168,138,90,.25); --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-
-      /* height of the fixed mobile header (hamburger + brand) */
-      --mobile-header-h: 64px;
+      --mobile-header-h:64px; /* fixed mobile header height */
     }
-
     *{box-sizing:border-box}
     html,body{
       margin:0; padding:0; background:var(--bg); color:var(--ink);
-      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
-    a{color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease}
-    a:hover, a:focus-visible{ color:var(--accent); outline:none }
-    img{max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    a{color:inherit; text-decoration:none; transition:color .15s ease,border-color .15s ease}
+    a:hover, a:focus-visible{ color:var(--accent); outline:0 }
+    img{max-width:100%; height:auto; display:block; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
+    /* show desktop vs mobile blocks */
+    .desktop-only{ display:block; } .mobile-only{ display:none; }
+    @media (max-width:960px){ .desktop-only{ display:none; } .mobile-only{ display:block; } }
 
-    /* Page intro */
+    /* Intro */
     header.page-intro{ padding:clamp(24px,6vw,56px) 0 10px; text-align:center }
     .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
-    .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(28px,5vw,52px); line-height:1.08; margin:8px 0 10px }
+    .h1{ font-family:"Cormorant Garamond","Times New Roman",serif; font-weight:700; font-size:clamp(28px,5vw,52px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.1vw,20px); color:#58554e; max-width:72ch; margin:0 auto }
 
-    section{padding:calc(var(--gap)*1.4) 0}
+    section{ padding:calc(var(--gap)*1.4) 0 }
+
+    .section-title{
+      font-family:"Cormorant Garamond","Times New Roman",serif;
+      font-size:clamp(24px,3.5vw,38px);
+      margin:0 0 14px; text-align:left;
+    }
+    .section-sub{ color:#67635b; margin:0 0 22px; text-align:left; }
 
     /* Buttons */
     .btn{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-family:"Cormorant Garamond","Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:10px 16px;
-      background:#fff; color:#3f3a33;
-      border:1px solid var(--line);
-      border-radius:0;
-      font-weight:700; text-decoration:none;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:background-color .15s ease, border-color .15s ease,
-                 box-shadow .15s ease, transform .15s ease, color .15s ease;
+      padding:10px 16px; background:#fff; color:#3f3a33; border:1px solid var(--line);
+      border-radius:0; font-weight:700; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
-    .btn:hover, .btn:focus-visible{
-      background:#fff; border-color:#dcd4c3; color:var(--accent);
-      box-shadow:0 10px 24px rgba(0,0,0,.08);
-      transform:translateY(-1px);
-      outline:none;
-    }
+    .btn:hover, .btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); }
 
-    .section-title{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      font-size:clamp(24px,3.5vw,38px);
-      margin:0 0 14px;
-      text-align:left;
-    }
-    .section-sub{color:#67635b; margin:0 0 22px; text-align:left;}
-
-    /* ====== SERVICE BLOCKS: tile + blurb together ====== */
-    .services-grid{
-      display:grid; gap:clamp(18px,2vw,22px);
-      grid-template-columns:repeat(3,1fr);
-    }
-    .service{
-      display:grid; gap:12px; align-content:start;
-    }
-    .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
-    .blurb h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:20px }
-    .blurb p{ margin:0 0 10px; color:#5b574f }
-
-    /* Mosaic tile shell */
-    .captioned.notch{position:relative; display:block}
-    .notch-figure{display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06)}
-    .u-stroke{fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round}
-
-    /* Tile controls */
+    /* ====== TILE CHROME (shared) ====== */
+    .captioned.notch{ position:relative; display:block }
+    .notch-figure{ display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+    .u-stroke{ fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round }
     .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       background:transparent !important; border:0 !important; width:56px; height:56px; display:grid; place-items:center;
       color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0; transition:opacity .2s ease, transform .2s ease;
     }
     .captioned.notch:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
-    .tile-prev{ left:10px; } .tile-next{ right:10px; }
+    .tile-prev{ left:10px } .tile-next{ right:10px }
     .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05); box-shadow:0 6px 18px rgba(0,0,0,.14);
+      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
+      background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05); box-shadow:0 6px 18px rgba(0,0,0,.14);
     }
-    .tile-nav::after{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); border:1.5px solid var(--accent);
-    }
+    .tile-nav::after{ content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); border:1.5px solid var(--accent); }
     .tile-nav svg{ width:22px; height:22px; position:relative; z-index:2 }
-
-    /* Dots */
     .tile-dots{
       position:absolute; left:50%; transform:translateX(-50%); bottom:22px;
       display:flex; gap:10px; z-index:4; pointer-events:auto;
@@ -129,26 +97,36 @@
       border:1px solid var(--accent); background:transparent !important; border-radius:0; padding:0; cursor:pointer; opacity:.95;
     }
     .tile-dots button::before{
-      content:""; position:absolute; inset:-2px; background:rgba(255,255,255,.2); -webkit-backdrop-filter:blur(4px) saturate(1.05); backdrop-filter:blur(4px) saturate(1.05);
+      content:""; position:absolute; inset:-2px; background:rgba(255,255,255,.2);
+      -webkit-backdrop-filter:blur(4px) saturate(1.05); backdrop-filter:blur(4px) saturate(1.05);
     }
-    .tile-dots button.is-active{ border-color:var(--accent); }
-    .tile-dots button.is-active::before{ background:rgba(168,138,90,.22); }
+    .tile-dots button.is-active{ border-color:var(--accent) }
+    .tile-dots button.is-active::before{ background:rgba(168,138,90,.22) }
 
-    /* ===== Desktop / Tablet ===== */
+    /* ====== DESKTOP LAYOUT (original kept) ====== */
+    .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px) }
+    .mosaic figure{ margin:0 }
+    .service-blurbs{ margin-top:clamp(18px,3vw,28px) }
+    .service-blurbs .row{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
+    .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+    .blurb h3{ font-family:"Cormorant Garamond","Times New Roman",serif; margin:0 0 6px; font-size:20px }
+    .blurb p{ margin:0 0 10px; color:#5b574f }
+
+    /* ====== MOBILE LAYOUT (paired blocks) ====== */
+    .services-grid{ display:grid; gap:clamp(18px,2vw,22px); }
+    .service{ display:grid; gap:12px; align-content:start; }
+
+    /* breakpoints for desktop grid */
     @media (max-width:960px){
-      .services-grid{ grid-template-columns:repeat(2,1fr); }
+      .mosaic{ grid-template-columns:1fr 1fr }
+      .service-blurbs .row{ grid-template-columns:1fr 1fr }
     }
     @media (max-width:640px){
-      .services-grid{ grid-template-columns:1fr; }
-      header.page-intro{ padding-top: calc(var(--mobile-header-h) + 12px); } /* clear mobile header */
-      .h1{ font-size:clamp(28px,7vw,40px); }
-      .lead{ font-size:clamp(15px,4vw,18px); }
-      main#content{ padding-top: 0; } /* intro already adds safe space */
-    }
-
-    /* Just in case: if other pages rely on #content padding for mobile, keep a fallback here */
-    @media (max-width:640px){
-      body .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
+      header.page-intro{ padding-top: calc(var(--mobile-header-h) + 12px); } /* prevent nav clash on phones */
+      .h1{ font-size:clamp(28px,7vw,40px) }
+      .lead{ font-size:clamp(15px,4vw,18px) }
+      .mosaic{ grid-template-columns:1fr }
+      .service-blurbs .row{ grid-template-columns:1fr }
     }
   </style>
 </head>
@@ -170,10 +148,11 @@
         <h2 class="section-title" id="portfolio-title">Signature Galleries</h2>
         <p class="section-sub">Candid, timeless, true-to-life work—made to feel like you, in the best light.</p>
 
-        <!-- ===== Service blocks (tile + matching blurb together) ===== -->
-        <div class="services-grid">
-          <!-- PORTRAITS -->
-          <div class="service">
+        <!-- ================= DESKTOP (original layout) ================= -->
+        <div class="desktop-only">
+          <!-- Tiles -->
+          <div class="mosaic">
+            <!-- PORTRAITS (desktop ids) -->
             <figure class="captioned notch" id="gallery-meadow" aria-label="Portraits"
                     data-images='[
                       "pictures/introPortPics/E26A0702%20(1).jpg",
@@ -205,26 +184,12 @@
                   <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
                 </g>
               </svg>
-
-              <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18L9 12l6-6"/></svg>
-              </button>
-              <button class="tile-nav tile-next" type="button" aria-label="Next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-
-              <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
+              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+              <div class="tile-dots" role="tablist"></div>
             </figure>
 
-            <article class="blurb">
-              <h3>Portraits</h3>
-              <p>Warm, movement-filled portraits that feel like real life—family, maternity, and newborn sessions in soft Gulf light. Gentle direction, natural connection, and edits that stand the test of time.</p>
-              <a class="btn" href="/portraits.html">Explore Portraits</a>
-            </article>
-          </div>
-
-          <!-- BRANDING -->
-          <div class="service">
+            <!-- BRANDING (desktop id) -->
             <figure class="captioned notch" id="gallery-family" aria-label="Branding"
                     data-images='[
                       "pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg",
@@ -253,26 +218,12 @@
                   <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
                 </g>
               </svg>
-
-              <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18L9 12l6-6"/></svg>
-              </button>
-              <button class="tile-nav tile-next" type="button" aria-label="Next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-
-              <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
+              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+              <div class="tile-dots" role="tablist"></div>
             </figure>
 
-            <article class="blurb">
-              <h3>Branding</h3>
-              <p>Strategy-backed imagery for entrepreneurs and teams—headshots, lifestyle, product, and space. Cohesive visuals that look premium on your site, socials, and launch campaigns.</p>
-              <a class="btn" href="/branding.html">Explore Branding</a>
-            </article>
-          </div>
-
-          <!-- EVENTS -->
-          <div class="service">
+            <!-- EVENTS (desktop id) -->
             <figure class="captioned notch" id="gallery-beach" aria-label="Events"
                     data-images='[
                       "pictures/introEventPics/E26A1193.jpg",
@@ -301,119 +252,184 @@
                   <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
                 </g>
               </svg>
-
-              <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18L9 12l6-6"/></svg>
-              </button>
-              <button class="tile-nav tile-next" type="button" aria-label="Next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-
-              <div class="tile-dots" aria-label="Slide navigation" role="tablist"></div>
+              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+              <div class="tile-dots" role="tablist"></div>
             </figure>
+          </div>
 
-            <article class="blurb">
-              <h3>Events</h3>
-              <p>Story-driven coverage with flattering light and quick turnarounds. From intimate gatherings to conferences, you’ll get a highlight library your audience can feel.</p>
-              <a class="btn" href="/events.html">Explore Events</a>
-            </article>
+          <!-- Desktop blurbs row -->
+          <div class="service-blurbs">
+            <div class="row">
+              <article class="blurb">
+                <h3>Portraits</h3>
+                <p>Warm, movement-filled portraits that feel like real life—family, maternity, and newborn sessions in soft Gulf light. Gentle direction, natural connection, and edits that stand the test of time.</p>
+                <a class="btn" href="/portraits.html">Explore Portraits</a>
+              </article>
+              <article class="blurb">
+                <h3>Branding</h3>
+                <p>Strategy-backed imagery for entrepreneurs and teams—headshots, lifestyle, product, and space. Cohesive visuals that look premium on your site, socials, and launch campaigns.</p>
+                <a class="btn" href="/branding.html">Explore Branding</a>
+              </article>
+              <article class="blurb">
+                <h3>Events</h3>
+                <p>Story-driven coverage with flattering light and quick turnarounds. From intimate gatherings to conferences, you’ll get a highlight library your audience can feel.</p>
+                <a class="btn" href="/events.html">Explore Events</a>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= MOBILE (paired blocks) ================= -->
+        <div class="mobile-only">
+          <div class="services-grid">
+            <!-- PORTRAITS (mobile ids) -->
+            <div class="service">
+              <figure class="captioned notch" id="gallery-meadow-m" aria-label="Portraits"
+                      data-images='[
+                        "pictures/introPortPics/E26A0702%20(1).jpg",
+                        "pictures/introPortPics/E26A0712%20(2).jpg",
+                        "pictures/introPortPics/E26A0739%20(2).jpg",
+                        "pictures/introPortPics/E26A0753%20(2).jpg",
+                        "pictures/introPortPics/E26A1931%20(2).jpg",
+                        "pictures/introPortPics/E26A2047-2%20(2).jpg",
+                        "pictures/introPortPics/E26A2237%20(1).jpg",
+                        "pictures/introPortPics/E26A2245%20(2).jpg",
+                        "pictures/introPortPics/E26A2465-2%20(2).jpg",
+                        "pictures/introPortPics/E26A2614%20(1).jpg",
+                        "pictures/introPortPics/E26A2665%20(1).jpg"
+                      ]'>
+                <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <mask id="notchMask-m1"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
+                  </defs>
+                  <image href="pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m1)"></image>
+                </svg>
+                <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+                <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+                <div class="tile-dots" role="tablist"></div>
+              </figure>
+              <article class="blurb">
+                <h3>Portraits</h3>
+                <p>Warm, movement-filled portraits that feel like real life—family, maternity, and newborn sessions in soft Gulf light. Gentle direction, natural connection, and edits that stand the test of time.</p>
+                <a class="btn" href="/portraits.html">Explore Portraits</a>
+              </article>
+            </div>
+
+            <!-- BRANDING (mobile id) -->
+            <div class="service">
+              <figure class="captioned notch" id="gallery-family-m" aria-label="Branding"
+                      data-images='[
+                        "pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg",
+                        "pictures/introBrandPics/ali-mkumbwa-PxlKOcj0a3Q-unsplash.jpg",
+                        "pictures/introBrandPics/man-clutching-his-leather-duffle-bag.jpg",
+                        "pictures/introBrandPics/pexels-leeloothefirst-8970679.jpg",
+                        "pictures/introBrandPics/pexels-oliver-mussiett-131960-639146.jpg",
+                        "pictures/introBrandPics/pexels-picturemechaniq-1749303.jpg",
+                        "pictures/introBrandPics/s-o-c-i-a-l-c-u-t-7KkDiSs5UdQ-unsplash.jpg",
+                        "pictures/introBrandPics/tim-mossholder-qvWnGmoTbik-unsplash.jpg"
+                      ]'>
+                <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <mask id="notchMask-m2"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
+                  </defs>
+                  <image href="pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m2)"></image>
+                </svg>
+                <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+                <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+                <div class="tile-dots" role="tablist"></div>
+              </figure>
+              <article class="blurb">
+                <h3>Branding</h3>
+                <p>Strategy-backed imagery for entrepreneurs and teams—headshots, lifestyle, product, and space. Cohesive visuals that look premium on your site, socials, and launch campaigns.</p>
+                <a class="btn" href="/branding.html">Explore Branding</a>
+              </article>
+            </div>
+
+            <!-- EVENTS (mobile id) -->
+            <div class="service">
+              <figure class="captioned notch" id="gallery-beach-m" aria-label="Events"
+                      data-images='[
+                        "pictures/introEventPics/E26A1193.jpg",
+                        "pictures/introEventPics/E26A1196.jpg",
+                        "pictures/introEventPics/E26A1211.jpg",
+                        "pictures/introEventPics/E26A1230.jpg",
+                        "pictures/introEventPics/E26A1235.jpg",
+                        "pictures/introEventPics/E26A1309.jpg",
+                        "pictures/introEventPics/E26A1312.jpg",
+                        "pictures/introEventPics/E26A1314.jpg"
+                      ]'>
+                <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <mask id="notchMask-m3"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
+                  </defs>
+                  <image href="pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m3)"></image>
+                </svg>
+                <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+                <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+                <div class="tile-dots" role="tablist"></div>
+              </figure>
+              <article class="blurb">
+                <h3>Events</h3>
+                <p>Story-driven coverage with flattering light and quick turnarounds. From intimate gatherings to conferences, you’ll get a highlight library your audience can feel.</p>
+                <a class="btn" href="/events.html">Explore Events</a>
+              </article>
+            </div>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Shared Footer -->
+  <!-- Footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Notch/label/dots positioning (kept minimal since labels are outside the image) -->
+  <!-- Prime: collapse notch label area (we're not using in-image labels now) -->
   <script>
     (function(){
-      const tiles = document.querySelectorAll('.captioned.notch');
-      function prime(tile){
-        const svg = tile.querySelector('svg.notch-figure');
-        const notchRect = svg?.querySelector('.notchRect');
-        const recessStroke = svg?.querySelector('.recessStroke');
-        if(!svg || !notchRect || !recessStroke) return;
-        /* collapse notch (we’re not rendering labels inside the notch right now) */
-        notchRect.setAttribute('x','400'); notchRect.setAttribute('y','1000');
-        notchRect.setAttribute('width','0.01'); notchRect.setAttribute('height','0.01');
-        recessStroke.setAttribute('x','400'); recessStroke.setAttribute('y','1000');
-        recessStroke.setAttribute('width','0.01'); recessStroke.setAttribute('height','0.01');
-      }
-      tiles.forEach(prime);
+      document.querySelectorAll('.captioned.notch svg .notchRect').forEach(r=>{
+        r.setAttribute('x','400'); r.setAttribute('y','1000');
+        r.setAttribute('width','0.01'); r.setAttribute('height','0.01');
+      });
     })();
   </script>
 
-  <!-- Shuffle/prime first images for two tiles (kept from your version) -->
+  <!-- Shuffle/prime starting images (desktop + mobile ids) -->
   <script>
     (function () {
-      const PORTRAITS_ID = "gallery-meadow";
-      const EVENTS_ID    = "gallery-beach";
-      const PREFERRED_EVENTS_FIRST   = "pictures/introEventPics/E26A1309.jpg";
-      const PREFERRED_PORTRAIT_FIRST = "pictures/introPortPics/E26A2614%20(1).jpg";
+      const DESKTOP = ['gallery-meadow','gallery-family','gallery-beach'];
+      const MOBILE  = ['gallery-meadow-m','gallery-family-m','gallery-beach-m'];
 
-      function shuffle(arr){
-        for(let i = arr.length - 1; i > 0; i--){
-          const j = Math.floor(Math.random() * (i + 1));
-          [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-      }
-      function parseList(tile){
-        try { return JSON.parse(tile.getAttribute("data-images") || "[]"); }
-        catch { return []; }
-      }
-      function writeListAndPrimeImage(tile, list){
-        tile.setAttribute("data-images", JSON.stringify(list));
-        const imgEl = tile.querySelector("svg image");
-        if (imgEl && list[0]) {
-          imgEl.setAttribute("href", list[0]);
-          imgEl.setAttributeNS("http://www.w3.org/1999/xlink", "href", list[0]);
-          imgEl.setAttribute("preserveAspectRatio","xMidYMid slice");
-        }
-      }
+      const prefer = {
+        'gallery-beach'   : 'pictures/introEventPics/E26A1309.jpg',
+        'gallery-beach-m' : 'pictures/introEventPics/E26A1309.jpg',
+        'gallery-meadow'  : 'pictures/introPortPics/E26A2614%20(1).jpg',
+        'gallery-meadow-m': 'pictures/introPortPics/E26A2614%20(1).jpg'
+      };
 
-      // Portraits
-      (function(){
-        const tile = document.getElementById(PORTRAITS_ID);
-        if(!tile) return;
-        const list = parseList(tile);
-        if(!Array.isArray(list) || list.length <= 1) return;
-
+      function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a }
+      function parseList(tile){ try{ return JSON.parse(tile.getAttribute('data-images')||'[]') }catch{ return [] } }
+      function prime(id){
+        const tile = document.getElementById(id); if(!tile) return;
+        const list = parseList(tile); if(!Array.isArray(list)||list.length<=1) return;
         shuffle(list);
-        const idx = list.indexOf(PREFERRED_PORTRAIT_FIRST);
-        if (idx > -1) {
-          const [hit] = list.splice(idx, 1);
-          list.unshift(hit);
-        } else {
-          list.unshift(PREFERRED_PORTRAIT_FIRST);
+        const want = prefer[id];
+        if (want){
+          const idx = list.indexOf(want);
+          if (idx>-1){ const [hit]=list.splice(idx,1); list.unshift(hit); } else { list.unshift(want); }
         }
-        writeListAndPrimeImage(tile, list);
-      })();
-
-      // Events
-      (function(){
-        const tile = document.getElementById(EVENTS_ID);
-        if(!tile) return;
-        const list = parseList(tile);
-        if(!Array.isArray(list) || list.length <= 1) return;
-
-        shuffle(list);
-        const idx = list.indexOf(PREFERRED_EVENTS_FIRST);
-        if (idx > -1) {
-          const [hit] = list.splice(idx, 1);
-          list.unshift(hit);
-        } else {
-          list.unshift(PREFERRED_EVENTS_FIRST);
+        tile.setAttribute('data-images', JSON.stringify(list));
+        const imgEl = tile.querySelector('svg image'); if(imgEl && list[0]){
+          imgEl.setAttribute('href', list[0]);
+          imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
         }
-        writeListAndPrimeImage(tile, list);
-      })();
+      }
+      [...DESKTOP, ...MOBILE].forEach(prime);
     })();
   </script>
 
-  <!-- Simple slider logic for each tile -->
+  <!-- Slider wiring (desktop + mobile) -->
   <script>
     function wireTileSlider(tileId){
       const tile = document.getElementById(tileId);
@@ -428,34 +444,22 @@
       const dots = [];
       if(dotsWrap){
         for(let i=0;i<list.length;i++){
-          const b = document.createElement('button');
-          b.type = 'button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide ' + (i+1));
-          b.addEventListener('click', (e)=>{ e.stopPropagation(); show(i); });
+          const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide '+(i+1));
+          b.addEventListener('click',(e)=>{ e.stopPropagation(); show(i); });
           dotsWrap.appendChild(b); dots.push(b);
         }
       }
-      function updateDots(){
-        if(!dots.length) return;
-        dots.forEach((d,i)=>{ if(i===idx){ d.classList.add('is-active'); d.setAttribute('aria-selected','true'); } else { d.classList.remove('is-active'); d.removeAttribute('aria-selected'); } });
-      }
+      function updateDots(){ dots.forEach((d,i)=>{ d.classList.toggle('is-active', i===idx); d.setAttribute('aria-selected', i===idx ? 'true':'false'); }); }
       function show(i){
-        idx = (i + list.length) % list.length;
-        const src = list[idx];
-        imgEl.setAttribute('href', src);
-        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
-        imgEl.setAttribute('preserveAspectRatio','xMidYMid slice');
-        updateDots();
+        idx=(i+list.length)%list.length; const src=list[idx];
+        imgEl.setAttribute('href',src); imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href',src); updateDots();
       }
-      const prevBtn = tile.querySelector('.tile-prev');
-      const nextBtn = tile.querySelector('.tile-next');
-      if(prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx-1); });
-      if(nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx+1); });
-      tile.querySelector('svg.notch-figure')?.addEventListener('click', () => show(idx+1));
+      tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx-1); });
+      tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx+1); });
+      tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>show(idx+1));
       updateDots();
     }
-    wireTileSlider('gallery-meadow');
-    wireTileSlider('gallery-family');
-    wireTileSlider('gallery-beach');
+    ['gallery-meadow','gallery-family','gallery-beach','gallery-meadow-m','gallery-family-m','gallery-beach-m'].forEach(wireTileSlider);
   </script>
 </body>
 </html>
