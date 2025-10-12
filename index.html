@@ -26,12 +26,10 @@
       --bg:#FAFAF8; --ink:#3e3e3a; --accent:#A88A5A; --line:#e9e6df;
       --ring:rgba(168,138,90,.25); --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
-      /* Positioning knobs */
+      /* Positioning knobs (decrease to nudge the card LEFT) */
       --card-max: 1100px;       /* allow one-line “Rachel Barton” on desktop */
-      --subject-right: 46vw;    /* desktop: daughter's right edge (left bound) */
-
-      /* Mobile positioning knob (adjust 36–44vw to taste) */
-      --subject-right-mobile: 40vw;
+      --subject-right: 42vw;    /* desktop: approx daughter's right edge */
+      --subject-right-mobile: 42vw; /* mobile: same idea; tweak 40–44vw to taste */
     }
 
     *{ box-sizing:border-box }
@@ -104,37 +102,37 @@
       display:flex; gap:22px; margin:28px 0; flex-wrap:wrap; justify-content:center;
     }
 
-    /* Buttons — text links (no background), classy underline reveal + subtle text shadow */
+    /* ---------- DESKTOP BUTTON STYLE (unchanged premium outlined) ---------- */
     .btn{
+      --btn-bg: rgba(255,255,255,.14);
+      --btn-border: rgba(62,62,58,.28);
+      --btn-border-hover: rgba(62,62,58,.45);
+
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:8px 2px; border:0; background:transparent; border-radius:0;
-      color:#2f2a24; cursor:pointer; font-weight:700; white-space:nowrap;
 
-      /* elegant underline reveal */
-      background-image: linear-gradient(currentColor, currentColor);
-      background-repeat: no-repeat;
-      background-position: 0 100%;
-      background-size: 0 1px;
-      transition: background-size .2s ease, color .18s ease, transform .18s ease, text-shadow .18s ease;
+      padding:12px 22px;
+      background:var(--btn-bg);
+      color:#2f2a24;
+      border:1px solid var(--btn-border);
+      border-radius:0;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
 
-      /* gentle text shadow for readability over photo */
-      text-shadow:
-        0 1px 0 rgba(255,255,255,.35),
-        0 8px 20px rgba(0,0,0,.18);
+      font-weight:700; text-decoration:none;
+      transition:background-color .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease, transform .18s ease;
+      white-space:nowrap;
     }
     .btn:hover{
+      background:rgba(255,255,255,.20);
+      border-color:var(--btn-border-hover);
       color:var(--accent);
-      background-size: 100% 1px;
-      transform: translateY(-1px);
-      text-shadow:
-        0 1px 0 rgba(255,255,255,.4),
-        0 10px 26px rgba(0,0,0,.22);
+      transform:translateY(-1px);
+      box-shadow:0 10px 24px rgba(0,0,0,.08);
     }
     .btn:focus-visible{
       outline:0;
-      box-shadow:0 0 0 3px var(--ring);
-      background-size:100% 1px;
+      box-shadow:0 0 0 3px var(--ring), 0 10px 24px rgba(0,0,0,.08);
+      border-color:var(--btn-border-hover);
     }
 
     .localities{ color:#5c5850; margin-top:6px; line-height:1.75 }
@@ -165,8 +163,38 @@
         display:grid; grid-template-columns:1fr 1fr; gap:10px;
         margin: 12px 0 6px;
       }
+
+      /* ---------- MOBILE BUTTON STYLE (text links with elegant underline) ---------- */
       .btn{
         justify-content:center; width:100%; padding:10px 0; font-size:16px;
+
+        border:0; background:transparent; box-shadow:none; border-radius:0;
+        color:#2f2a24;
+
+        /* underline reveal */
+        background-image: linear-gradient(currentColor, currentColor);
+        background-repeat: no-repeat;
+        background-position: 0 100%;
+        background-size: 0 1px;
+        transition: background-size .2s ease, color .18s ease, transform .18s ease, text-shadow .18s ease;
+
+        /* subtle readability */
+        text-shadow:
+          0 1px 0 rgba(255,255,255,.35),
+          0 8px 20px rgba(0,0,0,.18);
+      }
+      .btn:hover{
+        color:var(--accent);
+        background-size: 100% 1px;
+        transform: translateY(-1px);
+        text-shadow:
+          0 1px 0 rgba(255,255,255,.4),
+          0 10px 26px rgba(0,0,0,.22);
+      }
+      .btn:focus-visible{
+        outline:0;
+        box-shadow:0 0 0 3px var(--ring);
+        background-size:100% 1px;
       }
 
       .localities{
