@@ -29,7 +29,7 @@
       /* Positioning knobs (decrease to nudge the card LEFT) */
       --card-max: 1100px;           /* allow one-line “Rachel Barton” on desktop */
       --subject-right: 40vw;        /* desktop: approx daughter's right edge */
-      --subject-right-mobile: 24vw; /* mobile: same idea; tweak 34–40vw to taste */
+      --subject-right-mobile: 24vw; /* mobile: your chosen value */
     }
 
     *{ box-sizing:border-box }
@@ -148,7 +148,7 @@
         left: calc( (var(--subject-right-mobile) + 100vw) / 2 );
         top: 43.5%;
         transform: translate(-50%, -50%);
-        padding: 12px 20px;
+        padding: 10px 18px; /* slightly tighter to shorten the card */
       }
       .eyebrow{
         font-size: 11px; letter-spacing: .14em; margin-bottom: 4px;
@@ -198,16 +198,23 @@
         background-size:100% 1px;
       }
 
+      /* ---- Locations block: smaller, tighter, and no forced line breaks ---- */
       .localities{
-        font-size: 13px; line-height: 1.45; margin-top: 6px; opacity: .95;
+        font-size: 12.25px;   /* smaller text */
+        line-height: 1.35;    /* tighter stack */
+        margin-top: 4px;
+        opacity: .95;
       }
+      .localities br{ display:none; } /* let text wrap naturally on fewer lines */
+      .localities .dot{ margin-right: .15ch; }
+      .localities .dot::after{ content:" • "; color:#8a857a; }
     }
 
     @media (max-width: 380px){
-      .hero .copy{ padding: 10px 16px; top: 43.5%; }
+      .hero .copy{ padding: 9px 16px; top: 43.5%; }
       h1{ font-size: clamp(28px, 8.4vw, 36px); }
       .btn{ font-size: 15px; padding: 9px 0; }
-      .localities{ font-size: 12.5px; line-height: 1.4; }
+      .localities{ font-size: 11.8px; line-height: 1.32; }
     }
 
     /* Hide anything below; we’re a fixed, one-screen hero */
