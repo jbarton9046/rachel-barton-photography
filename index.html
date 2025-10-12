@@ -27,8 +27,8 @@
       --ring:rgba(168,138,90,.25); --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
       /* Tuning knobs */
-      --card-max: 1100px;    /* allow one-line “Rachel Barton” */
-      --subject-right: 40vw; /* position card midpoint between subject + viewport right */
+      --card-max: 1100px;    /* allow one-line “Rachel Barton” on desktop */
+      --subject-right: 40vw; /* desktop centering helper */
     }
 
     *{ box-sizing:border-box }
@@ -102,10 +102,9 @@
 
     /* Translucent buttons with soft grey outline (no blur) */
     .btn{
-      /* tweak these two if you want lighter/darker later */
-      --btn-bg: rgba(255,255,255,.14);        /* translucent fill */
-      --btn-border: rgba(62,62,58,.28);       /* soft neutral grey */
-      --btn-border-hover: rgba(62,62,58,.45); /* a touch stronger on hover */
+      --btn-bg: rgba(255,255,255,.14);
+      --btn-border: rgba(62,62,58,.28);
+      --btn-border-hover: rgba(62,62,58,.45);
 
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
@@ -115,17 +114,10 @@
       color:#2f2a24;
       border:1px solid var(--btn-border);
       border-radius:0;
-
-      /* gentle lift; same vibe as rest of site */
       box-shadow:0 6px 18px rgba(0,0,0,.06);
 
       font-weight:700; text-decoration:none;
-      transition:
-        background-color .18s ease,
-        border-color .18s ease,
-        color .18s ease,
-        box-shadow .18s ease,
-        transform .18s ease;
+      transition:background-color .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease, transform .18s ease;
     }
     .btn:hover{
       background:rgba(255,255,255,.20);
@@ -143,6 +135,56 @@
     .localities{ color:#5c5850; margin-top:6px; line-height:1.75 }
     .localities .dot::after{ content:" • "; color:#8a857a }
     .localities .dot:last-child::after{ content:"" }
+
+    /* ---------------- MOBILE OPTIMIZATION ---------------- */
+    @media (max-width: 820px){
+      /* keep width, tighten height/spacing for a squarer feel */
+      .hero .copy{
+        max-width: 92vw;                 /* similar width */
+        padding: 16px 18px;              /* tighter padding */
+        backdrop-filter: saturate(1.05) blur(.6px);
+      }
+      .eyebrow{
+        font-size: 11px;
+        letter-spacing: .14em;
+        margin-bottom: 6px;
+      }
+      h1{
+        font-size: clamp(34px, 8.2vw, 46px); /* smaller heading on phones */
+        line-height: 1.06;
+        margin: .15em 0 .05em;
+      }
+      .cta{
+        gap: 12px;
+        margin: 14px 0 10px;
+      }
+      .btn{
+        padding: 10px 16px;              /* slimmer buttons */
+        font-size: 16px;
+      }
+      .localities{
+        font-size: 14px;                 /* smaller locations text */
+        line-height: 1.55;
+        margin-top: 8px;
+        opacity: .95;
+      }
+    }
+
+    @media (max-width: 420px){
+      /* extra-tight phones */
+      .hero .copy{
+        max-width: 92vw;
+        padding: 14px 16px;
+      }
+      h1{
+        font-size: clamp(30px, 8.6vw, 40px);
+      }
+      .btn{
+        padding: 9px 14px;
+        font-size: 15px;
+      }
+      .localities{ font-size: 13px; line-height: 1.5 }
+    }
 
     /* Hide anything below; we’re a fixed, one-screen hero */
     .scallop, main, footer { display:none !important; }
