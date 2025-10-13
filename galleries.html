@@ -394,7 +394,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Prime: collapse notch label area (we're not using in-image labels now) -->
+  <!-- Collapse notch label area (no in-image labels now) -->
   <script>
     (function(){
       document.querySelectorAll('.captioned.notch svg .notchRect').forEach(r=>{
@@ -404,11 +404,15 @@
     })();
   </script>
 
-  <!-- Shuffle/prime starting images (desktop + mobile ids) -->
+  <!-- Viewport-only, lazy slider init (desktop OR mobile; not both) -->
   <script>
     (function () {
-      const DESKTOP = ['gallery-meadow','gallery-family','gallery-beach'];
-      const MOBILE  = ['gallery-meadow-m','gallery-family-m','gallery-beach-m'];
+      // Which set is visible right now?
+      function currentIds() {
+        return (window.matchMedia('(max-width: 960px)').matches)
+          ? ['gallery-meadow-m','gallery-family-m','gallery-beach-m']
+          : ['gallery-meadow','gallery-family','gallery-beach'];
+      }
 
       const prefer = {
         'gallery-beach'   : 'pictures/introEventPics/E26A1309.jpg',
@@ -419,56 +423,96 @@
 
       function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a }
       function parseList(tile){ try{ return JSON.parse(tile.getAttribute('data-images')||'[]') }catch{ return [] } }
-      function prime(id){
-        const tile = document.getElementById(id); if(!tile) return;
-        const list = parseList(tile); if(!Array.isArray(list)||list.length<=1) return;
+
+      function prime(tileId){
+        const tile = document.getElementById(tileId);
+        if(!tile || tile.dataset.primed) return;
+
+        const list = parseList(tile);
+        if(!Array.isArray(list) || list.length <= 1) return;
+
         shuffle(list);
-        const want = prefer[id];
+        const want = prefer[tileId];
         if (want){
           const idx = list.indexOf(want);
           if (idx>-1){ const [hit]=list.splice(idx,1); list.unshift(hit); } else { list.unshift(want); }
         }
         tile.setAttribute('data-images', JSON.stringify(list));
-        const imgEl = tile.querySelector('svg image'); if(imgEl && list[0]){
+
+        const imgEl = tile.querySelector('svg image');
+        if(imgEl && list[0]){
           imgEl.setAttribute('href', list[0]);
           imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
         }
+        tile.dataset.primed = '1';
       }
-      [...DESKTOP, ...MOBILE].forEach(prime);
-    })();
-  </script>
 
-  <!-- Slider wiring (desktop + mobile) -->
-  <script>
-    function wireTileSlider(tileId){
-      const tile = document.getElementById(tileId);
-      if(!tile) return;
-      const imgEl = tile.querySelector('svg image'); if(!imgEl) return;
+      function wire(tileId){
+        const tile = document.getElementById(tileId);
+        if(!tile || tile.dataset.wired) return;
 
-      let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
-      if(!Array.isArray(list) || list.length <= 1) return;
+        const imgEl = tile.querySelector('svg image'); if(!imgEl) return;
+        let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
+        if(!Array.isArray(list) || list.length <= 1) return;
 
-      let idx = 0;
-      const dotsWrap = tile.querySelector('.tile-dots');
-      const dots = [];
-      if(dotsWrap){
-        for(let i=0;i<list.length;i++){
-          const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide '+(i+1));
-          b.addEventListener('click',(e)=>{ e.stopPropagation(); show(i); });
-          dotsWrap.appendChild(b); dots.push(b);
+        let idx = 0;
+        const dotsWrap = tile.querySelector('.tile-dots');
+        const dots = [];
+        if(dotsWrap){
+          for(let i=0;i<list.length;i++){
+            const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide '+(i+1));
+            b.addEventListener('click',(e)=>{ e.stopPropagation(); show(i); });
+            dotsWrap.appendChild(b); dots.push(b);
+          }
         }
+        function updateDots(){ dots.forEach((d,i)=>{ d.classList.toggle('is-active', i===idx); d.setAttribute('aria-selected', i===idx ? 'true':'false'); }); }
+        function show(i){
+          idx=(i+list.length)%list.length;
+          const src=list[idx];
+          imgEl.setAttribute('href',src);
+          imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href',src);
+          updateDots();
+        }
+        tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx-1); });
+        tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx+1); });
+        tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>show(idx+1));
+        updateDots();
+
+        tile.dataset.wired = '1';
       }
-      function updateDots(){ dots.forEach((d,i)=>{ d.classList.toggle('is-active', i===idx); d.setAttribute('aria-selected', i===idx ? 'true':'false'); }); }
-      function show(i){
-        idx=(i+list.length)%list.length; const src=list[idx];
-        imgEl.setAttribute('href',src); imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href',src); updateDots();
+
+      // Lazy init: observe only the visible set
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            const id = entry.target.id;
+            prime(id);
+            wire(id);
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '200px 0px' });
+
+      function initForViewport(){
+        currentIds().forEach(id=>{
+          const el = document.getElementById(id);
+          if (el) io.observe(el);
+        });
       }
-      tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx-1); });
-      tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx+1); });
-      tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>show(idx+1));
-      updateDots();
-    }
-    ['gallery-meadow','gallery-family','gallery-beach','gallery-meadow-m','gallery-family-m','gallery-beach-m'].forEach(wireTileSlider);
+
+      // Kick off
+      initForViewport();
+
+      // If user crosses the 960px breakpoint, start observing the other set (still lazy).
+      let wasMobile = window.matchMedia('(max-width: 960px)').matches;
+      window.addEventListener('resize', ()=>{
+        const isMobile = window.matchMedia('(max-width: 960px)').matches;
+        if (isMobile !== wasMobile){
+          wasMobile = isMobile;
+          initForViewport();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
