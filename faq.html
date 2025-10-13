@@ -32,6 +32,9 @@
       --accent:#A88A5A; --line:#e9e6df; --ring:rgba(168,138,90,.25);
       --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1100px;
+
+      /* height of sticky mobile header (used to pad content below it) */
+      --mobile-header-h: 64px;
     }
 
     *{box-sizing:border-box}
@@ -91,12 +94,18 @@
       outline:none;
     }
 
-    /* Auto-span class (kept harmless on mobile) */
+    /* Auto-span class (harmless when mobile layout is block) */
     details.span-below-photo{ grid-column:1 / -1; }
 
-    /* --- MOBILE FIX: drop grid, follow DOM order (intro → photo → FAQs) --- */
+    /* --- MOBILE: drop grid + add top padding under sticky nav --- */
     @media (max-width:900px){
-      .faq{ display:block; margin:18px 0 40px; }
+      .faq{
+        display:block;
+        margin:18px 0 40px;
+
+        /* Clear the sticky header (with iOS safe-area support) */
+        padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px);
+      }
       .faq-photo{ margin:12px 0; }
       details{ margin:0 0 12px; }
     }
@@ -225,12 +234,13 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Auto-span: two-pass measure so it collapses back up when cards close -->
+  <!-- Auto-span: desktop/tablet only (grid layout) -->
   <script>
     (function(){
+      if (window.matchMedia && !window.matchMedia('(min-width: 901px)').matches) return;
+
       const photo = document.querySelector('.faq-photo');
       const bars  = Array.from(document.querySelectorAll('.faq > details'));
-
       if (!photo || !bars.length) return;
 
       function absTop(el){ const r = el.getBoundingClientRect(); return r.top + window.scrollY; }
