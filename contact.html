@@ -6,10 +6,10 @@
   <title>Contact | Rachel Barton Photography</title>
   <meta name="description" content="Say hello and tell me about your session ideas. I’d love to plan something beautiful with you." />
 
-  <!-- Fonts (match rest of site) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
@@ -19,16 +19,12 @@
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#6e6a62;
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-
-      /* Site-standard nav spacing (keep consistent everywhere) */
-      --nav-gap-top: 16px;     /* distance from viewport top to TOP of nav links */
-      --nav-gap-bottom: 40px;  /* breathing room below nav */
+      --mobile-header-h: 64px; /* sticky header height for phones */
     }
 
-    /* Use the universal nav exactly as defined in layout.css; only normalize spacing */
-    .topbar{
-      padding-top: var(--nav-gap-top) !important;
-      padding-bottom: var(--nav-gap-bottom) !important;
+    .topbar{ /* keep shared nav spacing consistent site-wide */
+      padding-top:16px !important;
+      padding-bottom:40px !important;
     }
 
     *{box-sizing:border-box}
@@ -40,7 +36,6 @@
     a{color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
     img{max-width:100%; height:auto; display:block; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
-
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
     /* Page layout */
@@ -71,7 +66,7 @@
 
     .actions{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
 
-    /* === BUTTON: exactly the same pill/outline style used on about.html === */
+    /* Button (matches site) */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
@@ -81,27 +76,50 @@
       cursor:pointer;
     }
     .btn:hover, .btn:focus-visible{
-      background:#fff;
-      border-color:#dcd4c3; color:var(--accent);
+      background:#fff; border-color:#dcd4c3; color:var(--accent);
       box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
       outline:none;
     }
-    /* ============================================ */
 
-    /* Photos */
+    /* Photos (desktop) */
     .photos{display:grid; gap:var(--gap)}
     .stack{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
-    @media (max-width:900px){ .stack{grid-template-columns:1fr} }
 
-    /* Make columns end at the same bottom edge on desktop */
     @media (min-width:900px){
       .grid{ align-items:stretch; }
       .card{ height:100%; }
     }
+
+    /* ---------- MOBILE POLISH ---------- */
+    @media (max-width:900px){
+      /* Clear sticky header so content never sits underneath */
+      main section{
+        padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px);
+      }
+
+      /* Hide the big photo column on phones */
+      .photos{ display:none; }
+
+      /* Show a tiny, elegant collage INSIDE the form */
+      .mini-gallery{
+        display:grid;
+        grid-template-columns:repeat(3, 1fr);
+        gap:8px;
+        margin-bottom:8px;
+      }
+      .mini-gallery img{
+        width:100%;
+        height:100px;           /* small, unobtrusive */
+        object-fit:cover;
+        aspect-ratio:4/5;
+        border:1px solid var(--line);
+        box-shadow:0 3px 10px rgba(0,0,0,.05);
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Shared universal navbar (spacing handled by .topbar rules above) -->
+  <!-- Shared universal navbar -->
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
@@ -113,18 +131,25 @@
         <div class="grid">
           <!-- Form -->
           <div class="card pad">
+            <!-- MOBILE mini-collage (hidden on desktop) -->
+            <div class="mini-gallery" aria-hidden="true">
+              <img src="/pictures/familyPortrait/image5.jpg" alt="">
+              <img src="/pictures/thirdTileGal/E26A2022%20(1).jpg" alt="">
+              <img src="/pictures/oonaIvy/E26A0761.jpg" alt="">
+            </div>
+
             <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/contact.html?sent=1">
               <input type="hidden" name="form-name" value="contact" />
               <p style="display:none"><label>Don’t fill this out: <input name="bot-field" /></label></p>
 
               <label for="name">Your Name</label>
-              <input id="name" name="name" required placeholder="Jane Doe" />
+              <input id="name" name="name" required placeholder="Jane Doe" autocomplete="name" />
 
               <label for="email">Email</label>
-              <input id="email" name="email" type="email" required placeholder="you@example.com" />
+              <input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
 
               <label for="phone">Phone</label>
-              <input id="phone" name="phone" inputmode="tel" placeholder="(xxx) xxx-xxxx" />
+              <input id="phone" name="phone" inputmode="tel" placeholder="(xxx) xxx-xxxx" autocomplete="tel" />
 
               <label for="service">Interested In</label>
               <select id="service" name="service">
@@ -146,12 +171,12 @@
             </form>
           </div>
 
-          <!-- Photos -->
+          <!-- Photos (desktop only) -->
           <div class="photos" aria-hidden="true">
-            <img src="/pictures/familyPortrait/image5.jpg" alt="Candid family moment by the water">
+            <img src="/pictures/familyPortrait/image5.jpg" alt="Candid family moment by the water" loading="lazy" sizes="(max-width:900px) 0, 33vw">
             <div class="stack">
-              <img src="/pictures/thirdTileGal/E26A2022%20(1).jpg" alt="Golden-hour portrait at the beach">
-              <img src="/pictures/oonaIvy/E26A0761.jpg" alt="Siblings in meadow light">
+              <img src="/pictures/thirdTileGal/E26A2022%20(1).jpg" alt="Golden-hour portrait at the beach" loading="lazy" sizes="(max-width:900px) 0, 16vw">
+              <img src="/pictures/oonaIvy/E26A0761.jpg" alt="Siblings in meadow light" loading="lazy" sizes="(max-width:900px) 0, 16vw">
             </div>
           </div>
         </div>
@@ -159,42 +184,28 @@
     </section>
   </main>
 
-  <!-- Shared footer (site-wide via partial) -->
+  <!-- Shared footer -->
   <div data-include="/partials/footer.html"></div>
 
   <!-- include shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
+
+  <!-- Desktop-only vertical align nudge for the photo column -->
   <script>
-    // Auto-align photo column top to header text top on desktop
     function alignContactPhoto(){
+      if (window.innerWidth < 900) return; // phones: not needed
       const title = document.getElementById('contact-title');
       const photos = document.querySelector('.photos');
       if(!title || !photos) return;
-
-      // reset first
       photos.style.marginTop = '';
-
-      if (window.innerWidth < 900) return; // mobile/tablet: no lift
-
-      const titleTop  = title.getBoundingClientRect().top;
-      const photosTop = photos.getBoundingClientRect().top;
-      const delta = photosTop - titleTop;
-
-      // Shift photos up by exactly the difference
-      photos.style.marginTop = (-delta) + 'px';
+      const titleTop  = title.getBoundingClientRect().top + window.scrollY;
+      const photosTop = photos.getBoundingClientRect().top + window.scrollY;
+      photos.style.marginTop = (titleTop - photosTop) + 'px';
     }
-
-    // Run after fonts & images settle, and on resize
     (function(){
-      const firstImg = document.querySelector('.photos img');
-      if (firstImg) firstImg.addEventListener('load', alignContactPhoto, { once:true });
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => requestAnimationFrame(alignContactPhoto));
-      } else {
-        window.addEventListener('load', () => requestAnimationFrame(alignContactPhoto));
-      }
-      window.addEventListener('resize', () => requestAnimationFrame(alignContactPhoto));
-      // small async nudge
+      window.addEventListener('load', alignContactPhoto);
+      window.addEventListener('resize', alignContactPhoto);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignContactPhoto);
       setTimeout(alignContactPhoto, 0);
     })();
   </script>
