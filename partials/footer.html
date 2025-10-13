@@ -1,4 +1,4 @@
-<footer class="site-footer">
+<footer class="site-footer mini">
   <div class="container footer-wrap">
     <div class="copyright">
       © <span id="year"></span> Rachel Barton Photography · Sarasota, FL
@@ -9,7 +9,6 @@
       <li><a href="tel:+16153002618">615-300-2618</a></li>
 
       <li>
-        <!-- Instagram -->
         <a
           class="icon-btn ig"
           href="https://www.instagram.com/therachelbartonphoto?igsh=aXB0YzYyZ3NjZjQ5&utm_source=qr"
@@ -27,7 +26,6 @@
       </li>
 
       <li>
-        <!-- Pixieset -->
         <a
           class="icon-btn px"
           href="https://rachelbartonphotography38.pixieset.com/"
@@ -48,30 +46,26 @@
     </ul>
   </div>
 
-  <!-- Scoped footer styles -->
   <style>
-    .site-footer{
-      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+    .site-footer.mini{
+      padding: 8px 0 calc(env(safe-area-inset-bottom, 0px) + 6px);
+      font-size: 14px;
+      line-height: 1.2;
     }
 
     .footer-wrap{
-      display:flex; flex-wrap:wrap; gap:10px 20px;
-      align-items:center; justify-content:space-between;
-      /* desktop keeps your swapped sides look */
-      flex-direction:row-reverse;
+      display:flex; align-items:center; gap:12px;
+      /* one-line bar behavior on mobile */
+      white-space:nowrap;
     }
-    .copyright{ text-align:right; }
 
-    /* Link row becomes centered, wraps cleanly on phones */
     .footer-links{
-      display:flex; flex-wrap:wrap; align-items:center;
-      gap:8px 10px; list-style:none; padding:0; margin:0;
+      display:flex; align-items:center; gap:10px;
+      list-style:none; padding:0; margin:0;
     }
     .footer-links li{ display:inline-flex; align-items:center; }
-
-    /* Dots appear BEFORE wrapped items (no trailing dot at line ends) */
     .footer-links li + li::before{
-      content:"·"; opacity:.55; margin:0 6px; line-height:1;
+      content:"·"; opacity:.55; margin:0 6px;
     }
 
     .footer-links a{
@@ -79,21 +73,29 @@
     }
     .footer-links a:hover{ color:var(--accent); }
 
-    /* Icon buttons: bigger touch target but visually light */
     .icon-btn{
       display:inline-flex; align-items:center; justify-content:center;
-      padding:8px; margin:-6px; /* increases hit area without shifting layout */
-      border-radius:8px;
+      padding:6px; margin:-4px; border-radius:6px;
     }
     .icon-btn svg{
-      width:1.05em; height:1.05em;
+      width:1em; height:1em;
       stroke:currentColor; fill:none; stroke-width:1.6; display:block;
     }
 
-    /* Mobile layout */
+    /* Mini sizing + non-wrapping bar on small screens */
     @media (max-width:640px){
-      .footer-wrap{ justify-content:center; gap:8px 16px; }
-      .copyright{ text-align:center; width:100%; }
+      .site-footer.mini{ font-size:12px; }
+      .footer-wrap{
+        gap:10px;
+        /* keep everything on one line; allow gentle swipe if overflow */
+        flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+      }
+      .footer-wrap::-webkit-scrollbar{ display:none; }
+      .footer-links{ gap:8px; }
+      .footer-links li + li::before{ margin:0 5px; }
+      .icon-btn{ padding:4px; margin:-3px; }
+      .icon-btn svg{ width:.95em; height:.95em; }
     }
 
     @media (prefers-reduced-motion:reduce){
@@ -101,7 +103,6 @@
     }
   </style>
 
-  <!-- Auto year -->
   <script>
     (function(){
       try { document.getElementById('year').textContent = new Date().getFullYear(); } catch(e){}
