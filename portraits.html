@@ -38,16 +38,7 @@
       --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
       --nav-gap-top:16px; --nav-gap-bottom:40px;
-
-      /* Tile controls */
-      --arrow-size:54px;
-      --arrow-inset:12px;
-      --dot-size:10px;
-      --dot-gap:9px;
-      --glass-bg: rgba(255,255,255,.28);
-      --glass-blur: blur(7px) saturate(1.05);
-      --glass-border: 1px solid rgba(63,58,51,.18);
-      --glass-shadow: 0 10px 22px rgba(0,0,0,.10);
+      --mobile-header-h:64px;
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer, .page-top-spacer { height:0!important; }
@@ -56,6 +47,7 @@
     html,body{
       margin:0; padding:0; background:var(--bg); color:var(--ink);
       font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; line-height:1.65;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
     a{ color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease }
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
@@ -66,29 +58,16 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    /* Buttons */
+    /* Buttons (shared) */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 16px;
-      background:#fff; color:#3f3a33;
-      border:1px solid var(--line);
-      border-radius:0;
-      font-weight:700; text-decoration:none;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 16px; background:#fff; color:#3f3a33; border:1px solid var(--line);
+      border-radius:0; font-weight:700; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,.06);
       transition:background-color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease, color .15s ease;
     }
-    .btn:hover, .btn:focus-visible{
-      background:#fff;
-      border-color:#dcd4c3; color:var(--accent);
-      box-shadow:0 10px 24px rgba(0,0,0,.08);
-      transform:translateY(-1px);
-      outline:none;
-    }
+    .btn:hover, .btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); }
     .btn.alt{ background:#fff; }
-
-    .crumb{ font-size:14px; color:#7a766e; margin-bottom:6px }
-    .crumb a{ text-decoration:underline; text-underline-offset:3px }
 
     /* Hero */
     .hero{ padding:clamp(24px,6vw,56px) 0 }
@@ -107,63 +86,84 @@
     .card h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 8px; font-size:22px }
     .card p{ margin:0 }
 
-    /* Tiles */
-    .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,1.6vw,16px) }
-    @media (max-width:960px){ .mosaic{ grid-template-columns:1fr 1fr } }
-    @media (max-width:640px){ .mosaic{ grid-template-columns:1fr } }
+    /* ====== TILE CHROME & LAYOUT (EXACTLY LIKE galleries.html) ====== */
+    .desktop-only{ display:block; } .mobile-only{ display:none; }
+    @media (max-width:960px){ .desktop-only{ display:none; } .mobile-only{ display:block; } }
 
-    figure.tile{
-      margin:0; position:relative; aspect-ratio:4/5; overflow:hidden;
-      border-radius:0; border:1px solid var(--line); background:#ddd;
-      box-shadow:0 6px 18px rgba(0,0,0,.06); isolation:isolate;
-      transition:transform .2s ease, box-shadow .2s ease; cursor:pointer;
+    .section-title{
+      font-family:"Cormorant Garamond","Times New Roman",serif;
+      font-size:clamp(24px,3.5vw,38px);
+      margin:0 0 14px; text-align:left;
     }
-    figure.tile:hover{ transform:translateY(-2px) }
-    .tile-media{
-      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;
-    }
+    .section-sub{ color:#67635b; margin:0 0 22px; text-align:left; }
 
-    .tile-dots{
-      position:absolute; left:50%; transform:translateX(-50%); top:12px; z-index:4;
-      display:flex; gap:var(--dot-gap); pointer-events:auto;
-    }
-    .tile-dots button{
-      width:var(--dot-size); height:var(--dot-size); transform:rotate(45deg);
-      border:1px solid var(--accent); background:var(--glass-bg);
-      -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
-      box-shadow:0 3px 10px rgba(0,0,0,.10); cursor:pointer; padding:0; border-radius:0;
-      transition:transform .12s ease, background-color .12s ease, border-color .12s ease;
-    }
-    .tile-dots button:hover{ transform:rotate(45deg) scale(1.06) }
-    .tile-dots button.is-active{ background:rgba(232,223,201,.45); border-color:var(--accent) }
+    .captioned.notch{ position:relative; display:block }
+    .notch-figure{ display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+    .u-stroke{ fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round }
 
     .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
-      width:var(--arrow-size); height:var(--arrow-size);
-      display:grid; place-items:center; color:var(--accent); cursor:pointer; user-select:none;
-      border:0; background:transparent; z-index:5; opacity:0;
-      transition:opacity .2s ease, transform .2s ease;
+      background:transparent !important; border:0 !important; width:56px; height:56px; display:grid; place-items:center;
+      color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0; transition:opacity .2s ease, transform .2s ease;
     }
-    figure.tile:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1) }
-    .tile-prev{ left:var(--arrow-inset) } .tile-next{ right:var(--arrow-inset) }
+    .captioned.notch:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
+    .tile-prev{ left:10px } .tile-next{ right:10px }
     .tile-nav::before{
       content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
-      background:var(--glass-bg); -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
-      border:var(--glass-border); box-shadow:var(--glass-shadow);
+      background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05); box-shadow:0 6px 18px rgba(0,0,0,.14);
     }
-    .tile-nav svg{ width:22px; height:22px; position:relative; z-index:1 }
+    .tile-nav::after{ content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); border:1.5px solid var(--accent); }
+    .tile-nav svg{ width:22px; height:22px; position:relative; z-index:2 }
 
-    /* Explainer */
-    .explain{ padding:clamp(16px,5vw,40px) 0 0 }
-    .explain .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px); align-items:stretch; }
-    .explain .item{
-      background:#fff; border:1px solid var(--line); padding:18px; box-shadow:0 6px 18px rgba(0,0,0,.06);
-      display:flex; flex-direction:column;
+    .tile-dots{
+      position:absolute; left:50%; transform:translateX(-50%); bottom:22px;
+      display:flex; gap:10px; z-index:4; pointer-events:auto;
     }
-    .explain h4{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:20px }
-    .explain p{ margin:0 0 8px; color:#5b574f }
-    .explain ul{ margin:0 0 12px; padding-left:18px }
-    .explain .btns{ display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; }
+    .tile-dots button{
+      position:relative; width:12px; height:12px; transform:rotate(45deg);
+      border:1px solid var(--accent); background:transparent !important; border-radius:0; padding:0; cursor:pointer; opacity:.95;
+    }
+    .tile-dots button::before{
+      content:""; position:absolute; inset:-2px; background:rgba(255,255,255,.2);
+      -webkit-backdrop-filter:blur(4px) saturate(1.05); backdrop-filter:blur(4px) saturate(1.05);
+    }
+    .tile-dots button.is-active{ border-color:var(--accent) }
+    .tile-dots button.is-active::before{ background:rgba(168,138,90,.22) }
+
+    /* Desktop grid + blurbs row (like galleries.html) */
+    .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px) }
+    .mosaic figure{ margin:0 }
+    .service-blurbs{ margin-top:clamp(18px,3vw,28px) }
+    .service-blurbs .row{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
+    .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+    .blurb h3{ font-family:"Cormorant Garamond","Times New Roman",serif; margin:0 0 6px; font-size:20px }
+    .blurb p{ margin:0 0 10px; color:#5b574f }
+
+    /* Mobile paired layout (like galleries.html) */
+    .services-grid{ display:grid; gap:clamp(18px,2vw,22px); }
+    .service{ display:grid; gap:12px; align-content:start; }
+
+    @media (max-width:980px){
+      .hero-wrap{ grid-template-columns:1fr }
+      .cards{ grid-template-columns:1fr 1fr }
+      .service-blurbs .row{ grid-template-columns:1fr 1fr }
+      .mosaic{ grid-template-columns:1fr 1fr }
+    }
+    @media (max-width:640px){
+      .cards{ grid-template-columns:1fr }
+      .mosaic{ grid-template-columns:1fr }
+      .service-blurbs .row{ grid-template-columns:1fr }
+      .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
+    }
+
+    /* Remove legacy white SVG frame lines on all tiles (same as galleries.html) */
+    .captioned.notch .frameGroup,
+    .captioned.notch .u-stroke,
+    .captioned.notch .recessStroke,
+    .captioned.notch .framePath{
+      display:none !important;
+      stroke:transparent !important;
+    }
 
     /* Packages */
     .packages{ padding:clamp(24px,6vw,56px) 0 }
@@ -173,43 +173,6 @@
     .pack ul{ margin:0; padding-left:18px }
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; }
-
-    @media (max-width:980px){
-      .hero-wrap{ grid-template-columns:1fr }
-      .cards{ grid-template-columns:1fr 1fr }
-      .explain .grid, .packages .cards{ grid-template-columns:1fr 1fr }
-    }
-    @media (max-width:640px){
-      .cards, .mosaic, .explain .grid, .packages .cards{ grid-template-columns:1fr }
-    }
-
-    /* === MOBILE REFINEMENTS (match galleries.html tone) === */
-    @media (max-width:640px){
-      :root{
-        --gap:16px;
-        --arrow-size:42px;
-        --arrow-inset:8px;
-        --dot-size:8px;
-        --dot-gap:7px;
-      }
-      .hero{ padding:24px 0 16px; }
-      .h1{ font-size:clamp(24px,6.5vw,30px); }
-      .lead{ font-size:15px; }
-      .btn{ padding:8px 12px; font-size:14px; }
-
-      /* tighter blocks */
-      .value{ padding:20px 0; }
-      .packages{ padding:24px 0; }
-
-      /* arrows visible on touch (no hover) */
-      .tile-dots{ top:8px; }
-      .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
-      .tile-nav svg{ width:18px; height:18px; }
-    }
-
-    @media (prefers-reduced-motion:reduce){
-      *{ transition:none !important; }
-    }
   </style>
 </head>
 <body>
@@ -259,152 +222,255 @@
       </div>
     </section>
 
-    <!-- GALLERIES (tiles) -->
+    <!-- GALLERIES (exact galleries.html pattern) -->
     <section class="value" aria-labelledby="galleries-title">
       <div class="container">
         <div class="eyebrow">Galleries</div>
-        <h2 class="h1" style="font-size:clamp(24px,3.6vw,36px)" id="galleries-title">Explore the feel of each session</h2>
-        <div class="mosaic">
-          <!-- FAMILY -->
-          <figure class="tile" id="tile-family" data-link="/galleries/family-portrait.html"
-            data-all-images='[
-              "/pictures/familyPortrait/image1.jpg",
-              "/pictures/familyPortrait/image2.jpg",
-              "/pictures/familyPortrait/image3.jpg",
-              "/pictures/familyPortrait/image4.jpg",
-              "/pictures/familyPortrait/image5.jpg",
-              "/pictures/familyPortrait/image6.jpg",
-              "/pictures/familyPortrait/image7.jpg",
-              "/pictures/familyPortrait/image8.jpg",
-              "/pictures/familyPortrait/image9.jpg",
-              "/pictures/familyPortrait/image10.jpg",
-              "/pictures/familyPortrait/image11.jpg",
-              "/pictures/familyPortrait/image12.jpg",
+        <h2 class="section-title" id="galleries-title">Explore the feel of each session</h2>
+        <p class="section-sub">Candid, timeless, true-to-life portraits—made to feel like you, in the best light.</p>
 
-              "/pictures/siblingPortraitGal/E26A0671%20(3).jpg",
-              "/pictures/siblingPortraitGal/E26A0674.jpg",
-              "/pictures/siblingPortraitGal/E26A0691.jpg",
-              "/pictures/siblingPortraitGal/E26A0693.jpg",
-              "/pictures/siblingPortraitGal/E26A0695.jpg",
-              "/pictures/siblingPortraitGal/E26A0698%20(1).jpg",
-              "/pictures/siblingPortraitGal/E26A0699%20(1).jpg",
-              "/pictures/siblingPortraitGal/E26A0701%20(2).jpg",
-              "/pictures/siblingPortraitGal/E26A0702.jpg",
-              "/pictures/siblingPortraitGal/E26A0712%20(1).jpg",
-              "/pictures/siblingPortraitGal/E26A0718%20(1).jpg",
-              "/pictures/siblingPortraitGal/E26A0720.jpg",
-              "/pictures/siblingPortraitGal/E26A0722.jpg",
-              "/pictures/siblingPortraitGal/E26A0734%20(1).jpg",
-              "/pictures/siblingPortraitGal/E26A0739%20(1).jpg",
-              "/pictures/siblingPortraitGal/E26A0753%20(1).jpg",
-              "/pictures/siblingPortraitGal/E26A0755.jpg",
-              "/pictures/siblingPortraitGal/E26A0758%20(1).jpg",
-              "/pictures/siblingPortraitGal/E26A0759%20(1).jpg",
-              "/pictures/siblingPortraitGal/E26A0761%20(1).jpg",
-              "/pictures/siblingPortraitGal/E26A0764%20(1).jpg"
-            ]'>
-            <img class="tile-media" src="/pictures/familyPortrait/image1.jpg" alt="Family portraits preview" loading="lazy" />
-            <div class="tile-dots" role="tablist" aria-label="Family slides"></div>
-            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-            </button>
-            <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </figure>
+        <!-- ================= DESKTOP ================= -->
+        <div class="desktop-only">
+          <!-- Tiles -->
+          <div class="mosaic">
+            <!-- FAMILY -->
+            <figure class="captioned notch" id="portraits-family" aria-label="Family"
+                    data-images='[
+                      "/pictures/familyPortrait/image1.jpg",
+                      "/pictures/familyPortrait/image2.jpg",
+                      "/pictures/familyPortrait/image3.jpg",
+                      "/pictures/familyPortrait/image4.jpg",
+                      "/pictures/familyPortrait/image5.jpg",
+                      "/pictures/familyPortrait/image6.jpg",
+                      "/pictures/familyPortrait/image7.jpg",
+                      "/pictures/familyPortrait/image8.jpg",
+                      "/pictures/familyPortrait/image9.jpg",
+                      "/pictures/familyPortrait/image10.jpg",
+                      "/pictures/familyPortrait/image11.jpg",
+                      "/pictures/familyPortrait/image12.jpg",
+                      "/pictures/siblingPortraitGal/E26A0671%20(3).jpg",
+                      "/pictures/siblingPortraitGal/E26A0674.jpg",
+                      "/pictures/siblingPortraitGal/E26A0691.jpg",
+                      "/pictures/siblingPortraitGal/E26A0693.jpg",
+                      "/pictures/siblingPortraitGal/E26A0695.jpg",
+                      "/pictures/siblingPortraitGal/E26A0698%20(1).jpg",
+                      "/pictures/siblingPortraitGal/E26A0699%20(1).jpg",
+                      "/pictures/siblingPortraitGal/E26A0701%20(2).jpg",
+                      "/pictures/siblingPortraitGal/E26A0702.jpg",
+                      "/pictures/siblingPortraitGal/E26A0712%20(1).jpg",
+                      "/pictures/siblingPortraitGal/E26A0718%20(1).jpg",
+                      "/pictures/siblingPortraitGal/E26A0720.jpg",
+                      "/pictures/siblingPortraitGal/E26A0722.jpg",
+                      "/pictures/siblingPortraitGal/E26A0734%20(1).jpg",
+                      "/pictures/siblingPortraitGal/E26A0739%20(1).jpg",
+                      "/pictures/siblingPortraitGal/E26A0753%20(1).jpg",
+                      "/pictures/siblingPortraitGal/E26A0755.jpg",
+                      "/pictures/siblingPortraitGal/E26A0758%20(1).jpg",
+                      "/pictures/siblingPortraitGal/E26A0759%20(1).jpg",
+                      "/pictures/siblingPortraitGal/E26A0761%20(1).jpg",
+                      "/pictures/siblingPortraitGal/E26A0764%20(1).jpg"
+                    ]'>
+              <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <mask id="notchMask-p1">
+                    <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                    <rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/>
+                  </mask>
+                  <filter id="frameShadow-p1" x="-20%" y="-20%" width="140%">
+                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+                  </filter>
+                </defs>
+                <image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p1)"></image>
+                <g class="frameGroup" filter="url(#frameShadow-p1)">
+                  <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+                  <rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" />
+                </g>
+              </svg>
+              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+              <div class="tile-dots" role="tablist"></div>
+            </figure>
 
-          <!-- ADVENTURE -->
-          <figure class="tile" id="tile-adventure" data-link="/adventure.html"
-            data-all-images='[
-              "/pictures/andrewsBaldPics/E26A1013.jpg",
-              "/pictures/andrewsBaldPics/E26A1022.jpg",
-              "/pictures/andrewsBaldPics/E26A1033.jpg",
-              "/pictures/andrewsBaldPics/E26A1045.jpg",
-              "/pictures/andrewsBaldPics/E26A1062.jpg",
-              "/pictures/andrewsBaldPics/E26A1063-2.jpg",
-              "/pictures/andrewsBaldPics/E26A1087.jpg",
-              "/pictures/andrewsBaldPics/E26A1094.jpg",
-              "/pictures/andrewsBaldPics/E26A1095.jpg",
-              "/pictures/andrewsBaldPics/E26A1098.jpg"
-            ]'>
-            <img class="tile-media" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Adventure session preview" loading="lazy" />
-            <div class="tile-dots" role="tablist" aria-label="Adventure slides"></div>
-            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-            </button>
-            <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </figure>
+            <!-- ADVENTURE -->
+            <figure class="captioned notch" id="portraits-adventure" aria-label="Adventure"
+                    data-images='[
+                      "/pictures/andrewsBaldPics/E26A1013.jpg",
+                      "/pictures/andrewsBaldPics/E26A1022.jpg",
+                      "/pictures/andrewsBaldPics/E26A1033.jpg",
+                      "/pictures/andrewsBaldPics/E26A1045.jpg",
+                      "/pictures/andrewsBaldPics/E26A1062.jpg",
+                      "/pictures/andrewsBaldPics/E26A1063-2.jpg",
+                      "/pictures/andrewsBaldPics/E26A1087.jpg",
+                      "/pictures/andrewsBaldPics/E26A1094.jpg",
+                      "/pictures/andrewsBaldPics/E26A1095.jpg",
+                      "/pictures/andrewsBaldPics/E26A1098.jpg"
+                    ]'>
+              <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <mask id="notchMask-p2"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/></mask>
+                  <filter id="frameShadow-p2" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
+                </defs>
+                <image href="/pictures/andrewsBaldPics/E26A1013.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p2)"></image>
+                <g class="frameGroup" filter="url(#frameShadow-p2)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
+              </svg>
+              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+              <div class="tile-dots" role="tablist"></div>
+            </figure>
 
-          <!-- FRIEND -->
-          <figure class="tile" id="tile-friend" data-link="/galleries/friend-portraits.html"
-            data-preferred="/pictures/thirdTileGal/E26A2771.jpg"
-            data-all-images='[
-              "/pictures/thirdTileGal/E26A2017.jpg",
-              "/pictures/thirdTileGal/E26A2022%20(1).jpg",
-              "/pictures/thirdTileGal/E26A2047-2.jpg",
-              "/pictures/thirdTileGal/E26A2106.jpg",
-              "/pictures/thirdTileGal/E26A2245.jpg",
-              "/pictures/thirdTileGal/E26A2746.jpg",
-              "/pictures/thirdTileGal/E26A2768.jpg",
-              "/pictures/thirdTileGal/E26A2771.jpg",
-              "/pictures/thirdTileGal/E26A2854.jpg",
-              "/pictures/thirdTileGal/E26A2860.jpg"
-            ]'>
-            <img class="tile-media" src="/pictures/thirdTileGal/E26A2771.jpg" alt="Friend portraits preview" loading="lazy" />
-            <div class="tile-dots" role="tablist" aria-label="Friend slides"></div>
-            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-            </button>
-            <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </figure>
-        </div>
+            <!-- FRIEND -->
+            <figure class="captioned notch" id="portraits-friend" aria-label="Friend"
+                    data-images='[
+                      "/pictures/thirdTileGal/E26A2017.jpg",
+                      "/pictures/thirdTileGal/E26A2022%20(1).jpg",
+                      "/pictures/thirdTileGal/E26A2047-2.jpg",
+                      "/pictures/thirdTileGal/E26A2106.jpg",
+                      "/pictures/thirdTileGal/E26A2245.jpg",
+                      "/pictures/thirdTileGal/E26A2746.jpg",
+                      "/pictures/thirdTileGal/E26A2768.jpg",
+                      "/pictures/thirdTileGal/E26A2771.jpg",
+                      "/pictures/thirdTileGal/E26A2854.jpg",
+                      "/pictures/thirdTileGal/E26A2860.jpg"
+                    ]'>
+              <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <mask id="notchMask-p3"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="260" y="920" width="280" height="80" fill="black"/></mask>
+                  <filter id="frameShadow-p3" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
+                </defs>
+                <image href="/pictures/thirdTileGal/E26A2771.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p3)"></image>
+                <g class="frameGroup" filter="url(#frameShadow-p3)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
+              </svg>
+              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+              <div class="tile-dots" role="tablist"></div>
+            </figure>
+          </div>
 
-        <!-- BELOW-TILES EXPLAINER -->
-        <div class="explain">
-          <div class="grid">
-            <div class="item">
-              <h4>Family</h4>
-              <p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p>
-              <ul>
-                <li>Perfect for family, maternity, newborn</li>
-                <li>Locations across Sarasota & the Gulf Coast</li>
-                <li>Timeless edits and easy delivery</li>
-              </ul>
-              <div class="btns">
-                <a class="btn alt" href="/galleries/family-portrait.html">View Family Gallery</a>
-              </div>
-            </div>
-            <div class="item">
-              <h4>Adventure</h4>
-              <p>Hills, dunes, wind, and play—story-driven portraits in big landscapes with lots of movement.</p>
-              <ul>
-                <li>Golden hour recommended</li>
-                <li>Walking-friendly wardrobe & layers</li>
-                <li>Cinematic, editorial energy</li>
-              </ul>
-              <div class="btns">
-                <a class="btn alt" href="/adventure.html">View Adventure Gallery</a>
-              </div>
-            </div>
-            <div class="item">
-              <h4>Friend</h4>
-              <p>Easygoing, stylish, and authentic—best friends, couples, or roomies with a dash of editorial.</p>
-              <ul>
-                <li>Choose laid-back or dressy looks</li>
-                <li>Urban, beach, or nature settings</li>
-                <li>Natural direction—no stiff posing</li>
-              </ul>
-              <div class="btns">
-                <a class="btn alt" href="/galleries/friend-portraits.html">View Friend Gallery</a>
-              </div>
+          <!-- Desktop blurbs row -->
+          <div class="service-blurbs">
+            <div class="row">
+              <article class="blurb">
+                <h3>Family</h3>
+                <p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p>
+                <a class="btn" href="/galleries/family-portrait.html">View Family Gallery</a>
+              </article>
+              <article class="blurb">
+                <h3>Adventure</h3>
+                <p>Hills, dunes, wind, and play—story-driven portraits in big landscapes with lots of movement.</p>
+                <a class="btn" href="/adventure.html">View Adventure Gallery</a>
+              </article>
+              <article class="blurb">
+                <h3>Friend</h3>
+                <p>Easygoing, stylish, and authentic—best friends, couples, or roomies with a dash of editorial.</p>
+                <a class="btn" href="/galleries/friend-portraits.html">View Friend Gallery</a>
+              </article>
             </div>
           </div>
         </div>
 
+        <!-- ================= MOBILE (paired) ================= -->
+        <div class="mobile-only">
+          <div class="services-grid">
+            <!-- FAMILY -->
+            <div class="service">
+              <figure class="captioned notch" id="portraits-family-m" aria-label="Family"
+                      data-images='[
+                        "/pictures/familyPortrait/image1.jpg",
+                        "/pictures/familyPortrait/image2.jpg",
+                        "/pictures/familyPortrait/image3.jpg",
+                        "/pictures/familyPortrait/image4.jpg",
+                        "/pictures/familyPortrait/image5.jpg",
+                        "/pictures/familyPortrait/image6.jpg",
+                        "/pictures/familyPortrait/image7.jpg",
+                        "/pictures/familyPortrait/image8.jpg",
+                        "/pictures/familyPortrait/image9.jpg",
+                        "/pictures/familyPortrait/image10.jpg",
+                        "/pictures/familyPortrait/image11.jpg",
+                        "/pictures/familyPortrait/image12.jpg",
+                        "/pictures/siblingPortraitGal/E26A0739%20(1).jpg"
+                      ]'>
+                <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <mask id="notchMask-p1m"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
+                  </defs>
+                  <image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p1m)"></image>
+                </svg>
+                <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+                <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+                <div class="tile-dots" role="tablist"></div>
+              </figure>
+              <article class="blurb">
+                <h3>Family</h3>
+                <p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p>
+                <a class="btn" href="/galleries/family-portrait.html">View Family Gallery</a>
+              </article>
+            </div>
+
+            <!-- ADVENTURE -->
+            <div class="service">
+              <figure class="captioned notch" id="portraits-adventure-m" aria-label="Adventure"
+                      data-images='[
+                        "/pictures/andrewsBaldPics/E26A1013.jpg",
+                        "/pictures/andrewsBaldPics/E26A1022.jpg",
+                        "/pictures/andrewsBaldPics/E26A1033.jpg",
+                        "/pictures/andrewsBaldPics/E26A1045.jpg",
+                        "/pictures/andrewsBaldPics/E26A1062.jpg",
+                        "/pictures/andrewsBaldPics/E26A1063-2.jpg",
+                        "/pictures/andrewsBaldPics/E26A1087.jpg",
+                        "/pictures/andrewsBaldPics/E26A1094.jpg",
+                        "/pictures/andrewsBaldPics/E26A1095.jpg",
+                        "/pictures/andrewsBaldPics/E26A1098.jpg"
+                      ]'>
+                <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <mask id="notchMask-p2m"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
+                  </defs>
+                  <image href="/pictures/andrewsBaldPics/E26A1013.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p2m)"></image>
+                </svg>
+                <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+                <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+                <div class="tile-dots" role="tablist"></div>
+              </figure>
+              <article class="blurb">
+                <h3>Adventure</h3>
+                <p>Hills, dunes, wind, and play—story-driven portraits in big landscapes with lots of movement.</p>
+                <a class="btn" href="/adventure.html">View Adventure Gallery</a>
+              </article>
+            </div>
+
+            <!-- FRIEND -->
+            <div class="service">
+              <figure class="captioned notch" id="portraits-friend-m" aria-label="Friend"
+                      data-images='[
+                        "/pictures/thirdTileGal/E26A2017.jpg",
+                        "/pictures/thirdTileGal/E26A2022%20(1).jpg",
+                        "/pictures/thirdTileGal/E26A2047-2.jpg",
+                        "/pictures/thirdTileGal/E26A2106.jpg",
+                        "/pictures/thirdTileGal/E26A2245.jpg",
+                        "/pictures/thirdTileGal/E26A2746.jpg",
+                        "/pictures/thirdTileGal/E26A2768.jpg",
+                        "/pictures/thirdTileGal/E26A2771.jpg",
+                        "/pictures/thirdTileGal/E26A2854.jpg",
+                        "/pictures/thirdTileGal/E26A2860.jpg"
+                      ]'>
+                <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <mask id="notchMask-p3m"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
+                  </defs>
+                  <image href="/pictures/thirdTileGal/E26A2771.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p3m)"></image>
+                </svg>
+                <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+                <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+                <div class="tile-dots" role="tablist"></div>
+              </figure>
+              <article class="blurb">
+                <h3>Friend</h3>
+                <p>Easygoing, stylish, and authentic—best friends, couples, or roomies with a dash of editorial.</p>
+                <a class="btn" href="/galleries/friend-portraits.html">View Friend Gallery</a>
+              </article>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -462,95 +528,123 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Tiles JS (preferred image first, rest shuffled + focal points) -->
+  <!-- Collapse notch label area (no in-image labels) -->
   <script>
     (function(){
-      const MAX_IMGS = 10;
-      const FOCALS = {
-        "/pictures/thirdTileGal/E26A2017.jpg":  "50% 38%",
-        "/pictures/thirdTileGal/E26A2022 (1).jpg": "50% 35%",
-        "/pictures/thirdTileGal/E26A2047-2.jpg": "50% 42%",
-        "/pictures/thirdTileGal/E26A2106.jpg":  "48% 40%",
-        "/pictures/thirdTileGal/E26A2245.jpg":  "50% 36%",
-        "/pictures/thirdTileGal/E26A2746.jpg":  "52% 68%",
-        "/pictures/thirdTileGal/E26A2768.jpg":  "50% 34%",
-        "/pictures/thirdTileGal/E26A2771.jpg":  "15% 32%",
-        "/pictures/thirdTileGal/E26A2854.jpg":  "10% 40%",
-        "/pictures/thirdTileGal/E26A2860.jpg":  "30% 37%"
-      };
+      document.querySelectorAll('.captioned.notch svg .notchRect').forEach(r=>{
+        r.setAttribute('x','400'); r.setAttribute('y','1000');
+        r.setAttribute('width','0.01'); r.setAttribute('height','0.01');
+      });
+    })();
+  </script>
 
-      function shuffled(arr){
-        const a = arr.slice();
-        for (let i = a.length - 1; i > 0; i--){
-          const j = Math.floor(Math.random() * (i + 1));
-          [a[i], a[j]] = [a[j], a[i]];
-        }
-        return a;
+  <!-- Viewport-only, lazy slider init (mirrors galleries.html) -->
+  <script>
+    (function () {
+      function currentIds() {
+        return (window.matchMedia('(max-width: 960px)').matches)
+          ? ['portraits-family-m','portraits-adventure-m','portraits-friend-m']
+          : ['portraits-family','portraits-adventure','portraits-friend'];
       }
 
-      document.querySelectorAll('figure.tile').forEach(tile=>{
-        const media    = tile.querySelector('.tile-media');
-        const dotsWrap = tile.querySelector('.tile-dots');
-        const prevBtn  = tile.querySelector('.tile-prev');
-        const nextBtn  = tile.querySelector('.tile-next');
-        const link     = tile.getAttribute('data-link');
-        const preferred= (tile.getAttribute('data-preferred') || '').trim();
+      const prefer = {
+        'portraits-family'   : '/pictures/familyPortrait/image1.jpg',
+        'portraits-family-m' : '/pictures/familyPortrait/image1.jpg',
+        'portraits-adventure': '/pictures/andrewsBaldPics/E26A1013.jpg',
+        'portraits-adventure-m': '/pictures/andrewsBaldPics/E26A1013.jpg',
+        'portraits-friend'   : '/pictures/thirdTileGal/E26A2771.jpg',
+        'portraits-friend-m' : '/pictures/thirdTileGal/E26A2771.jpg'
+      };
 
-        let all = [];
-        try { all = JSON.parse(tile.getAttribute('data-all-images') || '[]'); } catch{}
-        if (!Array.isArray(all) || !all.length) return;
+      function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a }
+      function parseList(tile){ try{ return JSON.parse(tile.getAttribute('data-images')||'[]') }catch{ return [] } }
 
-        const others = all.filter(src => src !== preferred);
-        const mixed  = shuffled(others);
-        const list   = preferred ? [preferred, ...mixed.slice(0, Math.max(0, MAX_IMGS - 1))]
-                                 : mixed.slice(0, MAX_IMGS);
+      function prime(tileId){
+        const tile = document.getElementById(tileId);
+        if(!tile || tile.dataset.primed) return;
+
+        const list = parseList(tile);
+        if(!Array.isArray(list) || list.length <= 1) return;
+
+        shuffle(list);
+        const want = prefer[tileId];
+        if (want){
+          const idx = list.indexOf(want);
+          if (idx>-1){ const [hit]=list.splice(idx,1); list.unshift(hit); } else { list.unshift(want); }
+        }
+        tile.setAttribute('data-images', JSON.stringify(list));
+
+        const imgEl = tile.querySelector('svg image');
+        if(imgEl && list[0]){
+          imgEl.setAttribute('href', list[0]);
+          imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
+        }
+        tile.dataset.primed = '1';
+      }
+
+      function wire(tileId){
+        const tile = document.getElementById(tileId);
+        if(!tile || tile.dataset.wired) return;
+
+        const imgEl = tile.querySelector('svg image'); if(!imgEl) return;
+        let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
+        if(!Array.isArray(list) || list.length <= 1) return;
 
         let idx = 0;
-
-        dotsWrap.innerHTML = '';
-        const dots = list.map((_,i)=>{
-          const b = document.createElement('button');
-          b.type = 'button';
-          b.setAttribute('role','tab');
-          b.setAttribute('aria-label','Go to slide ' + (i+1));
-          b.addEventListener('click', e => { e.stopPropagation(); show(i); });
-          dotsWrap.appendChild(b);
-          return b;
-        });
-
-        function updateDots(){
-          dots.forEach((d,i)=>{
-            d.classList.toggle('is-active', i === idx);
-            d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
-          });
-        }
-
-        function applyFocal(src){
-          media.style.objectPosition = FOCALS[src] ? FOCALS[src] : "50% 50%";
-        }
-
-        function show(i){
-          idx = (i + list.length) % list.length;
-          const src = list[idx];
-          if (src){
-            media.src = src;
-            applyFocal(src);
+        const dotsWrap = tile.querySelector('.tile-dots');
+        const dots = [];
+        if(dotsWrap){
+          for(let i=0;i<list.length;i++){
+            const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide '+(i+1));
+            b.addEventListener('click',(e)=>{ e.stopPropagation(); show(i); });
+            dotsWrap.appendChild(b); dots.push(b);
           }
+        }
+        function updateDots(){ dots.forEach((d,i)=>{ d.classList.toggle('is-active', i===idx); d.setAttribute('aria-selected', i===idx ? 'true':'false'); }); }
+        function show(i){
+          idx=(i+list.length)%list.length;
+          const src=list[idx];
+          imgEl.setAttribute('href',src);
+          imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href',src);
           updateDots();
         }
+        tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx-1); });
+        tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx+1); });
+        tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>show(idx+1));
+        updateDots();
 
-        prevBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx - 1); });
-        nextBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx + 1); });
+        tile.dataset.wired = '1';
+      }
 
-        tile.addEventListener('click', e => {
-          if (e.target.closest('.tile-nav') || e.target.closest('.tile-dots')) return;
-          if (link) window.location.href = link;
+      // Lazy init: observe only the visible set
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            const id = entry.target.id;
+            prime(id);
+            wire(id);
+            io.unobserve(entry.target);
+          }
         });
+      }, { rootMargin: '200px 0px' });
 
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(()=> show(0));
-        } else {
-          window.addEventListener('load', ()=> show(0));
+      function initForViewport(){
+        currentIds().forEach(id=>{
+          const el = document.getElementById(id);
+          if (el) io.observe(el);
+        });
+      }
+
+      // Kick off
+      initForViewport();
+
+      // If user crosses the 960px breakpoint, start observing the other set (still lazy).
+      let wasMobile = window.matchMedia('(max-width: 960px)').matches;
+      window.addEventListener('resize', ()=>{
+        const isMobile = window.matchMedia('(max-width: 960px)').matches;
+        if (isMobile !== wasMobile){
+          wasMobile = isMobile;
+          initForViewport();
         }
       });
     })();
