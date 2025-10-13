@@ -43,13 +43,17 @@
   </div>
 
   <style>
+    /* mobile safe-area + bottom-toolbar space shared by footer and page */
+    :root{
+      --footer-boost: clamp(28px, env(safe-area-inset-bottom, 0px) + 40px, 72px);
+    }
+
     .site-footer.mini{
-      /* extra bottom padding so it's not hidden under mobile browser UI */
-      padding: 8px 0 calc(env(safe-area-inset-bottom, 0px) + 16px);
+      padding: 8px 0 var(--footer-boost);
       font-size: 14px;
       line-height: 1.2;
       position: relative;
-      z-index: 1; /* stay above any background elements */
+      z-index: 1;
     }
 
     .footer-wrap{
@@ -91,15 +95,12 @@
         gap:8px;
       }
       .copyright{
-        width:100%;
-        text-align:center;
-        white-space:normal; /* allow wrap if needed on tiny screens */
+        width:100%; text-align:center;
+        white-space:normal; /* allow wrap on tiny screens */
       }
       .footer-links{
-        flex-wrap:wrap;
-        justify-content:center;
-        gap:8px;
-        white-space:normal; /* allow wrap as a single clean line or two if needed */
+        flex-wrap:wrap; justify-content:center; gap:8px;
+        white-space:normal; /* wrap into a single tidy line or two */
       }
       .footer-links li + li::before{ margin:0 5px; }
       .icon-btn{ padding:4px; margin:-3px; }
@@ -108,6 +109,11 @@
 
     @media (prefers-reduced-motion:reduce){
       .footer-links a{ transition:none; }
+    }
+
+    /* Give the page some bottom padding on phones so the footer can scroll fully above the browser toolbar */
+    @media (max-width:640px){
+      main{ padding-bottom: var(--footer-boost); }
     }
   </style>
 
