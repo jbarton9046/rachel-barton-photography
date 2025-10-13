@@ -156,14 +156,8 @@
       .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
     }
 
-    /* Remove legacy white SVG frame lines on all tiles (same as galleries.html) */
-    .captioned.notch .frameGroup,
-    .captioned.notch .u-stroke,
-    .captioned.notch .recessStroke,
-    .captioned.notch .framePath{
-      display:none !important;
-      stroke:transparent !important;
-    }
+    /* NOTE: Restored default frame chrome (no hiding) so portraits matches Branding/Events */
+    /* (Removed the previous block that forced .frameGroup / strokes to display:none) */
 
     /* Packages */
     .packages{ padding:clamp(24px,6vw,56px) 0 }
@@ -528,15 +522,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Collapse notch label area (no in-image labels) -->
-  <script>
-    (function(){
-      document.querySelectorAll('.captioned.notch svg .notchRect').forEach(r=>{
-        r.setAttribute('x','400'); r.setAttribute('y','1000');
-        r.setAttribute('width','0.01'); r.setAttribute('height','0.01');
-      });
-    })();
-  </script>
+  <!-- NOTE: Removed the notch-collapsing script so the notch/label chrome matches Branding/Events -->
 
   <!-- Viewport-only, lazy slider init (mirrors galleries.html) -->
   <script>
