@@ -1,13 +1,10 @@
 <footer class="site-footer mini">
   <div class="container footer-wrap">
-    <div class="copyright">
-      © <span id="year"></span> Rachel Barton Photography · Sarasota, FL
-    </div>
+    <div class="copyright">© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
 
     <ul class="footer-links" aria-label="Contact & social links">
       <li><a href="mailto:rachelbartonphotography@gmail.com">rachelbartonphotography@gmail.com</a></li>
       <li><a href="tel:+16153002618">615-300-2618</a></li>
-
       <li>
         <a
           class="icon-btn ig"
@@ -24,7 +21,6 @@
           </svg>
         </a>
       </li>
-
       <li>
         <a
           class="icon-btn px"
@@ -48,20 +44,25 @@
 
   <style>
     .site-footer.mini{
-      padding: 8px 0 calc(env(safe-area-inset-bottom, 0px) + 6px);
+      /* extra bottom padding so it's not hidden under mobile browser UI */
+      padding: 8px 0 calc(env(safe-area-inset-bottom, 0px) + 16px);
       font-size: 14px;
       line-height: 1.2;
+      position: relative;
+      z-index: 1; /* stay above any background elements */
     }
 
     .footer-wrap{
-      display:flex; align-items:center; gap:12px;
-      /* one-line bar behavior on mobile */
-      white-space:nowrap;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; flex-wrap:nowrap;
     }
+
+    .copyright{ white-space:nowrap; }
 
     .footer-links{
       display:flex; align-items:center; gap:10px;
       list-style:none; padding:0; margin:0;
+      white-space:nowrap;
     }
     .footer-links li{ display:inline-flex; align-items:center; }
     .footer-links li + li::before{
@@ -82,17 +83,24 @@
       stroke:currentColor; fill:none; stroke-width:1.6; display:block;
     }
 
-    /* Mini sizing + non-wrapping bar on small screens */
+    /* ===== Mobile: two clean lines (copyright row, then links row) ===== */
     @media (max-width:640px){
       .site-footer.mini{ font-size:12px; }
       .footer-wrap{
-        gap:10px;
-        /* keep everything on one line; allow gentle swipe if overflow */
-        flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch;
-        scrollbar-width:none;
+        flex-direction:column; align-items:center; justify-content:center;
+        gap:8px;
       }
-      .footer-wrap::-webkit-scrollbar{ display:none; }
-      .footer-links{ gap:8px; }
+      .copyright{
+        width:100%;
+        text-align:center;
+        white-space:normal; /* allow wrap if needed on tiny screens */
+      }
+      .footer-links{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:8px;
+        white-space:normal; /* allow wrap as a single clean line or two if needed */
+      }
       .footer-links li + li::before{ margin:0 5px; }
       .icon-btn{ padding:4px; margin:-3px; }
       .icon-btn svg{ width:.95em; height:.95em; }
