@@ -128,6 +128,15 @@
       .mosaic{ grid-template-columns:1fr }
       .service-blurbs .row{ grid-template-columns:1fr }
     }
+
+    /* ===== Remove legacy white SVG frame lines on all tiles ===== */
+    .captioned.notch .frameGroup,
+    .captioned.notch .u-stroke,
+    .captioned.notch .recessStroke,
+    .captioned.notch .framePath{
+      display:none !important;
+      stroke:transparent !important;
+    }
   </style>
 </head>
 <body>
