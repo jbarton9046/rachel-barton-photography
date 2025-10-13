@@ -35,7 +35,10 @@
 
       /* Universal navbar spacing (match other pages) */
       --nav-gap-top: 16px;      /* distance from viewport top to TOP of nav links */
-      --nav-gap-bottom: 64px;   /* breathing room below nav (was 40px) */
+      --nav-gap-bottom: 64px;   /* breathing room below nav */
+
+      /* Mobile fixed header height (matches galleries.html) */
+      --mobile-header-h: 64px;
     }
 
     /* Normalize only spacing—actual nav styles live in layout.css */
@@ -63,6 +66,11 @@
       line-height:1.1; margin:.25em 0 .2em; color:#202022;
     }
     .lead{ color:#635f57; margin:0 0 14px; }
+
+    /* Keep anchors from hiding under sticky nav */
+    :is(h1,h2,h3,section)[id]{
+      scroll-margin-top: calc(var(--mobile-header-h) + 12px);
+    }
 
     /* Testimonials grid */
     .testimonials{ padding:calc(var(--gap)*1.25) 0; }
@@ -100,13 +108,23 @@
       object-position: 28% center;
     }
 
+    /* Tablet */
     @media (max-width:980px){
       .cards{ grid-template-columns:1fr 1fr; }
       .pull{ grid-template-columns:1fr; }
       .pull img{ border-right:0; border-bottom:1px solid var(--line); height:auto; }
     }
+
+    /* Phones */
     @media (max-width:640px){
+      /* Add top padding so content clears the fixed/sticky nav */
+      header.page{
+        padding-top: calc(env(safe-area-inset-top, 0px) + var(--mobile-header-h) + 12px);
+      }
       .cards{ grid-template-columns:1fr; }
+      /* Slightly relax blockquote size for small screens */
+      blockquote{ font-size:clamp(18px,4.4vw,21px); }
+      .pull blockquote{ font-size:clamp(19px,5vw,24px); }
     }
   </style>
 </head>
@@ -128,7 +146,7 @@
         <div class="cards">
           <!-- Pull-quote row with big photo -->
           <article class="pull">
-            <img src="/pictures/testimonials/miller-family.jpg" alt="The Miller family laughing during a sunset session" loading="lazy">
+            <img src="/pictures/testimonials/miller-family.jpg" alt="The Miller family laughing during a sunset session" loading="lazy" fetchpriority="low">
             <div class="body">
               <blockquote>Rachel has a calm confidence that put our kids at ease within minutes. These are the most “us” photos we’ve ever had.</blockquote>
               <div class="cite">— The Miller Family · Siesta Key</div>
