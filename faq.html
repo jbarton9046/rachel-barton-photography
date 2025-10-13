@@ -32,12 +32,7 @@
       --accent:#A88A5A; --line:#e9e6df; --ring:rgba(168,138,90,.25);
       --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1100px;
-      --nav-gap-top:16px; --nav-gap-bottom:40px;
-
-      /* Fixed mobile header height to clear sticky nav on phones */
-      --mobile-header-h: 64px;
     }
-    .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
 
     *{box-sizing:border-box}
     html,body{
@@ -50,13 +45,7 @@
     img{ max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-    /* Clear the sticky nav on small screens without pushing content too far */
-    main#content{ padding-top:0; }
-    @media (max-width:640px){
-      main#content{ padding-top: calc(var(--mobile-header-h) + 8px); }
-    }
-
-    /* Layout */
+    /* Layout (desktop/tablet grid) */
     .faq{
       display:grid;
       grid-template-columns:minmax(0,1fr) minmax(260px,420px);
@@ -102,28 +91,14 @@
       outline:none;
     }
 
-    /* Auto-span class (used on desktop to let rows below photo stretch full width) */
+    /* Auto-span class (kept harmless on mobile) */
     details.span-below-photo{ grid-column:1 / -1; }
 
-    /* Everything after the image goes full-width */
-    .after-photo{ grid-column:1 / -1; display:grid; gap:12px }
-    .after-photo > details{ grid-column:1 / -1 }
-
-    /* Tablet & down: one column, photo appears right under intro */
+    /* --- MOBILE FIX: drop grid, follow DOM order (intro → photo → FAQs) --- */
     @media (max-width:900px){
-      .faq{ grid-template-columns:1fr; }
-      .faq-intro{ order:1; }
-      .faq-photo{ grid-column:auto; grid-row:auto; order:2; }
-      details{ grid-column:auto; order:3; }
-      .after-photo{ grid-column:auto; }
-    }
-
-    /* Phones: small type tweaks only */
-    @media (max-width:640px){
-      .faq-photo{ margin-top:6px; }
-      .faq-photo figcaption{ font-size:12px; }
-      summary{ padding:14px 16px; }
-      .answer{ padding:0 16px 14px; }
+      .faq{ display:block; margin:18px 0 40px; }
+      .faq-photo{ margin:12px 0; }
+      details{ margin:0 0 12px; }
     }
   </style>
 </head>
@@ -254,7 +229,8 @@
   <script>
     (function(){
       const photo = document.querySelector('.faq-photo');
-      const bars  = Array.from(document.querySelectorAll('.faq > details')); // only left-column bars
+      const bars  = Array.from(document.querySelectorAll('.faq > details'));
+
       if (!photo || !bars.length) return;
 
       function absTop(el){ const r = el.getBoundingClientRect(); return r.top + window.scrollY; }
@@ -263,7 +239,7 @@
       function updateSpans(){
         const photoBottom = absBottom(photo);
         bars.forEach(d => d.classList.remove('span-below-photo'));
-        void document.body.offsetHeight; // reflow
+        void document.body.offsetHeight;
         bars.forEach(d => { if (absTop(d) >= photoBottom - 1) d.classList.add('span-below-photo'); });
       }
 
