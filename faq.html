@@ -34,7 +34,7 @@
       --gap:clamp(16px,3vw,32px); --maxw:1100px;
       --nav-gap-top:16px; --nav-gap-bottom:40px;
 
-      /* Fixed mobile header height (matches other pages) */
+      /* Fixed mobile header height to clear sticky nav on phones */
       --mobile-header-h: 64px;
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
@@ -50,9 +50,10 @@
     img{ max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-    /* Prevent anchor targets from sitting under the sticky nav */
-    :is(h1,h2,h3,section,figure,details)[id]{
-      scroll-margin-top: calc(var(--mobile-header-h) + 12px);
+    /* Clear the sticky nav on small screens without pushing content too far */
+    main#content{ padding-top:0; }
+    @media (max-width:640px){
+      main#content{ padding-top: calc(var(--mobile-header-h) + 8px); }
     }
 
     /* Layout */
@@ -101,32 +102,25 @@
       outline:none;
     }
 
-    /* Auto-span class */
+    /* Auto-span class (used on desktop to let rows below photo stretch full width) */
     details.span-below-photo{ grid-column:1 / -1; }
 
     /* Everything after the image goes full-width */
     .after-photo{ grid-column:1 / -1; display:grid; gap:12px }
     .after-photo > details{ grid-column:1 / -1 }
 
-    /* Tablet: collapse to one column; photo was previously forced late—let it follow content */
+    /* Tablet & down: one column, photo appears right under intro */
     @media (max-width:900px){
       .faq{ grid-template-columns:1fr; }
-      .faq-photo{ grid-column:auto; grid-row:auto; order:2; } /* photo right after intro */
       .faq-intro{ order:1; }
+      .faq-photo{ grid-column:auto; grid-row:auto; order:2; }
       details{ grid-column:auto; order:3; }
       .after-photo{ grid-column:auto; }
-      /* Add some top breathing room for sticky nav on tablets too */
-      .faq{ margin-top: calc(var(--mobile-header-h) + 8px); }
     }
 
-    /* Phones: ensure photo is not at the bottom and header clears the nav */
+    /* Phones: small type tweaks only */
     @media (max-width:640px){
-      /* Extra safe area for iOS notch devices */
-      .faq{
-        margin-top: calc(env(safe-area-inset-top, 0px) + var(--mobile-header-h) + 8px);
-      }
-      .faq-photo{ order:2; margin-top:6px; }
-      /* Tweak caption and type a touch smaller on phones */
+      .faq-photo{ margin-top:6px; }
       .faq-photo figcaption{ font-size:12px; }
       summary{ padding:14px 16px; }
       .answer{ padding:0 16px 14px; }
@@ -261,7 +255,6 @@
     (function(){
       const photo = document.querySelector('.faq-photo');
       const bars  = Array.from(document.querySelectorAll('.faq > details')); // only left-column bars
-
       if (!photo || !bars.length) return;
 
       function absTop(el){ const r = el.getBoundingClientRect(); return r.top + window.scrollY; }
@@ -269,21 +262,11 @@
 
       function updateSpans(){
         const photoBottom = absBottom(photo);
-
-        // 1) remove spans so we measure natural positions
         bars.forEach(d => d.classList.remove('span-below-photo'));
-
-        // force a reflow to ensure positions are current
-        void document.body.offsetHeight;
-
-        // 2) add span where needed
-        bars.forEach(d => {
-          const top = absTop(d);
-          if (top >= photoBottom - 1) d.classList.add('span-below-photo');
-        });
+        void document.body.offsetHeight; // reflow
+        bars.forEach(d => { if (absTop(d) >= photoBottom - 1) d.classList.add('span-below-photo'); });
       }
 
-      // Recalculate on open/close, resize, load, and after fonts settle
       bars.forEach(d => d.addEventListener('toggle', updateSpans));
       window.addEventListener('resize', () => requestAnimationFrame(updateSpans));
       window.addEventListener('load', updateSpans);
