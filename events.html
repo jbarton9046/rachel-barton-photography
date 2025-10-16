@@ -89,7 +89,7 @@
     .hero-fig img{ width:100%; aspect-ratio:4/5; object-fit:cover }
     .hero-badge{
       position:absolute; left:12px; top:12px; background:#fff; border:1px solid var(--line); padding:6px 10px;
-      box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px;
+      box-shadow:0 6px 18px rgba(0,0,0,.06); font-size:13px;
     }
 
     /* Value grid */
@@ -111,10 +111,10 @@
     .step h4{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:6px 0 8px; font-size:20px }
 
     /* ===== Portfolio grid (events) =====
-       - Mobile/Tablet: 3-up (tight)
+       - Mobile/Tablet: CSS-columns masonry (distinct from branding)
        - Desktop: 4-col asymmetric mosaic for 8 images */
     .grid{ display:grid; gap:clamp(8px,1.6vw,14px) }
-    /* phones / small */
+    /* phones / small (baseline; overridden by masonry below) */
     @media (max-width:980px){
       .grid{ grid-template-columns:repeat(3,1fr); }
     }
@@ -138,14 +138,13 @@
       .grid figure:nth-child(7) img{ aspect-ratio:16/10 }
     }
 
-    /* ===== Masonry mini grid (MOBILE ONLY; slightly different than branding) =====
-       - Branding uses 3 columns + no borders.
-       - Events uses 2 columns on small phones, 3 on larger phones/tablets,
-         keeps the subtle 1px border for the "mini" look, and slightly bigger gaps. */
+    /* ===== Masonry (MOBILE ONLY; slightly different than branding) =====
+       Uses CSS columns to avoid gaps. Tablet (≤980px): 3 columns with 10px gap.
+       Phone (≤640px): 2 columns with 8px gap. */
     @media (max-width:980px){
       .grid{ display:block; column-count:3; column-gap:10px; }
       .grid figure{ break-inside:avoid; margin:0 0 10px; display:block; }
-      .grid img{ box-shadow:none; width:100%; height:auto; border:1px solid var(--line); }
+      .grid img{ border:none; box-shadow:none; width:100%; height:auto; aspect-ratio:auto; }
     }
     @media (max-width:640px){
       .grid{ column-count:2; column-gap:8px; }
@@ -186,7 +185,6 @@
     /* Phone tweaks */
     @media (max-width:640px){
       .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
-      .grid{ grid-template-columns:repeat(3,1fr); gap:8px } /* keep 3-up on phones for CSS grid fallback */
       .cards, .steps{ grid-template-columns:1fr }
       .btn{ padding:11px 18px }
     }
