@@ -65,7 +65,7 @@
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
       padding:10px 16px; background:#fff; color:#3f3a33;
-      border:1px solid var(--line); border-radius:0;
+      border:1px solid(var(--line)); border-radius:0;
       font-weight:700; text-decoration:none;
       box-shadow:0 6px 18px rgba(0,0,0,.06);
       transition:background-color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease, color .15s ease;
@@ -86,7 +86,7 @@
       box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px;
     }
 
-    /* Value grid (unchanged) */
+    /* Value grid */
     .value{ padding:clamp(20px,6vw,50px) 0 }
     .cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
     .card{ background:#fff; border:1px solid var(--line); padding:20px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
@@ -100,7 +100,7 @@
     .step .num{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62; }
     .step h4{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:6px 0 8px; font-size:20px }
 
-    /* Portfolio grid — ALWAYS 3 columns */
+    /* Portfolio grid — desktop behaves like before; phones keep 3-up */
     .grid{
       display:grid;
       grid-template-columns:repeat(3,1fr);
@@ -114,76 +114,37 @@
       border-radius:0
     }
 
-    /* Hide the previous mobile scroller version */
+    /* Hide the old horizontal scroller version completely */
     .brand-mini{ display:none !important; }
 
-    /* Packages (pricing after consult) */
+    /* Packages */
     .packages{ padding:clamp(20px,6vw,50px) 0 }
-    /* New: mini cards row that fits 3 across even on mobile */
-    .pack-cards{
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:clamp(10px,2vw,16px);
-      align-items:stretch;
-    }
-    .pack.pack-mini{
-      padding:14px;
-    }
-    .pack.pack-mini h3{
-      font-size:18px;
-      margin:0 0 4px;
-      line-height:1.15;
-    }
-    .pack.pack-mini p{
-      font-size:14px;
-      color:#5a564f;
-      margin:0 0 8px;
-    }
-    .pack.pack-mini ul{
-      margin:6px 0 0;
-      padding-left:16px;
-      font-size:14px;
-      line-height:1.5;
-    }
-    .pack.pack-mini .btn{
-      padding:8px 10px;
-      font-size:14px;
-      line-height:1;
-    }
 
-    /* Testimonials */
-    .quotes{ padding:clamp(20px,6vw,50px) 0 }
-    .quote{ background:#fff; border:1px solid var(--line); padding:20px; font-size:18px; font-style:italic }
+    /* Desktop/tablet: use your original card sizing (inherited from .cards/.card/.pack) */
+    .pack{ /* existing pack card base */ }
 
-    /* FAQ */
-    .faq{ padding:clamp(20px,6vw,50px) 0 }
-    .faq details{ background:#fff; border:1px solid var(--line); padding:16px; margin-bottom:10px }
-    .faq summary{ cursor:pointer; font-weight:700; font-family:"Cormorant Garamond","Playfair Display",Georgia,serif }
+    /* Mobile-only: compress packages so all three fit on one row */
+    @media (max-width:640px){
+      .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
 
-    /* CTA bar */
-    .cta{ background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; margin:40px 0 10px }
-    .cta .row{ display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap }
+      /* Keep the gallery at 3-up on phones (what you liked) */
+      .grid{ grid-template-columns:repeat(3, 1fr); gap:8px }
 
-    footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; }
+      /* Make the packages mini and 3-across on one row */
+      .packages .cards{ grid-template-columns:repeat(3,1fr); gap:8px }
+      .packages .pack{ padding:14px }
+      .packages .pack h3{ font-size:18px; margin:0 0 4px; line-height:1.15 }
+      .packages .pack p{ font-size:14px; color:#5a564f; margin:0 0 8px }
+      .packages .pack ul{ margin:6px 0 0; padding-left:16px; font-size:14px; line-height:1.5 }
+      .packages .pack .btn{ padding:8px 10px; font-size:14px; line-height:1 }
+      .btn{ padding:11px 18px }
+    }
 
     @media (max-width:980px){
       .hero-wrap{ grid-template-columns:1fr }
-      .cards{ grid-template-columns:1fr 1fr }
+      .cards{ grid-template-columns:1fr 1fr }  /* original tablet behavior for generic cards */
       .steps{ grid-template-columns:1fr 1fr }
-      /* Keep portfolio & packages at 3 cols even here */
-      .pack-cards{ grid-template-columns:repeat(3, 1fr) }
-      .grid{ grid-template-columns:repeat(3, 1fr) }
-    }
-    @media (max-width:640px){
-      /* Pull content down below fixed navbar */
-      .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
-
-      /* Force 3-up thumbnails on phones (small but all visible) */
-      .grid{ grid-template-columns:repeat(3, 1fr); gap:8px }
-      .pack-cards{ grid-template-columns:repeat(3, 1fr); gap:8px }
-
-      /* Slightly larger tap targets */
-      .btn{ padding:11px 18px }
+      /* Portfolio still 3 across on tablet due to fixed 3-column grid above (matches your old desktop look) */
     }
   </style>
 
@@ -208,7 +169,6 @@
     <section class="hero">
       <div class="container hero-wrap">
         <div>
-          <!-- Back to Galleries sits directly above the eyebrow (same as portraits) -->
           <p class="crumb"><a href="/galleries.html">← Back to Galleries</a></p>
           <div class="eyebrow">Brand Photography</div>
           <h1 class="h1">Images that make people choose you.</h1>
@@ -255,10 +215,10 @@
         <div class="eyebrow">Recent Work</div>
         <h2 class="h1" style="font-size:clamp(24px,3.6vw,36px)">Clean, modern visuals for real businesses</h2>
 
-        <!-- Unified 3-up grid (desktop + mobile) -->
+        <!-- Unified grid (desktop unchanged; phones forced to 3-up) -->
         <div class="grid" id="brand-grid" aria-live="polite"></div>
 
-        <!-- (Hidden) legacy mobile scroller kept for safety but disabled via CSS -->
+        <!-- Old mobile scroller kept but hidden -->
         <div class="brand-mini" id="brand-mini" aria-label="Brand gallery carousel" aria-live="polite"></div>
       </div>
     </section>
@@ -293,16 +253,16 @@
       </div>
     </section>
 
-    <!-- PACKAGES (pricing after consult) -->
+    <!-- PACKAGES -->
     <section class="packages" id="packages">
       <div class="container">
         <div class="eyebrow">Packages</div>
         <h2 class="h1" style="font-size:clamp(24px,3.6vw,36px)">Choose your session</h2>
         <p class="note">Pricing is shared after a quick consultation so we can tailor scope, locations, and deliverables to your goals.</p>
 
-        <!-- New: mini tiles that fit 3 across on one row -->
-        <div class="pack-cards">
-          <div class="card pack pack-mini">
+        <!-- Use original cards markup; desktop behaves like before; phones compress via media query -->
+        <div class="cards">
+          <div class="card pack">
             <h3>Essentials Session</h3>
             <p>Focused refresh for websites & profiles.</p>
             <ul>
@@ -310,9 +270,9 @@
               <li>1–2 looks, headshots + lifestyle</li>
               <li>30+ edited images, web & hi-res</li>
             </ul>
-            <div style="margin-top:10px;"><a class="btn alt" href="/contact.html">Request Pricing</a></div>
+            <div style="margin-top:12px;"><a class="btn alt" href="/contact.html">Request Pricing</a></div>
           </div>
-          <div class="card pack pack-mini">
+          <div class="card pack">
             <h3>Half-Day Content Library</h3>
             <p>Versatile set for monthly marketing.</p>
             <ul>
@@ -320,9 +280,9 @@
               <li>Product, process, and team coverage</li>
               <li>90+ edited images with crops</li>
             </ul>
-            <div style="margin-top:10px;"><a class="btn alt" href="/contact.html">Request Pricing</a></div>
+            <div style="margin-top:12px;"><a class="btn alt" href="/contact.html">Request Pricing</a></div>
           </div>
-          <div class="card pack pack-mini">
+          <div class="card pack">
             <h3>Launch Day Coverage</h3>
             <p>Story-driven visuals for launches & events.</p>
             <ul>
@@ -330,7 +290,7 @@
               <li>Detail, behind-the-scenes, portraits</li>
               <li>Fast web set for same-week posts</li>
             </ul>
-            <div style="margin-top:10px;"><a class="btn alt" href="/contact.html">Request Pricing</a></div>
+            <div style="margin-top:12px;"><a class="btn alt" href="/contact.html">Request Pricing</a></div>
           </div>
         </div>
       </div>
@@ -383,7 +343,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Build the portfolio for 3-up grid -->
+  <!-- Build the portfolio grid -->
   <script>
     (function(){
       const BRAND_IMAGES = [
@@ -399,13 +359,13 @@
 
       const grid = document.getElementById("brand-grid");
 
-      // Shuffle for a touch of variety
+      // Shuffle for variety
       for (let i = BRAND_IMAGES.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [BRAND_IMAGES[i], BRAND_IMAGES[j]] = [BRAND_IMAGES[j], BRAND_IMAGES[i]];
       }
 
-      // 3-up grid (desktop + mobile)
+      // 3-up grid (desktop as before; phones also 3-up via CSS)
       if (grid) {
         BRAND_IMAGES.forEach((src, i) => {
           const fig = document.createElement("figure");
@@ -419,7 +379,7 @@
         });
       }
 
-      // Simple lightbox (optional — click to enlarge)
+      // Optional lightbox (unchanged)
       const lb = document.createElement("div");
       lb.className = "lb";
       lb.setAttribute("role","dialog");
@@ -442,7 +402,6 @@
       lbClose.addEventListener("click", closeLightbox);
       document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeLightbox(); });
 
-      // Make thumbnails clickable
       grid?.querySelectorAll("img").forEach(img => {
         img.style.cursor = "zoom-in";
         img.addEventListener("click", () => openLightbox(img.src));
