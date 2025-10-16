@@ -111,14 +111,15 @@
     .step h4{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:6px 0 8px; font-size:20px }
 
     /* ===== Portfolio grid (events) =====
-       - Mobile/Tablet: CSS-columns masonry (distinct from branding)
-       - Desktop: 4-col asymmetric mosaic for 8 images */
+       - Mobile: masonry (≤640px)
+       - Tablet: 3-up grid
+       - Desktop: 4-col asymmetric mosaic (unchanged) */
     .grid{ display:grid; gap:clamp(8px,1.6vw,14px) }
-    /* phones / small (baseline; overridden by masonry below) */
+    /* tablets */
     @media (max-width:980px){
       .grid{ grid-template-columns:repeat(3,1fr); }
     }
-    /* desktop mosaic */
+    /* desktop mosaic (unchanged) */
     @media (min-width:981px){
       .grid{
         grid-template-columns: repeat(4, 1fr);
@@ -138,20 +139,7 @@
       .grid figure:nth-child(7) img{ aspect-ratio:16/10 }
     }
 
-    /* ===== Masonry (MOBILE ONLY; slightly different than branding) =====
-       Uses CSS columns to avoid gaps. Tablet (≤980px): 3 columns with 10px gap.
-       Phone (≤640px): 2 columns with 8px gap. */
-    @media (max-width:980px){
-      .grid{ display:block; column-count:3; column-gap:10px; }
-      .grid figure{ break-inside:avoid; margin:0 0 10px; display:block; }
-      .grid img{ border:none; box-shadow:none; width:100%; height:auto; aspect-ratio:auto; }
-    }
-    @media (max-width:640px){
-      .grid{ column-count:2; column-gap:8px; }
-      .grid figure{ margin:0 0 8px; }
-    }
-
-    /* Packages */
+    /* ===== Packages ===== */
     .packages{ padding:clamp(20px,6vw,50px) 0 }
     .pack{
       background:#fff; border:1px solid var(--line); padding:22px; box-shadow:0 6px 18px rgba(0,0,0,.06);
@@ -182,11 +170,24 @@
       .cards{ grid-template-columns:1fr 1fr }
       .steps{ grid-template-columns:1fr 1fr }
     }
-    /* Phone tweaks */
+    /* Phone tweaks (buttons/cards) */
     @media (max-width:640px){
       .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
       .cards, .steps{ grid-template-columns:1fr }
       .btn{ padding:11px 18px }
+    }
+
+    /* ===== MOBILE-ONLY MASONRY (≤640px) =====
+       - Column-based masonry with 3 columns and tight gutters
+       - Natural image heights (aspect-ratio removed) to avoid large gaps
+       - Slight variation from branding: 3 columns on phones (branding also used 3),
+         but we add tiny stagger on every 5th item for extra asymmetry */
+    @media (max-width:640px){
+      .grid{ display:block; column-count:3; column-gap:8px; }
+      .grid figure{ break-inside:avoid; margin:0 0 8px; display:block; }
+      .grid img{ width:100%; height:auto; aspect-ratio:auto; border:1px solid var(--line); box-shadow:0 4px 12px rgba(0,0,0,.05) }
+      /* subtle variation so layout doesn't match branding exactly */
+      .grid figure:nth-child(5n){ transform:translateY(2px) }
     }
   </style>
 
