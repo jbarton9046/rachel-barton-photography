@@ -119,8 +119,15 @@
 
     .brand-mini{ display:none !important } /* kill legacy mobile scroller */
 
-    /* Packages */
+    /* ===== Packages (match events.html exactly) ===== */
     .packages{ padding:clamp(20px,6vw,50px) 0 }
+    .pack{
+      background:#fff; border:1px solid var(--line); padding:22px; box-shadow:0 6px 18px rgba(0,0,0,.06);
+      display:flex; flex-direction:column;
+    }
+    .pack h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:22px }
+    .pack ul{ margin:10px 0 0; padding-left:18px }
+    .pack .btnrow{ margin-top:auto; display:flex; gap:10px; flex-wrap:wrap; }
 
     /* Testimonials */
     .quotes{ padding:clamp(20px,6vw,50px) 0 }
@@ -146,6 +153,7 @@
     @media (max-width:640px){
       .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
       .grid{ grid-template-columns:repeat(3,1fr); gap:8px }
+      /* keep events-style “mini” package presentation */
       .packages .cards{ grid-template-columns:repeat(3,1fr); gap:8px }
       .packages .card.pack{ padding:14px }
       .packages .card.pack h3{ font-size:18px; margin:0 0 4px; line-height:1.15 }
@@ -258,42 +266,41 @@
       </div>
     </section>
 
-    <!-- PACKAGES -->
+    <!-- PACKAGES (exactly the same as events.html) -->
     <section class="packages" id="packages">
       <div class="container">
         <div class="eyebrow">Packages</div>
-        <h2 class="h1" style="font-size:clamp(24px,3.6vw,36px)">Choose your session</h2>
-        <p class="note">Pricing is shared after a quick consultation so we can tailor scope, locations, and deliverables to your goals.</p>
+        <h2 class="h1" style="font-size:clamp(24px,3.6vw,36px)">Pick the coverage that fits</h2>
         <div class="cards">
           <div class="card pack">
-            <h3>Essentials Session</h3>
-            <p>Focused refresh for websites & profiles.</p>
+            <h3>Two-Hour Highlight</h3>
+            <p>Perfect for intimate gatherings and short programs.</p>
             <ul>
-              <li>60–90 minutes, single location</li>
-              <li>1–2 looks, headshots + lifestyle</li>
-              <li>30+ edited images, web & hi-res</li>
+              <li>Up to 2 hours continuous coverage</li>
+              <li>Speaker & guest candids + key details</li>
+              <li>Next-day 8–10 social selects (optional)</li>
             </ul>
-            <div style="margin-top:12px;"><a class="btn alt" href="/contact.html">Request Pricing</a></div>
+            <div class="btnrow"><a class="btn" href="/book.html">Reserve This</a></div>
           </div>
           <div class="card pack">
-            <h3>Half-Day Content Library</h3>
-            <p>Versatile set for monthly marketing.</p>
+            <h3>Half-Day Story</h3>
+            <p>Most popular—full narrative without overkill.</p>
             <ul>
-              <li>3–4 hours, multiple looks & sets</li>
-              <li>Product, process, and team coverage</li>
-              <li>90+ edited images with crops</li>
+              <li>3–4 hours coverage</li>
+              <li>Arrival, program, groups, environment</li>
+              <li>Same-week hero selects + full gallery</li>
             </ul>
-            <div style="margin-top:12px;"><a class="btn alt" href="/contact.html">Request Pricing</a></div>
+            <div class="btnrow"><a class="btn" href="/book.html">Book Half-Day</a></div>
           </div>
           <div class="card pack">
-            <h3>Launch Day Coverage</h3>
-            <p>Story-driven visuals for launches & events.</p>
+            <h3>Full-Day Showcase</h3>
+            <p>For conferences, festivals, and multi-venue days.</p>
             <ul>
-              <li>On-location coverage</li>
-              <li>Detail, behind-the-scenes, portraits</li>
-              <li>Fast web set for same-week posts</li>
+              <li>Up to 8 hours coverage</li>
+              <li>Team portraits + behind-the-scenes</li>
+              <li>Press-ready set and highlight reel</li>
             </ul>
-            <div style="margin-top:12px;"><a class="btn alt" href="/contact.html">Request Pricing</a></div>
+            <div class="btnrow"><a class="btn" href="/book.html">Hold Your Date</a></div>
           </div>
         </div>
       </div>
