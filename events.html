@@ -138,6 +138,13 @@
       .grid figure:nth-child(7) img{ aspect-ratio:16/10 }
     }
 
+    /* ===== Masonry mini grid overrides (no big gaps on mobile/tablet; matches branding) ===== */
+    @media (max-width:980px){
+      .grid{ display:block; column-count:3; column-gap:8px; }
+      .grid figure{ break-inside:avoid; margin:0 0 8px; display:block; }
+      .grid img{ border:none; box-shadow:none; width:100%; height:auto; } /* tighter masonry look */
+    }
+
     /* Packages */
     .packages{ padding:clamp(20px,6vw,50px) 0 }
     .pack{
@@ -411,6 +418,37 @@
         fig.appendChild(img);
         grid.appendChild(fig);
       });
+    })();
+  </script>
+
+  <!-- Masonry packer (no gaps; mirrors branding setup) -->
+  <script>
+    (function(){
+      const grid = document.getElementById("event-grid");
+      if(!grid) return;
+
+      function fitMasonry(){
+        const styles = window.getComputedStyle(grid);
+        const rowH = parseFloat(styles.getPropertyValue('grid-auto-rows')) || 6;
+        const gap  = parseFloat(styles.getPropertyValue('gap')) || 8;
+
+        Array.from(grid.children).forEach(item=>{
+          const img = item.querySelector('img');
+          if(!img) return;
+          const h = img.getBoundingClientRect().height;
+          const span = Math.ceil((h + gap) / (rowH + gap));
+          item.style.gridRowEnd = `span ${span}`;
+        });
+      }
+
+      grid.querySelectorAll('img').forEach(img=>{
+        if (!img.complete) {
+          img.addEventListener('load', fitMasonry, { once:true });
+        }
+      });
+
+      window.addEventListener('resize', fitMasonry);
+      requestAnimationFrame(fitMasonry);
     })();
   </script>
 </body>
