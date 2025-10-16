@@ -119,7 +119,7 @@
 
     .brand-mini{ display:none !important } /* kill legacy mobile scroller */
 
-    /* ===== Packages (match events.html exactly) ===== */
+    /* ===== Packages (same base styles as events.html) ===== */
     .packages{ padding:clamp(20px,6vw,50px) 0 }
     .pack{
       background:#fff; border:1px solid var(--line); padding:22px; box-shadow:0 6px 18px rgba(0,0,0,.06);
@@ -150,16 +150,15 @@
       .cards{ grid-template-columns:1fr 1fr }
       .steps{ grid-template-columns:1fr 1fr }
     }
+    /* PHONE: match events.html exactly for process + packages */
     @media (max-width:640px){
       .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
       .grid{ grid-template-columns:repeat(3,1fr); gap:8px }
-      /* keep events-style “mini” package presentation */
-      .packages .cards{ grid-template-columns:repeat(3,1fr); gap:8px }
-      .packages .card.pack{ padding:14px }
-      .packages .card.pack h3{ font-size:18px; margin:0 0 4px; line-height:1.15 }
-      .packages .card.pack p{ font-size:14px; color:#5a564f; margin:0 0 8px }
-      .packages .card.pack ul{ margin:6px 0 0; padding-left:16px; font-size:14px; line-height:1.5 }
-      .packages .card.pack .btn{ padding:8px 10px; font-size:14px; line-height:1 }
+
+      /* KEY: same as events.html — single column cards & steps on phones */
+      .cards, .steps{ grid-template-columns:1fr }
+
+      /* keep button tap target parity with events */
       .btn{ padding:11px 18px }
     }
   </style>
@@ -266,7 +265,7 @@
       </div>
     </section>
 
-    <!-- PACKAGES (exactly the same as events.html) -->
+    <!-- PACKAGES (mirrors events.html layout; content kept) -->
     <section class="packages" id="packages">
       <div class="container">
         <div class="eyebrow">Packages</div>
