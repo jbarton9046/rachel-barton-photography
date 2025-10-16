@@ -41,6 +41,10 @@
 
       /* Mobile header height for safe top padding (pull content below fixed nav) */
       --mobile-header-h:64px;
+
+      /* Drawer tuning for tight push (used below, mobile only) */
+      --drawer-w: 280px;         /* your drawer width on phones */
+      --drawer-overlap: 32px;    /* how much content overlaps the drawer */
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer, .page-top-spacer { height:0!important; }
@@ -171,6 +175,32 @@
       .packages .card.pack ul{ margin:6px 0 0; padding-left:16px; font-size:14px; line-height:1.5 }
       .packages .card.pack .btn{ padding:8px 10px; font-size:14px; line-height:1 }
       .btn{ padding:11px 18px }
+    }
+
+    /* ===== Tight mobile drawer push (matches your other pages) ===== */
+    @media (max-width:820px){
+      html, body{ overflow-x:hidden; }
+
+      /* push the page slightly less than the drawer width */
+      body.drawer-open #content,
+      body[data-drawer-open="true"] #content{
+        transform: translateX(calc(var(--drawer-w) - var(--drawer-overlap))) !important;
+        transition: transform .28s ease;
+        will-change: transform;
+      }
+
+      /* if any inner section (like .hero) was being translated separately, neutralize it */
+      body.drawer-open .hero,
+      body[data-drawer-open="true"] .hero{
+        transform: none !important;
+      }
+
+      /* trim the left gutter while open so content nestles up to the drawer */
+      body.drawer-open #content .container,
+      body[data-drawer-open="true"] #content .container{
+        padding-left: 12px;
+        padding-right: var(--gap);
+      }
     }
   </style>
 
