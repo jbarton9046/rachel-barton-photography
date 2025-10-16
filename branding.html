@@ -38,6 +38,9 @@
       --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
       --nav-gap-top:16px; --nav-gap-bottom:40px;
+
+      /* Mobile header height for safe top padding (pull content below fixed nav) */
+      --mobile-header-h:64px;
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer, .page-top-spacer { height:0!important; }
@@ -97,9 +100,30 @@
     .step .num{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62; }
     .step h4{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:6px 0 8px; font-size:20px }
 
-    /* Mini portfolio */
+    /* Desktop mini portfolio grid (unchanged for desktop) */
     .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(8px,1.6vw,14px) }
     .grid img{ border-radius:0 }
+
+    /* Mobile "polished mini gallery" */
+    .brand-mini{ display:none; }
+    .brand-card{
+      flex:0 0 78%;
+      background:#fff;
+      border:1px solid var(--line);
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      scroll-snap-align:center;
+    }
+    .brand-card img{ width:100%; aspect-ratio:4/5; object-fit:cover; display:block }
+
+    /* Hide scrollbar on mobile for cleaner look */
+    .brand-mini{ overflow-x:auto; display:flex; gap:12px; padding:4px 2px 8px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch }
+    .brand-mini::-webkit-scrollbar{ display:none }
+
+    /* Lightbox */
+    .lb{ position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:9999; }
+    .lb.is-open{ display:flex }
+    .lb img{ max-width:92vw; max-height:86vh; border:1px solid rgba(255,255,255,.15); box-shadow:0 10px 30px rgba(0,0,0,.45) }
+    .lb-close{ position:absolute; top:12px; right:12px; background:#fff; border:1px solid var(--line); padding:6px 10px; cursor:pointer; }
 
     /* Packages (consultation pricing) */
     .packages{ padding:clamp(20px,6vw,50px) 0 }
@@ -129,7 +153,15 @@
       .steps{ grid-template-columns:1fr 1fr }
     }
     @media (max-width:640px){
-      .cards, .steps, .grid{ grid-template-columns:1fr }
+      /* Pull content down below fixed navbar */
+      .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
+
+      /* Swap desktop grid for the polished mini gallery on mobile */
+      .grid{ display:none }
+      .brand-mini{ display:flex }
+
+      /* Slightly larger tap targets */
+      .btn{ padding:11px 18px }
     }
   </style>
 
@@ -200,7 +232,12 @@
       <div class="container">
         <div class="eyebrow">Recent Work</div>
         <h2 class="h1" style="font-size:clamp(24px,3.6vw,36px)">Clean, modern visuals for real businesses</h2>
+
+        <!-- Desktop grid (unchanged) -->
         <div class="grid" id="brand-grid" aria-live="polite"></div>
+
+        <!-- Mobile polished mini gallery -->
+        <div class="brand-mini" id="brand-mini" aria-label="Brand gallery carousel" aria-live="polite"></div>
       </div>
     </section>
 
@@ -322,7 +359,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Build the mini-portfolio grid from your branding folder -->
+  <!-- Build the portfolio for desktop grid + mobile mini gallery -->
   <script>
     (function(){
       const BRAND_IMAGES = [
@@ -337,25 +374,67 @@
       ];
 
       const grid = document.getElementById("brand-grid");
-      if(!grid) return;
+      const mini = document.getElementById("brand-mini");
 
-      // Simple shuffle for variety across visits
+      // Shuffle for a touch of variety
       for (let i = BRAND_IMAGES.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [BRAND_IMAGES[i], BRAND_IMAGES[j]] = [BRAND_IMAGES[j], BRAND_IMAGES[i]];
       }
 
-      BRAND_IMAGES.forEach((src, i) => {
-        const fig = document.createElement("figure");
-        fig.style.margin = "0";
-        const img = document.createElement("img");
-        img.loading = i < 3 ? "eager" : "lazy";
-        img.decoding = "async";
-        img.alt = "Brand photography example";
-        img.src = src;
-        fig.appendChild(img);
-        grid.appendChild(fig);
-      });
+      // Desktop grid
+      if (grid) {
+        BRAND_IMAGES.forEach((src, i) => {
+          const fig = document.createElement("figure");
+          fig.style.margin = "0";
+          const img = document.createElement("img");
+          img.loading = i < 3 ? "eager" : "lazy";
+          img.decoding = "async";
+          img.alt = "Brand photography example";
+          img.src = src;
+          fig.appendChild(img);
+          grid.appendChild(fig);
+        });
+      }
+
+      // Mobile mini gallery with simple lightbox
+      if (mini) {
+        BRAND_IMAGES.forEach((src, i) => {
+          const card = document.createElement("figure");
+          card.className = "brand-card";
+          card.style.margin = "0";
+          const img = document.createElement("img");
+          img.loading = i < 2 ? "eager" : "lazy";
+          img.decoding = "async";
+          img.alt = "Brand photography example";
+          img.src = src;
+          img.addEventListener("click", () => openLightbox(src));
+          card.appendChild(img);
+          mini.appendChild(card);
+        });
+      }
+
+      // Lightbox
+      const lb = document.createElement("div");
+      lb.className = "lb";
+      lb.setAttribute("role","dialog");
+      lb.setAttribute("aria-modal","true");
+      lb.innerHTML = '<button class="lb-close" aria-label="Close">Close</button><img alt="Brand photo" />';
+      document.body.appendChild(lb);
+
+      const lbImg = lb.querySelector("img");
+      const lbClose = lb.querySelector(".lb-close");
+      function openLightbox(src){
+        lbImg.src = src;
+        lb.classList.add("is-open");
+      }
+      function closeLightbox(){
+        lb.classList.remove("is-open");
+        lbImg.src = "";
+      }
+      lb.addEventListener("click", (e)=>{ if(e.target === lb) closeLightbox(); });
+      lbClose.addEventListener("click", closeLightbox);
+      document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeLightbox(); });
     })();
   </script>
 </body>
