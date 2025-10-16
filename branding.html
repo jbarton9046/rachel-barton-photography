@@ -172,6 +172,22 @@
       /* keep button tap target parity with events */
       .btn{ padding:11px 18px }
     }
+
+    /* ===== Masonry mini grid overrides (pack tiles with no gaps) ===== */
+    .grid{
+      grid-template-columns:repeat(3,1fr);
+      grid-auto-rows:6px;
+      grid-auto-flow:dense;
+      gap:8px;
+    }
+    @media (min-width:981px){
+      .grid{ grid-template-columns:repeat(4,1fr); gap:clamp(8px,1.6vw,14px) }
+    }
+    .grid img{
+      height:auto;
+      aspect-ratio:auto;
+      object-fit:cover;
+    }
   </style>
 
   <!-- Schema.org: Service -->
@@ -414,6 +430,39 @@
         img.style.cursor = "zoom-in";
         img.addEventListener("click", () => openLightbox(img.src));
       });
+    })();
+  </script>
+
+  <!-- Masonry packer (no gaps; uses natural image heights) -->
+  <script>
+    (function(){
+      const grid = document.getElementById("brand-grid");
+      if(!grid) return;
+
+      function fitMasonry(){
+        const styles = window.getComputedStyle(grid);
+        const rowH = parseFloat(styles.getPropertyValue('grid-auto-rows')) || 6;
+        const gap  = parseFloat(styles.getPropertyValue('gap')) || 8;
+
+        Array.from(grid.children).forEach(item=>{
+          const img = item.querySelector('img');
+          if(!img) return;
+          const h = img.getBoundingClientRect().height;
+          const span = Math.ceil((h + gap) / (rowH + gap));
+          item.style.gridRowEnd = `span ${span}`;
+        });
+      }
+
+      // Refit when any image loads
+      grid.querySelectorAll('img').forEach(img=>{
+        if (!img.complete) {
+          img.addEventListener('load', fitMasonry, { once:true });
+        }
+      });
+
+      // Initial + on resize
+      window.addEventListener('resize', fitMasonry);
+      requestAnimationFrame(fitMasonry);
     })();
   </script>
 </body>
