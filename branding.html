@@ -98,37 +98,28 @@
     .step .num{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62; }
     .step h4{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:6px 0 8px; font-size:20px }
 
-    /* ===== Portfolio grid ===== */
-    .grid{ display:grid; gap:clamp(8px,1.6vw,14px) }
-    @media (max-width:980px){ .grid{ grid-template-columns:repeat(3,1fr) } }
-    @media (min-width:981px){
-      .grid{ grid-template-columns: repeat(4, 1fr); grid-auto-flow: dense; }
-      .grid figure:nth-child(1){ grid-row: span 2; }
-      .grid figure:nth-child(3){ grid-column: span 2; }
-      .grid figure:nth-child(5){ grid-row: span 2; }
-      .grid figure:nth-child(7){ grid-column: span 2; }
+    /* ===== Portfolio grid (MATCH events.html on ALL sizes) ===== */
+    .grid{
+      display:grid;
+      gap:clamp(8px,1.6vw,14px);
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      grid-auto-flow:dense;
     }
     .grid figure{ margin:0 }
     .grid img{ width:100%; height:100%; object-fit:cover; border-radius:0; aspect-ratio: 4 / 5; }
-    @media (min-width:981px){
-      .grid figure:nth-child(1) img,
-      .grid figure:nth-child(5) img{ aspect-ratio: 3 / 4; }
-      .grid figure:nth-child(3) img,
-      .grid figure:nth-child(7) img{ aspect-ratio: 16 / 10; }
-    }
 
-    /* --- Mobile/Tablet asymmetrical mosaic (match desktop pattern) --- */
-    @media (max-width:980px){
-      .grid{ grid-template-columns:repeat(3,1fr); }
-      .grid figure:nth-child(3){ grid-column: span 2; }
-      .grid figure:nth-child(7){ grid-column: span 2; }
-      .grid figure:nth-child(1) img,
-      .grid figure:nth-child(5) img{ aspect-ratio: 3 / 4; }
-      .grid figure:nth-child(3) img,
-      .grid figure:nth-child(7) img{ aspect-ratio: 16 / 10; }
-    }
+    /* exact spans + ratios like events.html */
+    .grid figure:nth-child(1){ grid-row: span 2; }
+    .grid figure:nth-child(3){ grid-column: span 2; }
+    .grid figure:nth-child(5){ grid-row: span 2; }
+    .grid figure:nth-child(7){ grid-column: span 2; }
 
-    .brand-mini{ display:none !important } /* kill legacy mobile scroller */
+    .grid figure:nth-child(1) img,
+    .grid figure:nth-child(5) img{ aspect-ratio: 3 / 4; }
+    .grid figure:nth-child(3) img,
+    .grid figure:nth-child(7) img{ aspect-ratio: 16 / 10; }
+
+    .brand-mini{ display:none !important } /* legacy mobile scroller off */
 
     /* ===== Packages (same base styles as events.html) ===== */
     .packages{ padding:clamp(20px,6vw,50px) 0 }
@@ -155,30 +146,16 @@
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; }
 
-    /* Tablet layout */
+    /* Tablet/phone layout parity with events */
     @media (max-width:980px){
       .hero-wrap{ grid-template-columns:1fr }
       .cards{ grid-template-columns:1fr 1fr }
       .steps{ grid-template-columns:1fr 1fr }
     }
-    /* PHONE: match events.html exactly for process + packages */
     @media (max-width:640px){
       .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
-      .grid{ grid-template-columns:repeat(3,1fr); gap:8px }
-
-      /* KEY: same as events.html — single column cards & steps on phones */
       .cards, .steps{ grid-template-columns:1fr }
-
-      /* keep button tap target parity with events */
       .btn{ padding:11px 18px }
-    }
-
-    /* ===== Masonry mini grid overrides (no big gaps on mobile/tablet) ===== */
-    @media (max-width:980px){
-      .grid{ display:block; column-count:3; column-gap:8px; }
-      .grid figure{ break-inside:avoid; margin:0 0 8px; display:block; }
-      /* tighten visuals inside the gallery so the masonry feels seamless */
-      .grid img{ border:none; box-shadow:none; width:100%; height:auto; }
     }
   </style>
 
@@ -425,37 +402,6 @@
     })();
   </script>
 
-  <!-- Masonry packer (no gaps; uses natural image heights) -->
-  <script>
-    (function(){
-      const grid = document.getElementById("brand-grid");
-      if(!grid) return;
-
-      function fitMasonry(){
-        const styles = window.getComputedStyle(grid);
-        const rowH = parseFloat(styles.getPropertyValue('grid-auto-rows')) || 6;
-        const gap  = parseFloat(styles.getPropertyValue('gap')) || 8;
-
-        Array.from(grid.children).forEach(item=>{
-          const img = item.querySelector('img');
-          if(!img) return;
-          const h = img.getBoundingClientRect().height;
-          const span = Math.ceil((h + gap) / (rowH + gap));
-          item.style.gridRowEnd = `span ${span}`;
-        });
-      }
-
-      // Refit when any image loads
-      grid.querySelectorAll('img').forEach(img=>{
-        if (!img.complete) {
-          img.addEventListener('load', fitMasonry, { once:true });
-        }
-      });
-
-      // Initial + on resize
-      window.addEventListener('resize', fitMasonry);
-      requestAnimationFrame(fitMasonry);
-    })();
-  </script>
+  <!-- (Removed masonry packer; desktop-style mosaic is used for all sizes) -->
 </body>
 </html>
