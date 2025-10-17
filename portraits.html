@@ -247,7 +247,7 @@
         <div class="desktop-only">
           <!-- Tiles -->
           <div class="mosaic">
-            <!-- FAMILY (MAX 10 IMAGES, NO BOTTOM RECESS) -->
+            <!-- FAMILY (MAX 10 IMAGES, NO BOTTOM RECESS, ORDER PRESERVED) -->
             <figure class="captioned notch" id="portraits-family" aria-label="Family"
                     data-images='[
                       "/pictures/familyPortrait/image1.jpg",
@@ -285,7 +285,7 @@
               <div class="tile-dots" role="tablist"></div>
             </figure>
 
-            <!-- ADVENTURE (ALREADY 10 IMAGES, NO BOTTOM RECESS) -->
+            <!-- ADVENTURE (10 IMAGES, NO BOTTOM RECESS, ORDER PRESERVED) -->
             <figure class="captioned notch" id="portraits-adventure" aria-label="Adventure"
                     data-images='[
                       "/pictures/andrewsBaldPics/E26A1013.jpg",
@@ -322,7 +322,7 @@
               <div class="tile-dots" role="tablist"></div>
             </figure>
 
-            <!-- FRIEND (10 IMAGES, NO BOTTOM RECESS) -->
+            <!-- FRIEND (10 IMAGES, NO BOTTOM RECESS, ORDER PRESERVED) -->
             <figure class="captioned notch" id="portraits-friend" aria-label="Friend"
                     data-images='[
                       "/pictures/thirdTileGal/E26A2017.jpg",
@@ -345,7 +345,7 @@
                     <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                   </filter>
                 </defs>
-                <image href="/pictures/thirdTileGal/E26A2771.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p3)"></image>
+                <image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p3)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-p3)">
                   <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
                 </g>
@@ -385,7 +385,7 @@
         <!-- ================= MOBILE (paired) ================= -->
         <div class="mobile-only">
           <div class="services-grid">
-            <!-- FAMILY (MAX 10) -->
+            <!-- FAMILY (MAX 10, ORDER PRESERVED) -->
             <div class="service">
               <figure class="captioned notch" id="portraits-family-m" aria-label="Family"
                       data-images='[
@@ -423,7 +423,7 @@
               </article>
             </div>
 
-            <!-- ADVENTURE (10) -->
+            <!-- ADVENTURE (10, ORDER PRESERVED) -->
             <div class="service">
               <figure class="captioned notch" id="portraits-adventure-m" aria-label="Adventure"
                       data-images='[
@@ -461,7 +461,7 @@
               </article>
             </div>
 
-            <!-- FRIEND (10) -->
+            <!-- FRIEND (10, ORDER PRESERVED) -->
             <div class="service">
               <figure class="captioned notch" id="portraits-friend-m" aria-label="Friend"
                       data-images='[
@@ -482,7 +482,7 @@
                       <rect x="0" y="0" width="100%" height="100%" fill="white"/>
                     </mask>
                   </defs>
-                  <image href="/pictures/thirdTileGal/E26A2771.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p3m)"></image>
+                  <image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p3m)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
@@ -557,7 +557,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Viewport-only, lazy slider init -->
+  <!-- Viewport-only, lazy slider init (NO SHUFFLE, ORDER PRESERVED, MAX 10) -->
   <script>
     (function () {
       function currentIds() {
@@ -566,42 +566,31 @@
           : ['portraits-family','portraits-adventure','portraits-friend'];
       }
 
-      const prefer = {
-        'portraits-family'   : '/pictures/familyPortrait/image1.jpg',
-        'portraits-family-m' : '/pictures/familyPortrait/image1.jpg',
-        'portraits-adventure': '/pictures/andrewsBaldPics/E26A1013.jpg',
-        'portraits-adventure-m': '/pictures/andrewsBaldPics/E26A1013.jpg',
-        'portraits-friend'   : '/pictures/thirdTileGal/E26A2771.jpg',
-        'portraits-friend-m' : '/pictures/thirdTileGal/E26A2771.jpg'
-      };
-
       function clampTo10(list){
         if (!Array.isArray(list)) return [];
-        return list.slice(0, 10);
+        return list.slice(0, 10); // keep original order, just cap to 10
       }
-      function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a }
-      function parseList(tile){ try{ return JSON.parse(tile.getAttribute('data-images')||'[]') }catch{ return [] } }
+      function parseList(tile){
+        try{ return JSON.parse(tile.getAttribute('data-images')||'[]'); }
+        catch{ return []; }
+      }
 
       function prime(tileId){
         const tile = document.getElementById(tileId);
         if(!tile || tile.dataset.primed) return;
 
-        let list = clampTo10(parseList(tile));
-        if(!Array.isArray(list) || list.length <= 1) return;
+        const list = clampTo10(parseList(tile));
+        if(!Array.isArray(list) || list.length === 0) return;
 
-        shuffle(list);
-        const want = prefer[tileId];
-        if (want){
-          const idx = list.indexOf(want);
-          if (idx>-1){ const [hit]=list.splice(idx,1); list.unshift(hit); } else { list.unshift(want); }
-        }
-        tile.setAttribute('data-images', JSON.stringify(list));
-
+        // Preserve order: show the first image as provided
         const imgEl = tile.querySelector('svg image');
-        if(imgEl && list[0]){
+        if(imgEl){
           imgEl.setAttribute('href', list[0]);
           imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
         }
+        // Re-save capped list (order unchanged)
+        tile.setAttribute('data-images', JSON.stringify(list));
+
         tile.dataset.primed = '1';
       }
 
