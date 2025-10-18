@@ -263,7 +263,6 @@
                     ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                 <defs>
-                  <!-- Full-rect mask (no recess) -->
                   <mask id="notchMask-p1">
                     <rect x="0" y="0" width="100%" height="100%" fill="white"/>
                   </mask>
@@ -557,7 +556,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Viewport-only, lazy slider init (NO SHUFFLE, ORDER PRESERVED, MAX 10) -->
+  <!-- Viewport-only, lazy slider init (per-tile, per-image controls + max 10) -->
   <script>
     (function () {
       function currentIds() {
@@ -575,6 +574,85 @@
         catch{ return []; }
       }
 
+      /* ============ PER-TILE • PER-IMAGE FOCAL CONFIG ============ */
+      const focalByTile = {
+        // ---------- FRIEND (DESKTOP) ----------
+        'portraits-friend': {
+          // 1) silhouettes — shift RIGHT so everyone fits
+          "/pictures/thirdTileGal/E26A2854.jpg": {
+            anchor: "xMaxYMid slice",
+            x: 16, y: 0, width: 816, height: 1000
+          },
+          // 2) dresses at sunset — shift RIGHT to include all girls
+          "/pictures/thirdTileGal/E26A2860.jpg": {
+            anchor: "xMaxYMid slice",
+            x: 18, y: 0, width: 818, height: 1000
+          },
+          // 3) dunes looking right — shift RIGHT so girls sit on LEFT side but all fit
+          "/pictures/thirdTileGal/E26A2771.jpg": {
+            anchor: "xMaxYMid slice",
+            x: 26, y: 0, width: 826, height: 1000
+          },
+          // 4) wide beach scene — nudge UP so the group sits near the bottom
+          "/pictures/thirdTileGal/E26A2746.jpg": {
+            anchor: "xMidYMax slice",
+            x: 0, y: 14, width: 800, height: 1014
+          },
+          "*": { anchor: "xMidYMid slice" }
+        },
+
+        // ---------- FRIEND (MOBILE) ----------
+        'portraits-friend-m': {
+          "/pictures/thirdTileGal/E26A2854.jpg": {
+            anchor: "xMaxYMid slice",
+            x: 12, y: 0, width: 812, height: 1000
+          },
+          "/pictures/thirdTileGal/E26A2860.jpg": {
+            anchor: "xMaxYMid slice",
+            x: 12, y: 0, width: 812, height: 1000
+          },
+          "/pictures/thirdTileGal/E26A2771.jpg": {
+            anchor: "xMaxYMid slice",
+            x: 20, y: 0, width: 820, height: 1000
+          },
+          "/pictures/thirdTileGal/E26A2746.jpg": {
+            anchor: "xMidYMax slice",
+            x: 0, y: 12, width: 800, height: 1012
+          },
+          "*": { anchor: "xMidYMid slice" }
+        },
+
+        // Keep others centered by default
+        'portraits-family':        { "*": { anchor: "xMidYMid slice" } },
+        'portraits-adventure':     { "*": { anchor: "xMidYMid slice" } },
+        'portraits-family-m':      { "*": { anchor: "xMidYMid slice" } },
+        'portraits-adventure-m':   { "*": { anchor: "xMidYMid slice" } }
+      };
+
+      function getFocal(tileId, src){
+        const t = focalByTile[tileId] || {};
+        return t[src] || t["*"] || { anchor: "xMidYMid slice" };
+      }
+
+      // Apply anchor + offsets for the CURRENT tile & image
+      function applyFocal(imgEl, src, tileId) {
+        const cfg = getFocal(tileId, src);
+
+        // 1) Anchor
+        imgEl.setAttribute("preserveAspectRatio", cfg.anchor || "xMidYMid slice");
+
+        // 2) Numeric offsets (defaults)
+        const x = Number.isFinite(cfg.x) ? cfg.x : 0;
+        const y = Number.isFinite(cfg.y) ? cfg.y : 0;
+        const w = Number.isFinite(cfg.width)  ? cfg.width  : 800;
+        const h = Number.isFinite(cfg.height) ? cfg.height : 1000;
+
+        imgEl.setAttribute("x", String(x));
+        imgEl.setAttribute("y", String(y));
+        imgEl.setAttribute("width", String(w));
+        imgEl.setAttribute("height", String(h));
+      }
+
       function prime(tileId){
         const tile = document.getElementById(tileId);
         if(!tile || tile.dataset.primed) return;
@@ -582,15 +660,13 @@
         const list = clampTo10(parseList(tile));
         if(!Array.isArray(list) || list.length === 0) return;
 
-        // Preserve order: show the first image as provided
         const imgEl = tile.querySelector('svg image');
         if(imgEl){
           imgEl.setAttribute('href', list[0]);
           imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
+          applyFocal(imgEl, list[0], tileId);
         }
-        // Re-save capped list (order unchanged)
         tile.setAttribute('data-images', JSON.stringify(list));
-
         tile.dataset.primed = '1';
       }
 
@@ -619,6 +695,7 @@
           const src=list[idx];
           imgEl.setAttribute('href',src);
           imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href',src);
+          applyFocal(imgEl, src, tileId);
           updateDots();
         }
         tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx-1); });
@@ -651,7 +728,7 @@
       // Kick off
       initForViewport();
 
-      // If user crosses the 960px breakpoint, start observing the other set.
+      // On breakpoint change, start observing the other set.
       let wasMobile = window.matchMedia('(max-width: 960px)').matches;
       window.addEventListener('resize', ()=>{
         const isMobile = window.matchMedia('(max-width: 960px)').matches;
