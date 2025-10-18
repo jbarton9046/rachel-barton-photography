@@ -556,7 +556,6 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Viewport-only, lazy slider init (per-tile, per-image controls + max 10) -->
   <script>
     (function () {
       function currentIds() {
@@ -607,15 +606,28 @@
         return t[src] || t["*"] || { anchor: "xMidYMid slice" };
       }
 
+      // --- NEW: ensure the <image> is wrapped in a <g class="panGroup"> we can transform ---
+      function ensurePanGroup(imgEl){
+        const svgNS = "http://www.w3.org/2000/svg";
+        const parent = imgEl.parentNode;
+        if (parent && parent.classList && parent.classList.contains('panGroup')) return parent;
+
+        const g = document.createElementNS(svgNS, 'g');
+        g.setAttribute('class','panGroup');
+        parent.insertBefore(g, imgEl);
+        g.appendChild(imgEl);
+        return g;
+      }
+
       // ================== PATCHED APPLYFOCAL ==================
-      // Pan via transform so x/y always work the same across browsers.
+      // Pan the wrapper group (not the <image>) so it works across browsers/masks.
       function applyFocal(imgEl, src, tileId) {
         const cfg = getFocal(tileId, src);
 
-        // Keep anchor behavior (center by default)
+        // Keep anchor behavior on the image
         imgEl.setAttribute("preserveAspectRatio", cfg.anchor || "xMidYMid slice");
 
-        // knobs: x (→ right), y (→ down). Positive y moves subjects visually up.
+        // knobs: x (→ right), y (→ down)
         const dx = Number.isFinite(cfg.x) ? cfg.x : 0;
         const dy = Number.isFinite(cfg.y) ? cfg.y : 0;
 
@@ -630,10 +642,11 @@
         imgEl.setAttribute("width", String(W));
         imgEl.setAttribute("height", String(H));
 
-        // finally, pan using translate()
-        imgEl.setAttribute("transform", `translate(${dx} ${dy})`);
+        // transform the wrapper <g>, not the <image>
+        const g = ensurePanGroup(imgEl);
+        g.setAttribute("transform", `translate(${dx} ${dy})`);
       }
-      // =========================================================
+      // ========================================================
 
       function prime(tileId){
         const tile = document.getElementById(tileId);
@@ -721,5 +734,6 @@
       });
     })();
   </script>
+
 </body>
 </html>
