@@ -574,7 +574,6 @@
       }
 
       /* ============ PER-TILE • PER-IMAGE FOCAL CONFIG ============ */
-      // NOTE: exposed on window so applyFocal can read it reliably
       window.focalByTile = {
         // ---------- FRIEND (DESKTOP) ----------
         'portraits-friend': {
@@ -606,28 +605,16 @@
         return t[src] || t["*"] || { anchor: "xMidYMid slice" };
       }
 
-      // --- NEW: ensure the <image> is wrapped in a <g class="panGroup"> we can transform ---
-      function ensurePanGroup(imgEl){
-        const svgNS = "http://www.w3.org/2000/svg";
-        const parent = imgEl.parentNode;
-        if (parent && parent.classList && parent.classList.contains('panGroup')) return parent;
-
-        const g = document.createElementNS(svgNS, 'g');
-        g.setAttribute('class','panGroup');
-        parent.insertBefore(g, imgEl);
-        g.appendChild(imgEl);
-        return g;
-      }
-
-      // ================== PATCHED APPLYFOCAL ==================
-      // Pan the wrapper group (not the <image>) so it works across browsers/masks.
+      // ================== PATCHED APPLYFOCAL (use x/y, no transforms) ==================
       function applyFocal(imgEl, src, tileId) {
         const cfg = getFocal(tileId, src);
 
-        // Keep anchor behavior on the image
+        // Keep anchor behavior (center by default)
         imgEl.setAttribute("preserveAspectRatio", cfg.anchor || "xMidYMid slice");
 
-        // knobs: x (→ right), y (→ down)
+        // knobs: x (→ right), y (→ down) move the IMAGE.
+        // Positive x shifts the image left, so the subject appears to move right.
+        // Positive y shifts the image up, so the subject appears to move down.
         const dx = Number.isFinite(cfg.x) ? cfg.x : 0;
         const dy = Number.isFinite(cfg.y) ? cfg.y : 0;
 
@@ -636,17 +623,17 @@
         const W = 800 + zoom;
         const H = 1000 + zoom;
 
-        // enlarge a touch and center it
-        imgEl.setAttribute("x", String(-zoom / 2));
-        imgEl.setAttribute("y", String(-zoom / 2));
+        // enlarge a touch and center it, then offset by dx/dy via x/y
         imgEl.setAttribute("width", String(W));
         imgEl.setAttribute("height", String(H));
+        imgEl.setAttribute("x", String(-zoom / 2 - dx));
+        imgEl.setAttribute("y", String(-zoom / 2 - dy));
 
-        // transform the wrapper <g>, not the <image>
-        const g = ensurePanGroup(imgEl);
-        g.setAttribute("transform", `translate(${dx} ${dy})`);
+        // Safari sometimes needs the xlink href mirrored:
+        const href = imgEl.getAttribute('href');
+        if (href) imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', href);
       }
-      // ========================================================
+      // ================================================================================
 
       function prime(tileId){
         const tile = document.getElementById(tileId);
