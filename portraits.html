@@ -110,8 +110,9 @@
 
     /* Tile chrome & layout */
     .desktop-only{ display:block; } .mobile-only{ display:none; }
-    @media (max-width:960px){ .desktop-only{ display:none; } .mobile-only{ display:block; } }
+    @media (max-width:960px){ .desktop-only{ display:none; } .mobile-only{ display:block; }
 
+    }
     .section-title{
       font-family:"Cormorant Garamond","Times New Roman",serif;
       font-size:clamp(24px,3.5vw,38px);
@@ -269,7 +270,6 @@
                     <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
                   </filter>
                 </defs>
-                <!-- Pure SVG image we can size & pan -->
                 <g mask="url(#notchMask-p1)">
                   <g class="panGroup">
                     <image href="/pictures/familyPortrait/image1.jpg"
@@ -562,7 +562,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- ==== Tiles: pure-SVG natural-pixel pan + zoom (no white until true minZoom) ==== -->
+  <!-- ==== Tiles: prefer fit-height, fallback to cover; pan/zoom with no white ==== -->
   <script>
     (function () {
       const TILE_W = 800, TILE_H = 1000;
@@ -578,39 +578,38 @@
         catch{ return []; }
       }
 
-      /* ======== FOCAL CONFIG (x/y in px, zoom relative to NATURAL pixels) ======== */
-      // zoom=1 means draw at the image's native pixel size; we clamp to minZoom so it still fills.
+      /* ======== FOCAL CONFIG (x/y in px; optional zoom >= 1) ======== */
       window.focalByTile = {
         'portraits-family': {
-          "/pictures/familyPortrait/image1.jpg": { x:  60, y: -40, zoom: 0.9 },
-          "/pictures/familyPortrait/image2.jpg": { x: -30, y:   0, zoom: 1.0 },
-          "*": { x:0, y:0, zoom: 1.0 }
+          "/pictures/familyPortrait/image1.jpg": { x:  60, y: -40, zoom: 1.02 },
+          "/pictures/familyPortrait/image2.jpg": { x: -30, y:   0 },
+          "*": { x:0, y:0 }
         },
         'portraits-adventure': {
-          "/pictures/andrewsBaldPics/E26A1013.jpg": { x:  40, y:  20, zoom: 0.95 },
-          "*": { x:0, y:0, zoom: 1.0 }
+          "/pictures/andrewsBaldPics/E26A1013.jpg": { x:  40, y:  20, zoom: 1.02 },
+          "*": { x:0, y:0 }
         },
         'portraits-friend': {
-          "/pictures/thirdTileGal/E26A2854.jpg": { x: 280, y: 0,   zoom: 0.85 },
-          "/pictures/thirdTileGal/E26A2860.jpg": { x: 100, y: 0,   zoom: 0.90 },
-          "/pictures/thirdTileGal/E26A2771.jpg": { x: 100, y: 0,   zoom: 0.90 },
+          "/pictures/thirdTileGal/E26A2854.jpg": { x: 280, y: 0,   zoom: 1.00 },
+          "/pictures/thirdTileGal/E26A2860.jpg": { x: 100, y: 0,   zoom: 1.00 },
+          "/pictures/thirdTileGal/E26A2771.jpg": { x: 100, y: 0,   zoom: 1.00 },
           "/pictures/thirdTileGal/E26A2746.jpg": { x:   0, y: 14,  zoom: 1.00 },
-          "*": { x:0, y:0, zoom: 1.0 }
+          "*": { x:0, y:0 }
         },
 
-        'portraits-family-m':    { "*": { x:0, y:0, zoom: 1.0 } },
-        'portraits-adventure-m': { "*": { x:0, y:0, zoom: 1.0 } },
+        'portraits-family-m':    { "*": { x:0, y:0 } },
+        'portraits-adventure-m': { "*": { x:0, y:0 } },
         'portraits-friend-m':    {
-          "/pictures/thirdTileGal/E26A2854.jpg": { x: 48, y: 0,  zoom: 0.92 },
+          "/pictures/thirdTileGal/E26A2854.jpg": { x: 48, y: 0,  zoom: 1.00 },
           "/pictures/thirdTileGal/E26A2860.jpg": { x: 36, y: 0,  zoom: 1.00 },
           "/pictures/thirdTileGal/E26A2771.jpg": { x: 40, y: 0,  zoom: 1.00 },
           "/pictures/thirdTileGal/E26A2746.jpg": { x:  0, y:12, zoom: 1.00 },
-          "*": { x:0, y:0, zoom: 1.0 }
+          "*": { x:0, y:0 }
         }
       };
       function getFocal(tileId, src){
         const t = (window.focalByTile || {})[tileId] || {};
-        return t[src] || t["*"] || { x:0, y:0, zoom:1.0 };
+        return t[src] || t["*"] || { x:0, y:0 };
       }
 
       // Cache natural sizes
@@ -634,7 +633,7 @@
         return parent?.classList?.contains('panGroup') ? parent : null;
       }
 
-      // Draw with explicit width/height in SVG units computed from natural pixels.
+      // === NEW: prefer fit-height if it still fills width; else cover. Support zoom >= 1.
       async function applyFocal(imgEl, src, tileId) {
         const g = ensurePanGroup(imgEl);
         if(!g) return;
@@ -642,37 +641,42 @@
         const { w: natW, h: natH } = await getNaturalSize(src);
         const cfg = getFocal(tileId, src);
 
-        // Min zoom to fully cover the 800x1000 tile (no white)
-        const minZoom = Math.max(TILE_W / natW, TILE_H / natH);
+        // Try fit-height first
+        const scaleH = TILE_H / natH;
+        const drawW_H = natW * scaleH;
+        const canUseFitHeight = drawW_H >= TILE_W;
 
-        // Requested natural-pixel zoom, clamped so we still cover
-        const requested = Number.isFinite(cfg.zoom) ? cfg.zoom : 1.0;
-        const zoom = Math.max(requested, minZoom);
+        // cover fallback
+        const scaleCover = Math.max(TILE_W / natW, TILE_H / natH);
 
-        // Draw size in SVG units
-        const drawW = natW * zoom;
-        const drawH = natH * zoom;
+        // base scale before zoom
+        let baseScale = canUseFitHeight ? scaleH : scaleCover;
 
-        // Center baseline
+        // optional zoom (>=1). Use to crop in slightly if you want.
+        const zoom = Math.max(1, Number.isFinite(cfg.zoom) ? cfg.zoom : 1);
+
+        // final drawn size
+        const drawW = natW * baseScale * zoom;
+        const drawH = natH * baseScale * zoom;
+
+        // center by default
         const baseX = (TILE_W - drawW) / 2;
         const baseY = (TILE_H - drawH) / 2;
 
-        // Pan (clamped) in pixels of the drawn bitmap
-        const overflowX = Math.max(0, (drawW - TILE_W) / 2);
-        const overflowY = Math.max(0, (drawH - TILE_H) / 2);
-        const reqX = Number.isFinite(cfg.x) ? cfg.x : 0;
-        const reqY = Number.isFinite(cfg.y) ? cfg.y : 0;
-        const dx = Math.max(-overflowX, Math.min(overflowX, reqX));
-        const dy = Math.max(-overflowY, Math.min(overflowY, reqY));
-
-        // Apply exact geometry
+        // render exact geometry
         imgEl.setAttribute('x', String(baseX));
         imgEl.setAttribute('y', String(baseY));
         imgEl.setAttribute('width', String(drawW));
         imgEl.setAttribute('height', String(drawH));
         imgEl.setAttribute('preserveAspectRatio', 'none');
 
-        // Translate the group to pan
+        // compute safe pan so edges never show
+        const overflowX = Math.max(0, (drawW - TILE_W) / 2);
+        const overflowY = Math.max(0, (drawH - TILE_H) / 2);
+        const reqX = Number.isFinite(cfg.x) ? cfg.x : 0;
+        const reqY = Number.isFinite(cfg.y) ? cfg.y : 0;
+        const dx = Math.max(-overflowX, Math.min(overflowX, reqX));
+        const dy = Math.max(-overflowY, Math.min(overflowY, reqY));
         g.setAttribute('transform', `translate(${dx} ${dy})`);
 
         // Safari xlink quirk
