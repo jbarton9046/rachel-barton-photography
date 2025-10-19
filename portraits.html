@@ -116,7 +116,7 @@
     .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       background:transparent !important; border:0 !important;
-      width:28px; height:28px;               /* was 56x56 */
+      width:28px; height:28px;
       display:grid; place-items:center;
       color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0;
       transition:opacity .2s ease, transform .2s ease;
@@ -124,26 +124,22 @@
     .captioned.notch:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
     .tile-prev{ left:10px } .tile-next{ right:10px }
     .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:4px; /* was 7px */
+      content:""; position:absolute; inset:0; margin:4px;
       transform:rotate(45deg);
       background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05);
       box-shadow:0 6px 18px rgba(0,0,0,.14);
     }
     .tile-nav::after{
-      content:""; position:absolute; inset:0; margin:4px; /* was 7px */
-      transform:rotate(45deg); border:1px solid var(--accent); /* was 1.5px */
+      content:""; position:absolute; inset:0; margin:4px;
+      transform:rotate(45deg); border:1px solid var(--accent);
     }
-    .tile-nav svg{ width:12px; height:12px; position:relative; z-index:2 } /* was 22x22 */
-    /* ↑↑↑ Smaller nav arrows/diamonds (about half size) ↑↑↑ */
+    .tile-nav svg{ width:12px; height:12px; position:relative; z-index:2 }
 
     /* Hide the bottom diamonds (keep arrow controls) */
     .tile-dots{ display:none !important; }
 
-    /* Small nudges for friend tile if desired (kept for parity; not needed in tune mode) */
-    .pan-nudge{ display:none; }
-
-    /* Smooth pan to avoid jumpiness */
-    .panGroup{ transition: transform .18s ease; will-change: transform; }
+    /* Remove slide-in animation between images */
+    .panGroup{ will-change: transform; } /* no transition => instant swap */
 
     /* Tune HUD */
     .tuneHud{
@@ -512,7 +508,7 @@
       catch{ return []; }
     }
 
-    // Default focal config + overrides for Friend images (desktop + mobile)
+    // Default focal config + overrides for the specific phone image
     window.focalByTile = {
       'portraits-family': { "*": { x:0 } },
       'portraits-adventure': { "*": { x:0 } },
@@ -521,7 +517,10 @@
         "*": { x:0, y:0, zoom:1 },
         "/pictures/thirdTileGal/E26A2860.jpg": { x:150, y:0, zoom:1 },
         "/pictures/thirdTileGal/E26A2854.jpg": { x:300, y:0, zoom:1 },
-        "/pictures/thirdTileGal/E26A2771.jpg": { x:240, y:0, zoom:1 }
+        "/pictures/thirdTileGal/E26A2771.jpg": { x:240, y:0, zoom:1 },
+        /* center the phone (keep zoom=1) */
+        "/pictures/friendPortraitGal/E26A2017 (1).jpg": { x:90, y:0, zoom:1 },
+        "/pictures/friendPortraitGal/E26A2017%20(1).jpg": { x:90, y:0, zoom:1 }
       },
 
       'portraits-family-m': { "*": { x:0 } },
@@ -531,7 +530,10 @@
         "*": { x:0, y:0, zoom:1 },
         "/pictures/thirdTileGal/E26A2860.jpg": { x:150, y:0, zoom:1 },
         "/pictures/thirdTileGal/E26A2854.jpg": { x:300, y:0, zoom:1 },
-        "/pictures/thirdTileGal/E26A2771.jpg": { x:240, y:0, zoom:1 }
+        "/pictures/thirdTileGal/E26A2771.jpg": { x:240, y:0, zoom:1 },
+        /* mobile too */
+        "/pictures/friendPortraitGal/E26A2017 (1).jpg": { x:90, y:0, zoom:1 },
+        "/pictures/friendPortraitGal/E26A2017%20(1).jpg": { x:90, y:0, zoom:1 }
       }
     };
     function getFocal(tileId, src){
