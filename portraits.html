@@ -188,14 +188,21 @@
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; }
 
-    /* ==== NEW: image inside SVG with object-position ==== */
+    /* ==== NEW: natural-pixel sizing (no object-fit), absolute left/top/size set by JS ==== */
+    .tile-wrap{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden; /* hard clip to the mask box */
+    }
     .tile-img{
-      width:100%;
-      height:100%;
+      position: absolute;
+      left: 0; top: 0;
+      width: auto; height: auto;
+      transform: none;
+      object-fit: unset; /* critical: disable fit/crop math */
       display:block;
-      object-fit:cover; /* always fills the tile */
-      object-position: var(--pos-x,50%) var(--pos-y,50%); /* 0–100% */
-      transform: scale(var(--zoom, 1.10)); /* small bleed so you can push to edges */
+      border: 0; box-shadow: none; /* keep clean inside mask */
     }
   </style>
 </head>
@@ -279,12 +286,11 @@
                     <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
                   </filter>
                 </defs>
-                <!-- NEW: real <img> inside SVG, clipped by mask -->
                 <g mask="url(#notchMask-p1)">
                   <foreignObject x="0" y="0" width="800" height="1000">
-                    <img xmlns="http://www.w3.org/1999/xhtml" class="tile-img"
-                         src="/pictures/familyPortrait/image1.jpg"
-                         style="--pos-x:50%; --pos-y:50%; --zoom:1.10;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" class="tile-wrap">
+                      <img class="tile-img" src="/pictures/familyPortrait/image1.jpg" alt="">
+                    </div>
                   </foreignObject>
                 </g>
                 <g class="frameGroup" filter="url(#frameShadow-p1)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
@@ -319,9 +325,9 @@
                 </defs>
                 <g mask="url(#notchMask-p2)">
                   <foreignObject x="0" y="0" width="800" height="1000">
-                    <img xmlns="http://www.w3.org/1999/xhtml" class="tile-img"
-                         src="/pictures/andrewsBaldPics/E26A1013.jpg"
-                         style="--pos-x:50%; --pos-y:50%; --zoom:1.10;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" class="tile-wrap">
+                      <img class="tile-img" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="">
+                    </div>
                   </foreignObject>
                 </g>
                 <g class="frameGroup" filter="url(#frameShadow-p2)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
@@ -356,9 +362,9 @@
                 </defs>
                 <g mask="url(#notchMask-p3)">
                   <foreignObject x="0" y="0" width="800" height="1000">
-                    <img xmlns="http://www.w3.org/1999/xhtml" class="tile-img"
-                         src="/pictures/thirdTileGal/E26A2017.jpg"
-                         style="--pos-x:50%; --pos-y:50%; --zoom:1.10;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" class="tile-wrap">
+                      <img class="tile-img" src="/pictures/thirdTileGal/E26A2017.jpg" alt="">
+                    </div>
                   </foreignObject>
                 </g>
                 <g class="frameGroup" filter="url(#frameShadow-p3)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
@@ -417,9 +423,9 @@
                   </defs>
                   <g mask="url(#notchMask-p1m)">
                     <foreignObject x="0" y="0" width="800" height="1000">
-                      <img xmlns="http://www.w3.org/1999/xhtml" class="tile-img"
-                           src="/pictures/familyPortrait/image1.jpg"
-                           style="--pos-x:50%; --pos-y:50%; --zoom:1.10;">
+                      <div xmlns="http://www.w3.org/1999/xhtml" class="tile-wrap">
+                        <img class="tile-img" src="/pictures/familyPortrait/image1.jpg" alt="">
+                      </div>
                     </foreignObject>
                   </g>
                 </svg>
@@ -457,9 +463,9 @@
                   </defs>
                   <g mask="url(#notchMask-p2m)">
                     <foreignObject x="0" y="0" width="800" height="1000">
-                      <img xmlns="http://www.w3.org/1999/xhtml" class="tile-img"
-                           src="/pictures/andrewsBaldPics/E26A1013.jpg"
-                           style="--pos-x:50%; --pos-y:50%; --zoom:1.10;">
+                      <div xmlns="http://www.w3.org/1999/xhtml" class="tile-wrap">
+                        <img class="tile-img" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="">
+                      </div>
                     </foreignObject>
                   </g>
                 </svg>
@@ -497,9 +503,9 @@
                   </defs>
                   <g mask="url(#notchMask-p3m)">
                     <foreignObject x="0" y="0" width="800" height="1000">
-                      <img xmlns="http://www.w3.org/1999/xhtml" class="tile-img"
-                           src="/pictures/thirdTileGal/E26A2017.jpg"
-                           style="--pos-x:50%; --pos-y:50%; --zoom:1.10;">
+                      <div xmlns="http://www.w3.org/1999/xhtml" class="tile-wrap">
+                        <img class="tile-img" src="/pictures/thirdTileGal/E26A2017.jpg" alt="">
+                      </div>
                     </foreignObject>
                   </g>
                 </svg>
@@ -572,9 +578,11 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- ==== Tiles: object-position inside SVG mask (full photo available, no white) ==== -->
+  <!-- ==== Tiles: natural-pixel pan/zoom inside SVG mask (no white until true minZoom) ==== -->
   <script>
     (function () {
+      const TILE_W = 800, TILE_H = 1000;
+
       // Which tiles are on screen for each breakpoint
       function currentIds() {
         return (window.matchMedia('(max-width: 960px)').matches)
@@ -587,52 +595,95 @@
         catch{ return []; }
       }
 
-      /* ======== FOCAL CONFIG (percentages; 0–100) ======== */
-      // x: 0 = far left, 50 = center, 100 = far right
-      // y: 0 = top, 50 = center, 100 = bottom
-      // zoom: optional (1.10 default). Increase to 1.12–1.15 if you want more push.
+      /* ======== FOCAL CONFIG (pixels + natural zoom) ======== */
+      // x/y in **pixels** (positive x = move right, positive y = move down).
+      // zoom relative to natural pixels (1.0 = native size). Omit to auto-choose later.
       window.focalByTile = {
         'portraits-family': {
-          "/pictures/familyPortrait/image1.jpg": { x: 55, y: 48, zoom: 1.10 },
-          "/pictures/familyPortrait/image2.jpg": { x: 45, y: 50 },
-          "*": { x:50, y:50 }
+          "/pictures/familyPortrait/image1.jpg": { x:  60, y: -40, zoom: 0.9 },
+          "/pictures/familyPortrait/image2.jpg": { x: -30, y:   0, zoom: 1.0 },
+          "*": { x:0, y:0, zoom: 1.0 }
         },
         'portraits-adventure': {
-          "/pictures/andrewsBaldPics/E26A1013.jpg": { x: 58, y: 52 },
-          "*": { x:50, y:50 }
+          "/pictures/andrewsBaldPics/E26A1013.jpg": { x:  40, y:  20, zoom: 0.95 },
+          "*": { x:0, y:0, zoom: 1.0 }
         },
         'portraits-friend': {
-          "/pictures/thirdTileGal/E26A2854.jpg": { x: 10, y: 50, zoom: .88 },
-          "/pictures/thirdTileGal/E26A2860.jpg": { x: 30, y: 50 },
-          "/pictures/thirdTileGal/E26A2771.jpg": { x: 50, y: 20 },
-          "/pictures/thirdTileGal/E26A2746.jpg": { x: 50, y: 80 },
-          "*": { x:50, y:50 }
+          "/pictures/thirdTileGal/E26A2854.jpg": { x: 280, y: 0, zoom: 0.85 },
+          "/pictures/thirdTileGal/E26A2860.jpg": { x: 100, y: 0, zoom: 0.9 },
+          "/pictures/thirdTileGal/E26A2771.jpg": { x: 100, y: 0, zoom: 0.9 },
+          "/pictures/thirdTileGal/E26A2746.jpg": { x:   0, y: 14, zoom: 1.0 },
+          "*": { x:0, y:0, zoom: 1.0 }
         },
 
-        'portraits-family-m': { "/pictures/familyPortrait/image1.jpg": { x: 55, y: 48 }, "*": { x:50, y:50 } },
-        'portraits-adventure-m': { "*": { x:50, y:50 } },
-        'portraits-friend-m': {
-          "/pictures/thirdTileGal/E26A2854.jpg": { x: 54, y: 50 },
-          "/pictures/thirdTileGal/E26A2860.jpg": { x: 52, y: 50 },
-          "/pictures/thirdTileGal/E26A2771.jpg": { x: 53, y: 50 },
-          "/pictures/thirdTileGal/E26A2746.jpg": { x: 50, y: 52 },
-          "*": { x:50, y:50 }
+        'portraits-family-m':    { "*": { x:0, y:0, zoom: 1.0 } },
+        'portraits-adventure-m': { "*": { x:0, y:0, zoom: 1.0 } },
+        'portraits-friend-m':    {
+          "/pictures/thirdTileGal/E26A2854.jpg": { x: 48, y: 0, zoom: 0.92 },
+          "/pictures/thirdTileGal/E26A2860.jpg": { x: 36, y: 0, zoom: 1.0 },
+          "/pictures/thirdTileGal/E26A2771.jpg": { x: 40, y: 0, zoom: 1.0 },
+          "/pictures/thirdTileGal/E26A2746.jpg": { x:  0, y:12, zoom: 1.0 },
+          "*": { x:0, y:0, zoom: 1.0 }
         }
       };
       function getFocal(tileId, src){
         const t = (window.focalByTile || {})[tileId] || {};
-        return t[src] || t["*"] || { x:50, y:50 };
+        return t[src] || t["*"] || { x:0, y:0, zoom:1.0 };
       }
 
-      // Apply focal (object-position) to the <img>
-      function applyFocal(imgEl, src, tileId) {
+      // cache natural sizes
+      const naturalSizeCache = new Map();
+      function getNaturalSize(src){
+        return new Promise((resolve)=>{
+          if (naturalSizeCache.has(src)) return resolve(naturalSizeCache.get(src));
+          const im = new Image();
+          im.onload = () => {
+            const val = { w: im.naturalWidth || im.width, h: im.naturalHeight || im.height };
+            naturalSizeCache.set(src, val); resolve(val);
+          };
+          im.onerror = () => resolve({ w: 1600, h: 1067 }); // sensible fallback if unknown
+          im.src = src;
+        });
+      }
+
+      // Size/position from **natural pixels**, clamp pan to real edges, and clamp zoom to minZoom
+      async function applyFocal(imgEl, src, tileId) {
+        const { w: natW, h: natH } = await getNaturalSize(src);
         const cfg = getFocal(tileId, src);
-        const x = (cfg.x ?? 50);
-        const y = (cfg.y ?? 50);
-        const zoom = (cfg.zoom ?? 1.10);
-        imgEl.style.setProperty('--pos-x', x + '%');
-        imgEl.style.setProperty('--pos-y', y + '%');
-        imgEl.style.setProperty('--zoom', String(zoom));
+
+        // Requested zoom is relative to NATURAL size
+        const requestedZoom = Number.isFinite(cfg.zoom) ? cfg.zoom : 1.0;
+
+        // Minimum zoom that still fills the 800x1000 viewport (no white)
+        const minZoom = Math.max(TILE_W / natW, TILE_H / natH);
+
+        // Clamp zoom so we never show white
+        const zoom = Math.max(requestedZoom, minZoom);
+
+        // Draw size at this zoom
+        const drawW = natW * zoom;
+        const drawH = natH * zoom;
+
+        // Center by default
+        const baseLeft = (TILE_W - drawW) / 2;
+        const baseTop  = (TILE_H - drawH) / 2;
+
+        // Requested pan (pixels)
+        const reqX = Number.isFinite(cfg.x) ? cfg.x : 0;
+        const reqY = Number.isFinite(cfg.y) ? cfg.y : 0;
+
+        // How far we can move without exposing edges
+        const overflowX = Math.max(0, (drawW - TILE_W) / 2);
+        const overflowY = Math.max(0, (drawH - TILE_H) / 2);
+
+        const dx = Math.max(-overflowX, Math.min(overflowX, reqX));
+        const dy = Math.max(-overflowY, Math.min(overflowY, reqY));
+
+        // Apply explicit size and position
+        imgEl.style.width  = drawW + 'px';
+        imgEl.style.height = drawH + 'px';
+        imgEl.style.left   = (baseLeft + dx) + 'px';
+        imgEl.style.top    = (baseTop  + dy) + 'px';
       }
 
       function prime(tileId){
