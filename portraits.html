@@ -187,6 +187,16 @@
     .pack ul{ margin:0; padding-left:18px }
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; }
+
+    /* ==== NEW: image inside SVG with object-position ==== */
+    .tile-img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover; /* always fills the tile */
+      object-position: var(--pos-x,50%) var(--pos-y,50%); /* 0–100% */
+      transform: scale(var(--zoom, 1.10)); /* small bleed so you can push to edges */
+    }
   </style>
 </head>
 <body>
@@ -262,7 +272,6 @@
                     ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                 <defs>
-                  <!-- FIXED MASK (desktop p1) -->
                   <mask id="notchMask-p1" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
                     <rect x="0" y="0" width="800" height="1000" fill="white"/>
                   </mask>
@@ -270,7 +279,14 @@
                     <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
                   </filter>
                 </defs>
-                <image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p1)"></image>
+                <!-- NEW: real <img> inside SVG, clipped by mask -->
+                <g mask="url(#notchMask-p1)">
+                  <foreignObject x="0" y="0" width="800" height="1000">
+                    <img xmlns="http://www.w3.org/1999/xhtml" class="tile-img"
+                         src="/pictures/familyPortrait/image1.jpg"
+                         style="--pos-x:50%; --pos-y:50%; --zoom:1.10;">
+                  </foreignObject>
+                </g>
                 <g class="frameGroup" filter="url(#frameShadow-p1)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
               </svg>
               <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -294,7 +310,6 @@
                     ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                 <defs>
-                  <!-- FIXED MASK (desktop p2) -->
                   <mask id="notchMask-p2" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
                     <rect x="0" y="0" width="800" height="1000" fill="white"/>
                   </mask>
@@ -302,7 +317,13 @@
                     <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                   </filter>
                 </defs>
-                <image href="/pictures/andrewsBaldPics/E26A1013.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p2)"></image>
+                <g mask="url(#notchMask-p2)">
+                  <foreignObject x="0" y="0" width="800" height="1000">
+                    <img xmlns="http://www.w3.org/1999/xhtml" class="tile-img"
+                         src="/pictures/andrewsBaldPics/E26A1013.jpg"
+                         style="--pos-x:50%; --pos-y:50%; --zoom:1.10;">
+                  </foreignObject>
+                </g>
                 <g class="frameGroup" filter="url(#frameShadow-p2)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
               </svg>
               <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -326,7 +347,6 @@
                     ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                 <defs>
-                  <!-- FIXED MASK (desktop p3) -->
                   <mask id="notchMask-p3" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
                     <rect x="0" y="0" width="800" height="1000" fill="white"/>
                   </mask>
@@ -334,7 +354,13 @@
                     <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                   </filter>
                 </defs>
-                <image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p3)"></image>
+                <g mask="url(#notchMask-p3)">
+                  <foreignObject x="0" y="0" width="800" height="1000">
+                    <img xmlns="http://www.w3.org/1999/xhtml" class="tile-img"
+                         src="/pictures/thirdTileGal/E26A2017.jpg"
+                         style="--pos-x:50%; --pos-y:50%; --zoom:1.10;">
+                  </foreignObject>
+                </g>
                 <g class="frameGroup" filter="url(#frameShadow-p3)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
               </svg>
               <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -385,12 +411,17 @@
                       ]'>
                 <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                   <defs>
-                    <!-- FIXED MASK (mobile p1m) -->
                     <mask id="notchMask-p1m" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
                       <rect x="0" y="0" width="800" height="1000" fill="white"/>
                     </mask>
                   </defs>
-                  <image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p1m)"></image>
+                  <g mask="url(#notchMask-p1m)">
+                    <foreignObject x="0" y="0" width="800" height="1000">
+                      <img xmlns="http://www.w3.org/1999/xhtml" class="tile-img"
+                           src="/pictures/familyPortrait/image1.jpg"
+                           style="--pos-x:50%; --pos-y:50%; --zoom:1.10;">
+                    </foreignObject>
+                  </g>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
                 <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
@@ -420,12 +451,17 @@
                       ]'>
                 <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                   <defs>
-                    <!-- FIXED MASK (mobile p2m) -->
                     <mask id="notchMask-p2m" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
                       <rect x="0" y="0" width="800" height="1000" fill="white"/>
                     </mask>
                   </defs>
-                  <image href="/pictures/andrewsBaldPics/E26A1013.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p2m)"></image>
+                  <g mask="url(#notchMask-p2m)">
+                    <foreignObject x="0" y="0" width="800" height="1000">
+                      <img xmlns="http://www.w3.org/1999/xhtml" class="tile-img"
+                           src="/pictures/andrewsBaldPics/E26A1013.jpg"
+                           style="--pos-x:50%; --pos-y:50%; --zoom:1.10;">
+                    </foreignObject>
+                  </g>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
                 <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
@@ -455,12 +491,17 @@
                       ]'>
                 <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                   <defs>
-                    <!-- FIXED MASK (mobile p3m) -->
                     <mask id="notchMask-p3m" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
                       <rect x="0" y="0" width="800" height="1000" fill="white"/>
                     </mask>
                   </defs>
-                <image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p3m)"></image>
+                  <g mask="url(#notchMask-p3m)">
+                    <foreignObject x="0" y="0" width="800" height="1000">
+                      <img xmlns="http://www.w3.org/1999/xhtml" class="tile-img"
+                           src="/pictures/thirdTileGal/E26A2017.jpg"
+                           style="--pos-x:50%; --pos-y:50%; --zoom:1.10;">
+                    </foreignObject>
+                  </g>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
                 <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
@@ -531,134 +572,67 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- ==== Tiles: true-cover sizing + clamped pan (no white edges) ==== -->
+  <!-- ==== Tiles: object-position inside SVG mask (full photo available, no white) ==== -->
   <script>
     (function () {
-      /**
-       * HOW TO REFRAME (no white edges)
-       * --------------------------------
-       * 1) Find:  FOCAL CONFIG (edit x/y here)
-       * 2) For each tile id (e.g., 'portraits-family'), set per-image offsets:
-       *    { "/path/to/image.jpg": { x: 60, y: -40 }, "*": { x: 0, y: 0 } }
-       *    Positive x moves bitmap RIGHT (show more of the LEFT side).
-       *    Positive y moves bitmap DOWN (show more of the TOP).
-       * 3) Values are in pixels and clamped to the real overflow—edges never show white.
-       */
-
+      // Which tiles are on screen for each breakpoint
       function currentIds() {
         return (window.matchMedia('(max-width: 960px)').matches)
           ? ['portraits-family-m','portraits-adventure-m','portraits-friend-m']
           : ['portraits-family','portraits-adventure','portraits-friend'];
       }
-      // SVG tile drawing size (matches viewBox)
-      const TILE_W = 800, TILE_H = 1000;
-
       function clampTo10(list){ return Array.isArray(list) ? list.slice(0,10) : []; }
       function parseList(tile){
         try{ return JSON.parse(tile.getAttribute('data-images')||'[]'); }
         catch{ return []; }
       }
 
-      /* ======== FOCAL CONFIG (edit x/y here) ======== */
-      // +x moves bitmap right (reveals more LEFT), +y moves it down (reveals TOP).
+      /* ======== FOCAL CONFIG (percentages; 0–100) ======== */
+      // x: 0 = far left, 50 = center, 100 = far right
+      // y: 0 = top, 50 = center, 100 = bottom
+      // zoom: optional (1.10 default). Increase to 1.12–1.15 if you want more push.
       window.focalByTile = {
-        // Examples below — tweak or add specific image keys as needed.
         'portraits-family': {
-          "/pictures/familyPortrait/image1.jpg": { x:  60, y: -40 },
-          "/pictures/familyPortrait/image2.jpg": { x: -30, y:   0 },
-          "*": { x:0, y:0 }
+          "/pictures/familyPortrait/image1.jpg": { x: 55, y: 48, zoom: 1.10 },
+          "/pictures/familyPortrait/image2.jpg": { x: 45, y: 50 },
+          "*": { x:50, y:50 }
         },
         'portraits-adventure': {
-          "/pictures/andrewsBaldPics/E26A1013.jpg": { x:  40, y:  20 },
-          "*": { x:0, y:0 }
+          "/pictures/andrewsBaldPics/E26A1013.jpg": { x: 58, y: 52 },
+          "*": { x:50, y:50 }
         },
         'portraits-friend': {
-          "/pictures/thirdTileGal/E26A2854.jpg": { x: 280, y: 0 },
-          "/pictures/thirdTileGal/E26A2860.jpg": { x: 100, y: 0 },
-          "/pictures/thirdTileGal/E26A2771.jpg": { x: 100, y: 0 },
-          "/pictures/thirdTileGal/E26A2746.jpg": { x:   0, y: 14 },
-          "*": { x:0, y:0 }
+          "/pictures/thirdTileGal/E26A2854.jpg": { x: 90, y: 50 },
+          "/pictures/thirdTileGal/E26A2860.jpg": { x: 60, y: 50 },
+          "/pictures/thirdTileGal/E26A2771.jpg": { x: 60, y: 50 },
+          "/pictures/thirdTileGal/E26A2746.jpg": { x: 50, y: 53 },
+          "*": { x:50, y:50 }
         },
 
-        'portraits-family-m': {
-          "/pictures/familyPortrait/image1.jpg": { x:  30, y: -20 },
-          "*": { x:0, y:0 }
-        },
-        'portraits-adventure-m': { "*": { x:0, y:0 } },
+        'portraits-family-m': { "/pictures/familyPortrait/image1.jpg": { x: 55, y: 48 }, "*": { x:50, y:50 } },
+        'portraits-adventure-m': { "*": { x:50, y:50 } },
         'portraits-friend-m': {
-          "/pictures/thirdTileGal/E26A2854.jpg": { x: 48, y: 0 },
-          "/pictures/thirdTileGal/E26A2860.jpg": { x: 36, y: 0 },
-          "/pictures/thirdTileGal/E26A2771.jpg": { x: 40, y: 0 },
-          "/pictures/thirdTileGal/E26A2746.jpg": { x:  0, y:12 },
-          "*": { x:0, y:0 }
+          "/pictures/thirdTileGal/E26A2854.jpg": { x: 54, y: 50 },
+          "/pictures/thirdTileGal/E26A2860.jpg": { x: 52, y: 50 },
+          "/pictures/thirdTileGal/E26A2771.jpg": { x: 53, y: 50 },
+          "/pictures/thirdTileGal/E26A2746.jpg": { x: 50, y: 52 },
+          "*": { x:50, y:50 }
         }
       };
       function getFocal(tileId, src){
         const t = (window.focalByTile || {})[tileId] || {};
-        return t[src] || t["*"] || { x:0, y:0 };
+        return t[src] || t["*"] || { x:50, y:50 };
       }
 
-      // Cache natural sizes so we can compute true "cover"
-      const naturalSizeCache = new Map();
-      function getNaturalSize(src){
-        return new Promise((resolve)=>{
-          if (naturalSizeCache.has(src)) return resolve(naturalSizeCache.get(src));
-          const im = new Image();
-          im.onload = () => {
-            const val = { w: im.naturalWidth || im.width, h: im.naturalHeight || im.height };
-            naturalSizeCache.set(src, val); resolve(val);
-          };
-          im.onerror = () => resolve({ w: 1600, h: 1067 }); // reasonable fallback
-          im.src = src;
-        });
-      }
-
-      // Ensure <image> is inside a <g> we can translate
-      function ensurePanGroup(imgEl){
-        const svgNS = "http://www.w3.org/2000/svg";
-        const parent = imgEl.parentNode;
-        if (parent?.classList?.contains('panGroup')) return parent;
-        const g = document.createElementNS(svgNS, 'g');
-        g.setAttribute('class','panGroup');
-        parent.insertBefore(g, imgEl); g.appendChild(imgEl);
-        return g;
-      }
-
-      // Size to true "cover" (no extra zoom), then pan within real bounds so edges never show.
-      async function applyFocal(imgEl, src, tileId) {
-        const { w: natW, h: natH } = await getNaturalSize(src);
-
-        // Minimal scale to cover the 800x1000 tile (like CSS object-fit: cover)
-        const scale = Math.max(TILE_W / natW, TILE_H / natH);
-        const drawW = natW * scale;
-        const drawH = natH * scale;
-
-        // Center by default
-        const baseX = (TILE_W - drawW) / 2;
-        const baseY = (TILE_H - drawH) / 2;
-
-        // Render exactly at computed size; we'll control the pan via parent <g>
-        imgEl.setAttribute("preserveAspectRatio", "none");
-        imgEl.setAttribute("x", String(baseX));
-        imgEl.setAttribute("y", String(baseY));
-        imgEl.setAttribute("width", String(drawW));
-        imgEl.setAttribute("height", String(drawH));
-
-        // Overflow beyond mask (how far we *can* move without exposing edges)
-        const overflowX = Math.max(0, (drawW - TILE_W) / 2);
-        const overflowY = Math.max(0, (drawH - TILE_H) / 2);
-
-        // Requested pan, clamped to safe limits
+      // Apply focal (object-position) to the <img>
+      function applyFocal(imgEl, src, tileId) {
         const cfg = getFocal(tileId, src);
-        const dx = Math.max(-overflowX, Math.min(overflowX, Number.isFinite(cfg.x) ? cfg.x : 0));
-        const dy = Math.max(-overflowY, Math.min(overflowY, Number.isFinite(cfg.y) ? cfg.y : 0));
-
-        const g = ensurePanGroup(imgEl);
-        g.setAttribute("transform", `translate(${dx} ${dy})`);
-
-        // Safari xlink quirk
-        const href = imgEl.getAttribute('href');
-        if (href) imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', href);
+        const x = (cfg.x ?? 50);
+        const y = (cfg.y ?? 50);
+        const zoom = (cfg.zoom ?? 1.10);
+        imgEl.style.setProperty('--pos-x', x + '%');
+        imgEl.style.setProperty('--pos-y', y + '%');
+        imgEl.style.setProperty('--zoom', String(zoom));
       }
 
       function prime(tileId){
@@ -668,10 +642,9 @@
         const list = clampTo10(parseList(tile));
         if(!Array.isArray(list) || list.length === 0) return;
 
-        const imgEl = tile.querySelector('svg image');
+        const imgEl = tile.querySelector('.tile-img');
         if(imgEl){
-          imgEl.setAttribute('href', list[0]);
-          imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
+          imgEl.src = list[0];
           applyFocal(imgEl, list[0], tileId);
         }
         tile.setAttribute('data-images', JSON.stringify(list));
@@ -682,7 +655,7 @@
         const tile = document.getElementById(tileId);
         if(!tile || tile.dataset.wired) return;
 
-        const imgEl = tile.querySelector('svg image'); if(!imgEl) return;
+        const imgEl = tile.querySelector('.tile-img'); if(!imgEl) return;
         let list; try { list = clampTo10(JSON.parse(tile.getAttribute('data-images') || '[]')); } catch(e){ list = []; }
         if(!Array.isArray(list) || list.length <= 1) return;
 
@@ -701,8 +674,7 @@
         function show(i){
           idx=(i+list.length)%list.length;
           const src=list[idx];
-          imgEl.setAttribute('href',src);
-          imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href',src);
+          imgEl.src = src;
           applyFocal(imgEl, src, tileId);
           updateDots();
         }
