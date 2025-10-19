@@ -471,173 +471,201 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- ==== Tiles: ALWAYS fit-height (full top-to-bottom visible); horizontal pan only ==== -->
+  <!-- ==== Tiles: fit-height by default; for narrow images auto-cover by width ==== -->
   <script>
-    (function () {
-      const TILE_W = 800, TILE_H = 1000;
+  (function () {
+    const TILE_W = 800, TILE_H = 1000;
 
-      function currentIds() {
-        return (window.matchMedia('(max-width: 960px)').matches)
-          ? ['portraits-family-m','portraits-adventure-m','portraits-friend-m']
-          : ['portraits-family','portraits-adventure','portraits-friend'];
+    function currentIds() {
+      return (window.matchMedia('(max-width: 960px)').matches)
+        ? ['portraits-family-m','portraits-adventure-m','portraits-friend-m']
+        : ['portraits-family','portraits-adventure','portraits-friend'];
+    }
+    const clampTo10 = list => Array.isArray(list) ? list.slice(0,10) : [];
+    function parseList(tile){
+      try{ return JSON.parse(tile.getAttribute('data-images')||'[]'); }
+      catch{ return []; }
+    }
+
+    /* FOCAL CONFIG:
+       - For fit-height tiles: use `x` (left/right nudge). `y` is ignored.
+       - For auto-cover-by-width tiles: use both `x` and `y` (vertical crop position).
+    */
+    window.focalByTile = {
+      'portraits-family': { "*": { x:0, y:0 } },
+      'portraits-adventure': { "*": { x:0, y:0 } },
+      'portraits-friend': { "*": { x:0, y:0 } },
+      'portraits-family-m': { "*": { x:0, y:0 } },
+      'portraits-adventure-m': { "*": { x:0, y:0 } },
+      'portraits-friend-m': { "*": { x:0, y:0 } }
+    };
+    function getFocal(tileId, src){
+      const t = (window.focalByTile || {})[tileId] || {};
+      return t[src] || t["*"] || { x:0, y:0 };
+    }
+
+    // natural size cache
+    const naturalSizeCache = new Map();
+    function getNaturalSize(src){
+      return new Promise((resolve)=>{
+        if (naturalSizeCache.has(src)) return resolve(naturalSizeCache.get(src));
+        const im = new Image();
+        im.onload = () => {
+          const val = { w: im.naturalWidth || im.width, h: im.naturalHeight || im.height };
+          naturalSizeCache.set(src, val); resolve(val);
+        };
+        im.onerror = () => resolve({ w: 1600, h: 1067 });
+        im.src = src;
+      });
+    }
+
+    function ensurePanGroup(imgEl){
+      const parent = imgEl.parentNode;
+      return parent?.classList?.contains('panGroup') ? parent : null;
+    }
+
+    // Draw rule:
+    // 1) Try FIT-HEIGHT: height=1000, maintain aspect. If resulting width >= 800, keep it (no vertical crop).
+    // 2) Else AUTO-COVER-BY-WIDTH: width=800, maintain aspect (height > 1000), allow vertical pan to crop.
+    async function applyFocal(imgEl, src, tileId) {
+      const g = ensurePanGroup(imgEl);
+      if(!g) return;
+
+      const { w: natW, h: natH } = await getNaturalSize(src);
+      const cfg = getFocal(tileId, src);
+
+      // Fit-height attempt
+      const scaleH = TILE_H / natH;
+      const drawW_H = natW * scaleH;
+
+      let drawW, drawH, baseX, baseY, allowX = true, allowY = false;
+
+      if (drawW_H >= TILE_W) {
+        // ✅ Fits left/right already: show full height, no vertical crop
+        drawW = drawW_H;
+        drawH = TILE_H;
+        baseX = (TILE_W - drawW) / 2;
+        baseY = 0;
+        allowX = true;  // horizontal pan
+        allowY = false; // lock vertical to keep full height visible
+      } else {
+        // ❗ Narrow image: auto "zoom just enough" so width fills = 800
+        const scaleW = TILE_W / natW;
+        drawW = TILE_W;
+        drawH = natH * scaleW;     // > 1000 → vertical crop
+        baseX = 0;
+        baseY = (TILE_H - drawH) / 2; // center vertically by default
+        allowX = false; // width is exact; horizontal pan not needed/disabled
+        allowY = true;  // allow vertical pan to choose crop
       }
-      function clampTo10(list){ return Array.isArray(list) ? list.slice(0,10) : []; }
-      function parseList(tile){
-        try{ return JSON.parse(tile.getAttribute('data-images')||'[]'); }
-        catch{ return []; }
+
+      // apply geometry
+      imgEl.setAttribute('x', String(baseX));
+      imgEl.setAttribute('y', String(baseY));
+      imgEl.setAttribute('width', String(drawW));
+      imgEl.setAttribute('height', String(drawH));
+      imgEl.setAttribute('preserveAspectRatio', 'none');
+
+      // Clamp pan so no white edges appear
+      const overflowX = Math.max(0, (drawW - TILE_W) / 2);
+      const overflowY = Math.max(0, (drawH - TILE_H) / 2);
+
+      const reqX = Number.isFinite(cfg.x) ? cfg.x : 0;
+      const reqY = Number.isFinite(cfg.y) ? cfg.y : 0;
+
+      const dx = allowX ? Math.max(-overflowX, Math.min(overflowX, reqX)) : 0;
+      const dy = allowY ? Math.max(-overflowY, Math.min(overflowY, reqY)) : 0;
+
+      g.setAttribute('transform', `translate(${dx} ${dy})`);
+
+      // Safari xlink quirk
+      const href = imgEl.getAttribute('href');
+      if (href) imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', href);
+    }
+
+    function prime(tileId){
+      const tile = document.getElementById(tileId);
+      if(!tile || tile.dataset.primed) return;
+
+      const list = clampTo10(parseList(tile));
+      if(!Array.isArray(list) || list.length === 0) return;
+
+      const imgEl = tile.querySelector('image');
+      if(imgEl){
+        imgEl.setAttribute('href', list[0]);
+        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
+        applyFocal(imgEl, list[0], tileId);
       }
+      tile.setAttribute('data-images', JSON.stringify(list));
+      tile.dataset.primed = '1';
+    }
 
-      /* FOCAL CONFIG: x in px (left/right nudge). y/zoom are ignored to guarantee full height. */
-      window.focalByTile = {
-        'portraits-family': { "*": { x:0 } },
-        'portraits-adventure': { "*": { x:0 } },
-        'portraits-friend': { "*": { x:0 } },
-        'portraits-family-m': { "*": { x:0 } },
-        'portraits-adventure-m': { "*": { x:0 } },
-        'portraits-friend-m': { "*": { x:0 } }
-      };
-      function getFocal(tileId, src){
-        const t = (window.focalByTile || {})[tileId] || {};
-        return t[src] || t["*"] || { x:0 };
-      }
+    function wire(tileId){
+      const tile = document.getElementById(tileId);
+      if(!tile || tile.dataset.wired) return;
 
-      // cache natural sizes
-      const naturalSizeCache = new Map();
-      function getNaturalSize(src){
-        return new Promise((resolve)=>{
-          if (naturalSizeCache.has(src)) return resolve(naturalSizeCache.get(src));
-          const im = new Image();
-          im.onload = () => {
-            const val = { w: im.naturalWidth || im.width, h: im.naturalHeight || im.height };
-            naturalSizeCache.set(src, val); resolve(val);
-          };
-          im.onerror = () => resolve({ w: 1600, h: 1067 });
-          im.src = src;
-        });
-      }
+      const imgEl = tile.querySelector('image'); if(!imgEl) return;
+      let list; try { list = clampTo10(JSON.parse(tile.getAttribute('data-images') || '[]')); } catch(e){ list = []; }
+      if(!Array.isArray(list) || list.length <= 1) return;
 
-      function ensurePanGroup(imgEl){
-        const parent = imgEl.parentNode;
-        return parent?.classList?.contains('panGroup') ? parent : null;
-      }
-
-      // ALWAYS fit the original height to 1000, maintain aspect, no vertical crop ever.
-      async function applyFocal(imgEl, src, tileId) {
-        const g = ensurePanGroup(imgEl);
-        if(!g) return;
-
-        const { w: natW, h: natH } = await getNaturalSize(src);
-        const cfg = getFocal(tileId, src);
-
-        // scale so full height fits exactly
-        const scaleH = TILE_H / natH;
-        const drawW = natW * scaleH;
-        const drawH = TILE_H;
-
-        // center vertically (no vertical pan allowed to keep full height visible)
-        const baseX = (TILE_W - drawW) / 2;
-        const baseY = 0;
-
-        imgEl.setAttribute('x', String(baseX));
-        imgEl.setAttribute('y', String(baseY));
-        imgEl.setAttribute('width', String(drawW));
-        imgEl.setAttribute('height', String(drawH));
-        imgEl.setAttribute('preserveAspectRatio', 'none');
-
-        // horizontal pan only, clamped so no white shows
-        const overflowX = Math.max(0, (drawW - TILE_W) / 2);
-        const reqX = Number.isFinite(cfg.x) ? cfg.x : 0;
-        const dx = Math.max(-overflowX, Math.min(overflowX, reqX));
-
-        g.setAttribute('transform', `translate(${dx} 0)`);
-
-        // Safari xlink quirk
-        const href = imgEl.getAttribute('href');
-        if (href) imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', href);
-      }
-
-      function prime(tileId){
-        const tile = document.getElementById(tileId);
-        if(!tile || tile.dataset.primed) return;
-
-        const list = clampTo10(parseList(tile));
-        if(!Array.isArray(list) || list.length === 0) return;
-
-        const imgEl = tile.querySelector('image');
-        if(imgEl){
-          imgEl.setAttribute('href', list[0]);
-          imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
-          applyFocal(imgEl, list[0], tileId);
+      let idx = 0;
+      const dotsWrap = tile.querySelector('.tile-dots');
+      const dots = [];
+      if(dotsWrap){
+        dotsWrap.innerHTML = '';
+        for(let i=0;i<list.length;i++){
+          const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide '+(i+1));
+          b.addEventListener('click',(e)=>{ e.stopPropagation(); show(i); });
+          dotsWrap.appendChild(b); dots.push(b);
         }
-        tile.setAttribute('data-images', JSON.stringify(list));
-        tile.dataset.primed = '1';
       }
-
-      function wire(tileId){
-        const tile = document.getElementById(tileId);
-        if(!tile || tile.dataset.wired) return;
-
-        const imgEl = tile.querySelector('image'); if(!imgEl) return;
-        let list; try { list = clampTo10(JSON.parse(tile.getAttribute('data-images') || '[]')); } catch(e){ list = []; }
-        if(!Array.isArray(list) || list.length <= 1) return;
-
-        let idx = 0;
-        const dotsWrap = tile.querySelector('.tile-dots');
-        const dots = [];
-        if(dotsWrap){
-          dotsWrap.innerHTML = '';
-          for(let i=0;i<list.length;i++){
-            const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide '+(i+1));
-            b.addEventListener('click',(e)=>{ e.stopPropagation(); show(i); });
-            dotsWrap.appendChild(b); dots.push(b);
-          }
-        }
-        function updateDots(){ dots.forEach((d,i)=>{ d.classList.toggle('is-active', i===idx); d.setAttribute('aria-selected', i===idx ? 'true':'false'); }); }
-        function show(i){
-          idx=(i+list.length)%list.length;
-          const src=list[idx];
-          imgEl.setAttribute('href', src);
-          imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
-          applyFocal(imgEl, src, tileId);
-          updateDots();
-        }
-        tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx-1); });
-        tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx+1); });
-        tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>show(idx+1));
+      function updateDots(){ dots.forEach((d,i)=>{ d.classList.toggle('is-active', i===idx); d.setAttribute('aria-selected', i===idx ? 'true':'false'); }); }
+      function show(i){
+        idx=(i+list.length)%list.length;
+        const src=list[idx];
+        imgEl.setAttribute('href', src);
+        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+        applyFocal(imgEl, src, tileId);
         updateDots();
-
-        tile.dataset.wired = '1';
       }
+      tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx-1); });
+      tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx+1); });
+      tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>show(idx+1));
+      updateDots();
 
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            const id = entry.target.id;
-            prime(id);
-            wire(id);
-            io.unobserve(entry.target);
-          }
-        });
-      }, { rootMargin: '200px 0px' });
+      tile.dataset.wired = '1';
+    }
 
-      function initForViewport(){
-        currentIds().forEach(id=>{
-          const el = document.getElementById(id);
-          if (el) io.observe(el);
-        });
-      }
-
-      initForViewport();
-
-      let wasMobile = window.matchMedia('(max-width: 960px)').matches;
-      window.addEventListener('resize', ()=>{
-        const isMobile = window.matchMedia('(max-width: 960px)').matches;
-        if (isMobile !== wasMobile){
-          wasMobile = isMobile;
-          initForViewport();
+    // Lazy init
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const id = entry.target.id;
+          prime(id);
+          wire(id);
+          io.unobserve(entry.target);
         }
       });
-    })();
+    }, { rootMargin: '200px 0px' });
+
+    function initForViewport(){
+      currentIds().forEach(id=>{
+        const el = document.getElementById(id);
+        if (el) io.observe(el);
+      });
+    }
+
+    initForViewport();
+
+    let wasMobile = window.matchMedia('(max-width: 960px)').matches;
+    window.addEventListener('resize', ()=>{
+      const isMobile = window.matchMedia('(max-width: 960px)').matches;
+      if (isMobile !== wasMobile){
+        wasMobile = isMobile;
+        initForViewport();
+      }
+    });
+  })();
   </script>
 
 </body>
