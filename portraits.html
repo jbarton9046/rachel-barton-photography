@@ -23,7 +23,7 @@
   <meta name="twitter:description" content="Sarasota & Gulf Coast portraits built for real life." />
   <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/portraitPageGal/E26A0759%20(2).jpg" />
 
-  <!-- Fonts & shared layout (same as branding.html) -->
+  <!-- Fonts & shared layout -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
@@ -54,12 +54,10 @@
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
     img{ max-width:100%; display:block; height:auto; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06) }
 
-    /* Kicker / small title */
     .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    /* Back to Galleries crumb */
     .crumb{ margin:0 0 6px; }
     .crumb a{
       display:inline-block;
@@ -73,14 +71,8 @@
       color:var(--accent);
       text-decoration-color:var(--accent);
     }
-    .hero .eyebrow{
-      font-size:12px;
-      letter-spacing:.22em;
-      color:#6e6a62;
-      margin:2px 0 8px;
-    }
+    .hero .eyebrow{ font-size:12px; letter-spacing:.22em; color:#6e6a62; margin:2px 0 8px; }
 
-    /* Buttons (shared) */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
@@ -91,7 +83,6 @@
     .btn:hover, .btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); }
     .btn.alt{ background:#fff; }
 
-    /* Hero */
     .hero{ padding:clamp(24px,6vw,56px) 0 }
     .hero-wrap{ display:grid; grid-template-columns: 1.1fr .9fr; gap:clamp(20px,4vw,40px); align-items:center }
     .hero-fig{ position:relative }
@@ -101,18 +92,15 @@
       box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px;
     }
 
-    /* Value grid */
     .value{ padding:clamp(20px,6vw,50px) 0 }
     .cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
     .card{ background:#fff; border:1px solid var(--line); padding:20px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .card h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 8px; font-size:22px }
     .card p{ margin:0 }
 
-    /* Tile chrome & layout */
     .desktop-only{ display:block; } .mobile-only{ display:none; }
-    @media (max-width:960px){ .desktop-only{ display:none; } .mobile-only{ display:block; }
+    @media (max-width:960px){ .desktop-only{ display:none; } .mobile-only{ display:block; } }
 
-    }
     .section-title{
       font-family:"Cormorant Garamond","Times New Roman",serif;
       font-size:clamp(24px,3.5vw,38px);
@@ -124,7 +112,6 @@
     .notch-figure{ display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .u-stroke{ fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round }
 
-    /* Tile nav */
     .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       background:transparent !important; border:0 !important; width:56px; height:56px; display:grid; place-items:center;
@@ -154,7 +141,6 @@
     .tile-dots button.is-active{ border-color:var(--accent) }
     .tile-dots button.is-active::before{ background:rgba(168,138,90,.22) }
 
-    /* Desktop grid + blurbs row */
     .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px); overflow:visible; }
     .mosaic figure{ margin:0 }
     .service-blurbs{ margin-top:clamp(18px,3vw,28px) }
@@ -162,10 +148,6 @@
     .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .blurb h3{ font-family:"Cormorant Garamond","Times New Roman",serif; margin:0 0 6px; font-size:20px }
     .blurb p{ margin:0 0 10px; color:#5b574f }
-
-    /* Mobile paired layout */
-    .services-grid{ display:grid; gap:clamp(18px,2vw,22px); }
-    .service{ display:grid; gap:12px; align-content:start; }
 
     @media (max-width:980px){
       .hero-wrap{ grid-template-columns:1fr }
@@ -180,7 +162,6 @@
       .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
     }
 
-    /* Packages */
     .packages{ padding:clamp(24px,6vw,56px) 0 }
     .pack{ background:#fff; border:1px solid var(--line); padding:22px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .pack h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:22px }
@@ -191,7 +172,6 @@
   </style>
 </head>
 <body>
-  <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
@@ -221,18 +201,9 @@
     <section class="value">
       <div class="container">
         <div class="cards">
-          <div class="card">
-            <h3>Guided, never stiff</h3>
-            <p>We keep it moving with easy prompts and natural direction so expressions stay real and everyone looks their best.</p>
-          </div>
-          <div class="card">
-            <h3>Color that ages well</h3>
-            <p>True skin tones, clean contrast, and timeless edits—so your gallery looks premium on screens and in print for years.</p>
-          </div>
-          <div class="card">
-            <h3>Prep made simple</h3>
-            <p>Clear tips for outfits and locations, a relaxed flow on the day, and a smooth gallery delivery you can share instantly.</p>
-          </div>
+          <div class="card"><h3>Guided, never stiff</h3><p>We keep it moving with easy prompts and natural direction so expressions stay real and everyone looks their best.</p></div>
+          <div class="card"><h3>Color that ages well</h3><p>True skin tones, clean contrast, and timeless edits—so your gallery looks premium on screens and in print for years.</p></div>
+          <div class="card"><h3>Prep made simple</h3><p>Clear tips for outfits and locations, a relaxed flow on the day, and a smooth gallery delivery you can share instantly.</p></div>
         </div>
       </div>
     </section>
@@ -244,7 +215,7 @@
         <h2 class="section-title" id="galleries-title">Explore the feel of each session</h2>
         <p class="section-sub">Candid, timeless, true-to-life portraits—made to feel like you, in the best light.</p>
 
-        <!-- ================= DESKTOP ================= -->
+        <!-- DESKTOP -->
         <div class="desktop-only">
           <div class="mosaic">
             <!-- FAMILY -->
@@ -263,18 +234,12 @@
                     ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
                 <defs>
-                  <mask id="notchMask-p1" x="0" y="0" width="800" height="1000">
-                    <rect x="0" y="0" width="800" height="1000" fill="white"/>
-                  </mask>
-                  <filter id="frameShadow-p1" x="-20%" y="-20%" width="140%">
-                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
-                  </filter>
+                  <mask id="notchMask-p1" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask>
+                  <filter id="frameShadow-p1" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
                 </defs>
                 <g mask="url(#notchMask-p1)">
                   <g class="panGroup">
-                    <image href="/pictures/familyPortrait/image1.jpg"
-                           x="0" y="0" width="800" height="1000"
-                           preserveAspectRatio="none"></image>
+                    <image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
                   </g>
                 </g>
                 <g class="frameGroup" filter="url(#frameShadow-p1)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
@@ -300,18 +265,12 @@
                     ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
                 <defs>
-                  <mask id="notchMask-p2" x="0" y="0" width="800" height="1000">
-                    <rect x="0" y="0" width="800" height="1000" fill="white"/>
-                  </mask>
-                  <filter id="frameShadow-p2" x="-20%" y="-20%" width="140%">
-                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-                  </filter>
+                  <mask id="notchMask-p2" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask>
+                  <filter id="frameShadow-p2" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
                 </defs>
                 <g mask="url(#notchMask-p2)">
                   <g class="panGroup">
-                    <image href="/pictures/andrewsBaldPics/E26A1013.jpg"
-                           x="0" y="0" width="800" height="1000"
-                           preserveAspectRatio="none"></image>
+                    <image href="/pictures/andrewsBaldPics/E26A1013.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
                   </g>
                 </g>
                 <g class="frameGroup" filter="url(#frameShadow-p2)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
@@ -337,18 +296,12 @@
                     ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
                 <defs>
-                  <mask id="notchMask-p3" x="0" y="0" width="800" height="1000">
-                    <rect x="0" y="0" width="800" height="1000" fill="white"/>
-                  </mask>
-                  <filter id="frameShadow-p3" x="-20%" y="-20%" width="140%">
-                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-                  </filter>
+                  <mask id="notchMask-p3" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask>
+                  <filter id="frameShadow-p3" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
                 </defs>
                 <g mask="url(#notchMask-p3)">
                   <g class="panGroup">
-                    <image href="/pictures/thirdTileGal/E26A2017.jpg"
-                           x="0" y="0" width="800" height="1000"
-                           preserveAspectRatio="none"></image>
+                    <image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
                   </g>
                 </g>
                 <g class="frameGroup" filter="url(#frameShadow-p3)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
@@ -359,29 +312,16 @@
             </figure>
           </div>
 
-          <!-- Desktop blurbs row -->
           <div class="service-blurbs">
             <div class="row">
-              <article class="blurb">
-                <h3>Family</h3>
-                <p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p>
-                <a class="btn" href="/galleries/family-portrait.html">View Family Gallery</a>
-              </article>
-              <article class="blurb">
-                <h3>Adventure</h3>
-                <p>Hills, dunes, wind, and play—story-driven portraits in big landscapes with lots of movement.</p>
-                <a class="btn" href="/adventure.html">View Adventure Gallery</a>
-              </article>
-              <article class="blurb">
-                <h3>Friend</h3>
-                <p>Easygoing, stylish, and authentic—best friends, couples, or roomies with a dash of editorial.</p>
-                <a class="btn" href="/galleries/friend-portraits.html">View Friend Gallery</a>
-              </article>
+              <article class="blurb"><h3>Family</h3><p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p><a class="btn" href="/galleries/family-portrait.html">View Family Gallery</a></article>
+              <article class="blurb"><h3>Adventure</h3><p>Hills, dunes, wind, and play—story-driven portraits in big landscapes with lots of movement.</p><a class="btn" href="/adventure.html">View Adventure Gallery</a></article>
+              <article class="blurb"><h3>Friend</h3><p>Easygoing, stylish, and authentic—best friends, couples, or roomies with a dash of editorial.</p><a class="btn" href="/galleries/friend-portraits.html">View Friend Gallery</a></article>
             </div>
           </div>
         </div>
 
-        <!-- ================= MOBILE (paired) ================= -->
+        <!-- MOBILE -->
         <div class="mobile-only">
           <div class="services-grid">
             <!-- FAMILY (mobile) -->
@@ -400,16 +340,10 @@
                         "/pictures/familyPortrait/image10.jpg"
                       ]'>
                 <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
-                  <defs>
-                    <mask id="notchMask-p1m" x="0" y="0" width="800" height="1000">
-                      <rect x="0" y="0" width="800" height="1000" fill="white"/>
-                    </mask>
-                  </defs>
+                  <defs><mask id="notchMask-p1m" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask></defs>
                   <g mask="url(#notchMask-p1m)">
                     <g class="panGroup">
-                      <image href="/pictures/familyPortrait/image1.jpg"
-                             x="0" y="0" width="800" height="1000"
-                             preserveAspectRatio="none"></image>
+                      <image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
                     </g>
                   </g>
                 </svg>
@@ -417,11 +351,7 @@
                 <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
                 <div class="tile-dots" role="tablist"></div>
               </figure>
-              <article class="blurb">
-                <h3>Family</h3>
-                <p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p>
-                <a class="btn" href="/galleries/family-portrait.html">View Family Gallery</a>
-              </article>
+              <article class="blurb"><h3>Family</h3><p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p><a class="btn" href="/galleries/family-portrait.html">View Family Gallery</a></article>
             </div>
 
             <!-- ADVENTURE (mobile) -->
@@ -440,16 +370,10 @@
                         "/pictures/andrewsBaldPics/E26A1098.jpg"
                       ]'>
                 <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
-                  <defs>
-                    <mask id="notchMask-p2m" x="0" y="0" width="800" height="1000">
-                      <rect x="0" y="0" width="800" height="1000" fill="white"/>
-                    </mask>
-                  </defs>
+                  <defs><mask id="notchMask-p2m" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask></defs>
                   <g mask="url(#notchMask-p2m)">
                     <g class="panGroup">
-                      <image href="/pictures/andrewsBaldPics/E26A1013.jpg"
-                             x="0" y="0" width="800" height="1000"
-                             preserveAspectRatio="none"></image>
+                      <image href="/pictures/andrewsBaldPics/E26A1013.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
                     </g>
                   </g>
                 </svg>
@@ -457,11 +381,7 @@
                 <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
                 <div class="tile-dots" role="tablist"></div>
               </figure>
-              <article class="blurb">
-                <h3>Adventure</h3>
-                <p>Hills, dunes, wind, and play—story-driven portraits in big landscapes with lots of movement.</p>
-                <a class="btn" href="/adventure.html">View Adventure Gallery</a>
-              </article>
+              <article class="blurb"><h3>Adventure</h3><p>Hills, dunes, wind, and play—story-driven portraits in big landscapes with lots of movement.</p><a class="btn" href="/adventure.html">View Adventure Gallery</a></article>
             </div>
 
             <!-- FRIEND (mobile) -->
@@ -480,16 +400,10 @@
                         "/pictures/thirdTileGal/E26A2860.jpg"
                       ]'>
                 <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
-                  <defs>
-                    <mask id="notchMask-p3m" x="0" y="0" width="800" height="1000">
-                      <rect x="0" y="0" width="800" height="1000" fill="white"/>
-                    </mask>
-                  </defs>
+                  <defs><mask id="notchMask-p3m" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask></defs>
                   <g mask="url(#notchMask-p3m)">
                     <g class="panGroup">
-                      <image href="/pictures/thirdTileGal/E26A2017.jpg"
-                             x="0" y="0" width="800" height="1000"
-                             preserveAspectRatio="none"></image>
+                      <image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
                     </g>
                   </g>
                 </svg>
@@ -497,11 +411,7 @@
                 <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
                 <div class="tile-dots" role="tablist"></div>
               </figure>
-              <article class="blurb">
-                <h3>Friend</h3>
-                <p>Easygoing, stylish, and authentic—best friends, couples, or roomies with a dash of editorial.</p>
-                <a class="btn" href="/galleries/friend-portraits.html">View Friend Gallery</a>
-              </article>
+              <article class="blurb"><h3>Friend</h3><p>Easygoing, stylish, and authentic—best friends, couples, or roomies with a dash of editorial.</p><a class="btn" href="/galleries/friend-portraits.html">View Friend Gallery</a></article>
             </div>
           </div>
         </div>
@@ -558,11 +468,10 @@
     </section>
   </main>
 
-  <!-- Shared Footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- ==== Tiles: prefer fit-height, fallback to cover; pan/zoom with no white ==== -->
+  <!-- ==== Tiles: ALWAYS fit-height (full top-to-bottom visible); horizontal pan only ==== -->
   <script>
     (function () {
       const TILE_W = 800, TILE_H = 1000;
@@ -578,41 +487,21 @@
         catch{ return []; }
       }
 
-      /* ======== FOCAL CONFIG (x/y in px; optional zoom >= 1) ======== */
+      /* FOCAL CONFIG: x in px (left/right nudge). y/zoom are ignored to guarantee full height. */
       window.focalByTile = {
-        'portraits-family': {
-          "/pictures/familyPortrait/image1.jpg": { x:  60, y: -40, zoom: 1.02 },
-          "/pictures/familyPortrait/image2.jpg": { x: -30, y:   0 },
-          "*": { x:0, y:0 }
-        },
-        'portraits-adventure': {
-          "/pictures/andrewsBaldPics/E26A1013.jpg": { x:  40, y:  20, zoom: 1.02 },
-          "*": { x:0, y:0 }
-        },
-        'portraits-friend': {
-          "/pictures/thirdTileGal/E26A2854.jpg": { x: 280, y: 0,   zoom: 1.00 },
-          "/pictures/thirdTileGal/E26A2860.jpg": { x: 100, y: 0,   zoom: 1.00 },
-          "/pictures/thirdTileGal/E26A2771.jpg": { x: 100, y: 0,   zoom: 1.00 },
-          "/pictures/thirdTileGal/E26A2746.jpg": { x:   0, y: 14,  zoom: 1.00 },
-          "*": { x:0, y:0 }
-        },
-
-        'portraits-family-m':    { "*": { x:0, y:0 } },
-        'portraits-adventure-m': { "*": { x:0, y:0 } },
-        'portraits-friend-m':    {
-          "/pictures/thirdTileGal/E26A2854.jpg": { x: 48, y: 0,  zoom: 1.00 },
-          "/pictures/thirdTileGal/E26A2860.jpg": { x: 36, y: 0,  zoom: 1.00 },
-          "/pictures/thirdTileGal/E26A2771.jpg": { x: 40, y: 0,  zoom: 1.00 },
-          "/pictures/thirdTileGal/E26A2746.jpg": { x:  0, y:12, zoom: 1.00 },
-          "*": { x:0, y:0 }
-        }
+        'portraits-family': { "*": { x:0 } },
+        'portraits-adventure': { "*": { x:0 } },
+        'portraits-friend': { "*": { x:0 } },
+        'portraits-family-m': { "*": { x:0 } },
+        'portraits-adventure-m': { "*": { x:0 } },
+        'portraits-friend-m': { "*": { x:0 } }
       };
       function getFocal(tileId, src){
         const t = (window.focalByTile || {})[tileId] || {};
-        return t[src] || t["*"] || { x:0, y:0 };
+        return t[src] || t["*"] || { x:0 };
       }
 
-      // Cache natural sizes
+      // cache natural sizes
       const naturalSizeCache = new Map();
       function getNaturalSize(src){
         return new Promise((resolve)=>{
@@ -622,18 +511,17 @@
             const val = { w: im.naturalWidth || im.width, h: im.naturalHeight || im.height };
             naturalSizeCache.set(src, val); resolve(val);
           };
-          im.onerror = () => resolve({ w: 1600, h: 1067 }); // fallback
+          im.onerror = () => resolve({ w: 1600, h: 1067 });
           im.src = src;
         });
       }
 
-      // Ensure <image> is inside a <g> we can translate (for pan)
       function ensurePanGroup(imgEl){
         const parent = imgEl.parentNode;
         return parent?.classList?.contains('panGroup') ? parent : null;
       }
 
-      // === NEW: prefer fit-height if it still fills width; else cover. Support zoom >= 1.
+      // ALWAYS fit the original height to 1000, maintain aspect, no vertical crop ever.
       async function applyFocal(imgEl, src, tileId) {
         const g = ensurePanGroup(imgEl);
         if(!g) return;
@@ -641,43 +529,27 @@
         const { w: natW, h: natH } = await getNaturalSize(src);
         const cfg = getFocal(tileId, src);
 
-        // Try fit-height first
+        // scale so full height fits exactly
         const scaleH = TILE_H / natH;
-        const drawW_H = natW * scaleH;
-        const canUseFitHeight = drawW_H >= TILE_W;
+        const drawW = natW * scaleH;
+        const drawH = TILE_H;
 
-        // cover fallback
-        const scaleCover = Math.max(TILE_W / natW, TILE_H / natH);
-
-        // base scale before zoom
-        let baseScale = canUseFitHeight ? scaleH : scaleCover;
-
-        // optional zoom (>=1). Use to crop in slightly if you want.
-        const zoom = Math.max(1, Number.isFinite(cfg.zoom) ? cfg.zoom : 1);
-
-        // final drawn size
-        const drawW = natW * baseScale * zoom;
-        const drawH = natH * baseScale * zoom;
-
-        // center by default
+        // center vertically (no vertical pan allowed to keep full height visible)
         const baseX = (TILE_W - drawW) / 2;
-        const baseY = (TILE_H - drawH) / 2;
+        const baseY = 0;
 
-        // render exact geometry
         imgEl.setAttribute('x', String(baseX));
         imgEl.setAttribute('y', String(baseY));
         imgEl.setAttribute('width', String(drawW));
         imgEl.setAttribute('height', String(drawH));
         imgEl.setAttribute('preserveAspectRatio', 'none');
 
-        // compute safe pan so edges never show
+        // horizontal pan only, clamped so no white shows
         const overflowX = Math.max(0, (drawW - TILE_W) / 2);
-        const overflowY = Math.max(0, (drawH - TILE_H) / 2);
         const reqX = Number.isFinite(cfg.x) ? cfg.x : 0;
-        const reqY = Number.isFinite(cfg.y) ? cfg.y : 0;
         const dx = Math.max(-overflowX, Math.min(overflowX, reqX));
-        const dy = Math.max(-overflowY, Math.min(overflowY, reqY));
-        g.setAttribute('transform', `translate(${dx} ${dy})`);
+
+        g.setAttribute('transform', `translate(${dx} 0)`);
 
         // Safari xlink quirk
         const href = imgEl.getAttribute('href');
@@ -737,7 +609,6 @@
         tile.dataset.wired = '1';
       }
 
-      // Lazy init
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
           if(entry.isIntersecting){
@@ -756,10 +627,8 @@
         });
       }
 
-      // Kick off
       initForViewport();
 
-      // On breakpoint change, start observing the other set.
       let wasMobile = window.matchMedia('(max-width: 960px)').matches;
       window.addEventListener('resize', ()=>{
         const isMobile = window.matchMedia('(max-width: 960px)').matches;
