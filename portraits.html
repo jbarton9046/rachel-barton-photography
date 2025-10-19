@@ -497,6 +497,13 @@
       'E26A1022.jpg'
     ]);
 
+    // Center vertically for these Friend photos (override default bottom-anchoring when narrow)
+    const centerFriendFiles = new Set([
+      'E26A2017.jpg',
+      'E26A2017 (1).jpg',
+      'E26A2017%20(1).jpg'
+    ]);
+
     function currentIds() {
       return (window.matchMedia('(max-width: 960px)').matches)
         ? ['portraits-family-m','portraits-adventure-m','portraits-friend-m']
@@ -508,7 +515,7 @@
       catch{ return []; }
     }
 
-    // Default focal config + overrides for the specific phone image
+    // Default focal config + overrides (horizontal nudge + zoom hold)
     window.focalByTile = {
       'portraits-family': { "*": { x:0 } },
       'portraits-adventure': { "*": { x:0 } },
@@ -518,9 +525,9 @@
         "/pictures/thirdTileGal/E26A2860.jpg": { x:150, y:0, zoom:1 },
         "/pictures/thirdTileGal/E26A2854.jpg": { x:300, y:0, zoom:1 },
         "/pictures/thirdTileGal/E26A2771.jpg": { x:240, y:0, zoom:1 },
-        /* center the phone (keep zoom=1) */
         "/pictures/friendPortraitGal/E26A2017 (1).jpg": { x:90, y:0, zoom:1 },
-        "/pictures/friendPortraitGal/E26A2017%20(1).jpg": { x:90, y:0, zoom:1 }
+        "/pictures/friendPortraitGal/E26A2017%20(1).jpg": { x:90, y:0, zoom:1 },
+        "/pictures/thirdTileGal/E26A2017.jpg": { x:90, y:0, zoom:1 }
       },
 
       'portraits-family-m': { "*": { x:0 } },
@@ -531,9 +538,9 @@
         "/pictures/thirdTileGal/E26A2860.jpg": { x:150, y:0, zoom:1 },
         "/pictures/thirdTileGal/E26A2854.jpg": { x:300, y:0, zoom:1 },
         "/pictures/thirdTileGal/E26A2771.jpg": { x:240, y:0, zoom:1 },
-        /* mobile too */
         "/pictures/friendPortraitGal/E26A2017 (1).jpg": { x:90, y:0, zoom:1 },
-        "/pictures/friendPortraitGal/E26A2017%20(1).jpg": { x:90, y:0, zoom:1 }
+        "/pictures/friendPortraitGal/E26A2017%20(1).jpg": { x:90, y:0, zoom:1 },
+        "/pictures/thirdTileGal/E26A2017.jpg": { x:90, y:0, zoom:1 }
       }
     };
     function getFocal(tileId, src){
@@ -581,20 +588,24 @@
 
       let drawW, drawH, baseX, baseY, allowY = useTuneLogic || cfg.y !== 0 || cfg.zoom !== 1;
 
-      // Identify per-file Adventure override
+      // Identify overrides
       const normSrc  = String(src).replace(/\\/g,'/');
       const fileName = normSrc.split('/').pop() || '';
       const isFriend = (tileId === 'portraits-friend' || tileId === 'portraits-friend-m');
       const isAdventure = (tileId === 'portraits-adventure' || tileId === 'portraits-adventure-m');
       const forceBottomAdventure = isAdventure && bottomAnchorAdventureFiles.has(fileName);
+      const centerFriendOverride = isFriend && centerFriendFiles.has(fileName); // <— center vertically for this image
 
       if (!allowY && drawW_H < TILE_W) {
         // Narrow image: fill WIDTH
         const sW = TILE_W / natW;
         drawW = TILE_W;
         drawH = natH * sW;
+        // default friend bottom-align, but NOT for our override
+        baseY = (!centerFriendOverride && (isFriend || forceBottomAdventure))
+          ? (TILE_H - drawH)
+          : (TILE_H - drawH) / 2;
         baseX = 0;
-        baseY = (isFriend || forceBottomAdventure) ? (TILE_H - drawH) : (TILE_H - drawH) / 2;
       } else {
         // Fit-height
         drawW = drawW_H;
@@ -614,7 +625,7 @@
       drawW *= zoom;
       drawH *= zoom;
 
-      // After zoom, bottom-align if needed
+      // After zoom, bottom-align if needed for those adventure files
       if (forceBottomAdventure && drawH > TILE_H) {
         baseY = (TILE_H - drawH);
       }
