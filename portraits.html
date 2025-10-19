@@ -484,6 +484,13 @@
     const TILE_W = 800, TILE_H = 1000;
     const isTune = /[?&]tune=1\b/.test(location.search);
 
+    // NEW: only these three Adventure files get bottom-anchored (with a minimal zoom)
+    const bottomAnchorAdventureFiles = new Set([
+      'E26A1098.jpg',
+      'E26A1013.jpg',
+      'E26A1022.jpg'
+    ]);
+
     function currentIds() {
       return (window.matchMedia('(max-width: 960px)').matches)
         ? ['portraits-family-m','portraits-adventure-m','portraits-friend-m']
@@ -549,7 +556,7 @@
 
     // Baseline rule (no tune):
     // - If the image is too narrow (would show white sides), we fill WIDTH.
-    //   For FRIEND tiles only, anchor the image to the BOTTOM to keep feet/sand fixed.
+    //   For FRIEND tiles only, anchor to bottom. (Adventure handled per-file below.)
     // - Otherwise fit HEIGHT.
     async function applyFocal(imgEl, src, tileId, useTuneLogic=false) {
       const g = ensurePanGroup(imgEl);
@@ -563,27 +570,44 @@
 
       let drawW, drawH, baseX, baseY, allowY = useTuneLogic || cfg.y !== 0 || cfg.zoom !== 1;
 
+      // Identify per-file Adventure override
+      const normSrc  = String(src).replace(/\\/g,'/');
+      const fileName = normSrc.split('/').pop() || '';
+      const isFriend = (tileId === 'portraits-friend' || tileId === 'portraits-friend-m');
+      const isAdventure = (tileId === 'portraits-adventure' || tileId === 'portraits-adventure-m');
+      const forceBottomAdventure = isAdventure && bottomAnchorAdventureFiles.has(fileName);
+
       if (!allowY && drawW_H < TILE_W) {
         // Narrow image: fill WIDTH exactly, keep ratio.
         const sW = TILE_W / natW;
         drawW = TILE_W;
-        drawH = natH * sW;          // will be > 1000; vertical crop
+        drawH = natH * sW;          // > 1000; vertical crop
         baseX = 0;
-        // *** CHANGE: bottom-align ONLY for Friend tiles; others remain centered ***
-        const friendTile = (tileId === 'portraits-friend' || tileId === 'portraits-friend-m');
-        baseY = friendTile ? (TILE_H - drawH) : (TILE_H - drawH) / 2;
+        // Friend always bottom in narrow case; add per-file Adventure override
+        baseY = (isFriend || forceBottomAdventure) ? (TILE_H - drawH) : (TILE_H - drawH) / 2;
       } else {
         // Fit-height
         drawW = drawW_H;
         drawH = TILE_H;
         baseX = (TILE_W - drawW) / 2;
-        baseY = 0;
+        baseY = 0; // may be changed below for per-file Adventure override
       }
 
-      // Apply zoom
-      const zoom = (useTuneLogic ? (stateByTile.get(tileId)?.zoom || 1) : cfg.zoom) || 1;
+      // Apply zoom (respect saved/tune zoom first)
+      let zoom = (useTuneLogic ? (stateByTile.get(tileId)?.zoom || 1) : cfg.zoom) || 1;
+
+      // For the three Adventure files, ensure a minimal zoom so we can bottom-align even when fit-height
+      if (forceBottomAdventure) {
+        zoom = Math.max(zoom, 1.08); // subtle crop; adjust if you want slightly more/less
+      }
+
       drawW *= zoom;
       drawH *= zoom;
+
+      // After zoom, if this is a per-file Adventure override, bottom-align regardless of branch
+      if (forceBottomAdventure && drawH > TILE_H) {
+        baseY = (TILE_H - drawH);
+      }
 
       // Write geometry
       imgEl.setAttribute('x', String(baseX));
