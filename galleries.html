@@ -447,6 +447,18 @@
         tile.dataset.primed = '1';
       }
 
+      /* === NEW: simple image preloader (warms cache; no visual change) === */
+      const preloaded = new Set();
+      function preloadList(list) {
+        for (const src of list) {
+          if (!src || preloaded.has(src)) continue;
+          const im = new Image();
+          im.decoding = 'async';
+          im.src = src;           // fetches & caches in background
+          preloaded.add(src);
+        }
+      }
+
       function wire(tileId){
         const tile = document.getElementById(tileId);
         if(!tile || tile.dataset.wired) return;
@@ -454,6 +466,9 @@
         const imgEl = tile.querySelector('svg image'); if(!imgEl) return;
         let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
         if(!Array.isArray(list) || list.length <= 1) return;
+
+        /* NEW: warm the cache for upcoming slides */
+        preloadList(list);
 
         let idx = 0;
         const dotsWrap = tile.querySelector('.tile-dots');
