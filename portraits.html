@@ -112,19 +112,29 @@
     .notch-figure{ display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .u-stroke{ fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round }
 
+    /* ↓↓↓ Smaller nav arrows/diamonds (about half size) ↓↓↓ */
     .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
-      background:transparent !important; border:0 !important; width:56px; height:56px; display:grid; place-items:center;
-      color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0; transition:opacity .2s ease, transform .2s ease;
+      background:transparent !important; border:0 !important;
+      width:28px; height:28px;               /* was 56x56 */
+      display:grid; place-items:center;
+      color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0;
+      transition:opacity .2s ease, transform .2s ease;
     }
     .captioned.notch:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
     .tile-prev{ left:10px } .tile-next{ right:10px }
     .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
-      background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05); box-shadow:0 6px 18px rgba(0,0,0,.14);
+      content:""; position:absolute; inset:0; margin:4px; /* was 7px */
+      transform:rotate(45deg);
+      background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05);
+      box-shadow:0 6px 18px rgba(0,0,0,.14);
     }
-    .tile-nav::after{ content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg); border:1.5px solid var(--accent); }
-    .tile-nav svg{ width:22px; height:22px; position:relative; z-index:2 }
+    .tile-nav::after{
+      content:""; position:absolute; inset:0; margin:4px; /* was 7px */
+      transform:rotate(45deg); border:1px solid var(--accent); /* was 1.5px */
+    }
+    .tile-nav svg{ width:12px; height:12px; position:relative; z-index:2 } /* was 22x22 */
+    /* ↑↑↑ Smaller nav arrows/diamonds (about half size) ↑↑↑ */
 
     /* Hide the bottom diamonds (keep arrow controls) */
     .tile-dots{ display:none !important; }
@@ -484,7 +494,7 @@
     const TILE_W = 800, TILE_H = 1000;
     const isTune = /[?&]tune=1\b/.test(location.search);
 
-    // NEW: only these three Adventure files get bottom-anchored (with a minimal zoom)
+    // Only these three Adventure files get bottom-anchored (with a minimal zoom)
     const bottomAnchorAdventureFiles = new Set([
       'E26A1098.jpg',
       'E26A1013.jpg',
@@ -502,7 +512,7 @@
       catch{ return []; }
     }
 
-    // Default focal config + your overrides for 3 Friend images (desktop + mobile)
+    // Default focal config + overrides for Friend images (desktop + mobile)
     window.focalByTile = {
       'portraits-family': { "*": { x:0 } },
       'portraits-adventure': { "*": { x:0 } },
@@ -554,10 +564,9 @@
 
     function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
 
-    // Baseline rule (no tune):
-    // - If the image is too narrow (would show white sides), we fill WIDTH.
-    //   For FRIEND tiles only, anchor to bottom. (Adventure handled per-file below.)
-    // - Otherwise fit HEIGHT.
+    // Baseline rule:
+    // - If image is too narrow, fill WIDTH. Friend tiles bottom-align; Adventure per-file below.
+    // - Else fit HEIGHT. For three Adventure files, ensure subtle zoom and bottom-align.
     async function applyFocal(imgEl, src, tileId, useTuneLogic=false) {
       const g = ensurePanGroup(imgEl);
       if(!g) return;
@@ -578,19 +587,18 @@
       const forceBottomAdventure = isAdventure && bottomAnchorAdventureFiles.has(fileName);
 
       if (!allowY && drawW_H < TILE_W) {
-        // Narrow image: fill WIDTH exactly, keep ratio.
+        // Narrow image: fill WIDTH
         const sW = TILE_W / natW;
         drawW = TILE_W;
-        drawH = natH * sW;          // > 1000; vertical crop
+        drawH = natH * sW;
         baseX = 0;
-        // Friend always bottom in narrow case; add per-file Adventure override
         baseY = (isFriend || forceBottomAdventure) ? (TILE_H - drawH) : (TILE_H - drawH) / 2;
       } else {
         // Fit-height
         drawW = drawW_H;
         drawH = TILE_H;
         baseX = (TILE_W - drawW) / 2;
-        baseY = 0; // may be changed below for per-file Adventure override
+        baseY = 0;
       }
 
       // Apply zoom (respect saved/tune zoom first)
@@ -598,13 +606,13 @@
 
       // For the three Adventure files, ensure a minimal zoom so we can bottom-align even when fit-height
       if (forceBottomAdventure) {
-        zoom = Math.max(zoom, 1.08); // subtle crop; adjust if you want slightly more/less
+        zoom = Math.max(zoom, 1.08);
       }
 
       drawW *= zoom;
       drawH *= zoom;
 
-      // After zoom, if this is a per-file Adventure override, bottom-align regardless of branch
+      // After zoom, bottom-align if needed
       if (forceBottomAdventure && drawH > TILE_H) {
         baseY = (TILE_H - drawH);
       }
