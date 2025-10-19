@@ -262,8 +262,13 @@
                     ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                 <defs>
-                  <mask id="notchMask-p1"><rect x="0" y="0" width="100%" height="100%" fill="white"/></mask>
-                  <filter id="frameShadow-p1" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
+                  <!-- FIXED MASK (desktop p1) -->
+                  <mask id="notchMask-p1" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                    <rect x="0" y="0" width="800" height="1000" fill="white"/>
+                  </mask>
+                  <filter id="frameShadow-p1" x="-20%" y="-20%" width="140%">
+                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
+                  </filter>
                 </defs>
                 <image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p1)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-p1)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
@@ -289,8 +294,13 @@
                     ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                 <defs>
-                  <mask id="notchMask-p2"><rect x="0" y="0" width="100%" height="100%" fill="white"/></mask>
-                  <filter id="frameShadow-p2" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
+                  <!-- FIXED MASK (desktop p2) -->
+                  <mask id="notchMask-p2" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                    <rect x="0" y="0" width="800" height="1000" fill="white"/>
+                  </mask>
+                  <filter id="frameShadow-p2" x="-20%" y="-20%" width="140%">
+                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+                  </filter>
                 </defs>
                 <image href="/pictures/andrewsBaldPics/E26A1013.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p2)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-p2)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
@@ -316,8 +326,13 @@
                     ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                 <defs>
-                  <mask id="notchMask-p3"><rect x="0" y="0" width="100%" height="100%" fill="white"/></mask>
-                  <filter id="frameShadow-p3" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
+                  <!-- FIXED MASK (desktop p3) -->
+                  <mask id="notchMask-p3" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                    <rect x="0" y="0" width="800" height="1000" fill="white"/>
+                  </mask>
+                  <filter id="frameShadow-p3" x="-20%" y="-20%" width="140%">
+                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+                  </filter>
                 </defs>
                 <image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p3)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-p3)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
@@ -369,7 +384,12 @@
                         "/pictures/familyPortrait/image10.jpg"
                       ]'>
                 <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                  <defs><mask id="notchMask-p1m"><rect x="0" y="0" width="100%" height="100%" fill="white"/></mask></defs>
+                  <defs>
+                    <!-- FIXED MASK (mobile p1m) -->
+                    <mask id="notchMask-p1m" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                      <rect x="0" y="0" width="800" height="1000" fill="white"/>
+                    </mask>
+                  </defs>
                   <image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p1m)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -399,7 +419,12 @@
                         "/pictures/andrewsBaldPics/E26A1098.jpg"
                       ]'>
                 <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                  <defs><mask id="notchMask-p2m"><rect x="0" y="0" width="100%" height="100%" fill="white"/></mask></defs>
+                  <defs>
+                    <!-- FIXED MASK (mobile p2m) -->
+                    <mask id="notchMask-p2m" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                      <rect x="0" y="0" width="800" height="1000" fill="white"/>
+                    </mask>
+                  </defs>
                   <image href="/pictures/andrewsBaldPics/E26A1013.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p2m)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -429,8 +454,13 @@
                         "/pictures/thirdTileGal/E26A2860.jpg"
                       ]'>
                 <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                  <defs><mask id="notchMask-p3m"><rect x="0" y="0" width="100%" height="100%" fill="white"/></mask></defs>
-                  <image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p3m)"></image>
+                  <defs>
+                    <!-- FIXED MASK (mobile p3m) -->
+                    <mask id="notchMask-p3m" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                      <rect x="0" y="0" width="800" height="1000" fill="white"/>
+                    </mask>
+                  </defs>
+                <image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-p3m)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
                 <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
