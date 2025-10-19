@@ -26,7 +26,7 @@
   <!-- Fonts & shared layout -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
@@ -547,8 +547,10 @@
 
     function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
 
-    // Baseline rule (no tune): fit-height if possible else fill-width + VERTICAL CENTER (no bottom jump).
-    // With tune or explicit y/zoom, allow free pan (x,y) + zoom multiplier keeping aspect ratio.
+    // Baseline rule (no tune):
+    // - If the image is too narrow (would show white sides), we fill WIDTH.
+    //   For FRIEND tiles only, anchor the image to the BOTTOM to keep feet/sand fixed.
+    // - Otherwise fit HEIGHT.
     async function applyFocal(imgEl, src, tileId, useTuneLogic=false) {
       const g = ensurePanGroup(imgEl);
       if(!g) return;
@@ -562,12 +564,14 @@
       let drawW, drawH, baseX, baseY, allowY = useTuneLogic || cfg.y !== 0 || cfg.zoom !== 1;
 
       if (!allowY && drawW_H < TILE_W) {
-        // Narrow image: fill WIDTH exactly, keep ratio, center vertically (no jump)
+        // Narrow image: fill WIDTH exactly, keep ratio.
         const sW = TILE_W / natW;
         drawW = TILE_W;
-        drawH = natH * sW;          // > 1000; vertical crop top+bottom
+        drawH = natH * sW;          // will be > 1000; vertical crop
         baseX = 0;
-        baseY = (TILE_H - drawH) / 2;
+        // *** CHANGE: bottom-align ONLY for Friend tiles; others remain centered ***
+        const friendTile = (tileId === 'portraits-friend' || tileId === 'portraits-friend-m');
+        baseY = friendTile ? (TILE_H - drawH) : (TILE_H - drawH) / 2;
       } else {
         // Fit-height
         drawW = drawW_H;
