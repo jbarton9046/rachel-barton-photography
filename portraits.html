@@ -99,9 +99,7 @@
     .card p{ margin:0 }
 
     .desktop-only{ display:block; } .mobile-only{ display:none; }
-    @media (max-width:960px){
-      .desktop-only{ display:none; } .mobile-only{ display:block; }
-    }
+    @media (max-width:960px){ .desktop-only{ display:none; } .mobile-only{ display:block; } }
 
     .section-title{
       font-family:"Cormorant Garamond","Times New Roman",serif;
@@ -131,23 +129,23 @@
     /* Hide the bottom diamonds (keep arrow controls) */
     .tile-dots{ display:none !important; }
 
-    /* Nudge controls for horizontal pan (Friend tile only) */
-    .pan-nudge{
-      position:absolute; bottom:14px; z-index:5;
-      width:40px; height:40px; display:none; place-items:center; cursor:pointer;
-      background:transparent; border:0; color:var(--accent);
-    }
-    .pan-nudge::before{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
-      background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(6px) saturate(1.05); backdrop-filter:blur(6px) saturate(1.05);
-      box-shadow:0 6px 18px rgba(0,0,0,.12); border:1.2px solid var(--accent);
-    }
-    .pan-left{ left:12px; }
-    .pan-right{ right:12px; }
-    .pan-nudge svg{ width:18px; height:18px; position:relative; z-index:2 }
+    /* Small nudges for friend tile if desired (kept for parity; not needed in tune mode) */
+    .pan-nudge{ display:none; }
 
     /* Smooth pan to avoid jumpiness */
     .panGroup{ transition: transform .18s ease; will-change: transform; }
+
+    /* Tune HUD */
+    .tuneHud{
+      position:fixed; left:50%; transform:translateX(-50%);
+      bottom:16px; z-index:50; background:#fff; border:1px solid var(--line);
+      padding:8px 10px; box-shadow:0 10px 26px rgba(0,0,0,.12); font-size:13px; color:#3e3e3a;
+      display:none; gap:8px; align-items:center; border-radius:6px;
+    }
+    .tuneHud .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .tuneHud button{
+      padding:6px 10px; border:1px solid var(--line); background:#fff; cursor:pointer;
+    }
 
     .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px); overflow:visible; }
     .mosaic figure{ margin:0 }
@@ -288,7 +286,7 @@
               <div class="tile-dots" role="tablist"></div>
             </figure>
 
-            <!-- FRIEND (third tile with pan nudges) -->
+            <!-- FRIEND (third tile) -->
             <figure class="captioned notch" id="portraits-friend" aria-label="Friend"
                     data-images='[
                       "/pictures/thirdTileGal/E26A2017.jpg",
@@ -316,13 +314,6 @@
               </svg>
               <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
               <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-              <!-- pan nudges appear only when there is horizontal overflow -->
-              <button class="pan-nudge pan-left" type="button" aria-label="Pan left">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-              </button>
-              <button class="pan-nudge pan-right" type="button" aria-label="Pan right">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
               <div class="tile-dots" role="tablist"></div>
             </figure>
           </div>
@@ -400,7 +391,7 @@
               <article class="blurb"><h3>Adventure</h3><p>Hills, dunes, wind, and play—story-driven portraits in big landscapes with lots of movement.</p><a class="btn" href="/adventure.html">View Adventure Gallery</a></article>
             </div>
 
-            <!-- FRIEND (mobile, with pan nudges) -->
+            <!-- FRIEND (mobile) -->
             <div class="service">
               <figure class="captioned notch" id="portraits-friend-m" aria-label="Friend"
                       data-images='[
@@ -425,13 +416,6 @@
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
                 <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-                <!-- pan nudges -->
-                <button class="pan-nudge pan-left" type="button" aria-label="Pan left">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-                </button>
-                <button class="pan-nudge pan-right" type="button" aria-label="Pan right">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-                </button>
                 <div class="tile-dots" role="tablist"></div>
               </figure>
               <article class="blurb"><h3>Friend</h3><p>Easygoing, stylish, and authentic—best friends, couples, or roomies with a dash of editorial.</p><a class="btn" href="/galleries/friend-portraits.html">View Friend Gallery</a></article>
@@ -494,10 +478,11 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- ==== Tiles: fit-height by default; if too narrow, fill width and bottom-align ==== -->
+  <!-- ==== Tiles: baseline layout + Tune mode (drag/zoom/pan) for Friend tiles ==== -->
   <script>
   (function () {
     const TILE_W = 800, TILE_H = 1000;
+    const isTune = /[?&]tune=1\b/.test(location.search);
 
     function currentIds() {
       return (window.matchMedia('(max-width: 960px)').matches)
@@ -510,24 +495,22 @@
       catch{ return []; }
     }
 
-    // Per-tile/per-image horizontal nudge default
+    // Default focal config (you'll paste tuned overrides into these maps)
     window.focalByTile = {
       'portraits-family': { "*": { x:0 } },
       'portraits-adventure': { "*": { x:0 } },
-      'portraits-friend': { "*": { x:0 } },
+      'portraits-friend': { "*": { x:0, y:0, zoom:1 } },
       'portraits-family-m': { "*": { x:0 } },
       'portraits-adventure-m': { "*": { x:0 } },
-      'portraits-friend-m': { "*": { x:0 } }
+      'portraits-friend-m': { "*": { x:0, y:0, zoom:1 } }
     };
     function getFocal(tileId, src){
       const t = (window.focalByTile || {})[tileId] || {};
-      return t[src] || t["*"] || { x:0 };
+      return Object.assign({ x:0, y:0, zoom:1 }, t[src] || t["*"] || {});
     }
 
-    // state: current pan per tile (for smooth, non-jumpy updates)
-    const panState = new Map(); // tileId -> { dx: number, max: number }
-    // expose for tune mode
-    window.__panState = panState;
+    // state: per tile & slide
+    const stateByTile = new Map(); // tileId -> { idx, dx, dy, zoom, maxX, maxY, list }
 
     // natural size cache
     const naturalSizeCache = new Map();
@@ -549,66 +532,75 @@
       return parent?.classList?.contains('panGroup') ? parent : null;
     }
 
-    // Rule:
-    // 1) Try fit-height (full top-to-bottom visible). If width >= 800, keep it.
-    // 2) Else fill width (800) and BOTTOM-ALIGN so the original bottom is visible; no vertical pan.
-    async function applyFocal(imgEl, src, tileId) {
+    function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+
+    // Baseline rule (no tune): fit-height if possible else fill-width + bottom align.
+    // With tune or explicit y/zoom, we allow free pan (x,y) + zoom multiplier keeping aspect ratio.
+    async function applyFocal(imgEl, src, tileId, useTuneLogic=false) {
       const g = ensurePanGroup(imgEl);
       if(!g) return;
 
       const { w: natW, h: natH } = await getNaturalSize(src);
       const cfg = getFocal(tileId, src);
 
-      const scaleH = TILE_H / natH;
-      const drawW_H = natW * scaleH;
+      const sH = TILE_H / natH;
+      const drawW_H = natW * sH;
 
-      let drawW, drawH, baseX, baseY;
+      let drawW, drawH, baseX, baseY, allowY = useTuneLogic || cfg.y !== 0 || cfg.zoom !== 1;
 
-      if (drawW_H >= TILE_W) {
-        // Fits width when height is 1000 — no vertical crop
+      if (!allowY && drawW_H < TILE_W) {
+        // narrow image, fill width & bottom align
+        const sW = TILE_W / natW;
+        drawW = TILE_W;
+        drawH = natH * sW;
+        baseX = 0;
+        baseY = TILE_H - drawH;
+      } else {
+        // fit-height baseline
         drawW = drawW_H;
         drawH = TILE_H;
         baseX = (TILE_W - drawW) / 2;
-        baseY = 0; // full height visible
-      } else {
-        // Narrow image: scale to width, bottom-align (show the bottom of the original)
-        const scaleW = TILE_W / natW;
-        drawW = TILE_W;
-        drawH = natH * scaleW;    // > 1000; vertical crop occurs at top
-        baseX = 0;
-        baseY = TILE_H - drawH;   // bottom of original fixed to bottom of tile
+        baseY = 0;
       }
 
-      // apply geometry
+      // Apply zoom (tune or explicit zoom in config)
+      const zoom = (useTuneLogic ? (stateByTile.get(tileId)?.zoom || 1) : cfg.zoom) || 1;
+      drawW *= zoom;
+      drawH *= zoom;
+
+      // Write geometry
       imgEl.setAttribute('x', String(baseX));
       imgEl.setAttribute('y', String(baseY));
       imgEl.setAttribute('width', String(drawW));
       imgEl.setAttribute('height', String(drawH));
       imgEl.setAttribute('preserveAspectRatio', 'none');
 
-      // Only horizontal pan; clamp so no white edges
-      const overflowX = Math.max(0, (drawW - TILE_W) / 2);
-      const requested = Number.isFinite(cfg.x) ? cfg.x : 0;
+      // Overflows determine pan limits
+      const maxX = Math.max(0, (drawW - TILE_W) / 2);
+      const maxY = Math.max(0, (drawH - TILE_H) / 2);
 
-      const state = panState.get(tileId) || { dx: 0, max: overflowX };
-      state.max = overflowX;
+      // choose dx/dy
+      let dx, dy;
+      if (useTuneLogic) {
+        const st = stateByTile.get(tileId) || {};
+        st.maxX = maxX; st.maxY = maxY;
+        dx = clamp(st.dx ?? cfg.x, -maxX, maxX);
+        dy = clamp(st.dy ?? cfg.y, -maxY, maxY);
+        st.dx = dx; st.dy = dy;
+        stateByTile.set(tileId, st);
+      } else {
+        dx = clamp(cfg.x || 0, -maxX, maxX);
+        dy = clamp(cfg.y || 0, -maxY, maxY);
+      }
 
-      // keep previous dx when switching slides (no jump), then clamp
-      const dx = clamp(state.dx || requested, -overflowX, overflowX);
-      state.dx = dx;
-      panState.set(tileId, state);
-
-      g.setAttribute('transform', `translate(${dx} 0)`);
-
-      // show/hide nudges for third tile only when overflow exists
-      toggleNudges(tileId, overflowX > 0);
+      g.setAttribute('transform', `translate(${dx} ${dy})`);
 
       // Safari xlink quirk
       const href = imgEl.getAttribute('href');
       if (href) imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', href);
-    }
 
-    function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+      return { maxX, maxY, dx, dy, zoom, drawW, drawH };
+    }
 
     function prime(tileId){
       const tile = document.getElementById(tileId);
@@ -621,11 +613,14 @@
       if(imgEl){
         imgEl.setAttribute('href', list[0]);
         imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
-        applyFocal(imgEl, list[0], tileId);
+        applyFocal(imgEl, list[0], tileId, isTune && isFriend(tileId));
       }
       tile.setAttribute('data-images', JSON.stringify(list));
       tile.dataset.primed = '1';
+      stateByTile.set(tileId, { idx:0, dx:0, dy:0, zoom:1, list });
     }
+
+    function isFriend(id){ return id === 'portraits-friend' || id === 'portraits-friend-m'; }
 
     function wire(tileId){
       const tile = document.getElementById(tileId);
@@ -635,46 +630,147 @@
       let list; try { list = clampTo10(JSON.parse(tile.getAttribute('data-images') || '[]')); } catch(e){ list = []; }
       if(!Array.isArray(list) || list.length <= 1) return;
 
-      let idx = 0;
+      const st = stateByTile.get(tileId) || { idx:0, dx:0, dy:0, zoom:1, list };
+      st.list = list; stateByTile.set(tileId, st);
 
       function show(i){
-        idx=(i+list.length)%list.length;
-        const src=list[idx];
+        st.idx=(i+list.length)%list.length;
+        const src=list[st.idx];
         imgEl.setAttribute('href', src);
         imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
-        applyFocal(imgEl, src, tileId);
+
+        // preload any saved cfg for this src
+        const cfg = getFocal(tileId, src);
+        if (isTune && isFriend(tileId)){
+          st.dx = cfg.x || 0; st.dy = cfg.y || 0; st.zoom = cfg.zoom || 1;
+        }
+        applyFocal(imgEl, src, tileId, isTune && isFriend(tileId));
+        updateHud(tileId);
       }
 
-      tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx-1); });
-      tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx+1); });
-      tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>show(idx+1));
+      tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(st.idx-1); });
+      tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(st.idx+1); });
+      tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>show(st.idx+1));
 
-      // Nudge controls only for third tile (desktop + mobile)
-      if (tileId === 'portraits-friend' || tileId === 'portraits-friend-m') {
-        const left = tile.querySelector('.pan-left');
-        const right = tile.querySelector('.pan-right');
-        const pan = (dir) => {
-          const state = panState.get(tileId) || { dx:0, max:0 };
-          // step size proportional to overflow for smooth control
-          const step = Math.max(30, state.max * 0.18);
-          state.dx = clamp(state.dx + dir*step, -state.max, state.max);
-          panState.set(tileId, state);
-          ensurePanGroup(imgEl)?.setAttribute('transform', `translate(${state.dx} 0)`);
+      // TUNE interactions: drag + wheel + keys
+      if (isTune && isFriend(tileId)){
+        let dragging = false, lastX=0, lastY=0;
+
+        const svg = tile.querySelector('svg.notch-figure');
+        svg.style.cursor = 'grab';
+
+        const onDown = (e)=>{
+          dragging = true;
+          lastX = (e.touches? e.touches[0].clientX : e.clientX);
+          lastY = (e.touches? e.touches[0].clientY : e.clientY);
+          svg.style.cursor = 'grabbing';
         };
-        left?.addEventListener('click', (e)=>{ e.stopPropagation(); pan(1);  });
-        right?.addEventListener('click', (e)=>{ e.stopPropagation(); pan(-1); });
+        const onMove = (e)=>{
+          if(!dragging) return;
+          const x = (e.touches? e.touches[0].clientX : e.clientX);
+          const y = (e.touches? e.touches[0].clientY : e.clientY);
+          const dx = x - lastX;
+          const dy = y - lastY;
+          lastX = x; lastY = y;
+          const s = stateByTile.get(tileId);
+          s.dx = clamp((s.dx||0)+dx, -s.maxX, s.maxX);
+          s.dy = clamp((s.dy||0)+dy, -s.maxY, s.maxY);
+          stateByTile.set(tileId, s);
+          ensurePanGroup(imgEl)?.setAttribute('transform', `translate(${s.dx} ${s.dy})`);
+          updateHud(tileId);
+        };
+        const onUp = ()=>{ dragging=false; svg.style.cursor='grab'; };
+
+        svg.addEventListener('mousedown', onDown);
+        svg.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onUp);
+        svg.addEventListener('touchstart', onDown, {passive:true});
+        svg.addEventListener('touchmove', onMove, {passive:true});
+        window.addEventListener('touchend', onUp);
+
+        // Wheel to zoom (Shift+wheel on desktop; pinch on touch browsers will emit wheel)
+        svg.addEventListener('wheel', (e)=>{
+          if (!e.shiftKey) return; // avoid accidental scrolls
+          e.preventDefault();
+          const s = stateByTile.get(tileId);
+          const zOld = s.zoom || 1;
+          const z = clamp(zOld * (e.deltaY < 0 ? 1.08 : 0.925), 1, 3);
+          if (z !== zOld){
+            s.zoom = z;
+            stateByTile.set(tileId, s);
+            const src = list[st.idx];
+            applyFocal(imgEl, src, tileId, true);
+            updateHud(tileId);
+          }
+        }, { passive:false });
+
+        // Keyboard: arrows to change slide; [, ] to pan; +/- to zoom; C to copy JSON
+        window.addEventListener('keydown', (e)=>{
+          if (e.key === 'ArrowLeft') { show(st.idx-1); }
+          else if (e.key === 'ArrowRight') { show(st.idx+1); }
+          else if (e.key === '[') { const s=stateByTile.get(tileId); s.dx=clamp((s.dx||0)-30, -s.maxX, s.maxX); stateByTile.set(tileId,s); ensurePanGroup(imgEl)?.setAttribute('transform',`translate(${s.dx} ${s.dy||0})`); updateHud(tileId); }
+          else if (e.key === ']') { const s=stateByTile.get(tileId); s.dx=clamp((s.dx||0)+30, -s.maxX, s.maxX); stateByTile.set(tileId,s); ensurePanGroup(imgEl)?.setAttribute('transform',`translate(${s.dx} ${s.dy||0})`); updateHud(tileId); }
+          else if (e.key === 'ArrowUp') { const s=stateByTile.get(tileId); s.dy=clamp((s.dy||0)-30, -s.maxY, s.maxY); stateByTile.set(tileId,s); ensurePanGroup(imgEl)?.setAttribute('transform',`translate(${s.dx||0} ${s.dy})`); updateHud(tileId); }
+          else if (e.key === 'ArrowDown') { const s=stateByTile.get(tileId); s.dy=clamp((s.dy||0)+30, -s.maxY, s.maxY); stateByTile.set(tileId,s); ensurePanGroup(imgEl)?.setAttribute('transform',`translate(${s.dx||0} ${s.dy})`); updateHud(tileId); }
+          else if (e.key === '+' || e.key === '=') { const s=stateByTile.get(tileId); s.zoom=clamp((s.zoom||1)*1.08,1,3); stateByTile.set(tileId,s); applyFocal(imgEl, list[st.idx], tileId, true); updateHud(tileId); }
+          else if (e.key === '-' || e.key === '_') { const s=stateByTile.get(tileId); s.zoom=clamp((s.zoom||1)*0.925,1,3); stateByTile.set(tileId,s); applyFocal(imgEl, list[st.idx], tileId, true); updateHud(tileId); }
+          else if (e.key.toLowerCase() === 'c') { copyCurrentJSON(tileId); }
+        });
       }
 
       tile.dataset.wired = '1';
     }
 
-    function toggleNudges(tileId, show){
-      if (tileId !== 'portraits-friend' && tileId !== 'portraits-friend-m') return;
-      const tile = document.getElementById(tileId);
-      if(!tile) return;
-      tile.querySelectorAll('.pan-nudge').forEach(b=>{
-        b.style.display = show ? 'grid' : 'none';
-      });
+    // HUD for tune mode
+    let hud;
+    function ensureHud(){
+      if (hud || !isTune) return;
+      hud = document.createElement('div');
+      hud.className = 'tuneHud';
+      hud.innerHTML = `
+        <span class="mono" data-id>friend</span>
+        <span>•</span>
+        <span class="mono" data-file>—</span>
+        <span>•</span>
+        <span class="mono" data-vals>x:0 y:0 z:1</span>
+        <button type="button" data-prev>Prev</button>
+        <button type="button" data-next>Next</button>
+        <button type="button" data-copy>Copy JSON</button>
+        <span style="opacity:.7">Drag, Shift+Wheel to zoom, Arrows/[ ]/+/−, C to copy</span>
+      `;
+      document.body.appendChild(hud);
+      hud.style.display = 'flex';
+
+      hud.querySelector('[data-prev]').addEventListener('click', ()=> clickNav('prev'));
+      hud.querySelector('[data-next]').addEventListener('click', ()=> clickNav('next'));
+      hud.querySelector('[data-copy]').addEventListener('click', ()=> copyCurrentJSON(activeFriendId()));
+    }
+    function activeFriendId(){
+      return window.matchMedia('(max-width: 960px)').matches ? 'portraits-friend-m' : 'portraits-friend';
+    }
+    function clickNav(which){
+      const id = activeFriendId();
+      const tile = document.getElementById(id);
+      tile?.querySelector(which==='prev'?'.tile-prev':'.tile-next')?.click();
+    }
+    function updateHud(tileId){
+      if (!isTune) return;
+      ensureHud();
+      const st = stateByTile.get(tileId);
+      if (!st) return;
+      const file = (st.list||[])[st.idx] || '';
+      hud.querySelector('[data-id]').textContent = tileId;
+      hud.querySelector('[data-file]').textContent = file.split('/').pop();
+      hud.querySelector('[data-vals]').textContent = `x:${Math.round(st.dx||0)} y:${Math.round(st.dy||0)} z:${(st.zoom||1).toFixed(2)}`;
+    }
+    function copyCurrentJSON(tileId){
+      const st = stateByTile.get(tileId); if(!st) return;
+      const file = (st.list||[])[st.idx]; if(!file) return;
+      const obj = {}; obj[file] = { x: Math.round(st.dx||0), y: Math.round(st.dy||0), zoom: +(st.zoom||1).toFixed(3) };
+      const json = JSON.stringify(obj, null, 2);
+      navigator.clipboard?.writeText(json);
+      hud.querySelector('[data-copy]').textContent = 'Copied!';
+      setTimeout(()=>{ hud.querySelector('[data-copy]').textContent = 'Copy JSON'; }, 900);
     }
 
     // Lazy init
@@ -685,6 +781,7 @@
           prime(id);
           wire(id);
           io.unobserve(entry.target);
+          if (isTune && isFriend(id)) updateHud(id);
         }
       });
     }, { rootMargin: '200px 0px' });
@@ -694,6 +791,7 @@
         const el = document.getElementById(id);
         if (el) io.observe(el);
       });
+      if (isTune) ensureHud();
     }
 
     initForViewport();
@@ -704,128 +802,9 @@
       if (isMobile !== wasMobile){
         wasMobile = isMobile;
         initForViewport();
+        updateHud(activeFriendId());
       }
     });
-  })();
-  </script>
-
-  <!-- ========= TUNE MODE (enable with ?tune=1) ========= -->
-  <style>
-    .tuneHud{
-      position:fixed; left:12px; bottom:12px; z-index:9999;
-      background:rgba(255,255,255,.85); border:1px solid #e9e6df;
-      padding:8px 10px; font:600 12px/1.3 system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      box-shadow:0 6px 18px rgba(0,0,0,.08); color:#3e3e3a; border-radius:6px;
-    }
-    .tuneHud b{ font-weight:700 }
-    .tuneHud button{ margin-left:8px; padding:4px 8px; border:1px solid #e9e6df; background:#fff; cursor:pointer }
-  </style>
-  <script>
-  (function(){
-    const qs = new URLSearchParams(location.search);
-    if(qs.get('tune') !== '1') return;
-
-    const TILES = ['portraits-friend','portraits-friend-m']; // tune the 3rd tile (desktop + mobile)
-
-    function getParts(tileId){
-      const tile = document.getElementById(tileId);
-      if(!tile) return {};
-      const img = tile.querySelector('image');
-      const g = img?.parentNode?.classList?.contains('panGroup') ? img.parentNode : null;
-      const href = img?.getAttribute('href') || img?.getAttributeNS('http://www.w3.org/1999/xlink','href') || '';
-      return {tile, img, g, href};
-    }
-
-    const panState = (window.__panState = window.__panState || new Map());
-
-    // HUD
-    const hud = document.createElement('div');
-    hud.className = 'tuneHud';
-    hud.innerHTML = `<b>Tune mode</b> — drag photo • [ / ] or ← / → to nudge • <span id="tuneFile"></span> • x:<span id="tuneX">0</span> <button id="copyFocal">Copy JSON</button>`;
-    document.body.appendChild(hud);
-    const fileSpan = hud.querySelector('#tuneFile');
-    const xSpan = hud.querySelector('#tuneX');
-
-    let activeTileId = null;
-    let dragging = false, startX = 0, startDx = 0;
-
-    function setActiveByVisibility(){
-      for(const id of TILES){
-        const el = document.getElementById(id);
-        const rect = el?.getBoundingClientRect();
-        if(rect && rect.width > 0 && rect.height > 0) { activeTileId = id; break; }
-      }
-      updateHud();
-    }
-
-    function getState(tileId){
-      const st = panState.get(tileId) || { dx:0, max:0 };
-      panState.set(tileId, st);
-      return st;
-    }
-
-    function applyDx(dx){
-      const { g } = getParts(activeTileId);
-      if(!g) return;
-      const st = getState(activeTileId);
-      st.dx = Math.max(-st.max, Math.min(st.max, dx));
-      g.style.transition = 'transform .12s ease';
-      g.setAttribute('transform', `translate(${st.dx} 0)`);
-      xSpan.textContent = Math.round(st.dx);
-      requestAnimationFrame(()=>{ g.style.transition = ''; });
-    }
-
-    function updateHud(){
-      if(!activeTileId) return;
-      const { href } = getParts(activeTileId);
-      const st = getState(activeTileId);
-      fileSpan.textContent = href.split('/').pop() || '(slide)';
-      xSpan.textContent = Math.round(st.dx);
-    }
-
-    for(const id of TILES){
-      const fig = document.getElementById(id);
-      if(!fig) continue;
-      fig.addEventListener('pointerdown', (e)=>{
-        if(e.button !== 0) return;
-        activeTileId = id;
-        dragging = true; startX = e.clientX; startDx = getState(id).dx;
-        fig.setPointerCapture(e.pointerId);
-      });
-      fig.addEventListener('pointermove', (e)=>{
-        if(!dragging || activeTileId !== id) return;
-        const delta = e.clientX - startX;
-        applyDx(startDx + delta);
-      });
-      fig.addEventListener('pointerup', ()=>{ dragging=false; updateHud(); });
-      fig.addEventListener('pointercancel', ()=>{ dragging=false; });
-    }
-
-    window.addEventListener('keydown', (e)=>{
-      if(!activeTileId) setActiveByVisibility();
-      const st = getState(activeTileId);
-      const step = Math.max(10, st.max * 0.08);
-      if(e.key === 'ArrowLeft' || e.key === '[') { applyDx(st.dx + step); }
-      if(e.key === 'ArrowRight' || e.key === ']') { applyDx(st.dx - step); }
-      if(e.key.toLowerCase() === 'c'){ copyJSON(); }
-    });
-
-    function copyJSON(){
-      const id = activeTileId; if(!id) return;
-      const { href } = getParts(id);
-      const st = getState(id);
-      const obj = {};
-      obj[id] = {}; obj[id][href] = { x: Math.round(st.dx) };
-      const txt = JSON.stringify(obj, null, 2);
-      navigator.clipboard.writeText(txt).then(()=>{
-        hud.querySelector('#copyFocal').textContent = 'Copied!';
-        setTimeout(()=>hud.querySelector('#copyFocal').textContent='Copy JSON', 1000);
-      });
-    }
-
-    hud.querySelector('#copyFocal').addEventListener('click', copyJSON);
-
-    setActiveByVisibility();
   })();
   </script>
 
