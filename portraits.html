@@ -187,23 +187,6 @@
     .pack ul{ margin:0; padding-left:18px }
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; }
-
-    /* ==== NEW: natural-pixel sizing (no object-fit), absolute left/top/size set by JS ==== */
-    .tile-wrap{
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: hidden; /* hard clip to the mask box */
-    }
-    .tile-img{
-      position: absolute;
-      left: 0; top: 0;
-      width: auto; height: auto;
-      transform: none;
-      object-fit: unset; /* critical: disable fit/crop math */
-      display:block;
-      border: 0; box-shadow: none; /* keep clean inside mask */
-    }
   </style>
 </head>
 <body>
@@ -277,21 +260,22 @@
                       "/pictures/familyPortrait/image9.jpg",
                       "/pictures/familyPortrait/image10.jpg"
                     ]'>
-              <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
                 <defs>
-                  <mask id="notchMask-p1" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                  <mask id="notchMask-p1" x="0" y="0" width="800" height="1000">
                     <rect x="0" y="0" width="800" height="1000" fill="white"/>
                   </mask>
                   <filter id="frameShadow-p1" x="-20%" y="-20%" width="140%">
                     <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/>
                   </filter>
                 </defs>
+                <!-- Pure SVG image we can size & pan -->
                 <g mask="url(#notchMask-p1)">
-                  <foreignObject x="0" y="0" width="800" height="1000">
-                    <div xmlns="http://www.w3.org/1999/xhtml" class="tile-wrap">
-                      <img class="tile-img" src="/pictures/familyPortrait/image1.jpg" alt="">
-                    </div>
-                  </foreignObject>
+                  <g class="panGroup">
+                    <image href="/pictures/familyPortrait/image1.jpg"
+                           x="0" y="0" width="800" height="1000"
+                           preserveAspectRatio="none"></image>
+                  </g>
                 </g>
                 <g class="frameGroup" filter="url(#frameShadow-p1)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
               </svg>
@@ -314,9 +298,9 @@
                       "/pictures/andrewsBaldPics/E26A1095.jpg",
                       "/pictures/andrewsBaldPics/E26A1098.jpg"
                     ]'>
-              <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
                 <defs>
-                  <mask id="notchMask-p2" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                  <mask id="notchMask-p2" x="0" y="0" width="800" height="1000">
                     <rect x="0" y="0" width="800" height="1000" fill="white"/>
                   </mask>
                   <filter id="frameShadow-p2" x="-20%" y="-20%" width="140%">
@@ -324,11 +308,11 @@
                   </filter>
                 </defs>
                 <g mask="url(#notchMask-p2)">
-                  <foreignObject x="0" y="0" width="800" height="1000">
-                    <div xmlns="http://www.w3.org/1999/xhtml" class="tile-wrap">
-                      <img class="tile-img" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="">
-                    </div>
-                  </foreignObject>
+                  <g class="panGroup">
+                    <image href="/pictures/andrewsBaldPics/E26A1013.jpg"
+                           x="0" y="0" width="800" height="1000"
+                           preserveAspectRatio="none"></image>
+                  </g>
                 </g>
                 <g class="frameGroup" filter="url(#frameShadow-p2)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
               </svg>
@@ -351,9 +335,9 @@
                       "/pictures/thirdTileGal/E26A2854.jpg",
                       "/pictures/thirdTileGal/E26A2860.jpg"
                     ]'>
-              <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
                 <defs>
-                  <mask id="notchMask-p3" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                  <mask id="notchMask-p3" x="0" y="0" width="800" height="1000">
                     <rect x="0" y="0" width="800" height="1000" fill="white"/>
                   </mask>
                   <filter id="frameShadow-p3" x="-20%" y="-20%" width="140%">
@@ -361,11 +345,11 @@
                   </filter>
                 </defs>
                 <g mask="url(#notchMask-p3)">
-                  <foreignObject x="0" y="0" width="800" height="1000">
-                    <div xmlns="http://www.w3.org/1999/xhtml" class="tile-wrap">
-                      <img class="tile-img" src="/pictures/thirdTileGal/E26A2017.jpg" alt="">
-                    </div>
-                  </foreignObject>
+                  <g class="panGroup">
+                    <image href="/pictures/thirdTileGal/E26A2017.jpg"
+                           x="0" y="0" width="800" height="1000"
+                           preserveAspectRatio="none"></image>
+                  </g>
                 </g>
                 <g class="frameGroup" filter="url(#frameShadow-p3)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
               </svg>
@@ -415,18 +399,18 @@
                         "/pictures/familyPortrait/image9.jpg",
                         "/pictures/familyPortrait/image10.jpg"
                       ]'>
-                <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
                   <defs>
-                    <mask id="notchMask-p1m" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                    <mask id="notchMask-p1m" x="0" y="0" width="800" height="1000">
                       <rect x="0" y="0" width="800" height="1000" fill="white"/>
                     </mask>
                   </defs>
                   <g mask="url(#notchMask-p1m)">
-                    <foreignObject x="0" y="0" width="800" height="1000">
-                      <div xmlns="http://www.w3.org/1999/xhtml" class="tile-wrap">
-                        <img class="tile-img" src="/pictures/familyPortrait/image1.jpg" alt="">
-                      </div>
-                    </foreignObject>
+                    <g class="panGroup">
+                      <image href="/pictures/familyPortrait/image1.jpg"
+                             x="0" y="0" width="800" height="1000"
+                             preserveAspectRatio="none"></image>
+                    </g>
                   </g>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -455,18 +439,18 @@
                         "/pictures/andrewsBaldPics/E26A1095.jpg",
                         "/pictures/andrewsBaldPics/E26A1098.jpg"
                       ]'>
-                <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
                   <defs>
-                    <mask id="notchMask-p2m" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                    <mask id="notchMask-p2m" x="0" y="0" width="800" height="1000">
                       <rect x="0" y="0" width="800" height="1000" fill="white"/>
                     </mask>
                   </defs>
                   <g mask="url(#notchMask-p2m)">
-                    <foreignObject x="0" y="0" width="800" height="1000">
-                      <div xmlns="http://www.w3.org/1999/xhtml" class="tile-wrap">
-                        <img class="tile-img" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="">
-                      </div>
-                    </foreignObject>
+                    <g class="panGroup">
+                      <image href="/pictures/andrewsBaldPics/E26A1013.jpg"
+                             x="0" y="0" width="800" height="1000"
+                             preserveAspectRatio="none"></image>
+                    </g>
                   </g>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -495,18 +479,18 @@
                         "/pictures/thirdTileGal/E26A2854.jpg",
                         "/pictures/thirdTileGal/E26A2860.jpg"
                       ]'>
-                <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
                   <defs>
-                    <mask id="notchMask-p3m" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                    <mask id="notchMask-p3m" x="0" y="0" width="800" height="1000">
                       <rect x="0" y="0" width="800" height="1000" fill="white"/>
                     </mask>
                   </defs>
                   <g mask="url(#notchMask-p3m)">
-                    <foreignObject x="0" y="0" width="800" height="1000">
-                      <div xmlns="http://www.w3.org/1999/xhtml" class="tile-wrap">
-                        <img class="tile-img" src="/pictures/thirdTileGal/E26A2017.jpg" alt="">
-                      </div>
-                    </foreignObject>
+                    <g class="panGroup">
+                      <image href="/pictures/thirdTileGal/E26A2017.jpg"
+                             x="0" y="0" width="800" height="1000"
+                             preserveAspectRatio="none"></image>
+                    </g>
                   </g>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -578,12 +562,11 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- ==== Tiles: natural-pixel pan/zoom inside SVG mask (no white until true minZoom) ==== -->
+  <!-- ==== Tiles: pure-SVG natural-pixel pan + zoom (no white until true minZoom) ==== -->
   <script>
     (function () {
       const TILE_W = 800, TILE_H = 1000;
 
-      // Which tiles are on screen for each breakpoint
       function currentIds() {
         return (window.matchMedia('(max-width: 960px)').matches)
           ? ['portraits-family-m','portraits-adventure-m','portraits-friend-m']
@@ -595,9 +578,8 @@
         catch{ return []; }
       }
 
-      /* ======== FOCAL CONFIG (pixels + natural zoom) ======== */
-      // x/y in **pixels** (positive x = move right, positive y = move down).
-      // zoom relative to natural pixels (1.0 = native size). Omit to auto-choose later.
+      /* ======== FOCAL CONFIG (x/y in px, zoom relative to NATURAL pixels) ======== */
+      // zoom=1 means draw at the image's native pixel size; we clamp to minZoom so it still fills.
       window.focalByTile = {
         'portraits-family': {
           "/pictures/familyPortrait/image1.jpg": { x:  60, y: -40, zoom: 0.9 },
@@ -609,20 +591,20 @@
           "*": { x:0, y:0, zoom: 1.0 }
         },
         'portraits-friend': {
-          "/pictures/thirdTileGal/E26A2854.jpg": { x: 75, y: 0, zoom: 1.0 },
-          "/pictures/thirdTileGal/E26A2860.jpg": { x: 100, y: 0, zoom: 1.0 },
-          "/pictures/thirdTileGal/E26A2771.jpg": { x: 100, y: 0, zoom: 1.0 },
-          "/pictures/thirdTileGal/E26A2746.jpg": { x:   0, y: 14, zoom: 1.0 },
+          "/pictures/thirdTileGal/E26A2854.jpg": { x: 280, y: 0,   zoom: 0.85 },
+          "/pictures/thirdTileGal/E26A2860.jpg": { x: 100, y: 0,   zoom: 0.90 },
+          "/pictures/thirdTileGal/E26A2771.jpg": { x: 100, y: 0,   zoom: 0.90 },
+          "/pictures/thirdTileGal/E26A2746.jpg": { x:   0, y: 14,  zoom: 1.00 },
           "*": { x:0, y:0, zoom: 1.0 }
         },
 
         'portraits-family-m':    { "*": { x:0, y:0, zoom: 1.0 } },
         'portraits-adventure-m': { "*": { x:0, y:0, zoom: 1.0 } },
         'portraits-friend-m':    {
-          "/pictures/thirdTileGal/E26A2854.jpg": { x: 48, y: 0, zoom: 0.92 },
-          "/pictures/thirdTileGal/E26A2860.jpg": { x: 36, y: 0, zoom: 1.0 },
-          "/pictures/thirdTileGal/E26A2771.jpg": { x: 40, y: 0, zoom: 1.0 },
-          "/pictures/thirdTileGal/E26A2746.jpg": { x:  0, y:12, zoom: 1.0 },
+          "/pictures/thirdTileGal/E26A2854.jpg": { x: 48, y: 0,  zoom: 0.92 },
+          "/pictures/thirdTileGal/E26A2860.jpg": { x: 36, y: 0,  zoom: 1.00 },
+          "/pictures/thirdTileGal/E26A2771.jpg": { x: 40, y: 0,  zoom: 1.00 },
+          "/pictures/thirdTileGal/E26A2746.jpg": { x:  0, y:12, zoom: 1.00 },
           "*": { x:0, y:0, zoom: 1.0 }
         }
       };
@@ -631,7 +613,7 @@
         return t[src] || t["*"] || { x:0, y:0, zoom:1.0 };
       }
 
-      // cache natural sizes
+      // Cache natural sizes
       const naturalSizeCache = new Map();
       function getNaturalSize(src){
         return new Promise((resolve)=>{
@@ -641,49 +623,61 @@
             const val = { w: im.naturalWidth || im.width, h: im.naturalHeight || im.height };
             naturalSizeCache.set(src, val); resolve(val);
           };
-          im.onerror = () => resolve({ w: 1600, h: 1067 }); // sensible fallback if unknown
+          im.onerror = () => resolve({ w: 1600, h: 1067 }); // fallback
           im.src = src;
         });
       }
 
-      // Size/position from **natural pixels**, clamp pan to real edges, and clamp zoom to minZoom
+      // Ensure <image> is inside a <g> we can translate (for pan)
+      function ensurePanGroup(imgEl){
+        const parent = imgEl.parentNode;
+        return parent?.classList?.contains('panGroup') ? parent : null;
+      }
+
+      // Draw with explicit width/height in SVG units computed from natural pixels.
       async function applyFocal(imgEl, src, tileId) {
+        const g = ensurePanGroup(imgEl);
+        if(!g) return;
+
         const { w: natW, h: natH } = await getNaturalSize(src);
         const cfg = getFocal(tileId, src);
 
-        // Requested zoom is relative to NATURAL size
-        const requestedZoom = Number.isFinite(cfg.zoom) ? cfg.zoom : 1.0;
-
-        // Minimum zoom that still fills the 800x1000 viewport (no white)
+        // Min zoom to fully cover the 800x1000 tile (no white)
         const minZoom = Math.max(TILE_W / natW, TILE_H / natH);
 
-        // Clamp zoom so we never show white
-        const zoom = Math.max(requestedZoom, minZoom);
+        // Requested natural-pixel zoom, clamped so we still cover
+        const requested = Number.isFinite(cfg.zoom) ? cfg.zoom : 1.0;
+        const zoom = Math.max(requested, minZoom);
 
-        // Draw size at this zoom
+        // Draw size in SVG units
         const drawW = natW * zoom;
         const drawH = natH * zoom;
 
-        // Center by default
-        const baseLeft = (TILE_W - drawW) / 2;
-        const baseTop  = (TILE_H - drawH) / 2;
+        // Center baseline
+        const baseX = (TILE_W - drawW) / 2;
+        const baseY = (TILE_H - drawH) / 2;
 
-        // Requested pan (pixels)
-        const reqX = Number.isFinite(cfg.x) ? cfg.x : 0;
-        const reqY = Number.isFinite(cfg.y) ? cfg.y : 0;
-
-        // How far we can move without exposing edges
+        // Pan (clamped) in pixels of the drawn bitmap
         const overflowX = Math.max(0, (drawW - TILE_W) / 2);
         const overflowY = Math.max(0, (drawH - TILE_H) / 2);
-
+        const reqX = Number.isFinite(cfg.x) ? cfg.x : 0;
+        const reqY = Number.isFinite(cfg.y) ? cfg.y : 0;
         const dx = Math.max(-overflowX, Math.min(overflowX, reqX));
         const dy = Math.max(-overflowY, Math.min(overflowY, reqY));
 
-        // Apply explicit size and position
-        imgEl.style.width  = drawW + 'px';
-        imgEl.style.height = drawH + 'px';
-        imgEl.style.left   = (baseLeft + dx) + 'px';
-        imgEl.style.top    = (baseTop  + dy) + 'px';
+        // Apply exact geometry
+        imgEl.setAttribute('x', String(baseX));
+        imgEl.setAttribute('y', String(baseY));
+        imgEl.setAttribute('width', String(drawW));
+        imgEl.setAttribute('height', String(drawH));
+        imgEl.setAttribute('preserveAspectRatio', 'none');
+
+        // Translate the group to pan
+        g.setAttribute('transform', `translate(${dx} ${dy})`);
+
+        // Safari xlink quirk
+        const href = imgEl.getAttribute('href');
+        if (href) imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', href);
       }
 
       function prime(tileId){
@@ -693,9 +687,10 @@
         const list = clampTo10(parseList(tile));
         if(!Array.isArray(list) || list.length === 0) return;
 
-        const imgEl = tile.querySelector('.tile-img');
+        const imgEl = tile.querySelector('image');
         if(imgEl){
-          imgEl.src = list[0];
+          imgEl.setAttribute('href', list[0]);
+          imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
           applyFocal(imgEl, list[0], tileId);
         }
         tile.setAttribute('data-images', JSON.stringify(list));
@@ -706,7 +701,7 @@
         const tile = document.getElementById(tileId);
         if(!tile || tile.dataset.wired) return;
 
-        const imgEl = tile.querySelector('.tile-img'); if(!imgEl) return;
+        const imgEl = tile.querySelector('image'); if(!imgEl) return;
         let list; try { list = clampTo10(JSON.parse(tile.getAttribute('data-images') || '[]')); } catch(e){ list = []; }
         if(!Array.isArray(list) || list.length <= 1) return;
 
@@ -725,7 +720,8 @@
         function show(i){
           idx=(i+list.length)%list.length;
           const src=list[idx];
-          imgEl.src = src;
+          imgEl.setAttribute('href', src);
+          imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
           applyFocal(imgEl, src, tileId);
           updateDots();
         }
