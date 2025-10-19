@@ -495,14 +495,27 @@
       catch{ return []; }
     }
 
-    // Default focal config (you'll paste tuned overrides into these maps)
+    // Default focal config + your overrides for 3 Friend images (desktop + mobile)
     window.focalByTile = {
       'portraits-family': { "*": { x:0 } },
       'portraits-adventure': { "*": { x:0 } },
-      'portraits-friend': { "*": { x:0, y:0, zoom:1 } },
+
+      'portraits-friend': {
+        "*": { x:0, y:0, zoom:1 },
+        "/pictures/thirdTileGal/E26A2860.jpg": { x:150, y:0, zoom:1 },
+        "/pictures/thirdTileGal/E26A2854.jpg": { x:300, y:0, zoom:1 },
+        "/pictures/thirdTileGal/E26A2771.jpg": { x:240, y:0, zoom:1 }
+      },
+
       'portraits-family-m': { "*": { x:0 } },
       'portraits-adventure-m': { "*": { x:0 } },
-      'portraits-friend-m': { "*": { x:0, y:0, zoom:1 } }
+
+      'portraits-friend-m': {
+        "*": { x:0, y:0, zoom:1 },
+        "/pictures/thirdTileGal/E26A2860.jpg": { x:150, y:0, zoom:1 },
+        "/pictures/thirdTileGal/E26A2854.jpg": { x:300, y:0, zoom:1 },
+        "/pictures/thirdTileGal/E26A2771.jpg": { x:240, y:0, zoom:1 }
+      }
     };
     function getFocal(tileId, src){
       const t = (window.focalByTile || {})[tileId] || {};
@@ -534,8 +547,8 @@
 
     function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
 
-    // Baseline rule (no tune): fit-height if possible else fill-width + bottom align.
-    // With tune or explicit y/zoom, we allow free pan (x,y) + zoom multiplier keeping aspect ratio.
+    // Baseline rule (no tune): fit-height if possible else fill-width + VERTICAL CENTER (no bottom jump).
+    // With tune or explicit y/zoom, allow free pan (x,y) + zoom multiplier keeping aspect ratio.
     async function applyFocal(imgEl, src, tileId, useTuneLogic=false) {
       const g = ensurePanGroup(imgEl);
       if(!g) return;
@@ -549,21 +562,21 @@
       let drawW, drawH, baseX, baseY, allowY = useTuneLogic || cfg.y !== 0 || cfg.zoom !== 1;
 
       if (!allowY && drawW_H < TILE_W) {
-        // narrow image, fill width & bottom align
+        // Narrow image: fill WIDTH exactly, keep ratio, center vertically (no jump)
         const sW = TILE_W / natW;
         drawW = TILE_W;
-        drawH = natH * sW;
+        drawH = natH * sW;          // > 1000; vertical crop top+bottom
         baseX = 0;
-        baseY = TILE_H - drawH;
+        baseY = (TILE_H - drawH) / 2;
       } else {
-        // fit-height baseline
+        // Fit-height
         drawW = drawW_H;
         drawH = TILE_H;
         baseX = (TILE_W - drawW) / 2;
         baseY = 0;
       }
 
-      // Apply zoom (tune or explicit zoom in config)
+      // Apply zoom
       const zoom = (useTuneLogic ? (stateByTile.get(tileId)?.zoom || 1) : cfg.zoom) || 1;
       drawW *= zoom;
       drawH *= zoom;
