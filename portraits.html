@@ -578,7 +578,7 @@
       window.focalByTile = {
         // ---------- FRIEND (DESKTOP) ----------
         'portraits-friend': {
-          "/pictures/thirdTileGal/E26A2854.jpg": { x: 280, y: 0 }, // try 250–320 to reveal girls on left
+          "/pictures/thirdTileGal/E26A2854.jpg": { x: 280, y: 0 },
           "/pictures/thirdTileGal/E26A2860.jpg": { x:  40, y: 0 },
           "/pictures/thirdTileGal/E26A2771.jpg": { x:  60, y: 0 },
           "/pictures/thirdTileGal/E26A2746.jpg": { x:   0, y: 14 },
@@ -623,16 +623,24 @@
       function applyFocal(imgEl, src, tileId) {
         const cfg = getFocal(tileId, src);
 
-        // Always center anchor; no extra zoom
+        // Keep cover behavior
         imgEl.setAttribute("preserveAspectRatio", "xMidYMid slice");
-        imgEl.setAttribute("x", "0");
-        imgEl.setAttribute("y", "0");
-        imgEl.setAttribute("width", "800");
-        imgEl.setAttribute("height", "1000");
 
-        // Clamp so no white edges show (tuned for 4:5 mask vs landscape originals)
-        const maxX = 350; // horizontal pan limit
-        const maxY = 120; // vertical pan limit
+        // OVERSCAN: make the image box larger than the 800x1000 viewBox so panning never shows white
+        const PAD = 600;          // total extra pixels (increase to allow even more pan)
+        const W = 800 + PAD;
+        const H = 1000 + PAD;
+        const halfPad = PAD / 2;
+
+        // Center the oversized image box under the mask
+        imgEl.setAttribute("x", String(-halfPad));
+        imgEl.setAttribute("y", String(-halfPad));
+        imgEl.setAttribute("width", String(W));
+        imgEl.setAttribute("height", String(H));
+
+        // Clamp pan so we stay within overscan
+        const maxX = halfPad - 2;
+        const maxY = halfPad - 2;
         const dx = Math.max(-maxX, Math.min(maxX, Number.isFinite(cfg.x) ? cfg.x : 0));
         const dy = Math.max(-maxY, Math.min(maxY, Number.isFinite(cfg.y) ? cfg.y : 0));
 
