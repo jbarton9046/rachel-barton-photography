@@ -76,7 +76,6 @@
       object-fit:cover; object-position:center;
       display:block; border:1px solid var(--frame); box-shadow:var(--shadow); background:#fff;
     }
-    /* show more sky on golden-grass */
     .head-photo img.is-grass{ object-position:50% 18%; }
     @media (min-width:900px){ .head-photo{ margin-top:-6px; } }
 
@@ -114,7 +113,6 @@
     .times-table th{background:#f7f5f1;font-weight:700}
     .k{white-space:nowrap}
 
-    /* CTA row: clearly separated, still right under the table */
     .inline-cta{
       display:flex; gap:12px; flex-wrap:wrap;
       margin-top:16px; padding-top:12px;
@@ -129,7 +127,6 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content" class="container">
-    <!-- Heading + photos -->
     <div class="head-grid">
       <header class="page-head" aria-labelledby="golden-title">
         <h1 id="golden-title">Golden Hour</h1>
@@ -147,7 +144,6 @@
       </figure>
     </div>
 
-    <!-- Explainer -->
     <section class="explainer" aria-labelledby="what-title">
       <article class="card pad">
         <h2 id="what-title">What are “golden” and “blue” hours?</h2>
@@ -211,7 +207,6 @@
             <tbody></tbody>
           </table>
 
-          <!-- Buttons directly under the table, with a clean divider -->
           <div class="inline-cta" role="group" aria-label="Page actions">
             <a class="btn" href="/book.html">Check availability</a>
             <a class="btn" href="/galleries.html">See galleries</a>
@@ -265,10 +260,10 @@
       const gold = { a:eventTime(date,lat,lon,-4),  b:eventTime(date,lat,lon, 6) };
       return {
         sunriseMin:sun.rise, sunsetMin:sun.set,
-        blueAM:{start: blue.a.rise, end: blue.b.rise},
-        bluePM:{start: blue.b.set,  end: blue.a.set},
-        goldAM:{start: gold.a.rise, end: gold.b.rise},
-        goldPM:{start: gold.b.set,  end: gold.b.set} // end stays same pattern
+        blueAM:{start: blue.a.rise, end: blue.b.rise},          // −6° → −4° (pre-dawn)
+        bluePM:{start: blue.b.set,  end: blue.a.set},           // −4° → −6° (post-sunset)
+        goldAM:{start: gold.a.rise, end: gold.b.rise},          // −4° → +6° (after sunrise)
+        goldPM:{start: gold.b.set,  end: gold.a.set}            // +6° → −4° (before/just after sunset) ✅ fixed
       };
     }
     function minsToClock(mins){
@@ -287,7 +282,6 @@
     let selected    = new Date(); selected.setHours(0,0,0,0);
     let monthCursor = new Date(selected);
 
-    // render DOW header once
     dowNames.forEach(d=>{ const el=document.createElement('div'); el.className='dow'; el.textContent=d; dowEl.appendChild(el); });
 
     function addDay(num, muted, dateObj){
@@ -356,7 +350,6 @@
       });
     };
 
-    // Florida bounding box (west, south, east, north)
     const FL_VIEWBOX = [-87.7, 24.2, -80.0, 31.1];
 
     async function geocode(q){
@@ -405,13 +398,16 @@
       resultTitle.textContent = `${date.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'})} — ${label}`;
       const t = packTimes(date, lat, lon);
       tbody.innerHTML = '';
-      /* Sunrise at the top */
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunrise', minsToClock(t.sunriseMin), '—'));
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (AM)', minsToClock(t.blueAM.start), minsToClock(t.blueAM.end)));
+
+      // Morning sequence
+      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunrise',          minsToClock(t.sunriseMin), '—'));
+      tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (AM)',   minsToClock(t.blueAM.start), minsToClock(t.blueAM.end)));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (AM)', minsToClock(t.goldAM.start), minsToClock(t.goldAM.end)));
+
+      // Evening sequence: Sunset directly above Golden hour (PM)
+      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunset',           minsToClock(t.sunsetMin), '—'));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (PM)', minsToClock(t.goldPM.start), minsToClock(t.goldPM.end)));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (PM)',   minsToClock(t.bluePM.start), minsToClock(t.bluePM.end)));
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunset',  minsToClock(t.sunsetMin),  '—'));
     }
 
     /* ---------- Init ---------- */
