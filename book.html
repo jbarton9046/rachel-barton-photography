@@ -6,10 +6,10 @@
   <title>Book a Session | Rachel Barton Photography</title>
   <meta name="description" content="Book a family, maternity, newborn, or portrait session in Sarasota and Florida’s Gulf Coast." />
 
-  <!-- Fonts -->
+  <!-- Fonts (match about.html: add Raleway for desktop nav) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
@@ -20,12 +20,26 @@
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:960px;
 
-      /* Keep consistent with other pages */
-      --nav-gap-top:16px;
-      --nav-gap-bottom:40px;
+      /* Match about.html header spacing on desktop */
+      --nav-gap-top:20px;
+      --nav-gap-bottom:44px;
 
       /* Sticky header height for phones (used to clear overlap) */
       --mobile-header-h:64px;
+    }
+
+    /* ✅ Desktop nav font EXACT match to about.html */
+    @media (min-width:821px){
+      .topbar nav.primary > ul > li > a{
+        font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+        font-weight:500 !important;          /* same light/medium weight */
+        letter-spacing:.02em;                 /* subtle tracking */
+        text-transform:none;
+      }
+      .topbar nav.primary > ul > li > a:hover,
+      .topbar nav.primary > ul > li > a:focus-visible{
+        font-weight:500 !important;           /* don’t thicken on hover */
+      }
     }
 
     /* Normalize topbar spacing only (styles live in layout.css) */
