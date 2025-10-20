@@ -14,20 +14,18 @@
   <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
-  <!-- Normalize the top nav to match the thin style used elsewhere -->
+  <!-- Normalize the top nav to the thin style used elsewhere (but not the Galleries dropdown) -->
   <style>
-    /* Force nav links (desktop + mobile dropdown) to use the same type scale/weight */
     .topbar nav a,
-    .topbar .site-nav a,
-    .site-nav a,
+    .topbar .site-nav > ul > li > a,    /* top-level items only */
+    .site-nav > ul > li > a,
     .topbar a[role="menuitem"]{
       font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
-      font-weight:400 !important;          /* remove the heavier look */
+      font-weight:400 !important;
       letter-spacing:0 !important;
       text-rendering:optimizeLegibility;
       -webkit-font-smoothing:antialiased;
     }
-    /* keep hover state consistent without bumping the weight */
     .site-nav a:hover,
     .site-nav a:focus-visible{
       color:var(--accent);
@@ -35,10 +33,10 @@
     }
   </style>
 
-  <!-- Galleries dropdown: match legacy serif/centered style on desktop only -->
+  <!-- Galleries dropdown: exact serif/centered style (desktop only) -->
   <style>
     @media (min-width: 900px){
-      /* Base dropdown panel; keep existing positioning/visibility from layout.css */
+      /* Panel shell (uses layout.css for positioning/show/hide) */
       .site-nav .submenu, .site-nav .dropdown, .topbar .submenu, .topbar .dropdown{
         background: transparent;
         border: 0;
@@ -46,28 +44,31 @@
         padding: 6px 0 10px;
         min-width: 170px;
       }
-      /* Accent title at top of the dropdown */
+
+      /* Accent title */
       .site-nav .dropdown-title{
         font-family: "Cormorant Garamond","Playfair Display",Georgia,serif;
         font-weight: 700;
-        font-size: clamp(20px, 2vw, 28px);
+        font-size: 26px;               /* matches screenshot scale */
         line-height: 1.1;
         color: var(--accent, #A88A5A);
         text-align: center;
-        margin: 0 10px 4px;
+        margin: 0 10px 6px;
         pointer-events: none;
       }
-      /* Centered serif links */
+
+      /* Centered serif items — ensure our “thin nav” override doesn’t bleed in */
       .site-nav .is-galleries-dropdown a{
         display: block;
         font-family: "Cormorant Garamond","Playfair Display",Georgia,serif !important;
-        font-weight: 600 !important;
-        font-size: clamp(16px, 1.6vw, 20px);
+        font-weight: 500 !important;   /* regular serif look (not bold) */
+        font-size: 18px;               /* screenshot size */
         line-height: 1.35;
+        letter-spacing: 0;
+        text-transform: none;
         text-align: center;
         color: #3e3e3a;
-        padding: 4px 12px;
-        letter-spacing: 0;
+        padding: 6px 12px;
       }
       .site-nav .is-galleries-dropdown a:hover,
       .site-nav .is-galleries-dropdown a:focus-visible{
@@ -81,10 +82,10 @@
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#6e6a62;
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-      --mobile-header-h: 64px; /* sticky header height for phones */
+      --mobile-header-h: 64px;
     }
 
-    .topbar{ /* keep shared nav spacing consistent site-wide */
+    .topbar{
       padding-top:16px !important;
       padding-bottom:40px !important;
     }
@@ -154,15 +155,10 @@
 
     /* ---------- MOBILE POLISH ---------- */
     @media (max-width:900px){
-      /* Clear sticky header so content never sits underneath */
       main section{
         padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px);
       }
-
-      /* Hide the big photo column on phones */
       .photos{ display:none; }
-
-      /* Show a tiny, elegant collage INSIDE the form */
       .mini-gallery{
         display:grid;
         grid-template-columns:repeat(3, 1fr);
@@ -171,7 +167,7 @@
       }
       .mini-gallery img{
         width:100%;
-        height:100px;           /* small, unobtrusive */
+        height:100px;
         object-fit:cover;
         aspect-ratio:4/5;
         border:1px solid var(--line);
@@ -261,6 +257,8 @@
         if(!galLink) return;
         const submenu = galLink.parentElement?.querySelector('.submenu, .dropdown, ul');
         if(!submenu) return;
+
+        /* mark this as the styled dropdown and inject the title once */
         submenu.classList.add('is-galleries-dropdown');
         if(!submenu.querySelector('.dropdown-title')){
           const title = document.createElement('div');
@@ -269,7 +267,6 @@
           submenu.insertBefore(title, submenu.firstChild);
         }
       }
-      // Run after DOM and after include.js finishes hydrating the partial
       if (document.readyState === 'loading'){
         document.addEventListener('DOMContentLoaded', () => setTimeout(wire, 0));
       } else {
