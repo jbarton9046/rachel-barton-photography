@@ -114,8 +114,15 @@
     .times-table th{background:#f7f5f1;font-weight:700}
     .k{white-space:nowrap}
 
-    /* CTA right under the table, inside the same card */
-    .inline-cta{ display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; }
+    /* CTA row: clearly separated, still right under the table */
+    .inline-cta{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top:16px; padding-top:12px;
+      border-top:1px solid var(--line);
+    }
+    @media (min-width:720px){
+      .inline-cta{ justify-content:flex-start; }
+    }
   </style>
 </head>
 <body>
@@ -167,7 +174,7 @@
               <button data-area="Longboat Key">Longboat Key</button>
               <button data-area="Naples">Naples</button>
               <button data-area="Venice">Venice</button>
-              <button data-area="Punta Grande">Punta Grande</button>
+              <button data-area="Punta Gorda">Punta Gorda</button>
               <button data-area="Bradenton Beach">Bradenton Beach</button>
               <button data-area="Lido Key">Lido Key</button>
               <button data-area="Nokomis">Nokomis</button>
@@ -204,8 +211,8 @@
             <tbody></tbody>
           </table>
 
-          <!-- ✅ Buttons directly under the table, not inside it -->
-          <div class="inline-cta">
+          <!-- Buttons directly under the table, with a clean divider -->
+          <div class="inline-cta" role="group" aria-label="Page actions">
             <a class="btn" href="/book.html">Check availability</a>
             <a class="btn" href="/galleries.html">See galleries</a>
             <a class="btn" href="/contact.html">Ask a Question</a>
@@ -261,7 +268,7 @@
         blueAM:{start: blue.a.rise, end: blue.b.rise},
         bluePM:{start: blue.b.set,  end: blue.a.set},
         goldAM:{start: gold.a.rise, end: gold.b.rise},
-        goldPM:{start: gold.b.set,  end: gold.a.set}
+        goldPM:{start: gold.b.set,  end: gold.b.set} // end stays same pattern
       };
     }
     function minsToClock(mins){
@@ -398,12 +405,13 @@
       resultTitle.textContent = `${date.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'})} — ${label}`;
       const t = packTimes(date, lat, lon);
       tbody.innerHTML = '';
+      /* Sunrise at the top */
+      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunrise', minsToClock(t.sunriseMin), '—'));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (AM)', minsToClock(t.blueAM.start), minsToClock(t.blueAM.end)));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (AM)', minsToClock(t.goldAM.start), minsToClock(t.goldAM.end)));
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunrise', minsToClock(t.sunriseMin), '—'));
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunset',  minsToClock(t.sunsetMin),  '—'));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (PM)', minsToClock(t.goldPM.start), minsToClock(t.goldPM.end)));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (PM)',   minsToClock(t.bluePM.start), minsToClock(t.bluePM.end)));
+      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunset',  minsToClock(t.sunsetMin),  '—'));
     }
 
     /* ---------- Init ---------- */
