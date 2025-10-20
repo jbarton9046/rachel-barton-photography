@@ -167,16 +167,36 @@
 })();
 
 /* ===== Mark the current page in the nav (desktop + mobile) ===== */
-(function(){
-  // Normalize both current path and hrefs: strip /index.html and trailing slash
-  const normalize = p => p.replace(/index\.html?$/,'').replace(/\/$/,'');
+(function markCurrentNav(){
+  // Normalize any href/path: remove /index.html, .html, trailing slash; collapse double slashes
+  const normalize = (href) => {
+    const url = new URL(href, location.origin);
+    let p = url.pathname
+      .replace(/\/+/g, "/")
+      .replace(/\/index\.html?$/i, "")
+      .replace(/\.html?$/i, "")
+      .replace(/\/$/, "");
+    return p === "" ? "/" : p;
+  };
+
   const here = normalize(location.pathname);
-  document.querySelectorAll('.topbar nav.primary a[href]').forEach(a=>{
-    let href = normalize(a.getAttribute('href') || '');
-    if (href === here){
-      a.setAttribute('aria-current','page');   // a11y + mobile drawer styles
-      a.classList.add('is-current');           // CSS hook for desktop underline
-    }
-  });
+
+  const apply = () => {
+    document.querySelectorAll('.topbar nav.primary a[href]').forEach(a => {
+      const target = normalize(a.href);
+      if (target === here) {
+        a.setAttribute('aria-current','page');  // mobile drawer style hook
+        a.classList.add('is-current');          // desktop underline hook
+      } else {
+        a.removeAttribute('aria-current');
+        a.classList.remove('is-current');
+      }
+    });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply, { once:true });
+  }
+  apply();
 })();
 </script>
