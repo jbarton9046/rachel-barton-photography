@@ -97,6 +97,15 @@
       .card, .card .body{ height:100%; }
     }
 
+    /* ✅ Desktop: keep heading out of the headshot column */
+    @media (min-width: 900px){
+      /* Limit the page heading block to the left (2fr) column width,
+         so the subhead never runs behind the image that is pulled up */
+      .page-head{
+        max-width: min(70ch, 66.67%);
+      }
+    }
+
     /* Buttons */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
