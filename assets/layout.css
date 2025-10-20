@@ -253,15 +253,14 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     background:var(--drawer-hover); color:var(--ink); outline:none;
   }
 
-  /* optional active state (use aria-current="page" in HTML) */
+  /* CURRENT PAGE (mobile): gold text only — no bubble, no left bar */
   nav.primary a[aria-current="page"]{
-    background:var(--drawer-hover);
-    position:relative;
+    background:transparent !important;
+    color:var(--accent) !important;
+    position:static !important;
   }
   nav.primary a[aria-current="page"]::before{
-    content:"";
-    position:absolute; left:calc(var(--drawer-pad-x) - 2px); top:8px; bottom:8px; width:3px;
-    background:var(--accent); border-radius:2px;
+    content:none !important;
   }
 
   /* subtle separators between major items */
