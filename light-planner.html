@@ -48,7 +48,6 @@
     }
     @media (max-width:900px){
       .head-grid{ grid-template-columns:1fr; justify-items:center; }
-      .head-photo{ display:none; }
     }
 
     .page-head{ margin:10px 0 8px; }
@@ -125,14 +124,50 @@
     /* ---------------- Mobile polish ---------------- */
     @media (max-width:900px){
       /* Clear the sticky header so the top content isn't hidden */
-      main{ padding-top: calc(var(--mobile-header-h) + 12px); }
+      main{ padding-top: calc(var(--mobile-header-h) + 24px); }
 
       /* Center hero text + actions on phones */
       .page-head{ text-align:center; }
-      .page-head .cta{ justify-content:center; }
+      .page-head .cta{ width:100%; }
 
-      /* Slightly increase vertical rhythm for tap targets */
-      .page-head .btn{ min-width: 44px; }
+      /* Make three buttons fit in one row */
+      .page-head .cta{
+        display:grid !important;
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+        gap:10px;
+        justify-items:stretch;
+      }
+      .page-head .cta .btn{
+        padding:8px 10px;
+        font-size:clamp(14px,3.8vw,16px);
+      }
+
+      /* Show & center the two header photos (they were hidden) */
+      .head-photo{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+        width:100%;
+        max-width:640px;
+        margin-inline:auto;
+        justify-items:center;
+      }
+      .head-photo img{
+        height:34vw;           /* keeps aspect without huge height */
+        min-height:140px;
+      }
+
+      /* Center the single-column planner and constrain width */
+      .planner-grid{ justify-items:center; }
+      .planner-grid > .card{
+        width:min(640px, 100%);
+        margin-inline:auto;
+      }
+
+      /* Center the calendar block and the times table visually */
+      .calendar{ margin-inline:auto; }
+      .times-table{ margin-inline:auto; width:auto; max-width:100%; }
+      .inline-cta{ justify-content:center; }
     }
   </style>
 </head>
