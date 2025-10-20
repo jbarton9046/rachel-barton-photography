@@ -182,8 +182,12 @@
   const here = normalize(location.pathname);
 
   const apply = () => {
-    document.querySelectorAll('.topbar nav.primary a[href]').forEach(a => {
+    const links = document.querySelectorAll('.topbar nav.primary a[href]');
+    if (!links.length) return false;
+
+    links.forEach(a => {
       const target = normalize(a.href);
+      // exact match OR folder-page match (e.g., /galleries vs /galleries/portraits keeps only exact)
       if (target === here) {
         a.setAttribute('aria-current','page');  // mobile drawer style hook
         a.classList.add('is-current');          // desktop underline hook
@@ -192,11 +196,19 @@
         a.classList.remove('is-current');
       }
     });
+    return true;
   };
 
+  // Try immediately, then a few times in case the partial finished a tick later
+  let tries = 0;
+  const maxTries = 10;
+  const tick = () => {
+    if (apply() || ++tries >= maxTries) return;
+    setTimeout(tick, 50);
+  };
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", apply, { once:true });
+    document.addEventListener("DOMContentLoaded", tick, { once:true });
   }
-  apply();
+  tick();
 })();
 </script>
