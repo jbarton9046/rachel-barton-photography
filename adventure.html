@@ -42,6 +42,7 @@
       /* Arrow tokens (diamonds under arrows) */
       --arrow-size:56px;
       --arrow-inset:14px;
+      --col-gap: clamp(16px, 3vw, 28px);
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer,.page-top-spacer{ height:0!important; }
@@ -54,16 +55,13 @@
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
     /* HERO — wide, airy */
-    .hero{
-      padding:clamp(16px,4vw,36px) 0 0;
-    }
+    .hero{ padding:clamp(16px,4vw,36px) 0 0; }
     .hero-figure{
       position:relative; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.07);
       margin:0; overflow:hidden;
     }
     .hero-figure img{
-      width:100%; height:min(68vh, 760px); object-fit:cover; object-position:center;
-      display:block;
+      width:100%; height:min(68vh, 760px); object-fit:cover; object-position:center; display:block;
     }
     .hero-badge{
       position:absolute; left:14px; top:14px; background:#fff; border:1px solid var(--line);
@@ -88,23 +86,32 @@
       transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
     .btn:hover, .btn:focus-visible{
-      background:#fff;
-      border-color:#dcd4c3; color:var(--accent);
-      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
-      outline:none;
+      background:#fff; border-color:#dcd4c3; color:var(--accent);
+      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none;
     }
     .btn.alt{ background:#fff; border-color:var(--line); }
 
-    /* STORY */
-    .story{ padding:clamp(16px,5vw,44px) 0 }
-    .story .cards{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(14px,3vw,22px) }
-    .story .card{ background:#fff; border:1px solid var(--line); padding:20px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
-    .story h2{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 8px; font-size:clamp(22px,3.4vw,30px) }
-    @media (max-width:900px){ .story .cards{ grid-template-columns:1fr } }
+    /* SPLIT LAYOUT: Carousel + Notes column */
+    .media-notes{ padding:clamp(16px,5vw,44px) 0 0; }
+    .media-notes .grid{
+      display:grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
+      gap: var(--col-gap);
+      align-items:start;
+    }
+    @media (max-width:980px){
+      .media-notes .grid{ grid-template-columns:1fr; }
+    }
 
     /* CAROUSEL (diamonds under arrows; no dots) */
-    .carousel{ position:relative; margin:6px 0; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.07) }
-    .carousel img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block; object-position:center; }
+    .carousel{ position:relative; margin:0; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.07); overflow:hidden }
+    .carousel img{
+      width:100%;
+      aspect-ratio: 5 / 3;          /* a touch slimmer to balance the notes column */
+      object-fit:cover;
+      object-position:center;
+      display:block;
+    }
     @media (max-width:900px){ .carousel img{ aspect-ratio:4/3 } }
 
     /* Hide dot indicators entirely */
@@ -127,16 +134,19 @@
       border-radius:2px;
     }
     .nav svg{ width:22px; height:22px; position:relative; z-index:1; }
-
     .prev{ left:var(--arrow-inset) } .next{ right:var(--arrow-inset) }
 
-    /* FIELD NOTES */
-    .notes{ padding:clamp(18px,5vw,48px) 0 }
-    .notes .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
-    .note{ background:#fff; border:1px solid var(--line); padding:18px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
-    .note h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:20px }
-    .note p{ margin:0 }
-    @media (max-width:900px){ .notes .grid{ grid-template-columns:1fr } }
+    /* NOTES COLUMN */
+    aside.notes-col .eyebrow{ margin-bottom:8px }
+    .notes-stack{ display:flex; flex-direction:column; gap:clamp(10px,1.8vw,14px) }
+    .note{
+      background:#fff; border:1px solid var(--line); padding:16px 16px 14px;
+      box-shadow:0 6px 18px rgba(0,0,0,.06)
+    }
+    .note h3{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:clamp(18px,2.2vw,20px)
+    }
+    .note p{ margin:0; color:#4e4b45 }
 
     /* CTA */
     .cta{ background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; margin:32px 0 18px }
@@ -185,51 +195,54 @@
       </div>
     </section>
 
-    <!-- CAROUSEL -->
-    <section>
+    <!-- SPLIT: CAROUSEL + NOTES -->
+    <section class="media-notes">
       <div class="container">
-        <figure class="carousel" id="adv-carousel"
-          data-images='[
-            "/pictures/andrewsBaldPics/E26A1013.jpg",
-            "/pictures/andrewsBaldPics/E26A1022.jpg",
-            "/pictures/andrewsBaldPics/E26A1033.jpg",
-            "/pictures/andrewsBaldPics/E26A1045.jpg",
-            "/pictures/andrewsBaldPics/E26A1062.jpg",
-            "/pictures/andrewsBaldPics/E26A1063-2.jpg",
-            "/pictures/andrewsBaldPics/E26A1087.jpg",
-            "/pictures/andrewsBaldPics/E26A1094.jpg",
-            "/pictures/andrewsBaldPics/E26A1095.jpg",
-            "/pictures/andrewsBaldPics/E26A1098.jpg"
-          ]'>
-          <img id="adv-frame" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Adventure gallery slide" />
-          <!-- dots removed -->
-          <button class="nav prev" type="button" aria-label="Previous slide">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-          </button>
-          <button class="nav next" type="button" aria-label="Next slide">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-        </figure>
-      </div>
-    </section>
-
-    <!-- FIELD NOTES -->
-    <section class="notes">
-      <div class="container">
-        <div class="eyebrow">Field notes</div>
         <div class="grid">
-          <div class="note">
-            <h3>Best light</h3>
-            <p>Sunrise or late golden hour keeps the mountains soft and the meadow glowing. Morning usually brings calmer trails and fresher air.</p>
+          <!-- Left: Carousel -->
+          <div>
+            <figure class="carousel" id="adv-carousel"
+              data-images='[
+                "/pictures/andrewsBaldPics/E26A1013.jpg",
+                "/pictures/andrewsBaldPics/E26A1022.jpg",
+                "/pictures/andrewsBaldPics/E26A1033.jpg",
+                "/pictures/andrewsBaldPics/E26A1045.jpg",
+                "/pictures/andrewsBaldPics/E26A1062.jpg",
+                "/pictures/andrewsBaldPics/E26A1063-2.jpg",
+                "/pictures/andrewsBaldPics/E26A1087.jpg",
+                "/pictures/andrewsBaldPics/E26A1094.jpg",
+                "/pictures/andrewsBaldPics/E26A1095.jpg",
+                "/pictures/andrewsBaldPics/E26A1098.jpg"
+              ]'>
+              <img id="adv-frame" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Adventure gallery slide" />
+              <!-- dots intentionally hidden -->
+              <button class="nav prev" type="button" aria-label="Previous slide">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+              </button>
+              <button class="nav next" type="button" aria-label="Next slide">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </figure>
           </div>
-          <div class="note">
-            <h3>Move-friendly wardrobe</h3>
-            <p>Layers and textures photograph beautifully in the wind. Comfortable shoes and hands-free bags keep us nimble on the trail.</p>
-          </div>
-          <div class="note">
-            <h3>Weather = mood</h3>
-            <p>Fog, sun, clouds—every scenario tells a different story here. We’ll watch the forecast and adjust as needed for the best experience.</p>
-          </div>
+
+          <!-- Right: Notes -->
+          <aside class="notes-col">
+            <div class="eyebrow">Field notes</div>
+            <div class="notes-stack">
+              <div class="note">
+                <h3>Best light</h3>
+                <p>Sunrise or late golden hour keeps the mountains soft and the meadow glowing. Morning usually brings calmer trails and fresher air.</p>
+              </div>
+              <div class="note">
+                <h3>Move-friendly wardrobe</h3>
+                <p>Layers and textures photograph beautifully in the wind. Comfortable shoes and hands-free bags keep us nimble on the trail.</p>
+              </div>
+              <div class="note">
+                <h3>Weather = mood</h3>
+                <p>Fog, sun, clouds—every scenario tells a different story here. We’ll watch the forecast and adjust as needed for the best experience.</p>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
