@@ -42,7 +42,7 @@
       /* Arrow tokens (diamonds under arrows) */
       --arrow-size:56px;
       --arrow-inset:14px;
-      --col-gap: clamp(20px, 4vw, 40px); /* a touch more separation is fine */
+      --col-gap: clamp(20px, 4vw, 40px); /* breathing room */
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer,.page-top-spacer{ height:0!important; }
@@ -95,33 +95,26 @@
     .media-notes{ padding:clamp(16px,5vw,44px) 0 0; }
     .media-notes .grid{
       display:grid;
-      grid-template-columns: auto minmax(300px, 360px); /* fixed-ish notes width */
+      grid-template-columns: auto minmax(300px, 360px);
       gap: var(--col-gap);
       align-items:start;
-      justify-content:center; /* center the pair as a unit */
+      justify-content:center;
     }
     @media (max-width:980px){
       .media-notes .grid{ grid-template-columns:1fr; justify-content:initial; }
     }
 
-    /* CAROUSEL (diamonds under arrows; no dots)
-       Height/width are set by JS to match the notes column while keeping 5:4 */
+    /* CAROUSEL (diamonds under arrows; no dots). Height/width sized via JS to match notes height while keeping 5:4 */
     .carousel{
       position:relative;
       margin:0;
       border:1px solid var(--line);
       box-shadow:0 8px 24px rgba(0,0,0,.07);
       overflow:hidden;
-      width:auto;       /* JS will size */
-      height:auto;      /* JS will size */
-      max-width:100%;   /* never overflow container */
+      width:auto; height:auto; max-width:100%;
     }
-    .carousel img{
-      width:100%; height:100%;
-      object-fit:cover; object-position:center; display:block;
-    }
+    .carousel img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
 
-    /* Hide dot indicators entirely */
     .dots{ display:none !important; }
 
     .nav{
@@ -130,7 +123,6 @@
       opacity:.95; transition:opacity .15s ease, transform .15s ease;
     }
     .nav:hover{ opacity:1; transform:translateY(-50%) scale(1.02) }
-    /* diamond plate under arrows (restored) */
     .nav::before{
       content:""; position:absolute; inset:0; margin:8px; transform:rotate(45deg);
       background:rgba(255,255,255,.28);
@@ -154,6 +146,19 @@
       font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:clamp(18px,2.2vw,20px)
     }
     .note p{ margin:0; color:#4e4b45 }
+
+    /* Accent link style (matches active/hovered nav gold) */
+    .accent-link{
+      color:var(--accent);
+      font-weight:600;
+      text-underline-offset:3px;
+    }
+    .accent-link:hover,
+    .accent-link:focus-visible{
+      color:var(--accent);
+      text-decoration:underline;
+      outline:none;
+    }
 
     /* CTA */
     .cta{ background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; margin:32px 0 18px }
@@ -238,7 +243,11 @@
             <div class="notes-stack">
               <div class="note">
                 <h3>Best light</h3>
-                <p>Sunrise or late golden hour keeps the mountains soft and the meadow glowing. Morning usually brings calmer trails and fresher air.</p>
+                <p>
+                  Sunrise or late
+                  <a class="accent-link" href="/light-planner.html">golden hour</a>
+                  keeps the mountains soft and the meadow glowing. Morning usually brings calmer trails and fresher air.
+                </p>
               </div>
               <div class="note">
                 <h3>Move-friendly wardrobe</h3>
@@ -285,7 +294,7 @@
       const prev  = figure.querySelector('.prev');
       const next  = figure.querySelector('.next');
 
-      // === Subject-centric focal positions ===
+      // Subject-centric focal positions
       const FOCALS = {
         "E26A1013.jpg":  "50% 42%",
         "E26A1022.jpg":  "48% 40%",
@@ -308,20 +317,6 @@
         return FOCALS[base] || "50% 50%";
       }
 
-      function paint(){
-        const src = images[i];
-        frame.src = src;
-        frame.style.objectPosition = focalFor(src);
-        sizeCarousel(); // ensure sizing after an image swap too
-      }
-      function show(n){
-        i = (n + images.length) % images.length;
-        paint();
-      }
-      prev.addEventListener('click', () => show(i - 1));
-      next.addEventListener('click', () => show(i + 1));
-
-      // === Size carousel to match notes height while keeping 5:4 ratio ===
       function sizeCarousel(){
         const grid  = document.querySelector('.media-notes .grid');
         const aside = document.querySelector('aside.notes-col');
@@ -330,7 +325,6 @@
         const notesH = aside.offsetHeight;
         if(!notesH) return;
 
-        // Available width for the carousel (container - notes - gap)
         const styles = getComputedStyle(grid);
         const gap = parseFloat(styles.columnGap || styles.gap || 0);
         const gridW = grid.clientWidth;
@@ -339,10 +333,7 @@
         let availW = gridW - notesW - gap;
         if (availW <= 0) availW = gridW;
 
-        // Desired width from a 5:4 box with height matching the notes
         const desiredW = notesH * (5/4);
-
-        // Keep within available space; if this clamps width, height will be <= notes height
         const width = Math.min(desiredW, availW);
         const height = width * (4/5);
 
@@ -350,7 +341,19 @@
         figure.style.height = height + 'px';
       }
 
-      // Init + listeners
+      function paint(){
+        const src = images[i];
+        frame.src = src;
+        frame.style.objectPosition = focalFor(src);
+        sizeCarousel();
+      }
+      function show(n){
+        i = (n + images.length) % images.length;
+        paint();
+      }
+      prev.addEventListener('click', () => show(i - 1));
+      next.addEventListener('click', () => show(i + 1));
+
       const ready = () => { paint(); sizeCarousel(); };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(ready);
@@ -358,7 +361,6 @@
         window.addEventListener('load', ready, { once:true });
       }
       window.addEventListener('resize', sizeCarousel);
-      // Also re-size after the navbar include is injected (layout shift)
       document.addEventListener('DOMContentLoaded', () => setTimeout(sizeCarousel, 0));
     })();
   </script>
