@@ -39,6 +39,18 @@
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
     main section{padding:clamp(10px,2vw,18px) 0}
 
+    /* Heading + hero image side-by-side (like About layout) */
+    .head-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:clamp(12px,2vw,20px);
+      align-items:start;
+    }
+    @media (max-width:900px){
+      .head-grid{ grid-template-columns:1fr; }
+      .head-photo{ display:none; } /* hide the decorative image on small screens */
+    }
+
     /* Page head aligned exactly like About */
     .page-head{ margin:10px 0 8px }
     h1,h2{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif}
@@ -46,6 +58,7 @@
     .section-sub{ color:#5c5850; margin:8px 0 14px; font-size:clamp(16px,2.6vw,19px) }
     @media(min-width:900px){ .page-head{ max-width:min(70ch,66.67%) } }
 
+    /* Site-standard buttons */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
@@ -54,6 +67,17 @@
       transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
     .btn:hover,.btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px) }
+
+    /* Image styling = same treatment as other site images */
+    .head-photo img{
+      max-width:100%; height:auto; display:block;
+      border:1px solid var(--frame);
+      box-shadow:var(--shadow);
+      background:#fff;
+    }
+    @media (min-width:900px){
+      .head-photo{ margin-top:-6px; } /* small lift, like About */
+    }
 
     .card{background:#fff; border:1px solid var(--line); box-shadow:var(--shadow)}
     .pad{padding:16px}
@@ -69,20 +93,20 @@
 
     .util{display:flex;gap:8px;flex-wrap:wrap}
 
-    /* ---------- Quick areas: 2 tidy rows on desktop, wrap on mobile ---------- */
+    /* Quick areas: force two neat rows on desktop; wrap on mobile */
     .quick-areas{display:flex;flex-wrap:wrap;gap:6px}
     .quick-areas button{padding:.35rem .7rem; white-space:nowrap}
     @media (min-width: 980px){
       .quick-areas{
         display:grid;
-        grid-auto-flow:column;           /* fill columns left->right */
-        grid-template-rows:repeat(2,auto); /* exactly two rows */
+        grid-auto-flow:column;
+        grid-template-rows:repeat(2,auto);
         gap:6px 8px;
         align-items:start;
       }
     }
 
-    /* Calendar typography to match site (Source Sans, medium weight) */
+    /* Calendar typography to match site */
     .calendar{display:grid;gap:10px}
     .cal-header{display:flex;justify-content:space-between;align-items:center}
     .cal-header h3{font-size:1.02rem;margin:0;font-weight:700}
@@ -113,17 +137,26 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content" class="container">
-    <header class="page-head" aria-labelledby="golden-title">
-      <h1 id="golden-title">Golden Hour</h1>
-      <p class="section-sub">Pick a date and location to see sunrise, sunset, plus golden &amp; blue hour windows—perfect for planning sessions.</p>
-      <div class="cta" style="display:flex; gap:12px; flex-wrap:wrap">
-        <a class="btn" href="/book.html">Check availability</a>
-        <a class="btn" href="/galleries.html">See galleries</a>
-        <a class="btn" href="/contact.html">Contact</a>
-      </div>
-    </header>
+    <!-- Heading + hero image -->
+    <div class="head-grid">
+      <header class="page-head" aria-labelledby="golden-title">
+        <h1 id="golden-title">Golden Hour</h1>
+        <p class="section-sub">Pick a date and location to see sunrise, sunset, plus golden &amp; blue hour windows—perfect for planning sessions.</p>
+        <div class="cta" style="display:flex; gap:12px; flex-wrap:wrap">
+          <a class="btn" href="/book.html">Check availability</a>
+          <a class="btn" href="/galleries.html">See galleries</a>
+          <a class="btn" href="/contact.html">Contact</a>
+        </div>
+      </header>
 
-    <!-- Full-width explainer (legend removed, content expanded) -->
+      <figure class="head-photo" aria-hidden="true">
+        <img loading="lazy"
+             src="/pictures/goldenHourPics/beautiful-sunset.jpg"
+             alt="Warm golden-hour sky over the gulf." />
+      </figure>
+    </div>
+
+    <!-- Full-width explainer -->
     <section class="explainer" aria-labelledby="what-title">
       <article class="card pad">
         <h2 id="what-title">What are “golden” and “blue” hours?</h2>
@@ -145,19 +178,21 @@
               <button id="btnGeo">Use my location</button>
             </div>
 
-            <!-- Balanced, professional two-row layout (desktop), mobile wraps naturally -->
+            <!-- Balanced two-row list with St. Pete Beach added -->
             <div class="quick-areas" aria-label="Quick locations">
-              <!-- Row balance by order; top row slightly longer by design -->
+              <!-- Row 1 -->
               <button data-area="Siesta Key">Siesta Key</button>
               <button data-area="Longboat Key">Longboat Key</button>
               <button data-area="Naples">Naples</button>
               <button data-area="Venice">Venice</button>
               <button data-area="Punta Grande">Punta Grande</button>
 
+              <!-- Row 2 -->
               <button data-area="Bradenton Beach">Bradenton Beach</button>
               <button data-area="Lido Key">Lido Key</button>
               <button data-area="Nokomis">Nokomis</button>
               <button data-area="Clearwater Beach">Clearwater Beach</button>
+              <button data-area="St. Pete Beach">St. Pete Beach</button>
             </div>
 
             <p class="small" id="locNote">Type a neighborhood or beach, then press <em>Search</em>. Or use your phone’s location.</p>
