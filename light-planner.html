@@ -6,89 +6,111 @@
   <title>Golden Hour | Rachel Barton Photography</title>
   <meta name="description" content="Plan by light: sunrise, sunset, golden hour, and blue hour for any date. Search by Sarasota neighborhoods (Siesta Key, Bee Ridge, Lido) or use your location." />
   <link rel="canonical" href="/light-planner.html" />
-  <!-- Use site fonts and base CSS already loaded globally via the shared navbar/footer includes -->
+
   <style>
     :root{
-      /* use the site's palette if already defined */
+      /* site palette */
       --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#7a766e; --accent:#A88A5A; --line:#e9e6df;
-      --shadow:0 6px 18px rgba(0,0,0,.06); --maxw:1100px; --gap:clamp(14px,2.6vw,28px);
-      /* square look (no rounded corners) */
-      --radius:0; --radius-lg:0;
+
+      /* layout + spacing (tightened to avoid big gaps) */
+      --maxw:1200px;
+      --gap:clamp(12px,2vw,20px);
+      --section-gap:clamp(16px,2.2vw,24px);
+
+      /* square look */
+      --radius:0;
+
+      /* navbar page-only spacing (matches your site-wide preference) */
+      --nav-gap-top: 16px;
+      --nav-gap-bottom: 40px;
+
+      /* mobile drawer width (for your mobile header) */
+      --drawer-w: clamp(220px, 55vw, 300px);
     }
+
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink)}
-    a{color:inherit}
-    .wrap{max-width:var(--maxw);margin:auto;padding:clamp(16px,3vw,32px)}
+    a{color:inherit;text-decoration:none}
 
-    .hero{display:grid;gap:var(--gap);grid-template-columns:1.05fr .95fr;align-items:start}
-    @media(max-width:980px){.hero{grid-template-columns:1fr}}
+    /* page wrap */
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:clamp(12px,2.5vw,28px)}
 
-    .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .pad{padding:clamp(16px,2.3vw,22px)}
+    /* square cards with light borders, no heavy drop shadows */
+    .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius)}
+    .pad{padding:clamp(14px,2vw,20px)}
 
-    .page-top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:.75rem}
-    .page-top h1{font-family:inherit;font-size:clamp(28px,3.2vw,42px);font-weight:700;margin:0}
-    .sub{color:var(--muted);font-size:.98rem;margin:.25rem 0 0 0}
+    /* page header + CTAs */
+    .page-top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin:0 0 10px 0}
+    .page-top h1{font: 700 clamp(28px,3.2vw,42px)/1.1 inherit;margin:0}
+    .sub{color:var(--muted);font-size:0.98rem;margin:6px 0 0 0}
 
-    .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin:.6rem 0 0 0}
-    .btn{appearance:none;display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--ink);background:transparent;padding:.55rem .9rem;text-decoration:none;font-weight:600;border-radius:0}
-    .btn:hover{filter:brightness(0.98)}
+    .cta-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0 0}
+    .btn{display:inline-flex;align-items:center;border:1px solid var(--line);padding:.55rem .9rem;font-weight:600;border-radius:0}
+    .btn:hover{filter:brightness(0.985)}
     .btn.gold{border-color:var(--accent);background:var(--accent);color:#fff}
-    .btn.ghost{border-color:var(--line);background:#fff}
+    .btn.ghost{border-color:var(--line);background:#fff;color:var(--ink)}
 
-    .explainer h2{margin:.2rem 0 .6rem 0;font-weight:700}
+    /* two-column hero */
+    .hero{display:grid;gap:var(--gap);grid-template-columns:1.05fr .95fr;align-items:start}
+    @media (max-width:980px){ .hero{grid-template-columns:1fr} }
+
+    /* explainer section */
+    .explainer h2{margin:2px 0 10px 0;font-weight:700}
     .explainer p{margin:.45rem 0 0 0;line-height:1.55}
-    .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:.6rem}
-    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:.28rem .55rem;border-radius:0;font-size:.9rem;background:#fff}
-    .dot{width:12px;height:12px;border-radius:0;background:var(--accent)}
+    .legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem}
+    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:.26rem .5rem;border-radius:0;font-size:.88rem;background:#fff}
+    .dot{width:12px;height:12px;background:var(--accent)}
     .dot.blue{background:#4F6EB5}
     .dot.sun{background:#E59D27}
 
-    .controls{display:grid;grid-template-columns:1fr;gap:var(--gap)}
-
-    .group{display:grid;gap:10px}
+    /* controls */
+    .controls{display:grid;grid-template-columns:1fr;gap:var(--section-gap)}
+    .group{display:grid;gap:8px}
     label{font-weight:700;font-size:.92rem}
-    input[type="text"], select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:0;background:#fff}
+
+    input[type="text"]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:0;background:#fff}
     button{appearance:none;border:1px solid var(--line);background:#fff;border-radius:0;padding:10px 14px;cursor:pointer;font-weight:600}
     button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
     button.ghost{background:#fff}
     button:disabled{opacity:.5;cursor:not-allowed}
 
-    .quick-areas{display:flex;flex-wrap:wrap;gap:8px}
-    .quick-areas button{border-radius:0;padding:.35rem .7rem}
+    .util{display:flex;gap:8px;flex-wrap:wrap}
+    .quick-areas{display:flex;flex-wrap:wrap;gap:6px}
+    .quick-areas button{padding:.35rem .7rem}
 
-    /* Calendar */
+    /* calendar — square, compact, no clipping */
     .calendar{display:grid;gap:10px}
     .cal-header{display:flex;justify-content:space-between;align-items:center}
-    .cal-header h3{font-size:1.05rem;margin:0}
-    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-    .dow{font-size:.8rem;color:var(--muted);text-align:center}
-    .day{display:grid;place-items:center;height:44px;border:1px solid var(--line);border-radius:0;background:#fff;font-weight:700;cursor:pointer;line-height:1}
+    .cal-header h3{font-size:1.02rem;margin:0}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+    .dow{font-size:.78rem;color:var(--muted);text-align:center;padding:4px 0}
+    .day{display:grid;place-items:center;height:40px;border:1px solid var(--line);background:#fff;font-weight:700;cursor:pointer;line-height:1}
     .day.muted{color:#b5b1a6}
     .day.today{outline:2px solid var(--accent);outline-offset:-2px}
     .day.selected{background:rgba(168,138,90,.12);border-color:var(--accent)}
-    @media(max-width:620px){ .day{height:40px;font-weight:600} }
+    @media (max-width:620px){ .day{height:36px;font-weight:600} }
 
-    .times{display:grid;gap:12px}
-    .row{display:grid;grid-template-columns:160px 1fr;gap:12px;align-items:center}
-    @media(max-width:620px){.row{grid-template-columns:1fr}}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:.45rem .6rem;border:1px solid var(--line);border-radius:0;background:#fff}
+    /* timeline bars */
+    .times{display:grid;gap:10px}
+    .row{display:grid;grid-template-columns:160px 1fr;gap:10px;align-items:center}
+    @media (max-width:620px){ .row{grid-template-columns:1fr} }
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:.4rem .55rem;border:1px solid var(--line);background:#fff}
 
-    .bar{height:12px;border-radius:0;background:linear-gradient(90deg,#e7e5df,#f3f1ec);position:relative;overflow:hidden;border:1px solid var(--line)}
-    .seg{position:absolute;top:0;bottom:0;border-radius:0}
+    .bar{height:12px;background:linear-gradient(90deg,#e7e5df,#f3f1ec);position:relative;overflow:hidden;border:1px solid var(--line)}
+    .seg{position:absolute;top:0;bottom:0}
     .seg.sun{background:linear-gradient(90deg,#FFE8C2,#FFD49A)}
     .seg.gold{background:linear-gradient(90deg,#FFDC9B,#F3B766)}
     .seg.blue{background:linear-gradient(90deg,#DCE6FF,#BFD0FF)}
 
     .footnote{font-size:.88rem;color:var(--muted)}
-    .util{display:flex;gap:8px;flex-wrap:wrap}
     .small{font-size:.9rem;color:var(--muted)}
 
-    @media(max-width:980px){ .hero aside.card{order:-1} }
+    /* compact section spacing */
+    .section{margin-top:var(--section-gap)}
   </style>
 </head>
 <body>
-  <!-- Shared navbar include (exact same component as other pages) -->
+  <!-- exact same navbar via include -->
   <header data-include="/partials/topnav.html"></header>
 
   <main id="content">
@@ -104,7 +126,7 @@
         </div>
       </div>
 
-      <section class="hero">
+      <section class="hero section">
         <article class="card pad explainer">
           <h2>What are “golden” and “blue” hours?</h2>
           <p><strong>Golden hour</strong> is when the sun is low and light is soft and warm. On most days it’s roughly the <em>first hour after sunrise</em> and the <em>last hour before sunset</em>.</p>
@@ -135,6 +157,7 @@
               </div>
               <p class="small" id="locNote">Tip: type a neighborhood or beach, then press <em>Search</em>. You can also use your phone’s location.</p>
             </div>
+
             <div class="group">
               <label>Date</label>
               <div class="calendar">
@@ -154,167 +177,138 @@
         </aside>
       </section>
 
-      <section class="card pad" style="margin-top:var(--gap)">
-        <h2 id="resultTitle" style="margin-bottom:.5rem">—</h2>
+      <section class="card pad section">
+        <h2 id="resultTitle" style="margin:0 0 6px 0">—</h2>
         <div class="times" id="times"></div>
-        <p class="footnote" style="margin-top:.6rem">Bars show the day from 00:00–24:00. Colored segments mark blue hour, golden hour, and the exact points of sunrise/sunset.</p>
+        <p class="footnote" style="margin:8px 0 0 0">Bars show the day from 00:00–24:00. Colored segments mark blue hour, golden hour, and the exact points of sunrise/sunset.</p>
       </section>
     </div>
   </main>
 
-  <!-- Shared footer include -->
+  <!-- exact same footer via include -->
   <div data-include="/partials/footer.html"></div>
 
   <script>
-    // ---- Solar calculations (NOAA-based) ----
-    const RAD = Math.PI/180, DEG = 180/Math.PI;
-    function dayOfYear(d){
-      const start = new Date(d.getFullYear(),0,0); const diff = d - start + ((start.getTimezoneOffset()-d.getTimezoneOffset())*60000); return Math.floor(diff/86400000);
-    }
-    function eqTimeAndDecl(date){
-      const n = dayOfYear(date);
-      const gamma = 2*Math.PI/365 * (n - 1 + (12 - 12)/24);
-      const eqTime = 229.18*(0.000075 + 0.001868*Math.cos(gamma) - 0.032077*Math.sin(gamma) - 0.014615*Math.cos(2*gamma) - 0.040849*Math.sin(2*gamma));
-      const decl = 0.006918 - 0.399912*Math.cos(gamma) + 0.070257*Math.sin(gamma) - 0.006758*Math.cos(2*gamma) + 0.000907*Math.sin(2*gamma) - 0.002697*Math.cos(3*gamma) + 0.00148*Math.sin(3*gamma);
-      return {eqTime, decl};
-    }
-    function solarNoonLocalMinutes(date, lon){
-      const tz = -date.getTimezoneOffset()/60; 
-      const {eqTime} = eqTimeAndDecl(date);
-      return 720 - 4*lon - eqTime + tz*60; 
-    }
-    function hourAngleForElevation(lat, decl, elevDeg){
-      const h = elevDeg*RAD; const phi = lat*RAD;
-      const cosH = (Math.sin(h) - Math.sin(phi)*Math.sin(decl)) / (Math.cos(phi)*Math.cos(decl));
-      if (cosH < -1 || cosH > 1) return null; 
-      return Math.acos(cosH)*DEG; 
-    }
-    function eventTime(date, lat, lon, elev){
-      const {decl} = eqTimeAndDecl(date);
-      const H = hourAngleForElevation(lat, decl, elev);
-      if (H === null) return {rise:null, set:null};
-      const noon = solarNoonLocalMinutes(date, lon);
-      return {rise: noon - H*4, set: noon + H*4};
-    }
-    function packTimes(date, lat, lon){
-      const sun = eventTime(date, lat, lon, -0.833);
-      const blue = { a: eventTime(date, lat, lon, -6), b: eventTime(date, lat, lon, -4) };
-      const gold = { a: eventTime(date, lat, lon, -4), b: eventTime(date, lat, lon, 6) };
-      return {sunriseMin:sun.rise, sunsetMin:sun.set,
-              blueAM:{start: blue.a.rise, end: blue.b.rise},
-              bluePM:{start: blue.b.set,  end: blue.a.set},
-              goldAM:{start: gold.a.rise, end: gold.b.rise},
-              goldPM:{start: gold.b.set,  end: gold.a.set}};
-    }
+    // Lightweight include loader (only runs if your global one isn't present)
+    (function(){
+      if (window.__includeLoader) return;
+      window.__includeLoader = true;
+      document.querySelectorAll('[data-include]').forEach(async el=>{
+        const url = el.getAttribute('data-include');
+        try{
+          const r = await fetch(url, {credentials:'same-origin'});
+          if(r.ok){ el.outerHTML = await r.text(); }
+        }catch(e){}
+      });
+    })();
+  </script>
 
-    function minsToClock(mins){
-      if(mins==null) return '—';
-      const m = Math.round(mins); let h = Math.floor(m/60); const mm = (m%60+60)%60;
-      const suffix = (h>=12)?'PM':'AM'; h = (h%12)||12; return `${h}:${mm.toString().padStart(2,'0')} ${suffix}`;
-    }
-    function spanPct(start, end){
-      const clamp = v=>Math.max(0,Math.min(1440,v));
-      if(start==null||end==null) return {left:0,width:0};
-      const s = clamp(start)/14.4; const e = clamp(end)/14.4; return {left:s, width: Math.max(0,e-s)};
-    }
+  <script>
+    /* ===== NOAA-style solar calcs ===== */
+    const RAD=Math.PI/180, DEG=180/Math.PI;
+    function dayOfYear(d){const s=new Date(d.getFullYear(),0,0);const diff=d-s+((s.getTimezoneOffset()-d.getTimezoneOffset())*60000);return Math.floor(diff/86400000)}
+    function eqTimeAndDecl(date){const n=dayOfYear(date);const g=2*Math.PI/365*(n-1+(12-12)/24);const eqTime=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g));const decl=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g);return {eqTime,decl}}
+    function solarNoonLocalMinutes(date,lon){const tz=-date.getTimezoneOffset()/60;const {eqTime}=eqTimeAndDecl(date);return 720-4*lon-eqTime+tz*60}
+    function hourAngleForElevation(lat,decl,elevDeg){const h=elevDeg*RAD;const phi=lat*RAD;const cosH=(Math.sin(h)-Math.sin(phi)*Math.sin(decl))/(Math.cos(phi)*Math.cos(decl));if(cosH<-1||cosH>1)return null;return Math.acos(cosH)*DEG}
+    function eventTime(date,lat,lon,elev){const {decl}=eqTimeAndDecl(date);const H=hourAngleForElevation(lat,decl,elev);if(H===null)return {rise:null,set:null};const noon=solarNoonLocalMinutes(date,lon);return {rise:noon-H*4,set:noon+H*4}}
+    function packTimes(date,lat,lon){const sun=eventTime(date,lat,lon,-0.833);const blue={a:eventTime(date,lat,lon,-6),b:eventTime(date,lat,lon,-4)};const gold={a:eventTime(date,lat,lon,-4),b:eventTime(date,lat,lon,6)};return {sunriseMin:sun.rise,sunsetMin:sun.set,blueAM:{start:blue.a.rise,end:blue.b.rise},bluePM:{start:blue.b.set,end:blue.a.set},goldAM:{start:gold.a.rise,end:gold.b.rise},goldPM:{start:gold.b.set,end:gold.a.set}}}
 
-    // ---- Calendar ----
-    const dowNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    const dow = document.getElementById('dow');
-    dowNames.forEach(d=>{ const el=document.createElement('div'); el.className='dow'; el.textContent=d; dow.appendChild(el)});
+    function minsToClock(mins){ if(mins==null) return '—'; const m=Math.round(mins); let h=Math.floor(m/60); const mm=(m%60+60)%60; const suffix=(h>=12)?'PM':'AM'; h=(h%12)||12; return `${h}:${mm.toString().padStart(2,'0')} ${suffix}` }
+    function spanPct(start,end){ const clamp=v=>Math.max(0,Math.min(1440,v)); if(start==null||end==null) return {left:0,width:0}; const s=clamp(start)/14.4; const e=clamp(end)/14.4; return {left:s,width:Math.max(0,e-s)} }
 
-    const cal = document.getElementById('cal');
-    const calLabel = document.getElementById('calLabel');
-    let selected = new Date(); selected.setHours(0,0,0,0);
-    let monthCursor = new Date(selected);
+    /* ===== Calendar ===== */
+    const dowNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const dow=document.getElementById('dow');
+    dowNames.forEach(d=>{const el=document.createElement('div'); el.className='dow'; el.textContent=d; dow.appendChild(el)});
+
+    const cal=document.getElementById('cal');
+    const calLabel=document.getElementById('calLabel');
+    let selected=new Date(); selected.setHours(0,0,0,0);
+    let monthCursor=new Date(selected);
 
     function buildCalendar(){
       cal.innerHTML='';
-      const y = monthCursor.getFullYear(), m = monthCursor.getMonth();
-      const first = new Date(y,m,1); const startDow = first.getDay();
-      const last = new Date(y,m+1,0).getDate();
-      const prevLast = new Date(y,m,0).getDate();
-      calLabel.textContent = monthCursor.toLocaleString(undefined,{month:'long', year:'numeric'});
+      const y=monthCursor.getFullYear(), m=monthCursor.getMonth();
+      const first=new Date(y,m,1); const startDow=first.getDay();
+      const last=new Date(y,m+1,0).getDate();
+      const prevLast=new Date(y,m,0).getDate();
+      calLabel.textContent=monthCursor.toLocaleString(undefined,{month:'long',year:'numeric'});
 
-      for(let i=0;i<startDow;i++){
-        const d = prevLast - startDow + 1 + i; addDay(d,true,new Date(y,m-1,d));
-      }
+      for(let i=0;i<startDow;i++){ const d=prevLast-startDow+1+i; addDay(d,true,new Date(y,m-1,d)); }
       for(let d=1; d<=last; d++){ addDay(d,false,new Date(y,m,d)); }
-      const cells = cal.children.length; for(let d=1; cells + d <= 42; d++){ addDay(d,true,new Date(y,m+1,d)); }
+      const cells=cal.children.length; for(let d=1; cells+d<=42; d++){ addDay(d,true,new Date(y,m+1,d)); }
     }
-    function addDay(num, muted, dateObj){
-      const el = document.createElement('button'); el.className='day' + (muted?' muted':''); el.textContent=num;
+    function addDay(num,muted,dateObj){
+      const el=document.createElement('button'); el.className='day'+(muted?' muted':''); el.textContent=num;
       if(dateObj.toDateString()===new Date().toDateString()) el.classList.add('today');
       if(dateObj.toDateString()===selected.toDateString()) el.classList.add('selected');
-      el.addEventListener('click',()=>{ selected = new Date(dateObj); selected.setHours(0,0,0,0); buildCalendar(); renderTimes(); });
+      el.addEventListener('click',()=>{ selected=new Date(dateObj); selected.setHours(0,0,0,0); buildCalendar(); renderTimes(); });
       cal.appendChild(el);
     }
 
-    document.getElementById('prevMonth').onclick = ()=>{ monthCursor.setMonth(monthCursor.getMonth()-1); buildCalendar(); };
-    document.getElementById('nextMonth').onclick = ()=>{ monthCursor.setMonth(monthCursor.getMonth()+1); buildCalendar(); };
-    document.getElementById('todayBtn').onclick = ()=>{ selected = new Date(); selected.setHours(0,0,0,0); monthCursor = new Date(selected); buildCalendar(); renderTimes(); };
+    document.getElementById('prevMonth').onclick=()=>{ monthCursor.setMonth(monthCursor.getMonth()-1); buildCalendar(); };
+    document.getElementById('nextMonth').onclick=()=>{ monthCursor.setMonth(monthCursor.getMonth()+1); buildCalendar(); };
+    document.getElementById('todayBtn').onclick=()=>{ selected=new Date(); selected.setHours(0,0,0,0); monthCursor=new Date(selected); buildCalendar(); renderTimes(); };
 
-    // ---- Location controls ----
-    const whereEl = document.getElementById('where');
-    const geoBtn = document.getElementById('btnGeo');
-    const geocodeBtn = document.getElementById('btnGeocode');
-    const quicks = document.querySelectorAll('.quick-areas button');
-    const locNote = document.getElementById('locNote');
+    /* ===== Location (address/area search + GPS) ===== */
+    const whereEl=document.getElementById('where');
+    const geoBtn=document.getElementById('btnGeo');
+    const geocodeBtn=document.getElementById('btnGeocode');
+    const quicks=document.querySelectorAll('.quick-areas button');
+    const locNote=document.getElementById('locNote');
 
-    let state = { lat: 27.3364, lon: -82.5307, label: 'Sarasota, FL' };
-    whereEl.value = state.label;
+    let state={ lat:27.3364, lon:-82.5307, label:'Sarasota, FL' };
+    whereEl.value=state.label;
 
-    geoBtn.onclick = ()=>{
+    geoBtn.onclick=()=>{
       if(!navigator.geolocation){ alert('Geolocation not available in this browser.'); return; }
-      geoBtn.disabled = true; geoBtn.textContent = 'Locating…';
+      geoBtn.disabled=true; geoBtn.textContent='Locating…';
       navigator.geolocation.getCurrentPosition(pos=>{
-        state.lat = +pos.coords.latitude.toFixed(4);
-        state.lon = +pos.coords.longitude.toFixed(4);
-        state.label = 'My location';
-        whereEl.value = state.label;
-        geoBtn.textContent = 'Use my location'; geoBtn.disabled = false; renderTimes();
-      }, err=>{
-        alert('Could not get location. Try typing a place and press Search.'); geoBtn.textContent = 'Use my location'; geoBtn.disabled = false;
+        state.lat=+pos.coords.latitude.toFixed(4);
+        state.lon=+pos.coords.longitude.toFixed(4);
+        state.label='My location';
+        whereEl.value=state.label;
+        geoBtn.textContent='Use my location'; geoBtn.disabled=false; renderTimes();
+      }, ()=>{
+        alert('Could not get location. Try typing a place and press Search.'); geoBtn.textContent='Use my location'; geoBtn.disabled=false;
       });
     };
 
     async function geocode(q){
       try{
-        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=1`;
-        const resp = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        const url=`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=1`;
+        const resp=await fetch(url,{headers:{'Accept':'application/json'}});
         if(!resp.ok) throw new Error('search failed');
-        const data = await resp.json();
-        if(!data || !data.length) return null;
-        return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon), label: data[0].display_name };
+        const data=await resp.json();
+        if(!data||!data.length) return null;
+        return { lat:parseFloat(data[0].lat), lon:parseFloat(data[0].lon), label:data[0].display_name };
       }catch(e){ return null; }
     }
-
     async function doSearch(){
-      const q = (whereEl.value||'').trim();
+      const q=(whereEl.value||'').trim();
       if(!q){ whereEl.focus(); return; }
-      geocodeBtn.disabled = true; geocodeBtn.textContent = 'Searching…';
-      const res = await geocode(q);
-      if(res){ state.lat = +res.lat.toFixed(4); state.lon = +res.lon.toFixed(4); state.label = q; renderTimes(); locNote.textContent = `Location set to “${q}”.`; }
-      else{ locNote.textContent = 'No results for that query. Try a nearby landmark or neighborhood.'; }
-      geocodeBtn.textContent = 'Search'; geocodeBtn.disabled = false;
+      geocodeBtn.disabled=true; geocodeBtn.textContent='Searching…';
+      const res=await geocode(q);
+      if(res){ state.lat=+res.lat.toFixed(4); state.lon=+res.lon.toFixed(4); state.label=q; renderTimes(); locNote.textContent=`Location set to “${q}”.`; }
+      else { locNote.textContent='No results for that query. Try a nearby landmark or neighborhood.'; }
+      geocodeBtn.textContent='Search'; geocodeBtn.disabled=false;
     }
+    geocodeBtn.addEventListener('click',doSearch);
+    whereEl.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); doSearch(); }});
+    quicks.forEach(b=> b.addEventListener('click',()=>{ whereEl.value=b.dataset.area; doSearch(); }));
 
-    geocodeBtn.addEventListener('click', doSearch);
-    whereEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); doSearch(); }});
-    quicks.forEach(b=> b.addEventListener('click',()=>{ whereEl.value = b.dataset.area; doSearch(); }));
-
-    // ---- Render times ----
-    const timesEl = document.getElementById('times');
-    const resultTitle = document.getElementById('resultTitle');
+    /* ===== Render day timeline ===== */
+    const timesEl=document.getElementById('times');
+    const resultTitle=document.getElementById('resultTitle');
 
     function renderTimes(){
-      const date = new Date(selected);
-      const {lat, lon, label} = state;
-      resultTitle.textContent = `${date.toLocaleDateString(undefined,{weekday:'long', month:'long', day:'numeric', year:'numeric'})} — ${label} (lat ${lat.toFixed(4)}, lon ${lon.toFixed(4)})`;
-      const t = packTimes(date, lat, lon);
-      timesEl.innerHTML = '';
+      const date=new Date(selected);
+      const {lat,lon,label}=state;
+      resultTitle.textContent=`${date.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'})} — ${label} (lat ${lat.toFixed(4)}, lon ${lon.toFixed(4)})`;
+      const t=packTimes(date,lat,lon);
+      timesEl.innerHTML='';
 
-      const rows = [
+      const rows=[
         {label:'Blue hour (AM)', range:[t.blueAM.start, t.blueAM.end], cls:'blue'},
         {label:'Golden hour (AM)', range:[t.goldAM.start, t.goldAM.end], cls:'gold'},
         {label:'Sunrise', points:[t.sunriseMin], cls:'sun'},
@@ -323,22 +317,23 @@
         {label:'Blue hour (PM)', range:[t.bluePM.start, t.bluePM.end], cls:'blue'}
       ];
 
-      const dayBar = document.createElement('div'); dayBar.className='row';
-      dayBar.innerHTML = `<div class="pill">Day timeline</div><div class="bar"></div>`; timesEl.appendChild(dayBar);
+      const dayBar=document.createElement('div'); dayBar.className='row';
+      dayBar.innerHTML=`<div class="pill">Day timeline</div><div class="bar"></div>`;
+      timesEl.appendChild(dayBar);
 
       rows.forEach(r=>{
-        const row = document.createElement('div'); row.className='row';
-        const left = document.createElement('div'); left.className='pill'; left.textContent=r.label; row.appendChild(left);
-        const right = document.createElement('div'); right.className='bar';
-        if(r.range){ const {left,width} = spanPct(r.range[0], r.range[1]); const seg = document.createElement('div'); seg.className = `seg ${r.cls}`; seg.style.left=left+'%'; seg.style.width=width+'%'; right.appendChild(seg); }
+        const row=document.createElement('div'); row.className='row';
+        const left=document.createElement('div'); left.className='pill'; left.textContent=r.label; row.appendChild(left);
+        const right=document.createElement('div'); right.className='bar';
+        if(r.range){ const {left,width}=spanPct(r.range[0],r.range[1]); const seg=document.createElement('div'); seg.className=`seg ${r.cls}`; seg.style.left=left+'%'; seg.style.width=width+'%'; right.appendChild(seg); }
         if(r.points){ r.points.forEach(p=>{ if(p!=null){ const seg=document.createElement('div'); seg.className='seg sun'; const pct=spanPct(p,p+1); seg.style.left=pct.left+'%'; seg.style.width='2%'; right.appendChild(seg);} }); }
         row.appendChild(right); timesEl.appendChild(row);
 
-        const times = document.createElement('div'); times.className='small';
-        if(r.range){ times.textContent = `${minsToClock(r.range[0])} → ${minsToClock(r.range[1])}`; }
-        else if(r.points){ times.textContent = minsToClock(r.points[0]); }
-        times.style.margin = '-6px 0 10px 172px';
-        if (window.matchMedia('(max-width:620px)').matches) times.style.margin = '6px 0 14px 0';
+        const times=document.createElement('div'); times.className='small';
+        if(r.range){ times.textContent=`${minsToClock(r.range[0])} → ${minsToClock(r.range[1])}`; }
+        else if(r.points){ times.textContent=minsToClock(r.points[0]); }
+        times.style.margin='-4px 0 8px 172px';
+        if (window.matchMedia('(max-width:620px)').matches) times.style.margin='6px 0 12px 0';
         timesEl.appendChild(times);
       });
     }
@@ -346,6 +341,5 @@
     buildCalendar();
     renderTimes();
   </script>
-  <!-- Page-specific JS may rely on your existing include-loader; no extra scripts added here. -->
 </body>
 </html>
