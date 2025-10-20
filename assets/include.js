@@ -24,7 +24,7 @@
       const target = normalize(a.href);
       if (target === here) {
         a.setAttribute('aria-current', 'page'); // mobile drawer hook
-        a.classList.add('is-current');          // desktop underline hook
+        a.classList.add('is-current');          // desktop highlight hook (no underline)
       } else {
         a.removeAttribute('aria-current');
         a.classList.remove('is-current');
