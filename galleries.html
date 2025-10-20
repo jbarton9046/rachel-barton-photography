@@ -24,20 +24,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
-  <!-- 🔧 Normalize navbar to match the rest of the site (fix unintended bold) -->
+  <!-- 🔧 Navbar EXACT match (desktop + dropdown). Keeps mobile styles intact. -->
   <style>
-    .topbar nav a,
-    .topbar .site-nav a,
-    .site-nav a,
-    .topbar a[role="menuitem"]{
-      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
-      font-weight:400 !important;
-      letter-spacing:0 !important;
-    }
-    .site-nav a:hover,
-    .site-nav a:focus-visible{
-      color:var(--accent);
-      font-weight:400 !important;
+    /* Desktop nav links */
+    @media (min-width: 901px){
+      .topbar nav a,
+      .topbar .site-nav a,
+      .site-nav a,
+      .topbar a[role="menuitem"]{
+        font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+        font-weight:400 !important;
+        font-size:clamp(18px,1.45vw,21px) !important; /* match global nav size */
+        letter-spacing:0 !important;
+        line-height:1.4 !important;
+      }
+      .site-nav a:hover,
+      .site-nav a:focus-visible{
+        color:var(--accent);
+        font-weight:400 !important;
+      }
+
+      /* Dropdown / menus (match link sizing + weight) */
+      .topbar .menu,
+      .topbar .dropdown,
+      .topbar details[open] .menu,
+      .topbar details[open] .dropdown,
+      .topbar .menu a,
+      .topbar .dropdown a{
+        font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+        font-weight:400 !important;
+        font-size:clamp(18px,1.45vw,21px) !important;
+        letter-spacing:0 !important;
+        line-height:1.4 !important;
+      }
     }
   </style>
 
