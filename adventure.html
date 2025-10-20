@@ -39,7 +39,7 @@
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
       --nav-gap-top:16px; --nav-gap-bottom:40px;
 
-      /* Arrow tokens (diamonds removed) */
+      /* Arrow tokens (diamonds under arrows) */
       --arrow-size:56px;
       --arrow-inset:14px;
     }
@@ -102,7 +102,7 @@
     .story h2{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 8px; font-size:clamp(22px,3.4vw,30px) }
     @media (max-width:900px){ .story .cards{ grid-template-columns:1fr } }
 
-    /* CAROUSEL (diamonds removed; cleaner chevron buttons; no dots) */
+    /* CAROUSEL (diamonds under arrows; no dots) */
     .carousel{ position:relative; margin:6px 0; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.07) }
     .carousel img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block; object-position:center; }
     @media (max-width:900px){ .carousel img{ aspect-ratio:4/3 } }
@@ -113,11 +113,21 @@
     .nav{
       position:absolute; top:50%; transform:translateY(-50%); width:var(--arrow-size); height:var(--arrow-size);
       display:grid; place-items:center; color:var(--accent); z-index:3; cursor:pointer; border:0; background:transparent;
-      opacity:.9; transition:opacity .15s ease, transform .15s ease;
+      opacity:. Nine; transition:opacity .15s ease, transform .15s ease;
     }
     .nav:hover{ opacity:1; transform:translateY(-50%) scale(1.02) }
-    /* remove diamond plate */
-    .nav::before{ content:none !important; }
+    /* diamond plate under arrows (restored) */
+    .nav::before{
+      content:""; position:absolute; inset:0; margin:8px; transform:rotate(45deg);
+      background:rgba(255,255,255,.28);
+      -webkit-backdrop-filter:blur(7px) saturate(1.05);
+      backdrop-filter:blur(7px) saturate(1.05);
+      border:1px solid rgba(63,58,51,.18);
+      box-shadow:0 10px 22px rgba(0,0,0,.10);
+      border-radius:2px;
+    }
+    .nav svg{ width:22px; height:22px; position:relative; z-index:1; }
+
     .prev{ left:var(--arrow-inset) } .next{ right:var(--arrow-inset) }
 
     /* FIELD NOTES */
