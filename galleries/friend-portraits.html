@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
+  <link rel="stylesheet" href="/assets/layout.css?v=nav-6">
 
   <style>
     :root{
@@ -100,20 +100,8 @@
       -webkit-backdrop-filter:saturate(1.05) blur(.5px); backdrop-filter:saturate(1.05) blur(.5px);
     }
 
-    /* diamonds (pagination) */
-    .tile-dots{
-      position:absolute; left:50%; transform:translateX(-50%); top:12px; z-index:4;
-      display:flex; gap:var(--dot-gap); pointer-events:auto;
-    }
-    .tile-dots button{
-      width:var(--dot-size); height:var(--dot-size); transform:rotate(45deg);
-      border:1px solid var(--accent); background:var(--glass-bg);
-      -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
-      box-shadow:0 3px 10px rgba(0,0,0,.10); cursor:pointer; padding:0; border-radius:0;
-      transition:transform .12s ease, background-color .12s ease, border-color .12s ease;
-    }
-    .tile-dots button:hover{ transform:rotate(45deg) scale(1.06) }
-    .tile-dots button.is-active{ background:rgba(232,223,201,.45); border-color:var(--accent) }
+    /* Diamonds: hidden */
+    .tile-dots{ display:none !important; }
 
     /* arrows */
     .tile-nav{
@@ -159,7 +147,7 @@
 
           <!-- GALLERY 1 -->
           <figure class="tile"
-            data-title="Friend Session One"
+            data-title="Celery Fields, Sarasota — August 25"
             data-link="/galleries/friend-portrait.html"
             data-preferred="/pictures/friend1Tile/E26A1931%20(4).jpg"
             data-all-images='[
@@ -169,8 +157,8 @@
               "/pictures/friend1Tile/E26A2106%20(2).jpg",
               "/pictures/friend1Tile/E26A2245%20(3).jpg"
             ]'>
-            <img class="tile-media" src="/pictures/friend1Tile/E26A1931%20(4).jpg" alt="Friend session 1 preview" loading="lazy" />
-            <figcaption class="tile-title">Friend Session One</figcaption>
+            <img class="tile-media" src="/pictures/friend1Tile/E26A1931%20(4).jpg" alt="Celery Fields, Sarasota — August 25 (preview)" loading="lazy" />
+            <figcaption class="tile-title">Celery Fields, Sarasota — August 25</figcaption>
             <div class="tile-dots" role="tablist"></div>
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
@@ -182,7 +170,7 @@
 
           <!-- GALLERY 2 -->
           <figure class="tile"
-            data-title="Friend Session Two"
+            data-title="Lido Key — Sept 25"
             data-link="/galleries/kidBeachPortrait.html"
             data-preferred="/pictures/friend2Tile/E26A2746%20(1).jpg"
             data-focal="50% 38%"
@@ -193,8 +181,8 @@
               "/pictures/friend2Tile/E26A2890.jpg",
               "/pictures/friend2Tile/E26A2973.jpg"
             ]'>
-            <img class="tile-media" src="/pictures/friend2Tile/E26A2746%20(1).jpg" alt="Friend session 2 preview" loading="lazy" />
-            <figcaption class="tile-title">Friend Session Two</figcaption>
+            <img class="tile-media" src="/pictures/friend2Tile/E26A2746%20(1).jpg" alt="Lido Key — Sept 25 (preview)" loading="lazy" />
+            <figcaption class="tile-title">Lido Key — Sept 25</figcaption>
             <div class="tile-dots" role="tablist"></div>
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
@@ -217,32 +205,28 @@
 
   <!-- Shared Footer -->
   <div data-include="/partials/footer.html"></div>
-  <script src="/assets/include.js?v=nav-5" defer></script>
+  <script src="/assets/include.js?v=nav-6" defer></script>
 
   <!-- Tiles JS (preferred first, rest shuffled + robust focal lookup) -->
   <script>
     (function(){
       const MAX_IMGS = 10;
 
-      /* FOCALS: Set custom crop focus for specific images.
-         You can key by the full path OR just the filename.
-         Format value: "x% y%" — smaller y% shows more TOP, larger y% shows more BOTTOM. */
+      /* FOCALS: Set custom crop focus for specific images. */
       const FOCALS = {
-        // --- Tile 1 (adjust if needed)
+        // --- Tile 1
         "E26A1931 (4).jpg": "50% 50%",
         "E26A2017 (2).jpg": "50% 42%",
         "E26A2047 (1).jpg": "50% 45%",
         "E26A2106 (2).jpg": "48% 44%",
         "E26A2245 (3).jpg": "50% 40%",
 
-        // --- Tile 2 (you wanted to tweak these)
+        // --- Tile 2
         "E26A2746 (1).jpg": "50% 38%",
         "E26A2768 (1).jpg": "50% 35%",
         "E26A2855.jpg":     "52% 42%",
         "E26A2890.jpg":     "10% 46%",
         "E26A2973.jpg":     "50% 36%",
-
-        // (You can also use full paths as keys; both work.)
         "/pictures/friend2Tile/E26A2890.jpg": "10% 46%"
       };
 
@@ -262,28 +246,26 @@
         return qless.substring(qless.lastIndexOf('/') + 1);
       };
 
-      // Build a map that contains both original keys and their basenames for robust matching
       const focalMap = new Map();
       Object.keys(FOCALS).forEach(k => {
-        focalMap.set(k, FOCALS[k]);                  // original key (maybe full path)
-        focalMap.set(decode(k), FOCALS[k]);          // decoded key (spaces instead of %20)
-        focalMap.set(basename(k), FOCALS[k]);        // basename only
+        focalMap.set(k, FOCALS[k]);
+        focalMap.set(decode(k), FOCALS[k]);
+        focalMap.set(basename(k), FOCALS[k]);
       });
 
       document.querySelectorAll('figure.tile').forEach(tile=>{
         const media     = tile.querySelector('.tile-media');
-        const dotsWrap  = tile.querySelector('.tile-dots');
+        const dotsWrap  = tile.querySelector('.tile-dots'); // hidden via CSS, harmless to keep
         const prevBtn   = tile.querySelector('.tile-prev');
         const nextBtn   = tile.querySelector('.tile-next');
         const link      = tile.getAttribute('data-link');
         const preferred = (tile.getAttribute('data-preferred') || '').trim();
-        const tileFocal = (tile.getAttribute('data-focal') || '').trim(); // fallback for this tile
+        const tileFocal = (tile.getAttribute('data-focal') || '').trim();
 
         let all = [];
         try { all = JSON.parse(tile.getAttribute('data-all-images') || '[]'); } catch{}
         if (!Array.isArray(all) || !all.length) return;
 
-        // Build list with preferred first, others shuffled, limit MAX_IMGS
         const others = all.filter(src => src !== preferred);
         const mixed  = shuffled(others);
         const list   = preferred ? [preferred, ...mixed.slice(0, Math.max(0, MAX_IMGS - 1))]
@@ -291,27 +273,13 @@
 
         let idx = 0;
 
-        // Dots
-        dotsWrap.innerHTML = '';
-        const dots = list.map((_,i)=>{
-          const b = document.createElement('button');
-          b.type = 'button';
-          b.setAttribute('role','tab');
-          b.setAttribute('aria-label','Go to slide ' + (i+1));
-          b.addEventListener('click', e => { e.stopPropagation(); show(i); });
-          dotsWrap.appendChild(b);
-          return b;
-        });
+        // (dots are hidden; leave creation empty)
+        dotsWrap && (dotsWrap.innerHTML = '');
+        const dots = [];
 
-        function updateDots(){
-          dots.forEach((d,i)=>{
-            d.classList.toggle('is-active', i === idx);
-            d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
-          });
-        }
+        function updateDots(){ /* no-op since hidden */ }
 
         function focalFor(src){
-          // Try exact, decoded, then basename
           const dec = decode(src);
           const base = basename(src);
           return focalMap.get(src) || focalMap.get(dec) || focalMap.get(base) || tileFocal || "50% 50%";
@@ -330,13 +298,11 @@
         prevBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx - 1); });
         nextBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx + 1); });
 
-        // Click-through anywhere on the tile (except controls)
         tile.addEventListener('click', e => {
           if (e.target.closest('.tile-nav') || e.target.closest('.tile-dots')) return;
           if (link) window.location.href = link;
         });
 
-        // Init
         if (document.fonts && document.fonts.ready) {
           document.fonts.ready.then(()=> show(0));
         } else {
