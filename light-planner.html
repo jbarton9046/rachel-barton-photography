@@ -39,10 +39,11 @@
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
     main section{padding:clamp(10px,2vw,18px) 0}
 
-    /* Heading + hero images side-by-side (like About layout) */
+    /* Heading + hero images */
     .head-grid{
       display:grid;
-      grid-template-columns:2fr 1fr;
+      /* UPDATED: left column hugs content width, right column gets all remaining space */
+      grid-template-columns: minmax(0, max-content) 1fr;
       gap:clamp(12px,2vw,20px);
       align-items:start;
     }
@@ -56,7 +57,10 @@
     h1,h2{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif}
     h1{ font-size:clamp(32px,6vw,56px); line-height:1.1; margin:0; font-weight:700; color:#202022; }
     .section-sub{ color:#5c5850; margin:8px 0 14px; font-size:clamp(16px,2.6vw,19px) }
-    @media(min-width:900px){ .page-head{ max-width:min(70ch,66.67%) } }
+    @media(min-width:900px){
+      /* left column maxes out like About; right column fills remainder */
+      .page-head{ max-width:min(70ch, 66.67%) }
+    }
 
     /* Site-standard buttons */
     .btn{
@@ -68,16 +72,19 @@
     }
     .btn:hover,.btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px) }
 
-    /* Header images: two-up grid with site border/shadow — SMALLER height */
+    /* Header images: two-up with site border/shadow — SMALLER height */
     .head-photo{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:12px;
       align-content:start;
+      /* UPDATED: make the figure fill the entire right column */
+      width:100%;
+      justify-self:stretch;
     }
     .head-photo img{
       width:100%;
-      height:clamp(150px, 18vw, 240px); /* smaller, like your first version */
+      height:clamp(150px, 18vw, 240px); /* smaller look you asked for */
       object-fit:cover;
       display:block;
       border:1px solid var(--frame);
