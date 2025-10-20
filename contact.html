@@ -6,7 +6,7 @@
   <title>Contact | Rachel Barton Photography</title>
   <meta name="description" content="Say hello and tell me about your session ideas. I’d love to plan something beautiful with you." />
 
-  <!-- Fonts -->
+  <!-- Fonts (match rest of site) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -14,29 +14,24 @@
   <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
-  <!-- Normalize the top nav to the thin style used elsewhere (but not the Galleries dropdown) -->
+  <!-- Thin top-level nav only (matches the lighter screenshot) -->
   <style>
-    .topbar nav a,
-    .topbar .site-nav > ul > li > a,    /* top-level items only */
-    .site-nav > ul > li > a,
-    .topbar a[role="menuitem"]{
-      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
-      font-weight:400 !important;
-      letter-spacing:0 !important;
-      text-rendering:optimizeLegibility;
-      -webkit-font-smoothing:antialiased;
+    .topbar nav > ul > li > a,
+    .site-nav > ul > li > a {
+      font-family: "Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+      font-weight: 400 !important;       /* thinner look */
+      letter-spacing: 0 !important;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
     }
-    .site-nav a:hover,
-    .site-nav a:focus-visible{
-      color:var(--accent);
-      font-weight:400 !important;
-    }
+    .site-nav > ul > li > a:hover,
+    .site-nav > ul > li > a:focus-visible { color: var(--accent); font-weight: 400 !important; }
   </style>
 
-  <!-- Galleries dropdown: exact serif/centered style (desktop only) -->
+  <!-- Exact Galleries dropdown (desktop only) -->
   <style>
     @media (min-width: 900px){
-      /* Panel shell (uses layout.css for positioning/show/hide) */
+      /* Use existing positioning/show-hide from layout.css; we just restyle the internals */
       .site-nav .submenu, .site-nav .dropdown, .topbar .submenu, .topbar .dropdown{
         background: transparent;
         border: 0;
@@ -44,25 +39,21 @@
         padding: 6px 0 10px;
         min-width: 170px;
       }
-
-      /* Accent title */
       .site-nav .dropdown-title{
         font-family: "Cormorant Garamond","Playfair Display",Georgia,serif;
         font-weight: 700;
-        font-size: 26px;               /* matches screenshot scale */
+        font-size: 26px; /* matches screenshot */
         line-height: 1.1;
-        color: var(--accent, #A88A5A);
+        color: var(--accent,#A88A5A);
         text-align: center;
         margin: 0 10px 6px;
         pointer-events: none;
       }
-
-      /* Centered serif items — ensure our “thin nav” override doesn’t bleed in */
       .site-nav .is-galleries-dropdown a{
         display: block;
         font-family: "Cormorant Garamond","Playfair Display",Georgia,serif !important;
-        font-weight: 500 !important;   /* regular serif look (not bold) */
-        font-size: 18px;               /* screenshot size */
+        font-weight: 500 !important;      /* serif regular */
+        font-size: 18px;
         line-height: 1.35;
         letter-spacing: 0;
         text-transform: none;
@@ -71,9 +62,7 @@
         padding: 6px 12px;
       }
       .site-nav .is-galleries-dropdown a:hover,
-      .site-nav .is-galleries-dropdown a:focus-visible{
-        color: var(--accent, #A88A5A);
-      }
+      .site-nav .is-galleries-dropdown a:focus-visible { color: var(--accent,#A88A5A); }
     }
   </style>
 
@@ -82,54 +71,53 @@
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#6e6a62;
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-      --mobile-header-h: 64px;
+      --mobile-header-h:64px;
+      --nav-gap-top:16px; --nav-gap-bottom:40px;
     }
 
-    .topbar{
-      padding-top:16px !important;
-      padding-bottom:40px !important;
-    }
+    /* Use universal nav, only normalizing its spacing */
+    .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
 
-    *{box-sizing:border-box}
+    *{ box-sizing:border-box }
     html,body{
       margin:0; background:var(--bg); color:var(--ink);
       font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
-    a{color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease}
+    a{ color:inherit; text-decoration:none; transition:color .15s ease,border-color .15s ease }
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
-    img{max-width:100%; height:auto; display:block; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
-    .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
+    img{ max-width:100%; height:auto; display:block; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06) }
+    .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
     /* Page layout */
-    main section{padding:calc(var(--gap)*2) 0}
+    main section{ padding:calc(var(--gap)*2) 0 }
     h1{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-size:clamp(28px,4vw,44px);
       margin:0 0 10px;
     }
-    .lead{color:#67635b; margin:0 0 22px}
+    .lead{ color:#67635b; margin:0 0 22px }
 
-    /* Content grid */
-    .grid{display:grid; grid-template-columns:1.25fr .75fr; gap:var(--gap)}
-    @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+    /* Desktop grid (form left, photos right) */
+    .grid{ display:grid; grid-template-columns:1.25fr .75fr; gap:var(--gap) }
+    @media (max-width:900px){ .grid{ grid-template-columns:1fr } }
 
     /* Card + form */
-    .card{background:#fff; border:1px solid var(--line); box-shadow:0 10px 30px rgba(0,0,0,.06)}
-    .pad{padding:clamp(16px,2.6vw,28px)}
+    .card{ background:#fff; border:1px solid var(--line); box-shadow:0 10px 30px rgba(0,0,0,.06) }
+    .pad{ padding:clamp(16px,2.6vw,28px) }
 
-    form{display:grid; gap:14px}
-    label{font-weight:600; font-size:14px}
+    form{ display:grid; gap:14px }
+    label{ font-weight:600; font-size:14px }
     input, select, textarea{
       width:100%; background:#fff; border:1px solid #ddd; padding:12px; font:inherit; color:inherit; outline:none;
       transition:border-color .15s ease, box-shadow .15s ease;
     }
     input:focus, select:focus, textarea:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(168,138,90,.25) }
-    textarea{min-height:140px; resize:vertical}
+    textarea{ min-height:140px; resize:vertical }
 
-    .actions{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+    .actions{ display:flex; gap:12px; align-items:center; flex-wrap:wrap }
 
-    /* Button (matches site) */
+    /* Button (site style) */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
@@ -138,40 +126,29 @@
       transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
       cursor:pointer;
     }
-    .btn:hover, .btn:focus-visible{
-      background:#fff; border-color:#dcd4c3; color:var(--accent);
-      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
-      outline:none;
-    }
+    .btn:hover, .btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none; }
 
     /* Photos (desktop) */
-    .photos{display:grid; gap:var(--gap)}
-    .stack{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
+    .photos{ display:grid; gap:var(--gap) }
+    .stack{ display:grid; grid-template-columns:1fr 1fr; gap:var(--gap) }
+    @media (max-width:900px){ .stack{ grid-template-columns:1fr } }
 
+    /* Keep columns ending evenly on desktop */
     @media (min-width:900px){
       .grid{ align-items:stretch; }
       .card{ height:100%; }
     }
 
-    /* ---------- MOBILE POLISH ---------- */
+    /* ---------- MOBILE (unchanged) ---------- */
     @media (max-width:900px){
-      main section{
-        padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px);
-      }
-      .photos{ display:none; }
+      main section{ padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top,0px) + 8px); }
+      .photos{ display:none; }               /* hide big column */
       .mini-gallery{
-        display:grid;
-        grid-template-columns:repeat(3, 1fr);
-        gap:8px;
-        margin-bottom:8px;
+        display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:8px;
       }
       .mini-gallery img{
-        width:100%;
-        height:100px;
-        object-fit:cover;
-        aspect-ratio:4/5;
-        border:1px solid var(--line);
-        box-shadow:0 3px 10px rgba(0,0,0,.05);
+        width:100%; height:100px; object-fit:cover; aspect-ratio:4/5;
+        border:1px solid var(--line); box-shadow:0 3px 10px rgba(0,0,0,.05);
       }
     }
   </style>
@@ -187,7 +164,7 @@
         <p class="lead">Tell me about your crew and the kind of session you’re envisioning. I reply quickly!</p>
 
         <div class="grid">
-          <!-- Form -->
+          <!-- Form (left) -->
           <div class="card pad">
             <!-- MOBILE mini-collage (hidden on desktop) -->
             <div class="mini-gallery" aria-hidden="true">
@@ -229,7 +206,7 @@
             </form>
           </div>
 
-          <!-- Photos (desktop only) -->
+          <!-- Photos (right, desktop) -->
           <div class="photos" aria-hidden="true">
             <img src="/pictures/familyPortrait/image5.jpg" alt="Candid family moment by the water" loading="lazy" sizes="(max-width:900px) 0, 33vw">
             <div class="stack">
@@ -248,7 +225,7 @@
   <!-- include shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Wire up the Galleries dropdown styling once the nav partial is injected -->
+  <!-- Inject serif/centered Galleries dropdown once nav partial is mounted -->
   <script>
     (function () {
       function wire(){
@@ -257,8 +234,6 @@
         if(!galLink) return;
         const submenu = galLink.parentElement?.querySelector('.submenu, .dropdown, ul');
         if(!submenu) return;
-
-        /* mark this as the styled dropdown and inject the title once */
         submenu.classList.add('is-galleries-dropdown');
         if(!submenu.querySelector('.dropdown-title')){
           const title = document.createElement('div');
