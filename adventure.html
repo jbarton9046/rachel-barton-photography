@@ -39,15 +39,9 @@
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
       --nav-gap-top:16px; --nav-gap-bottom:40px;
 
-      /* Glass tokens (match portraits/branding) */
+      /* Arrow tokens (diamonds removed) */
       --arrow-size:56px;
       --arrow-inset:14px;
-      --dot-size:10px;
-      --dot-gap:9px;
-      --glass-bg: rgba(255,255,255,.28);
-      --glass-blur: blur(7px) saturate(1.05);
-      --glass-border: 1px solid rgba(63,58,51,.18);
-      --glass-shadow: 0 10px 22px rgba(0,0,0,.10);
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer,.page-top-spacer{ height:0!important; }
@@ -85,7 +79,7 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.2vw,20px); color:#58554e; max-width:68ch }
 
-    /* === REPLACED: Button style to match about.html exactly === */
+    /* Buttons */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
@@ -99,7 +93,6 @@
       box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
       outline:none;
     }
-    /* Keep .alt, but style same as base outlined button */
     .btn.alt{ background:#fff; border-color:var(--line); }
 
     /* STORY */
@@ -109,36 +102,22 @@
     .story h2{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 8px; font-size:clamp(22px,3.4vw,30px) }
     @media (max-width:900px){ .story .cards{ grid-template-columns:1fr } }
 
-    /* CAROUSEL (glass diamonds + arrows) */
+    /* CAROUSEL (diamonds removed; cleaner chevron buttons; no dots) */
     .carousel{ position:relative; margin:6px 0; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.07) }
-    .carousel img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block }
+    .carousel img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block; object-position:center; }
     @media (max-width:900px){ .carousel img{ aspect-ratio:4/3 } }
 
-    .dots{
-      position:absolute; left:50%; transform:translateX(-50%); top:12px; z-index:3;
-      display:flex; gap:var(--dot-gap);
-    }
-    .dots button{
-      width:var(--dot-size); height:var(--dot-size); transform:rotate(45deg); cursor:pointer;
-      background:var(--glass-bg); border:1px solid var(--accent);
-      -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
-      box-shadow:0 3px 10px rgba(0,0,0,.10);
-      transition:transform .12s ease, background-color .12s ease;
-    }
-    .dots button:hover{ transform:rotate(45deg) scale(1.06) }
-    .dots button.is-active{ background:rgba(232,223,201,.45) }
+    /* Hide dot indicators entirely */
+    .dots{ display:none !important; }
 
     .nav{
       position:absolute; top:50%; transform:translateY(-50%); width:var(--arrow-size); height:var(--arrow-size);
       display:grid; place-items:center; color:var(--accent); z-index:3; cursor:pointer; border:0; background:transparent;
+      opacity:.9; transition:opacity .15s ease, transform .15s ease;
     }
-    .nav::before{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
-      background:var(--glass-bg); border:var(--glass-border);
-      -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
-      box-shadow:var(--glass-shadow);
-    }
-    .nav svg{ width:22px; height:22px; position:relative; z-index:1 }
+    .nav:hover{ opacity:1; transform:translateY(-50%) scale(1.02) }
+    /* remove diamond plate */
+    .nav::before{ content:none !important; }
     .prev{ left:var(--arrow-inset) } .next{ right:var(--arrow-inset) }
 
     /* FIELD NOTES */
@@ -149,7 +128,7 @@
     .note p{ margin:0 }
     @media (max-width:900px){ .notes .grid{ grid-template-columns:1fr } }
 
-    /* CTA (pricing after consult) */
+    /* CTA */
     .cta{ background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; margin:32px 0 18px }
     .cta .row{ display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap }
     .cta small{ color:#6e6a62 }
@@ -167,7 +146,7 @@
       <div class="container">
         <figure class="hero-figure">
           <span class="hero-badge">Sunrise • Smokies • Movement</span>
-          <img src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Sunrise adventure session on the grassy ridge at Andrews Bald" />
+          <img id="hero-image" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Sunrise adventure session on the grassy ridge at Andrews Bald" />
         </figure>
         <div class="hero-copy">
           <div>
@@ -213,7 +192,7 @@
             "/pictures/andrewsBaldPics/E26A1098.jpg"
           ]'>
           <img id="adv-frame" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Adventure gallery slide" />
-          <div class="dots" id="adv-dots" aria-label="Adventure slides" role="tablist"></div>
+          <!-- dots removed -->
           <button class="nav prev" type="button" aria-label="Previous slide">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
           </button>
@@ -262,7 +241,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Simple carousel logic (glass diamonds + diamond arrows) -->
+  <!-- Simple carousel logic (no dots; arrows only) + focal-point control -->
   <script>
     (function(){
       const figure = document.getElementById('adv-carousel');
@@ -273,29 +252,37 @@
       if(!images.length) return;
 
       const frame = document.getElementById('adv-frame');
-      const dotsWrap = document.getElementById('adv-dots');
-      const prev = figure.querySelector('.prev');
-      const next = figure.querySelector('.next');
+      const prev  = figure.querySelector('.prev');
+      const next  = figure.querySelector('.next');
+
+      // === Subject-centric focal positions (tweak as you like) ===
+      // Format "x% y%": smaller y% shows more top, larger y% shows more bottom.
+      const FOCALS = {
+        "E26A1013.jpg":  "50% 42%",
+        "E26A1022.jpg":  "48% 40%",
+        "E26A1033.jpg":  "52% 46%",
+        "E26A1045.jpg":  "50% 38%",
+        "E26A1062.jpg":  "50% 44%",
+        "E26A1063-2.jpg":"50% 45%",
+        "E26A1087.jpg":  "50% 40%",
+        "E26A1094.jpg":  "50% 46%",
+        "E26A1095.jpg":  "50% 44%",
+        "E26A1098.jpg":  "50% 42%"
+      };
+
+      const basename = (s)=> s.split('?')[0].split('#')[0].split('/').pop();
 
       let i = 0;
 
-      // Build dots
-      const dots = images.map((_, idx) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.setAttribute('role','tab');
-        b.setAttribute('aria-label','Go to slide ' + (idx + 1));
-        b.addEventListener('click', () => show(idx));
-        dotsWrap.appendChild(b);
-        return b;
-      });
+      function focalFor(src){
+        const base = basename(src);
+        return FOCALS[base] || "50% 50%";
+      }
 
       function paint(){
-        frame.src = images[i];
-        dots.forEach((d, idx) => {
-          d.classList.toggle('is-active', idx === i);
-          d.setAttribute('aria-selected', idx === i ? 'true' : 'false');
-        });
+        const src = images[i];
+        frame.src = src;
+        frame.style.objectPosition = focalFor(src);
       }
       function show(n){
         i = (n + images.length) % images.length;
@@ -308,7 +295,7 @@
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => paint());
       } else {
-        window.addEventListener('load', paint());
+        window.addEventListener('load', paint);
       }
     })();
   </script>
