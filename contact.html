@@ -41,15 +41,31 @@
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#6e6a62;
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-      --mobile-header-h:64px;
 
-      /* CHANGED: make desktop nav spacing match about.html exactly */
+      /* match About page desktop spacing */
+      --mobile-header-h:64px;
       --nav-gap-top:20px; 
       --nav-gap-bottom:44px;
     }
 
-    /* Use shared nav as-is; only normalize spacing */
+    /* Use shared nav as-is; spacing matches About */
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
+
+    /* ✅ Desktop: make top-level nav links thin (like About).
+       Scope narrowly so dropdown items keep their serif styling. */
+    @media (min-width:821px){
+      .topbar .primary > ul > li > a{
+        font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+        font-weight:400 !important;
+        letter-spacing:0 !important;
+        text-transform:none !important;
+      }
+      .topbar .primary > ul > li > a:hover,
+      .topbar .primary > ul > li > a:focus-visible{
+        color:var(--accent);
+        font-weight:400 !important; /* no bold on hover */
+      }
+    }
 
     *{box-sizing:border-box}
     html,body{
@@ -65,8 +81,7 @@
     /* ===== Page layout ===== */
     main section{padding:calc(var(--gap)*2) 0}
 
-    /* We place the headline/lead, form, and photos in a grid so the photos
-       start exactly at the same vertical line as the headline on desktop. */
+    /* Headline/lead, form, and photos grid */
     .contact-grid{
       display:grid; gap:var(--gap);
     }
@@ -110,27 +125,24 @@
     .photos{display:grid; gap:var(--gap)}
     .stack{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
 
-    /* ===== Desktop grid (exact alignment like your perfect version) ===== */
+    /* ===== Desktop grid (keeps photos starting with the heading) ===== */
     @media (min-width:900px){
       .contact-grid{
         grid-template-columns: 1.25fr .75fr;
         grid-template-areas:
           "header photos"
           "form   photos";
-        align-items:start; /* ensures both columns start at the same top line */
+        align-items:start;
       }
       .contact-header{ grid-area: header; }
       .form-wrap     { grid-area: form; }
       .photos        { grid-area: photos; }
-
-      /* Make columns end at same bottom edge */
       .form-wrap .card{ height:100%; }
     }
 
-    /* ===== Mobile keeps your current behavior exactly ===== */
+    /* ===== Mobile stays exactly the same ===== */
     .mini-gallery{ display:none; } /* hidden by default; shown only on mobile */
     @media (max-width:900px){
-      /* Clear sticky header so content never sits underneath */
       main section{
         padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px);
       }
@@ -140,7 +152,7 @@
           "header"
           "form";
       }
-      .photos{ display:none; } /* hide big right column on phones */
+      .photos{ display:none; }
       .mini-gallery{
         display:grid;
         grid-template-columns:repeat(3, 1fr);
@@ -159,14 +171,14 @@
   </style>
 </head>
 <body>
-  <!-- Shared universal navbar (no overrides; matches About page exactly) -->
+  <!-- Shared universal navbar -->
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
     <section aria-labelledby="contact-title">
       <div class="container">
         <div class="contact-grid">
-          <!-- Headline/lead (separate grid area so photos align with this top) -->
+          <!-- Headline/lead -->
           <header class="contact-header">
             <h1 id="contact-title">Say Hello</h1>
             <p class="lead">Tell me about your crew and the kind of session you’re envisioning. I reply quickly!</p>
@@ -239,7 +251,7 @@
   <script>
     (function () {
       function wire(){
-        const links = Array.from(document.querySelectorAll('.site-nav a, .topbar nav a'));
+        const links = Array.from(document.querySelectorAll('.site-nav a, .topbar nav a, .primary a'));
         const galLink = links.find(a => a.textContent.trim() === 'Galleries');
         if(!galLink) return;
         const submenu = galLink.parentElement?.querySelector('.submenu, .dropdown, ul');
