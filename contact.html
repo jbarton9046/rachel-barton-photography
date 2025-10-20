@@ -6,33 +6,37 @@
   <title>Contact | Rachel Barton Photography</title>
   <meta name="description" content="Say hello and tell me about your session ideas. I’d love to plan something beautiful with you." />
 
-  <!-- Fonts (match about.html exactly: add Raleway for desktop nav) -->
+  <!-- Fonts (same set your site uses) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
-  <!-- Desktop-only serif/centered Galleries dropdown (exact look) -->
+  <!-- Desktop-only serif/centered Galleries dropdown (scoped so it won't touch top-level nav links) -->
   <style>
     @media (min-width: 900px){
-      .site-nav .submenu, .site-nav .dropdown, .topbar .submenu, .topbar .dropdown{
+      /* panel shell */
+      .primary .dropdown,
+      .primary .submenu{
         background: transparent; border:0; box-shadow:none; padding:6px 0 10px; min-width:170px;
       }
-      .site-nav .dropdown-title{
+      /* title */
+      .primary .dropdown-title{
         font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
         font-weight:700; font-size:26px; line-height:1.1;
         color:var(--accent, #A88A5A); text-align:center; margin:0 10px 6px; pointer-events:none;
       }
-      .site-nav .is-galleries-dropdown a{
+      /* centered serif items (ONLY inside the Galleries dropdown) */
+      .primary .is-galleries-dropdown a{
         display:block;
-        font-family:"Cormorant Garamond","Playfair Display",Georgia,serif !important;
+        font-family:"Cormorant Garamond","Playfair+Display",Georgia,serif !important;
         font-weight:500 !important; font-size:18px; line-height:1.35;
         letter-spacing:0; text-transform:none; text-align:center; color:#3e3e3a; padding:6px 12px;
       }
-      .site-nav .is-galleries-dropdown a:hover,
-      .site-nav .is-galleries-dropdown a:focus-visible{ color:var(--accent,#A88A5A); }
+      .primary .is-galleries-dropdown a:hover,
+      .primary .is-galleries-dropdown a:focus-visible{ color:var(--accent,#A88A5A); }
     }
   </style>
 
@@ -41,15 +45,18 @@
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#6e6a62;
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-      --mobile-header-h:64px;
 
-      /* Match about.html desktop header spacing */
-      --nav-gap-top:20px; 
+      /* ✅ match about.html desktop header spacing exactly */
+      --mobile-header-h:64px;
+      --nav-gap-top:20px;
       --nav-gap-bottom:44px;
     }
 
-    /* Use shared nav as-is; spacing only */
-    .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
+    /* Use shared nav as-is; only spacing is normalized to match about.html */
+    .topbar{
+      padding-top:var(--nav-gap-top) !important;
+      padding-bottom:var(--nav-gap-bottom) !important;
+    }
 
     *{box-sizing:border-box}
     html,body{
@@ -65,7 +72,7 @@
     /* ===== Page layout ===== */
     main section{padding:calc(var(--gap)*2) 0}
 
-    /* Grid so photos align to the headline top on desktop */
+    /* Grid so the photo column aligns with the heading start on desktop */
     .contact-grid{
       display:grid; gap:var(--gap);
     }
@@ -109,7 +116,7 @@
     .photos{display:grid; gap:var(--gap)}
     .stack{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
 
-    /* ===== Desktop grid (align with headline) ===== */
+    /* ===== Desktop grid (same visual alignment as your preferred version) ===== */
     @media (min-width:900px){
       .contact-grid{
         grid-template-columns: 1.25fr .75fr;
@@ -121,11 +128,12 @@
       .contact-header{ grid-area: header; }
       .form-wrap     { grid-area: form; }
       .photos        { grid-area: photos; }
-      .form-wrap .card{ height:100%; }
+
+      .form-wrap .card{ height:100%; } /* equal column bottoms */
     }
 
-    /* ===== Mobile unchanged ===== */
-    .mini-gallery{ display:none; }
+    /* ===== Mobile (unchanged) ===== */
+    .mini-gallery{ display:none; } /* shown only on phones */
     @media (max-width:900px){
       main section{
         padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px);
@@ -155,7 +163,7 @@
   </style>
 </head>
 <body>
-  <!-- Shared universal navbar -->
+  <!-- Shared universal navbar (spacing matches about.html; no font overrides) -->
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
@@ -235,11 +243,16 @@
   <script>
     (function () {
       function wire(){
-        const links = Array.from(document.querySelectorAll('.site-nav a, .topbar nav a'));
-        const galLink = links.find(a => a.textContent.trim() === 'Galleries');
+        const nav = document.getElementById('site-menu');
+        if(!nav) return;
+
+        // find the "Galleries" li and its submenu
+        const galLink = Array.from(nav.querySelectorAll('a')).find(a => a.textContent.trim() === 'Galleries');
         if(!galLink) return;
-        const submenu = galLink.parentElement?.querySelector('.submenu, .dropdown, ul');
+        const submenu = galLink.parentElement?.querySelector('.dropdown, .submenu, ul');
         if(!submenu) return;
+
+        // mark dropdown & inject the title (once)
         submenu.classList.add('is-galleries-dropdown');
         if(!submenu.querySelector('.dropdown-title')){
           const title = document.createElement('div');
