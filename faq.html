@@ -18,7 +18,7 @@
   <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/familyPortrait/Screenshot%202025-10-01%20133807.png?v=2" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts (include Raleway to match about.html nav) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
       --mobile-header-h: 64px;
     }
 
-    /* ✅ Desktop nav font EXACT match to about.html */
+    /* ✅ Desktop nav font EXACTLY like about.html */
     @media (min-width:821px){
       .topbar nav.primary > ul > li > a{
         font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
@@ -72,16 +72,14 @@
     img{ max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-    /* Layout: intro + photo on row 1; ALL bars full-width below */
+    /* Layout (desktop/tablet grid) */
     .faq{
       display:grid;
       grid-template-columns:minmax(0,1fr) minmax(260px,420px);
-      grid-auto-rows:auto;
       gap:12px;
       margin:18px 0 40px;
       align-items:start;
     }
-
     .faq-intro{ grid-column:1 }
     .faq-intro h1{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
@@ -90,27 +88,31 @@
     .lead{ color:#635f57; margin:0 0 18px }
 
     .faq-photo{
-      grid-column:2; grid-row:1;
+      grid-column:2; grid-row:1 / span 6;
       background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:10px;
       align-self:start;
     }
     .faq-photo img{ aspect-ratio:4/5; object-fit:cover; background:#fff }
     .faq-photo figcaption{ margin-top:8px; font-size:13px; color:#6e6a62; text-align:center }
 
-    /* FULL-WIDTH bars (span both columns) */
+    /* Bars default in left column */
     details{
-      grid-column:1 / -1;
-      background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow);
-      padding:0; margin-top:12px;
+      background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:0;
+      grid-column:1;
     }
     summary{
-      list-style:none; cursor:pointer; padding:16px 18px; user-select:none;
-      font-weight:700; display:flex; gap:12px; transition:color .15s ease
+      list-style:none; cursor:pointer; padding:16px 18px; user-select:none; font-weight:700; display:flex; gap:12px; transition:color .15s ease
     }
     summary::-webkit-details-marker{ display:none }
     summary:hover, summary:focus-visible{ color:var(--accent) }
     .qmark{ font-family:"Playfair Display",serif; font-size:20px; line-height:1; color:#b7a486; margin-top:2px }
     .answer{ padding:0 18px 16px; color:#4a463f }
+
+    /* ✅ Auto-span class your script adds (below the photo) */
+    details.span-below-photo{ grid-column:1 / -1; }
+
+    /* Make the whole "after photo" stack full-width across both columns */
+    .after-photo{ grid-column:1 / -1; }
 
     /* Button (site-wide outlined style) */
     .btn{
@@ -132,10 +134,12 @@
       .faq{
         display:block;
         margin:18px 0 40px;
+
+        /* Clear the sticky header (with iOS safe-area support) */
         padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px);
       }
       .faq-photo{ margin:12px 0; }
-      details{ margin:12px 0 0; }
+      details{ margin:0 0 12px; }
     }
   </style>
 </head>
@@ -154,7 +158,6 @@
         <figcaption>Sunset session on Siesta Key</figcaption>
       </figure>
 
-      <!-- All Q&A bars are now full-width below the intro/photo -->
       <details>
         <summary><span class="qmark">Q</span> How do I book?</summary>
         <div class="answer">
@@ -195,70 +198,99 @@
         </div>
       </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> What should we wear?</summary>
-        <div class="answer">
-          <p>Neutral, soft tones photograph beautifully on the Gulf Coast. I’ll send a simple styling guide with palettes and do-and-don’ts once you book.</p>
-        </div>
-      </details>
+      <!-- Everything below sits after the photo and spans full width -->
+      <div class="after-photo">
+        <details>
+          <summary><span class="qmark">Q</span> What should we wear?</summary>
+          <div class="answer">
+            <p>Neutral, soft tones photograph beautifully on the Gulf Coast. I’ll send a simple styling guide with palettes and do-and-don’ts once you book.</p>
+          </div>
+        </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> When will we receive our photos?</summary>
-        <div class="answer">
-          <p>Galleries are typically delivered within 2–3 weeks. I always send a few sneak peeks within a couple of days when possible.</p>
-        </div>
-      </details>
+        <details>
+          <summary><span class="qmark">Q</span> When will we receive our photos?</summary>
+          <div class="answer">
+            <p>Galleries are typically delivered within 2–3 weeks. I always send a few sneak peeks within a couple of days when possible.</p>
+          </div>
+        </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> How are images delivered?</summary>
-        <div class="answer">
-          <p>Via an online gallery—download in high-resolution and web-size. You can also order professional prints right from the gallery.</p>
-        </div>
-      </details>
+        <details>
+          <summary><span class="qmark">Q</span> How are images delivered?</summary>
+          <div class="answer">
+            <p>Via an online gallery—download in high-resolution and web-size. You can also order professional prints right from the gallery.</p>
+          </div>
+        </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> Do you work with newborns?</summary>
-        <div class="answer">
-          <p>Yes—natural, in-home lifestyle sessions focused on connection over posing. Ideal timing is within the first 2–6 weeks, but truly lovely anytime.</p>
-        </div>
-      </details>
+        <details>
+          <summary><span class="qmark">Q</span> Do you work with newborns?</summary>
+          <div class="answer">
+            <p>Yes—natural, in-home lifestyle sessions focused on connection over posing. Ideal timing is within the first 2–6 weeks, but truly lovely anytime.</p>
+          </div>
+        </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> Can we bring pets?</summary>
-        <div class="answer">
-          <p>Absolutely! Please let me know in advance so we can choose a pet-friendly location and plan for a helper if needed.</p>
-        </div>
-      </details>
+        <details>
+          <summary><span class="qmark">Q</span> Can we bring pets?</summary>
+          <div class="answer">
+            <p>Absolutely! Please let me know in advance so we can choose a pet-friendly location and plan for a helper if needed.</p>
+          </div>
+        </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> What’s your payment and cancellation policy?</summary>
-        <div class="answer">
-          <p>A retainer is due at booking to hold your date; the balance is due by session day. If you need to reschedule, just reach out—life happens!</p>
-        </div>
-      </details>
+        <details>
+          <summary><span class="qmark">Q</span> What’s your payment and cancellation policy?</summary>
+          <div class="answer">
+            <p>A retainer is due at booking to hold your date; the balance is due by session day. If you need to reschedule, just reach out—life happens!</p>
+          </div>
+        </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> Any travel fees?</summary>
-        <div class="answer">
-          <p>No travel fee within the local Sarasota/Manatee area. Small fees may apply for farther beaches or parks—I'll confirm before booking.</p>
-        </div>
-      </details>
+        <details>
+          <summary><span class="qmark">Q</span> Any travel fees?</summary>
+          <div class="answer">
+            <p>No travel fee within the local Sarasota/Manatee area. Small fees may apply for farther beaches or parks—I'll confirm before booking.</p>
+          </div>
+        </details>
 
-      <details>
-        <summary><span class="qmark">Q</span> Accessibility & comfort</summary>
-        <div class="answer">
-          <p>If stairs, sand, or walking distances are a concern, we’ll choose an easy-access spot. Tell me what you need and I’ll handle the details.</p>
-        </div>
-      </details>
+        <details>
+          <summary><span class="qmark">Q</span> Accessibility & comfort</summary>
+          <div class="answer">
+            <p>If stairs, sand, or walking distances are a concern, we’ll choose an easy-access spot. Tell me what you need and I’ll handle the details.</p>
+          </div>
+        </details>
 
-      <div style="margin-top:18px">
-        Still wondering about something?
-        <a class="btn" href="/contact.html">Contact Me</a>
+        <div style="margin-top:18px">
+          Still wondering about something?
+          <a class="btn" href="/contact.html">Contact Me</a>
+        </div>
       </div>
     </section>
   </main>
 
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
+
+  <!-- Auto-span: desktop/tablet only (grid layout) — your original logic -->
+  <script>
+    (function(){
+      if (window.matchMedia && !window.matchMedia('(min-width: 901px)').matches) return;
+
+      const photo = document.querySelector('.faq-photo');
+      const bars  = Array.from(document.querySelectorAll('.faq > details'));
+      if (!photo || !bars.length) return;
+
+      function absTop(el){ const r = el.getBoundingClientRect(); return r.top + window.scrollY; }
+      function absBottom(el){ const r = el.getBoundingClientRect(); return r.bottom + window.scrollY; }
+
+      function updateSpans(){
+        const photoBottom = absBottom(photo);
+        bars.forEach(d => d.classList.remove('span-below-photo'));
+        void document.body.offsetHeight;
+        bars.forEach(d => { if (absTop(d) >= photoBottom - 1) d.classList.add('span-below-photo'); });
+      }
+
+      bars.forEach(d => d.addEventListener('toggle', updateSpans));
+      window.addEventListener('resize', () => requestAnimationFrame(updateSpans));
+      window.addEventListener('load', updateSpans);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateSpans);
+    })();
+  </script>
 </body>
 </html>
