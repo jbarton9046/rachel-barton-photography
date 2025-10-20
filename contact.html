@@ -6,10 +6,10 @@
   <title>Contact | Rachel Barton Photography</title>
   <meta name="description" content="Say hello and tell me about your session ideas. I’d love to plan something beautiful with you." />
 
-  <!-- Fonts (same set your site uses) -->
+  <!-- Fonts (match about.html exactly: add Raleway for desktop nav) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
@@ -41,31 +41,15 @@
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#6e6a62;
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-
-      /* match About page desktop spacing */
       --mobile-header-h:64px;
+
+      /* Match about.html desktop header spacing */
       --nav-gap-top:20px; 
       --nav-gap-bottom:44px;
     }
 
-    /* Use shared nav as-is; spacing matches About */
+    /* Use shared nav as-is; spacing only */
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
-
-    /* ✅ Desktop: make top-level nav links thin (like About).
-       Scope narrowly so dropdown items keep their serif styling. */
-    @media (min-width:821px){
-      .topbar .primary > ul > li > a{
-        font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
-        font-weight:400 !important;
-        letter-spacing:0 !important;
-        text-transform:none !important;
-      }
-      .topbar .primary > ul > li > a:hover,
-      .topbar .primary > ul > li > a:focus-visible{
-        color:var(--accent);
-        font-weight:400 !important; /* no bold on hover */
-      }
-    }
 
     *{box-sizing:border-box}
     html,body{
@@ -81,7 +65,7 @@
     /* ===== Page layout ===== */
     main section{padding:calc(var(--gap)*2) 0}
 
-    /* Headline/lead, form, and photos grid */
+    /* Grid so photos align to the headline top on desktop */
     .contact-grid{
       display:grid; gap:var(--gap);
     }
@@ -125,7 +109,7 @@
     .photos{display:grid; gap:var(--gap)}
     .stack{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
 
-    /* ===== Desktop grid (keeps photos starting with the heading) ===== */
+    /* ===== Desktop grid (align with headline) ===== */
     @media (min-width:900px){
       .contact-grid{
         grid-template-columns: 1.25fr .75fr;
@@ -140,8 +124,8 @@
       .form-wrap .card{ height:100%; }
     }
 
-    /* ===== Mobile stays exactly the same ===== */
-    .mini-gallery{ display:none; } /* hidden by default; shown only on mobile */
+    /* ===== Mobile unchanged ===== */
+    .mini-gallery{ display:none; }
     @media (max-width:900px){
       main section{
         padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px);
@@ -228,7 +212,7 @@
             </div>
           </div>
 
-          <!-- Photos (desktop only; right column) -->
+          <!-- Photos (desktop only) -->
           <aside class="photos" aria-hidden="true">
             <img src="/pictures/familyPortrait/image5.jpg" alt="Candid family moment by the water" loading="lazy" sizes="(max-width:900px) 0, 33vw">
             <div class="stack">
@@ -251,7 +235,7 @@
   <script>
     (function () {
       function wire(){
-        const links = Array.from(document.querySelectorAll('.site-nav a, .topbar nav a, .primary a'));
+        const links = Array.from(document.querySelectorAll('.site-nav a, .topbar nav a'));
         const galLink = links.find(a => a.textContent.trim() === 'Galleries');
         if(!galLink) return;
         const submenu = galLink.parentElement?.querySelector('.submenu, .dropdown, ul');
