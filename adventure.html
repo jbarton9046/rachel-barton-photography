@@ -3,429 +3,366 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Golden Hour | Rachel Barton Photography</title>
-  <meta name="description" content="Plan by light: sunrise, sunset, golden hour, and blue hour for any date. Search Sarasota beaches and neighborhoods or use your location." />
-  <link rel="canonical" href="/light-planner.html" />
+  <title>Adventure Sessions at Andrews Bald | Rachel Barton Photography</title>
 
-  <!-- Same fonts & layout as About -->
+  <!-- Primary SEO -->
+  <meta name="description" content="Adventure portrait sessions at Andrews Bald near Gatlinburg, Tennessee. Sunrise light, wind in the grass, and story-driven images that feel alive." />
+  <link rel="canonical" href="https://rachelsphotography.netlify.app/adventure.html" />
+
+  <!-- Social share -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Rachel Barton Photography" />
+  <meta property="og:title" content="Adventure Sessions at Andrews Bald" />
+  <meta property="og:description" content="Sunrise on the ridge—wind, movement, and photographs that feel like the day you’ll never forget." />
+  <meta property="og:url" content="https://rachelsphotography.netlify.app/adventure.html" />
+  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/andrewsBaldPics/E26A1013.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Adventure Sessions at Andrews Bald" />
+  <meta name="twitter:description" content="Story-driven portraits in the Smokies." />
+  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/andrewsBaldPics/E26A1013.jpg" />
+
+  <!-- Fonts & shared layout (same as branding/portraits) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
   <style>
     :root{
-      --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#7a766e; --accent:#A88A5A; --line:#e9e6df;
-      --shadow: 0 10px 30px rgba(0,0,0,.08); --frame:#ecebea;
-      --radius:0; --gap:clamp(16px,3vw,32px); --maxw:1200px;
-      --mobile-header-h:64px; --nav-gap-top:20px; --nav-gap-bottom:44px;
-      --head-text-max:57ch; --col-gap:clamp(12px,2vw,20px); --align-nudge:18px;
+      --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
+      --accent:#A88A5A; --accent-2:#E8DFC9; --line:#e9e6df;
+      --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --gap:clamp(16px,3vw,32px); --maxw:1200px;
+      --nav-gap-top:16px; --nav-gap-bottom:40px;
+
+      /* Arrow tokens (diamonds under arrows) */
+      --arrow-size:56px;
+      --arrow-inset:14px;
+      --col-gap: clamp(20px, 4vw, 40px); /* breathing room */
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
+    .nav-spacer,.page-top-spacer{ height:0!important; }
+
     *{box-sizing:border-box}
-    html,body{
-      margin:0; padding:0; background:var(--bg); color:var(--ink);
-      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-      line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    html,body{ margin:0; background:var(--bg); color:var(--ink);
+      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Inter, Arial, sans-serif; line-height:1.65; }
+    a{ color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease }
+    a:hover,a:focus-visible{ color:var(--accent) }
+    .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
+
+    /* HERO — wide, airy */
+    .hero{ padding:clamp(16px,4vw,36px) 0 0; }
+    .hero-figure{
+      position:relative; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.07);
+      margin:0; overflow:hidden;
     }
-    a{color:inherit; text-decoration:none; transition:color .15s ease,border-color .15s ease}
-    a:hover, a:focus-visible{ color:var(--accent); outline:none }
-
-    nav.primary a{
-      font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif!important;
-      font-weight:500!important; letter-spacing:.01em;
+    .hero-figure img{
+      width:100%; height:min(68vh, 760px); object-fit:cover; object-position:center; display:block;
     }
-
-    .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
-    main section{padding:clamp(10px,2vw,18px) 0}
-
-    /* Heading + photos */
-    .head-grid{
-      display:grid;
-      grid-template-columns:minmax(0,max-content) 1fr;
-      gap:var(--col-gap);
-      align-items:start;
+    .hero-badge{
+      position:absolute; left:14px; top:14px; background:#fff; border:1px solid var(--line);
+      padding:6px 10px; box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px;
     }
-    @media (max-width:900px){
-      .head-grid{ grid-template-columns:1fr; justify-items:center; }
-      .head-photo{ display:none; }
+    .hero-copy{
+      padding:clamp(18px,4vw,28px) 0 clamp(8px,2.5vw,16px);
+      display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(18px,3.6vw,36px); align-items:start;
     }
+    @media (max-width:980px){ .hero-copy{ grid-template-columns:1fr } }
 
-    .page-head{ margin:10px 0 8px; }
-    h1,h2{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif}
-    h1{ font-size:clamp(32px,6vw,56px); line-height:1.1; margin:0; font-weight:700; color:#202022; }
-    .section-sub{ color:#5c5850; margin:8px 0 14px; font-size:clamp(16px,2.6vw,19px) }
-    @media(min-width:900px){ .page-head{ max-width:var(--head-text-max); } }
+    .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
+    .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
+    .lead{ font-size:clamp(16px,2.2vw,20px); color:#58554e; max-width:68ch }
 
+    /* Buttons */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
       padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33;
-      font-weight:700; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
+      font-weight:700; text-decoration:none; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
       transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
-    .btn:hover,.btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px) }
-
-    .head-photo{
-      display:grid; grid-template-columns:1fr 1fr; gap:12px;
-      width:calc(100% - var(--align-nudge));
-      justify-self:end; align-content:start;
+    .btn:hover, .btn:focus-visible{
+      background:#fff; border-color:#dcd4c3; color:var(--accent);
+      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none;
     }
-    .head-photo img{
-      width:100%; height:clamp(150px,18vw,240px);
-      object-fit:cover; object-position:center;
-      display:block; border:1px solid var(--frame); box-shadow:var(--shadow); background:#fff;
+    .btn.alt{ background:#fff; border-color:var(--line); }
+
+    /* SPLIT LAYOUT: Carousel + Notes column */
+    .media-notes{ padding:clamp(16px,5vw,44px) 0 0; }
+    .media-notes .grid{
+      display:grid;
+      grid-template-columns: auto minmax(300px, 360px);
+      gap: var(--col-gap);
+      align-items:start;
+      justify-content:center;
     }
-    .head-photo img.is-grass{ object-position:50% 18%; }
-    @media (min-width:900px){ .head-photo{ margin-top:-6px; } }
-
-    .card{background:#fff; border:1px solid var(--line); box-shadow:var(--shadow)}
-    .pad{padding:16px}
-
-    /* Planner layout */
-    .planner-grid{ display:grid; grid-template-columns:1fr 1fr; gap:var(--col-gap); align-items:start }
-    @media(max-width:980px){ .planner-grid{ grid-template-columns:1fr } }
-
-    .group{display:grid;gap:8px}
-    label{font-weight:700;font-size:.95rem}
-    input[type="text"]{width:100%;padding:12px 14px;border:1px solid var(--line);background:#fff}
-    button{appearance:none;border:1px solid var(--line);background:#fff;padding:10px 14px;cursor:pointer;font-weight:700}
-    .util{display:flex;gap:8px;flex-wrap:wrap}
-
-    .quick-areas{display:flex;flex-wrap:wrap;gap:6px}
-    .quick-areas button{padding:.35rem .7rem; white-space:nowrap}
-    @media (min-width:980px){
-      .quick-areas{display:grid; grid-auto-flow:column; grid-template-rows:repeat(2,auto); gap:6px 8px; align-items:start;}
+    @media (max-width:980px){
+      .media-notes .grid{ grid-template-columns:1fr; justify-content:initial; }
     }
 
-    .calendar{display:grid;gap:10px}
-    .cal-header{display:flex;justify-content:space-between;align-items:center}
-    .cal-header h3{font-size:1.02rem;margin:0;font-weight:700}
-    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
-    .dow{font-size:.82rem;color:#6f6b62;text-align:center;padding:4px 0;font-weight:600}
-    .day{display:grid;place-items:center;height:40px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:15px;line-height:1}
-    .day.muted{color:#b5b1a6}
-    .day.today{outline:2px solid var(--accent); outline-offset:-2px}
-    .day.selected{background:rgba(168,138,90,.12); border-color:var(--accent)}
-
-    .times-table{width:100%;border-collapse:collapse}
-    .times-table th,.times-table td{border:1px solid var(--line);padding:10px 12px;text-align:left}
-    .times-table th{background:#f7f5f1;font-weight:700}
-    .k{white-space:nowrap}
-
-    .inline-cta{
-      display:flex; gap:12px; flex-wrap:wrap;
-      margin-top:16px; padding-top:12px;
-      border-top:1px solid var(--line);
+    /* CAROUSEL (diamonds under arrows; no dots). Height/width sized via JS to match notes height while keeping 5:4 */
+    .carousel{
+      position:relative;
+      margin:0;
+      border:1px solid var(--line);
+      box-shadow:0 8px 24px rgba(0,0,0,.07);
+      overflow:hidden;
+      width:auto; height:auto; max-width:100%;
     }
-    @media (min-width:720px){
-      .inline-cta{ justify-content:flex-start; }
+    .carousel img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+
+    .dots{ display:none !important; }
+
+    .nav{
+      position:absolute; top:50%; transform:translateY(-50%); width:var(--arrow-size); height:var(--arrow-size);
+      display:grid; place-items:center; color:var(--accent); z-index:3; cursor:pointer; border:0; background:transparent;
+      opacity:.95; transition:opacity .15s ease, transform .15s ease;
+    }
+    .nav:hover{ opacity:1; transform:translateY(-50%) scale(1.02) }
+    .nav::before{
+      content:""; position:absolute; inset:0; margin:8px; transform:rotate(45deg);
+      background:rgba(255,255,255,.28);
+      -webkit-backdrop-filter:blur(7px) saturate(1.05);
+      backdrop-filter:blur(7px) saturate(1.05);
+      border:1px solid rgba(63,58,51,.18);
+      box-shadow:0 10px 22px rgba(0,0,0,.10);
+      border-radius:2px;
+    }
+    .nav svg{ width:22px; height:22px; position:relative; z-index:1; }
+    .prev{ left:var(--arrow-inset) } .next{ right:var(--arrow-inset) }
+
+    /* NOTES COLUMN */
+    aside.notes-col .eyebrow{ margin-bottom:8px }
+    .notes-stack{ display:flex; flex-direction:column; gap:clamp(10px,1.8vw,14px) }
+    .note{
+      background:#fff; border:1px solid var(--line); padding:16px 16px 14px;
+      box-shadow:0 6px 18px rgba(0,0,0,.06)
+    }
+    .note h3{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:clamp(18px,2.2vw,20px)
+    }
+    .note p{ margin:0; color:#4e4b45 }
+
+    /* Accent link style (matches active/hovered nav gold) */
+    .accent-link{
+      color:var(--accent);
+      font-weight:600;
+      text-underline-offset:3px;
+    }
+    .accent-link:hover,
+    .accent-link:focus-visible{
+      color:var(--accent);
+      text-decoration:underline;
+      outline:none;
     }
 
-    /* ---------------- Mobile polish ---------------- */
-    @media (max-width:900px){
-      /* Clear the sticky header so the top content isn't hidden */
-      main{ padding-top: calc(var(--mobile-header-h) + 12px); }
+    /* CTA */
+    .cta{ background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; margin:32px 0 18px }
+    .cta .row{ display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap }
+    .cta small{ color:#6e6a62 }
 
-      /* Center hero text + actions on phones */
-      .page-head{ text-align:center; }
-      .page-head .cta{ justify-content:center; }
-
-      /* Slightly increase vertical rhythm for tap targets */
-      .page-head .btn{ min-width: 44px; }
-    }
+    footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
   </style>
 </head>
 <body>
+  <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
-  <main id="content" class="container">
-    <div class="head-grid">
-      <header class="page-head" aria-labelledby="golden-title">
-        <h1 id="golden-title">Golden Hour</h1>
-        <p class="section-sub">Pick a date and location to see sunrise, sunset, plus golden &amp; blue hour windows—perfect for planning sessions.</p>
-        <div class="cta" style="display:flex; gap:12px; flex-wrap:wrap">
-          <a class="btn" href="/book.html">Check availability</a>
-          <a class="btn" href="/galleries.html">See galleries</a>
-          <a class="btn" href="/contact.html">Ask a Question</a>
+  <main id="content">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <figure class="hero-figure">
+          <span class="hero-badge">Sunrise • Smokies • Movement</span>
+          <img id="hero-image" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Sunrise adventure session on the grassy ridge at Andrews Bald" />
+        </figure>
+        <div class="hero-copy">
+          <div>
+            <div class="eyebrow">Adventure Sessions</div>
+            <h1 class="h1">Andrews Bald, Tennessee</h1>
+            <p class="lead">
+              High above Gatlinburg, the trail opens to a broad, wind-brushed meadow where the light hits different.
+              Our adventure sessions are built around movement and laughter—less posing, more story—so the pictures
+              feel like the day itself.
+            </p>
+            <div style="display:flex; gap:10px; margin-top:10px;">
+              <a class="btn" href="/book.html">Book an Adventure</a>
+              <a class="btn alt" href="/contact.html">Ask a Question</a>
+            </div>
+          </div>
+          <div>
+            <p style="margin:0">
+              We started before dawn, coffee steaming in the cool air, and reached the ridge as the sky softened from
+              slate to peach. The grass leaned with the wind, clouds slipped along the valleys, and the Smokies did what
+              they always do—turned every small moment into something cinematic. We walked, we laughed, we warmed our hands,
+              then let the morning unfold: twirls in the tall grass, a quiet pause facing the mountains, and the kind of
+              frames you only get when the sun breaks the horizon.
+            </p>
+          </div>
         </div>
-      </header>
-
-      <figure class="head-photo" aria-hidden="true">
-        <img loading="eager" src="pictures/goldenHourPics/couple-lido-golden.jpg" alt="Couple at Lido during golden hour." width="600" height="900" />
-        <img loading="eager" class="is-grass" src="pictures/goldenHourPics/golden-grass.jpg" alt="Golden light across coastal grass at sunset." width="600" height="900" />
-      </figure>
-    </div>
-
-    <section class="explainer" aria-labelledby="what-title">
-      <article class="card pad">
-        <h2 id="what-title">What are “golden” and “blue” hours?</h2>
-        <p><strong>Golden hour</strong> happens when the sun is low and light is soft and flattering. On most days it’s roughly the <em>first hour after sunrise</em> and the <em>last hour before sunset</em>. Skin tones look warm, shadows are gentle, and highlights glow—perfect for couples, families with little ones, and soft, timeless color.</p>
-        <p><strong>Blue hour</strong> hugs the edges of daylight—when the sun is just below the horizon and the sky turns deep blue. It usually occurs <em>right before sunrise</em> and <em>right after sunset</em>, during civil twilight. This window gives dreamy skies, city lights starting to twinkle, and a calm, cinematic feel.</p>
-        <p><strong>Tips:</strong> a few clouds are your friend (they catch color), beaches and open fields give the widest sky, and wind/light seas are great for hair and flowing dresses. Times below are adjusted automatically for daylight saving.</p>
-      </article>
+      </div>
     </section>
 
-    <!-- Planner -->
-    <section aria-label="Planner">
-      <div class="planner-grid">
-        <aside class="card pad">
-          <div class="group">
-            <label for="where">Location</label>
-            <div class="util">
-              <input id="where" type="text" placeholder="Search a place (e.g., Siesta Key, Bradenton Beach, Lido Key)" />
-              <button id="btnGeocode">Search</button>
-              <button id="btnGeo">Use my location</button>
-            </div>
-
-            <div class="quick-areas" aria-label="Quick locations">
-              <button data-area="Siesta Key">Siesta Key</button>
-              <button data-area="Longboat Key">Longboat Key</button>
-              <button data-area="Naples">Naples</button>
-              <button data-area="Venice">Venice</button>
-              <button data-area="Punta Gorda">Punta Gorda</button>
-              <button data-area="Bradenton Beach">Bradenton Beach</button>
-              <button data-area="Lido Key">Lido Key</button>
-              <button data-area="Nokomis">Nokomis</button>
-              <button data-area="Clearwater Beach">Clearwater Beach</button>
-              <button data-area="St. Pete Beach">St. Pete Beach</button>
-            </div>
-
-            <p class="small" id="locNote">Type a neighborhood or beach, then press <em>Search</em>. Or use your phone’s location.</p>
+    <!-- SPLIT: CAROUSEL + NOTES -->
+    <section class="media-notes">
+      <div class="container">
+        <div class="grid">
+          <!-- Left: Carousel -->
+          <div>
+            <figure class="carousel" id="adv-carousel"
+              data-images='[
+                "/pictures/andrewsBaldPics/E26A1013.jpg",
+                "/pictures/andrewsBaldPics/E26A1022.jpg",
+                "/pictures/andrewsBaldPics/E26A1033.jpg",
+                "/pictures/andrewsBaldPics/E26A1045.jpg",
+                "/pictures/andrewsBaldPics/E26A1062.jpg",
+                "/pictures/andrewsBaldPics/E26A1063-2.jpg",
+                "/pictures/andrewsBaldPics/E26A1087.jpg",
+                "/pictures/andrewsBaldPics/E26A1094.jpg",
+                "/pictures/andrewsBaldPics/E26A1095.jpg",
+                "/pictures/andrewsBaldPics/E26A1098.jpg"
+              ]'>
+              <img id="adv-frame" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Adventure gallery slide" />
+              <!-- dots intentionally hidden -->
+              <button class="nav prev" type="button" aria-label="Previous slide">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+              </button>
+              <button class="nav next" type="button" aria-label="Next slide">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </figure>
           </div>
 
-          <div class="group">
-            <label>Date</label>
-            <div class="calendar">
-              <div class="cal-header">
-                <div class="util">
-                  <button id="prevMonth" aria-label="Previous month">◀</button>
-                  <button id="todayBtn">Today</button>
-                  <button id="nextMonth" aria-label="Next month">▶</button>
-                </div>
-                <h3 id="calLabel">Month YYYY</h3>
+          <!-- Right: Notes -->
+          <aside class="notes-col">
+            <div class="eyebrow">Field notes</div>
+            <div class="notes-stack">
+              <div class="note">
+                <h3>Best light</h3>
+                <p>
+                  Sunrise or late
+                  <a class="accent-link" href="/light-planner.html">golden hour</a>
+                  keeps the mountains soft and the meadow glowing. Morning usually brings calmer trails and fresher air.
+                </p>
               </div>
-              <div class="cal-grid" id="dow"></div>
-              <div class="cal-grid" id="cal"></div>
+              <div class="note">
+                <h3>Move-friendly wardrobe</h3>
+                <p>Layers and textures photograph beautifully in the wind. Comfortable shoes and hands-free bags keep us nimble on the trail.</p>
+              </div>
+              <div class="note">
+                <h3>Weather = mood</h3>
+                <p>Fog, sun, clouds—every scenario tells a different story here. We’ll watch the forecast and adjust as needed for the best experience.</p>
+              </div>
             </div>
-          </div>
-        </aside>
+          </aside>
+        </div>
+      </div>
+    </section>
 
-        <article class="card pad">
-          <h2 id="resultTitle" style="margin:0 0 8px 0">—</h2>
-          <table class="times-table" id="timesTable" aria-describedby="resultTitle">
-            <thead>
-              <tr><th>Light window</th><th>Start</th><th>End</th></tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-
-          <div class="inline-cta" role="group" aria-label="Page actions">
-            <a class="btn" href="/book.html">Check availability</a>
-            <a class="btn" href="/galleries.html">See galleries</a>
-            <a class="btn" href="/contact.html">Ask a Question</a>
-          </div>
-        </article>
+    <!-- CTA (pricing after consultation) -->
+    <section class="cta">
+      <div class="container row">
+        <p class="lead" style="margin:0">Ready to plan your Smokies adventure?</p>
+        <div style="display:flex; gap:10px;">
+          <a class="btn" href="/book.html">Book an Adventure</a>
+          <a class="btn alt" href="/contact.html">Start a Consultation</a>
+        </div>
+        <small>Pricing is provided after consultation to tailor coverage, timing, and hiking logistics.</small>
       </div>
     </section>
   </main>
 
+  <!-- Shared Footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
+  <!-- Carousel logic + focal-point control + size sync to notes height -->
   <script>
-    /* ---------- Utilities & Solar math ---------- */
-    const RAD = Math.PI/180, DEG = 180/Math.PI;
+    (function(){
+      const figure = document.getElementById('adv-carousel');
+      if(!figure) return;
 
-    function dayOfYear(d){
-      const start = new Date(d.getFullYear(),0,0);
-      const diff = d - start + ((start.getTimezoneOffset()-d.getTimezoneOffset())*60000);
-      return Math.floor(diff/86400000);
-    }
-    function eqTimeAndDecl(date){
-      const n = dayOfYear(date);
-      const g = 2*Math.PI/365*(n-1);
-      const eqTime = 229.18*(0.000075 + 0.001868*Math.cos(g) - 0.032077*Math.sin(g) - 0.014615*Math.cos(2*g) - 0.040849*Math.sin(2*g));
-      const decl = 0.006918 - 0.399912*Math.cos(g) + 0.070257*Math.sin(g) - 0.006758*Math.cos(2*g) + 0.000907*Math.sin(2*g) - 0.002697*Math.cos(3*g) + 0.00148*Math.sin(3*g);
-      return {eqTime, decl};
-    }
-    function solarNoonLocalMinutes(date, lon){
-      const tz = -date.getTimezoneOffset()/60;
-      const {eqTime} = eqTimeAndDecl(date);
-      return 720 - 4*lon - eqTime + tz*60;
-    }
-    function hourAngleForElevation(lat, decl, elevDeg){
-      const h = elevDeg*RAD; const phi = lat*RAD;
-      const cosH = (Math.sin(h) - Math.sin(phi)*Math.sin(decl)) / (Math.cos(phi)*Math.cos(decl));
-      if (cosH < -1 || cosH > 1) return null;
-      return Math.acos(cosH)*DEG;
-    }
-    function eventTime(date, lat, lon, elev){
-      const {decl} = eqTimeAndDecl(date);
-      const H = hourAngleForElevation(lat, decl, elev);
-      if (H === null) return {rise:null, set:null};
-      const noon = solarNoonLocalMinutes(date, lon);
-      return {rise: noon - H*4, set: noon + H*4};
-    }
-    function packTimes(date, lat, lon){
-      const sun  = eventTime(date, lat, lon, -0.833);
-      const blue = { a:eventTime(date,lat,lon,-6),  b:eventTime(date,lat,lon,-4) };
-      const gold = { a:eventTime(date,lat,lon,-4),  b:eventTime(date,lat,lon, 6) };
-      return {
-        sunriseMin:sun.rise, sunsetMin:sun.set,
-        blueAM:{start: blue.a.rise, end: blue.b.rise},          // −6° → −4° (pre-dawn)
-        bluePM:{start: blue.b.set,  end: blue.a.set},           // −4° → −6° (post-sunset)
-        goldAM:{start: gold.a.rise, end: gold.b.rise},          // −4° → +6° (after sunrise)
-        goldPM:{start: gold.b.set,  end: gold.a.set}            // +6° → −4° (before/just after sunset)
+      let images = [];
+      try { images = JSON.parse(figure.getAttribute('data-images') || '[]'); } catch {}
+      if(!images.length) return;
+
+      const frame = document.getElementById('adv-frame');
+      const prev  = figure.querySelector('.prev');
+      const next  = figure.querySelector('.next');
+
+      // Subject-centric focal positions
+      const FOCALS = {
+        "E26A1013.jpg":  "50% 42%",
+        "E26A1022.jpg":  "48% 40%",
+        "E26A1033.jpg":  "52% 46%",
+        "E26A1045.jpg":  "50% 38%",
+        "E26A1062.jpg":  "50% 44%",
+        "E26A1063-2.jpg":"50% 45%",
+        "E26A1087.jpg":  "50% 40%",
+        "E26A1094.jpg":  "50% 46%",
+        "E26A1095.jpg":  "50% 44%",
+        "E26A1098.jpg":  "50% 42%"
       };
-    }
-    function minsToClock(mins){
-      if(mins==null) return '—';
-      const m = Math.round(mins); let h = Math.floor(m/60); const mm = (m%60+60)%60;
-      const sfx = (h>=12)?'PM':'AM'; h = (h%12)||12;
-      return `${h}:${mm.toString().padStart(2,'0')} ${sfx}`;
-    }
 
-    /* ---------- Calendar build ---------- */
-    const dowNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    const dowEl    = document.getElementById('dow');
-    const calEl    = document.getElementById('cal');
-    const calLabel = document.getElementById('calLabel');
+      const basename = (s)=> s.split('?')[0].split('#')[0].split('/').pop();
 
-    let selected    = new Date(); selected.setHours(0,0,0,0);
-    let monthCursor = new Date(selected);
+      let i = 0;
 
-    dowNames.forEach(d=>{ const el=document.createElement('div'); el.className='dow'; el.textContent=d; dowEl.appendChild(el); });
-
-    function addDay(num, muted, dateObj){
-      const el = document.createElement('button');
-      el.className = 'day' + (muted?' muted':'');
-      el.textContent = num;
-      if (dateObj.toDateString() === new Date().toDateString()) el.classList.add('today');
-      if (dateObj.toDateString() === selected.toDateString()) el.classList.add('selected');
-      el.addEventListener('click', () => {
-        selected = new Date(dateObj); selected.setHours(0,0,0,0);
-        buildCalendar(); renderTimes();
-      });
-      calEl.appendChild(el);
-    }
-
-    function buildCalendar(){
-      calEl.innerHTML = '';
-      const y = monthCursor.getFullYear(), m = monthCursor.getMonth();
-      const first = new Date(y,m,1);
-      const startDow = first.getDay();
-      const last = new Date(y,m+1,0).getDate();
-      const prevLast = new Date(y,m,0).getDate();
-
-      calLabel.textContent = monthCursor.toLocaleString(undefined,{month:'long',year:'numeric'});
-
-      for(let i=0;i<startDow;i++){
-        const d = prevLast - startDow + 1 + i;
-        addDay(d, true, new Date(y,m-1,d));
+      function focalFor(src){
+        const base = basename(src);
+        return FOCALS[base] || "50% 50%";
       }
-      for(let d=1; d<=last; d++){
-        addDay(d, false, new Date(y,m,d));
+
+      function sizeCarousel(){
+        const grid  = document.querySelector('.media-notes .grid');
+        const aside = document.querySelector('aside.notes-col');
+        if(!grid || !aside) return;
+
+        const notesH = aside.offsetHeight;
+        if(!notesH) return;
+
+        const styles = getComputedStyle(grid);
+        const gap = parseFloat(styles.columnGap || styles.gap || 0);
+        const gridW = grid.clientWidth;
+        const notesW = aside.clientWidth;
+
+        let availW = gridW - notesW - gap;
+        if (availW <= 0) availW = gridW;
+
+        const desiredW = notesH * (5/4);
+        const width = Math.min(desiredW, availW);
+        const height = width * (4/5);
+
+        figure.style.width  = width  + 'px';
+        figure.style.height = height + 'px';
       }
-      const cells = calEl.children.length;
-      for(let d=1; cells + d <= 42; d++){
-        addDay(d, true, new Date(y,m+1,d));
+
+      function paint(){
+        const src = images[i];
+        frame.src = src;
+        frame.style.objectPosition = focalFor(src);
+        sizeCarousel();
       }
-    }
-
-    document.getElementById('prevMonth').onclick = () => { monthCursor.setMonth(monthCursor.getMonth()-1); buildCalendar(); };
-    document.getElementById('nextMonth').onclick = () => { monthCursor.setMonth(monthCursor.getMonth()+1); buildCalendar(); };
-    document.getElementById('todayBtn').onclick   = () => { selected = new Date(); selected.setHours(0,0,0,0); monthCursor = new Date(selected); buildCalendar(); renderTimes(); };
-
-    /* ---------- Location & search (Florida-only) ---------- */
-    const whereEl   = document.getElementById('where');
-    const geoBtn    = document.getElementById('btnGeo');
-    const geocodeBtn= document.getElementById('btnGeocode');
-    const quicks    = document.querySelectorAll('.quick-areas button');
-    const locNote   = document.getElementById('locNote');
-
-    let state = { lat:27.3364, lon:-82.5307, label:'Sarasota, FL' };
-    whereEl.value = state.label;
-
-    geoBtn.onclick = ()=>{
-      if(!navigator.geolocation){ alert('Geolocation not available in this browser.'); return; }
-      geoBtn.disabled = true; geoBtn.textContent = 'Locating…';
-      navigator.geolocation.getCurrentPosition(pos=>{
-        state.lat = +pos.coords.latitude.toFixed(4);
-        state.lon = +pos.coords.longitude.toFixed(4);
-        state.label = 'My location';
-        whereEl.value = state.label;
-        geoBtn.textContent = 'Use my location'; geoBtn.disabled = false;
-        renderTimes();
-      }, ()=>{
-        alert('Could not get location. Try typing a place and press Search.');
-        geoBtn.textContent = 'Use my location'; geoBtn.disabled = false;
-      });
-    };
-
-    const FL_VIEWBOX = [-87.7, 24.2, -80.0, 31.1];
-
-    async function geocode(q){
-      try{
-        const params = new URLSearchParams({
-          format: 'json',
-          q,
-          limit: '1',
-          countrycodes: 'us',
-          bounded: '1',
-          viewbox: FL_VIEWBOX.join(',')
-        });
-        const url = `https://nominatim.openstreetmap.org/search?${params.toString()}`;
-        const resp = await fetch(url, { headers:{'Accept':'application/json'} });
-        if(!resp.ok) throw new Error('search failed');
-        const data = await resp.json();
-        if(!data || !data.length) return null;
-        return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon), label: q };
-      }catch(e){ return null; }
-    }
-    async function doSearch(){
-      const q = (whereEl.value||'').trim();
-      if(!q){ whereEl.focus(); return; }
-      geocodeBtn.disabled = true; geocodeBtn.textContent = 'Searching…';
-      const res = await geocode(q);
-      if(res){
-        state.lat = +res.lat.toFixed(4); state.lon = +res.lon.toFixed(4); state.label = q;
-        renderTimes(); locNote.textContent = `Location set to “${q}, FL”.`;
-      }else{
-        locNote.textContent = 'No Florida results for that query. Try a nearby beach or neighborhood.';
+      function show(n){
+        i = (n + images.length) % images.length;
+        paint();
       }
-      geocodeBtn.textContent = 'Search'; geocodeBtn.disabled = false;
-    }
-    geocodeBtn.addEventListener('click', doSearch);
-    whereEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); doSearch(); }});
-    quicks.forEach(b=> b.addEventListener('click',()=>{ whereEl.value = b.dataset.area; doSearch(); }));
+      prev.addEventListener('click', () => show(i - 1));
+      next.addEventListener('click', () => show(i + 1));
 
-    /* ---------- Times table render ---------- */
-    const tbody = document.querySelector('#timesTable tbody');
-    const resultTitle = document.getElementById('resultTitle');
-    function rowHTML(label,start,end){ return `<tr><td class="k">${label}</td><td>${start}</td><td>${end}</td></tr>`; }
-
-    function renderTimes(){
-      const date = new Date(selected);
-      const {lat, lon, label} = state;
-      resultTitle.textContent = `${date.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'})} — ${label}`;
-      const t = packTimes(date, lat, lon);
-      tbody.innerHTML = '';
-
-      // Morning sequence
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunrise',          minsToClock(t.sunriseMin), '—'));
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (AM)',   minsToClock(t.blueAM.start), minsToClock(t.blueAM.end)));
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (AM)', minsToClock(t.goldAM.start), minsToClock(t.goldAM.end)));
-
-      // Evening sequence: Sunset directly above Golden hour (PM)
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunset',           minsToClock(t.sunsetMin), '—'));
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (PM)', minsToClock(t.goldPM.start), minsToClock(t.goldPM.end)));
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (PM)',   minsToClock(t.bluePM.start), minsToClock(t.bluePM.end)));
-    }
-
-    /* ---------- Init ---------- */
-    buildCalendar();
-    renderTimes();
+      const ready = () => { paint(); sizeCarousel(); };
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(ready);
+      } else {
+        window.addEventListener('load', ready, { once:true });
+      }
+      window.addEventListener('resize', sizeCarousel);
+      document.addEventListener('DOMContentLoaded', () => setTimeout(sizeCarousel, 0));
+    })();
   </script>
 </body>
 </html>

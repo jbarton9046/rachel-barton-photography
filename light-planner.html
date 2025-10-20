@@ -47,7 +47,7 @@
       align-items:start;
     }
     @media (max-width:900px){
-      .head-grid{ grid-template-columns:1fr; }
+      .head-grid{ grid-template-columns:1fr; justify-items:center; }
       .head-photo{ display:none; }
     }
 
@@ -120,6 +120,19 @@
     }
     @media (min-width:720px){
       .inline-cta{ justify-content:flex-start; }
+    }
+
+    /* ---------------- Mobile polish ---------------- */
+    @media (max-width:900px){
+      /* Clear the sticky header so the top content isn't hidden */
+      main{ padding-top: calc(var(--mobile-header-h) + 12px); }
+
+      /* Center hero text + actions on phones */
+      .page-head{ text-align:center; }
+      .page-head .cta{ justify-content:center; }
+
+      /* Slightly increase vertical rhythm for tap targets */
+      .page-head .btn{ min-width: 44px; }
     }
   </style>
 </head>
@@ -263,7 +276,7 @@
         blueAM:{start: blue.a.rise, end: blue.b.rise},          // −6° → −4° (pre-dawn)
         bluePM:{start: blue.b.set,  end: blue.a.set},           // −4° → −6° (post-sunset)
         goldAM:{start: gold.a.rise, end: gold.b.rise},          // −4° → +6° (after sunrise)
-        goldPM:{start: gold.b.set,  end: gold.a.set}            // +6° → −4° (before/just after sunset) ✅ fixed
+        goldPM:{start: gold.b.set,  end: gold.a.set}            // +6° → −4° (before/just after sunset)
       };
     }
     function minsToClock(mins){
