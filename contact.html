@@ -35,6 +35,47 @@
     }
   </style>
 
+  <!-- Galleries dropdown: match legacy serif/centered style on desktop only -->
+  <style>
+    @media (min-width: 900px){
+      /* Base dropdown panel; keep existing positioning/visibility from layout.css */
+      .site-nav .submenu, .site-nav .dropdown, .topbar .submenu, .topbar .dropdown{
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        padding: 6px 0 10px;
+        min-width: 170px;
+      }
+      /* Accent title at top of the dropdown */
+      .site-nav .dropdown-title{
+        font-family: "Cormorant Garamond","Playfair Display",Georgia,serif;
+        font-weight: 700;
+        font-size: clamp(20px, 2vw, 28px);
+        line-height: 1.1;
+        color: var(--accent, #A88A5A);
+        text-align: center;
+        margin: 0 10px 4px;
+        pointer-events: none;
+      }
+      /* Centered serif links */
+      .site-nav .is-galleries-dropdown a{
+        display: block;
+        font-family: "Cormorant Garamond","Playfair Display",Georgia,serif !important;
+        font-weight: 600 !important;
+        font-size: clamp(16px, 1.6vw, 20px);
+        line-height: 1.35;
+        text-align: center;
+        color: #3e3e3a;
+        padding: 4px 12px;
+        letter-spacing: 0;
+      }
+      .site-nav .is-galleries-dropdown a:hover,
+      .site-nav .is-galleries-dropdown a:focus-visible{
+        color: var(--accent, #A88A5A);
+      }
+    }
+  </style>
+
   <style>
     :root{
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#6e6a62;
@@ -210,6 +251,32 @@
 
   <!-- include shared nav/footer partials -->
   <script src="/assets/include.js?v=nav-5" defer></script>
+
+  <!-- Wire up the Galleries dropdown styling once the nav partial is injected -->
+  <script>
+    (function () {
+      function wire(){
+        const links = Array.from(document.querySelectorAll('.site-nav a, .topbar nav a'));
+        const galLink = links.find(a => a.textContent.trim() === 'Galleries');
+        if(!galLink) return;
+        const submenu = galLink.parentElement?.querySelector('.submenu, .dropdown, ul');
+        if(!submenu) return;
+        submenu.classList.add('is-galleries-dropdown');
+        if(!submenu.querySelector('.dropdown-title')){
+          const title = document.createElement('div');
+          title.className = 'dropdown-title';
+          title.textContent = 'Galleries';
+          submenu.insertBefore(title, submenu.firstChild);
+        }
+      }
+      // Run after DOM and after include.js finishes hydrating the partial
+      if (document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', () => setTimeout(wire, 0));
+      } else {
+        setTimeout(wire, 0);
+      }
+    })();
+  </script>
 
   <!-- Desktop-only vertical align nudge for the photo column -->
   <script>
