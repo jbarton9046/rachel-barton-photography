@@ -6,79 +6,60 @@
   <title>Golden Hour | Rachel Barton Photography</title>
   <meta name="description" content="Plan by light: sunrise, sunset, golden hour, and blue hour for any date. Search by Sarasota neighborhoods (Siesta Key, Bee Ridge, Lido) or use your location." />
   <link rel="canonical" href="/light-planner.html" />
-
+  <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
   <style>
     :root{
-      /* site palette */
-      --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#7a766e; --accent:#A88A5A; --line:#e9e6df;
-
-      /* layout + spacing (tightened to avoid big gaps) */
-      --maxw:1200px;
       --gap:clamp(12px,2vw,20px);
-      --section-gap:clamp(16px,2.2vw,24px);
+      --section-gap:clamp(14px,2.2vw,22px);
+    }
+    /* page wrapper uses the site's .container spacing */
+    main section{padding:clamp(10px,2vw,18px) 0}
 
-      /* square look */
-      --radius:0;
-
-      /* navbar page-only spacing (matches your site-wide preference) */
-      --nav-gap-top: 16px;
-      --nav-gap-bottom: 40px;
-
-      /* mobile drawer width (for your mobile header) */
-      --drawer-w: clamp(220px, 55vw, 300px);
+    /* Buttons — match other pages (outlined, square) */
+    .btn{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33;
+      font-weight:700; text-decoration:none; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
+      white-space:nowrap;
+    }
+    .btn:hover, .btn:focus-visible{
+      background:#fff; border-color:#dcd4c3; color:var(--accent);
+      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none;
     }
 
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink)}
-    a{color:inherit;text-decoration:none}
+    /* ---------- Layout ---------- */
+    .tight{margin:0}
+    .cards{display:grid; grid-template-columns:1fr; gap:var(--gap)}
+    .two-col{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap); align-items:start}
+    @media(max-width:980px){ .two-col{grid-template-columns:1fr} }
 
-    /* page wrap */
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:clamp(12px,2.5vw,28px)}
-
-    /* square cards with light borders, no heavy drop shadows */
-    .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius)}
+    .card{background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); border-radius:0}
     .pad{padding:clamp(14px,2vw,20px)}
 
-    /* page header + CTAs */
-    .page-top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin:0 0 10px 0}
-    .page-top h1{font: 700 clamp(28px,3.2vw,42px)/1.1 inherit;margin:0}
-    .sub{color:var(--muted);font-size:0.98rem;margin:6px 0 0 0}
-
-    .cta-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0 0}
-    .btn{display:inline-flex;align-items:center;border:1px solid var(--line);padding:.55rem .9rem;font-weight:600;border-radius:0}
-    .btn:hover{filter:brightness(0.985)}
-    .btn.gold{border-color:var(--accent);background:var(--accent);color:#fff}
-    .btn.ghost{border-color:var(--line);background:#fff;color:var(--ink)}
-
-    /* two-column hero */
-    .hero{display:grid;gap:var(--gap);grid-template-columns:1.05fr .95fr;align-items:start}
-    @media (max-width:980px){ .hero{grid-template-columns:1fr} }
-
-    /* explainer section */
-    .explainer h2{margin:2px 0 10px 0;font-weight:700}
-    .explainer p{margin:.45rem 0 0 0;line-height:1.55}
+    /* Explainer (full width, single column) */
+    .explainer h2{margin:4px 0 10px 0; font-weight:700}
+    .explainer p{margin:.45rem 0 0 0; line-height:1.55}
     .legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem}
     .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:.26rem .5rem;border-radius:0;font-size:.88rem;background:#fff}
     .dot{width:12px;height:12px;background:var(--accent)}
     .dot.blue{background:#4F6EB5}
     .dot.sun{background:#E59D27}
 
-    /* controls */
-    .controls{display:grid;grid-template-columns:1fr;gap:var(--section-gap)}
+    /* Left column controls */
     .group{display:grid;gap:8px}
     label{font-weight:700;font-size:.92rem}
-
-    input[type="text"]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:0;background:#fff}
+    input[type="text"], select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:0;background:#fff}
     button{appearance:none;border:1px solid var(--line);background:#fff;border-radius:0;padding:10px 14px;cursor:pointer;font-weight:600}
-    button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+    button.primary{background:#fff}
     button.ghost{background:#fff}
     button:disabled{opacity:.5;cursor:not-allowed}
-
     .util{display:flex;gap:8px;flex-wrap:wrap}
     .quick-areas{display:flex;flex-wrap:wrap;gap:6px}
     .quick-areas button{padding:.35rem .7rem}
 
-    /* calendar — square, compact, no clipping */
+    /* Calendar (compact & square) */
     .calendar{display:grid;gap:10px}
     .cal-header{display:flex;justify-content:space-between;align-items:center}
     .cal-header h3{font-size:1.02rem;margin:0}
@@ -90,12 +71,11 @@
     .day.selected{background:rgba(168,138,90,.12);border-color:var(--accent)}
     @media (max-width:620px){ .day{height:36px;font-weight:600} }
 
-    /* timeline bars */
+    /* Right column: timeline bars */
     .times{display:grid;gap:10px}
     .row{display:grid;grid-template-columns:160px 1fr;gap:10px;align-items:center}
     @media (max-width:620px){ .row{grid-template-columns:1fr} }
     .pill{display:inline-flex;align-items:center;gap:8px;padding:.4rem .55rem;border:1px solid var(--line);background:#fff}
-
     .bar{height:12px;background:linear-gradient(90deg,#e7e5df,#f3f1ec);position:relative;overflow:hidden;border:1px solid var(--line)}
     .seg{position:absolute;top:0;bottom:0}
     .seg.sun{background:linear-gradient(90deg,#FFE8C2,#FFD49A)}
@@ -104,122 +84,107 @@
 
     .footnote{font-size:.88rem;color:var(--muted)}
     .small{font-size:.9rem;color:var(--muted)}
-
-    /* compact section spacing */
-    .section{margin-top:var(--section-gap)}
   </style>
 </head>
 <body>
-  <!-- exact same navbar via include -->
-  <header data-include="/partials/topnav.html"></header>
+  <!-- exact navbar via include (same as every page) -->
+  <div data-include="/partials/topnav.html"></div>
 
-  <main id="content">
-    <div class="wrap">
-      <div class="page-top">
-        <div>
-          <h1>Golden Hour</h1>
-          <p class="sub">Pick a date and location to see sunrise, sunset, plus golden & blue hour windows—perfect for planning sessions.</p>
-          <div class="cta-row">
-            <a class="btn gold" href="/book.html">Book a session</a>
-            <a class="btn ghost" href="/contact.html">Contact</a>
-          </div>
-        </div>
+  <main>
+    <section class="container tight">
+      <h1 style="margin:0 0 6px 0">Golden Hour</h1>
+      <p class="section-sub">Pick a date and location to see sunrise, sunset, plus golden & blue hour windows—perfect for planning sessions.</p>
+      <div class="btnrow" style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap">
+        <a class="btn" href="/book.html">Book a session</a>
+        <a class="btn" href="/contact.html">Contact</a>
       </div>
+    </section>
 
-      <section class="hero section">
-        <article class="card pad explainer">
-          <h2>What are “golden” and “blue” hours?</h2>
-          <p><strong>Golden hour</strong> is when the sun is low and light is soft and warm. On most days it’s roughly the <em>first hour after sunrise</em> and the <em>last hour before sunset</em>.</p>
-          <p><strong>Blue hour</strong> hugs the edges of daylight—when the sun is just below the horizon and the sky turns deep blue. It usually occurs <em>right before sunrise</em> and <em>right after sunset</em>, during civil twilight.</p>
-          <div class="legend">
-            <span class="chip"><span class="dot sun"></span>Sunrise / Sunset</span>
-            <span class="chip"><span class="dot"></span>Golden hour</span>
-            <span class="chip"><span class="dot blue"></span>Blue hour</span>
-          </div>
-          <p class="footnote">Golden hour is approximated by sun elevations from −4° to +6°. Blue hour aligns to civil twilight (−6° to −4°). Values handle daylight saving automatically.</p>
-        </article>
+    <!-- Explainer full-width -->
+    <section class="container">
+      <article class="card pad explainer">
+        <h2>What are “golden” and “blue” hours?</h2>
+        <p><strong>Golden hour</strong> is when the sun is low and light is soft and warm. On most days it’s roughly the <em>first hour after sunrise</em> and the <em>last hour before sunset</em>.</p>
+        <p><strong>Blue hour</strong> hugs the edges of daylight—when the sun is just below the horizon and the sky turns deep blue. It usually occurs <em>right before sunrise</em> and <em>right after sunset</em>, during civil twilight.</p>
+        <div class="legend">
+          <span class="chip"><span class="dot sun"></span>Sunrise / Sunset</span>
+          <span class="chip"><span class="dot"></span>Golden hour</span>
+          <span class="chip"><span class="dot blue"></span>Blue hour</span>
+        </div>
+        <p class="footnote">Golden hour is approximated by sun elevations from −4° to +6°. Blue hour aligns to civil twilight (−6° to −4°). Values handle daylight saving automatically.</p>
+      </article>
+    </section>
 
+    <!-- Controls (left) + Results (right) side-by-side -->
+    <section class="container">
+      <div class="two-col">
         <aside class="card pad">
-          <div class="controls">
-            <div class="group">
-              <label for="where">Location</label>
-              <div class="util">
-                <input id="where" type="text" placeholder="Search a place (e.g., Siesta Key, Bee Ridge, Sarasota)" />
-                <button id="btnGeocode" class="primary">Search</button>
-                <button id="btnGeo" class="ghost">Use my location</button>
-              </div>
-              <div class="quick-areas">
-                <button data-area="Siesta Key">Siesta Key</button>
-                <button data-area="Bee Ridge, Sarasota">Bee Ridge</button>
-                <button data-area="Lido Key">Lido Key</button>
-                <button data-area="Longboat Key">Longboat Key</button>
-                <button data-area="Downtown Sarasota">Downtown</button>
-              </div>
-              <p class="small" id="locNote">Tip: type a neighborhood or beach, then press <em>Search</em>. You can also use your phone’s location.</p>
+          <div class="group">
+            <label for="where">Location</label>
+            <div class="util">
+              <input id="where" type="text" placeholder="Search a place (e.g., Siesta Key, Bee Ridge, Sarasota)" />
+              <button id="btnGeocode" class="primary">Search</button>
+              <button id="btnGeo" class="ghost">Use my location</button>
             </div>
+            <div class="quick-areas" aria-label="Quick locations">
+              <button data-area="Siesta Key">Siesta Key</button>
+              <button data-area="Bee Ridge, Sarasota">Bee Ridge</button>
+              <button data-area="Lido Key">Lido Key</button>
+              <button data-area="Longboat Key">Longboat Key</button>
+              <button data-area="Downtown Sarasota">Downtown</button>
+            </div>
+            <p class="small" id="locNote">Tip: type a neighborhood or beach, then press <em>Search</em>. You can also use your phone’s location.</p>
+          </div>
 
-            <div class="group">
-              <label>Date</label>
-              <div class="calendar">
-                <div class="cal-header">
-                  <div class="util">
-                    <button id="prevMonth" aria-label="Previous month">◀</button>
-                    <button id="todayBtn">Today</button>
-                    <button id="nextMonth" aria-label="Next month">▶</button>
-                  </div>
-                  <h3 id="calLabel">Month YYYY</h3>
+          <div class="group">
+            <label>Date</label>
+            <div class="calendar">
+              <div class="cal-header">
+                <div class="util">
+                  <button id="prevMonth" aria-label="Previous month">◀</button>
+                  <button id="todayBtn">Today</button>
+                  <button id="nextMonth" aria-label="Next month">▶</button>
                 </div>
-                <div class="cal-grid" id="dow"></div>
-                <div class="cal-grid" id="cal"></div>
+                <h3 id="calLabel">Month YYYY</h3>
               </div>
+              <div class="cal-grid" id="dow"></div>
+              <div class="cal-grid" id="cal"></div>
             </div>
           </div>
         </aside>
-      </section>
 
-      <section class="card pad section">
-        <h2 id="resultTitle" style="margin:0 0 6px 0">—</h2>
-        <div class="times" id="times"></div>
-        <p class="footnote" style="margin:8px 0 0 0">Bars show the day from 00:00–24:00. Colored segments mark blue hour, golden hour, and the exact points of sunrise/sunset.</p>
-      </section>
-    </div>
+        <article class="card pad">
+          <h2 id="resultTitle" style="margin:0 0 6px 0">—</h2>
+          <div class="times" id="times"></div>
+          <p class="footnote" style="margin:8px 0 0 0">Bars show the day from 00:00–24:00. Colored segments mark blue hour, golden hour, and the exact points of sunrise/sunset.</p>
+        </article>
+      </div>
+    </section>
   </main>
 
-  <!-- exact same footer via include -->
+  <!-- exact same footer include -->
   <div data-include="/partials/footer.html"></div>
 
-  <script>
-    // Lightweight include loader (only runs if your global one isn't present)
-    (function(){
-      if (window.__includeLoader) return;
-      window.__includeLoader = true;
-      document.querySelectorAll('[data-include]').forEach(async el=>{
-        const url = el.getAttribute('data-include');
-        try{
-          const r = await fetch(url, {credentials:'same-origin'});
-          if(r.ok){ el.outerHTML = await r.text(); }
-        }catch(e){}
-      });
-    })();
-  </script>
+  <!-- Use the site’s include loader so navbar/footer render exactly like other pages -->
+  <script src="/assets/include.js?v=nav-5" defer></script>
 
   <script>
-    /* ===== NOAA-style solar calcs ===== */
+    // ---- Solar calculations (NOAA-based) ----
     const RAD=Math.PI/180, DEG=180/Math.PI;
-    function dayOfYear(d){const s=new Date(d.getFullYear(),0,0);const diff=d-s+((s.getTimezoneOffset()-d.getTimezoneOffset())*60000);return Math.floor(diff/86400000)}
-    function eqTimeAndDecl(date){const n=dayOfYear(date);const g=2*Math.PI/365*(n-1+(12-12)/24);const eqTime=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g));const decl=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g);return {eqTime,decl}}
-    function solarNoonLocalMinutes(date,lon){const tz=-date.getTimezoneOffset()/60;const {eqTime}=eqTimeAndDecl(date);return 720-4*lon-eqTime+tz*60}
-    function hourAngleForElevation(lat,decl,elevDeg){const h=elevDeg*RAD;const phi=lat*RAD;const cosH=(Math.sin(h)-Math.sin(phi)*Math.sin(decl))/(Math.cos(phi)*Math.cos(decl));if(cosH<-1||cosH>1)return null;return Math.acos(cosH)*DEG}
-    function eventTime(date,lat,lon,elev){const {decl}=eqTimeAndDecl(date);const H=hourAngleForElevation(lat,decl,elev);if(H===null)return {rise:null,set:null};const noon=solarNoonLocalMinutes(date,lon);return {rise:noon-H*4,set:noon+H*4}}
-    function packTimes(date,lat,lon){const sun=eventTime(date,lat,lon,-0.833);const blue={a:eventTime(date,lat,lon,-6),b:eventTime(date,lat,lon,-4)};const gold={a:eventTime(date,lat,lon,-4),b:eventTime(date,lat,lon,6)};return {sunriseMin:sun.rise,sunsetMin:sun.set,blueAM:{start:blue.a.rise,end:blue.b.rise},bluePM:{start:blue.b.set,end:blue.a.set},goldAM:{start:gold.a.rise,end:gold.b.rise},goldPM:{start:gold.b.set,end:gold.a.set}}}
+    function dayOfYear(d){const s=new Date(d.getFullYear(),0,0); const diff=d-s+((s.getTimezoneOffset()-d.getTimezoneOffset())*60000); return Math.floor(diff/86400000)}
+    function eqTimeAndDecl(date){const n=dayOfYear(date); const g=2*Math.PI/365*(n-1); const eqTime=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g)); const decl=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g); return {eqTime:eqTime, decl:decl} }
+    function solarNoonLocalMinutes(date,lon){const tz=-date.getTimezoneOffset()/60; const {eqTime}=eqTimeAndDecl(date); return 720-4*lon-eqTime+tz*60 }
+    function hourAngleForElevation(lat,decl,elevDeg){const h=elevDeg*RAD; const phi=lat*RAD; const cosH=(Math.sin(h)-Math.sin(phi)*Math.sin(decl))/(Math.cos(phi)*Math.cos(decl)); if(cosH<-1||cosH>1) return null; return Math.acos(cosH)*DEG }
+    function eventTime(date,lat,lon,elev){const {decl}=eqTimeAndDecl(date); const H=hourAngleForElevation(lat,decl,elev); if(H===null) return {rise:null,set:null}; const noon=solarNoonLocalMinutes(date,lon); return {rise:noon-H*4,set:noon+H*4} }
+    function packTimes(date,lat,lon){const sun=eventTime(date,lat,lon,-0.833); const blue={a:eventTime(date,lat,lon,-6),b:eventTime(date,lat,lon,-4)}; const gold={a:eventTime(date,lat,lon,-4),b:eventTime(date,lat,lon,6)}; return {sunriseMin:sun.rise,sunsetMin:sun.set,blueAM:{start:blue.a.rise,end:blue.b.rise},bluePM:{start:blue.b.set,end:blue.a.set},goldAM:{start:gold.a.rise,end:gold.b.rise},goldPM:{start:gold.b.set,end:gold.a.set}} }
 
     function minsToClock(mins){ if(mins==null) return '—'; const m=Math.round(mins); let h=Math.floor(m/60); const mm=(m%60+60)%60; const suffix=(h>=12)?'PM':'AM'; h=(h%12)||12; return `${h}:${mm.toString().padStart(2,'0')} ${suffix}` }
     function spanPct(start,end){ const clamp=v=>Math.max(0,Math.min(1440,v)); if(start==null||end==null) return {left:0,width:0}; const s=clamp(start)/14.4; const e=clamp(end)/14.4; return {left:s,width:Math.max(0,e-s)} }
 
-    /* ===== Calendar ===== */
+    // ---- Calendar ----
     const dowNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     const dow=document.getElementById('dow');
-    dowNames.forEach(d=>{const el=document.createElement('div'); el.className='dow'; el.textContent=d; dow.appendChild(el)});
+    dowNames.forEach(d=>{ const el=document.createElement('div'); el.className='dow'; el.textContent=d; dow.appendChild(el) });
 
     const cal=document.getElementById('cal');
     const calLabel=document.getElementById('calLabel');
@@ -250,7 +215,7 @@
     document.getElementById('nextMonth').onclick=()=>{ monthCursor.setMonth(monthCursor.getMonth()+1); buildCalendar(); };
     document.getElementById('todayBtn').onclick=()=>{ selected=new Date(); selected.setHours(0,0,0,0); monthCursor=new Date(selected); buildCalendar(); renderTimes(); };
 
-    /* ===== Location (address/area search + GPS) ===== */
+    // ---- Location (search + GPS) ----
     const whereEl=document.getElementById('where');
     const geoBtn=document.getElementById('btnGeo');
     const geocodeBtn=document.getElementById('btnGeocode');
@@ -297,7 +262,7 @@
     whereEl.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); doSearch(); }});
     quicks.forEach(b=> b.addEventListener('click',()=>{ whereEl.value=b.dataset.area; doSearch(); }));
 
-    /* ===== Render day timeline ===== */
+    // ---- Render times ----
     const timesEl=document.getElementById('times');
     const resultTitle=document.getElementById('resultTitle');
 
