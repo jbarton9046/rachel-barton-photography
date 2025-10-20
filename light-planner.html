@@ -19,11 +19,7 @@
       --shadow: 0 10px 30px rgba(0,0,0,.08); --frame:#ecebea;
       --radius:0; --gap:clamp(16px,3vw,32px); --maxw:1200px;
       --mobile-header-h:64px; --nav-gap-top:20px; --nav-gap-bottom:44px;
-
-      /* Alignment helpers */
-      --head-text-max: 57ch;
-      --col-gap: clamp(12px,2vw,20px); /* shared gap for both grids */
-      --align-nudge: 18px;             /* shift photos left this much */
+      --head-text-max:57ch; --col-gap:clamp(12px,2vw,20px); --align-nudge:18px;
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     *{box-sizing:border-box}
@@ -47,8 +43,8 @@
     /* Heading + photos */
     .head-grid{
       display:grid;
-      grid-template-columns: minmax(0, max-content) 1fr; /* left hugs content, right fills */
-      gap: var(--col-gap);
+      grid-template-columns:minmax(0,max-content) 1fr;
+      gap:var(--col-gap);
       align-items:start;
     }
     @media (max-width:900px){
@@ -56,16 +52,12 @@
       .head-photo{ display:none; }
     }
 
-    /* Page head */
     .page-head{ margin:10px 0 8px; }
     h1,h2{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif}
     h1{ font-size:clamp(32px,6vw,56px); line-height:1.1; margin:0; font-weight:700; color:#202022; }
     .section-sub{ color:#5c5850; margin:8px 0 14px; font-size:clamp(16px,2.6vw,19px) }
-    @media(min-width:900px){
-      .page-head{ max-width: var(--head-text-max); }
-    }
+    @media(min-width:900px){ .page-head{ max-width:var(--head-text-max); } }
 
-    /* Buttons */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
@@ -75,35 +67,21 @@
     }
     .btn:hover,.btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px) }
 
-    /* Photos */
     .head-photo{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      /* Make the photo block slightly narrower and align its right edge
-         with the right edge of the column/cards below */
-      width: calc(100% - var(--align-nudge));
-      justify-self: end;
-      align-content:start;
+      display:grid; grid-template-columns:1fr 1fr; gap:12px;
+      width:calc(100% - var(--align-nudge)); justify-self:end; align-content:start;
     }
     .head-photo img{
-      width:100%;
-      height:clamp(150px, 18vw, 240px);   /* smaller elegant height */
-      object-fit:cover;
-      object-position:center;
-      display:block;
-      border:1px solid var(--frame);
-      box-shadow:var(--shadow);
-      background:#fff;
+      width:100%; height:clamp(150px,18vw,240px);
+      object-fit:cover; object-position:center; display:block;
+      border:1px solid var(--frame); box-shadow:var(--shadow); background:#fff;
     }
-    @media (min-width:900px){
-      .head-photo{ margin-top:-6px; }
-    }
+    @media (min-width:900px){ .head-photo{ margin-top:-6px; } }
 
     .card{background:#fff; border:1px solid var(--line); box-shadow:var(--shadow)}
     .pad{padding:16px}
 
-    /* Planner layout (shares the same gap) */
+    /* Planner layout */
     .planner-grid{display:grid; grid-template-columns:1fr 1fr; gap:var(--col-gap); align-items:start}
     @media(max-width:980px){ .planner-grid{grid-template-columns:1fr} }
 
@@ -113,17 +91,12 @@
     button{appearance:none;border:1px solid var(--line);background:#fff;padding:10px 14px;cursor:pointer;font-weight:700}
     .util{display:flex;gap:8px;flex-wrap:wrap}
 
-    /* Quick areas */
     .quick-areas{display:flex;flex-wrap:wrap;gap:6px}
     .quick-areas button{padding:.35rem .7rem; white-space:nowrap}
     @media (min-width:980px){
-      .quick-areas{
-        display:grid; grid-auto-flow:column; grid-template-rows:repeat(2,auto);
-        gap:6px 8px; align-items:start;
-      }
+      .quick-areas{display:grid; grid-auto-flow:column; grid-template-rows:repeat(2,auto); gap:6px 8px; align-items:start;}
     }
 
-    /* Calendar */
     .calendar{display:grid;gap:10px}
     .cal-header{display:flex;justify-content:space-between;align-items:center}
     .cal-header h3{font-size:1.02rem;margin:0;font-weight:700}
@@ -134,11 +107,16 @@
     .day.today{outline:2px solid var(--accent); outline-offset:-2px}
     .day.selected{background:rgba(168,138,90,.12); border-color:var(--accent)}
 
-    /* Times table */
-    .times-table{width:100%;border-collapse:collapse}
+    .times-table{width:100%;border-collapse:collapse; margin:0;}
     .times-table th,.times-table td{border:1px solid var(--line);padding:10px 12px;text-align:left}
     .times-table th{background:#f7f5f1;font-weight:700}
     .k{white-space:nowrap}
+
+    /* ✅ CTA block clearly under the table */
+    .table-cta{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top:16px;   /* space below the table */
+    }
 
     @media(max-width:820px){
       main#content{ padding-top:calc(var(--mobile-header-h) + 14px) }
@@ -164,8 +142,8 @@
       </header>
 
       <figure class="head-photo" aria-hidden="true">
-        <img loading="eager" src="pictures/goldenHourPics/beautiful-sunset.jpg" alt="Warm golden-hour sky over the gulf." width="600" height="900" />
-        <img loading="eager" src="pictures/goldenHourPics/sunset-sea.jpg" alt="Calm sea at sunset with soft pastel light." width="600" height="900" />
+        <img loading="eager" src="pictures/goldenHourPics/golden-grass.jpg" alt="Golden light across coastal grass." width="600" height="900" />
+        <img loading="eager" src="pictures/goldenHourPics/couple-lido-golden.jpg" alt="Couple at Lido during golden hour." width="600" height="900" />
       </figure>
     </div>
 
@@ -226,6 +204,7 @@
 
         <article class="card pad">
           <h2 id="resultTitle" style="margin:0 0 8px 0">—</h2>
+
           <table class="times-table" id="timesTable" aria-describedby="resultTitle">
             <thead>
               <tr><th>Light window</th><th>Start</th><th>End</th></tr>
@@ -233,8 +212,8 @@
             <tbody></tbody>
           </table>
 
-          <!-- ⬇️ duplicated CTAs beneath the table -->
-          <div class="cta" style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px">
+          <!-- ✅ Clearly under the table (not inside it) -->
+          <div class="table-cta">
             <a class="btn" href="/book.html">Check availability</a>
             <a class="btn" href="/galleries.html">See galleries</a>
             <a class="btn" href="/contact.html">Ask a Question</a>
