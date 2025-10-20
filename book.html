@@ -19,16 +19,12 @@
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#6e6a62;
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:960px;
-
-      /* Header spacing (site standard) */
       --nav-gap-top:20px;
       --nav-gap-bottom:44px;
-
-      /* Sticky header height for phones */
       --mobile-header-h:64px;
     }
 
-    /* Widen the navbar track so items fit in one row */
+    /* Wider nav track so items fit in one row */
     .topbar,
     .topbar .container,
     .topbar .inner{
@@ -37,7 +33,6 @@
       width:100%;
     }
 
-    /* Desktop nav font to match site */
     @media (min-width:821px){
       .topbar nav.primary > ul > li > a{
         font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
@@ -75,15 +70,17 @@
       margin:0 0 10px;
     }
 
-    /* Lead + Golden Hour button row (sits right above the embed) */
+    /* Lead + Golden Hour button row (right above the embed) */
     .pre-embed{
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex;
+      align-items:flex-end;        /* ⬅️ align to the bottom of the button */
+      justify-content:space-between;
       gap:16px;
-      margin:6px 0 10px; /* tight to the card */
+      margin:6px 0 10px;
     }
     .lead{
       color:#67635b; margin:0;
-      /* keep to one line with ellipsis when needed */
+      /* single line with ellipsis when needed */
       flex:1;
       min-width:0;
       white-space:nowrap;
