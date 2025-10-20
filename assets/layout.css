@@ -278,12 +278,28 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   .topbar nav.primary a[aria-current="page"],
   .topbar nav.primary a.is-current{
     color: var(--accent);
-    position: relative;
+    position: static;           /* no underline, no relative positioning */
+    text-decoration: none;
   }
   .topbar nav.primary a[aria-current="page"]::after,
   .topbar nav.primary a.is-current::after{
-    content:"";
-    position:absolute; left:0; right:0; bottom:-6px;
-    height:2px; background:var(--accent);
+    content: none;              /* remove underline pseudo-element */
+  }
+}
+
+/* FINAL OVERRIDE: no underline for current nav item on desktop */
+@media (min-width:821px){
+  .topbar nav.primary a.is-current,
+  .topbar nav.primary a[aria-current="page"]{
+    color: var(--accent);
+    text-decoration: none !important;
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+    position: static !important;
+  }
+  .topbar nav.primary a.is-current::after,
+  .topbar nav.primary a[aria-current="page"]::after{
+    content: none !important;
+    display: none !important;
   }
 }
