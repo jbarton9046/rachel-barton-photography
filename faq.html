@@ -33,15 +33,18 @@
       --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1100px;
 
-      /* Desktop navbar spacing (match about.html) */
+      /* desktop navbar spacing (match about.html) */
       --nav-gap-top:20px;
       --nav-gap-bottom:44px;
 
-      /* height of sticky mobile header (used to pad content below it) */
+      /* consistent vertical spacing between questions (desktop) */
+      --faq-row-gap:18px;
+
+      /* sticky mobile header height */
       --mobile-header-h: 64px;
     }
 
-    /* ✅ Desktop nav font EXACTLY like about.html */
+    /* desktop nav font = about.html */
     @media (min-width:821px){
       .topbar nav.primary > ul > li > a{
         font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
@@ -51,11 +54,11 @@
       }
       .topbar nav.primary > ul > li > a:hover,
       .topbar nav.primary > ul > li > a:focus-visible{
-        font-weight:500 !important; /* don’t thicken on hover */
+        font-weight:500 !important;
       }
     }
 
-    /* Normalize topbar spacing to match about.html */
+    /* match about.html spacing */
     .topbar{
       padding-top:var(--nav-gap-top) !important;
       padding-bottom:var(--nav-gap-bottom) !important;
@@ -72,11 +75,12 @@
     img{ max-width:100%; height:auto; display:block; border-radius:0; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-    /* Layout (desktop/tablet grid) */
+    /* layout (desktop/tablet grid) */
     .faq{
       display:grid;
       grid-template-columns:minmax(0,1fr) minmax(260px,420px);
-      gap:12px;
+      column-gap:12px;                /* keep column gap */
+      row-gap:var(--faq-row-gap);     /* uniform vertical spacing between grid items */
       margin:18px 0 40px;
       align-items:start;
     }
@@ -95,7 +99,7 @@
     .faq-photo img{ aspect-ratio:4/5; object-fit:cover; background:#fff }
     .faq-photo figcaption{ margin-top:8px; font-size:13px; color:#6e6a62; text-align:center }
 
-    /* Bars default in left column */
+    /* bars */
     details{
       background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:0;
       grid-column:1;
@@ -108,38 +112,23 @@
     .qmark{ font-family:"Playfair Display",serif; font-size:20px; line-height:1; color:#b7a486; margin-top:2px }
     .answer{ padding:0 18px 16px; color:#4a463f }
 
-    /* ✅ Auto-span class your script adds (below the photo) */
+    /* auto-span (added by your script) */
     details.span-below-photo{ grid-column:1 / -1; }
 
-    /* Make the whole "after photo" stack full-width across both columns */
+    /* make the after-photo stack full-width & match row spacing inside */
     .after-photo{ grid-column:1 / -1; }
+    .after-photo > details{ margin:0 0 var(--faq-row-gap); }
+    .after-photo > details:last-of-type{ margin-bottom:0; }
 
-    /* Button (site-wide outlined style) */
-    .btn{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33;
-      font-weight:700; text-decoration:none; border-radius:0;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
-    }
-    .btn:hover, .btn:focus-visible{
-      background:#fff; border-color:#dcd4c3; color:var(--accent);
-      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
-      outline:none;
-    }
-
-    /* --- MOBILE: drop grid + add top padding under sticky nav --- */
+    /* mobile */
     @media (max-width:900px){
       .faq{
         display:block;
         margin:18px 0 40px;
-
-        /* Clear the sticky header (with iOS safe-area support) */
         padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px);
       }
       .faq-photo{ margin:12px 0; }
-      details{ margin:0 0 12px; }
+      details{ margin:0 0 12px; } /* keep your tighter phone spacing */
     }
   </style>
 </head>
@@ -198,7 +187,7 @@
         </div>
       </details>
 
-      <!-- Everything below sits after the photo and spans full width -->
+      <!-- full-width stack -->
       <div class="after-photo">
         <details>
           <summary><span class="qmark">Q</span> What should we wear?</summary>
@@ -256,7 +245,7 @@
           </div>
         </details>
 
-        <div style="margin-top:18px">
+        <div style="margin-top:var(--faq-row-gap)">
           Still wondering about something?
           <a class="btn" href="/contact.html">Contact Me</a>
         </div>
@@ -267,7 +256,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Auto-span: desktop/tablet only (grid layout) — your original logic -->
+  <!-- auto-span: desktop/tablet only (grid layout) — original logic -->
   <script>
     (function(){
       if (window.matchMedia && !window.matchMedia('(min-width: 901px)').matches) return;
