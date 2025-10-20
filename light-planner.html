@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Golden & Blue Hour Planner | Rachel Barton Photography</title>
+  <meta name="description" content="See sunrise, sunset, golden hour, and blue hour times for any date and location. Tap a day on the calendar to update." />
+  <link rel="canonical" href="/light-planner.html" />
+  <style>
+    :root{
+      --bg:#FAFAF8; --paper:#fff; --ink:#3e3e3a; --muted:#7a766e; --accent:#A88A5A; --line:#e9e6df;
+      --shadow:0 10px 30px rgba(0,0,0,.08); --maxw:1200px; --gap:clamp(14px,2.6vw,28px);
+      --radius:18px; --radius-lg:24px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial}
+    a{color:inherit}
+    .wrap{max-width:var(--maxw);margin:auto;padding:clamp(16px,3vw,32px)}
+
+    .hero{display:grid;gap:var(--gap);grid-template-columns:1.2fr .8fr;align-items:start}
+    @media(max-width:880px){.hero{grid-template-columns:1fr}}
+
+    .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+    .card h2,.card h3{margin:0 0 .35rem 0}
+    .pad{padding:clamp(16px,2.3vw,24px)}
+
+    .title{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:.5rem}
+    .title h1{font-family: "Fraunces", ui-serif, Georgia, serif;font-size:clamp(26px,3.2vw,40px);font-weight:700;margin:0}
+    .sub{color:var(--muted);font-size:.98rem}
+
+    .explainer p{margin:.4rem 0 0 0;line-height:1.55}
+    .badge{display:inline-block;padding:.22rem .55rem;border-radius:999px;border:1px solid var(--line);background:#fff}
+    .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:.6rem}
+    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:.35rem .6rem;border-radius:999px;font-size:.9rem;background:#fff}
+    .dot{width:12px;height:12px;border-radius:999px;background:var(--accent)}
+    .dot.blue{background:#4F6EB5}
+    .dot.sun{background:#E59D27}
+
+    .controls{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--gap)}
+    @media(max-width:880px){.controls{grid-template-columns:1fr}}
+
+    .group{display:grid;gap:10px}
+    label{font-weight:600;font-size:.92rem}
+    input[type="text"], input[type="number"], select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+    button{appearance:none;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;cursor:pointer}
+    button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+    button.ghost{background:#fff}
+    button:disabled{opacity:.5;cursor:not-allowed}
+
+    .calendar{display:grid;gap:12px}
+    .cal-header{display:flex;justify-content:space-between;align-items:center}
+    .cal-header h3{font-size:1.05rem}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+    .dow{font-size:.8rem;color:var(--muted);text-align:center}
+    .day{aspect-ratio:1/1;border:1px solid var(--line);border-radius:12px;background:#fff;display:grid;place-items:center;font-weight:600;cursor:pointer}
+    .day.muted{color:#b5b1a6}
+    .day.today{outline:2px solid var(--accent)}
+    .day.selected{background:rgba(168,138,90,.1);border-color:var(--accent)}
+
+    .times{display:grid;gap:10px}
+    .row{display:grid;grid-template-columns:160px 1fr;gap:12px;align-items:center}
+    @media(max-width:560px){.row{grid-template-columns:1fr}}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:.45rem .6rem;border:1px solid var(--line);border-radius:999px;background:#fff}
+
+    .bar{height:14px;border-radius:999px;background:linear-gradient(90deg,#d8d7d2,#edece8);position:relative;overflow:hidden;border:1px solid var(--line)}
+    .seg{position:absolute;top:0;bottom:0;border-radius:999px}
+    .seg.sun{background:linear-gradient(90deg,#FFE8C2,#FFD49A)}
+    .seg.gold{background:linear-gradient(90deg,#FFDC9B,#F3B766)}
+    .seg.blue{background:linear-gradient(90deg,#DCE6FF,#BFD0FF)}
+
+    .footnote{font-size:.88rem;color:var(--muted)}
+
+    .util{display:flex;gap:8px;flex-wrap:wrap}
+    .small{font-size:.9rem;color:var(--muted)}
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="wrap">
+    <div class="title">
+      <h1>Golden & Blue Hour Planner</h1>
+      <span class="badge">Times shown in your local timezone</span>
+    </div>
+    <p class="sub">Pick a date and location to see sunrise, sunset, plus golden & blue hour windows—perfect for planning sessions.</p>
+
+    <section class="hero">
+      <article class="card pad explainer">
+        <h2>What are “golden” and “blue” hours?</h2>
+        <p><strong>Golden hour</strong> is when the sun is low and light is soft and warm. On most days it’s roughly the <em>first hour after sunrise</em> and the <em>last hour before sunset</em>.</p>
+        <p><strong>Blue hour</strong> hugs the edges of daylight—when the sun is just below the horizon and the sky turns deep blue. It usually occurs <em>right before sunrise</em> and <em>right after sunset</em>, during civil twilight.</p>
+        <div class="legend">
+          <span class="chip"><span class="dot sun"></span>Sunrise / Sunset</span>
+          <span class="chip"><span class="dot"></span>Golden hour</span>
+          <span class="chip"><span class="dot blue"></span>Blue hour</span>
+        </div>
+        <p class="footnote">For precision we compute solar geometry for your chosen location. Golden hour is approximated by sun elevations from −4° to +6°. Blue hour aligns to civil twilight (−6° to −4°). Values handle daylight saving automatically.</p>
+      </article>
+
+      <aside class="card pad">
+        <div class="controls">
+          <div class="group">
+            <label for="where">Location</label>
+            <div class="util">
+              <input id="where" type="text" placeholder="e.g., Sarasota, FL (defaults below)" />
+              <button id="btnGeo" class="ghost">Use my location</button>
+            </div>
+            <div class="util small">
+              <span>Lat <input id="lat" type="number" step="0.0001" style="width:110px" /></span>
+              <span>Lon <input id="lon" type="number" step="0.0001" style="width:110px" /></span>
+              <button id="btnApply" class="primary">Apply</button>
+            </div>
+            <p class="small">Tip: enter coordinates directly, or click <em>Use my location</em>. If a city is typed, we won’t geocode it (static site), but you can paste its coordinates.</p>
+          </div>
+          <div class="group">
+            <label>Date</label>
+            <div class="calendar">
+              <div class="cal-header">
+                <div class="util">
+                  <button id="prevMonth">◀</button>
+                  <button id="todayBtn">Today</button>
+                  <button id="nextMonth">▶</button>
+                </div>
+                <h3 id="calLabel">Month YYYY</h3>
+              </div>
+              <div class="cal-grid" id="dow"></div>
+              <div class="cal-grid" id="cal"></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="card pad" style="margin-top:var(--gap)">
+      <h2 id="resultTitle" style="margin-bottom:.5rem">—</h2>
+      <div class="times" id="times"></div>
+      <p class="footnote" style="margin-top:.6rem">Bars show the day from 00:00–24:00. Colored segments mark blue hour, golden hour, and the exact points of sunrise/sunset.</p>
+    </section>
+  </div>
+
+  <script>
+    // ---- Solar calculations (NOAA-based) ----
+    const RAD = Math.PI/180, DEG = 180/Math.PI;
+    function dayOfYear(d){
+      const start = new Date(d.getFullYear(),0,0); const diff = d - start + ((start.getTimezoneOffset()-d.getTimezoneOffset())*60000); return Math.floor(diff/86400000);
+    }
+    function eqTimeAndDecl(date){
+      // fractional year gamma (in radians), per NOAA, at local noon approximation
+      const n = dayOfYear(date);
+      const gamma = 2*Math.PI/365 * (n - 1 + (12 - 12)/24);
+      const eqTime = 229.18*(0.000075 + 0.001868*Math.cos(gamma) - 0.032077*Math.sin(gamma) - 0.014615*Math.cos(2*gamma) - 0.040849*Math.sin(2*gamma));
+      const decl = 0.006918 - 0.399912*Math.cos(gamma) + 0.070257*Math.sin(gamma) - 0.006758*Math.cos(2*gamma) + 0.000907*Math.sin(2*gamma) - 0.002697*Math.cos(3*gamma) + 0.00148*Math.sin(3*gamma);
+      return {eqTime, decl}; // decl in radians, eqTime in minutes
+    }
+    function solarNoonLocalMinutes(date, lon){
+      const tz = -date.getTimezoneOffset()/60; // hours east of UTC
+      const {eqTime} = eqTimeAndDecl(date);
+      return 720 - 4*lon - eqTime + tz*60; // minutes after midnight local
+    }
+    function hourAngleForElevation(lat, decl, elevDeg){
+      const h = elevDeg*RAD; const phi = lat*RAD;
+      const cosH = (Math.sin(h) - Math.sin(phi)*Math.sin(decl)) / (Math.cos(phi)*Math.cos(decl));
+      if (cosH < -1 || cosH > 1) return null; // no event
+      return Math.acos(cosH)*DEG; // degrees
+    }
+    function eventTime(date, lat, lon, elev){
+      // Returns {rise, set} in minutes after local midnight for given elevation (deg)
+      const {decl} = eqTimeAndDecl(date);
+      const H = hourAngleForElevation(lat, decl, elev);
+      if (H === null) return {rise:null, set:null};
+      const noon = solarNoonLocalMinutes(date, lon);
+      return {rise: noon - H*4, set: noon + H*4};
+    }
+    // Convenience wrappers
+    function packTimes(date, lat, lon){
+      // Elevations in degrees: sunrise uses -0.833 for refraction
+      const sun = eventTime(date, lat, lon, -0.833);
+      const blue = { // -6 to -4
+        a: eventTime(date, lat, lon, -6),
+        b: eventTime(date, lat, lon, -4)
+      };
+      const gold = { // -4 to +6
+        a: eventTime(date, lat, lon, -4),
+        b: eventTime(date, lat, lon, 6)
+      };
+      return {sunriseMin:sun.rise, sunsetMin:sun.set,
+              blueAM:{start: blue.a.rise, end: blue.b.rise},
+              bluePM:{start: blue.b.set,  end: blue.a.set},
+              goldAM:{start: gold.a.rise, end: gold.b.rise},
+              goldPM:{start: gold.b.set,  end: gold.a.set}};
+    }
+
+    // ---- UI helpers ----
+    function minsToClock(mins){
+      if(mins==null) return '—';
+      const m = Math.round(mins); let h = Math.floor(m/60); const mm = (m%60+60)%60; // handle negatives just in case
+      const suffix = (h>=12)?'PM':'AM'; h = (h%12)||12; return `${h}:${mm.toString().padStart(2,'0')} ${suffix}`;
+    }
+    function spanPct(start, end){
+      // convert minutes into % of 24h for positioning bars
+      const clamp = v=>Math.max(0,Math.min(1440,v));
+      if(start==null||end==null) return {left:0,width:0};
+      const s = clamp(start)/14.4; const e = clamp(end)/14.4; return {left:s, width: Math.max(0,e-s)};
+    }
+
+    // ---- Calendar ----
+    const dowNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const dow = document.getElementById('dow');
+    dowNames.forEach(d=>{ const el=document.createElement('div'); el.className='dow'; el.textContent=d; dow.appendChild(el)});
+
+    const cal = document.getElementById('cal');
+    const calLabel = document.getElementById('calLabel');
+    let selected = new Date(); selected.setHours(0,0,0,0);
+    let monthCursor = new Date(selected);
+
+    function buildCalendar(){
+      cal.innerHTML='';
+      const y = monthCursor.getFullYear(), m = monthCursor.getMonth();
+      const first = new Date(y,m,1); const startDow = first.getDay();
+      const last = new Date(y,m+1,0).getDate();
+      const prevLast = new Date(y,m,0).getDate();
+      calLabel.textContent = monthCursor.toLocaleString(undefined,{month:'long', year:'numeric'});
+
+      // Leading muted days
+      for(let i=0;i<startDow;i++){
+        const d = prevLast - startDow + 1 + i; addDay(d,true,new Date(y,m-1,d));
+      }
+      // Current month
+      for(let d=1; d<=last; d++){ addDay(d,false,new Date(y,m,d)); }
+      // Trailing to complete grid (6 rows max -> 42 cells)
+      const cells = cal.children.length; for(let d=1; cells + d <= 42; d++){ addDay(d,true,new Date(y,m+1,d)); }
+    }
+    function addDay(num, muted, dateObj){
+      const el = document.createElement('button'); el.className='day' + (muted?' muted':''); el.textContent=num;
+      if(dateObj.toDateString()===new Date().toDateString()) el.classList.add('today');
+      if(dateObj.toDateString()===selected.toDateString()) el.classList.add('selected');
+      el.addEventListener('click',()=>{ selected = new Date(dateObj); selected.setHours(0,0,0,0); buildCalendar(); renderTimes(); });
+      cal.appendChild(el);
+    }
+
+    document.getElementById('prevMonth').onclick = ()=>{ monthCursor.setMonth(monthCursor.getMonth()-1); buildCalendar(); };
+    document.getElementById('nextMonth').onclick = ()=>{ monthCursor.setMonth(monthCursor.getMonth()+1); buildCalendar(); };
+    document.getElementById('todayBtn').onclick = ()=>{ selected = new Date(); selected.setHours(0,0,0,0); monthCursor = new Date(selected); buildCalendar(); renderTimes(); };
+
+    // ---- Location controls ----
+    const latEl = document.getElementById('lat');
+    const lonEl = document.getElementById('lon');
+    const whereEl = document.getElementById('where');
+    const geoBtn = document.getElementById('btnGeo');
+    const applyBtn = document.getElementById('btnApply');
+
+    // Default to Sarasota, FL if nothing set
+    let state = { lat: 27.3364, lon: -82.5307 };
+    latEl.value = state.lat; lonEl.value = state.lon; whereEl.value = 'Sarasota, FL';
+
+    geoBtn.onclick = ()=>{
+      if(!navigator.geolocation){ alert('Geolocation not available in this browser.'); return; }
+      geoBtn.disabled = true; geoBtn.textContent = 'Locating…';
+      navigator.geolocation.getCurrentPosition(pos=>{
+        state.lat = +pos.coords.latitude.toFixed(4);
+        state.lon = +pos.coords.longitude.toFixed(4);
+        latEl.value = state.lat; lonEl.value = state.lon; whereEl.value = 'My location';
+        geoBtn.textContent = 'Use my location'; geoBtn.disabled = false; renderTimes();
+      }, err=>{
+        alert('Could not get location. You can type coordinates instead.'); geoBtn.textContent = 'Use my location'; geoBtn.disabled = false;
+      });
+    };
+    applyBtn.onclick = ()=>{
+      const la = parseFloat(latEl.value), lo = parseFloat(lonEl.value);
+      if(Number.isFinite(la) && Number.isFinite(lo)){
+        state.lat = la; state.lon = lo; renderTimes();
+      } else {
+        alert('Please enter valid latitude and longitude.');
+      }
+    };
+
+    // ---- Render times ----
+    const timesEl = document.getElementById('times');
+    const resultTitle = document.getElementById('resultTitle');
+
+    function renderTimes(){
+      const date = new Date(selected);
+      const {lat, lon} = state;
+      resultTitle.textContent = `${date.toLocaleDateString(undefined,{weekday:'long', month:'long', day:'numeric', year:'numeric'})} — ${whereEl.value || 'Chosen location'} (lat ${lat.toFixed(4)}, lon ${lon.toFixed(4)})`;
+      const t = packTimes(date, lat, lon);
+      timesEl.innerHTML = '';
+
+      const rows = [
+        {label:'Blue hour (AM)', range:[t.blueAM.start, t.blueAM.end], cls:'blue'},
+        {label:'Golden hour (AM)', range:[t.goldAM.start, t.goldAM.end], cls:'gold'},
+        {label:'Sunrise', points:[t.sunriseMin], cls:'sun'},
+        {label:'Sunset', points:[t.sunsetMin], cls:'sun'},
+        {label:'Golden hour (PM)', range:[t.goldPM.start, t.goldPM.end], cls:'gold'},
+        {label:'Blue hour (PM)', range:[t.bluePM.start, t.bluePM.end], cls:'blue'}
+      ];
+
+      // Day bar background
+      const dayBar = document.createElement('div'); dayBar.className='row';
+      dayBar.innerHTML = `<div class="pill">Day timeline</div><div class="bar"></div>`; timesEl.appendChild(dayBar);
+
+      rows.forEach(r=>{
+        const row = document.createElement('div'); row.className='row';
+        const left = document.createElement('div'); left.className='pill'; left.textContent=r.label; row.appendChild(left);
+        const right = document.createElement('div'); right.className='bar';
+        // Range segment
+        if(r.range){ const {left,width} = spanPct(r.range[0], r.range[1]); const seg = document.createElement('div'); seg.className = `seg ${r.cls}`; seg.style.left=left+'%'; seg.style.width=width+'%'; right.appendChild(seg); }
+        // Points (sunrise/sunset)
+        if(r.points){ r.points.forEach(p=>{ if(p!=null){ const seg=document.createElement('div'); seg.className='seg sun'; const pct=spanPct(p,p+1); seg.style.left=pct.left+'%'; seg.style.width='2%'; right.appendChild(seg);} }); }
+        row.appendChild(right); timesEl.appendChild(row);
+
+        // Below each bar, print exact times
+        const times = document.createElement('div'); times.className='small';
+        if(r.range){ times.textContent = `${minsToClock(r.range[0])} → ${minsToClock(r.range[1])}`; }
+        else if(r.points){ times.textContent = minsToClock(r.points[0]); }
+        times.style.margin = '-6px 0 10px 172px';
+        if (window.matchMedia('(max-width:560px)').matches) times.style.margin = '6px 0 14px 0';
+        timesEl.appendChild(times);
+      });
+    }
+
+    // Init
+    buildCalendar();
+    renderTimes();
+  </script>
+</body>
+</html>
