@@ -21,26 +21,11 @@
   <!-- Fonts + shared layout -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Add Raleway so the desktop nav matches about.html exactly -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
-  <!-- 🔧 Normalize navbar to match the rest of the site (fix unintended bold) -->
-  <style>
-    .topbar nav a,
-    .topbar .site-nav a,
-    .site-nav a,
-    .topbar a[role="menuitem"]{
-      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
-      font-weight:400 !important;
-      letter-spacing:0 !important;
-    }
-    .site-nav a:hover,
-    .site-nav a:focus-visible{
-      color:var(--accent);
-      font-weight:400 !important;
-    }
-  </style>
-
+  <!-- Desktop navbar: match about.html (font + spacing + Galleries dropdown) -->
   <style>
     :root{
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
@@ -48,7 +33,51 @@
       --ring:rgba(168,138,90,.25); --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
       --mobile-header-h:64px; /* fixed mobile header height */
+
+      /* Desktop navbar spacing (exact) */
+      --nav-gap-top:20px;
+      --nav-gap-bottom:44px;
     }
+    /* Apply spacing only; base nav styles live in layout.css */
+    .topbar{
+      padding-top:var(--nav-gap-top) !important;
+      padding-bottom:var(--nav-gap-bottom) !important;
+    }
+    /* Exact desktop nav font like about.html */
+    @media (min-width:821px){
+      .topbar nav.primary > ul > li > a{
+        font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+        font-weight:500 !important;
+        letter-spacing:.02em;
+        text-transform:none;
+      }
+      .topbar nav.primary > ul > li > a:hover,
+      .topbar nav.primary > ul > li > a:focus-visible{
+        font-weight:500 !important; /* don't thicken on hover */
+      }
+    }
+    /* Galleries dropdown styling (serif, centered) */
+    @media (min-width:900px){
+      .topbar .submenu, .topbar .dropdown{
+        background:transparent; border:0; box-shadow:none; padding:6px 0 10px; min-width:170px;
+      }
+      .topbar .dropdown-title{
+        font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
+        font-weight:700; font-size:26px; line-height:1.1;
+        color:var(--accent,#A88A5A); text-align:center; margin:0 10px 6px; pointer-events:none;
+      }
+      .topbar .is-galleries-dropdown a{
+        display:block;
+        font-family:"Cormorant Garamond","Playfair Display",Georgia,serif !important;
+        font-weight:500 !important; font-size:18px; line-height:1.35;
+        letter-spacing:0; text-transform:none; text-align:center; color:#3e3e3a; padding:6px 12px;
+      }
+      .topbar .is-galleries-dropdown a:hover,
+      .topbar .is-galleries-dropdown a:focus-visible{ color:var(--accent,#A88A5A); }
+    }
+  </style>
+
+  <style>
     *{box-sizing:border-box}
     html,body{
       margin:0; padding:0; background:var(--bg); color:var(--ink);
@@ -464,14 +493,14 @@
         tile.dataset.primed = '1';
       }
 
-      /* === NEW: simple image preloader (warms cache; no visual change) === */
+      /* === SIMPLE image preloader (warms cache) === */
       const preloaded = new Set();
       function preloadList(list) {
         for (const src of list) {
           if (!src || preloaded.has(src)) continue;
           const im = new Image();
           im.decoding = 'async';
-          im.src = src;           // fetches & caches in background
+          im.src = src;
           preloaded.add(src);
         }
       }
@@ -484,7 +513,6 @@
         let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
         if(!Array.isArray(list) || list.length <= 1) return;
 
-        /* NEW: warm the cache for upcoming slides */
         preloadList(list);
 
         let idx = 0;
@@ -532,10 +560,9 @@
         });
       }
 
-      // Kick off
       initForViewport();
 
-      // If user crosses the 960px breakpoint, start observing the other set (still lazy).
+      // If user crosses the 960px breakpoint, start observing the other set
       let wasMobile = window.matchMedia('(max-width: 960px)').matches;
       window.addEventListener('resize', ()=>{
         const isMobile = window.matchMedia('(max-width: 960px)').matches;
@@ -544,6 +571,31 @@
           initForViewport();
         }
       });
+    })();
+  </script>
+
+  <!-- Wire the Galleries dropdown styling once the nav partial is injected -->
+  <script>
+    (function () {
+      function wire(){
+        const links = Array.from(document.querySelectorAll('.site-nav a, .topbar nav a'));
+        const galLink = links.find(a => a.textContent.trim() === 'Galleries');
+        if(!galLink) return;
+        const submenu = galLink.parentElement?.querySelector('.submenu, .dropdown, ul');
+        if(!submenu) return;
+        submenu.classList.add('is-galleries-dropdown');
+        if(!submenu.querySelector('.dropdown-title')){
+          const title = document.createElement('div');
+          title.className = 'dropdown-title';
+          title.textContent = 'Galleries';
+          submenu.insertBefore(title, submenu.firstChild);
+        }
+      }
+      if (document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', () => setTimeout(wire, 0));
+      } else {
+        setTimeout(wire, 0);
+      }
     })();
   </script>
 </body>
