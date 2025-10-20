@@ -14,6 +14,27 @@
   <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
+  <!-- Normalize the top nav to match the thin style used elsewhere -->
+  <style>
+    /* Force nav links (desktop + mobile dropdown) to use the same type scale/weight */
+    .topbar nav a,
+    .topbar .site-nav a,
+    .site-nav a,
+    .topbar a[role="menuitem"]{
+      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+      font-weight:400 !important;          /* remove the heavier look */
+      letter-spacing:0 !important;
+      text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased;
+    }
+    /* keep hover state consistent without bumping the weight */
+    .site-nav a:hover,
+    .site-nav a:focus-visible{
+      color:var(--accent);
+      font-weight:400 !important;
+    }
+  </style>
+
   <style>
     :root{
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#6e6a62;
@@ -26,8 +47,6 @@
       padding-top:16px !important;
       padding-bottom:40px !important;
     }
-    /* Match portraits’ spacer reset (no visual change) */
-    .nav-spacer, .page-top-spacer { height:0!important; }
 
     *{box-sizing:border-box}
     html,body{
