@@ -113,7 +113,7 @@
     .nav{
       position:absolute; top:50%; transform:translateY(-50%); width:var(--arrow-size); height:var(--arrow-size);
       display:grid; place-items:center; color:var(--accent); z-index:3; cursor:pointer; border:0; background:transparent;
-      opacity:. Nine; transition:opacity .15s ease, transform .15s ease;
+      opacity:.95; transition:opacity .15s ease, transform .15s ease;
     }
     .nav:hover{ opacity:1; transform:translateY(-50%) scale(1.02) }
     /* diamond plate under arrows (restored) */
@@ -265,8 +265,7 @@
       const prev  = figure.querySelector('.prev');
       const next  = figure.querySelector('.next');
 
-      // === Subject-centric focal positions (tweak as you like) ===
-      // Format "x% y%": smaller y% shows more top, larger y% shows more bottom.
+      // === Subject-centric focal positions ===
       const FOCALS = {
         "E26A1013.jpg":  "50% 42%",
         "E26A1022.jpg":  "48% 40%",
