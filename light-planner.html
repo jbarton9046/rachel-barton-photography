@@ -19,8 +19,11 @@
       --shadow: 0 10px 30px rgba(0,0,0,.08); --frame:#ecebea;
       --radius:0; --gap:clamp(16px,3vw,32px); --maxw:1200px;
       --mobile-header-h:64px; --nav-gap-top:20px; --nav-gap-bottom:44px;
+
+      /* Alignment helpers */
       --head-text-max: 57ch;
-      --head-gap: 10px;
+      --col-gap: clamp(12px,2vw,20px); /* shared gap for both grids */
+      --align-nudge: 18px;             /* shift photos left this much */
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     *{box-sizing:border-box}
@@ -44,8 +47,8 @@
     /* Heading + photos */
     .head-grid{
       display:grid;
-      grid-template-columns: minmax(0, max-content) 1fr; /* left hugs content, right fills remainder */
-      gap: var(--head-gap);
+      grid-template-columns: minmax(0, max-content) 1fr; /* left hugs content, right fills */
+      gap: var(--col-gap);
       align-items:start;
     }
     @media (max-width:900px){
@@ -77,12 +80,11 @@
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:12px;
-      width:100%;
-      justify-self:stretch;
+      /* Make the photo block slightly narrower and align its right edge
+         with the right edge of the column/cards below */
+      width: calc(100% - var(--align-nudge));
+      justify-self: end;
       align-content:start;
-      /* 🔧 Nudge left so right edge aligns with column below */
-      padding-right: 12px;          /* << key adjustment */
-      box-sizing: border-box;
     }
     .head-photo img{
       width:100%;
@@ -101,8 +103,8 @@
     .card{background:#fff; border:1px solid var(--line); box-shadow:var(--shadow)}
     .pad{padding:16px}
 
-    /* Planner layout */
-    .planner-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,20px); align-items:start}
+    /* Planner layout (shares the same gap) */
+    .planner-grid{display:grid; grid-template-columns:1fr 1fr; gap:var(--col-gap); align-items:start}
     @media(max-width:980px){ .planner-grid{grid-template-columns:1fr} }
 
     .group{display:grid;gap:8px}
@@ -162,7 +164,6 @@
       </header>
 
       <figure class="head-photo" aria-hidden="true">
-        <!-- relative paths + eager load -->
         <img loading="eager" src="pictures/goldenHourPics/beautiful-sunset.jpg" alt="Warm golden-hour sky over the gulf." width="600" height="900" />
         <img loading="eager" src="pictures/goldenHourPics/sunset-sea.jpg" alt="Calm sea at sunset with soft pastel light." width="600" height="900" />
       </figure>
