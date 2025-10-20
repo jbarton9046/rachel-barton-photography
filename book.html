@@ -20,7 +20,7 @@
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:960px;
 
-      /* Match about.html header spacing on desktop */
+      /* Header spacing (site standard) */
       --nav-gap-top:20px;
       --nav-gap-bottom:44px;
 
@@ -28,21 +28,32 @@
       --mobile-header-h:64px;
     }
 
-    /* ✅ Desktop nav font EXACT match to about.html */
+    /* ✅ Make the NAV BAR run wider (1200px) without widening page content.
+       These selectors match the inner container used by the /partials/topnav.html include. */
+    .topbar,
+    .topbar .container,
+    .topbar .inner{
+      /* keep the visual padding but let the inner track breathe */
+      max-width:1200px !important;
+      margin-left:auto; margin-right:auto;
+      width:100%;
+    }
+
+    /* Desktop nav font EXACT match to about.html */
     @media (min-width:821px){
       .topbar nav.primary > ul > li > a{
         font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
-        font-weight:500 !important;          /* same light/medium weight */
-        letter-spacing:.02em;                 /* subtle tracking */
+        font-weight:500 !important;
+        letter-spacing:.02em;
         text-transform:none;
       }
       .topbar nav.primary > ul > li > a:hover,
       .topbar nav.primary > ul > li > a:focus-visible{
-        font-weight:500 !important;           /* don’t thicken on hover */
+        font-weight:500 !important;
       }
     }
 
-    /* Normalize topbar spacing only (styles live in layout.css) */
+    /* Normalize topbar spacing only (other styles live in layout.css) */
     .topbar{
       padding-top:var(--nav-gap-top) !important;
       padding-bottom:var(--nav-gap-bottom) !important;
@@ -57,6 +68,7 @@
     a{color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
 
+    /* Keep page content at 960px while the nav uses 1200px */
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
     main section{padding:calc(var(--gap)*2) 0}
@@ -66,6 +78,27 @@
       margin:0 0 10px;
     }
     .lead{color:#67635b; margin:0 0 20px}
+
+    /* Buttons (match site look) */
+    .btn{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33;
+      font-weight:700; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
+      white-space:nowrap;
+    }
+    .btn:hover,.btn:focus-visible{
+      background:#fff; border-color:#dcd4c3; color:var(--accent);
+      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px)
+    }
+    .btn-ghost{ background:#fff; }
+
+    /* Top action bar (houses the Golden Hour button) */
+    .actions{
+      display:flex; justify-content:flex-end; align-items:center;
+      gap:12px; margin:10px 0 18px;
+    }
 
     .card{
       background:#fff; border:1px solid var(--line);
@@ -81,18 +114,13 @@
 
     /* -------- Mobile polish -------- */
     @media (max-width:900px){
-      /* Ensure content starts below sticky header + iOS safe area */
-      main section{
-        padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px);
-      }
+      main section{ padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px); }
+      .actions{ justify-content:flex-start; }
     }
     @media (max-width:640px){
       h1{ font-size:clamp(26px,6vw,36px); }
       .lead{ margin-bottom:14px; }
       .card{ padding:16px; box-shadow:0 8px 22px rgba(0,0,0,.05); }
-
-      /* Let the scheduler use available viewport height on phones,
-         but cap so the footer isn't pushed to infinity on very tall screens. */
       .iframe-wrap iframe{
         height: min(1100px, calc(100svh - (var(--mobile-header-h) + 120px)));
       }
@@ -108,6 +136,11 @@
       <div class="container">
         <h1>Book a Session</h1>
         <p class="lead">Pick a date that works for you. Don’t see your ideal time? <a href="/contact.html">Send a note</a> and I’ll try to accommodate.</p>
+
+        <!-- Professional inline action: link to the Golden Hour planner -->
+        <div class="actions">
+          <a class="btn btn-ghost" href="/light-planner.html" aria-label="Plan by light with Golden Hour times">Plan by light — Golden Hour</a>
+        </div>
 
         <div class="card">
           <div class="iframe-wrap">
