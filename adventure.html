@@ -42,12 +42,7 @@
       /* Arrow tokens (diamonds under arrows) */
       --arrow-size:56px;
       --arrow-inset:14px;
-      --col-gap: clamp(16px, 3vw, 28px);
-
-      /* 1000x800 carousel (5:4) + notes width */
-      --caro-max: 1000px;
-      --caro-ratio: 5 / 4;
-      --notes-w: 360px;
+      --col-gap: clamp(20px, 4vw, 40px); /* a touch more separation is fine */
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer,.page-top-spacer{ height:0!important; }
@@ -100,35 +95,30 @@
     .media-notes{ padding:clamp(16px,5vw,44px) 0 0; }
     .media-notes .grid{
       display:grid;
-      /* Center the pair (carousel auto width + fixed notes width) */
-      grid-template-columns: auto minmax(300px, var(--notes-w));
+      grid-template-columns: auto minmax(300px, 360px); /* fixed-ish notes width */
       gap: var(--col-gap);
       align-items:start;
-      justify-content:center; /* centers the two columns as a unit */
+      justify-content:center; /* center the pair as a unit */
     }
     @media (max-width:980px){
       .media-notes .grid{ grid-template-columns:1fr; justify-content:initial; }
     }
 
-    /* CAROUSEL (diamonds under arrows; no dots) */
+    /* CAROUSEL (diamonds under arrows; no dots)
+       Height/width are set by JS to match the notes column while keeping 5:4 */
     .carousel{
       position:relative;
       margin:0;
       border:1px solid var(--line);
       box-shadow:0 8px 24px rgba(0,0,0,.07);
       overflow:hidden;
-
-      /* 1000x800 — scales down responsively, keeps 5:4 shape */
-      width: clamp(320px, 60vw, var(--caro-max));
-      aspect-ratio: var(--caro-ratio);
+      width:auto;       /* JS will size */
+      height:auto;      /* JS will size */
+      max-width:100%;   /* never overflow container */
     }
     .carousel img{
-      /* fill the 5:4 box without stretching, center crop when needed */
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center;
-      display:block;
+      width:100%; height:100%;
+      object-fit:cover; object-position:center; display:block;
     }
 
     /* Hide dot indicators entirely */
@@ -281,7 +271,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Simple carousel logic (no dots; arrows only) + focal-point control -->
+  <!-- Carousel logic + focal-point control + size sync to notes height -->
   <script>
     (function(){
       const figure = document.getElementById('adv-carousel');
@@ -322,6 +312,7 @@
         const src = images[i];
         frame.src = src;
         frame.style.objectPosition = focalFor(src);
+        sizeCarousel(); // ensure sizing after an image swap too
       }
       function show(n){
         i = (n + images.length) % images.length;
@@ -330,12 +321,45 @@
       prev.addEventListener('click', () => show(i - 1));
       next.addEventListener('click', () => show(i + 1));
 
-      // Init
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => paint());
-      } else {
-        window.addEventListener('load', paint);
+      // === Size carousel to match notes height while keeping 5:4 ratio ===
+      function sizeCarousel(){
+        const grid  = document.querySelector('.media-notes .grid');
+        const aside = document.querySelector('aside.notes-col');
+        if(!grid || !aside) return;
+
+        const notesH = aside.offsetHeight;
+        if(!notesH) return;
+
+        // Available width for the carousel (container - notes - gap)
+        const styles = getComputedStyle(grid);
+        const gap = parseFloat(styles.columnGap || styles.gap || 0);
+        const gridW = grid.clientWidth;
+        const notesW = aside.clientWidth;
+
+        let availW = gridW - notesW - gap;
+        if (availW <= 0) availW = gridW;
+
+        // Desired width from a 5:4 box with height matching the notes
+        const desiredW = notesH * (5/4);
+
+        // Keep within available space; if this clamps width, height will be <= notes height
+        const width = Math.min(desiredW, availW);
+        const height = width * (4/5);
+
+        figure.style.width  = width  + 'px';
+        figure.style.height = height + 'px';
       }
+
+      // Init + listeners
+      const ready = () => { paint(); sizeCarousel(); };
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(ready);
+      } else {
+        window.addEventListener('load', ready, { once:true });
+      }
+      window.addEventListener('resize', sizeCarousel);
+      // Also re-size after the navbar include is injected (layout shift)
+      document.addEventListener('DOMContentLoaded', () => setTimeout(sizeCarousel, 0));
     })();
   </script>
 </body>
