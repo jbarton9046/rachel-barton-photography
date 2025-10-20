@@ -77,14 +77,18 @@
 
     /* Lead + Golden Hour button row (sits right above the embed) */
     .pre-embed{
-      display:flex; align-items:flex-end; justify-content:space-between;
+      display:flex; align-items:center; justify-content:space-between;
       gap:16px;
-      /* pull the text/button down close to the card */
-      margin:6px 0 10px;
+      margin:6px 0 10px; /* tight to the card */
     }
     .lead{
-      color:#67635b; margin:0; /* remove extra space so it hugs the card */
-      max-width:70ch;
+      color:#67635b; margin:0;
+      /* keep to one line with ellipsis when needed */
+      flex:1;
+      min-width:0;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
     /* Buttons (site look) */
@@ -118,6 +122,10 @@
     @media (max-width:900px){
       main section{ padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px); }
       .pre-embed{ flex-direction:column; align-items:flex-start; margin-bottom:12px; }
+      .lead{
+        white-space:normal;
+        overflow:visible; text-overflow:clip;
+      }
     }
     @media (max-width:640px){
       h1{ font-size:clamp(26px,6vw,36px); }
