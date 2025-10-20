@@ -19,8 +19,8 @@
       --shadow: 0 10px 30px rgba(0,0,0,.08); --frame:#ecebea;
       --radius:0; --gap:clamp(16px,3vw,32px); --maxw:1200px;
       --mobile-header-h:64px; --nav-gap-top:20px; --nav-gap-bottom:44px;
-      --head-text-max: 57ch;        /* tighten so images start near “blue … hour” */
-      --head-gap: 10px;             /* small, elegant gap between text & photos */
+      --head-text-max: 57ch;
+      --head-gap: 10px;
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     *{box-sizing:border-box}
@@ -44,16 +44,16 @@
     /* Heading + photos */
     .head-grid{
       display:grid;
-      grid-template-columns: minmax(0, max-content) 1fr; /* left hugs content, right fills the rest */
+      grid-template-columns: minmax(0, max-content) 1fr; /* left hugs content, right fills remainder */
       gap: var(--head-gap);
       align-items:start;
     }
     @media (max-width:900px){
       .head-grid{ grid-template-columns:1fr; }
-      .head-photo{ display:none; } /* decorative; hide on small screens */
+      .head-photo{ display:none; }
     }
 
-    /* Page head same as About but slightly narrower so images begin sooner */
+    /* Page head */
     .page-head{ margin:10px 0 8px; }
     h1,h2{font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif}
     h1{ font-size:clamp(32px,6vw,56px); line-height:1.1; margin:0; font-weight:700; color:#202022; }
@@ -72,7 +72,7 @@
     }
     .btn:hover,.btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px) }
 
-    /* Photos: span entire right column, small elegant height, site border/shadow */
+    /* Photos */
     .head-photo{
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -80,10 +80,13 @@
       width:100%;
       justify-self:stretch;
       align-content:start;
+      /* 🔧 Nudge left so right edge aligns with column below */
+      padding-right: 12px;          /* << key adjustment */
+      box-sizing: border-box;
     }
     .head-photo img{
       width:100%;
-      height:clamp(150px, 18vw, 240px);   /* smaller size you preferred */
+      height:clamp(150px, 18vw, 240px);   /* smaller elegant height */
       object-fit:cover;
       object-position:center;
       display:block;
@@ -92,7 +95,7 @@
       background:#fff;
     }
     @media (min-width:900px){
-      .head-photo{ margin-top:-6px; } /* small lift like About */
+      .head-photo{ margin-top:-6px; }
     }
 
     .card{background:#fff; border:1px solid var(--line); box-shadow:var(--shadow)}
@@ -111,7 +114,7 @@
     /* Quick areas */
     .quick-areas{display:flex;flex-wrap:wrap;gap:6px}
     .quick-areas button{padding:.35rem .7rem; white-space:nowrap}
-    @media (min-width: 980px){
+    @media (min-width:980px){
       .quick-areas{
         display:grid; grid-auto-flow:column; grid-template-rows:repeat(2,auto);
         gap:6px 8px; align-items:start;
@@ -159,7 +162,7 @@
       </header>
 
       <figure class="head-photo" aria-hidden="true">
-        <!-- NOTE: relative paths + eager load to ensure they show up -->
+        <!-- relative paths + eager load -->
         <img loading="eager" src="pictures/goldenHourPics/beautiful-sunset.jpg" alt="Warm golden-hour sky over the gulf." width="600" height="900" />
         <img loading="eager" src="pictures/goldenHourPics/sunset-sea.jpg" alt="Calm sea at sunset with soft pastel light." width="600" height="900" />
       </figure>
@@ -240,7 +243,7 @@
   <script src="/assets/include.js?v=nav-5" defer></script>
 
   <script>
-    /* Solar math (unchanged) */
+    /* Solar calc */
     const RAD=Math.PI/180, DEG=180/Math.PI;
     function dayOfYear(d){const s=new Date(d.getFullYear(),0,0); const diff=d-s+((s.getTimezoneOffset()-d.getTimezoneOffset())*60000); return Math.floor(diff/86400000)}
     function eqTimeAndDecl(date){const n=dayOfYear(date); const g=2*Math.PI/365*(n-1); const eqTime=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g)); const decl=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g); return {eqTime:eqTime, decl:decl} }
@@ -250,7 +253,7 @@
     function packTimes(date,lat,lon){const sun=eventTime(date,lat,lon,-0.833); const blue={a:eventTime(date,lat,lon,-6),b:eventTime(date,lat,lon,-4)}; const gold={a:eventTime(date,lat,lon,-4),b:eventTime(date,lat,lon,6)}; return {sunriseMin:sun.rise,sunsetMin:sun.set,blueAM:{start:blue.a.rise,end:blue.b.rise},bluePM:{start:blue.b.set,end:blue.a.set},goldAM:{start:gold.a.rise,end:gold.b.rise},goldPM:{start:gold.b.set,end:gold.a.set}} }
     function minsToClock(mins){ if(mins==null) return '—'; const m=Math.round(mins); let h=Math.floor(m/60); const mm=(m%60+60)%60; const suffix=(h>=12)?'PM':'AM'; h=(h%12)||12; return `${h}:${mm.toString().padStart(2,'0')} ${suffix}` }
 
-    /* Calendar build & interactions */
+    /* Calendar */
     const dowNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     const dow=document.getElementById('dow');
     dowNames.forEach(d=>{ const el=document.createElement('div'); el.className='dow'; el.textContent=d; dow.appendChild(el) });
