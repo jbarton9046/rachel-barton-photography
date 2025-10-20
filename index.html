@@ -31,7 +31,7 @@
       --subject-right: 40vw;
       --subject-right-mobile: 24vw;
 
-      /* ✅ Nav spacing to match about/contact/etc */
+      /* ✅ Nav spacing to match other pages exactly */
       --nav-gap-top: 20px;
       --nav-gap-bottom: 44px;
     }
@@ -61,18 +61,12 @@
       background:url('pictures/oonaIvy/E26A0671.jpg') center 15% / cover no-repeat fixed;
     }
 
-    /* overlay navbar (kept fixed; only top/bottom spacing is normalized) */
+    /* ✅ Navbar: fixed like before, but spacing + font EXACTLY like others */
     .topbar{
-      position:fixed; left:0; right:0; top:0;
-      display:flex; align-items:center; justify-content:center;
-      padding:16px var(--gap); z-index:2; background:transparent;
-
-      /* ✅ match site spacing while preserving left/right padding above */
+      position:fixed; left:0; right:0; top:0; z-index:2; background:transparent;
       padding-top: var(--nav-gap-top) !important;
       padding-bottom: var(--nav-gap-bottom) !important;
     }
-
-    /* ✅ Desktop nav font EXACTLY like about.html (no hover bolding) */
     @media (min-width:821px){
       .topbar nav.primary > ul > li > a{
         font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
@@ -82,11 +76,10 @@
       }
       .topbar nav.primary > ul > li > a:hover,
       .topbar nav.primary > ul > li > a:focus-visible{
-        font-weight:500 !important;
+        font-weight:500 !important; /* no bolding on hover */
       }
     }
-
-    /* ✅ Galleries dropdown: serif title + centered items (desktop) */
+    /* Galleries dropdown: serif title + centered items (desktop) */
     @media (min-width:900px){
       .topbar .submenu, .topbar .dropdown{
         background:transparent; border:0; box-shadow:none; padding:6px 0 10px; min-width:170px;
@@ -279,7 +272,7 @@
   <!-- Partials loader -->
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- ✅ Wire the Galleries dropdown styling after the nav partial injects -->
+  <!-- Wire the Galleries dropdown styling after the nav partial injects -->
   <script>
     (function () {
       function wire(){
