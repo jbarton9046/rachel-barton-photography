@@ -39,7 +39,7 @@
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
     main section{padding:clamp(10px,2vw,18px) 0}
 
-    /* Heading + hero image side-by-side (like About layout) */
+    /* Heading + hero images side-by-side (like About layout) */
     .head-grid{
       display:grid;
       grid-template-columns:2fr 1fr;
@@ -48,7 +48,7 @@
     }
     @media (max-width:900px){
       .head-grid{ grid-template-columns:1fr; }
-      .head-photo{ display:none; } /* hide the decorative image on small screens */
+      .head-photo{ display:none; } /* hide decorative images on small screens */
     }
 
     /* Page head aligned exactly like About */
@@ -68,9 +68,18 @@
     }
     .btn:hover,.btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px) }
 
-    /* Image styling = same treatment as other site images */
+    /* Header images: two-up grid with site border/shadow */
+    .head-photo{
+      display:grid;
+      grid-template-columns:1fr 1fr;   /* side by side */
+      gap:12px;
+      align-content:start;
+    }
     .head-photo img{
-      max-width:100%; height:auto; display:block;
+      width:100%;
+      height:clamp(180px, 22vw, 300px); /* equal, graceful height */
+      object-fit:cover;
+      display:block;
       border:1px solid var(--frame);
       box-shadow:var(--shadow);
       background:#fff;
@@ -137,7 +146,7 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content" class="container">
-    <!-- Heading + hero image -->
+    <!-- Heading + hero images -->
     <div class="head-grid">
       <header class="page-head" aria-labelledby="golden-title">
         <h1 id="golden-title">Golden Hour</h1>
@@ -153,6 +162,9 @@
         <img loading="lazy"
              src="/pictures/goldenHourPics/beautiful-sunset.jpg"
              alt="Warm golden-hour sky over the gulf." />
+        <img loading="lazy"
+             src="/pictures/goldenHourPics/sunset-sea.jpg"
+             alt="Calm sea at sunset with soft pastel light." />
       </figure>
     </div>
 
