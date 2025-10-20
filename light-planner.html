@@ -66,9 +66,21 @@
     label{font-weight:700;font-size:.95rem}
     input[type="text"]{width:100%;padding:12px 14px;border:1px solid var(--line);background:#fff}
     button{appearance:none;border:1px solid var(--line);background:#fff;padding:10px 14px;cursor:pointer;font-weight:700}
+
     .util{display:flex;gap:8px;flex-wrap:wrap}
+
+    /* ---------- Quick areas: 2 tidy rows on desktop, wrap on mobile ---------- */
     .quick-areas{display:flex;flex-wrap:wrap;gap:6px}
-    .quick-areas button{padding:.35rem .7rem}
+    .quick-areas button{padding:.35rem .7rem; white-space:nowrap}
+    @media (min-width: 980px){
+      .quick-areas{
+        display:grid;
+        grid-auto-flow:column;           /* fill columns left->right */
+        grid-template-rows:repeat(2,auto); /* exactly two rows */
+        gap:6px 8px;
+        align-items:start;
+      }
+    }
 
     /* Calendar typography to match site (Source Sans, medium weight) */
     .calendar{display:grid;gap:10px}
@@ -78,7 +90,7 @@
     .dow{font-size:.82rem;color:#6f6b62;text-align:center;padding:4px 0;font-weight:600}
     .day{
       display:grid;place-items:center;height:40px;border:1px solid var(--line);background:#fff;
-      font-weight:600; font-size:15px; line-height:1; /* not overly bold */
+      font-weight:600; font-size:15px; line-height:1;
     }
     .day.muted{color:#b5b1a6}
     .day.today{outline:2px solid var(--accent); outline-offset:-2px}
@@ -132,17 +144,22 @@
               <button id="btnGeocode">Search</button>
               <button id="btnGeo">Use my location</button>
             </div>
+
+            <!-- Balanced, professional two-row layout (desktop), mobile wraps naturally -->
             <div class="quick-areas" aria-label="Quick locations">
+              <!-- Row balance by order; top row slightly longer by design -->
               <button data-area="Siesta Key">Siesta Key</button>
-              <button data-area="Bradenton Beach">Bradenton Beach</button>
               <button data-area="Longboat Key">Longboat Key</button>
-              <button data-area="Lido Key">Lido Key</button>
-              <button data-area="Nokomis">Nokomis</button>
-              <button data-area="Clearwater Beach">Clearwater Beach</button>
               <button data-area="Naples">Naples</button>
               <button data-area="Venice">Venice</button>
               <button data-area="Punta Grande">Punta Grande</button>
+
+              <button data-area="Bradenton Beach">Bradenton Beach</button>
+              <button data-area="Lido Key">Lido Key</button>
+              <button data-area="Nokomis">Nokomis</button>
+              <button data-area="Clearwater Beach">Clearwater Beach</button>
             </div>
+
             <p class="small" id="locNote">Type a neighborhood or beach, then press <em>Search</em>. Or use your phone’s location.</p>
           </div>
 
