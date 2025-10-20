@@ -6,7 +6,7 @@
   <title>Contact | Rachel Barton Photography</title>
   <meta name="description" content="Say hello and tell me about your session ideas. I’d love to plan something beautiful with you." />
 
-  <!-- Fonts (match about.html exactly: add Raleway for desktop nav) -->
+  <!-- Fonts (match about.html exactly: includes Raleway) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
   <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
-  <!-- Desktop-only serif/centered Galleries dropdown (exact look) -->
+  <!-- Desktop-only serif/centered Galleries dropdown (unchanged) -->
   <style>
     @media (min-width: 900px){
       .site-nav .submenu, .site-nav .dropdown, .topbar .submenu, .topbar .dropdown{
@@ -34,22 +34,6 @@
       .site-nav .is-galleries-dropdown a:hover,
       .site-nav .is-galleries-dropdown a:focus-visible{ color:var(--accent,#A88A5A); }
     }
-
-    /* ✅ Desktop: make top-level nav links match about.html exactly (thin 400) */
-    @media (min-width: 821px){
-      .topbar nav.primary > ul > li > a{
-        font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-        font-weight:400;
-        letter-spacing:0;
-        text-transform:none;
-        -webkit-font-smoothing:antialiased;
-        text-rendering:optimizeLegibility;
-      }
-      .topbar nav.primary > ul > li > a:hover,
-      .topbar nav.primary > ul > li > a:focus-visible{
-        font-weight:400; /* don’t bump weight on hover */
-      }
-    }
   </style>
 
   <style>
@@ -60,11 +44,25 @@
       --mobile-header-h:64px;
 
       /* Match about.html desktop header spacing */
-      --nav-gap-top:20px; 
+      --nav-gap-top:20px;
       --nav-gap-bottom:44px;
     }
 
-    /* Use shared nav as-is; spacing only */
+    /* ✅ Desktop nav font EXACT match to about.html */
+    @media (min-width:821px){
+      .topbar nav.primary > ul > li > a{
+        font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+        font-weight:500 !important;          /* same light look */
+        letter-spacing:.02em;                 /* subtle tracking like about.html */
+        text-transform:none;
+      }
+      .topbar nav.primary > ul > li > a:hover,
+      .topbar nav.primary > ul > li > a:focus-visible{
+        font-weight:500 !important;           /* don’t thicken on hover */
+      }
+    }
+
+    /* Use shared nav; spacing only */
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
 
     *{box-sizing:border-box}
