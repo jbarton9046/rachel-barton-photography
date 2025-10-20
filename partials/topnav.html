@@ -69,12 +69,11 @@
     transform:translateX(0); transition:transform .28s ease;
   }
 
-  /* ---- TRUE "STEPPING" LINES (floating, no background) ---- */
   .nav-toggle-8{
     -webkit-tap-highlight-color:transparent;
     appearance:none; -webkit-appearance:none;
     position:relative;
-    width:44px; height:26px; /* the invisible frame */
+    width:44px; height:26px;
     border:0; background:transparent !important; box-shadow:none !important; cursor:pointer;
     color:#2f2a24;
   }
@@ -83,22 +82,12 @@
     height:2px; border-radius:999px; background:currentColor; opacity:.96;
     box-shadow:0 .5px 0 rgba(255,255,255,.45), 0 6px 12px rgba(0,0,0,.18);
   }
-  /* bottom: FAR LEFT (longest) */
-  .nav-toggle-8 .b-bot{
-    width:28px; bottom:2px; left:0;
-  }
-  /* middle: PERFECTLY CENTERED */
-  .nav-toggle-8 .b-mid{
-    width:20px; top:50%; transform:translate(-50%, -50%);
-    left:50%;
-  }
-  /* top: STARTS AT CENTER LINE, GOES RIGHT (half over center / half right) */
-  .nav-toggle-8 .b-top{
-    width:14px; top:2px; left:50%; /* left edge sits on center */
-  }
+  .nav-toggle-8 .b-bot{ width:28px; bottom:2px; left:0; }
+  .nav-toggle-8 .b-mid{ width:20px; top:50%; transform:translate(-50%, -50%); left:50%; }
+  .nav-toggle-8 .b-top{ width:14px; top:2px; left:50%; }
+
   .nav-toggle-8:active .bar{ opacity:.85; }
 
-  /* Brand next to the icon */
   .brand-name{
     display:inline-flex; flex-direction:column; justify-content:center;
     text-decoration:none; line-height:1.02; color:#2f2a24;
@@ -114,7 +103,6 @@
     color:#6a5b45; margin-top:2px;
   }
 
-  /* never allow any legacy .nav-toggle to paint a box */
   .nav-toggle{ background:transparent !important; border:0 !important; box-shadow:none !important; }
 }
 
@@ -176,5 +164,19 @@
   } else {
     requestAnimationFrame(sync);
   }
+})();
+
+/* ===== Mark the current page in the nav (desktop + mobile) ===== */
+(function(){
+  // Normalize both current path and hrefs: strip /index.html and trailing slash
+  const normalize = p => p.replace(/index\.html?$/,'').replace(/\/$/,'');
+  const here = normalize(location.pathname);
+  document.querySelectorAll('.topbar nav.primary a[href]').forEach(a=>{
+    let href = normalize(a.getAttribute('href') || '');
+    if (href === here){
+      a.setAttribute('aria-current','page');   // a11y + mobile drawer styles
+      a.classList.add('is-current');           // CSS hook for desktop underline
+    }
+  });
 })();
 </script>

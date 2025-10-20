@@ -272,3 +272,18 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     opacity:.6;
   }
 }
+
+/* ================= Desktop “current page” state ================= */
+@media (min-width:821px){
+  .topbar nav.primary a[aria-current="page"],
+  .topbar nav.primary a.is-current{
+    color: var(--accent);
+    position: relative;
+  }
+  .topbar nav.primary a[aria-current="page"]::after,
+  .topbar nav.primary a.is-current::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:-6px;
+    height:2px; background:var(--accent);
+  }
+}
