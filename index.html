@@ -27,9 +27,13 @@
       --ring:rgba(168,138,90,.25); --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
       /* Positioning knobs (decrease to nudge the card LEFT) */
-      --card-max: 1100px;           /* allow one-line “Rachel Barton” on desktop */
-      --subject-right: 40vw;        /* desktop: approx daughter's right edge */
-      --subject-right-mobile: 24vw; /* mobile: your chosen value */
+      --card-max: 1100px;
+      --subject-right: 40vw;
+      --subject-right-mobile: 24vw;
+
+      /* ✅ Nav spacing to match about/contact/etc */
+      --nav-gap-top: 20px;
+      --nav-gap-bottom: 44px;
     }
 
     *{ box-sizing:border-box }
@@ -57,11 +61,49 @@
       background:url('pictures/oonaIvy/E26A0671.jpg') center 15% / cover no-repeat fixed;
     }
 
-    /* overlay navbar (universal partial sits outside hero; make it fixed for this page) */
+    /* overlay navbar (kept fixed; only top/bottom spacing is normalized) */
     .topbar{
       position:fixed; left:0; right:0; top:0;
       display:flex; align-items:center; justify-content:center;
       padding:16px var(--gap); z-index:2; background:transparent;
+
+      /* ✅ match site spacing while preserving left/right padding above */
+      padding-top: var(--nav-gap-top) !important;
+      padding-bottom: var(--nav-gap-bottom) !important;
+    }
+
+    /* ✅ Desktop nav font EXACTLY like about.html (no hover bolding) */
+    @media (min-width:821px){
+      .topbar nav.primary > ul > li > a{
+        font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+        font-weight:500 !important;
+        letter-spacing:.02em;
+        text-transform:none;
+      }
+      .topbar nav.primary > ul > li > a:hover,
+      .topbar nav.primary > ul > li > a:focus-visible{
+        font-weight:500 !important;
+      }
+    }
+
+    /* ✅ Galleries dropdown: serif title + centered items (desktop) */
+    @media (min-width:900px){
+      .topbar .submenu, .topbar .dropdown{
+        background:transparent; border:0; box-shadow:none; padding:6px 0 10px; min-width:170px;
+      }
+      .topbar .dropdown-title{
+        font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
+        font-weight:700; font-size:26px; line-height:1.1;
+        color:var(--accent,#A88A5A); text-align:center; margin:0 10px 6px; pointer-events:none;
+      }
+      .topbar .is-galleries-dropdown a{
+        display:block;
+        font-family:"Cormorant Garamond","Playfair Display",Georgia,serif !important;
+        font-weight:500 !important; font-size:18px; line-height:1.35;
+        letter-spacing:0; text-transform:none; text-align:center; color:#3e3e3a; padding:6px 12px;
+      }
+      .topbar .is-galleries-dropdown a:hover,
+      .topbar .is-galleries-dropdown a:focus-visible{ color:var(--accent,#A88A5A); }
     }
 
     /* Card */
@@ -100,10 +142,10 @@
     /* CTA layout */
     .cta{
       display:flex; gap:22px; margin:28px 0; flex-wrap:wrap; justify-content:center;
-      text-align:center; /* center link text within the card */
+      text-align:center;
     }
 
-    /* ---------- DESKTOP BUTTON STYLE (unchanged premium outlined) ---------- */
+    /* Buttons */
     .btn{
       --btn-bg: rgba(255,255,255,.14);
       --btn-border: rgba(62,62,58,.28);
@@ -142,13 +184,12 @@
 
     /* ---------------- MOBILE OPTIMIZATION ---------------- */
     @media (max-width: 820px){
-      /* Center between daughter's right edge (mobile var) and viewport right edge; lift slightly */
       .hero .copy{
         max-width: 96vw;
         left: calc( (var(--subject-right-mobile) + 100vw) / 2 );
         top: 43.5%;
         transform: translate(-50%, -50%);
-        padding: 10px 18px; /* slightly tighter to shorten the card */
+        padding: 10px 18px;
       }
       .eyebrow{
         font-size: 11px; letter-spacing: .14em; margin-bottom: 4px;
@@ -158,28 +199,20 @@
         line-height: 1.04;
         margin: .05em 0 .05em;
       }
-
-      /* Two equal links side-by-side; ensure they're centered in their cells */
       .cta{
         display:grid; grid-template-columns:1fr 1fr; gap:10px;
         margin: 12px 0 6px;
-        place-items:center; /* centers the anchors inside the grid cells */
+        place-items:center;
       }
-
-      /* ---------- MOBILE BUTTON STYLE (text links with elegant underline) ---------- */
       .btn{
         padding:10px 0; font-size:16px;
         border:0; background:transparent; box-shadow:none; border-radius:0;
         color:#2f2a24; text-align:center;
-
-        /* underline reveal */
         background-image: linear-gradient(currentColor, currentColor);
         background-repeat: no-repeat;
-        background-position: 50% 100%; /* center the underline */
+        background-position: 50% 100%;
         background-size: 0% 1px;
         transition: background-size .2s ease, color .18s ease, transform .18s ease, text-shadow .18s ease;
-
-        /* subtle readability */
         text-shadow:
           0 1px 0 rgba(255,255,255,.35),
           0 8px 20px rgba(0,0,0,.18);
@@ -197,15 +230,13 @@
         box-shadow:0 0 0 3px var(--ring);
         background-size:100% 1px;
       }
-
-      /* ---- Locations block: smaller, tighter, and no forced line breaks ---- */
       .localities{
-        font-size: 12.25px;   /* smaller text */
-        line-height: 1.35;    /* tighter stack */
+        font-size: 12.25px;
+        line-height: 1.35;
         margin-top: 4px;
         opacity: .95;
       }
-      .localities br{ display:none; } /* let text wrap naturally on fewer lines */
+      .localities br{ display:none; }
       .localities .dot{ margin-right: .15ch; }
       .localities .dot::after{ content:" • "; color:#8a857a; }
     }
@@ -247,5 +278,30 @@
 
   <!-- Partials loader -->
   <script src="/assets/include.js?v=nav-5" defer></script>
+
+  <!-- ✅ Wire the Galleries dropdown styling after the nav partial injects -->
+  <script>
+    (function () {
+      function wire(){
+        const links = Array.from(document.querySelectorAll('.site-nav a, .topbar nav a'));
+        const galLink = links.find(a => a.textContent.trim() === 'Galleries');
+        if(!galLink) return;
+        const submenu = galLink.parentElement?.querySelector('.submenu, .dropdown, ul');
+        if(!submenu) return;
+        submenu.classList.add('is-galleries-dropdown');
+        if(!submenu.querySelector('.dropdown-title')){
+          const title = document.createElement('div');
+          title.className = 'dropdown-title';
+          title.textContent = 'Galleries';
+          submenu.insertBefore(title, submenu.firstChild);
+        }
+      }
+      if (document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', () => setTimeout(wire, 0));
+      } else {
+        setTimeout(wire, 0);
+      }
+    })();
+  </script>
 </body>
 </html>
