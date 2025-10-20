@@ -6,37 +6,49 @@
   <title>Contact | Rachel Barton Photography</title>
   <meta name="description" content="Say hello and tell me about your session ideas. I’d love to plan something beautiful with you." />
 
-  <!-- Fonts (same set your site uses) -->
+  <!-- Fonts (match about.html exactly: add Raleway for desktop nav) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Shared layout (universal navbar + footer) -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
-  <!-- Desktop-only serif/centered Galleries dropdown (scoped so it won't touch top-level nav links) -->
+  <!-- Desktop-only serif/centered Galleries dropdown (exact look) -->
   <style>
     @media (min-width: 900px){
-      /* panel shell */
-      .primary .dropdown,
-      .primary .submenu{
+      .site-nav .submenu, .site-nav .dropdown, .topbar .submenu, .topbar .dropdown{
         background: transparent; border:0; box-shadow:none; padding:6px 0 10px; min-width:170px;
       }
-      /* title */
-      .primary .dropdown-title{
+      .site-nav .dropdown-title{
         font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
         font-weight:700; font-size:26px; line-height:1.1;
         color:var(--accent, #A88A5A); text-align:center; margin:0 10px 6px; pointer-events:none;
       }
-      /* centered serif items (ONLY inside the Galleries dropdown) */
-      .primary .is-galleries-dropdown a{
+      .site-nav .is-galleries-dropdown a{
         display:block;
-        font-family:"Cormorant Garamond","Playfair+Display",Georgia,serif !important;
+        font-family:"Cormorant Garamond","Playfair Display",Georgia,serif !important;
         font-weight:500 !important; font-size:18px; line-height:1.35;
         letter-spacing:0; text-transform:none; text-align:center; color:#3e3e3a; padding:6px 12px;
       }
-      .primary .is-galleries-dropdown a:hover,
-      .primary .is-galleries-dropdown a:focus-visible{ color:var(--accent,#A88A5A); }
+      .site-nav .is-galleries-dropdown a:hover,
+      .site-nav .is-galleries-dropdown a:focus-visible{ color:var(--accent,#A88A5A); }
+    }
+
+    /* ✅ Desktop: make top-level nav links match about.html exactly (thin 400) */
+    @media (min-width: 821px){
+      .topbar nav.primary > ul > li > a{
+        font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+        font-weight:400;
+        letter-spacing:0;
+        text-transform:none;
+        -webkit-font-smoothing:antialiased;
+        text-rendering:optimizeLegibility;
+      }
+      .topbar nav.primary > ul > li > a:hover,
+      .topbar nav.primary > ul > li > a:focus-visible{
+        font-weight:400; /* don’t bump weight on hover */
+      }
     }
   </style>
 
@@ -45,18 +57,15 @@
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#6e6a62;
       --line:#e9e6df; --accent:#A88A5A;
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-
-      /* ✅ match about.html desktop header spacing exactly */
       --mobile-header-h:64px;
-      --nav-gap-top:20px;
+
+      /* Match about.html desktop header spacing */
+      --nav-gap-top:20px; 
       --nav-gap-bottom:44px;
     }
 
-    /* Use shared nav as-is; only spacing is normalized to match about.html */
-    .topbar{
-      padding-top:var(--nav-gap-top) !important;
-      padding-bottom:var(--nav-gap-bottom) !important;
-    }
+    /* Use shared nav as-is; spacing only */
+    .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
 
     *{box-sizing:border-box}
     html,body{
@@ -72,7 +81,7 @@
     /* ===== Page layout ===== */
     main section{padding:calc(var(--gap)*2) 0}
 
-    /* Grid so the photo column aligns with the heading start on desktop */
+    /* Grid so photos align to the headline top on desktop */
     .contact-grid{
       display:grid; gap:var(--gap);
     }
@@ -116,7 +125,7 @@
     .photos{display:grid; gap:var(--gap)}
     .stack{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap)}
 
-    /* ===== Desktop grid (same visual alignment as your preferred version) ===== */
+    /* ===== Desktop grid (align with headline) ===== */
     @media (min-width:900px){
       .contact-grid{
         grid-template-columns: 1.25fr .75fr;
@@ -128,12 +137,11 @@
       .contact-header{ grid-area: header; }
       .form-wrap     { grid-area: form; }
       .photos        { grid-area: photos; }
-
-      .form-wrap .card{ height:100%; } /* equal column bottoms */
+      .form-wrap .card{ height:100%; }
     }
 
-    /* ===== Mobile (unchanged) ===== */
-    .mini-gallery{ display:none; } /* shown only on phones */
+    /* ===== Mobile unchanged ===== */
+    .mini-gallery{ display:none; }
     @media (max-width:900px){
       main section{
         padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top, 0px) + 8px);
@@ -163,7 +171,7 @@
   </style>
 </head>
 <body>
-  <!-- Shared universal navbar (spacing matches about.html; no font overrides) -->
+  <!-- Shared universal navbar -->
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
@@ -243,16 +251,11 @@
   <script>
     (function () {
       function wire(){
-        const nav = document.getElementById('site-menu');
-        if(!nav) return;
-
-        // find the "Galleries" li and its submenu
-        const galLink = Array.from(nav.querySelectorAll('a')).find(a => a.textContent.trim() === 'Galleries');
+        const links = Array.from(document.querySelectorAll('.site-nav a, .topbar nav a'));
+        const galLink = links.find(a => a.textContent.trim() === 'Galleries');
         if(!galLink) return;
-        const submenu = galLink.parentElement?.querySelector('.dropdown, .submenu, ul');
+        const submenu = galLink.parentElement?.querySelector('.submenu, .dropdown, ul');
         if(!submenu) return;
-
-        // mark dropdown & inject the title (once)
         submenu.classList.add('is-galleries-dropdown');
         if(!submenu.querySelector('.dropdown-title')){
           const title = document.createElement('div');
