@@ -28,7 +28,8 @@
       margin:0; padding:0; background:var(--bg); color:var(--ink);
       font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-      overflow-x:hidden;
+      overflow-x:hidden; /* kill any stray horizontal scrolling */
+      width:100%;
     }
     a{color:inherit; text-decoration:none; transition:color .15s ease,border-color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
@@ -44,9 +45,10 @@
     /* Heading + photos */
     .head-grid{
       display:grid;
-      grid-template-columns:minmax(0,max-content) 1fr;
+      grid-template-columns:minmax(0,max-content) minmax(0,1fr);
       gap:var(--col-gap);
       align-items:start;
+      width:100%;
     }
     @media (max-width:900px){
       .head-grid{ grid-template-columns:1fr; }
@@ -70,33 +72,39 @@
     .head-photo{
       display:grid; grid-template-columns:1fr 1fr; gap:12px;
       width:calc(100% - var(--align-nudge)); justify-self:end; align-content:start;
+      min-width:0;
     }
     .head-photo img{
       width:100%; height:clamp(150px,28vw,240px);
       object-fit:cover; object-position:center;
       display:block; border:1px solid var(--frame); box-shadow:var(--shadow); background:#fff;
+      max-width:100%;
     }
     .head-photo img.is-grass{ object-position:50% 18%; }
     @media (min-width:900px){ .head-photo{ margin-top:-6px; } }
 
-    .card{background:#fff; border:1px solid var(--line); box-shadow:var(--shadow); overflow:hidden;}
+    .card{background:#fff; border:1px solid var(--line); box-shadow:var(--shadow); overflow:hidden; max-width:100%;}
     .pad{padding:16px}
 
     /* Planner layout */
     .planner-grid{
       display:grid;
-      grid-template-columns:minmax(0,1fr) minmax(0,1fr); /* prevent mobile bleed from intrinsic widths */
+      grid-template-columns:minmax(0,1fr) minmax(0,1fr); /* hard clamp prevents horizontal bleed */
       gap:var(--col-gap);
       align-items:start;
       width:100%;
     }
+    /* prevent children from forcing overflow */
+    .planner-grid > *{ min-width:0; max-width:100%; }
+    #leftCol, #rightCol, #resultsCard{ min-width:0; max-width:100%; }
+
     @media(max-width:980px){
       .planner-grid{ grid-template-columns:1fr; }
     }
 
     .group{display:grid;gap:8px}
 
-    /* Make “Date” and “Location” use the display font */
+    /* Display font for section labels */
     label{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-weight:700; font-size:1.15rem; letter-spacing:.2px; color:#2a2926;
@@ -104,8 +112,8 @@
 
     input[type="text"]{width:100%;padding:12px 14px;border:1px solid var(--line);background:#fff}
 
-    /* Match all action buttons */
-    .util{display:flex;gap:8px;flex-wrap:wrap}
+    /* Buttons */
+    .util{display:flex;gap:8px;flex-wrap:wrap; max-width:100%}
     .util button,
     .quick-areas button{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
@@ -121,7 +129,7 @@
       outline:none;
     }
 
-    .quick-areas{display:flex;flex-wrap:wrap;gap:8px}
+    .quick-areas{display:flex;flex-wrap:wrap;gap:8px; max-width:100%}
 
     @media (min-width:980px){
       .quick-areas{
@@ -140,14 +148,19 @@
       #locNote{ font-size:.92rem; }
     }
 
-    /* Calendar: no overflow */
-    .calendar{display:grid;gap:10px; width:100%}
-    .cal-header{display:flex;justify-content:space-between;align-items:center; flex-wrap:wrap}
+    /* Calendar (no overflow, even with borders/outlines) */
+    .calendar{display:grid;gap:10px; width:100%; max-width:100%}
+    .cal-header{display:flex;justify-content:space-between;align-items:center; flex-wrap:wrap; width:100%; max-width:100%}
     .cal-header h3{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-weight:700; font-size:1.25rem; margin:0; color:#2a2926;
+      flex:1 1 auto; text-align:right; min-width:0;
     }
-    .cal-grid{display:grid;grid-template-columns:repeat(7, minmax(0,1fr));gap:2px; width:100%}
+    .cal-grid{
+      display:grid;
+      grid-template-columns:repeat(7, minmax(0,1fr));
+      gap:2px; width:100%; max-width:100%; overflow:hidden;
+    }
     .dow{font-size:.82rem;color:#6f6b62;text-align:center;padding:4px 0;font-weight:600}
     .day{display:grid;place-items:center;height:40px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:15px;line-height:1;color:var(--ink)}
     .day.muted{color:#b5b1a6}
@@ -171,7 +184,7 @@
     /* Photo inside results card */
     .side-photo{ margin:14px 0 0 0; text-align:center; }
     .side-photo img{
-      width:auto; height:auto; max-width:92%;
+      width:auto; height:auto; max-width:96%; /* let it grow a bit more */
       border:1px solid var(--line); box-shadow:var(--shadow); background:#fff; display:inline-block;
     }
 
@@ -516,18 +529,19 @@
       const img     = document.querySelector('.side-photo img');
       if(!aside || !card || !figure || !img) return;
 
-      // Width: match card content width
+      // Width: tie photo to card width (centering comes for free)
       const cardRect = card.getBoundingClientRect();
-      img.style.maxWidth = Math.floor(cardRect.width * 0.92) + 'px';
+      img.style.maxWidth = Math.floor(cardRect.width * 0.96) + 'px';
 
-      // Height: extend about 1/10" so the right column finishes exactly with the calendar
+      // Height: extend by a small buffer so the right column finishes exactly with the calendar
       const gridGap = parseFloat(getComputedStyle(document.querySelector('.planner-grid')).gap) || 12;
       const cardContentHeight = card.offsetHeight - figure.offsetHeight;
       const available = aside.offsetHeight - cardContentHeight - gridGap;
-      const extension = 8; // ~1/10 inch on typical displays
+      const extension = 10; // ~ hair more than 1/10"
       img.style.maxHeight = Math.max(0, available + extension) + 'px';
     }
     window.addEventListener('resize', updateSidePhotoSize);
+    window.addEventListener('orientationchange', ()=>setTimeout(updateSidePhotoSize, 200));
 
     /* ---------- Init ---------- */
     buildCalendar();
