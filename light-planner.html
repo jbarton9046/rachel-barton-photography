@@ -89,19 +89,38 @@
     .group{display:grid;gap:8px}
     label{font-weight:700;font-size:.95rem}
     input[type="text"]{width:100%;padding:12px 14px;border:1px solid var(--line);background:#fff}
-    button{appearance:none;border:1px solid var(--line);background:#fff;padding:10px 14px;cursor:pointer;font-weight:700;color:var(--ink)}
 
+    /* Make utility buttons and area buttons match site buttons */
     .util{display:flex;gap:8px;flex-wrap:wrap}
+    .util button,
+    .quick-areas button{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      font-weight:700;
+      padding:10px 16px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:#3e3e3a;
+      border-radius:0;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      cursor:pointer;
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
+      white-space:nowrap;
+    }
+    .util button:hover, .util button:focus-visible,
+    .quick-areas button:hover, .quick-areas button:focus-visible{
+      border-color:#dcd4c3; color:var(--accent); transform:translateY(-1px);
+      box-shadow:0 10px 24px rgba(0,0,0,.08);
+      outline:none;
+    }
 
-    .quick-areas{display:flex;flex-wrap:wrap;gap:6px}
-    .quick-areas button{padding:.35rem .7rem; white-space:nowrap; color:var(--ink)}
+    .quick-areas{display:flex;flex-wrap:wrap;gap:8px}
 
     @media (min-width:980px){
       .quick-areas{
         display:grid;
         grid-auto-flow:column;
         grid-template-rows:repeat(2,auto);
-        gap:6px 8px; align-items:start;
+        gap:8px 10px; align-items:start;
       }
     }
 
@@ -128,23 +147,15 @@
       justify-content:center; /* center the buttons under the table */
     }
 
-    /* Right-rail photo BELOW table; JS aligns to table edges */
-    .results-rail{ display:flex; flex-direction:column; }
-    .side-photo{ display:none; }
-    @media (min-width:981px){
-      .side-photo{
-        display:block;
-        margin:12px 0 0 0;  /* remove UA side margins that cause offset */
-        text-align:center;
-      }
-      .side-photo img{
-        width:auto;
-        height:auto;
-        max-width:92%;
-        border:1px solid var(--line);
-        box-shadow:var(--shadow);
-        background:#fff;
-      }
+    /* Photo sits INSIDE the card, directly under the buttons, so it shares table width/edges */
+    .side-photo{ margin:14px 0 0 0; text-align:center; }
+    .side-photo img{
+      width:auto; height:auto;
+      max-width:92%; /* visual breathing room inside card; exact centering handled by container */
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      background:#fff;
+      display:inline-block;
     }
 
     /* ---------------------- MOBILE TUNE-UP ---------------------- */
@@ -276,9 +287,9 @@
           </div>
         </aside>
 
-        <!-- Right column: table + centered buttons + photo underneath, aligned to table edges -->
+        <!-- Right column: table + centered buttons + photo underneath (all inside the card) -->
         <div class="results-rail">
-          <article class="card pad">
+          <article class="card pad" id="resultsCard">
             <h2 id="resultTitle" style="margin:0 0 8px 0">—</h2>
             <table class="times-table" id="timesTable" aria-describedby="resultTitle">
               <thead>
@@ -292,15 +303,15 @@
               <a class="btn" href="/galleries.html">See galleries</a>
               <a class="btn" href="/contact.html">Ask a Question</a>
             </div>
-          </article>
 
-          <!-- Photo centered under the table area -->
-          <figure class="side-photo" aria-hidden="true">
-            <img
-              src="pictures/goldenHourPics/sibling-sunset.jpg"
-              alt=""
-              width="1200" height="800" loading="lazy" />
-          </figure>
+            <!-- Photo centered under the table area (now inside the card) -->
+            <figure class="side-photo" aria-hidden="true">
+              <img
+                src="pictures/goldenHourPics/sibling-sunset.jpg"
+                alt=""
+                width="1200" height="800" loading="lazy" />
+            </figure>
+          </article>
         </div>
       </div>
     </section>
@@ -427,7 +438,7 @@
     whereEl.value = state.label;
 
     geoBtn.onclick = ()=>{
-      if(!navigator.geolocation){ alert('Geolocation not available.'); return; }
+      if(!navigator.geolocation){ alert('Geolocation not available in this browser.'); return; }
       geoBtn.disabled = true; geoBtn.textContent = 'Locating…';
       navigator.geolocation.getCurrentPosition(pos=>{
         state.lat = +pos.coords.latitude.toFixed(4);
@@ -479,7 +490,7 @@
     whereEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); doSearch(); }});
     quicks.forEach(b=> b.addEventListener('click',()=>{ whereEl.value = b.dataset.area; doSearch(); }));
 
-    /* ---------- Times table render (Sunset above Golden PM) ---------- */
+    /* ---------- Times table render (Sunrise → … → Blue PM) ---------- */
     const tbody = document.querySelector('#timesTable tbody');
     const resultTitle = document.getElementById('resultTitle');
     function rowHTML(label,start,end){ return `<tr><td class="k">${label}</td><td>${start}</td><td>${end}</td></tr>`; }
@@ -501,32 +512,21 @@
       updateSidePhotoSize();
     }
 
-    /* ---------- Center photo under the TIME TABLE and keep within calendar height ---------- */
+    /* ---------- Keep the photo from extending below the calendar ---------- */
     function updateSidePhotoSize(){
       const aside   = document.querySelector('.planner-grid > aside');
-      const article = document.querySelector('.results-rail > article');
-      const rail    = document.querySelector('.results-rail');
-      const table   = document.getElementById('timesTable');
+      const card    = document.getElementById('resultsCard');
       const figure  = document.querySelector('.side-photo');
       const img     = document.querySelector('.side-photo img');
-      if(!aside || !article || !rail || !figure || !img || !table) return;
+      if(!aside || !card || !figure || !img) return;
 
-      const tableRect = table.getBoundingClientRect();
-      const railRect  = rail.getBoundingClientRect();
+      // Width: match the card's content width (figure is inside card, so it's exact)
+      const cardRect = card.getBoundingClientRect();
+      img.style.maxWidth = Math.floor(cardRect.width * 0.92) + 'px'; // also constrained by CSS
 
-      // Match the table's edges inside the right column
-      const leftWithinRail = Math.max(0, Math.round(tableRect.left - railRect.left));
-      figure.style.width       = Math.round(tableRect.width) + 'px';
-      figure.style.marginLeft  = leftWithinRail + 'px';
-      figure.style.marginRight = '0';
-
-      // Image width cap relative to the table width (and a hard cap)
-      const innerMaxW = Math.min(520, Math.floor(tableRect.width * 0.92));
-      img.style.maxWidth = innerMaxW + 'px';
-
-      // Height cap so photo + card never exceed calendar height
+      // Height: allow only remaining space vs. the calendar
       const gap = parseFloat(getComputedStyle(document.querySelector('.planner-grid')).gap) || 12;
-      const available = aside.offsetHeight - article.offsetHeight - gap - 8;
+      const available = aside.offsetHeight - (card.offsetHeight - figure.offsetHeight) - gap - 8;
       const minHeight = 140;
       img.style.maxHeight = Math.max(minHeight, available) + 'px';
     }
