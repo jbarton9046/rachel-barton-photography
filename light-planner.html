@@ -145,7 +145,7 @@
     /* Calendar (no overflow) */
     .calendar{
       display:grid; gap:10px; width:100%; max-width:100%;
-      padding-right:6px;                /* DESKTOP: tiny breathing room on right */
+      padding-right:6px; /* tiny breathing room on small screens */
     }
     .cal-header{
       display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; width:100%; max-width:100%;
@@ -186,6 +186,15 @@
       width:100%; height:auto; max-width:100%;
       border:1px solid var(--line); box-shadow:var(--shadow); background:#fff; display:block;
       margin:0 auto;
+    }
+
+    /* ---------------- DESKTOP: center the left card content ---------------- */
+    @media (min-width: 981px){
+      /* Center everything inside the left card */
+      #leftCol{ display:flex; flex-direction:column; align-items:center; }
+      #leftCol .group, #leftCol .calendar{ width:100%; max-width:620px; margin:0 auto; }
+      /* Remove the tiny right padding so the calendar block is perfectly centered */
+      #leftCol .calendar{ padding-right:0; }
     }
 
     /* ---------------------- MOBILE TUNE-UP ---------------------- */
