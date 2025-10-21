@@ -28,6 +28,7 @@
       margin:0; padding:0; background:var(--bg); color:var(--ink);
       font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      overflow-x:hidden; /* prevent any stray overflow on mobile */
     }
     a{color:inherit; text-decoration:none; transition:color .15s ease,border-color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
@@ -83,14 +84,21 @@
     .pad{padding:16px}
 
     /* Planner layout */
-    .planner-grid{ display:grid; grid-template-columns:1fr 1fr; gap:var(--col-gap); align-items:start }
-    @media(max-width:980px){ .planner-grid{ grid-template-columns:1fr } }
+    .planner-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:var(--col-gap);
+      align-items:start;
+    }
+    @media(max-width:980px){
+      .planner-grid{ grid-template-columns:1fr; }
+    }
 
     .group{display:grid;gap:8px}
     label{font-weight:700;font-size:.95rem}
     input[type="text"]{width:100%;padding:12px 14px;border:1px solid var(--line);background:#fff}
 
-    /* Make utility buttons and area buttons match site buttons */
+    /* Match all action buttons */
     .util{display:flex;gap:8px;flex-wrap:wrap}
     .util button,
     .quick-areas button{
@@ -126,32 +134,41 @@
 
     .divider{ height:1px; background:var(--line); margin:10px 0; }
 
-    .calendar{display:grid;gap:10px}
-    .cal-header{display:flex;justify-content:space-between;align-items:center}
+    /* Instructions: moved right under the search row */
+    #locNote{
+      margin:2px 0 8px 0;
+      color:#504c45;
+    }
+    @media (max-width:720px){
+      #locNote{ font-size:.95rem; } /* smaller on mobile */
+    }
+
+    .calendar{display:grid;gap:10px; width:100%}
+    .cal-header{display:flex;justify-content:space-between;align-items:center; flex-wrap:wrap}
     .cal-header h3{font-size:1.02rem;margin:0;font-weight:700}
-    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+    .cal-grid{display:grid;grid-template-columns:repeat(7, minmax(0,1fr));gap:2px; width:100%}
     .dow{font-size:.82rem;color:#6f6b62;text-align:center;padding:4px 0;font-weight:600}
     .day{display:grid;place-items:center;height:40px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:15px;line-height:1;color:var(--ink)}
     .day.muted{color:#b5b1a6}
     .day.today{outline:2px solid var(--accent); outline-offset:-2px}
     .day.selected{background:rgba(168,138,90,.12); border-color:var(--accent)}
 
-    .times-table{width:100%;border-collapse:collapse}
-    .times-table th,.times-table td{border:1px solid var(--line);padding:10px 12px;text-align:left}
+    .times-table{width:100%;border-collapse:collapse; table-layout:fixed}
+    .times-table th,.times-table td{border:1px solid var(--line);padding:10px 12px;text-align:left; word-break:break-word}
     .times-table th{background:#f7f5f1;font-weight:700}
     .k{white-space:nowrap}
 
     .inline-cta{
       display:flex; gap:12px; flex-wrap:wrap;
       margin-top:16px; padding-top:12px; border-top:1px solid var(--line);
-      justify-content:center; /* center the buttons under the table */
+      justify-content:center;
     }
 
-    /* Photo sits INSIDE the card, directly under the buttons, so it shares table width/edges */
+    /* Photo inside the results card so it shares the exact width */
     .side-photo{ margin:14px 0 0 0; text-align:center; }
     .side-photo img{
       width:auto; height:auto;
-      max-width:92%; /* visual breathing room inside card; exact centering handled by container */
+      max-width:92%;
       border:1px solid var(--line);
       box-shadow:var(--shadow);
       background:#fff;
@@ -175,13 +192,15 @@
       .head-photo{ justify-self:center; max-width:640px; width:100%; gap:10px; }
       .head-photo img{ height:34vw; max-height:220px; }
 
-      .planner-grid > .card{ max-width:720px; margin-left:auto; margin-right:auto; }
+      .planner-grid > .card,
+      .results-rail > article{ max-width:100%; margin-left:auto; margin-right:auto; }
+
       .calendar{ overflow-x:hidden; }
       .cal-grid{ grid-template-columns: repeat(7, minmax(0,1fr)); }
       .day{ height:44px; font-size:16px; }
 
-      #resultTitle{ text-align:center; }
-      .times-table{ table-layout:fixed; width:100%; word-break:break-word; }
+      #resultTitle{ text-align:center; overflow-wrap:anywhere; }
+      .times-table{ width:100%; }
       .times-table th,.times-table td{ padding:10px 8px; font-size: clamp(13px, 3.3vw, 14px); }
       .times-table td:nth-child(2), .times-table td:nth-child(3){ white-space:nowrap; }
 
@@ -197,7 +216,6 @@
     }
 
     @media (max-width:820px){
-      html, body{ overflow-x:hidden; }
       main#content{ padding-top: calc(var(--mobile-header-h) + 14px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
     }
@@ -241,15 +259,18 @@
     <!-- Planner -->
     <section aria-label="Planner">
       <div class="planner-grid">
-        <aside class="card pad">
+        <aside class="card pad" id="leftCol">
           <div class="group">
             <label for="where">Location</label>
+
             <div class="util">
               <input id="where" type="text" placeholder="Search a place (e.g., Siesta Key, Bradenton Beach, Lido Key)" />
               <button id="btnGeocode">Search</button>
               <button id="btnGeo">Use my location</button>
             </div>
 
+            <!-- Instructions moved directly under the search row + divider below -->
+            <p class="small" id="locNote">Type a neighborhood or beach, then press <em>Search</em>. Or use your phone’s location.</p>
             <div class="divider" role="separator" aria-hidden="true"></div>
 
             <div class="quick-areas" aria-label="Quick locations">
@@ -266,8 +287,6 @@
             </div>
 
             <div class="divider" role="separator" aria-hidden="true"></div>
-
-            <p class="small" id="locNote">Type a neighborhood or beach, then press <em>Search</em>. Or use your phone’s location.</p>
           </div>
 
           <div class="group">
@@ -288,7 +307,7 @@
         </aside>
 
         <!-- Right column: table + centered buttons + photo underneath (all inside the card) -->
-        <div class="results-rail">
+        <div class="results-rail" id="rightCol">
           <article class="card pad" id="resultsCard">
             <h2 id="resultTitle" style="margin:0 0 8px 0">—</h2>
             <table class="times-table" id="timesTable" aria-describedby="resultTitle">
@@ -304,7 +323,7 @@
               <a class="btn" href="/contact.html">Ask a Question</a>
             </div>
 
-            <!-- Photo centered under the table area (now inside the card) -->
+            <!-- Photo centered under the table area (inside the card) -->
             <figure class="side-photo" aria-hidden="true">
               <img
                 src="pictures/goldenHourPics/sibling-sunset.jpg"
@@ -432,7 +451,6 @@
     const geoBtn    = document.getElementById('btnGeo');
     const geocodeBtn= document.getElementById('btnGeocode');
     const quicks    = document.querySelectorAll('.quick-areas button');
-    const locNote   = document.getElementById('locNote');
 
     let state = { lat:27.3364, lon:-82.5307, label:'Sarasota, FL' };
     whereEl.value = state.label;
@@ -480,9 +498,10 @@
       const res = await geocode(q);
       if(res){
         state.lat = +res.lat.toFixed(4); state.lon = +res.lon.toFixed(4); state.label = q;
-        renderTimes(); locNote.textContent = `Location set to “${q}, FL”.`;
+        renderTimes();
+        document.getElementById('locNote').textContent = `Location set to “${q}, FL”.`;
       }else{
-        locNote.textContent = 'No Florida results for that query. Try a nearby beach or neighborhood.';
+        document.getElementById('locNote').textContent = 'No Florida results for that query. Try a nearby beach or neighborhood.';
       }
       geocodeBtn.textContent = 'Search'; geocodeBtn.disabled = false;
     }
@@ -490,7 +509,7 @@
     whereEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); doSearch(); }});
     quicks.forEach(b=> b.addEventListener('click',()=>{ whereEl.value = b.dataset.area; doSearch(); }));
 
-    /* ---------- Times table render (Sunrise → … → Blue PM) ---------- */
+    /* ---------- Times table render ---------- */
     const tbody = document.querySelector('#timesTable tbody');
     const resultTitle = document.getElementById('resultTitle');
     function rowHTML(label,start,end){ return `<tr><td class="k">${label}</td><td>${start}</td><td>${end}</td></tr>`; }
@@ -512,21 +531,24 @@
       updateSidePhotoSize();
     }
 
-    /* ---------- Keep the photo from extending below the calendar ---------- */
+    /* ---------- Keep both columns ending at the same place ---------- */
     function updateSidePhotoSize(){
-      const aside   = document.querySelector('.planner-grid > aside');
+      const aside   = document.getElementById('leftCol');
       const card    = document.getElementById('resultsCard');
       const figure  = document.querySelector('.side-photo');
       const img     = document.querySelector('.side-photo img');
       if(!aside || !card || !figure || !img) return;
 
-      // Width: match the card's content width (figure is inside card, so it's exact)
+      // Width: card width governs centering; cap image width visually
       const cardRect = card.getBoundingClientRect();
-      img.style.maxWidth = Math.floor(cardRect.width * 0.92) + 'px'; // also constrained by CSS
+      img.style.maxWidth = Math.floor(cardRect.width * 0.92) + 'px';
 
-      // Height: allow only remaining space vs. the calendar
+      // Height: ensure the right column doesn't extend below the left column bottom
       const gap = parseFloat(getComputedStyle(document.querySelector('.planner-grid')).gap) || 12;
-      const available = aside.offsetHeight - (card.offsetHeight - figure.offsetHeight) - gap - 8;
+
+      // how tall card would be WITHOUT the photo (approx.)
+      const cardContentHeight = card.offsetHeight - figure.offsetHeight;
+      const available = aside.offsetHeight - cardContentHeight - gap - 8;
       const minHeight = 140;
       img.style.maxHeight = Math.max(minHeight, available) + 'px';
     }
