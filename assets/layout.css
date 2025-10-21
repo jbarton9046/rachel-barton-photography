@@ -22,7 +22,7 @@
   --drawer-hover:rgba(168,138,90,.10);
   --drawer-rule:rgba(0,0,0,.06);
 
-  /* Keep the original link padding (no extra left space) */
+  /* Keep original drawer padding (no extra left space) */
   --drawer-pad-x: 10px;
   --drawer-bottom-gap: 24px;
 }
@@ -144,7 +144,6 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
 
   .topbar{
     justify-content:flex-start !important;
-  /* tighter top/bottom spacing like you had */
     padding-top:10px !important;
     padding-bottom:10px !important;
     gap:12px; border:0 !important;
@@ -180,7 +179,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   }
   .navchk:checked ~ nav.primary{ transform:translateX(0) }
 
-  /* Equal padding on both sides inside the drawer (no extra left space) */
+  /* Equal padding on both sides inside the drawer */
   nav.primary ul{
     display:flex; flex-direction:column; align-items:flex-start;
     gap:12px; margin:0; padding:18px var(--drawer-pad-x);
@@ -190,69 +189,40 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   nav.primary a{
     display:block; width:100%; font-size:18px; line-height:1.35;
     padding:10px var(--drawer-pad-x); border-radius:10px;
-    transform:none !important;        /* never move */
+    transform:none !important; /* never move */
   }
   nav.primary .has-sub > a{ font-weight:700 }
 
-  /* Submenu: static block (no transforms) */
+  /* ---------- Submenu (static + no movement) ---------- */
   nav.primary .has-sub .dropdown{
     position:static !important;
     transform:none !important;
-    opacity:1 !important;
-    visibility:visible !important;
-    pointer-events:auto !important;
+    left:auto !important;
+    opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
     display:block !important;
-    margin:6px 0 12px 0;
-    padding-left:0;
+    transition:none !important; will-change:auto !important;
+    margin:6px 0 12px 0; padding-left:0;
   }
-
-  /* --- Submenu items: NO SLIDING + keep left "|" accent --- */
   nav.primary .has-sub .dropdown a{
     font-weight:400; font-size:16px;
-    position:relative !important;                /* anchor the accent */
-    padding:6px 0 6px calc(var(--drawer-pad-x) + 8px) !important;
+    padding:6px calc(var(--drawer-pad-x)) 6px calc(var(--drawer-pad-x) + 14px); /* same as links + room for bar */
     border-radius:0;
-    transform:none !important;
-    transition:none !important;
-    margin-left:0 !important;
-    left:auto !important;
-    -webkit-tap-highlight-color:transparent;
+    position:relative;
+    transform:none !important; transition:none !important; margin-left:0 !important; left:auto !important;
   }
+  /* Accent bar (purely decorative; does NOT shift layout) */
   nav.primary .has-sub .dropdown a::before{
-    content:"" !important;
-    position:absolute;
-    left:var(--drawer-pad-x);
-    top:6px; bottom:6px; width:2px;
-    background:var(--drawer-rule);
-    border-radius:2px;
-    opacity:1;
-    transition:background-color .15s ease, opacity .15s ease;
+    content:""; position:absolute; left:var(--drawer-pad-x); top:6px; bottom:6px; width:2px;
+    background:var(--drawer-rule); border-radius:2px; opacity:1;
+    transform:none !important; transition:background-color .15s ease;
+    pointer-events:none;
   }
   nav.primary .has-sub .dropdown a:hover,
   nav.primary .has-sub .dropdown a:focus-visible{
-    color:var(--accent);
+    color:var(--accent); outline:none;
   }
   nav.primary .has-sub .dropdown a:hover::before,
   nav.primary .has-sub .dropdown a:focus-visible::before{
-    background:var(--accent);
-  }
-
-  /* CURRENT PAGE (mobile):
-     - Top-level: gold text only (no accent)
-     - Submenu: keep accent and don’t move */
-  /* scope current styling to TOP-LEVEL only */
-  nav.primary > ul > li > a[aria-current="page"]{
-    background:transparent !important;
-    color:var(--accent) !important;
-    position:static !important;
-  }
-  /* submenu current: keep position + accent */
-  nav.primary .has-sub .dropdown a[aria-current="page"]{
-    color:var(--accent) !important;
-    position:relative !important;
-  }
-  nav.primary .has-sub .dropdown a[aria-current="page"]::before{
-    content:"" !important;
     background:var(--accent);
   }
 
@@ -287,6 +257,17 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   nav.primary > ul > li > a:focus-visible{
     background:var(--drawer-hover); color:var(--ink); outline:none;
     transform:none !important;
+  }
+
+  /* CURRENT PAGE (mobile): gold text only — no bubble, no left bar change */
+  nav.primary a[aria-current="page"]{
+    background:transparent !important;
+    color:var(--accent) !important;
+    position:static !important;
+    transform:none !important;
+  }
+  nav.primary a[aria-current="page"]::before{
+    /* keep the small accent bar for submenu only (handled above) */
   }
 
   /* subtle separators between major items */
@@ -326,5 +307,15 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   .topbar nav.primary a[aria-current="page"]::after{
     content: none !important;
     display: none !important;
+  }
+}
+
+/* --- MOBILE HARD STOP: extra guard so submenu can’t shift on tap --- */
+@media (max-width:820px){
+  nav.primary .has-sub .dropdown,
+  nav.primary .has-sub .dropdown *{
+    transform:none !important;
+    transition:none !important;
+    animation:none !important;
   }
 }
