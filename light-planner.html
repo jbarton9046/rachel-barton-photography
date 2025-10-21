@@ -196,6 +196,7 @@
         margin-left: auto;
         margin-right: auto;
       }
+      /* cancel the 6px right-only pad on desktop so the Date block is centered exactly */
       #leftCol .calendar{ padding-right: 0; }
     }
 
@@ -534,20 +535,40 @@
       updateSidePhotoSize();
     }
 
-    /* ---------- Keep both columns ending at the same place ---------- */
+    /* ---------- Keep both columns ending at the same place + match photo width to buttons on desktop ---------- */
     function updateSidePhotoSize(){
       const aside   = document.getElementById('leftCol');
       const card    = document.getElementById('resultsCard');
       const figure  = document.querySelector('.side-photo');
       const img     = document.querySelector('.side-photo img');
+      const actions = document.querySelector('.inline-cta');
       if(!aside || !card || !figure || !img) return;
 
       const cardRect = card.getBoundingClientRect();
       const isMobile = window.matchMedia('(max-width: 720px)').matches;
 
-      /* MOBILE: full inner width; DESKTOP: 96% like before */
-      img.style.maxWidth = Math.floor(cardRect.width * (isMobile ? 1.00 : 0.96)) + 'px';
+      /* DESKTOP: cap image width to the actual width of the buttons row */
+      if (!isMobile && actions) {
+        const children = Array.from(actions.children);
+        const styles   = getComputedStyle(actions);
+        const gapX     = parseFloat(styles.columnGap || styles.gap) || 0;
 
+        let buttonsWidth = 0;
+        children.forEach((c, i) => {
+          const w = c.getBoundingClientRect().width;
+          if (w) buttonsWidth += w;
+          if (i > 0) buttonsWidth += gapX;
+        });
+
+        // Never exceed 96% of the card’s inner width
+        const cap = Math.floor(Math.min(buttonsWidth, cardRect.width * 0.96));
+        img.style.maxWidth = cap > 0 ? cap + 'px' : Math.floor(cardRect.width * 0.96) + 'px';
+      } else {
+        // MOBILE: full inner width
+        img.style.maxWidth = Math.floor(cardRect.width * 1.00) + 'px';
+      }
+
+      // Height balancing with left column
       const gridGap = parseFloat(getComputedStyle(document.querySelector('.planner-grid')).gap) || 12;
       const cardContentHeight = card.offsetHeight - figure.offsetHeight;
       const available = aside.offsetHeight - cardContentHeight - gridGap;
