@@ -70,6 +70,8 @@
   }
 
   /* Stepped lines (hamburger) */
+  :root{ --burger-right-overhang: 1px; } /* tweak this if you want a hair more/less */
+
   .nav-toggle-8{
     -webkit-tap-highlight-color:transparent;
     appearance:none; -webkit-appearance:none;
@@ -77,15 +79,17 @@
     width:44px; height:26px;
     border:0; background:transparent !important; box-shadow:none !important; cursor:pointer;
     color:#2f2a24;
+    z-index:1300;                 /* keep above nearby elements */
+    pointer-events:auto;          /* ensure taps reach this element */
+    touch-action:manipulation;
   }
   .nav-toggle-8 .bar{
     position:absolute; height:2px; border-radius:999px; background:currentColor; opacity:.96;
     box-shadow:0 .5px 0 rgba(255,255,255,.45), 0 6px 12px rgba(0,0,0,.18);
-    left:0; right:auto;
   }
-  .nav-toggle-8 .b-bot{ width:28px; bottom:2px; left:0; }                          /* left */
-  .nav-toggle-8 .b-mid{ width:20px; top:50%; left:50%; transform:translate(-50%,-50%); } /* center */
-  .nav-toggle-8 .b-top{ width:14px; top:2px; left:auto; right:0; }                  /* ✅ right */
+  .nav-toggle-8 .b-bot{ width:28px; bottom:2px; left:0; }                                   /* left */
+  .nav-toggle-8 .b-mid{ width:20px; top:50%; left:50%; transform:translate(-50%,-50%); }    /* center */
+  .nav-toggle-8 .b-top{ width:14px; top:2px; right:calc(0px - var(--burger-right-overhang)); } /* ✅ right align */
   .nav-toggle-8:active .bar{ opacity:.85; }
 
   .brand-name{
@@ -119,6 +123,9 @@
   const chk = document.getElementById('navchk');
   if (!chk) return;
 
+  const menu = document.getElementById('site-menu');
+  const button = document.querySelector('.nav-toggle-8');
+
   const targets = () => [
     document.getElementById('content'),
     document.querySelector('[data-include="/partials/footer.html"]'),
@@ -129,38 +136,45 @@
   const applyShift = (on) => {
     const tx = on ? 'translateX(var(--drawer-w))' : '';
     targets().forEach(el => el.style.transform = tx);
-    document.getElementById('site-menu')?.classList.toggle('is-open', on);
+    menu?.classList.toggle('is-open', on);
+    button?.setAttribute('aria-expanded', String(on));
+    document.body.classList.toggle('drawer-open', on);
   };
 
-  const sync = () => {
-    const open = chk.checked;
-    document.body.classList.toggle('drawer-open', open);
-    document.querySelector('.nav-toggle-8')?.setAttribute('aria-expanded', String(open));
-    applyShift(open);
-  };
+  const sync = () => applyShift(chk.checked);
 
-  // Close drawer when a nav link is clicked
-  document.getElementById('site-menu')?.addEventListener('click', e => {
+  /* EXTRA SAFETY: explicitly toggle on tap (in case label-for fails on iOS) */
+  button?.addEventListener('click', (e) => {
+    e.preventDefault();
+    chk.checked = !chk.checked;
+    sync();
+  });
+
+  /* Close drawer when a nav link is clicked */
+  menu?.addEventListener('click', e => {
     const a = e.target.closest('a');
     if (a) { chk.checked = false; sync(); }
   });
 
-  // Click outside closes
+  /* Click outside closes */
   document.addEventListener('click', (e) => {
     if (!chk.checked) return;
     if (e.target.closest('.nav-toggle-8') || e.target.closest('nav.primary')) return;
     chk.checked = false; sync();
   }, true);
 
-  // Esc closes
+  /* Esc closes */
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && chk.checked) { chk.checked = false; sync(); }
   });
 
   chk.addEventListener('change', sync);
-  (document.readyState === 'loading')
-    ? document.addEventListener('DOMContentLoaded', sync, { once:true })
-    : requestAnimationFrame(sync);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', sync, { once:true });
+  } else {
+    requestAnimationFrame(sync);
+  }
 })();
 
 /* ===== Mark the current page in the nav (desktop + mobile) ===== */
