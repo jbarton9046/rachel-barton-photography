@@ -267,7 +267,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     transform:none !important;
   }
   nav.primary a[aria-current="page"]::before{
-    /* keep the small accent bar for submenu only (handled above) */
+    content:none !important; /* explicit to avoid empty rule warnings */
   }
 
   /* subtle separators between major items */
