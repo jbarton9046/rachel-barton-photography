@@ -1,9 +1,9 @@
 <!-- /partials/topnav.html -->
 <div class="topbar container mobile-header-8">
-  <!-- drawer checkbox (mobile) -->
+  <!-- Mobile toggle (checkbox driven) -->
   <input id="navchk" class="navchk" type="checkbox" aria-hidden="true" />
 
-  <!-- Left cluster: stepped lines + brand (MOBILE ONLY) -->
+  <!-- Left: hamburger + brand (mobile only) -->
   <div class="left-cluster mobile-only">
     <label for="navchk"
            class="nav-toggle-8"
@@ -22,7 +22,7 @@
     </a>
   </div>
 
-  <!-- Primary nav (desktop header, mobile drawer) -->
+  <!-- Primary nav -->
   <nav class="primary" id="site-menu" aria-label="Primary">
     <ul>
       <li><a href="/">Home</a></li>
@@ -47,9 +47,9 @@
 </div>
 
 <style>
-/* Hide the mobile cluster by default; show only under 821px */
-.mobile-only{ display:none }
+/* desktop shows your regular header; hide the mobile cluster */
 @media (min-width:821px){ .mobile-only{ display:none !important; } }
+/* mobile hides any desktop-only bits */
 @media (max-width:820px){ .desktop-only{ display:none !important; } }
 
 /* base header wrapper */
@@ -66,30 +66,27 @@
   }
   .mobile-header-8 .left-cluster{
     display:flex; align-items:center; gap:12px;
-    transform:translateX(0); transition:transform .28s ease;
   }
 
-  /* Stepped lines (hamburger) */
-  :root{ --burger-right-overhang: 0.5px; } /* tweak this if you want a hair more/less */
-
+  /* Stepped hamburger — tiny right overhang on the top line */
   .nav-toggle-8{
     -webkit-tap-highlight-color:transparent;
     appearance:none; -webkit-appearance:none;
     position:relative;
-    width:44px; height:26px;
+    width:46px; height:26px;
     border:0; background:transparent !important; box-shadow:none !important; cursor:pointer;
     color:#2f2a24;
-    z-index:1300;                 /* keep above nearby elements */
-    pointer-events:auto;          /* ensure taps reach this element */
-    touch-action:manipulation;
   }
   .nav-toggle-8 .bar{
-    position:absolute; height:2px; border-radius:999px; background:currentColor; opacity:.96;
+    position:absolute; left:0;
+    height:2px; border-radius:999px; background:currentColor; opacity:.96;
     box-shadow:0 .5px 0 rgba(255,255,255,.45), 0 6px 12px rgba(0,0,0,.18);
   }
-  .nav-toggle-8 .b-bot{ width:28px; bottom:2px; left:0; }                                   /* left */
-  .nav-toggle-8 .b-mid{ width:20px; top:50%; left:50%; transform:translate(-50%,-50%); }    /* center */
-  .nav-toggle-8 .b-top{ width:14px; top:2px; right:calc(0px - var(--burger-right-overhang)); } /* ✅ right align */
+  /* top bar slightly shorter but offset to the right for the overhang look */
+  .nav-toggle-8 .b-top{ width:14px; top:2px; left:56%; transform:translateX(-50%); }
+  .nav-toggle-8 .b-mid{ width:22px; top:50%; left:50%; transform:translate(-50%,-50%); }
+  .nav-toggle-8 .b-bot{ width:30px; bottom:2px; left:0; }
+
   .nav-toggle-8:active .bar{ opacity:.85; }
 
   .brand-name{
@@ -108,108 +105,53 @@
   }
 }
 
-/* shift the whole left cluster same as page when drawer opens */
+/* Shift the mobile header cluster when the menu is open (nice polish) */
 @media (max-width:820px){
   body:has(#navchk:checked) .mobile-header-8 .left-cluster,
   body.drawer-open .mobile-header-8 .left-cluster{
-    transform:translateX(var(--drawer-w));
+    transform:translateY(0); /* no horizontal shift for full-screen menu */
   }
 }
 </style>
 
 <script>
-/* drawer logic + shift content and the new mobile header cluster */
+/* Full-screen mobile menu behavior + aria + scroll lock */
 (function () {
   const chk = document.getElementById('navchk');
   if (!chk) return;
 
-  const menu = document.getElementById('site-menu');
-  const button = document.querySelector('.nav-toggle-8');
-
-  const targets = () => [
-    document.getElementById('content'),
-    document.querySelector('[data-include="/partials/footer.html"]'),
-    document.querySelector('.hero'),
-    document.querySelector('.mobile-header-8 .left-cluster')
-  ].filter(Boolean);
-
-  const applyShift = (on) => {
-    const tx = on ? 'translateX(var(--drawer-w))' : '';
-    targets().forEach(el => el.style.transform = tx);
-    menu?.classList.toggle('is-open', on);
-    button?.setAttribute('aria-expanded', String(on));
-    document.body.classList.toggle('drawer-open', on);
+  const sync = () => {
+    document.body.classList.toggle('menu-open', chk.checked);
+    const label = document.querySelector('.nav-toggle-8');
+    if (label) label.setAttribute('aria-expanded', String(chk.checked));
   };
 
-  const sync = () => applyShift(chk.checked);
+  // Close when clicking any link inside the menu
+  const nav = document.getElementById('site-menu');
+  if (nav) {
+    nav.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (a) { chk.checked = false; sync(); }
+    });
+  }
 
-  /* EXTRA SAFETY: explicitly toggle on tap (in case label-for fails on iOS) */
-  button?.addEventListener('click', (e) => {
-    e.preventDefault();
-    chk.checked = !chk.checked;
-    sync();
-  });
-
-  /* Close drawer when a nav link is clicked */
-  menu?.addEventListener('click', e => {
-    const a = e.target.closest('a');
-    if (a) { chk.checked = false; sync(); }
-  });
-
-  /* Click outside closes */
+  // Close when clicking outside the menu links area (transparent space)
   document.addEventListener('click', (e) => {
     if (!chk.checked) return;
-    if (e.target.closest('.nav-toggle-8') || e.target.closest('nav.primary')) return;
+    if (e.target.closest('nav.primary') || e.target.closest('.nav-toggle-8')) return;
     chk.checked = false; sync();
   }, true);
 
-  /* Esc closes */
+  // ESC to close
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && chk.checked) { chk.checked = false; sync(); }
   });
 
   chk.addEventListener('change', sync);
-
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', sync, { once:true });
+    document.addEventListener('DOMContentLoaded', sync);
   } else {
     requestAnimationFrame(sync);
   }
-})();
-
-/* ===== Mark the current page in the nav (desktop + mobile) ===== */
-(function markCurrentNav(){
-  const normalize = (href) => {
-    const url = new URL(href, location.origin);
-    let p = url.pathname
-      .replace(/\/+/g, "/")
-      .replace(/\/index\.html?$/i, "")
-      .replace(/\.html?$/i, "")
-      .replace(/\/$/, "");
-    return p === "" ? "/" : p;
-  };
-  const here = normalize(location.pathname);
-
-  const apply = () => {
-    const links = document.querySelectorAll('.topbar nav.primary a[href]');
-    if (!links.length) return false;
-    links.forEach(a => {
-      const target = normalize(a.href);
-      if (target === here) {
-        a.setAttribute('aria-current','page');
-        a.classList.add('is-current');
-      } else {
-        a.removeAttribute('aria-current');
-        a.classList.remove('is-current');
-      }
-    });
-    return true;
-  };
-
-  let tries = 0;
-  const tick = () => { if (apply() || ++tries >= 10) return; setTimeout(tick, 50); };
-  (document.readyState === "loading")
-    ? document.addEventListener("DOMContentLoaded", tick, { once:true })
-    : tick();
 })();
 </script>
