@@ -26,6 +26,32 @@
   <!-- Shared layout (nav/footer) + gallery styles -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
   <link rel="stylesheet" href="/assets/gallery.css?v=14">
+
+  <!-- Mobile-only: navbar space + 3-up mini grid (desktop unchanged) -->
+  <style>
+    :root{ --mobile-header-h:64px; }
+
+    @media (max-width:820px){
+      /* Match about.html top spacing for fixed nav */
+      .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
+      main#content{ padding-top: calc(var(--mobile-header-h) + 14px); }
+
+      /* 3 columns of square mini pictures */
+      .grid{
+        display:grid;
+        grid-template-columns:repeat(3, 1fr);
+        gap:6px;
+      }
+      .grid figure{ margin:0; }
+      .grid img{
+        width:100%;
+        aspect-ratio:1/1;      /* square thumbs */
+        object-fit:cover;
+        object-position:center;
+        box-shadow:0 3px 10px rgba(0,0,0,.06);
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -44,7 +70,7 @@
     </div>
   </header>
 
-  <main class="container">
+  <main id="content" class="container">
     <section aria-label="Family portraits gallery">
       <div class="grid" id="gallery">
         <figure><a href="/pictures/familyPortrait/image1.jpg"><img loading="lazy" src="/pictures/familyPortrait/image1.jpg" alt="Family portrait 1" /></a></figure>
