@@ -302,3 +302,39 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     display: none !important;
   }
 }
+
+/* --- FIX: Mobile drawer “Galleries” submenu shifting off-screen --- */
+@media (max-width:820px){
+  /* Mildly increase left padding for drawer content (tweakable) */
+  :root{
+    --drawer-pad-x: 14px;
+  }
+
+  /* Drawer open/close (kept here so transform is definitely applied) */
+  nav.primary{ transform: translateX(-100%); }
+  .navchk:checked ~ nav.primary{ transform: translateX(0); }
+
+  /* Ensure consistent padding inside drawer */
+  nav.primary ul{
+    padding: 18px var(--drawer-pad-x);
+  }
+
+  /* Make submenu static so it doesn't inherit transforms/positioning */
+  nav.primary .has-sub .dropdown{
+    position: static !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    display: block !important;
+    margin: 6px 0 12px;
+    padding-left: 0;
+  }
+
+  /* Indent submenu items a touch; keep them fully on-screen */
+  nav.primary .has-sub .dropdown a{
+    display: block;
+    padding: 6px 0 6px calc(var(--drawer-pad-x) + 8px);
+    font-size: 16px;
+  }
+}
