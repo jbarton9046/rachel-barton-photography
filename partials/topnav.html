@@ -1,15 +1,15 @@
 <!-- /partials/topnav.html -->
-<div class="topbar container">
-  <!-- checkbox toggler (mobile only) -->
+<div class="topbar container mobile-header-8">
+  <!-- drawer checkbox (mobile) -->
   <input id="navchk" class="navchk" type="checkbox" aria-hidden="true" />
 
-  <!-- Left cluster: stepped lines + brand (unchanged look) -->
-  <div class="left-cluster">
+  <!-- Left cluster: stepped lines + brand (MOBILE ONLY) -->
+  <div class="left-cluster mobile-only">
     <label for="navchk"
-           class="nav-toggle-ol"
+           class="nav-toggle-8"
            aria-label="Open menu"
            role="button"
-           aria-controls="mobile-overlay"
+           aria-controls="site-menu"
            aria-expanded="false">
       <span class="bar b-top"></span>
       <span class="bar b-mid"></span>
@@ -22,8 +22,8 @@
     </a>
   </div>
 
-  <!-- Desktop primary nav (unchanged) -->
-  <nav class="primary desktop-only" aria-label="Primary">
+  <!-- Primary nav (desktop header, mobile drawer) -->
+  <nav class="primary" id="site-menu" aria-label="Primary">
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/about.html">Meet Rachel</a></li>
@@ -44,204 +44,158 @@
       <li><a href="/book.html">Book</a></li>
     </ul>
   </nav>
-
-  <!-- ===== MOBILE OVERLAY ===== -->
-  <aside id="mobile-overlay" class="mobile-overlay" aria-hidden="true">
-    <button class="ol-close" aria-label="Close menu">×</button>
-
-    <nav class="ol-nav" aria-label="Mobile">
-      <a class="ol-item" href="/">Home</a>
-      <a class="ol-item" href="/about.html">Meet Rachel</a>
-
-      <!-- Galleries collapsible -->
-      <div class="ol-group">
-        <button class="ol-item is-button" type="button" aria-expanded="false" aria-controls="ol-sub-galleries">
-          <span class="ol-label">Galleries</span>
-          <span class="ol-plus" aria-hidden="true">+</span>
-        </button>
-        <div id="ol-sub-galleries" class="ol-sub">
-          <a class="ol-subitem" href="/portraits.html"><span class="pipe" aria-hidden="true">|</span> Portraits</a>
-          <a class="ol-subitem" href="/branding.html"><span class="pipe" aria-hidden="true">|</span> Branding</a>
-          <a class="ol-subitem" href="/events.html"><span class="pipe" aria-hidden="true">|</span> Events</a>
-        </div>
-      </div>
-
-      <a class="ol-item" href="/testimonials.html">Testimonials</a>
-      <a class="ol-item" href="/faq.html">FAQ</a>
-      <a class="ol-item" href="/light-planner.html">Golden Hour</a>
-      <a class="ol-item" href="/contact.html">Contact</a>
-      <a class="ol-item" href="/book.html">Book</a>
-    </nav>
-  </aside>
 </div>
 
 <style>
-/* Desktop keeps your regular header */
-@media (min-width:821px){
-  .desktop-only{ display:block !important; }
-}
-/* Mobile hides the desktop nav; shows overlay trigger */
-@media (max-width:820px){
-  .desktop-only{ display:none !important; }
-}
+/* Hide the mobile cluster by default; show only under 821px */
+.mobile-only{ display:none }
+@media (min-width:821px){ .mobile-only{ display:none !important; } }
+@media (max-width:820px){ .desktop-only{ display:none !important; } }
 
-/* Base header layout */
-.topbar{
+/* base header wrapper */
+.mobile-header-8{
   position:relative; display:flex; align-items:center; justify-content:center;
   padding:16px var(--gap);
 }
 
-/* ==================== MOBILE HEADER CLUSTER (unchanged look) ==================== */
+/* =========================== MOBILE ONLY =========================== */
 @media (max-width:820px){
-  .topbar{ padding:8px var(--gap); justify-content:flex-start; }
-  .left-cluster{ display:flex; align-items:center; gap:12px; }
+  .mobile-header-8{
+    position:fixed; top:8px; left:0; right:0; z-index:1200;
+    padding:0 10px; background:transparent; justify-content:flex-start;
+  }
+  .mobile-header-8 .left-cluster{
+    display:flex; align-items:center; gap:12px;
+    transform:translateX(0); transition:transform .28s ease;
+  }
 
-  .nav-toggle-ol{
+  /* Stepped lines (hamburger) */
+  .nav-toggle-8{
     -webkit-tap-highlight-color:transparent;
-    position:relative; width:44px; height:26px; border:0; background:transparent; cursor:pointer; color:#2f2a24;
+    appearance:none; -webkit-appearance:none;
+    position:relative;
+    width:44px; height:26px;
+    border:0; background:transparent !important; box-shadow:none !important; cursor:pointer;
+    color:#2f2a24;
   }
-  .nav-toggle-ol .bar{ position:absolute; left:0; height:2px; border-radius:999px; background:currentColor; opacity:.96;
-    box-shadow:0 .5px 0 rgba(255,255,255,.45), 0 6px 12px rgba(0,0,0,.18); }
-  .nav-toggle-ol .b-top{ width:14px; top:2px; left:50%; transform:translateX(-50%); }
-  .nav-toggle-ol .b-mid{ width:20px; top:50%; left:50%; transform:translate(-50%,-50%); }
-  .nav-toggle-ol .b-bot{ width:28px; bottom:2px; left:0; }
+  .nav-toggle-8 .bar{
+    position:absolute; height:2px; border-radius:999px; background:currentColor; opacity:.96;
+    box-shadow:0 .5px 0 rgba(255,255,255,.45), 0 6px 12px rgba(0,0,0,.18);
+    left:0; right:auto;
+  }
+  .nav-toggle-8 .b-bot{ width:28px; bottom:2px; left:0; }                          /* left */
+  .nav-toggle-8 .b-mid{ width:20px; top:50%; left:50%; transform:translate(-50%,-50%); } /* center */
+  .nav-toggle-8 .b-top{ width:14px; top:2px; left:auto; right:0; }                  /* ✅ right */
+  .nav-toggle-8:active .bar{ opacity:.85; }
 
-  .brand-name{ display:flex; flex-direction:column; line-height:1.02; color:#2f2a24; text-decoration:none;
-    text-shadow:0 1px 0 rgba(255,255,255,.45), 0 8px 18px rgba(0,0,0,.18); }
-  .rbp-1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:18px; letter-spacing:.01em; }
-  .rbp-2{ font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; font-weight:600; font-size:11.5px;
-    letter-spacing:.18em; text-transform:uppercase; color:#6a5b45; margin-top:2px; }
+  .brand-name{
+    display:inline-flex; flex-direction:column; justify-content:center;
+    text-decoration:none; line-height:1.02; color:#2f2a24;
+    text-shadow:0 1px 0 rgba(255,255,255,.45), 0 8px 18px rgba(0,0,0,.18);
+  }
+  .rbp-1{
+    font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
+    font-weight:700; font-size:18px; letter-spacing:.01em;
+  }
+  .rbp-2{
+    font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    font-weight:600; font-size:11.5px; letter-spacing:.18em; text-transform:uppercase;
+    color:#6a5b45; margin-top:2px;
+  }
 }
 
-/* ============================== MOBILE OVERLAY ============================== */
-.navchk{ position:absolute; opacity:0; pointer-events:none; }
-
-/* overlay container */
+/* shift the whole left cluster same as page when drawer opens */
 @media (max-width:820px){
-  .mobile-overlay{
-    position:fixed; inset:0; z-index:1400;
-    display:grid; grid-template-rows:auto 1fr; align-content:start;
-    background:rgba(62,62,58,.85); /* your ink tone, translucent */
-    -webkit-backdrop-filter:saturate(1.05) blur(2px); backdrop-filter:saturate(1.05) blur(2px);
-    color:#fff; opacity:0; visibility:hidden; pointer-events:none;
-    transition:opacity .22s ease, visibility .22s ease;
+  body:has(#navchk:checked) .mobile-header-8 .left-cluster,
+  body.drawer-open .mobile-header-8 .left-cluster{
+    transform:translateX(var(--drawer-w));
   }
-  /* open state */
-  #navchk:checked ~ .mobile-overlay{ opacity:1; visibility:visible; pointer-events:auto; }
-
-  /* close “X” */
-  .ol-close{
-    justify-self:end; margin:16px 16px 0 0; width:38px; height:38px;
-    border:1px solid rgba(255,255,255,.55); color:#fff; background:transparent; font-size:24px; line-height:1;
-    display:grid; place-items:center; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.18);
-  }
-
-  /* centered column */
-  .ol-nav{
-    display:grid; align-content:center; justify-items:center; gap:12px;
-    padding:10px 22px 28px;
-  }
-
-  /* big items with subtle lines — your fonts/colors */
-  .ol-item{
-    width:min(86vw, 480px);
-    font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    font-weight:600; letter-spacing:.18em; text-transform:uppercase;
-    text-align:center; color:#efeee9; text-decoration:none;
-    padding:12px 8px 14px;
-    border-bottom:1px solid rgba(255,255,255,.55);
-  }
-  .ol-item:focus-visible, .ol-item:hover{ color:#e8dcc6; }
-
-  /* button-style top-level (Galleries) */
-  .ol-item.is-button{ display:flex; align-items:center; justify-content:center; gap:12px; background:transparent; border:0; cursor:pointer; }
-  .ol-plus{ font-weight:700; opacity:.9; }
-
-  /* sublinks area */
-  .ol-sub{
-    width:min(86vw, 480px); display:grid; gap:8px; padding:6px 0 10px; margin-bottom:8px;
-    border-bottom:1px solid rgba(255,255,255,.22); max-height:0; overflow:hidden; transition:max-height .22s ease;
-  }
-  .ol-sub.open{ max-height:220px; }
-
-  .ol-subitem{
-    width:100%; display:flex; align-items:center; justify-content:center; gap:8px;
-    font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:600;
-    font-size:18px; text-transform:none; letter-spacing:.02em; color:#f6f5f2; text-decoration:none;
-    padding:4px 0;
-  }
-  .ol-subitem .pipe{ opacity:.65; margin-right:6px; }
-}
-
-/* Keep desktop dropdown behavior untouched */
-@media (min-width:821px){
-  .mobile-overlay{ display:none !important; }
 }
 </style>
 
 <script>
-/* Mobile overlay open/close, collapsible Galleries, and “current page” flags */
-(function(){
-  const chk   = document.getElementById('navchk');
-  const ol    = document.getElementById('mobile-overlay');
-  const close = ol?.querySelector('.ol-close');
-  const btn   = ol?.querySelector('.ol-item.is-button');
-  const sub   = ol?.querySelector('.ol-sub');
-  const label = document.querySelector('.nav-toggle-ol');
+/* drawer logic + shift content and the new mobile header cluster */
+(function () {
+  const chk = document.getElementById('navchk');
+  if (!chk) return;
 
-  function syncOpen(){
-    const open = !!chk?.checked;
-    if (label) label.setAttribute('aria-expanded', String(open));
-    if (ol)    ol.setAttribute('aria-hidden', String(!open));
-    document.body.classList.toggle('drawer-open', open); /* harmless class for any page shifts elsewhere */
-  }
+  const targets = () => [
+    document.getElementById('content'),
+    document.querySelector('[data-include="/partials/footer.html"]'),
+    document.querySelector('.hero'),
+    document.querySelector('.mobile-header-8 .left-cluster')
+  ].filter(Boolean);
 
-  function toggleSub(force){
-    if (!btn || !sub) return;
-    const open = force != null ? !!force : !sub.classList.contains('open');
-    sub.classList.toggle('open', open);
-    btn.setAttribute('aria-expanded', String(open));
-    btn.querySelector('.ol-plus')?.replaceChildren(document.createTextNode(open ? '–' : '+'));
-  }
+  const applyShift = (on) => {
+    const tx = on ? 'translateX(var(--drawer-w))' : '';
+    targets().forEach(el => el.style.transform = tx);
+    document.getElementById('site-menu')?.classList.toggle('is-open', on);
+  };
 
-  // Open/close
-  chk?.addEventListener('change', syncOpen);
-  close?.addEventListener('click', ()=>{ chk.checked = false; syncOpen(); });
+  const sync = () => {
+    const open = chk.checked;
+    document.body.classList.toggle('drawer-open', open);
+    document.querySelector('.nav-toggle-8')?.setAttribute('aria-expanded', String(open));
+    applyShift(open);
+  };
 
-  // Click outside to close
-  document.addEventListener('click', (e)=>{
-    if (!chk?.checked) return;
-    if (e.target.closest('#mobile-overlay') || e.target.closest('.nav-toggle-ol')) return;
-    chk.checked = false; syncOpen();
-  }, true);
-
-  // Escape closes
-  document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape' && chk?.checked){ chk.checked=false; syncOpen(); } });
-
-  // Galleries expand/collapse
-  btn?.addEventListener('click', ()=> toggleSub());
-
-  // Follow any link -> close
-  ol?.addEventListener('click', (e)=>{
+  // Close drawer when a nav link is clicked
+  document.getElementById('site-menu')?.addEventListener('click', e => {
     const a = e.target.closest('a');
-    if (a){ chk.checked = false; syncOpen(); }
+    if (a) { chk.checked = false; sync(); }
   });
 
-  // Mark current page in overlay list too
-  (function markCurrent(){
-    const normalize = (href)=>{
-      const u = new URL(href, location.origin);
-      let p = u.pathname.replace(/\/+/g,'/').replace(/\/index\.html?$/i,'').replace(/\.html?$/i,'').replace(/\/$/,'');
-      return p === '' ? '/' : p;
-    };
-    const here = normalize(location.pathname);
-    document.querySelectorAll('.ol-nav a[href]').forEach(a=>{
-      if (normalize(a.href) === here) a.style.color = 'var(--accent)';
-    });
-  })();
+  // Click outside closes
+  document.addEventListener('click', (e) => {
+    if (!chk.checked) return;
+    if (e.target.closest('.nav-toggle-8') || e.target.closest('nav.primary')) return;
+    chk.checked = false; sync();
+  }, true);
 
-  // start closed, sub collapsed
-  toggleSub(false);
-  syncOpen();
+  // Esc closes
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && chk.checked) { chk.checked = false; sync(); }
+  });
+
+  chk.addEventListener('change', sync);
+  (document.readyState === 'loading')
+    ? document.addEventListener('DOMContentLoaded', sync, { once:true })
+    : requestAnimationFrame(sync);
+})();
+
+/* ===== Mark the current page in the nav (desktop + mobile) ===== */
+(function markCurrentNav(){
+  const normalize = (href) => {
+    const url = new URL(href, location.origin);
+    let p = url.pathname
+      .replace(/\/+/g, "/")
+      .replace(/\/index\.html?$/i, "")
+      .replace(/\.html?$/i, "")
+      .replace(/\/$/, "");
+    return p === "" ? "/" : p;
+  };
+  const here = normalize(location.pathname);
+
+  const apply = () => {
+    const links = document.querySelectorAll('.topbar nav.primary a[href]');
+    if (!links.length) return false;
+    links.forEach(a => {
+      const target = normalize(a.href);
+      if (target === here) {
+        a.setAttribute('aria-current','page');
+        a.classList.add('is-current');
+      } else {
+        a.removeAttribute('aria-current');
+        a.classList.remove('is-current');
+      }
+    });
+    return true;
+  };
+
+  let tries = 0;
+  const tick = () => { if (apply() || ++tries >= 10) return; setTimeout(tick, 50); };
+  (document.readyState === "loading")
+    ? document.addEventListener("DOMContentLoaded", tick, { once:true })
+    : tick();
 })();
 </script>
