@@ -38,7 +38,7 @@
       font-weight:500!important; letter-spacing:.01em;
     }
 
-    .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap); overflow-x:hidden;}
     main section{padding:clamp(10px,2vw,18px) 0}
 
     /* Heading + photos */
@@ -85,9 +85,11 @@
     /* Planner layout */
     .planner-grid{
       display:grid;
-      grid-template-columns:1fr 1fr;
+      grid-template-columns:minmax(0,1fr) minmax(0,1fr); /* prevents intrinsic overflow */
       gap:var(--col-gap);
       align-items:start;
+      width:100%;
+      overflow-x:hidden;
     }
     @media(max-width:980px){
       .planner-grid{ grid-template-columns:1fr; }
@@ -131,24 +133,22 @@
       }
     }
 
-    .divider{ height:1px; background:var(--line); margin:6px 0 10px; } /* tighter gap below instructions */
+    /* Tighter instruction → divider spacing */
+    #locNote{ margin:2px 0 4px 0; color:#504c45; }
+    .divider{ height:1px; background:var(--line); margin:4px 0 8px; }
 
-    /* Instructions: right under search row */
-    #locNote{
-      margin:4px 0 6px 0; color:#504c45;
-    }
     @media (max-width:720px){
-      #locNote{ font-size:.95rem; }
+      #locNote{ font-size:.92rem; } /* a touch smaller on mobile */
     }
 
     /* Calendar typography + no overflow */
-    .calendar{display:grid;gap:10px; width:100%}
+    .calendar{display:grid;gap:10px; width:100%; overflow-x:hidden;}
     .cal-header{display:flex;justify-content:space-between;align-items:center; flex-wrap:wrap}
     .cal-header h3{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-weight:700; font-size:1.25rem; margin:0; color:#2a2926;
     }
-    .cal-grid{display:grid;grid-template-columns:repeat(7, minmax(0,1fr));gap:2px; width:100%}
+    .cal-grid{display:grid;grid-template-columns:repeat(7, minmax(0,1fr));gap:2px; width:100%; overflow:hidden;}
     .dow{font-size:.82rem;color:#6f6b62;text-align:center;padding:4px 0;font-weight:600}
     .day{display:grid;place-items:center;height:40px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:15px;line-height:1;color:var(--ink)}
     .day.muted{color:#b5b1a6}
@@ -156,12 +156,12 @@
     .day.selected{background:rgba(168,138,90,.12); border-color:var(--accent)}
 
     /* Table */
-    .times-table{width:100%;border-collapse:collapse; table-layout:fixed}
+    .times-table{width:100%;border-collapse:collapse; table-layout:fixed; max-width:100%; overflow:hidden;}
     .times-table th,.times-table td{border:1px solid var(--line);padding:10px 12px;text-align:left; word-break:break-word}
     .times-table th{background:#f7f5f1;font-weight:700}
-    .k{white-space:nowrap}
+    .k{white-space:normal;} /* allow wrap in first col so it never pushes wide */
+    .times-table td:nth-child(2), .times-table td:nth-child(3){ white-space:nowrap; }
 
-    /* Result title (date — location) in display font already via h2; just ensure wrap */
     #resultTitle{ overflow-wrap:anywhere; }
 
     .inline-cta{
@@ -181,10 +181,7 @@
     @media (max-width: 720px){
       main{ padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top,0px) + 10px); }
 
-      .page-head .cta{
-        display:grid !important; grid-template-columns: repeat(3, 1fr);
-        gap:10px; margin-top:10px;
-      }
+      .page-head .cta{ display:grid !important; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:10px; }
       .page-head .cta .btn{ padding:8px 10px; font-size: clamp(12px, 3.4vw, 14px); line-height:1.1; white-space:nowrap; text-align:center; }
 
       .head-photo{ justify-self:center; max-width:640px; width:100%; gap:10px; }
@@ -193,23 +190,20 @@
       /* Ensure cards never exceed viewport width */
       .planner-grid > .card,
       .results-rail > article{
-        max-width:100%; width:100%; margin-left:auto; margin-right:auto;
+        max-width:100%; width:100%; margin-left:auto; margin-right:auto; overflow-x:hidden;
       }
 
       .calendar{ overflow-x:hidden; }
       .cal-grid{ grid-template-columns: repeat(7, minmax(0,1fr)); }
       .day{ height:44px; font-size:16px; }
 
-      .times-table{ width:100%; }
+      .times-table{ width:100%; max-width:100%; overflow:hidden; }
       .times-table th,.times-table td{ padding:10px 8px; font-size: clamp(13px, 3.3vw, 14px); }
-      .times-table td:nth-child(2), .times-table td:nth-child(3){ white-space:nowrap; }
 
       .inline-cta{ display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
       .inline-cta .btn{ padding:8px 10px; font-size: clamp(12px, 3.4vw, 14px); }
 
-      .quick-areas{
-        display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:8px;
-      }
+      .quick-areas{ display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:8px; }
       .quick-areas button{ text-align:center; }
     }
 
@@ -424,7 +418,7 @@
       for(let d=1; cells + d <= 42; d++){
         addDay(d, true, new Date(y,m+1,d));
       }
-      updateSidePhotoSize();
+      scheduleUpdate();
     }
 
     document.getElementById('prevMonth').onclick = () => { monthCursor.setMonth(monthCursor.getMonth()-1); buildCalendar(); };
@@ -508,7 +502,7 @@
       tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (PM)', minsToClock(t.goldPM.start), minsToClock(t.goldPM.end)));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (PM)',   minsToClock(t.bluePM.start), minsToClock(t.bluePM.end)));
 
-      updateSidePhotoSize();
+      scheduleUpdate();
     }
 
     /* ---------- Keep both columns ending at the same place ---------- */
@@ -519,23 +513,33 @@
       const img     = document.querySelector('.side-photo img');
       if(!aside || !card || !figure || !img) return;
 
-      // Width: match card content width (centering comes for free)
       const cardRect = card.getBoundingClientRect();
       img.style.maxWidth = Math.floor(cardRect.width * 0.92) + 'px';
 
-      // Height: right column must not extend below left column
       const gridGap = parseFloat(getComputedStyle(document.querySelector('.planner-grid')).gap) || 12;
       const cardContentHeight = card.offsetHeight - figure.offsetHeight;
-      const available = aside.offsetHeight - cardContentHeight - gridGap; // exact cap
-      const clamped = Math.max(0, available); // allow exact alignment
-      img.style.maxHeight = clamped + 'px';
+      const available = aside.offsetHeight - cardContentHeight - gridGap;
+
+      // tiny fudge keeps bottoms visually identical despite borders/shadows
+      const fudge = 2;
+      img.style.maxHeight = Math.max(0, available - fudge) + 'px';
     }
-    window.addEventListener('resize', updateSidePhotoSize);
+
+    // schedule updates to avoid iOS reflow jitter that can cause “bleed” while scrolling
+    let rafId = null;
+    function scheduleUpdate(){
+      if(rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(()=>{ updateSidePhotoSize(); rafId = null; });
+    }
+
+    window.addEventListener('resize', scheduleUpdate, {passive:true});
+    window.addEventListener('orientationchange', scheduleUpdate, {passive:true});
+    window.addEventListener('scroll', scheduleUpdate, {passive:true});
 
     /* ---------- Init ---------- */
     buildCalendar();
     renderTimes();
-    updateSidePhotoSize();
+    scheduleUpdate();
   </script>
 </body>
 </html>
