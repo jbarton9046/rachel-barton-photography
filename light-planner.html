@@ -59,7 +59,7 @@
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33;
+      padding:10px 16px; border:1px solid var(--line); background:#fff; color:var(--ink);
       font-weight:700; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
       transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
@@ -88,21 +88,24 @@
     .group{display:grid;gap:8px}
     label{font-weight:700;font-size:.95rem}
     input[type="text"]{width:100%;padding:12px 14px;border:1px solid var(--line);background:#fff}
-    button{appearance:none;border:1px solid var(--line);background:#fff;padding:10px 14px;cursor:pointer;font-weight:700}
+    button{appearance:none;border:1px solid var(--line);background:#fff;padding:10px 14px;cursor:pointer;font-weight:700;color:var(--ink)} /* force black text */
+
     .util{display:flex;gap:8px;flex-wrap:wrap}
 
     .quick-areas{display:flex;flex-wrap:wrap;gap:6px}
-    .quick-areas button{padding:.35rem .7rem; white-space:nowrap}
+    .quick-areas button{padding:.35rem .7rem; white-space:nowrap; color:var(--ink)} /* force black */
     @media (min-width:980px){
       .quick-areas{display:grid; grid-auto-flow:column; grid-template-rows:repeat(2,auto); gap:6px 8px; align-items:start;}
     }
+
+    .divider{ height:1px; background:var(--line); margin:10px 0; }
 
     .calendar{display:grid;gap:10px}
     .cal-header{display:flex;justify-content:space-between;align-items:center}
     .cal-header h3{font-size:1.02rem;margin:0;font-weight:700}
     .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
     .dow{font-size:.82rem;color:#6f6b62;text-align:center;padding:4px 0;font-weight:600}
-    .day{display:grid;place-items:center;height:40px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:15px;line-height:1}
+    .day{display:grid;place-items:center;height:40px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:15px;line-height:1;color:var(--ink)} /* force black */
     .day.muted{color:#b5b1a6}
     .day.today{outline:2px solid var(--accent); outline-offset:-2px}
     .day.selected{background:rgba(168,138,90,.12); border-color:var(--accent)}
@@ -132,9 +135,9 @@
       }
       .page-head .cta .btn{
         padding:8px 10px;
-        font-size: clamp(14px, 3.6vw, 15px);
+        font-size: clamp(12px, 3.4vw, 14px);   /* smaller + single-line */
         line-height:1.1;
-        white-space:normal;
+        white-space:nowrap;
         text-align:center;
       }
       .head-photo{
@@ -153,14 +156,35 @@
       .calendar{ overflow-x: hidden; }
       .cal-grid{ grid-template-columns: repeat(7, minmax(0,1fr)); }
       .day{ height: 44px; font-size: 16px; }
+
       #resultTitle{ text-align:center; }
+
       .times-table{
         table-layout: fixed;
         width: 100%;
         word-break: break-word;
       }
-      .times-table th,.times-table td{ padding: 12px 10px; }
-      .inline-cta{ justify-content:center; }
+      .times-table th,.times-table td{
+        padding: 10px 8px;
+        font-size: clamp(13px, 3.3vw, 14px);   /* fit columns on phones */
+      }
+      .times-table td:nth-child(2),
+      .times-table td:nth-child(3){ white-space:nowrap; } /* time columns stay on one line */
+
+      /* Bottom button row: 3-across & single-line like the top */
+      .inline-cta{
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap:10px;
+        justify-content:stretch;
+      }
+      .inline-cta .btn{
+        padding:8px 10px;
+        font-size: clamp(12px, 3.4vw, 14px);
+        line-height:1.1;
+        white-space:nowrap;
+        text-align:center;
+      }
     }
 
     /* ✅ Match the About page’s mobile header clearance so content
@@ -218,6 +242,8 @@
               <button id="btnGeo">Use my location</button>
             </div>
 
+            <div class="divider" role="separator" aria-hidden="true"></div>
+
             <div class="quick-areas" aria-label="Quick locations">
               <button data-area="Siesta Key">Siesta Key</button>
               <button data-area="Longboat Key">Longboat Key</button>
@@ -230,6 +256,8 @@
               <button data-area="Clearwater Beach">Clearwater Beach</button>
               <button data-area="St. Pete Beach">St. Pete Beach</button>
             </div>
+
+            <div class="divider" role="separator" aria-hidden="true"></div>
 
             <p class="small" id="locNote">Type a neighborhood or beach, then press <em>Search</em>. Or use your phone’s location.</p>
           </div>
