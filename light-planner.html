@@ -47,7 +47,7 @@
       align-items:start;
     }
     @media (max-width:900px){
-      .head-grid{ grid-template-columns:1fr; justify-items:center; }
+      .head-grid{ grid-template-columns:1fr; }
     }
 
     .page-head{ margin:10px 0 8px; }
@@ -71,7 +71,7 @@
       justify-self:end; align-content:start;
     }
     .head-photo img{
-      width:100%; height:clamp(150px,18vw,240px);
+      width:100%; height:clamp(150px,28vw,240px);
       object-fit:cover; object-position:center;
       display:block; border:1px solid var(--frame); box-shadow:var(--shadow); background:#fff;
     }
@@ -112,61 +112,63 @@
     .times-table th{background:#f7f5f1;font-weight:700}
     .k{white-space:nowrap}
 
+    /* CTA row just under the table */
     .inline-cta{
       display:flex; gap:12px; flex-wrap:wrap;
-      margin-top:16px; padding-top:12px;
-      border-top:1px solid var(--line);
-    }
-    @media (min-width:720px){
-      .inline-cta{ justify-content:flex-start; }
+      margin-top:16px; padding-top:12px; border-top:1px solid var(--line);
     }
 
-    /* ---------------- Mobile polish ---------------- */
-    @media (max-width:900px){
-      /* Clear the sticky header so the top content isn't hidden */
-      main{ padding-top: calc(var(--mobile-header-h) + 24px); }
+    /* ---------------------- MOBILE TUNE-UP ---------------------- */
+    @media (max-width: 720px){
 
-      /* Center hero text + actions on phones */
-      .page-head{ text-align:center; }
-      .page-head .cta{ width:100%; }
+      /* 1) Push content down under the fixed mobile header */
+      main{ padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top,0px) + 10px); }
 
-      /* Make three buttons fit in one row */
+      /* 2) Make the 3 buttons fit one row, “mini” style */
       .page-head .cta{
         display:grid !important;
-        grid-template-columns:repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap:10px;
-        justify-items:stretch;
+        margin-top:10px;
       }
       .page-head .cta .btn{
         padding:8px 10px;
-        font-size:clamp(14px,3.8vw,16px);
+        font-size: clamp(14px, 3.6vw, 15px);
+        line-height:1.1;
+        white-space:normal;
+        text-align:center;
       }
 
-      /* Show & center the two header photos (they were hidden) */
+      /* 3) Keep header photos centered and equal */
       .head-photo{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-        width:100%;
-        max-width:640px;
-        margin-inline:auto;
-        justify-items:center;
+        justify-self:center;
+        max-width: 640px;
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
       }
-      .head-photo img{
-        height:34vw;           /* keeps aspect without huge height */
-        min-height:140px;
-      }
+      .head-photo img{ height: 34vw; max-height: 220px; }
 
-      /* Center the single-column planner and constrain width */
-      .planner-grid{ justify-items:center; }
+      /* 4) Center the planner cards and prevent overflow */
       .planner-grid > .card{
-        width:min(640px, 100%);
-        margin-inline:auto;
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
       }
+      .calendar{ overflow-x: hidden; }
+      .cal-grid{ grid-template-columns: repeat(7, minmax(0,1fr)); }
+      .day{ height: 44px; font-size: 16px; }
 
-      /* Center the calendar block and the times table visually */
-      .calendar{ margin-inline:auto; }
-      .times-table{ margin-inline:auto; width:auto; max-width:100%; }
+      /* 5) Center the result title + table and keep inside viewport */
+      #resultTitle{ text-align:center; }
+      .times-table{
+        table-layout: fixed;
+        width: 100%;
+        word-break: break-word;
+      }
+      .times-table th,.times-table td{ padding: 12px 10px; }
+
+      /* Button row under table centered */
       .inline-cta{ justify-content:center; }
     }
   </style>
@@ -175,10 +177,13 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content" class="container">
+    <!-- Heading + photos -->
     <div class="head-grid">
       <header class="page-head" aria-labelledby="golden-title">
         <h1 id="golden-title">Golden Hour</h1>
         <p class="section-sub">Pick a date and location to see sunrise, sunset, plus golden &amp; blue hour windows—perfect for planning sessions.</p>
+
+        <!-- mini buttons on mobile (unchanged on desktop) -->
         <div class="cta" style="display:flex; gap:12px; flex-wrap:wrap">
           <a class="btn" href="/book.html">Check availability</a>
           <a class="btn" href="/galleries.html">See galleries</a>
@@ -192,6 +197,7 @@
       </figure>
     </div>
 
+    <!-- Explainer -->
     <section class="explainer" aria-labelledby="what-title">
       <article class="card pad">
         <h2 id="what-title">What are “golden” and “blue” hours?</h2>
@@ -308,10 +314,10 @@
       const gold = { a:eventTime(date,lat,lon,-4),  b:eventTime(date,lat,lon, 6) };
       return {
         sunriseMin:sun.rise, sunsetMin:sun.set,
-        blueAM:{start: blue.a.rise, end: blue.b.rise},          // −6° → −4° (pre-dawn)
-        bluePM:{start: blue.b.set,  end: blue.a.set},           // −4° → −6° (post-sunset)
-        goldAM:{start: gold.a.rise, end: gold.b.rise},          // −4° → +6° (after sunrise)
-        goldPM:{start: gold.b.set,  end: gold.a.set}            // +6° → −4° (before/just after sunset)
+        blueAM:{start: blue.a.rise, end: blue.b.rise},
+        bluePM:{start: blue.b.set,  end: blue.a.set},
+        goldAM:{start: gold.a.rise, end: gold.b.rise},
+        goldPM:{start: gold.b.set,  end: gold.b.set}
       };
     }
     function minsToClock(mins){
@@ -446,16 +452,12 @@
       resultTitle.textContent = `${date.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'})} — ${label}`;
       const t = packTimes(date, lat, lon);
       tbody.innerHTML = '';
-
-      // Morning sequence
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunrise',          minsToClock(t.sunriseMin), '—'));
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (AM)',   minsToClock(t.blueAM.start), minsToClock(t.blueAM.end)));
+      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunrise', minsToClock(t.sunriseMin), '—'));
+      tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (AM)', minsToClock(t.blueAM.start), minsToClock(t.blueAM.end)));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (AM)', minsToClock(t.goldAM.start), minsToClock(t.goldAM.end)));
-
-      // Evening sequence: Sunset directly above Golden hour (PM)
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunset',           minsToClock(t.sunsetMin), '—'));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (PM)', minsToClock(t.goldPM.start), minsToClock(t.goldPM.end)));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (PM)',   minsToClock(t.bluePM.start), minsToClock(t.bluePM.end)));
+      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunset',  minsToClock(t.sunsetMin),  '—'));
     }
 
     /* ---------- Init ---------- */
