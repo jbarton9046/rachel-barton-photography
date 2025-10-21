@@ -185,7 +185,14 @@
     .side-photo{ margin:14px 0 0 0; text-align:center; }
     .side-photo img{
       width:auto; height:auto; max-width:96%; /* let it grow a bit more */
-      border:1px solid var(--line); box-shadow:var(--shadow); background:#fff; display:inline-block;
+      border:1px solid var(--line); box-shadow:var(--shadow); background:#fff; display:block; /* NEW: block so margin auto centers */
+      margin:0 auto; /* NEW: ensure true centering */
+    }
+
+    /* ------- NEW: Desktop-only breathing room on right column ------- */
+    @media (min-width: 981px){
+      .results-rail{ padding-right:8px; }                 /* add tiny space so table/card aren’t flush right */
+      .results-rail .times-table{ margin-right:6px; }      /* tiny gap between table and card edge */
     }
 
     /* ---------------------- MOBILE TUNE-UP ---------------------- */
@@ -221,6 +228,9 @@
         display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:8px;
       }
       .quick-areas button{ text-align:center; }
+
+      /* ------- NEW: give the bottom photo a sliver of side padding on phones ------- */
+      .side-photo{ padding-inline:8px; }
     }
 
     @media (max-width:820px){
