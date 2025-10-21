@@ -128,6 +128,27 @@
       margin-top:16px; padding-top:12px; border-top:1px solid var(--line);
     }
 
+    /* ---- Desktop right-rail photo (bottom-right, centered) ---- */
+    .results-rail{ position:relative; }
+    .side-photo{ display:none; }
+    @media (min-width:981px){
+      .side-photo{
+        display:block;
+        position:absolute;
+        left:0; right:0; bottom:0;
+        margin:0; padding:0;
+        text-align:center;
+        pointer-events:none; /* decorative */
+      }
+      .side-photo img{
+        max-width:min(520px, 92%);
+        height:auto;
+        border:1px solid var(--line);
+        box-shadow:var(--shadow);
+        background:#fff;
+      }
+    }
+
     /* ---------------------- MOBILE TUNE-UP ---------------------- */
     @media (max-width: 720px){
       /* keep content below the floating nav */
@@ -264,21 +285,32 @@
           </div>
         </aside>
 
-        <article class="card pad">
-          <h2 id="resultTitle" style="margin:0 0 8px 0">—</h2>
-          <table class="times-table" id="timesTable" aria-describedby="resultTitle">
-            <thead>
-              <tr><th>Light window</th><th>Start</th><th>End</th></tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+        <!-- Right column now wrapped so the bottom photo can sit inside it -->
+        <div class="results-rail">
+          <article class="card pad">
+            <h2 id="resultTitle" style="margin:0 0 8px 0">—</h2>
+            <table class="times-table" id="timesTable" aria-describedby="resultTitle">
+              <thead>
+                <tr><th>Light window</th><th>Start</th><th>End</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
 
-          <div class="inline-cta" role="group" aria-label="Page actions">
-            <a class="btn" href="/book.html">Check availability</a>
-            <a class="btn" href="/galleries.html">See galleries</a>
-            <a class="btn" href="/contact.html">Ask a Question</a>
-          </div>
-        </article>
+            <div class="inline-cta" role="group" aria-label="Page actions">
+              <a class="btn" href="/book.html">Check availability</a>
+              <a class="btn" href="/galleries.html">See galleries</a>
+              <a class="btn" href="/contact.html">Ask a Question</a>
+            </div>
+          </article>
+
+          <!-- Desktop-only decorative photo, bottom-aligned and centered -->
+          <figure class="side-photo" aria-hidden="true">
+            <img
+              src="pictures/goldenHourPics/sibling-sunset.jpg"
+              alt=""
+              width="1200" height="800" loading="lazy" />
+          </figure>
+        </div>
       </div>
     </section>
   </main>
