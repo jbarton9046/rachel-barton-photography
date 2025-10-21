@@ -96,7 +96,6 @@
     .quick-areas{display:flex;flex-wrap:wrap;gap:6px}
     .quick-areas button{padding:.35rem .7rem; white-space:nowrap; color:var(--ink)}
 
-    /* On larger screens (unchanged) show in two rows flowing columns */
     @media (min-width:980px){
       .quick-areas{
         display:grid;
@@ -126,23 +125,22 @@
     .inline-cta{
       display:flex; gap:12px; flex-wrap:wrap;
       margin-top:16px; padding-top:12px; border-top:1px solid var(--line);
+      justify-content:center;                 /* <-- center the buttons under the table */
     }
 
-    /* ---- Desktop right-rail photo: BELOW table, centered under the TABLE ---- */
+    /* Right-rail photo BELOW table; alignment handled in JS to match table edges */
     .results-rail{ display:flex; flex-direction:column; }
     .side-photo{ display:none; }
     @media (min-width:981px){
       .side-photo{
         display:block;
-        margin-top:12px;              /* spacing below the card */
-        text-align:center;            /* center the image within the figure */
+        margin-top:12px;
+        text-align:center;
       }
       .side-photo img{
         width:auto;
         height:auto;
-        /* width is capped vs. article width via JS; this is a final guard */
         max-width:92%;
-        /* max-height is set via JS so the bottom never drops below the calendar */
         border:1px solid var(--line);
         box-shadow:var(--shadow);
         background:#fff;
@@ -278,7 +276,7 @@
           </div>
         </aside>
 
-        <!-- Right column: table + photo underneath -->
+        <!-- Right column: table + centered buttons + photo underneath, all aligned to table edges -->
         <div class="results-rail">
           <article class="card pad">
             <h2 id="resultTitle" style="margin:0 0 8px 0">—</h2>
@@ -296,7 +294,7 @@
             </div>
           </article>
 
-          <!-- Decorative photo now sits BELOW the table and is centered under the table card -->
+          <!-- Photo centered under the table area -->
           <figure class="side-photo" aria-hidden="true">
             <img
               src="pictures/goldenHourPics/sibling-sunset.jpg"
@@ -493,7 +491,6 @@
       const t = packTimes(date, lat, lon);
       tbody.innerHTML = '';
 
-      // Order: Sunrise → Blue AM → Golden AM → SUNSET → Golden PM → Blue PM
       tbody.insertAdjacentHTML('beforeend', rowHTML('Sunrise', minsToClock(t.sunriseMin), '—'));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (AM)',   minsToClock(t.blueAM.start), minsToClock(t.blueAM.end)));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (AM)', minsToClock(t.goldAM.start), minsToClock(t.goldAM.end)));
@@ -504,27 +501,30 @@
       updateSidePhotoSize(); /* keep the image beneath the table and within calendar height */
     }
 
-    /* ---------- Keep the right photo centered under the table and within calendar height ---------- */
+    /* ---------- Center photo under the TIME TABLE and keep within calendar height ---------- */
     function updateSidePhotoSize(){
       const aside   = document.querySelector('.planner-grid > aside');
       const article = document.querySelector('.results-rail > article');
       const rail    = document.querySelector('.results-rail');
+      const table   = document.getElementById('timesTable');
       const figure  = document.querySelector('.side-photo');
       const img     = document.querySelector('.side-photo img');
-      if(!aside || !article || !rail || !figure || !img) return;
+      if(!aside || !article || !rail || !figure || !img || !table) return;
 
-      /* Position the figure so it lines up exactly beneath the table card */
-      const artRect  = article.getBoundingClientRect();
-      const railRect = rail.getBoundingClientRect();
-      const leftWithinRail = Math.max(0, Math.round(artRect.left - railRect.left));
-      figure.style.width      = Math.round(artRect.width) + 'px';
-      figure.style.marginLeft = leftWithinRail + 'px';
-      figure.style.marginRight= '0';
+      const tableRect = table.getBoundingClientRect();
+      const railRect  = rail.getBoundingClientRect();
 
-      /* Image sizing: cap by the table width and available right-column height */
-      const innerMaxW = Math.min(520, Math.floor(artRect.width * 0.92));
+      // Make the figure match the table's left/right edges inside the right column
+      const leftWithinRail = Math.max(0, Math.round(tableRect.left - railRect.left));
+      figure.style.width       = Math.round(tableRect.width) + 'px';
+      figure.style.marginLeft  = leftWithinRail + 'px';
+      figure.style.marginRight = '0';
+
+      // Image width cap relative to the table width (and a hard cap)
+      const innerMaxW = Math.min(520, Math.floor(tableRect.width * 0.92));
       img.style.maxWidth = innerMaxW + 'px';
 
+      // Height cap so photo + card never exceed calendar height
       const gap = parseFloat(getComputedStyle(document.querySelector('.planner-grid')).gap) || 12;
       const available = aside.offsetHeight - article.offsetHeight - gap - 8;
       const minHeight = 140;
