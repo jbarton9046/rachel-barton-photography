@@ -121,8 +121,8 @@
     /* ---------------------- MOBILE TUNE-UP ---------------------- */
     @media (max-width: 720px){
 
-      /* 1) Push content down under the fixed mobile header */
-      main{ padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top,0px) + 10px); }
+      /* 1) Push content down under the fixed mobile header (extra cushion) */
+      main{ padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top,0px) + 24px); }
 
       /* 2) Make the 3 buttons fit one row, “mini” style */
       .page-head .cta{
@@ -159,6 +159,12 @@
       .cal-grid{ grid-template-columns: repeat(7, minmax(0,1fr)); }
       .day{ height: 44px; font-size: 16px; }
 
+      /* Make all interactive controls use site ink (remove default iOS blue) */
+      .util button,
+      .quick-areas button,
+      .day,
+      .cal-header button{ color: var(--ink) !important; }
+
       /* 5) Center the result title + table and keep inside viewport */
       #resultTitle{ text-align:center; }
       .times-table{
@@ -166,7 +172,12 @@
         width: 100%;
         word-break: break-word;
       }
-      .times-table th,.times-table td{ padding: 12px 10px; }
+      .times-table th,.times-table td{
+        padding: 12px 10px;
+        font-size: clamp(13px, 3.6vw, 15px); /* slightly smaller so labels stay inside */
+        line-height: 1.25;
+      }
+      .k{ white-space:normal; } /* allow label wrap on phones */
 
       /* Button row under table centered */
       .inline-cta{ justify-content:center; }
@@ -455,9 +466,10 @@
       tbody.insertAdjacentHTML('beforeend', rowHTML('Sunrise', minsToClock(t.sunriseMin), '—'));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (AM)', minsToClock(t.blueAM.start), minsToClock(t.blueAM.end)));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (AM)', minsToClock(t.goldAM.start), minsToClock(t.goldAM.end)));
+      /* Re-ordered per request: show Sunset ABOVE Golden hour (PM) */
+      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunset',  minsToClock(t.sunsetMin),  '—'));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (PM)', minsToClock(t.goldPM.start), minsToClock(t.goldPM.end)));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (PM)',   minsToClock(t.bluePM.start), minsToClock(t.bluePM.end)));
-      tbody.insertAdjacentHTML('beforeend', rowHTML('Sunset',  minsToClock(t.sunsetMin),  '—'));
     }
 
     /* ---------- Init ---------- */
