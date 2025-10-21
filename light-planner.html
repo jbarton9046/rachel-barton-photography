@@ -125,16 +125,16 @@
     .inline-cta{
       display:flex; gap:12px; flex-wrap:wrap;
       margin-top:16px; padding-top:12px; border-top:1px solid var(--line);
-      justify-content:center;                 /* <-- center the buttons under the table */
+      justify-content:center; /* center the buttons under the table */
     }
 
-    /* Right-rail photo BELOW table; alignment handled in JS to match table edges */
+    /* Right-rail photo BELOW table; JS aligns to table edges */
     .results-rail{ display:flex; flex-direction:column; }
     .side-photo{ display:none; }
     @media (min-width:981px){
       .side-photo{
         display:block;
-        margin-top:12px;
+        margin:12px 0 0 0;  /* remove UA side margins that cause offset */
         text-align:center;
       }
       .side-photo img{
@@ -276,7 +276,7 @@
           </div>
         </aside>
 
-        <!-- Right column: table + centered buttons + photo underneath, all aligned to table edges -->
+        <!-- Right column: table + centered buttons + photo underneath, aligned to table edges -->
         <div class="results-rail">
           <article class="card pad">
             <h2 id="resultTitle" style="margin:0 0 8px 0">—</h2>
@@ -409,7 +409,7 @@
       for(let d=1; cells + d <= 42; d++){
         addDay(d, true, new Date(y,m+1,d));
       }
-      updateSidePhotoSize(); /* ensure cap stays correct when month height changes */
+      updateSidePhotoSize();
     }
 
     document.getElementById('prevMonth').onclick = () => { monthCursor.setMonth(monthCursor.getMonth()-1); buildCalendar(); };
@@ -427,7 +427,7 @@
     whereEl.value = state.label;
 
     geoBtn.onclick = ()=>{
-      if(!navigator.geolocation){ alert('Geolocation not available in this browser.'); return; }
+      if(!navigator.geolocation){ alert('Geolocation not available.'); return; }
       geoBtn.disabled = true; geoBtn.textContent = 'Locating…';
       navigator.geolocation.getCurrentPosition(pos=>{
         state.lat = +pos.coords.latitude.toFixed(4);
@@ -498,7 +498,7 @@
       tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (PM)', minsToClock(t.goldPM.start), minsToClock(t.goldPM.end)));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (PM)',   minsToClock(t.bluePM.start), minsToClock(t.bluePM.end)));
 
-      updateSidePhotoSize(); /* keep the image beneath the table and within calendar height */
+      updateSidePhotoSize();
     }
 
     /* ---------- Center photo under the TIME TABLE and keep within calendar height ---------- */
@@ -514,7 +514,7 @@
       const tableRect = table.getBoundingClientRect();
       const railRect  = rail.getBoundingClientRect();
 
-      // Make the figure match the table's left/right edges inside the right column
+      // Match the table's edges inside the right column
       const leftWithinRail = Math.max(0, Math.round(tableRect.left - railRect.left));
       figure.style.width       = Math.round(tableRect.width) + 'px';
       figure.style.marginLeft  = leftWithinRail + 'px';
