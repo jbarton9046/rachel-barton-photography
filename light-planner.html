@@ -188,13 +188,15 @@
       margin:0 auto;
     }
 
-    /* ---------------- DESKTOP: center the left card content ---------------- */
+    /* -------- Desktop: make Location block symmetrical (text stays left-aligned) -------- */
     @media (min-width: 981px){
-      /* Center everything inside the left card */
-      #leftCol{ display:flex; flex-direction:column; align-items:center; }
-      #leftCol .group, #leftCol .calendar{ width:100%; max-width:620px; margin:0 auto; }
-      /* Remove the tiny right padding so the calendar block is perfectly centered */
-      #leftCol .calendar{ padding-right:0; }
+      #leftCol .group,
+      #leftCol .calendar{
+        max-width: 620px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #leftCol .calendar{ padding-right: 0; }
     }
 
     /* ---------------------- MOBILE TUNE-UP ---------------------- */
