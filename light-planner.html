@@ -128,21 +128,21 @@
       margin-top:16px; padding-top:12px; border-top:1px solid var(--line);
     }
 
-    /* ---- Desktop right-rail photo (bottom-right, centered) ---- */
-    .results-rail{ position:relative; }
+    /* ---- Desktop right-rail photo: BELOW table, centered, no overlap ---- */
+    .results-rail{ display:flex; flex-direction:column; align-items:center; }
     .side-photo{ display:none; }
     @media (min-width:981px){
       .side-photo{
         display:block;
-        position:absolute;
-        left:0; right:0; bottom:0;
-        margin:0; padding:0;
+        width:100%;
+        margin-top:12px;
         text-align:center;
-        pointer-events:none; /* decorative */
       }
       .side-photo img{
-        max-width:min(520px, 92%);
+        width:auto;
         height:auto;
+        max-width:min(520px, 92%);
+        /* max-height is set via JS so the bottom never drops below the calendar */
         border:1px solid var(--line);
         box-shadow:var(--shadow);
         background:#fff;
@@ -285,7 +285,7 @@
           </div>
         </aside>
 
-        <!-- Right column now wrapped so the bottom photo can sit inside it -->
+        <!-- Right column: table + photo underneath -->
         <div class="results-rail">
           <article class="card pad">
             <h2 id="resultTitle" style="margin:0 0 8px 0">—</h2>
@@ -303,7 +303,7 @@
             </div>
           </article>
 
-          <!-- Desktop-only decorative photo, bottom-aligned and centered -->
+          <!-- Decorative photo now sits BELOW the table and is centered -->
           <figure class="side-photo" aria-hidden="true">
             <img
               src="pictures/goldenHourPics/sibling-sunset.jpg"
@@ -418,6 +418,7 @@
       for(let d=1; cells + d <= 42; d++){
         addDay(d, true, new Date(y,m+1,d));
       }
+      updateSidePhotoSize(); /* ensure cap stays correct when month height changes */
     }
 
     document.getElementById('prevMonth').onclick = () => { monthCursor.setMonth(monthCursor.getMonth()-1); buildCalendar(); };
@@ -506,11 +507,33 @@
       tbody.insertAdjacentHTML('beforeend', rowHTML('Sunset',           minsToClock(t.sunsetMin),    '—'));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Golden hour (PM)', minsToClock(t.goldPM.start), minsToClock(t.goldPM.end)));
       tbody.insertAdjacentHTML('beforeend', rowHTML('Blue hour (PM)',   minsToClock(t.bluePM.start), minsToClock(t.bluePM.end)));
+
+      updateSidePhotoSize(); /* keep the image beneath the table and within calendar height */
     }
+
+    /* ---------- Keep the right photo from exceeding the calendar bottom ---------- */
+    function updateSidePhotoSize(){
+      const aside = document.querySelector('.planner-grid > aside');
+      const article = document.querySelector('.results-rail > article');
+      const rail = document.querySelector('.results-rail');
+      const img = document.querySelector('.side-photo img');
+      if(!aside || !article || !rail || !img) return;
+
+      const railWidth = rail.clientWidth || 0;
+      img.style.maxWidth = Math.min(520, Math.floor(railWidth * 0.92)) + 'px';
+
+      // available vertical space on the right so the total (article + image) <= aside height
+      const gap = parseFloat(getComputedStyle(document.querySelector('.planner-grid')).gap) || 12;
+      const available = aside.offsetHeight - article.offsetHeight - gap - 8; // a bit of breathing room
+      const minHeight = 140; // never let it collapse too tiny
+      img.style.maxHeight = Math.max(minHeight, available) + 'px';
+    }
+    window.addEventListener('resize', updateSidePhotoSize);
 
     /* ---------- Init ---------- */
     buildCalendar();
     renderTimes();
+    updateSidePhotoSize();
   </script>
 </body>
 </html>
