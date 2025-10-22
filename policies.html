@@ -8,17 +8,15 @@
   <!-- Hide from search -->
   <meta name="robots" content="noindex, nofollow" />
 
-  <!-- Social (still noindex) -->
+  <!-- OG (still noindex) -->
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Policies & Model Release – Rachel Barton Photography" />
   <meta property="og:description" content="Booking policies, model release, payment, rescheduling, and gallery delivery details." />
 
-  <!-- Site fonts (match the rest of the site) -->
+  <!-- Fonts & shared layout -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Shared layout (nav/footer styles) -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
   <style>
@@ -27,227 +25,200 @@
       --accent:#A88A5A; --accent-2:#E8DFC9;
       --line:#e9e6df; --ring:rgba(168,138,90,.25);
       --shadow:0 10px 30px rgba(0,0,0,.08);
-      --gap:clamp(16px,3vw,32px); --maxw:1100px;
+      --gap:clamp(16px,3vw,32px); --maxw:900px;
+      --nav-gap-top:20px; --nav-gap-bottom:44px;
       --mobile-header-h:64px;
-
-      /* desktop navbar spacing (match about/faq pages) */
-      --nav-gap-top:20px;
-      --nav-gap-bottom:44px;
     }
 
-    /* Match desktop nav font like other pages */
-    @media (min-width:821px){
-      .topbar nav.primary > ul > li > a{
-        font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
-        font-weight:500 !important;
-        letter-spacing:.02em;
-        text-transform:none;
-      }
-      .topbar nav.primary > ul > li > a:hover,
-      .topbar nav.primary > ul > li > a:focus-visible{
-        font-weight:500 !important;
-      }
-    }
-    /* Apply the same topbar spacing */
-    .topbar{
-      padding-top:var(--nav-gap-top) !important;
-      padding-bottom:var(--nav-gap-bottom) !important;
-    }
+    /* match site nav spacing */
+    .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
 
     *{box-sizing:border-box}
     html,body{
       margin:0; padding:0; background:var(--bg); color:var(--ink);
-      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      font-family:"Source Sans 3", Manrope, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
-    a{ color:inherit; text-decoration:none; transition:color .15s ease }
+    a{color:inherit; text-decoration:none; transition:color .15s ease}
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
-    .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
 
-    /* Page intro block (matches spacing rhythm used elsewhere) */
-    .page{
-      padding:clamp(24px,6vw,56px) 0 28px;
+    .floating{
+      background:#fff; border:1px solid var(--line); box-shadow:var(--shadow);
+      padding:22px; margin:calc(var(--gap)*1.2) auto var(--gap);
     }
-    @media (max-width:640px){
-      .page{ padding-top: calc(var(--mobile-header-h) + 12px); }
+    @media (max-width:820px){
+      .floating{ margin-top: calc(var(--mobile-header-h) + 12px); }
     }
 
-    .crumb{ margin:0 0 8px; }
-    .crumb a{
-      display:inline-block; font-size:15px; color:#6e6a62;
-      text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:1px;
-    }
-    .crumb a:hover, .crumb a:focus-visible{ color:var(--accent); text-decoration-color:var(--accent); }
+    h1{font-family:"Playfair Display","Cormorant Garamond",serif; font-size:clamp(28px,5.2vw,48px); line-height:1.1; margin:.1em 0 .4em; font-weight:700}
+    h2{font-family:"Fraunces","Cormorant Garamond",serif; font-size:clamp(18px,2.8vw,24px); margin:20px 0 8px}
+    .section-sub{color:#5c5850; margin:0 0 12px}
 
-    .h1{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
-      font-weight:700; font-size:clamp(28px,5.5vw,48px); line-height:1.1;
-      margin:.1em 0 .35em; color:#3f3a33;
-    }
-    .lead{ color:#5c5850; margin:0 0 12px; max-width:70ch }
+    .pill-nav{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 6px}
+    .pill-nav a{border:1px solid var(--line); background:#fff; padding:8px 12px; border-radius:999px; font-weight:700; box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .pill-nav a:hover{background:#f9f6ef; border-color:#dcd4c3; color:var(--accent)}
 
-    /* Pill section nav */
-    .pill-nav{ display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 6px }
-    .pill-nav a{
-      border:1px solid var(--line); background:#fff; padding:8px 12px;
-      border-radius:999px; font-weight:700; box-shadow:0 6px 18px rgba(0,0,0,.06);
-    }
-    .pill-nav a:hover, .pill-nav a:focus-visible{ background:#f9f6ef; border-color:#dcd4c3; color:var(--accent); }
+    .card{background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow); padding:16px; margin:14px 0}
+    ul{margin:8px 0 12px; padding-left:18px}
 
-    /* Cards */
-    .card{
-      background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow);
-      padding:16px; margin:14px 0;
-    }
-    .card h2{
-      font-family:"Cormorant Garamond","Times New Roman",serif;
-      font-weight:700; font-size:clamp(18px,2.8vw,24px); margin:4px 0 8px; color:#3f3a33;
-    }
-    ul{ margin:8px 0 12px; padding-left:18px }
+    .toplinks{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:8px; font-size:14px; color:#7a766e}
+    .toplinks a{ text-decoration:underline; text-underline-offset:4px; }
+    .toplinks a:hover{ color:var(--accent); }
 
-    /* Make inline links inside policy body use gold, like FAQ “Book/Policies” links */
-    .page a.inline{ color:var(--accent) !important; }
-    .page a.inline:hover, .page a.inline:focus-visible{ color:var(--accent) !important; }
-
-    /* Meta line at top right (version) */
-    .meta{ color:#7a766e; font-size:14px }
+    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:24px}
   </style>
 </head>
 <body>
-  <!-- Site Top Nav -->
+  <!-- Site header -->
   <div data-include="/partials/topnav.html"></div>
 
+  <!-- Page content -->
   <main id="content">
-    <section class="page">
-      <div class="container">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
-          <!-- Back link that will be rewritten by the script below -->
-          <p class="crumb"><a id="back-link" href="/book.html">← Back</a></p>
-          <div class="meta">Version: 2025-10-02</div>
-        </div>
-
-        <h1 class="h1">Policies & Model Release</h1>
-        <p class="lead">Please review before booking. By scheduling online, you agree to the terms below.</p>
-
-        <nav class="pill-nav" aria-label="Policy sections">
-          <a href="#booking">Booking & Payment</a>
-          <a href="#reschedule">Reschedule & Weather</a>
-          <a href="#model">Model Release</a>
-          <a href="#gallery">Editing & Delivery</a>
-          <a href="#usage">Usage & Printing</a>
-          <a href="#arrive">Prep & Arrival</a>
-        </nav>
-
-        <section id="booking" class="card">
-          <h2>Booking & Payment</h2>
-          <ul>
-            <li><strong>Retainer:</strong> A non-refundable $150 retainer is due at booking to hold your time. The balance is due 1 day before the session.</li>
-            <li><strong>Payment methods:</strong> Online card payments are accepted via our <a class="inline" href="/book.html">booking page</a>.</li>
-            <li><strong>Sales tax/fees:</strong> If applicable, taxes or processing fees are shown at checkout.</li>
-          </ul>
-        </section>
-
-        <section id="reschedule" class="card">
-          <h2>Rescheduling, Weather & Cancellation</h2>
-          <ul>
-            <li><strong>Reschedule:</strong> One complimentary reschedule with 24+ hours’ notice, subject to availability.</li>
-            <li><strong>Weather:</strong> We monitor forecasts. If conditions are unsafe or not photo-friendly, we’ll choose a backup date/time or a nearby covered location.</li>
-            <li><strong>No-show/late:</strong> Arrivals 15+ minutes late reduce shooting time. No-shows forfeit the retainer.</li>
-          </ul>
-        </section>
-
-        <section id="model" class="card">
-          <h2>Model Release</h2>
-          <p>You grant Rachel Barton Photography permission to use images from your session for portfolio, website, social media, and marketing. If you prefer privacy, let us know before your session and we’ll note a <strong>no-share</strong> preference.</p>
-        </section>
-
-        <section id="gallery" class="card">
-          <h2>Editing, Turnaround & Delivery</h2>
-          <ul>
-            <li><strong>Editing style:</strong> Candid, true-to-life color with natural skin tones. Light retouching at our discretion.</li>
-            <li><strong>Delivery:</strong> Private online gallery with high-resolution downloads and optional print shop.</li>
-            <li><strong>Turnaround:</strong> Typical delivery within 2–3 weeks. Rush options may be available on request.</li>
-          </ul>
-        </section>
-
-        <section id="usage" class="card">
-          <h2>Client Usage & Printing</h2>
-          <ul>
-            <li><strong>Personal license:</strong> You may share, post, and print for personal use. Please credit when posting online.</li>
-            <li><strong>Edits:</strong> Please don’t apply filters or alter images beyond cropping for social media.</li>
-            <li><strong>Commercial use:</strong> Requires written permission and a separate license.</li>
-          </ul>
-        </section>
-
-        <section id="arrive" class="card">
-          <h2>Prep & Arrival</h2>
-          <ul>
-            <li>Neutral/coastal tones photograph beautifully; coordinate without matching.</li>
-            <li>Bring water, wipes, a small snack for little ones, and a change of clothes if desired.</li>
-            <li>Golden hour (sunrise/sunset) is recommended for beach sessions.</li>
-          </ul>
-        </section>
+    <div class="container floating" role="region" aria-label="Policies intro">
+      <div class="toplinks">
+        <a id="back-link" href="/book.html">← Back</a>
+        <span>Version: <time datetime="2025-10-02">2025-10-02</time></span>
       </div>
-    </section>
+
+      <h1>Policies & Model Release</h1>
+      <p class="section-sub">Please review before booking. By scheduling online, you agree to the terms below.</p>
+
+      <nav class="pill-nav" aria-label="Sections">
+        <a href="#booking">Booking & Payment</a>
+        <a href="#reschedule">Reschedule & Weather</a>
+        <a href="#model">Model Release</a>
+        <a href="#gallery">Editing & Delivery</a>
+        <a href="#usage">Usage & Printing</a>
+        <a href="#arrive">Prep & Arrival</a>
+      </nav>
+
+      <section id="booking" class="card">
+        <h2>Booking & Payment</h2>
+        <ul>
+          <li><strong>Retainer:</strong> A non-refundable $150 retainer is due at booking to hold your time. The balance is due 1 day before the session.</li>
+          <li><strong>Payment methods:</strong> Online card payments are accepted via our booking page.</li>
+          <li><strong>Sales tax/fees:</strong> If applicable, taxes or processing fees are shown at checkout.</li>
+        </ul>
+      </section>
+
+      <section id="reschedule" class="card">
+        <h2>Rescheduling, Weather & Cancellation</h2>
+        <ul>
+          <li><strong>Reschedule:</strong> One complimentary reschedule with 24+ hours’ notice, subject to availability.</li>
+          <li><strong>Weather:</strong> We monitor forecasts. If conditions are unsafe or not photo-friendly, we’ll choose a backup date/time or a nearby covered location.</li>
+          <li><strong>No-show/late:</strong> Arrivals 15+ minutes late reduce shooting time. No-shows forfeit the retainer.</li>
+        </ul>
+      </section>
+
+      <section id="model" class="card">
+        <h2>Model Release</h2>
+        <p>You grant Rachel Barton Photography permission to use images from your session for portfolio, website, social media, and marketing. If you prefer privacy, let us know before your session and we’ll note a <strong>no-share</strong> preference.</p>
+      </section>
+
+      <section id="gallery" class="card">
+        <h2>Editing, Turnaround & Delivery</h2>
+        <ul>
+          <li><strong>Editing style:</strong> Candid, true-to-life color with natural skin tones. Light retouching at our discretion.</li>
+          <li><strong>Delivery:</strong> Private online gallery with high-resolution downloads and optional print shop.</li>
+          <li><strong>Turnaround:</strong> Typical delivery within 2–3 weeks. Rush options may be available on request.</li>
+        </ul>
+      </section>
+
+      <section id="usage" class="card">
+        <h2>Client Usage & Printing</h2>
+        <ul>
+          <li><strong>Personal license:</strong> You may share, post, and print for personal use. Please credit when posting online.</li>
+          <li><strong>Edits:</strong> Please don’t apply filters or alter images beyond cropping for social media.</li>
+          <li><strong>Commercial use:</strong> Requires written permission and a separate license.</li>
+        </ul>
+      </section>
+
+      <section id="arrive" class="card">
+        <h2>Prep & Arrival</h2>
+        <ul>
+          <li>Neutral/coastal tones photograph beautifully; coordinate without matching.</li>
+          <li>Bring water, wipes, a small snack for little ones, and a change of clothes if desired.</li>
+          <li>Golden hour (sunrise/sunset) is recommended for beach sessions.</li>
+        </ul>
+      </section>
+    </div>
   </main>
 
-  <!-- Site Footer -->
+  <!-- Site footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Smart back-link:
-       1) ?return= takes priority
-       2) else document.referrer
-       3) else sessionStorage.policiesReturn
-       4) else history.back() if possible
-       5) else /book.html (never index)
-  -->
+  <!-- Smart Back to Intake/Form (preserves state) -->
   <script>
     (function(){
       const backEl = document.getElementById('back-link');
       if (!backEl) return;
 
-      // Helper: safe URL
-      function safeUrl(u){
-        try {
-          const x = new URL(u, location.origin);
-          if (x.protocol === 'http:' || x.protocol === 'https:') return x.href;
-        } catch(e){}
-        return null;
+      // Domains we allow as "external but safe" (Acuity/Squarespace Scheduling)
+      const WHITELIST = [
+        'acuityscheduling.com',
+        'squarespacescheduling.com',
+        'square.site'
+      ];
+
+      function isWhitelisted(urlObj){
+        return WHITELIST.some(d => urlObj.hostname.endsWith(d));
       }
 
-      const url  = new URL(location.href);
-      const pRet = url.searchParams.get('return');
+      function normalizeMaybe(urlLike){
+        if (!urlLike) return null;
+        try{
+          const raw = decodeURIComponent(String(urlLike).trim());
+          if (!raw || raw === 'null' || raw === 'undefined' || raw === '/null') return null;
+          return new URL(raw, location.origin);
+        }catch(e){
+          return null;
+        }
+      }
 
-      let target =
-        (pRet && safeUrl(decodeURIComponent(pRet))) ||
-        (document.referrer && safeUrl(document.referrer)) ||
-        safeUrl(sessionStorage.getItem('policiesReturn'));
+      // prefer exact referrer (works when clicked from the intake form)
+      const ref = normalizeMaybe(document.referrer);
 
-      // Set the visible href (so long-press / copy works)
+      // allow ?return= to override (works from your own pages or if you wire it up later)
+      const qs = new URL(location.href).searchParams;
+      const ret = normalizeMaybe(qs.get('return'));
+
+      // previously stored (same-site or whitelisted) – optional
+      const stored = normalizeMaybe(sessionStorage.getItem('policiesReturn'));
+
+      // Choose best target:
+      // 1) Whitelisted external referrer (intake form) OR same-site referrer
+      // 2) ?return= if same-site OR whitelisted
+      // 3) stored if same-site OR whitelisted
+      // 4) fallback to /book.html
+      function isAllowed(u){
+        if (!u) return false;
+        return (u.origin === location.origin) || isWhitelisted(u);
+      }
+
+      let target = null;
+      if (isAllowed(ref))      target = ref.href;
+      else if (isAllowed(ret)) target = ret.href;
+      else if (isAllowed(stored)) target = stored.href;
+
+      // Keep a safe value around for subsequent visits
+      if (target) {
+        try { sessionStorage.setItem('policiesReturn', target); } catch(_) {}
+      }
+
+      // Always present a sane href for copy/long-press
       backEl.href = target || '/book.html';
 
-      // Click behavior: try to preserve exact state
+      // Navigate on click
       backEl.addEventListener('click', function(ev){
-        // If we have an explicit target, go there
         if (target){
           ev.preventDefault();
-          location.href = target;
-          return;
+          // Replace vs push? Replace keeps history cleaner when policies was opened in same tab.
+          location.replace(target);
         }
-        // Otherwise, if we do have history, go back
-        if (history.length > 1){
-          ev.preventDefault();
-          history.back();
-          return;
-        }
-        // Final fallback: /book.html (NOT index)
-        // No preventDefault needed; link already points there.
+        // else let the normal /book.html href fire.
       });
-
-      // Bonus: if *you* link to policies from your own pages, you can save a return URL like this:
-      // sessionStorage.setItem('policiesReturn', location.href);
-      // (No changes needed elsewhere; this just gives us another safe fallback.)
     })();
   </script>
 </body>
