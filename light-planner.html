@@ -188,6 +188,17 @@
       margin:0 auto;
     }
 
+    /* DESKTOP override: keep height via JS, but let width auto so aspect ratio is preserved */
+    @media (min-width: 721px){
+      .side-photo img{
+        width: auto !important;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+      }
+    }
+
     /* ---------------------- MOBILE TUNE-UP ---------------------- */
     @media (max-width: 720px){
       main{ padding-top: calc(var(--mobile-header-h) + env(safe-area-inset-top,0px) + 10px); }
@@ -531,17 +542,26 @@
       const img     = document.querySelector('.side-photo img');
       if(!aside || !card || !figure || !img) return;
 
-      const cardRect = card.getBoundingClientRect();
       const isMobile = window.matchMedia('(max-width: 720px)').matches;
 
-      /* MOBILE: full inner width; DESKTOP: 96% like before */
-      img.style.maxWidth = Math.floor(cardRect.width * (isMobile ? 1.00 : 0.96)) + 'px';
+      if (isMobile){
+        /* MOBILE: full inner width (unchanged) */
+        img.style.width     = '100%';
+        img.style.height    = 'auto';
+        img.style.maxWidth  = '100%';
+        img.style.maxHeight = '';
+        return;
+      }
 
+      /* DESKTOP: keep current height, let width auto (preserve ratio) */
       const gridGap = parseFloat(getComputedStyle(document.querySelector('.planner-grid')).gap) || 12;
       const cardContentHeight = card.offsetHeight - figure.offsetHeight;
       const available = aside.offsetHeight - cardContentHeight - gridGap;
       const extension = 10;
+
       img.style.maxHeight = Math.max(0, available + extension) + 'px';
+      img.style.width     = 'auto';
+      img.style.maxWidth  = '100%';
     }
     window.addEventListener('resize', updateSidePhotoSize);
     window.addEventListener('orientationchange', ()=>setTimeout(updateSidePhotoSize, 200));
