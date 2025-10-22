@@ -35,8 +35,11 @@
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
       --accent:#A88A5A; --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-      --nav-gap-top:16px; --nav-gap-bottom:40px; --mobile-header-h:64px;
+      /* Match About navbar spacing */
+      --nav-gap-top:20px; --nav-gap-bottom:44px;
+      --mobile-header-h:64px;
     }
+    /* Navbar spacing like about.html */
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer, .page-top-spacer { height:0!important; }
 
@@ -48,39 +51,47 @@
     }
     a{ color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease }
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
-
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
+    /* Typography */
     .crumb a{ text-decoration:underline; text-underline-offset:4px; color:#6e6a62 }
     .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:10px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    /* HERO layout matching portraits */
+    /* HERO — align meta (crumb + eyebrow) to top of image; keep H1 in place */
     .hero{ padding:clamp(24px,6vw,56px) 0 }
     .hero-grid{
       display:grid;
       grid-template-columns:1.05fr .95fr;
+      grid-auto-rows:auto;
       gap:clamp(20px,4vw,40px);
-      align-items:center;
+      align-items:start;
     }
+    .meta-row{ align-self:start; margin-bottom:10px; }
+    .title-block{ align-self:start; }
     .hero-fig img{
       width:100%; aspect-ratio:4/5; object-fit:cover;
       border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)
     }
 
-    /* Buttons — force outlined style across this page */
+    /* Outlined buttons (match About) */
     .btn{
-      background:transparent !important;
-      color:var(--ink) !important;
-      border:1px solid var(--line) !important;
-      box-shadow:0 6px 18px rgba(0,0,0,.06) !important;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 16px;
+      border:1px solid var(--line);
+      background:#fff; color:#3f3a33;
+      font-weight:700; text-decoration:none; border-radius:0;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
     .btn:hover, .btn:focus-visible{
-      border-color:var(--accent) !important;
-      color:var(--accent) !important;
+      background:#fff; border-color:#dcd4c3; color:var(--accent);
+      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
+      outline:none;
     }
-    .btn.alt{ background:transparent !important }
+    .btn.alt{ background:#fff }
 
     /* Tiles (smaller, side-by-side) */
     .mosaic{
@@ -133,6 +144,7 @@
 
     .desktop-only{ display:block; } .mobile-only{ display:none; }
 
+    /* Mobile optimization like about.html */
     @media (max-width:980px){
       .hero-grid{ grid-template-columns:1fr }
       .mosaic{ grid-template-columns:1fr }
@@ -140,21 +152,31 @@
     }
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
-      .hero{ padding-top: calc(var(--mobile-header-h) + 12px) !important; }
+      /* keep content clear of fixed header like about.html */
+      main#content{ padding-top: calc(var(--mobile-header-h) + 14px); }
+      .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
+
+      .h1{ font-size:clamp(28px,7vw,40px); }
+      .lead{ margin-top:6px }
     }
   </style>
 </head>
 <body>
-  <!-- Shared Top Nav (kept) -->
+  <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <!-- HERO (matches portraits header layout) -->
+    <!-- HERO (portraits-style; meta row aligned to image top) -->
     <section class="hero">
       <div class="container hero-grid">
-        <div>
-          <p class="crumb"><a href="/galleries.html">← Back to Galleries</a></p>
+        <!-- Meta row (moves up) -->
+        <div class="meta-row">
+          <p class="crumb"><a href="/galleries.html">← Back to Portraits</a></p>
           <div class="eyebrow">Galleries</div>
+        </div>
+
+        <!-- Title/lead/buttons (stay where they are) -->
+        <div class="title-block">
           <h1 class="h1">Family &amp; Friends</h1>
           <p class="lead">Movement-first sessions with natural prompts—real connection, real laughs, flattering light, and timeless edits.</p>
           <div style="display:flex; gap:12px; margin-top:14px;">
@@ -162,8 +184,9 @@
             <a class="btn alt" href="/contact.html">Ask a Question</a>
           </div>
         </div>
+
+        <!-- Image (no badge) -->
         <figure class="hero-fig">
-          <!-- (badge removed) -->
           <img src="/pictures/familyPortrait/image1.jpg" alt="Family at golden hour in Sarasota">
         </figure>
       </div>
@@ -299,7 +322,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Lightweight rotator (only the 2 tiles, desktop + mobile) -->
+  <!-- Lightweight image rotator for the two tiles -->
   <script>
     (function(){
       const TILE_W = 800, TILE_H = 1000;
