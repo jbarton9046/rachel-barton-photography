@@ -33,71 +33,85 @@
 
 /* ... your existing CSS continues here unchanged ... */
 
-/* ==================== MOBILE FULL-PAGE MENU ==================== */
-:root{
-  --overlay-fade: .22s;
-  --menu-bg: #ffffffF2;
-  --menu-blur: blur(2px) saturate(1.02);
-  --menu-ink: var(--ink);
-  --menu-accent: var(--accent);
-}
+/* (removed legacy MOBILE FULL-PAGE MENU block) */
 
+/* === RBP Mobile Menu (namespaced; desktop untouched) === */
 @media (max-width: 820px){
-  .nav-overlay{
+  :root{
+    --rbpmm-fade: .22s;
+    --rbpmm-bg: #ffffffF2;
+    --rbpmm-blur: blur(2px) saturate(1.02);
+    --rbpmm-ink: var(--ink);
+    --rbpmm-accent: var(--accent);
+  }
+
+  .rbpmm-overlay{
     position: fixed; inset: 0; background: rgba(0,0,0,.36);
-    opacity: 0; pointer-events: none; transition: opacity var(--overlay-fade) ease; z-index: 95;
+    opacity: 0; pointer-events: none; transition: opacity var(--rbpmm-fade) ease; z-index: 995;
   }
-  .nav-overlay.is-open{ opacity:1; pointer-events:auto }
+  .rbpmm-overlay.is-open{ opacity:1; pointer-events:auto }
 
-  .nav-sheet{
+  .rbpmm-sheet{
     position: fixed; inset: 0; display: grid; grid-template-rows: auto 1fr auto;
-    background: var(--menu-bg); -webkit-backdrop-filter: var(--menu-blur); backdrop-filter: var(--menu-blur);
-    color: var(--menu-ink); transform: translateY(-6%); opacity: 0; pointer-events: none;
-    transition: transform var(--overlay-fade) ease, opacity var(--overlay-fade) ease; z-index: 96;
+    background: var(--rbpmm-bg);
+    -webkit-backdrop-filter: var(--rbpmm-blur); backdrop-filter: var(--rbpmm-blur);
+    color: var(--rbpmm-ink);
+    transform: translateY(-6%); opacity: 0; pointer-events: none;
+    transition: transform var(--rbpmm-fade) ease, opacity var(--rbpmm-fade) ease; z-index: 996;
   }
-  .nav-sheet.is-open{ transform:none; opacity:1; pointer-events:auto }
+  .rbpmm-sheet.is-open{ transform:none; opacity:1; pointer-events:auto }
 
-  .sheet-head{ display:flex; align-items:center; justify-content:space-between; padding:12px var(--gap); border-bottom:1px solid var(--line) }
-  .sheet-head .brand{ font-family:"Playfair Display", serif; font-weight:600; font-size:20px; letter-spacing:.2px }
-  .nav-close{
+  .rbpmm-head{ display:flex; align-items:center; justify-content:space-between; padding:12px var(--gap); border-bottom:1px solid var(--line) }
+  .rbpmm-brand{ font-weight:600; font-size:20px; letter-spacing:.2px }
+  .rbpmm-close{
     display:inline-grid; place-items:center; width:40px; height:40px; border-radius:999px;
     border:1px solid rgba(0,0,0,.12); background:#fff;
   }
 
-  .sheet-body{ padding:12px var(--gap) 16px; overflow:auto }
-  .nav-list{ list-style:none; margin:0; padding:0; display:grid; gap:8px }
-  .nav-list > li > a{
+  .rbpmm-body{ padding:12px var(--gap) 16px; overflow:auto }
+  .rbpmm-list{ list-style:none; margin:0; padding:0; display:grid; gap:8px }
+  .rbpmm-list > li > a{
     display:flex; align-items:center; justify-content:space-between; padding:14px 10px;
     border-bottom:1px dotted rgba(0,0,0,.15); text-decoration:none; color:inherit; font-size:18px; font-weight:500; letter-spacing:.2px;
   }
-  .nav-list > li > a:hover, .nav-list > li > a:focus-visible{ color: var(--menu-accent) }
+  .rbpmm-list > li > a:hover, .rbpmm-list > li > a:focus-visible{ color: var(--rbpmm-accent) }
 
-  details.menu-group{ border:1px solid rgba(0,0,0,.08); border-radius:14px; background:#fff; overflow:hidden }
-  details.menu-group + details.menu-group{ margin-top:10px }
-  details.menu-group > summary{
-    list-style:none; cursor:pointer; padding:14px 14px; display:flex; align-items:center; justify-content:space-between;
-    font-weight:600; letter-spacing:.2px;
+  details.rbpmm-group{ border:1px solid rgba(0,0,0,.08); border-radius:14px; background:#fff; overflow:hidden }
+  details.rbpmm-group + details.rbpmm-group{ margin-top:10px }
+  details.rbpmm-group > summary{
+    list-style:none; cursor:pointer; padding:14px 14px; display:flex; align-items:center; justify-content:space-between; font-weight:600; letter-spacing:.2px;
   }
-  details.menu-group[open] > summary{ color: var(--menu-accent) }
-  details.menu-group > summary::-webkit-details-marker{ display:none }
+  details.rbpmm-group[open] > summary{ color: var(--rbpmm-accent) }
+  details.rbpmm-group > summary::-webkit-details-marker{ display:none }
 
-  .submenu{ display:grid; gap:8px; padding:0 12px 12px }
-  .submenu a{ padding:12px 8px; border-bottom:1px dotted rgba(0,0,0,.12); text-decoration:none; color:inherit }
-  .submenu a:hover, .submenu a:focus-visible{ color:var(--menu-accent) }
+  .rbpmm-submenu{ display:grid; gap:8px; padding:0 12px 12px }
+  .rbpmm-submenu a{ padding:12px 8px; border-bottom:1px dotted rgba(0,0,0,.12); text-decoration:none; color:inherit }
+  .rbpmm-submenu a:hover, .rbpmm-submenu a:focus-visible{ color:var(--rbpmm-accent) }
 
-  .sheet-foot{ padding:12px var(--gap) 18px; border-top:1px solid var(--line); display:grid; gap:8px }
-  .sheet-actions{ display:flex; gap:10px }
-  .sheet-actions .btn{
-    flex:1; display:inline-flex; align-items:center; justify-content:center; height:44px; padding:0 14px;
-    border-radius:999px; border:1px solid rgba(0,0,0,.14); background:#fff; color:#2b2b2b; text-decoration:none; font-weight:600;
+  .rbpmm-foot{ padding:12px var(--gap) 18px; border-top:1px solid var(--line); display:grid; gap:8px }
+  .rbpmm-actions{ display:flex; gap:10px }
+  .rbpmm-btn{
+    flex:1; display:inline-flex; align-items:center; justify-content:center;
+    height:44px; padding:0 14px; border-radius:999px; border:1px solid rgba(0,0,0,.14);
+    background:#fff; color:#2b2b2b; text-decoration:none; font-weight:600;
   }
-  .sheet-actions .btn.primary{ background:var(--accent); color:#fff; border-color:var(--accent) }
-  .sheet-meta{ font-size:12.5px; color:#767676 }
+  .rbpmm-btn.rbpmm-primary{ background:var(--accent); color:#fff; border-color:var(--accent) }
+
+  .rbpmm-meta{ font-size:12.5px; color:#767676 }
 }
 
+/* Never show mobile sheet/overlay on desktop */
 @media (min-width:821px){
-  .nav-overlay, .nav-sheet{ display:none !important }
+  .rbpmm-overlay, .rbpmm-sheet{ display:none !important }
 }
 
-.ico{ display:inline-block; width:18px; height:18px; margin-right:8px; vertical-align:-3px }
-.ico.chev{ border:2px solid currentColor; border-left:0; border-top:0; transform:rotate(-45deg); width:8px; height:8px; margin-left:8px }
+/* tiny chevron */
+.rbpmm-chev{
+  display:inline-block; width:8px; height:8px; margin-left:8px; vertical-align:-1px;
+  border:2px solid currentColor; border-left:0; border-top:0; transform:rotate(-45deg);
+}
+
+/* Optional desktop safety (only if your original desktop rules are missing) */
+@media (min-width:821px){
+  .navchk{ display:none } /* hide the checkbox on desktop */
+}
