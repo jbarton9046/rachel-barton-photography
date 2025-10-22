@@ -184,16 +184,17 @@
       stroke:transparent !important;
     }
 
-    /* === Mobile-only: perfectly center chevron inside the diamond === */
+    /* === Mobile-only: center chevron optically inside the diamond === */
     @media (max-width:960px){
       .tile-nav{ display:grid; place-items:center; }
       .tile-nav > svg{
-        justify-self:center;
-        align-self:center;
-        position:static;   /* ignore any tiny offsets */
+        position:static;
         margin:0;
-        transform:none;    /* ensure no stray transforms shift it */
+        transform:none; /* baseline center */
       }
+      /* tiny optical nudges for chevron geometry */
+      .tile-prev > svg{ transform:translateX(1px); }   /* left chevron */
+      .tile-next > svg{ transform:translateX(-1px); }  /* right chevron */
     }
   </style>
 </head>
