@@ -8,15 +8,18 @@
   <!-- Hide from search -->
   <meta name="robots" content="noindex, nofollow" />
 
-  <!-- Open Graph (optional, but also noindex) -->
+  <!-- Social (still noindex) -->
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Policies & Model Release – Rachel Barton Photography" />
   <meta property="og:description" content="Booking policies, model release, payment, rescheduling, and gallery delivery details." />
 
-  <!-- Fonts (same as site) -->
+  <!-- Site fonts (match the rest of the site) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shared layout (nav/footer styles) -->
+  <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
   <style>
     :root{
@@ -24,116 +27,171 @@
       --accent:#A88A5A; --accent-2:#E8DFC9;
       --line:#e9e6df; --ring:rgba(168,138,90,.25);
       --shadow:0 10px 30px rgba(0,0,0,.08);
-      --radius:0; --gap:clamp(16px,3vw,32px); --maxw:900px;
-      --frame:#ecebea;
+      --gap:clamp(16px,3vw,32px); --maxw:1100px;
+      --mobile-header-h:64px;
+
+      /* desktop navbar spacing (match about/faq pages) */
+      --nav-gap-top:20px;
+      --nav-gap-bottom:44px;
     }
+
+    /* Match desktop nav font like other pages */
+    @media (min-width:821px){
+      .topbar nav.primary > ul > li > a{
+        font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+        font-weight:500 !important;
+        letter-spacing:.02em;
+        text-transform:none;
+      }
+      .topbar nav.primary > ul > li > a:hover,
+      .topbar nav.primary > ul > li > a:focus-visible{
+        font-weight:500 !important;
+      }
+    }
+    /* Apply the same topbar spacing */
+    .topbar{
+      padding-top:var(--nav-gap-top) !important;
+      padding-bottom:var(--nav-gap-bottom) !important;
+    }
+
     *{box-sizing:border-box}
     html,body{
       margin:0; padding:0; background:var(--bg); color:var(--ink);
-      font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       line-height:1.65; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
-    a{color:inherit; text-decoration:none; transition:color .15s ease}
+    a{ color:inherit; text-decoration:none; transition:color .15s ease }
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
-    .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
-    .floating{
-      background:rgba(255,255,255,.92);
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
-      padding:22px;
-      text-align:left;
-      margin:calc(var(--gap)*2.5) auto var(--gap);
+    .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
+
+    /* Page intro block (matches spacing rhythm used elsewhere) */
+    .page{
+      padding:clamp(24px,6vw,56px) 0 28px;
     }
-    h1{font-family:"Playfair Display",serif; font-size:clamp(28px,5.5vw,48px); line-height:1.1; margin:.1em 0 .3em; font-weight:700; color:#3f3a33}
-    h2{font-family:"Fraunces",serif; font-size:clamp(18px,2.8vw,24px); margin:20px 0 8px; color:#3f3a33}
-    .section-sub{color:#5c5850; margin:0 0 12px}
-    .pill-nav{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 6px}
-    .pill-nav a{border:1px solid var(--line); background:#fff; padding:8px 12px; border-radius:999px; font-weight:700; box-shadow:0 6px 18px rgba(0,0,0,.06)}
-    .pill-nav a:hover{background:#f9f6ef; border-color:#dcd4c3; color:var(--accent)}
-    .card{background:var(--paper); border:1px solid var(--line); border-radius:0; box-shadow:var(--shadow); padding:16px; margin:14px 0}
-    ul{margin:8px 0 12px; padding-left:18px}
-    footer{border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:24px}
-    .toplinks{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:8px}
-    .small{color:#7a766e; font-size:14px}
+    @media (max-width:640px){
+      .page{ padding-top: calc(var(--mobile-header-h) + 12px); }
+    }
+
+    .crumb{ margin:0 0 8px; }
+    .crumb a{
+      display:inline-block; font-size:15px; color:#6e6a62;
+      text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:1px;
+    }
+    .crumb a:hover, .crumb a:focus-visible{ color:var(--accent); text-decoration-color:var(--accent); }
+
+    .h1{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
+      font-weight:700; font-size:clamp(28px,5.5vw,48px); line-height:1.1;
+      margin:.1em 0 .35em; color:#3f3a33;
+    }
+    .lead{ color:#5c5850; margin:0 0 12px; max-width:70ch }
+
+    /* Pill section nav */
+    .pill-nav{ display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 6px }
+    .pill-nav a{
+      border:1px solid var(--line); background:#fff; padding:8px 12px;
+      border-radius:999px; font-weight:700; box-shadow:0 6px 18px rgba(0,0,0,.06);
+    }
+    .pill-nav a:hover, .pill-nav a:focus-visible{ background:#f9f6ef; border-color:#dcd4c3; color:var(--accent); }
+
+    /* Cards */
+    .card{
+      background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow);
+      padding:16px; margin:14px 0;
+    }
+    .card h2{
+      font-family:"Cormorant Garamond","Times New Roman",serif;
+      font-weight:700; font-size:clamp(18px,2.8vw,24px); margin:4px 0 8px; color:#3f3a33;
+    }
+    ul{ margin:8px 0 12px; padding-left:18px }
+
+    /* Make inline links inside policy body use gold, like FAQ “Book/Policies” links */
+    .page a.inline{ color:var(--accent) !important; }
+    .page a.inline:hover, .page a.inline:focus-visible{ color:var(--accent) !important; }
+
+    /* Meta line at top right (version) */
+    .meta{ color:#7a766e; font-size:14px }
   </style>
 </head>
 <body>
-  <!-- Floating intro (no header/nav link anywhere) -->
-  <div class="floating container" role="region" aria-label="Policies intro">
-    <div class="toplinks small">
-      <a href="/#portfolio">← Back to site</a>
-      <span>Version: 2025-10-02</span>
-    </div>
-    <h1>Policies & Model Release</h1>
-    <p class="section-sub">Please review before booking. By scheduling online, you agree to the terms below.</p>
+  <!-- Site Top Nav -->
+  <div data-include="/partials/topnav.html"></div>
 
-    <nav class="pill-nav">
-      <a href="#booking">Booking & Payment</a>
-      <a href="#reschedule">Reschedule & Weather</a>
-      <a href="#model">Model Release</a>
-      <a href="#gallery">Editing & Delivery</a>
-      <a href="#usage">Usage & Printing</a>
-      <a href="#arrive">Prep & Arrival</a>
-    </nav>
+  <main id="content">
+    <section class="page">
+      <div class="container">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+          <p class="crumb"><a href="/#portfolio">← Back to site</a></p>
+          <div class="meta">Version: 2025-10-02</div>
+        </div>
 
-    <section id="booking" class="card">
-      <h2>Booking & Payment</h2>
-      <ul>
-        <li><strong>Retainer:</strong> A non-refundable $150 retainer is due at booking to hold your time. The balance is due 1 day before the session.</li>
-        <li><strong>Payment methods:</strong> Online card payments are accepted via our booking page.</li>
-        <li><strong>Sales tax/fees:</strong> If applicable, taxes or processing fees are shown at checkout.</li>
-      </ul>
+        <h1 class="h1">Policies & Model Release</h1>
+        <p class="lead">Please review before booking. By scheduling online, you agree to the terms below.</p>
+
+        <nav class="pill-nav" aria-label="Policy sections">
+          <a href="#booking">Booking & Payment</a>
+          <a href="#reschedule">Reschedule & Weather</a>
+          <a href="#model">Model Release</a>
+          <a href="#gallery">Editing & Delivery</a>
+          <a href="#usage">Usage & Printing</a>
+          <a href="#arrive">Prep & Arrival</a>
+        </nav>
+
+        <section id="booking" class="card">
+          <h2>Booking & Payment</h2>
+          <ul>
+            <li><strong>Retainer:</strong> A non-refundable $150 retainer is due at booking to hold your time. The balance is due 1 day before the session.</li>
+            <li><strong>Payment methods:</strong> Online card payments are accepted via our <a class="inline" href="/book.html">booking page</a>.</li>
+            <li><strong>Sales tax/fees:</strong> If applicable, taxes or processing fees are shown at checkout.</li>
+          </ul>
+        </section>
+
+        <section id="reschedule" class="card">
+          <h2>Rescheduling, Weather & Cancellation</h2>
+          <ul>
+            <li><strong>Reschedule:</strong> One complimentary reschedule with 24+ hours’ notice, subject to availability.</li>
+            <li><strong>Weather:</strong> We monitor forecasts. If conditions are unsafe or not photo-friendly, we’ll choose a backup date/time or a nearby covered location.</li>
+            <li><strong>No-show/late:</strong> Arrivals 15+ minutes late reduce shooting time. No-shows forfeit the retainer.</li>
+          </ul>
+        </section>
+
+        <section id="model" class="card">
+          <h2>Model Release</h2>
+          <p>You grant Rachel Barton Photography permission to use images from your session for portfolio, website, social media, and marketing. If you prefer privacy, let us know before your session and we’ll note a <strong>no-share</strong> preference.</p>
+        </section>
+
+        <section id="gallery" class="card">
+          <h2>Editing, Turnaround & Delivery</h2>
+          <ul>
+            <li><strong>Editing style:</strong> Candid, true-to-life color with natural skin tones. Light retouching at our discretion.</li>
+            <li><strong>Delivery:</strong> Private online gallery with high-resolution downloads and optional print shop.</li>
+            <li><strong>Turnaround:</strong> Typical delivery within 2–3 weeks. Rush options may be available on request.</li>
+          </ul>
+        </section>
+
+        <section id="usage" class="card">
+          <h2>Client Usage & Printing</h2>
+          <ul>
+            <li><strong>Personal license:</strong> You may share, post, and print for personal use. Please credit when posting online.</li>
+            <li><strong>Edits:</strong> Please don’t apply filters or alter images beyond cropping for social media.</li>
+            <li><strong>Commercial use:</strong> Requires written permission and a separate license.</li>
+          </ul>
+        </section>
+
+        <section id="arrive" class="card">
+          <h2>Prep & Arrival</h2>
+          <ul>
+            <li>Neutral/coastal tones photograph beautifully; coordinate without matching.</li>
+            <li>Bring water, wipes, a small snack for little ones, and a change of clothes if desired.</li>
+            <li>Golden hour (sunrise/sunset) is recommended for beach sessions.</li>
+          </ul>
+        </section>
+      </div>
     </section>
+  </main>
 
-    <section id="reschedule" class="card">
-      <h2>Rescheduling, Weather & Cancellation</h2>
-      <ul>
-        <li><strong>Reschedule:</strong> One complimentary reschedule with 24+ hours’ notice, subject to availability.</li>
-        <li><strong>Weather:</strong> We monitor forecasts. If conditions are unsafe or not photo-friendly, we’ll choose a backup date/time or a nearby covered location.</li>
-        <li><strong>No-show/late:</strong> Arrivals 15+ minutes late reduce shooting time. No-shows forfeit the retainer.</li>
-      </ul>
-    </section>
-
-    <section id="model" class="card">
-      <h2>Model Release</h2>
-      <p>You grant Rachel Barton Photography permission to use images from your session for portfolio, website, social media, and marketing. If you prefer privacy, let us know before your session and we’ll note a <strong>no-share</strong> preference.</p>
-    </section>
-
-    <section id="gallery" class="card">
-      <h2>Editing, Turnaround & Delivery</h2>
-      <ul>
-        <li><strong>Editing style:</strong> Candid, true-to-life color with natural skin tones. Light retouching at our discretion.</li>
-        <li><strong>Delivery:</strong> Private online gallery with high-resolution downloads and optional print shop.</li>
-        <li><strong>Turnaround:</strong> Typical delivery within 2–3 weeks. Rush options may be available on request.</li>
-      </ul>
-    </section>
-
-    <section id="usage" class="card">
-      <h2>Client Usage & Printing</h2>
-      <ul>
-        <li><strong>Personal license:</strong> You may share, post, and print for personal use. Please credit when posting online.</li>
-        <li><strong>Edits:</strong> Please don’t apply filters or alter images beyond cropping for social media.</li>
-        <li><strong>Commercial use:</strong> Requires written permission and a separate license.</li>
-      </ul>
-    </section>
-
-    <section id="arrive" class="card">
-      <h2>Prep & Arrival</h2>
-      <ul>
-        <li>Neutral/coastal tones photograph beautifully; coordinate without matching.</li>
-        <li>Bring water, wipes, a small snack for little ones, and a change of clothes if desired.</li>
-        <li>Golden hour (sunrise/sunset) is recommended for beach sessions.</li>
-      </ul>
-    </section>
-  </div>
-
-  <footer>
-    <div class="container" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
-      <div>© <span id="year"></span> Rachel Barton Photography · Sarasota, FL</div>
-      <div><a href="mailto:rradkins@gmail.com">rradkins@gmail.com</a> · <a href="tel:+16153002618">615-300-2618</a></div>
-    </div>
-  </footer>
-
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- Site Footer -->
+  <div data-include="/partials/footer.html"></div>
+  <script src="/assets/include.js?v=nav-5" defer></script>
 </body>
 </html>
