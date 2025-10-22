@@ -188,7 +188,7 @@
       margin:0 auto;
     }
 
-    /* DESKTOP override: keep height via JS, but let width auto so aspect ratio is preserved */
+    /* DESKTOP image: preserve aspect ratio while keeping height feel */
     @media (min-width: 721px){
       .side-photo img{
         width: auto !important;
@@ -197,6 +197,11 @@
         margin: 0 auto;
         max-width: 100%;
       }
+    }
+
+    /* DESKTOP left-column info section: add right breathing room so it doesn't touch edge */
+    @media (min-width: 721px){
+      #leftCol .group:first-child{ padding-right: 10px; }
     }
 
     /* ---------------------- MOBILE TUNE-UP ---------------------- */
