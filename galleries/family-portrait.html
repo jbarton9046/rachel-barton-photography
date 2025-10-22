@@ -27,15 +27,39 @@
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
   <link rel="stylesheet" href="/assets/gallery.css?v=14">
 
-  <!-- Mobile overlap fix (aligned with about.html) -->
+  <!-- Mobile tune-ups -->
   <style>
     :root{ --mobile-header-h:64px; }
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
-      /* push the gallery header (which comes right after the fixed nav) below the mobile header */
-      header.gallery-head.container{ padding-top: calc(var(--mobile-header-h) + 14px); }
-      /* slightly tighter topbar spacing on phones */
+
+      /* Keep clear of the fixed mobile header, but tighter than before */
+      header.gallery-head.container{ padding-top: calc(var(--mobile-header-h) + 6px); }
+
+      /* Slightly tighter topbar spacing on phones (matches other pages) */
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
+
+      /* Improve header spacing & proportions */
+      .gallery-head h1{ margin: 6px 0 8px; }
+      .gallery-head .lede{ margin: 4px 0 12px; line-height: 1.35; }
+      .gallery-head .actions{
+        display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;
+      }
+      /* Make header action buttons a bit smaller on mobile */
+      .gallery-head .actions a{
+        padding:8px 12px;            /* was visually larger via site styles */
+        font-size: clamp(14px, 4vw, 16px);
+        border-width:1px;
+      }
+
+      /* Two-column mobile gallery */
+      #gallery{
+        display:grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap:10px;
+      }
+      #gallery figure{ margin:0; }
+      #gallery img{ width:100%; height:auto; display:block; }
     }
   </style>
 </head>
