@@ -131,7 +131,7 @@
     }
     .tile-nav::after{
       content:""; position:absolute; inset:0; margin:4px;
-      transform:rotate(45deg); border:1px solid var(--accent);
+      transform:rotate(45deg); border:1px solid(var(--accent));
     }
     .tile-nav svg{ width:12px; height:12px; position:relative; z-index:2 }
 
@@ -210,6 +210,20 @@
 
       /* keep the header clear, same spirit as about.html */
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
+    }
+
+    /* === Mobile-only: center the chevrons inside the diamonds (optical fix) === */
+    @media (max-width:960px){
+      .tile-nav{ display:grid; place-items:center; }          /* ensure perfect centering grid */
+      .tile-nav > svg{
+        display:block;                                        /* avoid baseline alignment in Safari/iOS */
+        position:static;
+        margin:0;
+        transform:none;                                       /* base center */
+      }
+      .tile-prev{ padding-left:2px; padding-top:1px; }        /* nudge left icon right/down */
+      .tile-prev > svg{ transform:translate(2px,1px); }
+      .tile-next > svg{ transform:translate(-1px,0); }        /* tiny counter-nudge for right icon */
     }
   </style>
 </head>
