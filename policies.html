@@ -121,7 +121,8 @@
     <section class="page">
       <div class="container">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
-          <p class="crumb"><a href="/#portfolio">← Back to site</a></p>
+          <!-- Updated: give the back link an id so JS can route to the referrer -->
+          <p class="crumb"><a id="back-link" href="/#portfolio">← Back to site</a></p>
           <div class="meta">Version: 2025-10-02</div>
         </div>
 
@@ -193,5 +194,39 @@
   <!-- Site Footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
+
+  <!-- Smart back-link: return to the specific page we came from (faq.html or book.html, etc.) -->
+  <script>
+    (function(){
+      const back = document.getElementById('back-link');
+      if (!back) return;
+
+      let ref = document.referrer || "";
+      try {
+        if (ref) {
+          const refURL = new URL(ref, location.href);
+          const sameOrigin = refURL.origin === location.origin;
+          if (sameOrigin) {
+            const path = refURL.pathname || "";
+            // Prefer explicit internal pages
+            if (path.endsWith('/faq.html') || path.endsWith('/book.html')) {
+              back.href = refURL.pathname + refURL.search + refURL.hash;
+            } else {
+              // Any other same-origin page is fine too
+              back.href = refURL.pathname + refURL.search + refURL.hash || '/';
+            }
+          }
+        }
+      } catch(e){ /* ignore */ }
+
+      // If user has history, make the click go back for a snappier UX
+      back.addEventListener('click', function(ev){
+        if (window.history.length > 1) {
+          ev.preventDefault();
+          window.history.back();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
