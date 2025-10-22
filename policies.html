@@ -26,10 +26,12 @@
       --accent:#A88A5A; --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:900px;
       color:var(--ink); background:var(--bg);
+      /* small top padding since there’s no navbar */
+      padding-top:14px;
     }
     .policies .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap); }
     .policies header.page{
-      margin:clamp(16px,5vw,28px) 0 clamp(10px,3vw,16px);
+      margin:clamp(10px,4vw,22px) 0 clamp(8px,3vw,14px);
     }
     .policies .meta{
       display:flex; justify-content:flex-end; align-items:center;
@@ -60,8 +62,7 @@
   </style>
 </head>
 <body>
-  <!-- Site header -->
-  <div data-include="/partials/topnav.html"></div>
+  <!-- (No navbar on this page by request) -->
 
   <main id="content" class="policies">
     <div class="wrap">
