@@ -27,13 +27,13 @@
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
   <link rel="stylesheet" href="/assets/gallery.css?v=14">
 
-  <!-- Mobile overlap fix (matches about.html) -->
+  <!-- Mobile overlap fix (aligned with about.html) -->
   <style>
     :root{ --mobile-header-h:64px; }
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
-      /* push page content below the fixed mobile header */
-      main.container{ padding-top: calc(var(--mobile-header-h) + 14px); }
+      /* push the gallery header (which comes right after the fixed nav) below the mobile header */
+      header.gallery-head.container{ padding-top: calc(var(--mobile-header-h) + 14px); }
       /* slightly tighter topbar spacing on phones */
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
     }
