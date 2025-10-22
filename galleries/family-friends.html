@@ -54,21 +54,18 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    .section-title{
-      font-family:"Cormorant Garamond","Times New Roman",serif;
-      font-size:clamp(24px,3.5vw,38px);
-      margin:0 0 14px; text-align:left;
+    /* Tiles */
+    .mosaic{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr)); /* two side-by-side, smaller */
+      gap:clamp(12px,1.6vw,16px);
+      align-items:start;
     }
-    .section-sub{ color:#67635b; margin:0 0 22px; text-align:left; }
-
-    /* Two tiles now */
-    .mosaic{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(10px,1.6vw,16px); }
-    .mosaic figure{ margin:0 }
     .captioned.notch{ position:relative; display:block }
     .notch-figure{ display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .u-stroke{ fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round }
 
-    /* tile nav (diamonds) — same sizing as portraits page */
+    /* Nav diamonds */
     .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       background:transparent !important; border:0 !important;
@@ -88,7 +85,7 @@
     .tile-dots{ display:none !important; }
     .panGroup{ will-change: transform; }
 
-    /* label badge in bottom-left of tiles */
+    /* Tile labels (bottom-left) */
     .tile-label{
       position:absolute; left:12px; bottom:12px;
       background:rgba(255,255,255,.78); border:1px solid var(--line);
@@ -96,64 +93,69 @@
       padding:6px 10px; font-family:'Cormorant Garamond','Playfair Display',Georgia,serif; font-weight:700;
     }
 
-    .service-blurbs{ margin-top:clamp(18px,3vw,28px) }
-    .service-blurbs .row{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(12px,2vw,18px) }
+    /* Descriptions under tiles */
+    .service-blurbs{ margin-top:clamp(18px,2.4vw,24px) }
+    .service-blurbs .row{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:clamp(12px,2vw,18px)
+    }
     .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
-    .blurb h3{ font-family:"Cormorant Garamond","Times New Roman",serif; margin:0 0 6px; font-size:20px }
+    .blurb h3{ display:none } /* no titles per request */
     .blurb p{ margin:0 0 10px; color:#5b574f }
 
     .desktop-only{ display:block; } .mobile-only{ display:none; }
+
     @media (max-width:980px){
-      .mosaic{ grid-template-columns:1fr 1fr }
-      .service-blurbs .row{ grid-template-columns:1fr 1fr }
-    }
-    @media (max-width:640px){
-      .desktop-only{ display:none; } .mobile-only{ display:block; }
-      .mosaic{ grid-template-columns:1fr }
+      .mosaic{ grid-template-columns:1fr }          /* stack on tablet/phone */
       .service-blurbs .row{ grid-template-columns:1fr }
     }
 
-    /* Hero alignment tweaks: top-align the text column with the photo */
-    .hero-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(20px,4vw,40px); align-items:start; }
-    .hero-fig{ position:relative }
-    .hero-fig img{ width:100%; aspect-ratio:4/5; object-fit:cover; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06) }
+    /* Tweak hero spacing on phones so nav never overlaps */
+    @media (max-width:820px){
+      html, body{ overflow-x:hidden; }
+      .hero{ padding-top: calc(var(--mobile-header-h) + 12px) !important; }
+    }
   </style>
 </head>
 <body>
+  <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
+    <!-- HERO -->
     <section class="hero" style="padding:clamp(24px,6vw,56px) 0">
-      <div class="container hero-grid">
+      <div class="container" style="display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,4vw,40px);align-items:center">
         <div>
-          <p class="crumb" style="margin:0 0 6px;">
+          <h1 class="h1">Family &amp; Friends</h1>
+          <!-- put these UNDER the header, aligned within the left column -->
+          <div class="eyebrow" style="margin:8px 0 6px;">Galleries</div>
+          <p class="crumb" style="margin:0 0 10px;">
             <a href="/galleries.html" style="text-decoration:underline;text-underline-offset:4px;color:#6e6a62">← Back to Galleries</a>
           </p>
-          <div class="eyebrow" style="margin:2px 0 6px;">Galleries</div>
-          <h1 class="h1" style="margin-top:4px;">Family &amp; Friends</h1>
           <p class="lead">Movement-first sessions with natural prompts—real connection, real laughs, flattering light, and timeless edits.</p>
           <div style="display:flex; gap:12px; margin-top:14px;">
             <a class="btn" href="/book.html">Book a Session</a>
             <a class="btn alt" href="/contact.html">Ask a Question</a>
           </div>
         </div>
-        <figure class="hero-fig">
-          <!-- removed the small top-left badge -->
-          <img src="/pictures/familyPortrait/image1.jpg" alt="Family at golden hour in Sarasota" />
+        <figure class="hero-fig" style="position:relative">
+          <!-- removed the little badge in the top-left -->
+          <img src="/pictures/familyPortrait/image1.jpg" alt="Family at golden hour in Sarasota" style="width:100%;aspect-ratio:4/5;object-fit:cover;border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.06)" />
         </figure>
       </div>
     </section>
 
+    <!-- GALLERIES -->
     <section class="value" aria-labelledby="tiles-title">
       <div class="container">
-        <div class="eyebrow">Explore</div>
         <h2 class="section-title" id="tiles-title">Pick a gallery</h2>
         <p class="section-sub">Dive into full galleries and recent sessions.</p>
 
-        <!-- Tiles (desktop layout) -->
+        <!-- Desktop -->
         <div class="desktop-only">
           <div class="mosaic">
-            <!-- Family Gallery -->
+            <!-- Family -->
             <a class="captioned notch" href="/galleries/family-portrait.html" aria-label="Family Gallery"
                id="ff-family"
                data-images='[
@@ -188,7 +190,7 @@
               <div class="tile-dots" role="tablist"></div>
             </a>
 
-            <!-- Friends Gallery -->
+            <!-- Friends -->
             <a class="captioned notch" href="/galleries/friend-portraits.html" aria-label="Friends Gallery"
                id="ff-friends"
                data-images='[
@@ -215,4 +217,146 @@
               </svg>
               <span class="tile-label">Friends</span>
               <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+              </button>
+              <button class="tile-nav tile-next" type="button" aria-label="Next">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+              <div class="tile-dots" role="tablist"></div>
+            </a>
+          </div>
+
+          <!-- Descriptions (no titles) -->
+          <div class="service-blurbs">
+            <div class="row">
+              <article class="blurb">
+                <p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p>
+                <a class="btn" href="/galleries/family-portrait.html">View Gallery</a>
+              </article>
+              <article class="blurb">
+                <p>Easygoing, stylish, and authentic—best friends and roomies with a dash of editorial.</p>
+                <a class="btn" href="/galleries/friend-portraits.html">View Gallery</a>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile -->
+        <div class="mobile-only">
+          <div class="mosaic">
+            <a class="captioned notch" id="ff-family-m" href="/galleries/family-portrait.html" aria-label="Family"
+               data-images='[
+                 "/pictures/familyPortrait/image1.jpg",
+                 "/pictures/familyPortrait/image2.jpg",
+                 "/pictures/familyPortrait/image3.jpg",
+                 "/pictures/familyPortrait/image4.jpg",
+                 "/pictures/familyPortrait/image5.jpg"
+               ]'>
+              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true"><g class="panGroup"><image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" /></g></svg>
+              <span class="tile-label">Family</span>
+              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+              <div class="tile-dots" role="tablist"></div>
+            </a>
+
+            <a class="captioned notch" id="ff-friends-m" href="/galleries/friend-portraits.html" aria-label="Friends"
+               data-images='[
+                 "/pictures/thirdTileGal/E26A2017.jpg",
+                 "/pictures/thirdTileGal/E26A2022%20(1).jpg",
+                 "/pictures/thirdTileGal/E26A2047-2.jpg"
+               ]'>
+              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true"><g class="panGroup"><image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" /></g></svg>
+              <span class="tile-label">Friends</span>
+              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
+              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+              <div class="tile-dots" role="tablist"></div>
+            </a>
+          </div>
+
+          <div class="service-blurbs">
+            <div class="row">
+              <article class="blurb"><p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p><a class="btn" href="/galleries/family-portrait.html">View Gallery</a></article>
+              <article class="blurb"><p>Easygoing, stylish, and authentic—best friends and roomies with a dash of editorial.</p><a class="btn" href="/galleries/friend-portraits.html">View Gallery</a></article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Shared Footer -->
+  <div data-include="/partials/footer.html"></div>
+  <script src="/assets/include.js?v=nav-5" defer></script>
+
+  <!-- Lightweight rotator for the two tiles -->
+  <script>
+    (function(){
+      const TILE_W = 800, TILE_H = 1000;
+      const ids = ['ff-family','ff-friends','ff-family-m','ff-friends-m'];
+
+      const natural = new Map();
+      function nat(src){
+        return new Promise(res=>{
+          if(natural.has(src)) return res(natural.get(src));
+          const im=new Image();
+          im.onload=()=>{ const o={w:im.naturalWidth||im.width,h:im.naturalHeight||im.height}; natural.set(src,o); res(o); };
+          im.onerror=()=>res({w:1600,h:1067});
+          im.src=src;
+        });
+      }
+
+      function parseList(el){ try { return JSON.parse(el.getAttribute('data-images')||'[]'); } catch { return []; } }
+
+      async function fit(img, src){
+        const g = img.parentNode; if(!g || !g.classList.contains('panGroup')) return;
+        const {w,h}=await nat(src);
+        const sH=TILE_H/h, drawW=h? (w*sH):TILE_W;
+        let x, y, dw, dh;
+        if(drawW < TILE_W){
+          const sW = TILE_W / w;
+          dw = TILE_W; dh = h*sW; x = 0; y = (TILE_H - dh)/2;
+        } else {
+          dw = drawW; dh = TILE_H; x = (TILE_W - dw)/2; y = 0;
+        }
+        img.setAttribute('x',x); img.setAttribute('y',y);
+        img.setAttribute('width',dw); img.setAttribute('height',dh);
+        img.setAttribute('preserveAspectRatio','none');
+        g.setAttribute('transform','translate(0 0)');
+      }
+
+      function wire(id){
+        const el = document.getElementById(id);
+        if(!el || el.dataset.wired) return;
+        const img = el.querySelector('image'); if(!img) return;
+        const list = parseList(el); if(!list.length) return;
+
+        img.setAttribute('href', list[0]);
+        img.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
+        fit(img, list[0]);
+
+        let idx=0;
+        const show = (i)=>{
+          idx=(i+list.length)%list.length;
+          const src=list[idx];
+          img.setAttribute('href', src);
+          img.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+          fit(img, src);
+        };
+
+        el.querySelector('.tile-prev')?.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); show(idx-1); });
+        el.querySelector('.tile-next')?.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); show(idx+1); });
+
+        el.dataset.wired='1';
+      }
+
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(en=>{
+          if(en.isIntersecting){ wire(en.target.id); io.unobserve(en.target); }
+        })
+      }, { rootMargin: '200px 0px' });
+
+      ids.forEach(id=>{ const el=document.getElementById(id); if(el) io.observe(el); });
+    })();
+  </script>
+</body>
+</html>
