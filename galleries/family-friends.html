@@ -61,7 +61,8 @@
     }
     .section-sub{ color:#67635b; margin:0 0 22px; text-align:left; }
 
-    .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px); }
+    /* Two tiles now */
+    .mosaic{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(10px,1.6vw,16px); }
     .mosaic figure{ margin:0 }
     .captioned.notch{ position:relative; display:block }
     .notch-figure{ display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06) }
@@ -96,7 +97,7 @@
     }
 
     .service-blurbs{ margin-top:clamp(18px,3vw,28px) }
-    .service-blurbs .row{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
+    .service-blurbs .row{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(12px,2vw,18px) }
     .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .blurb h3{ font-family:"Cormorant Garamond","Times New Roman",serif; margin:0 0 6px; font-size:20px }
     .blurb p{ margin:0 0 10px; color:#5b574f }
@@ -111,6 +112,11 @@
       .mosaic{ grid-template-columns:1fr }
       .service-blurbs .row{ grid-template-columns:1fr }
     }
+
+    /* Hero alignment tweaks: top-align the text column with the photo */
+    .hero-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(20px,4vw,40px); align-items:start; }
+    .hero-fig{ position:relative }
+    .hero-fig img{ width:100%; aspect-ratio:4/5; object-fit:cover; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06) }
   </style>
 </head>
 <body>
@@ -118,11 +124,13 @@
 
   <main id="content">
     <section class="hero" style="padding:clamp(24px,6vw,56px) 0">
-      <div class="container" style="display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,4vw,40px);align-items:center">
+      <div class="container hero-grid">
         <div>
-          <p class="crumb"><a href="/galleries.html" style="text-decoration:underline;text-underline-offset:4px;color:#6e6a62">← Back to Galleries</a></p>
-          <div class="eyebrow">Galleries</div>
-          <h1 class="h1">Family &amp; Friends</h1>
+          <p class="crumb" style="margin:0 0 6px;">
+            <a href="/galleries.html" style="text-decoration:underline;text-underline-offset:4px;color:#6e6a62">← Back to Galleries</a>
+          </p>
+          <div class="eyebrow" style="margin:2px 0 6px;">Galleries</div>
+          <h1 class="h1" style="margin-top:4px;">Family &amp; Friends</h1>
           <p class="lead">Movement-first sessions with natural prompts—real connection, real laughs, flattering light, and timeless edits.</p>
           <div style="display:flex; gap:12px; margin-top:14px;">
             <a class="btn" href="/book.html">Book a Session</a>
@@ -130,8 +138,8 @@
           </div>
         </div>
         <figure class="hero-fig">
-          <span class="hero-badge" style="position:absolute;left:12px;top:12px;background:#fff;border:1px solid var(--line);padding:6px 10px;box-shadow:0 6px 18px rgba(0,0,0,.08);font-size:13px">Kid-wise • Natural • Timeless</span>
-          <img src="/pictures/familyPortrait/image1.jpg" alt="Family at golden hour in Sarasota" style="width:100%;aspect-ratio:4/5;object-fit:cover;border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.06)" />
+          <!-- removed the small top-left badge -->
+          <img src="/pictures/familyPortrait/image1.jpg" alt="Family at golden hour in Sarasota" />
         </figure>
       </div>
     </section>
@@ -207,185 +215,4 @@
               </svg>
               <span class="tile-label">Friends</span>
               <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-              </button>
-              <button class="tile-nav tile-next" type="button" aria-label="Next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-              <div class="tile-dots" role="tablist"></div>
-            </a>
-
-            <!-- NEW: Lido — Sept. 25 (replaces Couples & the duplicate) -->
-            <a class="captioned notch" href="/galleries/kidBeachPortrait.html" aria-label="Lido — Sept. 25"
-               id="ff-lido"
-               data-images='[
-                 "/pictures/beachBesties/E26A2771%20(1).jpg",
-                 "/pictures/beachBesties/E26A2746%20(2).jpg",
-                 "/pictures/beachBesties/E26A2768%20(2).jpg",
-                 "/pictures/beachBesties/E26A2854%20(1).jpg"
-               ]'>
-              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
-                <defs>
-                  <mask id="mask-ff4" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask>
-                  <filter id="shadow-ff4" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
-                </defs>
-                <g mask="url(#mask-ff4)"><g class="panGroup">
-                  <image href="/pictures/beachBesties/E26A2771%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" />
-                </g></g>
-                <g class="frameGroup" filter="url(#shadow-ff4)"><path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/></g>
-              </svg>
-              <span class="tile-label">Lido — Sept. 25</span>
-              <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-              </button>
-              <button class="tile-nav tile-next" type="button" aria-label="Next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-              <div class="tile-dots" role="tablist"></div>
-            </a>
-          </div>
-
-          <div class="service-blurbs" style="margin-top:clamp(18px,3vw,28px)">
-            <div class="row">
-              <article class="blurb"><h3>Family</h3><p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p><a class="btn" href="/galleries/family-portrait.html">View Family Gallery</a></article>
-              <article class="blurb"><h3>Friends</h3><p>Easygoing, stylish, and authentic—best friends and roomies with a dash of editorial.</p><a class="btn" href="/galleries/friend-portraits.html">View Friends Gallery</a></article>
-              <article class="blurb"><h3>Lido — Sept. 25</h3><p>Golden-hour Family & Friends session on Lido Beach—warm light, easy movement, genuine smiles.</p><a class="btn" href="/galleries/kidBeachPortrait.html">Open Session</a></article>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mobile: stack -->
-        <div class="mobile-only">
-          <div class="mosaic">
-            <a class="captioned notch" id="ff-family-m" href="/galleries/family-portrait.html" aria-label="Family"
-               data-images='[
-                 "/pictures/familyPortrait/image1.jpg",
-                 "/pictures/familyPortrait/image2.jpg",
-                 "/pictures/familyPortrait/image3.jpg",
-                 "/pictures/familyPortrait/image4.jpg",
-                 "/pictures/familyPortrait/image5.jpg"
-               ]'>
-              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true"><g class="panGroup"><image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" /></g></svg>
-              <span class="tile-label">Family</span>
-              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
-              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-              <div class="tile-dots" role="tablist"></div>
-            </a>
-
-            <a class="captioned notch" id="ff-friends-m" href="/galleries/friend-portraits.html" aria-label="Friends"
-               data-images='[
-                 "/pictures/thirdTileGal/E26A2017.jpg",
-                 "/pictures/thirdTileGal/E26A2022%20(1).jpg",
-                 "/pictures/thirdTileGal/E26A2047-2.jpg"
-               ]'>
-              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true"><g class="panGroup"><image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" /></g></svg>
-              <span class="tile-label">Friends</span>
-              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
-              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-              <div class="tile-dots" role="tablist"></div>
-            </a>
-
-            <!-- Mobile: Lido — Sept. 25 -->
-            <a class="captioned notch" id="ff-lido-m" href="/galleries/kidBeachPortrait.html" aria-label="Lido — Sept. 25"
-               data-images='[
-                 "/pictures/beachBesties/E26A2771%20(1).jpg",
-                 "/pictures/beachBesties/E26A2746%20(2).jpg",
-                 "/pictures/beachBesties/E26A2768%20(2).jpg"
-               ]'>
-              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true"><g class="panGroup"><image href="/pictures/beachBesties/E26A2771%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" /></g></svg>
-              <span class="tile-label">Lido — Sept. 25</span>
-              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
-              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-              <div class="tile-dots" role="tablist"></div>
-            </a>
-          </div>
-
-          <div class="service-blurbs" style="margin-top:clamp(18px,3vw,28px)">
-            <div class="row">
-              <article class="blurb"><h3>Family</h3><p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p><a class="btn" href="/galleries/family-portrait.html">View Family</a></article>
-              <article class="blurb"><h3>Friends</h3><p>Easygoing, stylish, and authentic—best friends and roomies with a dash of editorial.</p><a class="btn" href="/galleries/friend-portraits.html">View Friends</a></article>
-              <article class="blurb"><h3>Lido — Sept. 25</h3><p>Golden-hour Family & Friends session on Lido Beach—warm light, easy movement, genuine smiles.</p><a class="btn" href="/galleries/kidBeachPortrait.html">Open Session</a></article>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <div data-include="/partials/footer.html"></div>
-  <script src="/assets/include.js?v=nav-5" defer></script>
-
-  <!-- Same lightweight rotator behavior used on portraits page -->
-  <script>
-    (function(){
-      const TILE_W = 800, TILE_H = 1000;
-      const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
-      // Removed ff-couples; renamed Venice to Lido
-      const ids = ['ff-family','ff-friends','ff-lido','ff-family-m','ff-friends-m','ff-lido-m'];
-
-      const natural = new Map();
-      function nat(src){
-        return new Promise(res=>{
-          if(natural.has(src)) return res(natural.get(src));
-          const im=new Image();
-          im.onload=()=>{ const o={w:im.naturalWidth||im.width,h:im.naturalHeight||im.height}; natural.set(src,o); res(o); };
-          im.onerror=()=>res({w:1600,h:1067});
-          im.src=src;
-        });
-      }
-
-      function parseList(el){ try { return JSON.parse(el.getAttribute('data-images')||'[]'); } catch { return []; } }
-
-      async function fit(img, src){
-        const g = img.parentNode; if(!g || !g.classList.contains('panGroup')) return;
-        const {w,h}=await nat(src);
-        const sH=TILE_H/h, drawW=h? (w*sH):TILE_W;
-        let x, y, dw, dh;
-        if(drawW < TILE_W){
-          const sW = TILE_W / w;
-          dw = TILE_W; dh = h*sW; x = 0; y = (TILE_H - dh)/2;
-        } else {
-          dw = drawW; dh = TILE_H; x = (TILE_W - dw)/2; y = 0;
-        }
-        img.setAttribute('x',x); img.setAttribute('y',y);
-        img.setAttribute('width',dw); img.setAttribute('height',dh);
-        img.setAttribute('preserveAspectRatio','none');
-        g.setAttribute('transform','translate(0 0)');
-      }
-
-      function wire(id){
-        const el = document.getElementById(id);
-        if(!el || el.dataset.wired) return;
-        const img = el.querySelector('image'); if(!img) return;
-        const list = parseList(el); if(!list.length) return;
-
-        img.setAttribute('href', list[0]);
-        img.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
-        fit(img, list[0]);
-
-        let idx=0;
-        const show = (i)=>{
-          idx=(i+list.length)%list.length;
-          const src=list[idx];
-          img.setAttribute('href', src);
-          img.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
-          fit(img, src);
-        };
-
-        el.querySelector('.tile-prev')?.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); show(idx-1); });
-        el.querySelector('.tile-next')?.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); show(idx+1); });
-
-        el.dataset.wired='1';
-      }
-
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(en=>{
-          if(en.isIntersecting){ wire(en.target.id); io.unobserve(en.target); }
-        })
-      }, { rootMargin: '200px 0px' });
-
-      ids.forEach(id=>{ const el=document.getElementById(id); if(el) io.observe(el); });
-    })();
-  </script>
-</body>
-</html>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><
