@@ -182,11 +182,34 @@
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; }
 
-    /* ==== MOBILE NAV/OVERFLOW FIX (match other pages) ==== */
+    /* ==== MOBILE NAV/OVERFLOW FIX (hard-stop page from sliding) ==== */
     @media (max-width:820px){
       html, body { overflow-x:hidden; }
-      .hero{ padding-top: calc(var(--mobile-header-h) + 12px); } /* keeps hero clear of fixed nav */
-      .topbar{ padding-top:8px !important; padding-bottom:12px !important; } /* tighten nav on phones */
+
+      /* cancel any drawer "push" styles on the page wrapper */
+      #content{
+        position:relative !important;
+        transform:none !important;
+        margin-left:0 !important;
+        left:0 !important;
+        right:0 !important;
+        max-width:100% !important;
+        width:100% !important;
+      }
+
+      /* in case the navbar toggler adds a helper class on <body> */
+      body.nav-open #content,
+      body.menu-open #content,
+      .nav-open #content,
+      .menu-open #content{
+        transform:none !important;
+        margin-left:0 !important;
+        left:0 !important;
+        right:0 !important;
+      }
+
+      /* keep the header clear, same spirit as about.html */
+      .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
     }
   </style>
 </head>
