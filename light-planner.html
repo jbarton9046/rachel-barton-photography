@@ -145,7 +145,7 @@
     /* Calendar (no overflow) */
     .calendar{
       display:grid; gap:10px; width:100%; max-width:100%;
-      padding-right:6px; /* tiny breathing room on small screens */
+      padding-right:6px;                /* DESKTOP: tiny breathing room on right */
     }
     .cal-header{
       display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; width:100%; max-width:100%;
@@ -186,18 +186,6 @@
       width:100%; height:auto; max-width:100%;
       border:1px solid var(--line); box-shadow:var(--shadow); background:#fff; display:block;
       margin:0 auto;
-    }
-
-    /* -------- Desktop: make Location block symmetrical (text stays left-aligned) -------- */
-    @media (min-width: 981px){
-      #leftCol .group,
-      #leftCol .calendar{
-        max-width: 620px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      /* cancel the 6px right-only pad on desktop so the Date block is centered exactly */
-      #leftCol .calendar{ padding-right: 0; }
     }
 
     /* ---------------------- MOBILE TUNE-UP ---------------------- */
@@ -361,7 +349,7 @@
       const n = dayOfYear(date);
       const g = 2*Math.PI/365*(n-1);
       const eqTime = 229.18*(0.000075 + 0.001868*Math.cos(g) - 0.032077*Math.sin(g) - 0.014615*Math.cos(2*g) - 0.040849*Math.sin(2*g));
-      const decl = 0.006918 - 0.399912*Math.cos(g) + 0.070257*Math.sin(g) - 0.006758*Math.cos(2*g) + 0.000907*Math.sin(g) - 0.002697*Math.cos(3*g) + 0.00148*Math.sin(3*g);
+      const decl = 0.006918 - 0.399912*Math.cos(g) + 0.070257*Math.sin(g) - 0.006758*Math.cos(2*g) + 0.000907*Math.sin(2*g) - 0.002697*Math.cos(3*g) + 0.00148*Math.sin(3*g);
       return {eqTime, decl};
     }
     function solarNoonLocalMinutes(date, lon){
@@ -535,40 +523,20 @@
       updateSidePhotoSize();
     }
 
-    /* ---------- Keep both columns ending at the same place + match photo width to buttons on desktop ---------- */
+    /* ---------- Keep both columns ending at the same place ---------- */
     function updateSidePhotoSize(){
       const aside   = document.getElementById('leftCol');
       const card    = document.getElementById('resultsCard');
       const figure  = document.querySelector('.side-photo');
       const img     = document.querySelector('.side-photo img');
-      const actions = document.querySelector('.inline-cta');
       if(!aside || !card || !figure || !img) return;
 
       const cardRect = card.getBoundingClientRect();
       const isMobile = window.matchMedia('(max-width: 720px)').matches;
 
-      /* DESKTOP: cap image width to the actual width of the buttons row */
-      if (!isMobile && actions) {
-        const children = Array.from(actions.children);
-        const styles   = getComputedStyle(actions);
-        const gapX     = parseFloat(styles.columnGap || styles.gap) || 0;
+      /* MOBILE: full inner width; DESKTOP: 96% like before */
+      img.style.maxWidth = Math.floor(cardRect.width * (isMobile ? 1.00 : 0.96)) + 'px';
 
-        let buttonsWidth = 0;
-        children.forEach((c, i) => {
-          const w = c.getBoundingClientRect().width;
-          if (w) buttonsWidth += w;
-          if (i > 0) buttonsWidth += gapX;
-        });
-
-        // Never exceed 96% of the card’s inner width
-        const cap = Math.floor(Math.min(buttonsWidth, cardRect.width * 0.96));
-        img.style.maxWidth = cap > 0 ? cap + 'px' : Math.floor(cardRect.width * 0.96) + 'px';
-      } else {
-        // MOBILE: full inner width
-        img.style.maxWidth = Math.floor(cardRect.width * 1.00) + 'px';
-      }
-
-      // Height balancing with left column
       const gridGap = parseFloat(getComputedStyle(document.querySelector('.planner-grid')).gap) || 12;
       const cardContentHeight = card.offsetHeight - figure.offsetHeight;
       const available = aside.offsetHeight - cardContentHeight - gridGap;

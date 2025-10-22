@@ -26,49 +26,6 @@
   <!-- Shared layout (nav/footer) + gallery styles -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
   <link rel="stylesheet" href="/assets/gallery.css?v=14">
-
-  <!-- Mobile-only navbar spacing + 3-up gallery overrides (desktop unchanged) -->
-  <style>
-    :root{
-      /* match about.html mobile spacing */
-      --mobile-header-h: 64px;
-      --nav-gap-top: 20px;
-      --nav-gap-bottom: 44px;
-    }
-    /* keep desktop topbar spacing consistent */
-    .topbar{
-      padding-top: var(--nav-gap-top) !important;
-      padding-bottom: var(--nav-gap-bottom) !important;
-    }
-
-    @media (max-width: 820px){
-      html, body{ overflow-x:hidden; }
-
-      /* Make room for the fixed mobile header (same approach as about.html) */
-      main#content{
-        padding-top: calc(var(--mobile-header-h) + 14px);
-      }
-      .topbar{
-        padding-top: 8px !important;
-        padding-bottom: 12px !important;
-      }
-
-      /* 3 columns of mini pictures on mobile (click to open lightbox) */
-      #gallery{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-      }
-      #gallery figure{
-        margin: 0;
-      }
-      #gallery img{
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-    }
-  </style>
 </head>
 <body>
 
@@ -87,7 +44,7 @@
     </div>
   </header>
 
-  <main id="content" class="container">
+  <main class="container">
     <section aria-label="Family portraits gallery">
       <div class="grid" id="gallery">
         <figure><a href="/pictures/familyPortrait/image1.jpg"><img loading="lazy" src="/pictures/familyPortrait/image1.jpg" alt="Family portrait 1" /></a></figure>
