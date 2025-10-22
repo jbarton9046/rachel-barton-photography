@@ -13,14 +13,14 @@
   <meta property="og:title" content="Policies & Model Release – Rachel Barton Photography" />
   <meta property="og:description" content="Booking policies, model release, payment, rescheduling, and gallery delivery details." />
 
-  <!-- Fonts & shared layout (exactly what other pages use) -->
+  <!-- Fonts & shared layout -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
   <style>
-    /* ===== Page-scoped styles so nothing leaks into the navbar/site ===== */
+    /* Page-scoped styles (won’t affect site header/footer) */
     .policies{
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
       --accent:#A88A5A; --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
@@ -28,22 +28,13 @@
       color:var(--ink); background:var(--bg);
     }
     .policies .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap); }
-    .policies .card{
-      background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow);
-      padding:16px; margin:14px 0;
-    }
     .policies header.page{
       margin:clamp(16px,5vw,28px) 0 clamp(10px,3vw,16px);
     }
-    .policies .topline{
-      display:flex; justify-content:space-between; align-items:center; gap:10px;
+    .policies .meta{
+      display:flex; justify-content:flex-end; align-items:center;
       font-size:14px; color:#7a766e; margin-bottom:6px;
     }
-    .policies .back-link{
-      text-decoration:underline; text-underline-offset:4px;
-    }
-    .policies .back-link:hover, .policies .back-link:focus-visible{ color:var(--accent); }
-
     .policies h1{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
       font-weight:700; font-size:clamp(28px,5.2vw,48px); line-height:1.1; margin:.1em 0 .25em;
@@ -56,9 +47,14 @@
     .policies .pills a{
       border:1px solid var(--line); background:#fff; padding:8px 12px; border-radius:999px;
       font-weight:700; box-shadow:0 6px 18px rgba(0,0,0,.06);
+      text-decoration:none;
     }
     .policies .pills a:hover{ background:#f9f6ef; border-color:#dcd4c3; color:var(--accent); }
 
+    .policies .card{
+      background:var(--paper); border:1px solid var(--line); box-shadow:var(--shadow);
+      padding:16px; margin:14px 0;
+    }
     .policies ul{ margin:8px 0 12px; padding-left:18px }
     .policies .section{ margin:14px 0; }
   </style>
@@ -70,8 +66,7 @@
   <main id="content" class="policies">
     <div class="wrap">
       <header class="page">
-        <div class="topline">
-          <a id="back-link" class="back-link" href="/book.html" hidden>← Back</a>
+        <div class="meta">
           <span>Version: <time datetime="2025-10-02">2025-10-02</time></span>
         </div>
         <h1>Policies & Model Release</h1>
@@ -142,77 +137,5 @@
   <!-- Site footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
-
-  <!-- Smart “Back” behavior (hide if from /book.html; allow if from faq.html or intake form) -->
-  <script>
-    (function(){
-      const backEl = document.getElementById('back-link');
-      if (!backEl) return;
-
-      // Allow returning to these external schedulers (keeps intake form state)
-      const WHITELIST = ['acuityscheduling.com','squarespacescheduling.com','square.site'];
-
-      function parseURL(u){
-        try{ return new URL(u, location.origin); }catch(_){ return null; }
-      }
-      function allowed(u){
-        if (!u) return false;
-        // same-site is allowed
-        if (u.origin === location.origin) return true;
-        // whitelisted schedulers
-        return WHITELIST.some(d => u.hostname.endsWith(d));
-      }
-      function cameFromBook(u){
-        if (!u || u.origin !== location.origin) return false;
-        const p = u.pathname.toLowerCase();
-        return p === '/book.html' || p.startsWith('/book');
-      }
-      function cameFromFaq(u){
-        if (!u || u.origin !== location.origin) return false;
-        const p = u.pathname.toLowerCase();
-        return p === '/faq.html' || p.startsWith('/faq');
-      }
-
-      const ref = parseURL(document.referrer);
-      const qs  = new URL(location.href).searchParams;
-      const ret = parseURL(qs.get('return') || '');
-
-      // Decide the target we’d navigate to if the back link is shown
-      let target = null;
-
-      if (allowed(ref)) {
-        // From intake form (whitelisted) OR same-site page (faq/book/etc.)
-        target = ref.href;
-      } else if (allowed(ret)) {
-        target = ret.href;
-      }
-
-      // If we came from the main Book page, HIDE the Back link (prevents losing booking flow).
-      if (cameFromBook(ref)) {
-        backEl.hidden = true;
-        backEl.removeAttribute('href');
-        return;
-      }
-
-      // Show the Back link only if we have something useful (faq or intake form)
-      if (target) {
-        backEl.hidden = false;
-        backEl.href = target;
-        backEl.addEventListener('click', function(e){
-          // Replace to avoid creating extra history hops
-          e.preventDefault();
-          location.replace(target);
-        });
-      } else if (cameFromFaq(ref)) {
-        // Safety: if somehow target didn't set, still show link to FAQ
-        backEl.hidden = false;
-        backEl.href = '/faq.html';
-      } else {
-        // No meaningful place to go—keep it hidden
-        backEl.hidden = true;
-        backEl.removeAttribute('href');
-      }
-    })();
-  </script>
 </body>
 </html>
