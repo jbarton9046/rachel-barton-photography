@@ -183,6 +183,18 @@
       display:none !important;
       stroke:transparent !important;
     }
+
+    /* === Mobile-only: perfectly center chevron inside the diamond === */
+    @media (max-width:960px){
+      .tile-nav{ display:grid; place-items:center; }
+      .tile-nav > svg{
+        justify-self:center;
+        align-self:center;
+        position:static;   /* ignore any tiny offsets */
+        margin:0;
+        transform:none;    /* ensure no stray transforms shift it */
+      }
+    }
   </style>
 </head>
 <body>
