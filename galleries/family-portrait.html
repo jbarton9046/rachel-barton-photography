@@ -27,27 +27,32 @@
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
   <link rel="stylesheet" href="/assets/gallery.css?v=14">
 
-  <!-- Mobile tune-ups -->
+  <!-- Mobile & crumb tune-ups -->
   <style>
     :root{ --mobile-header-h:64px; }
+
+    /* Crumb style (match friend-portraits) */
+    .gallery-head .crumb{ font-size:14px; color:#7a766e; margin:0 0 6px; }
+    .gallery-head .crumb a{ text-decoration:underline; text-underline-offset:3px; }
+
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
 
-      /* Keep clear of the fixed mobile header, but tighter than before */
+      /* Keep clear of the fixed mobile header, tidy spacing */
       header.gallery-head.container{ padding-top: calc(var(--mobile-header-h) + 6px); }
 
-      /* Slightly tighter topbar spacing on phones (matches other pages) */
+      /* slightly tighter topbar spacing on phones */
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
 
-      /* Improve header spacing & proportions */
+      /* Header spacing & proportions */
       .gallery-head h1{ margin: 6px 0 8px; }
       .gallery-head .lede{ margin: 4px 0 12px; line-height: 1.35; }
       .gallery-head .actions{
         display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;
       }
-      /* Make header action buttons a bit smaller on mobile */
+      /* Smaller buttons on mobile */
       .gallery-head .actions a{
-        padding:8px 12px;            /* was visually larger via site styles */
+        padding:8px 12px;
         font-size: clamp(14px, 4vw, 16px);
         border-width:1px;
       }
