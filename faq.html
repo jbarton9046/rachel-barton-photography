@@ -112,6 +112,10 @@
     .qmark{ font-family:"Playfair Display",serif; font-size:20px; line-height:1; color:#b7a486; margin-top:2px }
     .answer{ padding:0 18px 16px; color:#4a463f }
 
+    /* >>> Book link: always gold (desktop & mobile) <<< */
+    .answer a.book-link{ color:var(--accent) !important; }
+    .answer a.book-link:hover, .answer a.book-link:focus-visible{ color:var(--accent) !important; }
+
     /* auto-span (added by your script) */
     details.span-below-photo{ grid-column:1 / -1; }
 
@@ -150,7 +154,7 @@
       <details>
         <summary><span class="qmark">Q</span> How do I book?</summary>
         <div class="answer">
-          <p>Use the <a href="/#book">Book</a> button to open my live calendar. If you don’t see a time that works, <a href="mailto:rachelbartonphotography@gmail.com">email me</a> and I’ll try to accommodate.</p>
+          <p>Use the <a class="book-link" href="/book.html">Book</a> button to open my live calendar. If you don’t see a time that works, <a href="mailto:rachelbartonphotography@gmail.com">email me</a> and I’ll try to accommodate.</p>
         </div>
       </details>
 
