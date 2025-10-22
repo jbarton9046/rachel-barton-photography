@@ -122,7 +122,7 @@
       <div class="container">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
           <!-- Back link that will be rewritten by the script below -->
-          <p class="crumb"><a id="back-link" href="/#portfolio">← Back to site</a></p>
+          <p class="crumb"><a id="back-link" href="/book.html">← Back</a></p>
           <div class="meta">Version: 2025-10-02</div>
         </div>
 
@@ -195,40 +195,59 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Smart back-link: prefer ?return=, else full referrer (even cross-origin), else history.back(), else home -->
+  <!-- Smart back-link:
+       1) ?return= takes priority
+       2) else document.referrer
+       3) else sessionStorage.policiesReturn
+       4) else history.back() if possible
+       5) else /book.html (never index)
+  -->
   <script>
     (function(){
       const backEl = document.getElementById('back-link');
       if (!backEl) return;
 
-      const url = new URL(location.href);
-      const paramReturn = url.searchParams.get('return');
-
-      // 1) If a ?return= param is present, always use it (allows deep step in third-party booking flows)
-      if (paramReturn) {
+      // Helper: safe URL
+      function safeUrl(u){
         try {
-          const dest = new URL(decodeURIComponent(paramReturn));
-          // Only allow http/https
-          if (dest.protocol === 'https:' || dest.protocol === 'http:') {
-            backEl.href = dest.href;
-          }
-        } catch(_) { /* ignore bad values */ }
+          const x = new URL(u, location.origin);
+          if (x.protocol === 'http:' || x.protocol === 'https:') return x.href;
+        } catch(e){}
+        return null;
       }
-      // 2) Else, try the full referrer (works even for cross-origin if the provider allows it)
-      else if (document.referrer) {
-        backEl.href = document.referrer;
-      }
-      // 3) Else, keep default href (/#portfolio)
 
-      // Make click feel instant when we do have history
+      const url  = new URL(location.href);
+      const pRet = url.searchParams.get('return');
+
+      let target =
+        (pRet && safeUrl(decodeURIComponent(pRet))) ||
+        (document.referrer && safeUrl(document.referrer)) ||
+        safeUrl(sessionStorage.getItem('policiesReturn'));
+
+      // Set the visible href (so long-press / copy works)
+      backEl.href = target || '/book.html';
+
+      // Click behavior: try to preserve exact state
       backEl.addEventListener('click', function(ev){
-        // If we set a concrete URL via ?return= or referrer and there's no history, let the link navigate.
-        // If there *is* history, prefer going back (snappier, preserves scroll/step state).
-        if (history.length > 1) {
+        // If we have an explicit target, go there
+        if (target){
+          ev.preventDefault();
+          location.href = target;
+          return;
+        }
+        // Otherwise, if we do have history, go back
+        if (history.length > 1){
           ev.preventDefault();
           history.back();
+          return;
         }
+        // Final fallback: /book.html (NOT index)
+        // No preventDefault needed; link already points there.
       });
+
+      // Bonus: if *you* link to policies from your own pages, you can save a return URL like this:
+      // sessionStorage.setItem('policiesReturn', location.href);
+      // (No changes needed elsewhere; this just gives us another safe fallback.)
     })();
   </script>
 </body>
