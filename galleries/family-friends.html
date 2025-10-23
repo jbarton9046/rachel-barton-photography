@@ -70,7 +70,6 @@
       box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
       outline:none;
     }
-    .btn.alt{ background:#fff; }
 
     /* ===== HERO ===== */
     .hero{ padding:clamp(18px,5vw,44px) 0; }
@@ -120,7 +119,6 @@
     .tile-nav svg{ width:12px; height:12px; position:relative; z-index:2 }
     .tile-dots{ display:none !important; }
 
-    /* Simple labels on thumbs */
     .tile-label{
       position:absolute; left:12px; bottom:12px;
       background:rgba(255,255,255,.78); border:1px solid var(--line);
@@ -128,7 +126,7 @@
       padding:6px 10px; font-family:'Cormorant Garamond','Playfair Display',Georgia,serif; font-weight:700;
     }
 
-    /* Descriptions under tiles — no titles per your note */
+    /* Descriptions under tiles — no extra titles */
     .tile-descs{ margin-top:clamp(16px,2.2vw,20px) }
     .tile-descs .row{
       display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(12px,2vw,18px)
@@ -136,13 +134,39 @@
     .blurb{
       background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06)
     }
-    .blurb p{ margin:0 0 10px; color:#5b574f }
+    .blurb p{ margin:0 0 12px; color:#5b574f }
+
+    /* ===== Extra content sections ===== */
+    .section{ padding:clamp(20px,4vw,36px) 0; }
+    .section h2{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
+      font-size:clamp(24px,3.5vw,38px); margin:0 0 10px;
+    }
+    .muted{ color:#6e6a62; }
+
+    .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
+    .card{ background:#fff; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06); padding:16px }
+    .card h3{ margin:0 0 6px; font-size:20px; font-weight:700; font-family:"Source Sans 3",system-ui }
+    .card p{ margin:0; color:#4f4a42 }
+
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+    .chip{ border:1px solid var(--line); background:#fff; padding:8px 12px; box-shadow:0 6px 18px rgba(0,0,0,.04) }
+
+    /* FAQ */
+    .faq{ border-top:1px solid var(--line); }
+    .faq details{ border-bottom:1px solid var(--line); padding:10px 0; }
+    .faq summary{
+      list-style:none; cursor:pointer; font-weight:700; font-family:"Source Sans 3";
+    }
+    .faq summary::-webkit-details-marker{ display:none; }
+    .faq p{ margin:8px 0 0; color:#5b574f }
 
     /* Responsive */
     @media (max-width:980px){
       .hero .wrap{ grid-template-columns:1fr; }
       .mosaic{ grid-template-columns:1fr; }
       .tile-descs .row{ grid-template-columns:1fr; }
+      .grid-3{ grid-template-columns:1fr; }
       .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
     }
@@ -152,7 +176,7 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <!-- HERO (aligned to the top like your reference) -->
+    <!-- HERO -->
     <section class="hero">
       <div class="container wrap hero">
         <div class="left">
@@ -177,7 +201,7 @@
     <section class="value" aria-labelledby="tiles-title">
       <div class="container">
         <div class="mosaic">
-          <!-- Family Gallery -->
+          <!-- Family -->
           <a class="captioned notch" href="/galleries/family-portrait.html" aria-label="Family Gallery"
              id="ff-family"
              data-images='[
@@ -212,7 +236,7 @@
             <div class="tile-dots" role="tablist"></div>
           </a>
 
-          <!-- Friends Gallery -->
+          <!-- Friends -->
           <a class="captioned notch" href="/galleries/friend-portraits.html" aria-label="Friends Gallery"
              id="ff-friends"
              data-images='[
@@ -248,7 +272,7 @@
           </a>
         </div>
 
-        <!-- Descriptions under tiles (no extra titles) -->
+        <!-- Descriptions under tiles -->
         <div class="tile-descs">
           <div class="row">
             <article class="blurb">
@@ -263,16 +287,124 @@
         </div>
       </div>
     </section>
+
+    <!-- WHAT TO EXPECT -->
+    <section class="section">
+      <div class="container">
+        <h2>What to Expect</h2>
+        <p class="muted" style="margin:0 0 14px">Calm, organized, and kid-wise—so everyone can relax and be themselves.</p>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Gentle Direction</h3>
+            <p>Prompts that encourage movement and connection while keeping everything natural and candid.</p>
+          </div>
+          <div class="card">
+            <h3>Flattering Light</h3>
+            <p>We shoot during the best light—golden hour or soft morning glow—for clean, timeless color.</p>
+          </div>
+          <div class="card">
+            <h3>Stress-Free Flow</h3>
+            <p>Clear prep, quick breaks for kids, and a pace that keeps everyone comfortable and engaged.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SESSION TYPES -->
+    <section class="section" aria-labelledby="types-title">
+      <div class="container">
+        <h2 id="types-title">Session Types</h2>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Family</h3>
+            <p>Parents, littles, grandparents—up to 6 people. Add extended family as needed.</p>
+            <div style="margin-top:10px"><a class="btn" href="/galleries/family-portrait.html">View Gallery</a></div>
+          </div>
+          <div class="card">
+            <h3>Friends</h3>
+            <p>Besties, roomies, and squads. Easygoing and a little editorial—perfect for grads, trips, and milestones.</p>
+            <div style="margin-top:10px"><a class="btn" href="/galleries/friend-portraits.html">View Gallery</a></div>
+          </div>
+          <div class="card">
+            <h3>Mini or Full</h3>
+            <p>Choose a shorter mini for quick highlights or a full session for more variety and locations.</p>
+            <div style="margin-top:10px"><a class="btn" href="/contact.html">Ask a Question</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POPULAR LOCATIONS -->
+    <section class="section">
+      <div class="container">
+        <h2>Popular Sarasota Locations</h2>
+        <div class="chips" style="margin:8px 0 2px">
+          <span class="chip">Lido Key</span>
+          <span class="chip">Siesta Key</span>
+          <span class="chip">Longboat Key</span>
+          <span class="chip">Venice Jetty</span>
+          <span class="chip">Celery Fields</span>
+          <span class="chip">The Ringling</span>
+          <span class="chip">Selby Gardens</span>
+        </div>
+        <p class="muted" style="margin-top:8px">Travel from Tampa to Naples available.</p>
+      </div>
+    </section>
+
+    <!-- PREP & WARDROBE -->
+    <section class="section">
+      <div class="container">
+        <h2>Wardrobe & Prep</h2>
+        <div class="grid-3">
+          <div class="card"><h3>Keep it Comfortable</h3><p>Choose pieces you can move in—flowy dresses, linen, soft tees. Avoid heavy logos.</p></div>
+          <div class="card"><h3>Coordinate, Don’t Match</h3><p>Pick 2–3 colors (neutrals + one accent). Mix textures for depth.</p></div>
+          <div class="card"><h3>Bring the Little Things</h3><p>Water, wipes, hair ties, a favorite toy or blanket for kids—tiny items, big help.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+      <div class="container">
+        <h2>FAQ</h2>
+        <div class="faq">
+          <details>
+            <summary>What happens if it rains?</summary>
+            <p>We watch the radar together. If weather looks rough, we reschedule quickly to your next available golden-hour.</p>
+          </details>
+          <details>
+            <summary>How many images will we receive?</summary>
+            <p>Minis average 25–40 selects; full sessions 60–100+. You’ll receive a private, downloadable gallery.</p>
+          </details>
+          <details>
+            <summary>Can we include extended family?</summary>
+            <p>Yes! We’ll plan groupings ahead of time so the flow stays easy. A small add-on covers the extra time.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section" style="padding-bottom:40px">
+      <div class="container" style="text-align:center">
+        <h2>Ready to make something you’ll be proud to share?</h2>
+        <p class="muted" style="max-width:70ch;margin:6px auto 14px">Tell me who’s coming, where you love, and the vibe you’re after—I’ll take care of the rest.</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
+          <a class="btn" href="/book.html">Book a Session</a>
+          <a class="btn" href="/contact.html">Ask a Question</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Lightweight rotator (same logic as portraits page) -->
+  <!-- Lightweight rotator -->
   <script>
     (function(){
       const TILE_W = 800, TILE_H = 1000;
-      const ids = ['ff-family','ff-friends','ff-family-m','ff-friends-m']; // mobile ids wired if present
+      const ids = ['ff-family','ff-friends'];
 
       const natural = new Map();
       function nat(src){
