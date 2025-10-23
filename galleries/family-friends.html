@@ -203,36 +203,45 @@
 
     /* Phone (iPhone 13 and similar, MOBILE-ONLY tweaks) */
     @media (max-width:480px){
-      /* two-column hero and centered media */
+      /* consistent side padding like the rest of the site */
+      .container{ padding:0 22px; }
+
+      /* space under navbar and two-column hero */
+      .hero{ padding-top: calc(var(--mobile-header-h) + 14px); }
       .hero .wrap{ grid-template-columns:1fr 1fr; gap:12px; align-items:center; }
       .hero .left{ gap:6px; }
-      .crumb a{ font-size:13px; } /* smaller "Back to Portraits" */
+      .crumb a{ font-size:12.5px; }
+
       .h1{ font-size:clamp(24px,6vw,30px); }
       .lead{ font-size:15px; }
 
-      /* smaller hero buttons */
-      .hero .left .btn{ padding:7px 10px; font-size:14px; box-shadow:0 4px 12px rgba(0,0,0,.06); }
-      .hero .left > div{ gap:8px !important; }
+      /* keep CTAs on one row */
+      .hero .left > div{ gap:8px !important; flex-wrap:nowrap !important; }
+      .hero .left .btn{ padding:6px 10px; font-size:13px; box-shadow:0 4px 12px rgba(0,0,0,.06); }
 
-      /* image sizing + centered */
+      /* image + “Timeless” badge */
       .hero-fig{ justify-self:center; align-self:center; }
-      .hero-fig img{ width:92%; max-width:260px; }
-      .hero-badge{ top:6px; left:auto; right:10px; font-size:11px; padding:4px 8px; }
+      .hero-fig img{ width:90%; max-width:240px; margin:0 auto; }
+      .hero-badge{ top:6px; right:10px; left:auto; font-size:10px; padding:3px 6px; }
 
-      /* make tile badges smaller */
-      .tile-label{ font-size:14px; padding:4px 8px; }
+      /* Tiles: move labels to top-right and shrink */
+      .tile-label{ top:8px; right:8px; left:auto; bottom:auto; font-size:12px; padding:3px 6px; }
 
-      /* two-up tiles and blurbs */
+      /* two-up tiles & two-up blurbs; keep blurb buttons single-line */
       .mosaic{ grid-template-columns:repeat(2,1fr); gap:10px; }
       .tile-descs .row{ grid-template-columns:repeat(2,1fr); gap:10px; }
-
-      /* smaller blurb buttons and force single line */
-      .tile-descs .btn{
-        padding:7px 9px;
-        font-size:12px;
-        white-space:nowrap;
-      }
+      .tile-descs .btn{ padding:6px 8px; font-size:12px; white-space:nowrap; }
       .blurb{ padding:14px; }
+
+      /* Popular locations: smaller, tidier chips */
+      .chips{ gap:6px; }
+      .chip{ padding:6px 10px; font-size:14px; line-height:1; white-space:nowrap; }
+
+      /* Wardrobe & Prep: show all three columns on phone */
+      .grid-3{ grid-template-columns:repeat(3,1fr); gap:10px; }
+      .card{ padding:12px; }
+      .card h3{ font-size:16px; line-height:1.2; }
+      .card p{ font-size:14px; }
     }
   </style>
 </head>
@@ -430,7 +439,7 @@
           if(natural.has(src)) return res(natural.get(src));
           const im=new Image();
           im.onload=()=>{ const o={w:im.naturalWidth||im.width,h:im.naturalHeight||im.height}; natural.set(src,o); res(o); };
-          im.onerror=()=>res({w:1600,h:1067});
+        im.onerror=()=>res({w:1600,h:1067});
           im.src=src;
         });
       }
