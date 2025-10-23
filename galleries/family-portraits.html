@@ -49,6 +49,11 @@
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer, .page-top-spacer { height:0!important; }
 
+    /* Make navbar links non-bold to match the rest of the site */
+    .topbar nav a,
+    .topbar .nav a,
+    .topbar [role="navigation"] a { font-weight:400 !important; }
+
     *{ box-sizing:border-box }
     html,body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; line-height:1.65 }
     a{ color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease }
