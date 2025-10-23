@@ -141,25 +141,15 @@
     /* Remove slide-in animation between images */
     .panGroup{ will-change: transform; } /* no transition => instant swap */
 
-    /* Tune HUD */
-    .tuneHud{
-      position:fixed; left:50%; transform:translateX(-50%);
-      bottom:16px; z-index:50; background:#fff; border:1px solid var(--line);
-      padding:8px 10px; box-shadow:0 10px 26px rgba(0,0,0,.12); font-size:13px; color:#3e3e3a;
-      display:none; gap:8px; align-items:center; border-radius:6px;
-    }
-    .tuneHud .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-    .tuneHud button{
-      padding:6px 10px; border:1px solid var(--line); background:#fff; cursor:pointer;
-    }
+    /* --- Make the three buttons align on the same row --- */
+    .service-blurbs .row{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
+    .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06); display:flex; flex-direction:column; }
+    .blurb h3{ font-family:"Cormorant Garamond","Times New Roman",serif; margin:0 0 6px; font-size:20px }
+    .blurb p{ margin:0 0 10px; color:#5b574f }
+    .blurb .btn{ margin-top:auto; } /* pins each button to the bottom so all three sit on one baseline */
 
     .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px); overflow:visible; }
     .mosaic figure{ margin:0 }
-    .service-blurbs{ margin-top:clamp(18px,3vw,28px) }
-    .service-blurbs .row{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
-    .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
-    .blurb h3{ font-family:"Cormorant Garamond","Times New Roman",serif; margin:0 0 6px; font-size:20px }
-    .blurb p{ margin:0 0 10px; color:#5b574f }
 
     @media (max-width:980px){
       .hero-wrap{ grid-template-columns:1fr }
@@ -321,9 +311,10 @@
               <div class="tile-dots" role="tablist"></div>
             </figure>
 
-            <!-- COUPLES (third tile; kept id to avoid JS refactor) -->
+            <!-- COUPLES (third tile) -->
             <figure class="captioned notch" id="portraits-friend" aria-label="Couples"
                     data-images='[
+                      "/pictures/couplesPortraitTile/couple-embrace-sunset.jpg",
                       "/pictures/couplesPortraitTile/couple-twirl-sunset.jpg",
                       "/pictures/couplesPortraitTile/couple-holdingHands-lido-sunset.jpg",
                       "/pictures/couplesPortraitTile/couple-gaze-sunset.jpg",
@@ -335,7 +326,7 @@
                   <filter id="frameShadow-p3" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
                 </defs>
                 <g mask="url(#notchMask-p3)"><g class="panGroup">
-                  <image href="/pictures/couplesPortraitTile/couple-twirl-sunset.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
+                  <image href="/pictures/couplesPortraitTile/couple-embrace-sunset.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
                 </g></g>
                 <g class="frameGroup" filter="url(#frameShadow-p3)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /></g>
               </svg>
@@ -414,10 +405,11 @@
               <article class="blurb"><h3>Adventure</h3><p>Hills, dunes, wind, and play—story-driven portraits in big landscapes with lots of movement.</p><a class="btn" href="/adventure.html">View Adventure Gallery</a></article>
             </div>
 
-            <!-- COUPLES (mobile; kept id to avoid JS refactor) -->
+            <!-- COUPLES (mobile) -->
             <div class="service">
               <figure class="captioned notch" id="portraits-friend-m" aria-label="Couples"
                       data-images='[
+                        "/pictures/couplesPortraitTile/couple-embrace-sunset.jpg",
                         "/pictures/couplesPortraitTile/couple-twirl-sunset.jpg",
                         "/pictures/couplesPortraitTile/couple-holdingHands-lido-sunset.jpg",
                         "/pictures/couplesPortraitTile/couple-gaze-sunset.jpg",
@@ -426,7 +418,7 @@
                 <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
                   <defs><mask id="notchMask-p3m" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask></defs>
                   <g mask="url(#notchMask-p3m)"><g class="panGroup">
-                    <image href="/pictures/couplesPortraitTile/couple-twirl-sunset.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
+                    <image href="/pictures/couplesPortraitTile/couple-embrace-sunset.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
                   </g></g>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -513,26 +505,10 @@
     window.focalByTile = {
       'portraits-family': { "*": { x:0 } },
       'portraits-adventure': { "*": { x:0 } },
-      'portraits-friend': {
-        "*": { x:0, y:0, zoom:1 },
-        "/pictures/thirdTileGal/E26A2860.jpg": { x:150, y:0, zoom:1 },
-        "/pictures/thirdTileGal/E26A2854.jpg": { x:300, y:0, zoom:1 },
-        "/pictures/thirdTileGal/E26A2771.jpg": { x:240, y:0, zoom:1 },
-        "/pictures/friendPortraitGal/E26A2017 (1).jpg": { x:90, y:0, zoom:1 },
-        "/pictures/friendPortraitGal/E26A2017%20(1).jpg": { x:90, y:0, zoom:1 },
-        "/pictures/thirdTileGal/E26A2017.jpg": { x:90, y:0, zoom:1 }
-      },
+      'portraits-friend': { "*": { x:0, y:0, zoom:1 } },
       'portraits-family-m': { "*": { x:0 } },
       'portraits-adventure-m': { "*": { x:0 } },
-      'portraits-friend-m': {
-        "*": { x:0, y:0, zoom:1 },
-        "/pictures/thirdTileGal/E26A2860.jpg": { x:150, y:0, zoom:1 },
-        "/pictures/thirdTileGal/E26A2854.jpg": { x:300, y:0, zoom:1 },
-        "/pictures/thirdTileGal/E26A2771.jpg": { x:240, y:0, zoom:1 },
-        "/pictures/friendPortraitGal/E26A2017 (1).jpg": { x:90, y:0, zoom:1 },
-        "/pictures/friendPortraitGal/E26A2017%20(1).jpg": { x:90, y:0, zoom:1 },
-        "/pictures/thirdTileGal/E26A2017.jpg": { x:90, y:0, zoom:1 }
-      }
+      'portraits-friend-m': { "*": { x:0, y:0, zoom:1 } }
     };
     function getFocal(tileId, src){
       const t = (window.focalByTile || {})[tileId] || {};
@@ -650,115 +626,13 @@
         const cfg = getFocal(tileId, src);
         if (isTune && isFriend(tileId)){ st.dx = cfg.x || 0; st.dy = cfg.y || 0; st.zoom = cfg.zoom || 1; }
         applyFocal(imgEl, src, tileId, isTune && isFriend(tileId));
-        updateHud(tileId);
       }
 
       tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(st.idx-1); });
       tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(st.idx+1); });
       tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>show(st.idx+1));
 
-      if (isTune && isFriend(tileId)){
-        let dragging = false, lastX=0, lastY=0;
-        const svg = tile.querySelector('svg.notch-figure');
-        svg.style.cursor = 'grab';
-
-        const onDown = (e)=>{ dragging = true; lastX = (e.touches? e.touches[0].clientX : e.clientX); lastY = (e.touches? e.touches[0].clientY : e.clientY); svg.style.cursor = 'grabbing'; };
-        const onMove = (e)=>{
-          if(!dragging) return;
-          const x = (e.touches? e.touches[0].clientX : e.clientX);
-          const y = (e.touches? e.touches[0].clientY : e.clientY);
-          const dx = x - lastX; const dy = y - lastY; lastX = x; lastY = y;
-          const s = stateByTile.get(tileId);
-          s.dx = clamp((s.dx||0)+dx, -s.maxX, s.maxX);
-          s.dy = clamp((s.dy||0)+dy, -s.maxY, s.maxY);
-          stateByTile.set(tileId, s);
-          ensurePanGroup(imgEl)?.setAttribute('transform', `translate(${s.dx} ${s.dy})`);
-          updateHud(tileId);
-        };
-        const onUp = ()=>{ dragging=false; svg.style.cursor='grab'; };
-
-        svg.addEventListener('mousedown', onDown);
-        svg.addEventListener('mousemove', onMove);
-        window.addEventListener('mouseup', onUp);
-        svg.addEventListener('touchstart', onDown, {passive:true});
-        svg.addEventListener('touchmove', onMove, {passive:true});
-        window.addEventListener('touchend', onUp);
-
-        svg.addEventListener('wheel', (e)=>{
-          if (!e.shiftKey) return;
-          e.preventDefault();
-          const s = stateByTile.get(tileId);
-          const zOld = s.zoom || 1;
-          const z = clamp(zOld * (e.deltaY < 0 ? 1.08 : 0.925), 1, 3);
-          if (z !== zOld){
-            s.zoom = z; stateByTile.set(tileId, s);
-            const src = list[st.idx];
-            applyFocal(imgEl, src, tileId, true);
-            updateHud(tileId);
-          }
-        }, { passive:false });
-
-        window.addEventListener('keydown', (e)=>{
-          if (e.key === 'ArrowLeft') { show(st.idx-1); }
-          else if (e.key === 'ArrowRight') { show(st.idx+1); }
-          else if (e.key === '[') { const s=stateByTile.get(tileId); s.dx=clamp((s.dx||0)-30, -s.maxX, s.maxX); stateByTile.set(tileId,s); ensurePanGroup(imgEl)?.setAttribute('transform',`translate(${s.dx} ${s.dy||0})`); updateHud(tileId); }
-          else if (e.key === ']') { const s=stateByTile.get(tileId); s.dx=clamp((s.dx||0)+30, -s.maxX, s.maxX); stateByTile.set(tileId,s); ensurePanGroup(imgEl)?.setAttribute('transform',`translate(${s.dx} ${s.dy||0})`); updateHud(tileId); }
-          else if (e.key === 'ArrowUp') { const s=stateByTile.get(tileId); s.dy=clamp((s.dy||0)-30, -s.maxY, s.maxY); stateByTile.set(tileId,s); ensurePanGroup(imgEl)?.setAttribute('transform',`translate(${s.dx||0} ${s.dy})`); updateHud(tileId); }
-          else if (e.key === 'ArrowDown') { const s=stateByTile.get(tileId); s.dy=clamp((s.dy||0)+30, -s.maxY, s.maxY); stateByTile.set(tileId,s); ensurePanGroup(imgEl)?.setAttribute('transform',`translate(${s.dx||0} ${s.dy})`); updateHud(tileId); }
-          else if (e.key === '+' || e.key === '=') { const s=stateByTile.get(tileId); s.zoom=clamp((s.zoom||1)*1.08,1,3); stateByTile.set(tileId,s); applyFocal(imgEl, list[st.idx], tileId, true); updateHud(tileId); }
-          else if (e.key === '-' || e.key === '_') { const s=stateByTile.get(tileId); s.zoom=clamp((s.zoom||1)*0.925,1,3); stateByTile.set(tileId,s); applyFocal(imgEl, list[st.idx], tileId, true); updateHud(tileId); }
-          else if (e.key.toLowerCase() === 'c') { copyCurrentJSON(tileId); }
-        });
-      }
-
       tile.dataset.wired = '1';
-    }
-
-    let hud;
-    function ensureHud(){
-      if (hud || !isTune) return;
-      hud = document.createElement('div');
-      hud.className = 'tuneHud';
-      hud.innerHTML = `
-        <span class="mono" data-id>friend</span>
-        <span>•</span>
-        <span class="mono" data-file>—</span>
-        <span>•</span>
-        <span class="mono" data-vals>x:0 y:0 z:1</span>
-        <button type="button" data-prev>Prev</button>
-        <button type="button" data-next>Next</button>
-        <button type="button" data-copy>Copy JSON</button>
-        <span style="opacity:.7">Drag, Shift+Wheel to zoom, Arrows/[ ]/+/−, C to copy</span>
-      `;
-      document.body.appendChild(hud);
-      hud.style.display = 'flex';
-      hud.querySelector('[data-prev]').addEventListener('click', ()=> clickNav('prev'));
-      hud.querySelector('[data-next]').addEventListener('click', ()=> clickNav('next'));
-      hud.querySelector('[data-copy]').addEventListener('click', ()=> copyCurrentJSON(activeFriendId()));
-    }
-    function activeFriendId(){ return window.matchMedia('(max-width: 960px)').matches ? 'portraits-friend-m' : 'portraits-friend'; }
-    function clickNav(which){
-      const id = activeFriendId();
-      const tile = document.getElementById(id);
-      tile?.querySelector(which==='prev'?'.tile-prev':'.tile-next')?.click();
-    }
-    function updateHud(tileId){
-      if (!isTune) return;
-      ensureHud();
-      const st = stateByTile.get(tileId); if (!st) return;
-      const file = (st.list||[])[st.idx] || '';
-      hud.querySelector('[data-id]').textContent = tileId;
-      hud.querySelector('[data-file]').textContent = file.split('/').pop();
-      hud.querySelector('[data-vals]').textContent = `x:${Math.round(st.dx||0)} y:${Math.round(st.dy||0)} z:${(st.zoom||1).toFixed(2)}`;
-    }
-    function copyCurrentJSON(tileId){
-      const st = stateByTile.get(tileId); if(!st) return;
-      const file = (st.list||[])[st.idx]; if(!file) return;
-      const obj = {}; obj[file] = { x: Math.round(st.dx||0), y: Math.round(st.dy||0), zoom: +(st.zoom||1).toFixed(3) };
-      const json = JSON.stringify(obj, null, 2);
-      navigator.clipboard?.writeText(json);
-      hud.querySelector('[data-copy]').textContent = 'Copied!';
-      setTimeout(()=>{ hud.querySelector('[data-copy]').textContent = 'Copy JSON'; }, 900);
     }
 
     const io = new IntersectionObserver((entries)=>{
@@ -768,7 +642,6 @@
           prime(id);
           wire(id);
           io.unobserve(entry.target);
-          if (isTune && isFriend(id)) updateHud(id);
         }
       });
     }, { rootMargin: '200px 0px' });
@@ -778,7 +651,6 @@
         const el = document.getElementById(id);
         if (el) io.observe(el);
       });
-      if (isTune) ensureHud();
     }
 
     initForViewport();
@@ -789,7 +661,6 @@
       if (isMobile !== wasMobile){
         wasMobile = isMobile;
         initForViewport();
-        updateHud(activeFriendId());
       }
     });
   })();
