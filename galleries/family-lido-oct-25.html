@@ -27,6 +27,39 @@
   <!-- Shared layout + gallery styles -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-6">
   <link rel="stylesheet" href="/assets/gallery.css?v=14">
+
+  <!-- Page-specific tweaks: thin navbar + thin underline crumb -->
+  <style>
+    :root{
+      --mobile-header-h:64px;
+      --accent:#A88A5A;
+      --line:#e9e6df;
+    }
+    /* Use the compact topbar spacing used on other pages */
+    .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
+    .nav-spacer, .page-top-spacer { height:0 !important; }
+
+    /* Thin underline for the back/crumb link */
+    .gallery-head .crumb a{
+      display:inline-block;
+      font-size:15px;
+      color:#6e6a62;
+      text-decoration:underline;
+      text-underline-offset:4px;
+      text-decoration-thickness:1px;
+    }
+    .gallery-head .crumb a:hover, .gallery-head .crumb a:focus-visible{
+      color:var(--accent);
+      text-decoration-color:var(--accent);
+      outline:none;
+    }
+
+    /* Small mobile clearance so header content doesn't sit under fixed nav */
+    @media (max-width:820px){
+      html, body{ overflow-x:hidden; }
+      .gallery-head{ padding-top: calc(var(--mobile-header-h) + 10px); }
+    }
+  </style>
 </head>
 <body>
 
