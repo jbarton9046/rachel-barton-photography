@@ -43,12 +43,10 @@
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer, .page-top-spacer { height:0!important; }
 
-    /* ↓ Make navbar links thinner like about.html (no other impact) */
+    /* Make navbar links thinner like about.html */
     .topbar nav a,
     .topbar .nav a,
-    .topbar [role="navigation"] a {
-      font-weight:400 !important;
-    }
+    .topbar [role="navigation"] a { font-weight:400 !important; }
 
     *{ box-sizing:border-box }
     html,body{
@@ -84,8 +82,7 @@
       display:grid;
       grid-template-columns:1.1fr .9fr;
       gap:clamp(20px,4vw,40px);
-      /* center text with the image */
-      align-items:center;
+      align-items:center; /* center text with the image */
     }
     .hero .left{ display:flex; flex-direction:column; gap:10px; margin-top:0; }
     .crumb{ margin:0 0 6px; }
@@ -96,7 +93,6 @@
       color:#6e6a62;
     }
 
-    /* Right figure + image */
     .hero-fig{
       position:relative;
       justify-self:center;
@@ -104,8 +100,7 @@
       place-items:center;
     }
     .hero-fig img{
-      /* shrink about 20% and keep aspect */
-      width:80%;
+      width:80%;           /* ~20% smaller */
       max-width:100%;
       aspect-ratio:4/5;
       object-fit:cover;
@@ -113,15 +108,15 @@
       box-shadow:0 6px 18px rgba(0,0,0,.06);
     }
 
-    /* ↓ Translucent 'glass' badge like your tile labels */
+    /* More translucent 'glass' badge */
     .hero-badge{
       position:absolute;
       top:12px;
       left:calc((100% - 80%) / 2 + 12px); /* hugs the shrunken image */
-      background:rgba(255,255,255,.78);
-      border:1px solid var(--line);
-      -webkit-backdrop-filter:saturate(1.05) blur(.5px);
-      backdrop-filter:saturate(1.05) blur(.5px);
+      background:rgba(255,255,255,.56);             /* more transparent */
+      border:1px solid rgba(233,230,223,.60);       /* soften border too */
+      -webkit-backdrop-filter:saturate(1.05) blur(1.5px);
+      backdrop-filter:saturate(1.05) blur(1.5px);
       padding:6px 10px;
       box-shadow:0 6px 18px rgba(0,0,0,.08);
       font-size:13px;
@@ -177,10 +172,13 @@
     }
     .muted{ color:#6e6a62; }
 
+    /* Align Session Types buttons to the same row */
     .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
-    .card{ background:#fff; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06); padding:16px }
+    .card{ background:#fff; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06); padding:16px;
+           display:flex; flex-direction:column; }
     .card h3{ margin:0 0 6px; font-size:20px; font-weight:700; font-family:"Source Sans 3",system-ui }
     .card p{ margin:0; color:#4f4a42 }
+    .card > div:last-child{ margin-top:auto !important; } /* push button to bottom */
 
     .chips{ display:flex; flex-wrap:wrap; gap:8px; }
     .chip{ border:1px solid var(--line); background:#fff; padding:8px 12px; box-shadow:0 6px 18px rgba(0,0,0,.04) }
@@ -188,9 +186,7 @@
     /* FAQ */
     .faq{ border-top:1px solid var(--line); }
     .faq details{ border-bottom:1px solid var(--line); padding:10px 0; }
-    .faq summary{
-      list-style:none; cursor:pointer; font-weight:700; font-family:"Source Sans 3";
-    }
+    .faq summary{ list-style:none; cursor:pointer; font-weight:700; font-family:"Source Sans 3"; }
     .faq summary::-webkit-details-marker{ display:none; }
     .faq p{ margin:8px 0 0; color:#5b574f }
 
@@ -332,37 +328,16 @@
           <div class="card">
             <h3>Gentle Direction</h3>
             <p>Prompts that encourage movement and connection while keeping everything natural and candid.</p>
+            <div style="margin-top:10px"><a class="btn" href="/galleries/family-portrait.html">View Gallery</a></div>
           </div>
           <div class="card">
             <h3>Flattering Light</h3>
             <p>We shoot during the best light—golden hour or soft morning glow—for clean, timeless color.</p>
+            <div style="margin-top:10px"><a class="btn" href="/galleries/friend-portraits.html">View Gallery</a></div>
           </div>
           <div class="card">
             <h3>Stress-Free Flow</h3>
             <p>Clear prep, quick breaks for kids, and a pace that keeps everyone comfortable and engaged.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SESSION TYPES -->
-    <section class="section" aria-labelledby="types-title">
-      <div class="container">
-        <h2 id="types-title">Session Types</h2>
-        <div class="grid-3">
-          <div class="card">
-            <h3>Family</h3>
-            <p>Parents, littles, grandparents—up to 6 people. Add extended family as needed.</p>
-            <div style="margin-top:10px"><a class="btn" href="/galleries/family-portrait.html">View Gallery</a></div>
-          </div>
-          <div class="card">
-            <h3>Friends</h3>
-            <p>Besties, roomies, and squads. Easygoing and a little editorial—perfect for grads, trips, and milestones.</p>
-            <div style="margin-top:10px"><a class="btn" href="/galleries/friend-portraits.html">View Gallery</a></div>
-          </div>
-          <div class="card">
-            <h3>Mini or Full</h3>
-            <p>Choose a shorter mini for quick highlights or a full session for more variety and locations.</p>
             <div style="margin-top:10px"><a class="btn" href="/contact.html">Ask a Question</a></div>
           </div>
         </div>
