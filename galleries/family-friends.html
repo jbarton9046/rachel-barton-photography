@@ -206,40 +206,40 @@
       /* consistent side gutters */
       .container{ padding:0 22px; }
 
-      /* TIGHT but clean space under nav before Back link */
-      .topbar{ padding-bottom:10px !important; }
-      .hero{ padding-top:16px; } /* creates a polished gap above “Back to Portraits” */
+      /* Clean, slightly increased gap below nav so back link clears the logo */
+      .topbar{ padding-bottom:12px !important; }
+      .hero{ padding-top:22px; }
 
-      /* two-column hero */
-      .hero .wrap{ grid-template-columns:1fr 1fr; gap:10px; align-items:center; }
+      /* two-column hero with a bit more inter-column space so image doesn't sit on text */
+      .hero .wrap{ grid-template-columns:1fr 1fr; gap:16px; align-items:center; }
       .hero .left{ gap:6px; }
       .crumb a{ font-size:12.5px; }
 
       .h1{ font-size:clamp(24px,6vw,30px); }
       .lead{ font-size:15px; }
 
-      /* CTAs can stay as-is; they already fit one row from previous pass */
+      /* keep CTAs on one row and compact */
       .hero .left > div{ gap:8px !important; flex-wrap:nowrap !important; }
       .hero .left .btn{ padding:5px 8px; font-size:12px; line-height:1.1; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.06); }
 
-      /* HERO IMAGE: fill its column and hug the right gutter */
+      /* HERO IMAGE: fill its column and align with right gutter */
       .hero-fig{ justify-self:end; align-self:center; width:100%; }
-      .hero-fig img{
-        width:100%;
-        max-width:none;   /* allow full column width */
-        margin:0;
-      }
+      .hero-fig img{ width:100%; max-width:none; margin:0; }
 
-      /* tighter/smaller Timeless badge at top-right */
+      /* Timeless badge: keep size, move to TOP-LEFT */
       .hero-badge{
-        top:6px; right:10px; left:auto;
+        top:8px; left:8px; right:auto;
         font-size:10px; padding:3px 6px;
         border-color:rgba(233,230,223,.55);
         box-shadow:0 4px 12px rgba(0,0,0,.06);
       }
 
-      /* Tile badges smaller and top-right (unchanged from last pass) */
+      /* Tile badges smaller and top-right (unchanged) */
       .tile-label{ top:8px; right:8px; left:auto; bottom:auto; font-size:12px; padding:3px 6px; }
+
+      /* Mobile: make the carousel arrows ALWAYS visible */
+      .tile-nav{ opacity:1 !important; pointer-events:auto; }
+      .captioned.notch:hover .tile-nav{ opacity:1; }
 
       /* two-up tiles & two-up blurbs; align buttons on same baseline */
       .mosaic{ grid-template-columns:repeat(2,1fr); gap:10px; }
@@ -248,7 +248,7 @@
       .tile-descs .btn{ padding:6px 8px; font-size:12px; white-space:nowrap; margin-top:auto; }
       .blurb{ padding:14px; }
 
-      /* Popular locations (unchanged) */
+      /* Popular locations */
       .chips{ gap:6px; }
       .chip{ padding:6px 10px; font-size:14px; line-height:1; white-space:nowrap; }
 
