@@ -69,7 +69,7 @@
     }
     .btn:hover, .btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none; }
 
-    /* ===== HERO ===== */
+    /* ===== HERO (DESKTOP/TABLET — UNCHANGED) ===== */
     .hero{ padding:clamp(18px,5vw,44px) 0; }
     .hero .wrap{
       display:grid;
@@ -86,21 +86,34 @@
       color:#6e6a62;
     }
 
-    .hero-fig{ position:relative; justify-self:center; display:grid; place-items:center; }
+    .hero-fig{
+      position:relative;
+      justify-self:center;
+      display:grid;
+      place-items:center;
+    }
+    /* desktop/tablet image rules reverted to original */
     .hero-fig img{
       width:80%;
-      max-width:320px; /* cap to keep visual size consistent */
+      max-width:100%;
       aspect-ratio:4/5;
       object-fit:cover;
       border:1px solid var(--line);
       box-shadow:0 6px 18px rgba(0,0,0,.06);
       display:block;
     }
+
     .hero-badge{
-      position:absolute; top:12px; left:calc((100% - 80%) / 2 + 12px);
-      background:rgba(255,255,255,.56); border:1px solid rgba(233,230,223,.60);
-      -webkit-backdrop-filter:saturate(1.05) blur(1.5px); backdrop-filter:saturate(1.05) blur(1.5px);
-      padding:6px 10px; box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px;
+      position:absolute;
+      top:12px;
+      left:calc((100% - 80%) / 2 + 12px);
+      background:rgba(255,255,255,.56);
+      border:1px solid rgba(233,230,223,.60);
+      -webkit-backdrop-filter:saturate(1.05) blur(1.5px);
+      backdrop-filter:saturate(1.05) blur(1.5px);
+      padding:6px 10px;
+      box-shadow:0 6px 18px rgba(0,0,0,.08);
+      font-size:13px;
     }
 
     /* ===== Tiles ===== */
@@ -176,9 +189,9 @@
 
       /* more breathing room between nav and Back link */
       .topbar{ padding-bottom:16px !important; }
-      .hero{ padding-top:30px; } /* moves Back link down a touch more */
+      .hero{ padding-top:30px; } /* Back link clears the logo fully */
 
-      /* two-column hero with safety gap; image will not sit on text */
+      /* 2-col hero, safe gap so image doesn't touch text */
       .hero .wrap{
         grid-template-columns:minmax(0,1fr) minmax(0,1fr);
         gap:22px;
@@ -187,34 +200,36 @@
       .hero .left{ gap:6px; }
       .crumb a{ font-size:12.5px; }
 
-      .h1{ font-size:clamp(24px,6vw,30px); }
+      /* Keep headline on one line */
+      .h1{ font-size:clamp(24px,6vw,30px); white-space:nowrap; }
+
       .lead{ font-size:15px; }
 
       .hero .left > div{ gap:8px !important; flex-wrap:nowrap !important; }
       .hero .left .btn{ padding:5px 8px; font-size:12px; line-height:1.1; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.06); }
 
-      /* keep image EXACT SAME SIZE as default (80%/max 320px) but shove it to the right gutter */
+      /* Keep SAME visual size, push further right ~¼" */
       .hero-fig{
-        justify-self:end;       /* align the figure to the container's right */
-        justify-items:end;      /* align contents (img/badge) to the figure's right */
+        justify-self:end;
         align-self:center;
         width:100%;
+        margin-right:-10px;   /* nudge to the gutter without changing size */
       }
       .hero-fig img{
-        width:80%;              /* same size as desktop/mobile default */
-        max-width:320px;        /* same cap as above */
-        margin:0;               /* right edge aligns with tiles below */
+        width:80%;           /* same sizing behavior as desktop default */
+        max-width:320px;     /* cap to keep visual size consistent */
+        margin:0;
       }
 
-      /* badge compact at top-left of the image */
+      /* Timeless badge back to TOP-RIGHT of the image */
       .hero-badge{
-        top:8px; left:8px; right:auto;
+        top:8px; right:8px; left:auto;
         font-size:10px; padding:3px 6px;
         border-color:rgba(233,230,223,.55);
         box-shadow:0 4px 12px rgba(0,0,0,.06);
       }
 
-      /* Tile labels & always-visible arrows */
+      /* Tile labels & always-visible arrows on mobile */
       .tile-label{ top:8px; right:8px; left:auto; bottom:auto; font-size:12px; padding:3px 6px; }
       .tile-nav{ opacity:1 !important; pointer-events:auto; }
       .captioned.notch:hover .tile-nav{ opacity:1; }
