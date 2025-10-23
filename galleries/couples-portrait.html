@@ -26,6 +26,22 @@
   <!-- Shared layout + gallery styles -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-6">
   <link rel="stylesheet" href="/assets/gallery.css?v=14">
+
+  <!-- Nav + crumb tweaks -->
+  <style>
+    /* Make navbar links non-bold like the rest of the site */
+    .topbar nav a,
+    .topbar .nav a,
+    .topbar [role="navigation"] a { font-weight: 400 !important; }
+
+    /* Thin underlined back link */
+    .gallery-head .crumb { font-size:14px; color:#7a766e; margin:0 0 6px; }
+    .gallery-head .crumb a{
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+  </style>
 </head>
 <body>
 
