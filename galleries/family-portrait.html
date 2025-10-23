@@ -31,9 +31,13 @@
   <style>
     :root{ --mobile-header-h:64px; }
 
-    /* Crumb style (match friend-portraits) */
+    /* Crumb style (thin underline like other pages) */
     .gallery-head .crumb{ font-size:14px; color:#7a766e; margin:0 0 6px; }
-    .gallery-head .crumb a{ text-decoration:underline; text-underline-offset:3px; }
+    .gallery-head .crumb a{
+      text-decoration:underline;
+      text-decoration-thickness:1px;
+      text-underline-offset:4px;
+    }
 
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
