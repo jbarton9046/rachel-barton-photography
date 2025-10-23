@@ -89,7 +89,7 @@
     .hero-fig{ position:relative; justify-self:center; display:grid; place-items:center; }
     .hero-fig img{
       width:80%;
-      max-width:100%;
+      max-width:320px; /* cap to keep visual size consistent */
       aspect-ratio:4/5;
       object-fit:cover;
       border:1px solid var(--line);
@@ -178,10 +178,10 @@
       .topbar{ padding-bottom:16px !important; }
       .hero{ padding-top:30px; } /* moves Back link down a touch more */
 
-      /* two-column hero with bigger safety gap so image never touches text */
+      /* two-column hero with safety gap; image will not sit on text */
       .hero .wrap{
-        grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);
-        gap:22px;                 /* wider inter-column gap */
+        grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+        gap:22px;
         align-items:center;
       }
       .hero .left{ gap:6px; }
@@ -193,19 +193,20 @@
       .hero .left > div{ gap:8px !important; flex-wrap:nowrap !important; }
       .hero .left .btn{ padding:5px 8px; font-size:12px; line-height:1.1; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.06); }
 
-      /* push hero image hard to the right and make it fill its column */
+      /* keep image EXACT SAME SIZE as default (80%/max 320px) but shove it to the right gutter */
       .hero-fig{
-        justify-self:end;
+        justify-self:end;       /* align the figure to the container's right */
+        justify-items:end;      /* align contents (img/badge) to the figure's right */
         align-self:center;
         width:100%;
       }
       .hero-fig img{
-        width:100%;
-        max-width:none;
-        margin:0;                 /* right edge now aligns with tiles */
+        width:80%;              /* same size as desktop/mobile default */
+        max-width:320px;        /* same cap as above */
+        margin:0;               /* right edge aligns with tiles below */
       }
 
-      /* badge stays compact, now top-left of the image */
+      /* badge compact at top-left of the image */
       .hero-badge{
         top:8px; left:8px; right:auto;
         font-size:10px; padding:3px 6px;
