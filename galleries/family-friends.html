@@ -43,6 +43,13 @@
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer, .page-top-spacer { height:0!important; }
 
+    /* ↓ Make navbar links thinner like about.html (no other impact) */
+    .topbar nav a,
+    .topbar .nav a,
+    .topbar [role="navigation"] a {
+      font-weight:400 !important;
+    }
+
     *{ box-sizing:border-box }
     html,body{
       margin:0; padding:0; background:var(--bg); color:var(--ink);
@@ -92,13 +99,12 @@
     /* Right figure + image */
     .hero-fig{
       position:relative;
-      /* center the figure block inside its grid column */
       justify-self:center;
       display:grid;
       place-items:center;
     }
     .hero-fig img{
-      /* ↓ shrink about 20% and keep aspect */
+      /* shrink about 20% and keep aspect */
       width:80%;
       max-width:100%;
       aspect-ratio:4/5;
@@ -106,14 +112,19 @@
       border:1px solid var(--line);
       box-shadow:0 6px 18px rgba(0,0,0,.06);
     }
-    /* keep the floating badge near the image’s top-left even after shrink */
+
+    /* ↓ Translucent 'glass' badge like your tile labels */
     .hero-badge{
       position:absolute;
       top:12px;
-      /* left margin equals half of the leftover space (100% - 80%) / 2 */
-      left:calc((100% - 80%) / 2 + 12px);
-      background:#fff; border:1px solid var(--line); padding:6px 10px;
-      box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px;
+      left:calc((100% - 80%) / 2 + 12px); /* hugs the shrunken image */
+      background:rgba(255,255,255,.78);
+      border:1px solid var(--line);
+      -webkit-backdrop-filter:saturate(1.05) blur(.5px);
+      backdrop-filter:saturate(1.05) blur(.5px);
+      padding:6px 10px;
+      box-shadow:0 6px 18px rgba(0,0,0,.08);
+      font-size:13px;
     }
 
     /* ===== Tiles ===== */
@@ -191,7 +202,6 @@
       .grid-3{ grid-template-columns:1fr; }
       .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
-      /* On phones, let the hero image span full width again */
       .hero-fig img{ width:100%; }
       .hero-badge{ left:12px; }
     }
@@ -205,7 +215,6 @@
     <section class="hero">
       <div class="container wrap hero">
         <div class="left">
-          <!-- Back link to portraits -->
           <p class="crumb"><a href="/portraits.html">← Back to Portraits</a></p>
           <div class="eyebrow">Galleries</div>
           <h1 class="h1">Family &amp; Friends</h1>
@@ -218,7 +227,6 @@
 
         <figure class="hero-fig">
           <span class="hero-badge">Kid-wise • Natural • Timeless</span>
-          <!-- Single photo on the right -->
           <img src="/pictures/family-friends/girl-shells-golden.jpg" alt="Girl collecting shells at golden hour on the beach" />
         </figure>
       </div>
