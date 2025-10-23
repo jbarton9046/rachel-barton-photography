@@ -77,16 +77,26 @@
       display:grid;
       grid-template-columns:1.1fr .9fr;
       gap:clamp(20px,4vw,40px);
-      align-items:start;           /* lift left column up */
+      /* ⬇️ Center the left column to the right image (like your chosen option) */
+      align-items:center;
     }
     .hero .left{ display:flex; flex-direction:column; gap:10px; margin-top:0; }
     .crumb{ margin:0 0 6px; }
-    .crumb a{ text-decoration:underline; text-underline-offset:4px; color:#6e6a62 }
+    /* ⬇️ Thin underline like the rest of the site */
+    .crumb a{
+      text-decoration:underline;
+      text-decoration-thickness:1px;
+      text-underline-offset:4px;
+      color:#6e6a62;
+    }
 
     .hero-fig{ position:relative }
     .hero-fig img{
-      width:100%; aspect-ratio:4/5; object-fit:cover;
-      border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)
+      width:100%;
+      aspect-ratio:4/5;            /* keep the tall portrait look */
+      object-fit:cover;
+      border:1px solid var(--line);
+      box-shadow:0 6px 18px rgba(0,0,0,.06)
     }
     .hero-badge{
       position:absolute; left:12px; top:12px;
@@ -180,7 +190,7 @@
     <section class="hero">
       <div class="container wrap hero">
         <div class="left">
-          <!-- EDIT 1: back link now goes to portraits.html -->
+          <!-- Back link to portraits -->
           <p class="crumb"><a href="/portraits.html">← Back to Portraits</a></p>
           <div class="eyebrow">Galleries</div>
           <h1 class="h1">Family &amp; Friends</h1>
@@ -193,7 +203,7 @@
 
         <figure class="hero-fig">
           <span class="hero-badge">Kid-wise • Natural • Timeless</span>
-          <!-- EDIT 2: single photo on right -->
+          <!-- Single photo on the right -->
           <img src="/pictures/family-friends/girl-shells-golden.jpg" alt="Girl collecting shells at golden hour on the beach" />
         </figure>
       </div>
