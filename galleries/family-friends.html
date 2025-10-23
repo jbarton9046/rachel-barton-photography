@@ -203,12 +203,12 @@
 
     /* Phone (iPhone 13 and similar, MOBILE-ONLY tweaks) */
     @media (max-width:480px){
-      /* consistent left/right gutters */
+      /* consistent side gutters */
       .container{ padding:0 22px; }
 
-      /* tighten the white space under the nav */
-      .topbar{ padding-bottom:6px !important; }
-      .hero{ padding-top:10px; } /* much tighter than before */
+      /* TIGHT but clean space under nav before Back link */
+      .topbar{ padding-bottom:10px !important; }
+      .hero{ padding-top:16px; } /* creates a polished gap above “Back to Portraits” */
 
       /* two-column hero */
       .hero .wrap{ grid-template-columns:1fr 1fr; gap:10px; align-items:center; }
@@ -218,21 +218,15 @@
       .h1{ font-size:clamp(24px,6vw,30px); }
       .lead{ font-size:15px; }
 
-      /* keep CTAs on one row and make them smaller */
+      /* CTAs can stay as-is; they already fit one row from previous pass */
       .hero .left > div{ gap:8px !important; flex-wrap:nowrap !important; }
-      .hero .left .btn{
-        padding:5px 8px;
-        font-size:12px;
-        line-height:1.1;
-        white-space:nowrap;
-        box-shadow:0 4px 12px rgba(0,0,0,.06);
-      }
+      .hero .left .btn{ padding:5px 8px; font-size:12px; line-height:1.1; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.06); }
 
-      /* hero image pushed right and larger */
-      .hero-fig{ justify-self:end; align-self:center; }
+      /* HERO IMAGE: fill its column and hug the right gutter */
+      .hero-fig{ justify-self:end; align-self:center; width:100%; }
       .hero-fig img{
         width:100%;
-        max-width:320px;      /* as large as the column allows */
+        max-width:none;   /* allow full column width */
         margin:0;
       }
 
@@ -244,22 +238,17 @@
         box-shadow:0 4px 12px rgba(0,0,0,.06);
       }
 
-      /* Tile badges smaller and top-right */
+      /* Tile badges smaller and top-right (unchanged from last pass) */
       .tile-label{ top:8px; right:8px; left:auto; bottom:auto; font-size:12px; padding:3px 6px; }
 
-      /* two-up tiles & two-up blurbs; align buttons on the same row visually */
+      /* two-up tiles & two-up blurbs; align buttons on same baseline */
       .mosaic{ grid-template-columns:repeat(2,1fr); gap:10px; }
       .tile-descs .row{ grid-template-columns:repeat(2,1fr); gap:10px; }
       .tile-descs .blurb{ display:flex; flex-direction:column; }
-      .tile-descs .btn{
-        padding:6px 8px;
-        font-size:12px;
-        white-space:nowrap;
-        margin-top:auto;      /* push both buttons to the same baseline */
-      }
+      .tile-descs .btn{ padding:6px 8px; font-size:12px; white-space:nowrap; margin-top:auto; }
       .blurb{ padding:14px; }
 
-      /* Popular locations: smaller, tidier chips */
+      /* Popular locations (unchanged) */
       .chips{ gap:6px; }
       .chip{ padding:6px 10px; font-size:14px; line-height:1; white-space:nowrap; }
 
