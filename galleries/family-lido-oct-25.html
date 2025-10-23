@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lido — Oct. 25 | Family Portraits | Rachel Barton Photography</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Family portrait gallery — Lido, Oct. 25. Candid, connected, true-to-life images by Rachel Barton Photography." />
+  <link rel="canonical" href="/galleries/family-lido-oct-25.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Rachel Barton Photography" />
+  <meta property="og:title" content="Lido — Oct. 25 | Family Portraits" />
+  <meta property="og:description" content="A selection from Lido — Oct. 25: warm, candid, true-to-life family portraits." />
+  <meta property="og:image" content="/pictures/familyLidoOct25/2-girls-shells-golden.jpg" />
+  <meta property="og:url" content="https://rachelsphotography.netlify.app/galleries/family-lido-oct-25.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts (sitewide) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shared layout + gallery styles -->
+  <link rel="stylesheet" href="/assets/layout.css?v=nav-6">
+  <link rel="stylesheet" href="/assets/gallery.css?v=14">
+</head>
+<body>
+
+  <!-- Shared Top Nav -->
+  <div data-include="/partials/topnav.html"></div>
+
+  <!-- Compact left-aligned header -->
+  <header class="gallery-head container" role="region" aria-label="Gallery intro">
+    <p class="crumb"><a href="/galleries/family-portraits.html">← Back to Family Portraits</a></p>
+    <h1>Lido — Oct. 25</h1>
+    <p class="lede">Candid, movement-first family portraits with warm, true-to-life color.</p>
+    <div class="actions">
+      <a class="btn" href="/book.html">Book a Session</a>
+      <a class="btn alt" href="/contact.html">Ask a Question</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section aria-label="Lido — Oct. 25 family portrait gallery">
+      <div class="grid" id="gallery">
+        <figure><a href="/pictures/familyLidoOct25/2-girls-shells-golden.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/2-girls-shells-golden.jpg" alt="Two girls collecting shells at golden hour" /></a></figure>
+        <figure><a href="/pictures/familyLidoOct25/couple-poing-beach-sunset-kids.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/couple-poing-beach-sunset-kids.jpg" alt="Parents pointing with kids at the shoreline during sunset" /></a></figure>
+        <figure><a href="/pictures/familyLidoOct25/dad-daughters-sunset.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/dad-daughters-sunset.jpg" alt="Dad with daughters at the beach at sunset" /></a></figure>
+        <figure><a href="/pictures/familyLidoOct25/girl-beach-sunset.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/girl-beach-sunset.jpg" alt="Girl smiling on the beach at sunset" /></a></figure>
+        <figure><a href="/pictures/familyLidoOct25/girl-running-beach-sunset.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/girl-running-beach-sunset.jpg" alt="Girl running along the shoreline at sunset" /></a></figure>
+        <figure><a href="/pictures/familyLidoOct25/girl-shells-sunset-beach.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/girl-shells-sunset-beach.jpg" alt="Girl holding shells with sunset glow" /></a></figure>
+        <figure><a href="/pictures/familyLidoOct25/girl-sunset-bush.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/girl-sunset-bush.jpg" alt="Portrait of girl near coastal brush at sunset" /></a></figure>
+        <figure><a href="/pictures/familyLidoOct25/siblings-beach-sunset-brother.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/siblings-beach-sunset-brother.jpg" alt="Siblings walking the beach with their brother at sunset" /></a></figure>
+        <figure><a href="/pictures/familyLidoOct25/siblings-beach-sunset.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/siblings-beach-sunset.jpg" alt="Siblings together on the sand at sunset" /></a></figure>
+      </div>
+    </section>
+  </main>
+
+  <!-- Shared Footer -->
+  <div data-include="/partials/footer.html"></div>
+
+  <!-- Partials loader -->
+  <script src="/assets/include.js?v=nav-6" defer></script>
+
+  <!-- Lightbox -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lb-close" aria-label="Close">✕</button>
+    <button id="lb-prev" aria-label="Previous image">‹</button>
+    <img id="lb-img" alt="" />
+    <button id="lb-next" aria-label="Next image">›</button>
+  </div>
+  <script>
+  (function(){
+    const box = document.getElementById('lightbox');
+    const imgEl = document.getElementById('lb-img');
+    const closeBtn = document.getElementById('lb-close');
+    const prevBtn = document.getElementById('lb-prev');
+    const nextBtn = document.getElementById('lb-next');
+
+    const links = Array.from(document.querySelectorAll('#gallery a'));
+    let idx = -1;
+
+    function openAt(i){
+      if (!links.length) return;
+      idx = (i + links.length) % links.length;
+      imgEl.src = links[idx].getAttribute('href');
+      box.classList.add('open');            // CSS handled in gallery.css v14
+      document.body.classList.add('modal-open');
+    }
+    function closeBox(){
+      box.classList.remove('open');
+      imgEl.removeAttribute('src');
+      document.body.classList.remove('modal-open');
+    }
+    function prev(){ openAt(idx - 1); }
+    function next(){ openAt(idx + 1); }
+
+    links.forEach((a,i)=> a.addEventListener('click', e=>{ e.preventDefault(); openAt(i); }));
+    closeBtn.addEventListener('click', closeBox);
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    window.addEventListener('keydown', e=>{
+      if (!box.classList.contains('open')) return;
+      if (e.key === 'Escape') closeBox();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    });
+    box.addEventListener('click', e=>{ if (e.target === box) closeBox(); });
+  })();
+  </script>
+</body>
+</html>
