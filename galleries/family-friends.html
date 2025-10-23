@@ -221,9 +221,11 @@
         margin:0;
       }
 
-      /* Timeless badge back to TOP-RIGHT of the image */
+      /* Timeless badge — top-left INSIDE the image */
       .hero-badge{
-        top:8px; right:8px; left:auto;
+        top:8px;
+        left:calc((100% - 80%) / 2 + 8px);
+        right:auto;
         font-size:10px; padding:3px 6px;
         border-color:rgba(233,230,223,.55);
         box-shadow:0 4px 12px rgba(0,0,0,.06);
