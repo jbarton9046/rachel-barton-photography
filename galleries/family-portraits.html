@@ -38,8 +38,9 @@
       --nav-gap-top:16px; --nav-gap-bottom:40px;
       --mobile-header-h:64px;
 
-      /* tile controls (matches friends page) */
-      --arrow-size:54px; --arrow-inset:12px;
+      /* tile controls (smaller to match other pages) */
+      --arrow-size:28px;        /* was 54px */
+      --arrow-inset:10px;       /* was 12px */
       --glass-bg: rgba(255,255,255,.28);
       --glass-blur: blur(7px) saturate(1.05);
       --glass-border: 1px solid rgba(63,58,51,.18);
@@ -112,11 +113,12 @@
     figure.tile:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1) }
     .tile-prev{ left:var(--arrow-inset) } .tile-next{ right:var(--arrow-inset) }
     .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
+      content:""; position:absolute; inset:0; margin:4px;                 /* was 7px */
+      transform:rotate(45deg);
       background:var(--glass-bg); -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
       border:var(--glass-border); box-shadow:var(--glass-shadow);
     }
-    .tile-nav svg{ width:22px; height:22px; position:relative; z-index:1 }
+    .tile-nav svg{ width:12px; height:12px; position:relative; z-index:1 } /* was 22px */
 
     /* Footer */
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
@@ -205,6 +207,27 @@
             ]'>
             <img class="tile-media" src="/pictures/beeRidge25FamilyTile/costumes-siblings-hug.jpg" alt="Bee Ridge — Oct. 25 (preview)" loading="lazy" />
             <figcaption class="tile-title">Bee Ridge — Oct. 25</figcaption>
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </figure>
+
+          <!-- LIDO OCT. 25 (SECOND COLUMN, NEXT ROW) -->
+          <figure class="tile" style="grid-column:2"
+            data-title="Lido — Oct. 25"
+            data-link="/galleries/family-lido-oct-25.html"
+            data-preferred="/pictures/friendOct25Tile/2-girls-shells-golden.jpg"
+            data-all-images='[
+              "/pictures/friendOct25Tile/2-girls-shells-golden.jpg",
+              "/pictures/friendOct25Tile/couple-poing-beach-sunset-kids.jpg",
+              "/pictures/friendOct25Tile/girl-beach-sunset.jpg",
+              "/pictures/friendOct25Tile/girl-sunset-bush.jpg"
+            ]'>
+            <img class="tile-media" src="/pictures/friendOct25Tile/2-girls-shells-golden.jpg" alt="Lido — Oct. 25 (preview)" loading="lazy" />
+            <figcaption class="tile-title">Lido — Oct. 25</figcaption>
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
             </button>
