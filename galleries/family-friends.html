@@ -77,12 +77,11 @@
       display:grid;
       grid-template-columns:1.1fr .9fr;
       gap:clamp(20px,4vw,40px);
-      /* ⬇️ Center the left column to the right image (like your chosen option) */
+      /* center text with the image */
       align-items:center;
     }
     .hero .left{ display:flex; flex-direction:column; gap:10px; margin-top:0; }
     .crumb{ margin:0 0 6px; }
-    /* ⬇️ Thin underline like the rest of the site */
     .crumb a{
       text-decoration:underline;
       text-decoration-thickness:1px;
@@ -90,18 +89,31 @@
       color:#6e6a62;
     }
 
-    .hero-fig{ position:relative }
+    /* Right figure + image */
+    .hero-fig{
+      position:relative;
+      /* center the figure block inside its grid column */
+      justify-self:center;
+      display:grid;
+      place-items:center;
+    }
     .hero-fig img{
-      width:100%;
-      aspect-ratio:4/5;            /* keep the tall portrait look */
+      /* ↓ shrink about 20% and keep aspect */
+      width:80%;
+      max-width:100%;
+      aspect-ratio:4/5;
       object-fit:cover;
       border:1px solid var(--line);
-      box-shadow:0 6px 18px rgba(0,0,0,.06)
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
     }
+    /* keep the floating badge near the image’s top-left even after shrink */
     .hero-badge{
-      position:absolute; left:12px; top:12px;
+      position:absolute;
+      top:12px;
+      /* left margin equals half of the leftover space (100% - 80%) / 2 */
+      left:calc((100% - 80%) / 2 + 12px);
       background:#fff; border:1px solid var(--line); padding:6px 10px;
-      box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px
+      box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px;
     }
 
     /* ===== Tiles ===== */
@@ -179,6 +191,9 @@
       .grid-3{ grid-template-columns:1fr; }
       .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
+      /* On phones, let the hero image span full width again */
+      .hero-fig img{ width:100%; }
+      .hero-badge{ left:12px; }
     }
   </style>
 </head>
