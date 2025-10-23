@@ -157,7 +157,8 @@
       .cards{ grid-template-columns:1fr }
       .mosaic{ grid-template-columns:1fr }
       .service-blurbs .row{ grid-template-columns:1fr }
-      .hero{ padding-top: calc(--mobile-header-h + 12px); }
+      /* MOBILE HERO OFFSET BELOW NAV */
+      .hero{ padding-top: calc(var(--mobile-header-h) + 16px); }
     }
 
     .packages{ padding:clamp(24px,6vw,56px) 0 }
