@@ -39,11 +39,9 @@
       --mobile-header-h:64px;
     }
 
-    /* Topbar spacing matches about.html */
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer, .page-top-spacer { height:0!important; }
 
-    /* Make navbar links thinner like about.html */
     .topbar nav a,
     .topbar .nav a,
     .topbar [role="navigation"] a { font-weight:400 !important; }
@@ -62,7 +60,6 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    /* Buttons — outline style to match site */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
@@ -70,11 +67,7 @@
       font-weight:700; text-decoration:none; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
       transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
-    .btn:hover, .btn:focus-visible{
-      background:#fff; border-color:#dcd4c3; color:var(--accent);
-      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
-      outline:none;
-    }
+    .btn:hover, .btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none; }
 
     /* ===== HERO ===== */
     .hero{ padding:clamp(18px,5vw,44px) 0; }
@@ -93,12 +86,7 @@
       color:#6e6a62;
     }
 
-    .hero-fig{
-      position:relative;
-      justify-self:center;
-      display:grid;
-      place-items:center;
-    }
+    .hero-fig{ position:relative; justify-self:center; display:grid; place-items:center; }
     .hero-fig img{
       width:80%;
       max-width:100%;
@@ -106,19 +94,13 @@
       object-fit:cover;
       border:1px solid var(--line);
       box-shadow:0 6px 18px rgba(0,0,0,.06);
+      display:block;
     }
-
     .hero-badge{
-      position:absolute;
-      top:12px;
-      left:calc((100% - 80%) / 2 + 12px);
-      background:rgba(255,255,255,.56);
-      border:1px solid rgba(233,230,223,.60);
-      -webkit-backdrop-filter:saturate(1.05) blur(1.5px);
-      backdrop-filter:saturate(1.05) blur(1.5px);
-      padding:6px 10px;
-      box-shadow:0 6px 18px rgba(0,0,0,.08);
-      font-size:13px;
+      position:absolute; top:12px; left:calc((100% - 80%) / 2 + 12px);
+      background:rgba(255,255,255,.56); border:1px solid rgba(233,230,223,.60);
+      -webkit-backdrop-filter:saturate(1.05) blur(1.5px); backdrop-filter:saturate(1.05) blur(1.5px);
+      padding:6px 10px; box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px;
     }
 
     /* ===== Tiles ===== */
@@ -153,28 +135,17 @@
       padding:6px 10px; font-family:'Cormorant Garamond','Playfair Display',Georgia,serif; font-weight:700;
     }
 
-    /* Descriptions under tiles */
     .tile-descs{ margin-top:clamp(16px,2.2vw,20px) }
-    .tile-descs .row{
-      display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(12px,2vw,18px)
-    }
-    .blurb{
-      background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06)
-    }
+    .tile-descs .row{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(12px,2vw,18px) }
+    .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .blurb p{ margin:0 0 12px; color:#5b574f }
 
-    /* ===== Extra content sections ===== */
     .section{ padding:clamp(20px,4vw,36px) 0; }
-    .section h2{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
-      font-size:clamp(24px,3.5vw,38px); margin:0 0 10px;
-    }
+    .section h2{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-size:clamp(24px,3.5vw,38px); margin:0 0 10px; }
     .muted{ color:#6e6a62; }
 
-    /* Align Session Types buttons to the same row */
     .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
-    .card{ background:#fff; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06); padding:16px;
-           display:flex; flex-direction:column; }
+    .card{ background:#fff; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06); padding:16px; display:flex; flex-direction:column; }
     .card h3{ margin:0 0 6px; font-size:20px; font-weight:700; font-family:"Source Sans 3",system-ui }
     .card p{ margin:0; color:#4f4a42 }
     .card > div:last-child{ margin-top:auto !important; }
@@ -182,7 +153,6 @@
     .chips{ display:flex; flex-wrap:wrap; gap:8px; }
     .chip{ border:1px solid var(--line); background:#fff; padding:8px 12px; box-shadow:0 6px 18px rgba(0,0,0,.04) }
 
-    /* FAQ */
     .faq{ border-top:1px solid var(--line); }
     .faq details{ border-bottom:1px solid var(--line); padding:10px 0; }
     .faq summary{ list-style:none; cursor:pointer; font-weight:700; font-family:"Source Sans 3"; }
@@ -190,7 +160,6 @@
     .faq p{ margin:8px 0 0; color:#5b574f }
 
     /* ====== RESPONSIVE ====== */
-    /* Tablet-ish */
     @media (max-width:980px){
       .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
@@ -201,32 +170,42 @@
       .hero-badge{ left:12px; }
     }
 
-    /* Phone (iPhone 13 and similar, MOBILE-ONLY tweaks) */
+    /* ===== PHONE-ONLY CHANGES ===== */
     @media (max-width:480px){
-      /* consistent side gutters */
       .container{ padding:0 22px; }
 
-      /* Clean, slightly increased gap below nav so back link clears the logo */
-      .topbar{ padding-bottom:12px !important; }
-      .hero{ padding-top:22px; }
+      /* more breathing room between nav and Back link */
+      .topbar{ padding-bottom:16px !important; }
+      .hero{ padding-top:30px; } /* moves Back link down a touch more */
 
-      /* two-column hero with a bit more inter-column space so image doesn't sit on text */
-      .hero .wrap{ grid-template-columns:1fr 1fr; gap:16px; align-items:center; }
+      /* two-column hero with bigger safety gap so image never touches text */
+      .hero .wrap{
+        grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);
+        gap:22px;                 /* wider inter-column gap */
+        align-items:center;
+      }
       .hero .left{ gap:6px; }
       .crumb a{ font-size:12.5px; }
 
       .h1{ font-size:clamp(24px,6vw,30px); }
       .lead{ font-size:15px; }
 
-      /* keep CTAs on one row and compact */
       .hero .left > div{ gap:8px !important; flex-wrap:nowrap !important; }
       .hero .left .btn{ padding:5px 8px; font-size:12px; line-height:1.1; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.06); }
 
-      /* HERO IMAGE: fill its column and align with right gutter */
-      .hero-fig{ justify-self:end; align-self:center; width:100%; }
-      .hero-fig img{ width:100%; max-width:none; margin:0; }
+      /* push hero image hard to the right and make it fill its column */
+      .hero-fig{
+        justify-self:end;
+        align-self:center;
+        width:100%;
+      }
+      .hero-fig img{
+        width:100%;
+        max-width:none;
+        margin:0;                 /* right edge now aligns with tiles */
+      }
 
-      /* Timeless badge: keep size, move to TOP-LEFT */
+      /* badge stays compact, now top-left of the image */
       .hero-badge{
         top:8px; left:8px; right:auto;
         font-size:10px; padding:3px 6px;
@@ -234,25 +213,20 @@
         box-shadow:0 4px 12px rgba(0,0,0,.06);
       }
 
-      /* Tile badges smaller and top-right (unchanged) */
+      /* Tile labels & always-visible arrows */
       .tile-label{ top:8px; right:8px; left:auto; bottom:auto; font-size:12px; padding:3px 6px; }
-
-      /* Mobile: make the carousel arrows ALWAYS visible */
       .tile-nav{ opacity:1 !important; pointer-events:auto; }
       .captioned.notch:hover .tile-nav{ opacity:1; }
 
-      /* two-up tiles & two-up blurbs; align buttons on same baseline */
       .mosaic{ grid-template-columns:repeat(2,1fr); gap:10px; }
       .tile-descs .row{ grid-template-columns:repeat(2,1fr); gap:10px; }
       .tile-descs .blurb{ display:flex; flex-direction:column; }
       .tile-descs .btn{ padding:6px 8px; font-size:12px; white-space:nowrap; margin-top:auto; }
       .blurb{ padding:14px; }
 
-      /* Popular locations */
       .chips{ gap:6px; }
       .chip{ padding:6px 10px; font-size:14px; line-height:1; white-space:nowrap; }
 
-      /* Wardrobe & Prep: show all three columns on phone */
       .grid-3{ grid-template-columns:repeat(3,1fr); gap:10px; }
       .card{ padding:12px; }
       .card h3{ font-size:16px; line-height:1.2; }
