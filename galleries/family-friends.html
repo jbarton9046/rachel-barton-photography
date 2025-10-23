@@ -35,11 +35,11 @@
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
       --accent:#A88A5A; --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-      /* Match About navbar spacing */
       --nav-gap-top:20px; --nav-gap-bottom:44px;
       --mobile-header-h:64px;
     }
-    /* Navbar spacing like about.html */
+
+    /* Topbar spacing matches about.html */
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer, .page-top-spacer { height:0!important; }
 
@@ -53,37 +53,16 @@
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-    /* Typography */
-    .crumb a{ text-decoration:underline; text-underline-offset:4px; color:#6e6a62 }
     .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
-    .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:10px 0 10px }
+    .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    /* HERO — align meta (crumb + eyebrow) to top of image; keep H1 in place */
-    .hero{ padding:clamp(24px,6vw,56px) 0 }
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      grid-auto-rows:auto;
-      gap:clamp(20px,4vw,40px);
-      align-items:start;
-    }
-    .meta-row{ align-self:start; margin-bottom:10px; }
-    .title-block{ align-self:start; }
-    .hero-fig img{
-      width:100%; aspect-ratio:4/5; object-fit:cover;
-      border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)
-    }
-
-    /* Outlined buttons (match About) */
+    /* Buttons — outline style to match site */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 16px;
-      border:1px solid var(--line);
-      background:#fff; color:#3f3a33;
-      font-weight:700; text-decoration:none; border-radius:0;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33;
+      font-weight:700; text-decoration:none; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
       transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
     .btn:hover, .btn:focus-visible{
@@ -91,20 +70,38 @@
       box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px);
       outline:none;
     }
-    .btn.alt{ background:#fff }
+    .btn.alt{ background:#fff; }
 
-    /* Tiles (smaller, side-by-side) */
-    .mosaic{
+    /* ===== HERO ===== */
+    .hero{ padding:clamp(18px,5vw,44px) 0; }
+    .hero .wrap{
       display:grid;
-      grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:clamp(12px,1.6vw,16px);
-      align-items:start;
+      grid-template-columns:1.1fr .9fr;
+      gap:clamp(20px,4vw,40px);
+      align-items:start;           /* lift left column up */
     }
+    .hero .left{ display:flex; flex-direction:column; gap:10px; margin-top:0; }
+    .crumb{ margin:0 0 6px; }
+    .crumb a{ text-decoration:underline; text-underline-offset:4px; color:#6e6a62 }
+
+    .hero-fig{ position:relative }
+    .hero-fig img{
+      width:100%; aspect-ratio:4/5; object-fit:cover;
+      border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)
+    }
+    .hero-badge{
+      position:absolute; left:12px; top:12px;
+      background:#fff; border:1px solid var(--line); padding:6px 10px;
+      box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px
+    }
+
+    /* ===== Tiles ===== */
+    .mosaic{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(10px,1.6vw,16px); margin-top:8px }
     .captioned.notch{ position:relative; display:block }
     .notch-figure{ display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .u-stroke{ fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round }
+    .panGroup{ will-change: transform; }
 
-    /* diamond nav */
     .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       background:transparent !important; border:0 !important;
@@ -122,9 +119,8 @@
     .tile-nav::after{ content:""; position:absolute; inset:0; margin:4px; transform:rotate(45deg); border:1px solid var(--accent); }
     .tile-nav svg{ width:12px; height:12px; position:relative; z-index:2 }
     .tile-dots{ display:none !important; }
-    .panGroup{ will-change:transform; }
 
-    /* Tile labels (bottom-left) */
+    /* Simple labels on thumbs */
     .tile-label{
       position:absolute; left:12px; bottom:12px;
       background:rgba(255,255,255,.78); border:1px solid var(--line);
@@ -132,187 +128,137 @@
       padding:6px 10px; font-family:'Cormorant Garamond','Playfair Display',Georgia,serif; font-weight:700;
     }
 
-    /* Descriptions under tiles, no titles; buttons say View Gallery */
-    .service-blurbs{ margin-top:clamp(18px,2.4vw,24px) }
-    .service-blurbs .row{
-      display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:clamp(12px,2vw,18px)
+    /* Descriptions under tiles — no titles per your note */
+    .tile-descs{ margin-top:clamp(16px,2.2vw,20px) }
+    .tile-descs .row{
+      display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(12px,2vw,18px)
     }
-    .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
-    .blurb h3{ display:none }
+    .blurb{
+      background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06)
+    }
     .blurb p{ margin:0 0 10px; color:#5b574f }
 
-    .desktop-only{ display:block; } .mobile-only{ display:none; }
-
-    /* Mobile optimization like about.html */
+    /* Responsive */
     @media (max-width:980px){
-      .hero-grid{ grid-template-columns:1fr }
-      .mosaic{ grid-template-columns:1fr }
-      .service-blurbs .row{ grid-template-columns:1fr }
-    }
-    @media (max-width:820px){
-      html, body{ overflow-x:hidden; }
-      /* keep content clear of fixed header like about.html */
-      main#content{ padding-top: calc(var(--mobile-header-h) + 14px); }
+      .hero .wrap{ grid-template-columns:1fr; }
+      .mosaic{ grid-template-columns:1fr; }
+      .tile-descs .row{ grid-template-columns:1fr; }
+      .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
-
-      .h1{ font-size:clamp(28px,7vw,40px); }
-      .lead{ margin-top:6px }
     }
   </style>
 </head>
 <body>
-  <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <!-- HERO (portraits-style; meta row aligned to image top) -->
+    <!-- HERO (aligned to the top like your reference) -->
     <section class="hero">
-      <div class="container hero-grid">
-        <!-- Meta row (moves up) -->
-        <div class="meta-row">
+      <div class="container wrap hero">
+        <div class="left">
           <p class="crumb"><a href="/galleries.html">← Back to Portraits</a></p>
           <div class="eyebrow">Galleries</div>
-        </div>
-
-        <!-- Title/lead/buttons (stay where they are) -->
-        <div class="title-block">
           <h1 class="h1">Family &amp; Friends</h1>
           <p class="lead">Movement-first sessions with natural prompts—real connection, real laughs, flattering light, and timeless edits.</p>
-          <div style="display:flex; gap:12px; margin-top:14px;">
+          <div style="display:flex; gap:12px; margin-top:6px;">
             <a class="btn" href="/book.html">Book a Session</a>
-            <a class="btn alt" href="/contact.html">Ask a Question</a>
+            <a class="btn" href="/contact.html">Ask a Question</a>
           </div>
         </div>
 
-        <!-- Image (no badge) -->
         <figure class="hero-fig">
-          <img src="/pictures/familyPortrait/image1.jpg" alt="Family at golden hour in Sarasota">
+          <span class="hero-badge">Kid-wise • Natural • Timeless</span>
+          <img src="/pictures/familyPortrait/image1.jpg" alt="Family at golden hour in Sarasota" />
         </figure>
       </div>
     </section>
 
-    <!-- GALLERIES -->
-    <section aria-labelledby="tiles-title">
+    <!-- TILES -->
+    <section class="value" aria-labelledby="tiles-title">
       <div class="container">
-        <h2 class="eyebrow" id="tiles-title" style="margin:0 0 6px;">Explore</h2>
-        <p class="lead" style="font-size:18px; color:#67635b; margin:0 0 18px;">Dive into full galleries and recent sessions.</p>
+        <div class="mosaic">
+          <!-- Family Gallery -->
+          <a class="captioned notch" href="/galleries/family-portrait.html" aria-label="Family Gallery"
+             id="ff-family"
+             data-images='[
+               "/pictures/familyPortrait/image1.jpg",
+               "/pictures/familyPortrait/image2.jpg",
+               "/pictures/familyPortrait/image3.jpg",
+               "/pictures/familyPortrait/image4.jpg",
+               "/pictures/familyPortrait/image5.jpg",
+               "/pictures/familyPortrait/image6.jpg",
+               "/pictures/familyPortrait/image7.jpg",
+               "/pictures/familyPortrait/image8.jpg",
+               "/pictures/familyPortrait/image9.jpg",
+               "/pictures/familyPortrait/image10.jpg"
+             ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
+              <defs>
+                <mask id="mask-ff1" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask>
+                <filter id="shadow-ff1" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
+              </defs>
+              <g mask="url(#mask-ff1)"><g class="panGroup">
+                <image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" />
+              </g></g>
+              <g class="frameGroup" filter="url(#shadow-ff1)"><path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/></g>
+            </svg>
+            <span class="tile-label">Family</span>
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+            <div class="tile-dots" role="tablist"></div>
+          </a>
 
-        <!-- Desktop -->
-        <div class="desktop-only">
-          <div class="mosaic">
-            <!-- Family -->
-            <a class="captioned notch" href="/galleries/family-portrait.html" aria-label="Family Gallery"
-               id="ff-family"
-               data-images='[
-                 "/pictures/familyPortrait/image1.jpg",
-                 "/pictures/familyPortrait/image2.jpg",
-                 "/pictures/familyPortrait/image3.jpg",
-                 "/pictures/familyPortrait/image4.jpg",
-                 "/pictures/familyPortrait/image5.jpg",
-                 "/pictures/familyPortrait/image6.jpg"
-               ]'>
-              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
-                <defs>
-                  <mask id="mask-ff1" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask>
-                  <filter id="shadow-ff1" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
-                </defs>
-                <g mask="url(#mask-ff1)"><g class="panGroup">
-                  <image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" />
-                </g></g>
-                <g class="frameGroup" filter="url(#shadow-ff1)"><path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/></g>
-              </svg>
-              <span class="tile-label">Family</span>
-              <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-              </button>
-              <button class="tile-nav tile-next" type="button" aria-label="Next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-              <div class="tile-dots" role="tablist"></div>
-            </a>
-
-            <!-- Friends -->
-            <a class="captioned notch" href="/galleries/friend-portraits.html" aria-label="Friends Gallery"
-               id="ff-friends"
-               data-images='[
-                 "/pictures/thirdTileGal/E26A2017.jpg",
-                 "/pictures/thirdTileGal/E26A2022%20(1).jpg",
-                 "/pictures/thirdTileGal/E26A2047-2.jpg",
-                 "/pictures/thirdTileGal/E26A2106.jpg",
-                 "/pictures/thirdTileGal/E26A2245.jpg"
-               ]'>
-              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
-                <defs>
-                  <mask id="mask-ff2" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask>
-                  <filter id="shadow-ff2" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
-                </defs>
-                <g mask="url(#mask-ff2)"><g class="panGroup">
-                  <image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" />
-                </g></g>
-                <g class="frameGroup" filter="url(#shadow-ff2)"><path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/></g>
-              </svg>
-              <span class="tile-label">Friends</span>
-              <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-              </button>
-              <button class="tile-nav tile-next" type="button" aria-label="Next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-              <div class="tile-dots" role="tablist"></div>
-            </a>
-          </div>
-
-          <!-- Descriptions (no titles) -->
-          <div class="service-blurbs">
-            <div class="row">
-              <article class="blurb">
-                <p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p>
-                <a class="btn" href="/galleries/family-portrait.html">View Gallery</a>
-              </article>
-              <article class="blurb">
-                <p>Easygoing, stylish, and authentic—best friends and roomies with a dash of editorial.</p>
-                <a class="btn" href="/galleries/friend-portraits.html">View Gallery</a>
-              </article>
-            </div>
-          </div>
+          <!-- Friends Gallery -->
+          <a class="captioned notch" href="/galleries/friend-portraits.html" aria-label="Friends Gallery"
+             id="ff-friends"
+             data-images='[
+               "/pictures/thirdTileGal/E26A2017.jpg",
+               "/pictures/thirdTileGal/E26A2022%20(1).jpg",
+               "/pictures/thirdTileGal/E26A2047-2.jpg",
+               "/pictures/thirdTileGal/E26A2106.jpg",
+               "/pictures/thirdTileGal/E26A2245.jpg",
+               "/pictures/thirdTileGal/E26A2746.jpg",
+               "/pictures/thirdTileGal/E26A2768.jpg",
+               "/pictures/thirdTileGal/E26A2771.jpg",
+               "/pictures/thirdTileGal/E26A2854.jpg",
+               "/pictures/thirdTileGal/E26A2860.jpg"
+             ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
+              <defs>
+                <mask id="mask-ff2" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask>
+                <filter id="shadow-ff2" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
+              </defs>
+              <g mask="url(#mask-ff2)"><g class="panGroup">
+                <image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" />
+              </g></g>
+              <g class="frameGroup" filter="url(#shadow-ff2)"><path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/></g>
+            </svg>
+            <span class="tile-label">Friends</span>
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+            <div class="tile-dots" role="tablist"></div>
+          </a>
         </div>
 
-        <!-- Mobile -->
-        <div class="mobile-only">
-          <div class="mosaic">
-            <a class="captioned notch" id="ff-family-m" href="/galleries/family-portrait.html" aria-label="Family"
-               data-images='[
-                 "/pictures/familyPortrait/image1.jpg",
-                 "/pictures/familyPortrait/image2.jpg",
-                 "/pictures/familyPortrait/image3.jpg"
-               ]'>
-              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true"><g class="panGroup"><image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" /></g></svg>
-              <span class="tile-label">Family</span>
-              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
-              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-              <div class="tile-dots" role="tablist"></div>
-            </a>
-
-            <a class="captioned notch" id="ff-friends-m" href="/galleries/friend-portraits.html" aria-label="Friends"
-               data-images='[
-                 "/pictures/thirdTileGal/E26A2017.jpg",
-                 "/pictures/thirdTileGal/E26A2022%20(1).jpg",
-                 "/pictures/thirdTileGal/E26A2047-2.jpg"
-               ]'>
-              <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true"><g class="panGroup"><image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" /></g></svg>
-              <span class="tile-label">Friends</span>
-              <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
-              <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-              <div class="tile-dots" role="tablist"></div>
-            </a>
-          </div>
-
-          <div class="service-blurbs">
-            <div class="row">
-              <article class="blurb"><p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p><a class="btn" href="/galleries/family-portrait.html">View Gallery</a></article>
-              <article class="blurb"><p>Easygoing, stylish, and authentic—best friends and roomies with a dash of editorial.</p><a class="btn" href="/galleries/friend-portraits.html">View Gallery</a></article>
-            </div>
+        <!-- Descriptions under tiles (no extra titles) -->
+        <div class="tile-descs">
+          <div class="row">
+            <article class="blurb">
+              <p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p>
+              <a class="btn" href="/galleries/family-portrait.html">View Gallery</a>
+            </article>
+            <article class="blurb">
+              <p>Easygoing, stylish, and authentic—best friends and roomies with a dash of editorial.</p>
+              <a class="btn" href="/galleries/friend-portraits.html">View Gallery</a>
+            </article>
           </div>
         </div>
       </div>
@@ -322,11 +268,11 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Lightweight image rotator for the two tiles -->
+  <!-- Lightweight rotator (same logic as portraits page) -->
   <script>
     (function(){
       const TILE_W = 800, TILE_H = 1000;
-      const ids = ['ff-family','ff-friends','ff-family-m','ff-friends-m'];
+      const ids = ['ff-family','ff-friends','ff-family-m','ff-friends-m']; // mobile ids wired if present
 
       const natural = new Map();
       function nat(src){
@@ -338,9 +284,7 @@
           im.src=src;
         });
       }
-
       function parseList(el){ try { return JSON.parse(el.getAttribute('data-images')||'[]'); } catch { return []; } }
-
       async function fit(img, src){
         const g = img.parentNode; if(!g || !g.classList.contains('panGroup')) return;
         const {w,h}=await nat(src);
@@ -357,7 +301,6 @@
         img.setAttribute('preserveAspectRatio','none');
         g.setAttribute('transform','translate(0 0)');
       }
-
       function wire(id){
         const el = document.getElementById(id);
         if(!el || el.dataset.wired) return;
@@ -382,7 +325,6 @@
 
         el.dataset.wired='1';
       }
-
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(en=>{
           if(en.isIntersecting){ wire(en.target.id); io.unobserve(en.target); }
