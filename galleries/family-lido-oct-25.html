@@ -28,16 +28,19 @@
   <link rel="stylesheet" href="/assets/layout.css?v=nav-6">
   <link rel="stylesheet" href="/assets/gallery.css?v=14">
 
-  <!-- Page-specific tweaks: thin navbar + thin underline crumb -->
+  <!-- Page-specific tweaks: thin underline crumb + make navbar not bold (no layout/position changes) -->
   <style>
     :root{
-      --mobile-header-h:64px;
       --accent:#A88A5A;
-      --line:#e9e6df;
+      --mobile-header-h:64px;
     }
-    /* Use the compact topbar spacing used on other pages */
-    .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
-    .nav-spacer, .page-top-spacer { height:0 !important; }
+
+    /* De-bold only the top navigation links (no spacing changes) */
+    .topbar a,
+    .topbar nav a,
+    .topbar .menu a{
+      font-weight: 400 !important;
+    }
 
     /* Thin underline for the back/crumb link */
     .gallery-head .crumb a{
@@ -48,13 +51,14 @@
       text-underline-offset:4px;
       text-decoration-thickness:1px;
     }
-    .gallery-head .crumb a:hover, .gallery-head .crumb a:focus-visible{
+    .gallery-head .crumb a:hover,
+    .gallery-head .crumb a:focus-visible{
       color:var(--accent);
       text-decoration-color:var(--accent);
       outline:none;
     }
 
-    /* Small mobile clearance so header content doesn't sit under fixed nav */
+    /* Prevent content from tucking under the fixed nav on small screens (doesn't alter nav itself) */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
       .gallery-head{ padding-top: calc(var(--mobile-header-h) + 10px); }
