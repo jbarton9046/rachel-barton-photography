@@ -75,7 +75,7 @@
     /* Mobile: identical treatment to sibling-portrait.html */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
-      header.gallery-head.container{ padding-top: calc(var(--mobile-header-h) + 6px); }
+      header.gallery-head .container{ padding-top: calc(var(--mobile-header-h) + 6px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
     }
   </style>
@@ -88,14 +88,16 @@
   <!-- Everything that should move with the mobile drawer is inside #content -->
   <main id="content">
     <!-- Header -->
-    <header class="gallery-head container" role="region" aria-label="Gallery intro">
-      <p class="crumb"><a href="/galleries/family-portraits.html">← Back to Family Portraits</a></p>
-      <div class="eyebrow">Family Portraits</div>
-      <h1>Bee Ridge — Oct 25</h1>
-      <p class="lede">Candid, movement-first portraits at Bee Ridge with warm, true-to-life color.</p>
-      <div class="actions">
-        <a href="/book.html">Book a Session</a>
-        <a href="/contact.html">Ask a Question</a>
+    <header class="gallery-head" role="region" aria-label="Gallery intro">
+      <div class="container">
+        <p class="crumb"><a href="/galleries/family-portraits.html">← Back to Family Portraits</a></p>
+        <div class="eyebrow">Family Portraits</div>
+        <h1>Bee Ridge — Oct 25</h1>
+        <p class="lede">Candid, movement-first portraits at Bee Ridge with warm, true-to-life color.</p>
+        <div class="actions">
+          <a href="/book.html">Book a Session</a>
+          <a href="/contact.html">Ask a Question</a>
+        </div>
       </div>
     </header>
 
