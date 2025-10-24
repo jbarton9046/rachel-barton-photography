@@ -128,43 +128,21 @@
     /* Footer */
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
-    /* -------- MOBILE: spacing + drawer behavior + visible chevrons -------- */
+    /* ---------- MOBILE ONLY: spacing + behavior ---------- */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
       .hero{ padding-top: calc(var(--mobile-header-h) + 10px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
 
-      /* keep page anchored while drawer opens (stop include.js slide) */
-      #content{ position:relative !important; transform:none !important; margin-left:0 !important; left:0 !important; right:0 !important; max-width:100% !important; width:100% !important; }
-      body.nav-open #content,
-      body.menu-open #content,
-      .nav-open #content,
-      .menu-open #content{ transform:none !important; margin-left:0 !important; left:0 !important; right:0 !important; }
-
-      /* make sure *everything* inside the page follows along while the menu animates */
-      body.nav-open #content *,
-      body.menu-open #content *{
-        transform:none !important;
-        transition:none !important;
-        will-change:auto !important;
-        left:auto !important; right:auto !important;
-      }
-
-      /* specific safety for the gallery grid and tiles */
-      body.nav-open .mosaic,
-      body.menu-open .mosaic,
-      body.nav-open figure.tile,
-      body.menu-open figure.tile,
-      body.nav-open .tile-media,
-      body.menu-open .tile-media{
-        opacity:1 !important; visibility:visible !important;
-      }
-
-      /* mobile: chevrons always visible and tappable */
+      /* 1) Always show chevrons on mobile */
       .tile-nav{
         opacity:1 !important;
         transform:translateY(-50%) scale(1) !important;
-        pointer-events:auto !important;
+      }
+
+      /* 2) Make sure any inline grid placement doesn't hide tiles on 1-col */
+      @media (max-width:740px){
+        .mosaic .tile{ grid-column:auto !important; }
       }
     }
   </style>
@@ -326,7 +304,7 @@
           if (src) media.src = src;
         }
 
-        /* Force first frame immediately so mobile tiles always populate */
+        /* Ensure first frame appears on mobile immediately */
         show(0);
 
         prevBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx - 1); });
@@ -336,7 +314,6 @@
           if (link) window.location.href = link;
         });
 
-        /* Keep previous lazy safety too (no-op if already shown) */
         if (document.fonts && document.fonts.ready) {
           document.fonts.ready.then(()=> show(0));
         } else {
