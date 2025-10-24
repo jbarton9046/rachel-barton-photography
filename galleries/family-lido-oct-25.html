@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
   <link rel="stylesheet" href="/assets/gallery.css?v=14">
 
-  <!-- Small page-specific tweaks (same as sibling page) -->
+  <!-- Small page-specific tweaks (kept in sync with your matching galleries) -->
   <style>
     :root{ --mobile-header-h:64px; }
 
@@ -38,12 +38,30 @@
       text-underline-offset: 4px;
     }
 
-    /* Mobile-only spacing so the crumb clears the fixed topbar,
-       and ensure the page can slide with the drawer without horizontal overflow */
+    /* Eyebrow to match other galleries */
+    .gallery-head .eyebrow{
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#6e6a62;
+    }
+
+    /* Mobile-only spacing so the crumb clears the fixed topbar
+       and ensure the page can slide with the drawer without horizontal overflow. */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
       header.gallery-head.container{ padding-top: calc(var(--mobile-header-h) + 6px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
+
+      /* Match the mobile type rhythm used on the other galleries */
+      .gallery-head h1{ margin: 6px 0 8px; }
+      .gallery-head .lede{ margin: 4px 0 12px; line-height: 1.35; }
+      .gallery-head .actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:6px; }
+      .gallery-head .actions a{
+        padding:8px 12px;
+        font-size: clamp(14px, 4vw, 16px);
+        border-width:1px;
+      }
     }
   </style>
 </head>
@@ -57,6 +75,7 @@
     <!-- Compact left-aligned header -->
     <header class="gallery-head container" role="region" aria-label="Gallery intro">
       <p class="crumb"><a href="/galleries/family-portraits.html">← Back to Family Portraits</a></p>
+      <div class="eyebrow">Family Portraits</div>
       <h1>Bee Ridge — Oct 25</h1>
       <p class="lede">Candid, movement-first portraits at Bee Ridge with warm, true-to-life color.</p>
       <div class="actions">
