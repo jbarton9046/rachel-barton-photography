@@ -105,6 +105,15 @@
     /* Keep anchors from hiding under sticky nav */
     :is(h1,h2,h3,section)[id]{ scroll-margin-top: calc(var(--mobile-header-h) + 12px); }
 
+    /* HERO image at top of testimonials */
+    .testimonials-hero{
+      margin: calc(var(--gap)*0.75) 0 calc(var(--gap)*1.0);
+    }
+    .testimonials-hero img{
+      width:100%; height:auto; aspect-ratio:16/9; object-fit:cover;
+      background:#fff; border:1px solid var(--line); box-shadow:var(--shadow);
+    }
+
     /* Testimonials grid */
     .testimonials{ padding:calc(var(--gap)*1.25) 0; }
     .cards{
@@ -151,6 +160,7 @@
       header.page{
         padding-top: calc(env(safe-area-inset-top, 0px) + var(--mobile-header-h) + 12px);
       }
+      .testimonials-hero{ margin: calc(var(--gap)*0.5) 0 var(--gap); }
       .cards{ grid-template-columns:1fr; }
       blockquote{ font-size:clamp(18px,4.4vw,21px); }
       .pull blockquote{ font-size:clamp(19px,5vw,24px); }
@@ -172,6 +182,11 @@
 
     <section class="testimonials">
       <div class="container">
+        <!-- NEW: Top hero image for testimonials -->
+        <figure class="testimonials-hero">
+          <img src="/pictures/testimonial-coule-beach-sunset.jpg" alt="Couple walking on the beach at sunset" loading="eager" fetchpriority="high">
+        </figure>
+
         <div class="cards">
           <!-- Pull-quote row with big photo -->
           <article class="pull">
@@ -246,6 +261,18 @@
       } else {
         setTimeout(wire, 0);
       }
+    })();
+
+    /* Ensure Cecilia C. location reads 'Lido' wherever it appears */
+    (function(){
+      const cites = document.querySelectorAll('.cite');
+      cites.forEach(el => {
+        const t = el.textContent || '';
+        if (t.includes('Cecilia C.')){
+          // Replace anything after the dot with 'Lido'
+          el.textContent = '— Cecilia C. · Lido';
+        }
+      });
     })();
   </script>
 </body>
