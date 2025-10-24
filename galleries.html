@@ -122,23 +122,16 @@
     .notch-figure{ display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .u-stroke{ fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round }
 
-    /* Smaller diamond + chevron (desktop & mobile) */
+    /* Floating white chevrons (no diamonds) */
     .tile-nav{
-      position:absolute; top:50%; transform:translateY(-50%) scale(.98);
-      background:transparent !important; border:0 !important;
-      width:28px; height:28px;
-      display:grid; place-items:center;
-      color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0;
-      transition:opacity .2s ease, transform .2s ease;
+      position:absolute; top:50%; transform:translateY(-50%); width:36px; height:36px;
+      display:grid; place-items:center; color:#fff; cursor:pointer; user-select:none; z-index:4;
+      background:transparent; border:0; box-shadow:none; opacity:0; transition:opacity .2s ease, transform .2s ease;
     }
-    .captioned.notch:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
+    .captioned.notch:hover .tile-nav{ opacity:1; transform:translateY(-50%) }
     .tile-prev{ left:10px } .tile-next{ right:10px }
-    .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:4px; transform:rotate(45deg);
-      background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05); box-shadow:0 6px 18px rgba(0,0,0,.14);
-    }
-    .tile-nav::after{ content:""; position:absolute; inset:0; margin:4px; transform:rotate(45deg); border:1px solid var(--accent); }
-    .tile-nav svg{ width:12px; height:12px; position:relative; z-index:2 }
+    .tile-nav::before, .tile-nav::after{ content:none !important; display:none !important; }
+    .tile-nav svg{ width:18px; height:18px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
 
     /* Remove bottom dots on all tiles (desktop + mobile) */
     .tile-dots{ display:none !important; }
@@ -158,7 +151,7 @@
 
     /* On phones, keep the tile controls always visible (no hover) */
     @media (max-width:960px){
-      .tile-nav{ opacity:1 !important; transform:translateY(-50%) scale(1); }
+      .tile-nav{ opacity:1 !important; transform:translateY(-50%) }
       .captioned.notch:hover .tile-nav{ opacity:1; }
     }
 
@@ -184,20 +177,25 @@
       stroke:transparent !important;
     }
 
-    /* === Mobile-only: center chevron optically inside the diamond === */
+    /* === Mobile-only: tiny optical nudge for chevrons === */
     @media (max-width:960px){
-      .tile-nav{ display:grid; place-items:center; }
-      .tile-nav > svg{
-        display:block;            /* avoid baseline alignment in Safari */
-        position:static;
-        margin:0;
-        transform:none;           /* baseline center */
-      }
-      /* stronger optical nudges for iOS */
-      .tile-prev{ padding-left:2px; padding-top:1px; }  /* shifts icon right & down */
-      .tile-prev > svg{ transform:translate(2px,1px); } /* add tiny extra nudge */
-      .tile-next > svg{ transform:translate(-1px,0); }  /* keeps right looking perfect */
+      .tile-prev > svg{ transform:translate(1px,0); }
+      .tile-next > svg{ transform:translate(-1px,0); }
     }
+
+    /* ---------- Fullscreen Lightbox (same feel as adventure) ---------- */
+    #tileLightbox{ position:fixed; inset:0; z-index:100; display:none; place-items:center; background:rgba(0,0,0,.72); }
+    #tileLightbox.open{ display:grid; }
+    #tileLightbox .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
+    #tileLightbox .lb-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#111; border:1px solid rgba(255,255,255,.15) }
+    #tileLightbox .lb-btn{
+      position:absolute; width:46px; height:46px; display:grid; place-items:center;
+      background:transparent; border:0; color:#fff; box-shadow:none;
+    }
+    #lbPrev{ top:50%; left:8px; transform:translateY(-50%); }
+    #lbNext{ top:50%; right:8px; transform:translateY(-50%); }
+    #lbClose{ top:8px; right:8px; }
+    #tileLightbox .lb-btn svg{ filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
   </style>
 </head>
 <body>
@@ -360,7 +358,7 @@
                   <defs>
                     <mask id="notchMask-m1"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
                   </defs>
-                  <image href="pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m1)"></image>
+                <image href="pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m1)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
                 <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
@@ -438,6 +436,22 @@
     </section>
   </main>
 
+  <!-- Fullscreen Lightbox for tiles -->
+  <div id="tileLightbox" aria-hidden="true">
+    <div class="lb-frame">
+      <img class="lb-img" id="lbImg" alt="">
+      <button class="lb-btn" id="lbPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+      </button>
+      <button class="lb-btn" id="lbNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <button class="lb-btn" id="lbClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+
   <!-- Footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
@@ -452,7 +466,7 @@
     })();
   </script>
 
-  <!-- Viewport-only, lazy slider init (desktop OR mobile; not both) -->
+  <!-- Viewport-only, lazy slider init (desktop OR mobile; not both) + Lightbox wiring -->
   <script>
     (function () {
       // Which set is visible right now?
@@ -507,6 +521,56 @@
         }
       }
 
+      // ---------- Lightbox ----------
+      const lb = document.getElementById('tileLightbox');
+      const lbImg = document.getElementById('lbImg');
+      const lbPrev = document.getElementById('lbPrev');
+      const lbNext = document.getElementById('lbNext');
+      const lbClose = document.getElementById('lbClose');
+
+      let lbList = [];
+      let lbIdx = 0;
+
+      function openLb(list, startIndex){
+        lbList = Array.isArray(list) ? list.slice() : [];
+        lbIdx = ((startIndex|0) + lbList.length) % lbList.length;
+        lbImg.src = lbList[lbIdx] || '';
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeLb(){
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden','true');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+      }
+      function lbShow(n){
+        if(!lbList.length) return;
+        lbIdx = (typeof n==='number' ? ((n+lbList.length)%lbList.length) : (lbIdx+1)%lbList.length);
+        lbImg.src = lbList[lbIdx];
+      }
+
+      lbPrev.addEventListener('click', e=>{ e.stopPropagation(); lbShow(lbIdx-1); });
+      lbNext.addEventListener('click', e=>{ e.stopPropagation(); lbShow(lbIdx+1); });
+      lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); });
+      lb.addEventListener('click', e=>{ if(e.target===lb) closeLb(); });
+      window.addEventListener('keydown', e=>{
+        if(!lb.classList.contains('open')) return;
+        if(e.key==='Escape') closeLb();
+        if(e.key==='ArrowLeft') lbShow(lbIdx-1);
+        if(e.key==='ArrowRight') lbShow(lbIdx+1);
+      });
+      let touchX=null;
+      lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
+      lb.addEventListener('touchend', e=>{
+        if(touchX===null) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        touchX = null;
+        if(Math.abs(dx) > 40){ dx < 0 ? lbShow(lbIdx+1) : lbShow(lbIdx-1); }
+      }, {passive:true});
+
+      // ---------- Tile wiring ----------
       function wire(tileId){
         const tile = document.getElementById(tileId);
         if(!tile || tile.dataset.wired) return;
@@ -537,7 +601,13 @@
         }
         tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx-1); });
         tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx+1); });
-        tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>show(idx+1));
+
+        // 👉 Click the tile image to open the fullscreen lightbox (like adventure.html)
+        tile.querySelector('svg.notch-figure')?.addEventListener('click', (e)=>{
+          e.stopPropagation();
+          openLb(list, idx);
+        });
+
         updateDots();
 
         tile.dataset.wired = '1';
