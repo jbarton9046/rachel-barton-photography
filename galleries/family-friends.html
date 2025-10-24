@@ -134,8 +134,34 @@
       /* Keep chevrons visible on mobile */
       .tile-nav{ opacity:1 !important; transform:translateY(-50%) scale(1) !important; }
 
-      /* Cancel any extra transform applied directly to the hero when the drawer is open
-         (the whole #content already shifts, so doing the hero again causes a double move). */
+      /* Normalize the main wrapper so it doesn't pre-shift */
+      #content{
+        position:relative !important;
+        left:0 !important; right:0 !important; margin-left:0 !important;
+        transform:none !important; max-width:100% !important; width:100% !important;
+      }
+
+      /* Cancel any extra transform/margin on #content and its .container when the nav opens
+         (prevents a second shift on the hero area). */
+      body.nav-open #content,
+      body.menu-open #content,
+      html.nav-open #content,
+      .nav-open #content,
+      .menu-open #content,
+      [data-nav-open="1"] #content{
+        transform:none !important; margin-left:0 !important; left:0 !important; right:0 !important;
+      }
+      body.nav-open #content .container,
+      body.menu-open #content .container,
+      html.nav-open #content .container,
+      .nav-open #content .container,
+      .menu-open #content .container,
+      [data-nav-open="1"] #content .container{
+        transform:none !important;
+        margin-left:0 !important; left:auto !important; right:auto !important;
+      }
+
+      /* Don’t let the hero apply its own transform while the drawer is open */
       body.nav-open .hero,
       body.menu-open .hero,
       html.nav-open .hero,
