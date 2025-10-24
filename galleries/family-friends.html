@@ -128,39 +128,19 @@
     /* Footer */
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
-    /* ---------- MOBILE ONLY ---------- */
+    /* ---------- MOBILE ONLY: spacing + behavior ---------- */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
       .hero{ padding-top: calc(var(--mobile-header-h) + 10px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
 
-      /* 1) Drawer overlays content — prevent any JS translate on this page */
-      body.nav-open #content,
-      body.menu-open #content,
-      html.nav-open #content,
-      .nav-open #content,
-      .menu-open #content,
-      [data-nav-open="1"] #content,
-      body.nav-open main,
-      body.menu-open main,
-      body.nav-open section,
-      body.menu-open section,
-      body.nav-open .container,
-      body.menu-open .container,
-      body.nav-open .mosaic,
-      body.menu-open .mosaic{
-        transform:none !important;
-        left:auto !important; right:auto !important; margin-left:auto !important;
-        transition:none !important; will-change:auto !important;
-      }
-
-      /* 2) Always show chevrons on mobile (no hover on touch) */
+      /* Always show chevrons on mobile (no hover on touch) */
       .tile-nav{
         opacity:1 !important;
         transform:translateY(-50%) scale(1) !important;
       }
 
-      /* 3) Ensure the 4th tile shows when grid becomes 1-col */
+      /* Ensure all four tiles appear on 1-column mobile grid */
       @media (max-width:740px){
         .mosaic .tile{ grid-column:auto !important; }
       }
