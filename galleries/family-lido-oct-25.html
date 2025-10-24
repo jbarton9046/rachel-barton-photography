@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="/assets/layout.css?v=nav-6">
   <link rel="stylesheet" href="/assets/gallery.css?v=14">
 
-  <!-- Page-specific tweaks: thin underline crumb + make navbar not bold (no layout/position changes) -->
+  <!-- Page-specific tweaks: thin underline crumb + de-bold nav; mobile spacing -->
   <style>
     :root{
       --accent:#A88A5A;
@@ -58,7 +58,7 @@
       outline:none;
     }
 
-    /* Prevent content from tucking under the fixed nav on small screens (doesn't alter nav itself) */
+    /* Prevent content from tucking under the fixed nav on small screens */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
       .gallery-head{ padding-top: calc(var(--mobile-header-h) + 10px); }
@@ -70,31 +70,34 @@
   <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
-  <!-- Compact left-aligned header -->
-  <header class="gallery-head container" role="region" aria-label="Gallery intro">
-    <p class="crumb"><a href="/galleries/family-portraits.html">← Back to Family Portraits</a></p>
-    <h1>Lido — Oct. 25</h1>
-    <p class="lede">Candid, movement-first family portraits with warm, true-to-life color.</p>
-    <div class="actions">
-      <a class="btn" href="/book.html">Book a Session</a>
-      <a class="btn alt" href="/contact.html">Ask a Question</a>
-    </div>
-  </header>
-
-  <main class="container">
-    <section aria-label="Lido — Oct. 25 family portrait gallery">
-      <div class="grid" id="gallery">
-        <figure><a href="/pictures/familyLidoOct25/2-girls-shells-golden.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/2-girls-shells-golden.jpg" alt="Two girls collecting shells at golden hour" /></a></figure>
-        <figure><a href="/pictures/familyLidoOct25/couple-poing-beach-sunset-kids.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/couple-poing-beach-sunset-kids.jpg" alt="Parents pointing with kids at the shoreline during sunset" /></a></figure>
-        <figure><a href="/pictures/familyLidoOct25/dad-daughters-sunset.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/dad-daughters-sunset.jpg" alt="Dad with daughters at the beach at sunset" /></a></figure>
-        <figure><a href="/pictures/familyLidoOct25/girl-beach-sunset.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/girl-beach-sunset.jpg" alt="Girl smiling on the beach at sunset" /></a></figure>
-        <figure><a href="/pictures/familyLidoOct25/girl-running-beach-sunset.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/girl-running-beach-sunset.jpg" alt="Girl running along the shoreline at sunset" /></a></figure>
-        <figure><a href="/pictures/familyLidoOct25/girl-shells-sunset-beach.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/girl-shells-sunset-beach.jpg" alt="Girl holding shells with sunset glow" /></a></figure>
-        <figure><a href="/pictures/familyLidoOct25/girl-sunset-bush.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/girl-sunset-bush.jpg" alt="Portrait of girl near coastal brush at sunset" /></a></figure>
-        <figure><a href="/pictures/familyLidoOct25/siblings-beach-sunset-brother.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/siblings-beach-sunset-brother.jpg" alt="Siblings walking the beach with their brother at sunset" /></a></figure>
-        <figure><a href="/pictures/familyLidoOct25/siblings-beach-sunset.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/siblings-beach-sunset.jpg" alt="Siblings together on the sand at sunset" /></a></figure>
+  <!-- Everything that should move with the mobile drawer is inside #content -->
+  <main id="content">
+    <!-- Compact left-aligned header -->
+    <header class="gallery-head container" role="region" aria-label="Gallery intro">
+      <p class="crumb"><a href="/galleries/family-portraits.html">← Back to Family Portraits</a></p>
+      <h1>Lido — Oct. 25</h1>
+      <p class="lede">Candid, movement-first family portraits with warm, true-to-life color.</p>
+      <div class="actions">
+        <a class="btn" href="/book.html">Book a Session</a>
+        <a class="btn alt" href="/contact.html">Ask a Question</a>
       </div>
-    </section>
+    </header>
+
+    <div class="container">
+      <section aria-label="Lido — Oct. 25 family portrait gallery">
+        <div class="grid" id="gallery">
+          <figure><a href="/pictures/familyLidoOct25/2-girls-shells-golden.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/2-girls-shells-golden.jpg" alt="Two girls collecting shells at golden hour" /></a></figure>
+          <figure><a href="/pictures/familyLidoOct25/couple-poing-beach-sunset-kids.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/couple-poing-beach-sunset-kids.jpg" alt="Parents pointing with kids at the shoreline during sunset" /></a></figure>
+          <figure><a href="/pictures/familyLidoOct25/dad-daughters-sunset.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/dad-daughters-sunset.jpg" alt="Dad with daughters at the beach at sunset" /></a></figure>
+          <figure><a href="/pictures/familyLidoOct25/girl-beach-sunset.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/girl-beach-sunset.jpg" alt="Girl smiling on the beach at sunset" /></a></figure>
+          <figure><a href="/pictures/familyLidoOct25/girl-running-beach-sunset.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/girl-running-beach-sunset.jpg" alt="Girl running along the shoreline at sunset" /></a></figure>
+          <figure><a href="/pictures/familyLidoOct25/girl-shells-sunset-beach.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/girl-shells-sunset-beach.jpg" alt="Girl holding shells with sunset glow" /></a></figure>
+          <figure><a href="/pictures/familyLidoOct25/girl-sunset-bush.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/girl-sunset-bush.jpg" alt="Portrait of girl near coastal brush at sunset" /></a></figure>
+          <figure><a href="/pictures/familyLidoOct25/siblings-beach-sunset-brother.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/siblings-beach-sunset-brother.jpg" alt="Siblings walking the beach with their brother at sunset" /></a></figure>
+          <figure><a href="/pictures/familyLidoOct25/siblings-beach-sunset.jpg"><img loading="lazy" src="/pictures/familyLidoOct25/siblings-beach-sunset.jpg" alt="Siblings together on the sand at sunset" /></a></figure>
+        </div>
+      </section>
+    </div>
   </main>
 
   <!-- Shared Footer -->
