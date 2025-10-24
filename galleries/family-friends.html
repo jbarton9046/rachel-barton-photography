@@ -75,8 +75,8 @@
     }
     .btn.alt{ background:#fff; }
 
-    /* Page header (renamed from .hero to avoid nav-drawer side effects) */
-    .page-hero{ padding:clamp(24px,6vw,56px) 0 }
+    /* Hero header */
+    .hero{ padding:clamp(24px,6vw,56px) 0 }
     .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
@@ -128,20 +128,20 @@
     /* ---------- MOBILE ONLY ---------- */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
-      .page-hero{ padding-top: calc(var(--mobile-header-h) + 10px); }
+      .hero{ padding-top: calc(var(--mobile-header-h) + 10px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
 
       /* Keep chevrons visible on mobile */
       .tile-nav{ opacity:1 !important; transform:translateY(-50%) scale(1) !important; }
 
-      /* Cancel any extra transform applied directly to the page header when the drawer is open
-         (the whole #content already shifts, so doing it again causes a double move). */
-      body.nav-open .page-hero,
-      body.menu-open .page-hero,
-      html.nav-open .page-hero,
-      .nav-open .page-hero,
-      .menu-open .page-hero,
-      [data-nav-open="1"] .page-hero{
+      /* Cancel any extra transform applied directly to the hero when the drawer is open
+         (the whole #content already shifts, so doing the hero again causes a double move). */
+      body.nav-open .hero,
+      body.menu-open .hero,
+      html.nav-open .hero,
+      .nav-open .hero,
+      .menu-open .hero,
+      [data-nav-open="1"] .hero{
         transform:none !important;
         left:auto !important; right:auto !important; margin-left:0 !important;
       }
@@ -157,10 +157,10 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <!-- HEADER -->
-    <section class="page-hero">
+    <!-- HERO -->
+    <section class="hero">
       <div class="container">
-        <p class="crumb"><a href="/portraits.html">← Back to Portraits</a></p>
+        <p class="crumb"><a href="/galleries/family-friends.html">← Back to Family &amp; Friends</a></p>
         <div class="eyebrow">Family Portraits</div>
         <h1 class="h1">Candid, connected, and true-to-life.</h1>
         <p class="lead">Browse Family portrait galleries. Click any tile to open the full gallery.</p>
