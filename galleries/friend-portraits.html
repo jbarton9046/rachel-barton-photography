@@ -40,13 +40,9 @@
       /* mobile header reserved height so content doesn't sit under the fixed nav */
       --mobile-header-h:64px;
 
-      /* tile controls (matches portraits page) */
-      --arrow-size:54px; --arrow-inset:12px;
-      --dot-size:10px; --dot-gap:9px;
-      --glass-bg: rgba(255,255,255,.28);
-      --glass-blur: blur(7px) saturate(1.05);
-      --glass-border: 1px solid rgba(63,58,51,.18);
-      --glass-shadow: 0 10px 22px rgba(0,0,0,.10);
+      /* tile controls (match family-portraits page) */
+      --arrow-size:28px;
+      --arrow-inset:10px;
     }
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer, .page-top-spacer { height:0!important; }
@@ -95,6 +91,8 @@
     }
     figure.tile:hover{ transform:translateY(-2px) }
     .tile-media{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block }
+
+    /* Tile label (desktop default: bottom-left) */
     .tile-title{
       position:absolute; left:12px; bottom:12px; z-index:3;
       background:rgba(255,255,255,.75); border:1px solid var(--line); padding:6px 10px;
@@ -103,36 +101,45 @@
       -webkit-backdrop-filter:saturate(1.05) blur(.5px); backdrop-filter:saturate(1.05) blur(.5px);
     }
 
-    /* Diamonds: hidden */
+    /* Hide dots */
     .tile-dots{ display:none !important; }
 
-    /* arrows */
+    /* arrows — floating white chevrons (no diamonds) to match other pages */
     .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%) scale(.98);
       width:var(--arrow-size); height:var(--arrow-size);
-      display:grid; place-items:center; color:var(--accent); cursor:pointer; user-select:none;
+      display:grid; place-items:center; color:#fff; cursor:pointer; user-select:none;
       border:0; background:transparent; z-index:5; opacity:0;
       transition:opacity .2s ease, transform .2s ease;
     }
     figure.tile:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1) }
     .tile-prev{ left:var(--arrow-inset) } .tile-next{ right:var(--arrow-inset) }
-    .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:7px; transform:rotate(45deg);
-      background:var(--glass-bg); -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
-      border:var(--glass-border); box-shadow:var(--glass-shadow);
-    }
-    .tile-nav svg{ width:22px; height:22px; position:relative; z-index:1 }
+    .tile-nav::before{ display:none !important; } /* remove diamond glass */
+    .tile-nav svg{ width:14px; height:14px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
 
     /* Footer */
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
-    /* -------- Mobile overlap fix: add clearance below fixed nav -------- */
+    /* -------- Mobile overlap fix + controls visibility -------- */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
-      /* push the hero down so it doesn't sit underneath the fixed topbar */
       .hero{ padding-top: calc(var(--mobile-header-h) + 10px); }
-      /* keep topbar a touch tighter on phones (consistent with other pages) */
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
+
+      /* Always show chevrons on mobile (no hover on touch) */
+      .tile-nav{
+        opacity:1 !important;
+        transform:translateY(-50%) scale(1) !important;
+      }
+    }
+
+    /* Phone tweaks: smaller top-right badges on tiles to match other pages */
+    @media (max-width:480px){
+      .tile-title{
+        top:8px; right:8px; left:auto; bottom:auto;
+        font-size:12px; padding:3px 6px; z-index:4;
+        box-shadow:0 4px 12px rgba(0,0,0,.06);
+      }
     }
   </style>
 </head>
@@ -288,7 +295,6 @@
         // (dots are hidden; leave creation empty)
         dotsWrap && (dotsWrap.innerHTML = '');
         const dots = [];
-
         function updateDots(){ /* no-op since hidden */ }
 
         function focalFor(src){
@@ -306,6 +312,9 @@
           }
           updateDots();
         }
+
+        /* Ensure first frame appears on mobile immediately (no font wait) */
+        show(0);
 
         prevBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx - 1); });
         nextBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx + 1); });
