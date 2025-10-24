@@ -118,20 +118,15 @@
 
     .dots{ display:none !important; }
 
-    /* Chev buttons (no diamonds) */
+    /* FLOATING CHEVRONS (no background) */
     .nav{
       position:absolute; top:50%; transform:translateY(-50%);
       width:46px; height:46px; display:grid; place-items:center;
-      color:#fff; z-index:3; cursor:pointer; border:0;
-      background:rgba(255,255,255,.75);
-      -webkit-backdrop-filter:saturate(1.05) blur(.5px);
-      backdrop-filter:saturate(1.05) blur(.5px);
-      border:1px solid rgba(63,58,51,.18);
-      box-shadow:0 10px 22px rgba(0,0,0,.10);
-      border-radius:6px; opacity:.96; transition:opacity .15s, transform .15s;
+      color:#fff; z-index:3; cursor:pointer; border:0; background:transparent;
+      box-shadow:none;
     }
-    .nav:hover, .nav:focus-visible{ opacity:1; transform:translateY(-50%) scale(1.02); outline:none; }
-    .nav svg{ width:22px; height:22px; }
+    .nav:focus-visible{ outline:2px solid rgba(255,255,255,.6); outline-offset:2px; }
+    .nav svg{ width:22px; height:22px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
     .prev{ left:14px } .next{ right:14px }
 
     /* NOTES COLUMN */
@@ -147,6 +142,16 @@
     .cta{ background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; margin:32px 0 18px }
     .cta .row{ display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap }
     .cta small{ color:#6e6a62 }
+
+    /* “Full Gallery” teaser under the carousel */
+    .gallery-link{ padding:10px 0 28px; }
+    .gallery-link .gallery-cta{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 16px; border:1px solid var(--line); background:#fff;
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; text-decoration:none;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+    }
+    .gallery-link .gallery-cta:hover{ color:var(--accent); border-color:#dcd4c3; transform:translateY(-1px); }
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
@@ -164,12 +169,12 @@
     #advLightbox .lb-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#111; border:1px solid rgba(255,255,255,.15) }
     #advLightbox .lb-btn{
       position:absolute; width:46px; height:46px; display:grid; place-items:center;
-      background:rgba(255,255,255,.75); border:1px solid rgba(63,58,51,.18);
-      box-shadow:0 10px 22px rgba(0,0,0,.10); border-radius:6px; color:#fff;
+      background:transparent; border:0; color:#fff; box-shadow:none;
     }
     #advLbPrev{ top:50%; left:8px; transform:translateY(-50%); }
     #advLbNext{ top:50%; right:8px; transform:translateY(-50%); }
-    #advLbClose{ top:8px; right:8px; color:#3f3a33; }
+    #advLbClose{ top:8px; right:8px; }
+    #advLightbox .lb-btn svg{ filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
   </style>
 </head>
 <body>
@@ -231,7 +236,7 @@
                 "/pictures/andrewsBaldPics/E26A1098.jpg"
               ]'>
               <img id="adv-frame" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Adventure gallery slide" />
-              <!-- chevrons -->
+              <!-- floating chevrons -->
               <button class="nav prev" type="button" aria-label="Previous slide">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
               </button>
@@ -264,6 +269,17 @@
             </div>
           </aside>
         </div>
+      </div>
+    </section>
+
+    <!-- “Open Full Gallery” link (create /galleries/andrews-bald.html) -->
+    <section class="gallery-link">
+      <div class="container" style="text-align:center;">
+        <!-- Suggested new page name for this gallery: /galleries/andrews-bald.html -->
+        <a class="gallery-cta" href="/galleries/andrews-bald.html" aria-label="Open the Andrews Bald full gallery">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+          Open Andrews Bald — Full Gallery
+        </a>
       </div>
     </section>
 
