@@ -109,6 +109,9 @@
       .media-notes .grid{ grid-template-columns:1fr; justify-content:initial; }
     }
 
+    /* Left column wrapper so the gallery link can sit under the carousel */
+    .carousel-col{ display:flex; flex-direction:column; align-items:flex-start; }
+
     /* CAROUSEL */
     .carousel{
       position:relative; margin:0; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.07);
@@ -143,8 +146,8 @@
     .cta .row{ display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap }
     .cta small{ color:#6e6a62 }
 
-    /* “Full Gallery” teaser under the carousel */
-    .gallery-link{ padding:10px 0 28px; }
+    /* “Full Gallery” teaser directly under the carousel (left-aligned) */
+    .gallery-link{ margin:10px 0 28px; }
     .gallery-link .gallery-cta{
       display:inline-flex; align-items:center; gap:8px;
       padding:10px 16px; border:1px solid var(--line); background:#fff;
@@ -220,8 +223,8 @@
     <section class="media-notes">
       <div class="container">
         <div class="grid">
-          <!-- Left: Carousel -->
-          <div>
+          <!-- Left: Carousel + gallery link under it -->
+          <div class="carousel-col">
             <figure class="carousel" id="adv-carousel"
               data-images='[
                 "/pictures/andrewsBaldPics/E26A1013.jpg",
@@ -244,6 +247,15 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
               </button>
             </figure>
+
+            <!-- New: link directly under the gallery (left aligned on desktop, naturally under on mobile) -->
+            <!-- Create this page: /galleries/andrews-bald.html -->
+            <div class="gallery-link">
+              <a class="gallery-cta" href="/galleries/andrews-bald.html" aria-label="Open the Andrews Bald full gallery">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+                Open Andrews Bald — Full Gallery
+              </a>
+            </div>
           </div>
 
           <!-- Right: Notes -->
@@ -269,17 +281,6 @@
             </div>
           </aside>
         </div>
-      </div>
-    </section>
-
-    <!-- “Open Full Gallery” link (create /galleries/andrews-bald.html) -->
-    <section class="gallery-link">
-      <div class="container" style="text-align:center;">
-        <!-- Suggested new page name for this gallery: /galleries/andrews-bald.html -->
-        <a class="gallery-cta" href="/galleries/andrews-bald.html" aria-label="Open the Andrews Bald full gallery">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
-          Open Andrews Bald — Full Gallery
-        </a>
       </div>
     </section>
 
