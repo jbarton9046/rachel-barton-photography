@@ -105,15 +105,6 @@
     /* Keep anchors from hiding under sticky nav */
     :is(h1,h2,h3,section)[id]{ scroll-margin-top: calc(var(--mobile-header-h) + 12px); }
 
-    /* HERO image at top of testimonials */
-    .testimonials-hero{
-      margin: calc(var(--gap)*0.75) 0 calc(var(--gap)*1.0);
-    }
-    .testimonials-hero img{
-      width:100%; height:auto; aspect-ratio:16/9; object-fit:cover;
-      background:#fff; border:1px solid var(--line); box-shadow:var(--shadow);
-    }
-
     /* Testimonials grid */
     .testimonials{ padding:calc(var(--gap)*1.25) 0; }
     .cards{
@@ -160,7 +151,6 @@
       header.page{
         padding-top: calc(env(safe-area-inset-top, 0px) + var(--mobile-header-h) + 12px);
       }
-      .testimonials-hero{ margin: calc(var(--gap)*0.5) 0 var(--gap); }
       .cards{ grid-template-columns:1fr; }
       blockquote{ font-size:clamp(18px,4.4vw,21px); }
       .pull blockquote{ font-size:clamp(19px,5vw,24px); }
@@ -182,18 +172,13 @@
 
     <section class="testimonials">
       <div class="container">
-        <!-- NEW: Top hero image for testimonials -->
-        <figure class="testimonials-hero">
-          <img src="/pictures/testimonial-coule-beach-sunset.jpg" alt="Couple walking on the beach at sunset" loading="eager" fetchpriority="high">
-        </figure>
-
         <div class="cards">
-          <!-- Pull-quote row with big photo -->
+          <!-- Pull-quote row with big photo — UPDATED to Cecilia + Lido -->
           <article class="pull">
-            <img src="/pictures/testimonials/miller-family.jpg" alt="The Miller family laughing during a sunset session" loading="lazy" fetchpriority="low">
+            <img src="/pictures/testimonial-coule-beach-sunset.jpg" alt="Cecilia C. walking on the beach at sunset" loading="eager" fetchpriority="high">
             <div class="body">
               <blockquote>Rachel has a calm confidence that put our kids at ease within minutes. These are the most “us” photos we’ve ever had.</blockquote>
-              <div class="cite">— The Miller Family · Siesta Key</div>
+              <div class="cite">— Cecilia C. · Lido</div>
             </div>
           </article>
 
@@ -261,18 +246,6 @@
       } else {
         setTimeout(wire, 0);
       }
-    })();
-
-    /* Ensure Cecilia C. location reads 'Lido' wherever it appears */
-    (function(){
-      const cites = document.querySelectorAll('.cite');
-      cites.forEach(el => {
-        const t = el.textContent || '';
-        if (t.includes('Cecilia C.')){
-          // Replace anything after the dot with 'Lido'
-          el.textContent = '— Cecilia C. · Lido';
-        }
-      });
     })();
   </script>
 </body>
