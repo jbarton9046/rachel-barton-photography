@@ -128,28 +128,39 @@
     /* Footer */
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
-    /* Mobile spacing & stop nav drawer from shifting content */
+    /* Mobile spacing & stop nav drawer from shifting content + show chevrons */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
       .hero{ padding-top: calc(var(--mobile-header-h) + 10px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
 
+      /* keep page anchored while drawer opens */
       #content{ position:relative !important; transform:none !important; margin-left:0 !important; left:0 !important; right:0 !important; max-width:100% !important; width:100% !important; }
       body.nav-open #content,
       body.menu-open #content,
       .nav-open #content,
       .menu-open #content{ transform:none !important; margin-left:0 !important; left:0 !important; right:0 !important; }
 
-      /* keep any animated elements steady while menu opens */
+      /* ensure galleries move/never slide independently while menu animates */
       body.nav-open .mosaic,
       body.menu-open .mosaic,
       html.nav-open .mosaic,
-      [data-nav-open="1"] .mosaic{
+      [data-nav-open="1"] .mosaic,
+      body.nav-open figure.tile,
+      body.menu-open figure.tile,
+      body.nav-open .tile-media,
+      body.menu-open .tile-media{
         transform:none !important;
+        left:auto !important; right:auto !important;
+        opacity:1 !important; visibility:visible !important;
+        transition:none !important; will-change:auto !important;
+      }
+
+      /* mobile: chevrons always visible and tappable */
+      .tile-nav{
         opacity:1 !important;
-        visibility:visible !important;
-        transition:none !important;
-        will-change:auto !important;
+        transform:translateY(-50%) scale(1) !important;
+        pointer-events:auto !important;
       }
     }
   </style>
@@ -311,7 +322,7 @@
           if (src) media.src = src;
         }
 
-        // ⬇️ Ensure first frame appears on mobile immediately (even if load/fonts events already fired)
+        /* Force first frame immediately so mobile tiles always populate */
         show(0);
 
         prevBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx - 1); });
@@ -321,11 +332,10 @@
           if (link) window.location.href = link;
         });
 
-        // Keep the previous behavior too, but it's now a no-op if already shown
+        /* Keep previous lazy safety too (no-op if already shown) */
         if (document.fonts && document.fonts.ready) {
           document.fonts.ready.then(()=> show(0));
         } else {
-          // If load has already fired, this won't run — hence the immediate show(0) above.
           window.addEventListener('load', ()=> show(0));
         }
       });
