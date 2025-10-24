@@ -77,12 +77,12 @@
     }
     .btn.alt{ background:transparent; border:1px solid #dcd4c3; color:#3f3a33; }
 
-    /* Hero */
-    .hero{
+    /* Page hero (renamed from .hero to avoid global hero-side-effects) */
+    .page-hero{
       position:relative; background:linear-gradient(180deg, #fff, #f9f8f6);
       border-bottom:1px solid var(--line);
     }
-    .hero .container{ padding: clamp(22px, 5.8vw, 54px) var(--gap); }
+    .page-hero .container{ padding: clamp(22px, 5.8vw, 54px) var(--gap); }
     .crumb{
       font-family:"Raleway", ui-sans-serif, system-ui; color:#7b7267; font-size:15px; margin:0 0 14px;
       display:inline-flex; align-items:center; gap:8px;
@@ -171,8 +171,8 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <!-- HERO -->
-    <section class="hero">
+    <!-- INTRO (formerly .hero) -->
+    <section class="page-hero">
       <div class="container">
         <p class="crumb"><a href="/galleries/family-friends.html">← Back to Family &amp; Friends</a></p>
         <div class="eyebrow">Family Portraits</div>
