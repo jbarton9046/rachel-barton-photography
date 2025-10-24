@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -140,7 +140,7 @@
         transform:translateY(-50%) scale(1) !important;
       }
 
-      /* 2) Ensure the entire page stays steady when the nav drawer opens */
+      /* 2) Keep the whole page from “nudging” when the nav opens */
       #content{
         position:relative !important;
         left:0 !important; right:0 !important; margin-left:0 !important;
@@ -157,7 +157,7 @@
         left:0 !important; right:0 !important;
       }
 
-      /* Keep gallery section + children from animating/sliding independently */
+      /* Also freeze the gallery grid + its children while menu animates */
       body.nav-open .mosaic,
       body.menu-open .mosaic,
       html.nav-open .mosaic,
@@ -172,12 +172,11 @@
       [data-nav-open="1"] .mosaic .tile .tile-media{
         transform:none !important;
         left:auto !important; right:auto !important;
-        transition:none !important;
-        will-change:auto !important;
+        transition:none !important; will-change:auto !important;
         opacity:1 !important; visibility:visible !important;
       }
 
-      /* 3) Make sure any inline grid placement doesn't hide tiles on 1-col */
+      /* 3) Ensure all four tiles appear on 1-column mobile grid */
       @media (max-width:740px){
         .mosaic .tile{ grid-column:auto !important; }
       }
