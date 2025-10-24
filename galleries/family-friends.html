@@ -134,30 +134,6 @@
       /* Keep chevrons visible on mobile */
       .tile-nav{ opacity:1 !important; transform:translateY(-50%) scale(1) !important; }
 
-      /* Prevent double-shift while the drawer opens */
-      #content{
-        position:relative !important;
-        left:0 !important; right:0 !important; margin-left:0 !important;
-        transform:none !important; max-width:100% !important; width:100% !important;
-      }
-      body.nav-open #content,
-      body.menu-open #content,
-      html.nav-open #content,
-      .nav-open #content,
-      .menu-open #content,
-      [data-nav-open="1"] #content{
-        transform:none !important; margin-left:0 !important; left:0 !important; right:0 !important;
-      }
-      body.nav-open #content .container,
-      body.menu-open #content .container,
-      html.nav-open #content .container,
-      .nav-open #content .container,
-      .menu-open #content .container,
-      [data-nav-open="1"] #content .container{
-        transform:none !important;
-        margin-left:0 !important; left:auto !important; right:auto !important;
-      }
-
       /* Ensure all four tiles show on 1-col */
       @media (max-width:740px){
         .mosaic .tile{ grid-column:auto !important; }
