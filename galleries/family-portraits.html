@@ -1,325 +1,593 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Family Portrait Galleries | Rachel Barton Photography</title>
+  <title>Family & Friends | Rachel Barton Photography</title>
 
   <!-- Primary SEO -->
-  <meta name="description" content="Browse Family portrait galleries—clean, candid, true-to-life sessions around Sarasota and Florida’s Gulf Coast." />
-  <link rel="canonical" href="https://rachelsphotography.netlify.app/galleries/family-portraits.html" />
+  <meta name="description" content="Family & Friends portraits — candid, connected, true-to-life sessions in Sarasota and along Florida’s Gulf Coast." />
+  <link rel="canonical" href="https://rachelsphotography.netlify.app/galleries/family-friends.html" />
 
   <!-- Social share -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Rachel Barton Photography" />
-  <meta property="og:title" content="Family Portrait Galleries — Rachel Barton Photography" />
-  <meta property="og:description" content="Explore Family portrait galleries—movement-first sessions with timeless edits." />
-  <meta property="og:url" content="https://rachelsphotography.netlify.app/galleries/family-portraits.html" />
-  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/lido25FamilyTile/girl-staring-sunset.jpg" />
+  <meta property="og:title" content="Family & Friends — Rachel Barton Photography" />
+  <meta property="og:description" content="Clean, candid, true-to-life Family & Friends portraits with gentle direction and flattering light." />
+  <meta property="og:url" content="https://rachelsphotography.netlify.app/galleries/family-friends.html" />
+  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/portraitPageGal/E26A0759%20(2).jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Family Portrait Galleries — Rachel Barton Photography" />
-  <meta name="twitter:description" content="Browse easygoing, connected Family portrait sessions." />
-  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/lido25FamilyTile/girl-staring-sunset.jpg" />
+  <meta name="twitter:title" content="Family & Friends — Rachel Barton Photography" />
+  <meta name="twitter:description" content="Candid, connected, true-to-life portraits." />
+  <meta name="twitter:image" content="https://rachelsphotography.netlify.app/pictures/portraitPageGal/E26A0759%20(2).jpg" />
 
   <!-- Fonts & shared layout -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/layout.css?v=nav-6">
+  <link rel="stylesheet" href="/assets/layout.css?v=nav-5" />
 
   <style>
     :root{
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
       --accent:#A88A5A; --line:#e9e6df; --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-      --nav-gap-top:16px; --nav-gap-bottom:40px;
+      --nav-gap-top:20px; --nav-gap-bottom:44px;
       --mobile-header-h:64px;
-
-      /* tile controls (smaller to match other pages) */
-      --arrow-size:28px;
-      --arrow-inset:10px;
-      --glass-bg: rgba(255,255,255,.28);
-      --glass-blur: blur(7px) saturate(1.05);
-      --glass-border: 1px solid rgba(63,58,51,.18);
-      --glass-shadow: 0 10px 22px rgba(0,0,0,.10);
     }
+
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer, .page-top-spacer { height:0!important; }
 
-    /* Make navbar links non-bold to match the rest of the site */
     .topbar nav a,
     .topbar .nav a,
     .topbar [role="navigation"] a { font-weight:400 !important; }
 
     *{ box-sizing:border-box }
-    html,body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; line-height:1.65 }
+    html,body{
+      margin:0; padding:0; background:var(--bg); color:var(--ink);
+      font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; line-height:1.65;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
     a{ color:inherit; text-decoration:none; transition:color .15s ease, border-color .15s ease }
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
-    img{ max-width:100%; height:auto; display:block; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-    /* Buttons */
-    .btn{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 16px; background:#fff; color:#3f3a33;
-      border:1px solid var(--line); border-radius:0; font-weight:700; text-decoration:none;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:background-color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease, color .15s ease;
-    }
-    .btn:hover, .btn:focus-visible{
-      background:#fff; border-color:#dcd4c3; color:var(--accent);
-      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none;
-    }
-    .btn.alt{ background:#fff; }
-
-    /* Hero header */
-    .hero{ padding:clamp(24px,6vw,56px) 0 }
     .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch }
 
-    /* Back link */
-    .crumb{ font-size:14px; color:#7a766e; margin-bottom:6px }
-    .crumb a{ text-decoration:underline; text-underline-offset:3px }
-
-    /* Mosaic */
-    .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,1.6vw,16px) }
-    @media (max-width:1080px){ .mosaic{ grid-template-columns:repeat(2,1fr) } }
-    @media (max-width:740px){ .mosaic{ grid-template-columns:1fr } }
-
-    figure.tile{
-      margin:0; position:relative; aspect-ratio:4/5; overflow:hidden;
-      border-radius:0; border:1px solid var(--line); background:#ddd;
-      box-shadow:0 6px 18px rgba(0,0,0,.06); isolation:isolate;
-      transition:transform .2s ease, box-shadow .2s ease; cursor:pointer;
+    .btn{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33;
+      font-weight:700; text-decoration:none; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
     }
-    figure.tile:hover{ transform:translateY(-2px) }
-    .tile-media{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block }
-    .tile-title{
-      position:absolute; left:12px; bottom:12px; z-index:3;
-      background:rgba(255,255,255,.75); border:1px solid var(--line); padding:6px 10px;
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:18px;
+    .btn:hover, .btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none; }
+
+    /* ===== HERO (DESKTOP/TABLET — UNCHANGED) ===== */
+    .gallery-hero{ padding:clamp(18px,5vw,44px) 0; }
+    .gallery-hero .wrap{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:clamp(20px,4vw,40px);
+      align-items:center;
+    }
+    .gallery-hero .left{ display:flex; flex-direction:column; gap:10px; margin-top:0; }
+    .crumb{ margin:0 0 6px; }
+    .crumb a{
+      text-decoration:underline;
+      text-decoration-thickness:1px;
+      text-underline-offset:4px;
+      color:#6e6a62;
+    }
+
+    .hero-fig{
+      position:relative;
+      justify-self:center;
+      display:grid;
+      place-items:center;
+    }
+    /* desktop/tablet image rules */
+    .hero-fig img{
+      width:80%;
+      max-width:100%;
+      aspect-ratio:4/5;
+      object-fit:cover;
+      border:1px solid var(--line);
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      display:block;
+    }
+
+    .hero-badge{
+      position:absolute;
+      top:12px;
+      left:calc((100% - 80%) / 2 + 12px);
+      background:rgba(255,255,255,.56);
+      border:1px solid rgba(233,230,223,.60);
+      -webkit-backdrop-filter:saturate(1.05) blur(1.5px);
+      backdrop-filter:saturate(1.05) blur(1.5px);
+      padding:6px 10px;
       box-shadow:0 6px 18px rgba(0,0,0,.08);
-      -webkit-backdrop-filter:saturate(1.05) blur(.5px); backdrop-filter:saturate(1.05) blur(.5px);
+      font-size:13px;
     }
 
-    /* arrows */
+    /* ===== Tiles ===== */
+    .mosaic{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(10px,1.6vw,16px); margin-top:8px }
+    .captioned.notch{ position:relative; display:block }
+    .notch-figure{ display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+    .u-stroke{ fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round }
+    .panGroup{ will-change: transform; }
+
+    /* === Floating white chevrons (no diamonds), like adventure.html === */
     .tile-nav{
-      position:absolute; top:50%; transform:translateY(-50%) scale(.98);
-      width:var(--arrow-size); height:var(--arrow-size);
-      display:grid; place-items:center; color:var(--accent); cursor:pointer; user-select:none;
-      border:0; background:transparent; z-index:5; opacity:0;
-      transition:opacity .2s ease, transform .2s ease;
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:40px; height:40px; display:grid; place-items:center;
+      color:#fff; cursor:pointer; user-select:none; z-index:4; border:0; background:transparent; box-shadow:none;
+      opacity:0; transition:opacity .2s ease;
     }
-    figure.tile:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1) }
-    .tile-prev{ left:var(--arrow-inset) } .tile-next{ right:var(--arrow-inset) }
-    .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:4px;
-      transform:rotate(45deg);
-      background:var(--glass-bg); -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
-      border:var(--glass-border); box-shadow:var(--glass-shadow);
+    .captioned.notch:hover .tile-nav{ opacity:1; }
+    .tile-prev{ left:10px } .tile-next{ right:10px }
+    .tile-nav::before, .tile-nav::after{ display:none !important; } /* remove diamonds */
+    .tile-nav svg{ width:18px; height:18px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
+    .tile-dots{ display:none !important; }
+
+    .tile-label{
+      position:absolute; left:12px; bottom:12px;
+      background:rgba(255,255,255,.78); border:1px solid var(--line);
+      -webkit-backdrop-filter:saturate(1.05) blur(.5px); backdrop-filter:saturate(1.05) blur(.5px);
+      padding:6px 10px; font-family:'Cormorant Garamond','Playfair Display',Georgia,serif; font-weight:700;
     }
-    .tile-nav svg{ width:12px; height:12px; position:relative; z-index:1 }
 
-    /* Footer */
-    footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
+    .tile-descs{ margin-top:clamp(16px,2.2vw,20px) }
+    .tile-descs .row{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(12px,2vw,18px) }
+    .blurb{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
+    .blurb p{ margin:0 0 12px; color:#5b574f }
 
-    /* ---------- MOBILE ONLY: spacing + behavior ---------- */
-    @media (max-width:820px){
-      html, body{ overflow-x:hidden; }
-      .hero{ padding-top: calc(var(--mobile-header-h) + 10px); }
+    .section{ padding:clamp(20px,4vw,36px) 0; }
+    .section h2{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-size:clamp(24px,3.5vw,38px); margin:0 0 10px; }
+    .muted{ color:#6e6a62; }
+
+    .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2vw,18px) }
+    .card{ background:#fff; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06); padding:16px; display:flex; flex-direction:column; }
+    .card h3{ margin:0 0 6px; font-size:20px; font-weight:700; font-family:"Source Sans 3",system-ui }
+    .card p{ margin:0; color:#4f4a42 }
+    .card > div:last-child{ margin-top:auto !important; }
+
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+    .chip{ border:1px solid var(--line); background:#fff; padding:8px 12px; box-shadow:0 6px 18px rgba(0,0,0,.04) }
+
+    .faq{ border-top:1px solid var(--line); }
+    .faq details{ border-bottom:1px solid var(--line); padding:10px 0; }
+    .faq summary{ list-style:none; cursor:pointer; font-weight:700; font-family:"Source Sans 3"; }
+    .faq summary::-webkit-details-marker{ display:none; }
+    .faq p{ margin:8px 0 0; color:#5b574f }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width:980px){
+      .gallery-hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
-
-      /* Always show chevrons on mobile (no hover on touch) */
-      .tile-nav{
-        opacity:1 !important;
-        transform:translateY(-50%) scale(1) !important;
-      }
-
-      /* Ensure all four tiles appear when the grid collapses to 1-col */
-      @media (max-width:740px){
-        .mosaic .tile{ grid-column:auto !important; }
-      }
+      .gallery-hero .wrap{ grid-template-columns:1fr; }
+      .mosaic{ grid-template-columns:1fr; }
+      .tile-descs .row{ grid-template-columns:1fr; }
+      .hero-fig img{ width:100%; }
+      .hero-badge{ left:12px; }
     }
+
+    /* ===== PHONE-ONLY CHANGES ===== */
+    @media (max-width:480px){
+      .container{ padding:0 22px; }
+      .topbar{ padding-bottom:16px !important; }
+      .gallery-hero{ padding-top:30px; }
+
+      .gallery-hero .wrap{
+        grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+        gap:22px;
+        align-items:center;
+      }
+      .gallery-hero .left{ gap:6px; }
+      .crumb a{ font-size:12.5px; }
+
+      .h1{ font-size:clamp(24px,6vw,30px); white-space:nowrap; }
+      .lead{ font-size:15px; }
+
+      .gallery-hero .left > div{ gap:8px !important; flex-wrap:nowrap !important; }
+      .gallery-hero .left .btn{ padding:5px 8px; font-size:12px; line-height:1.1; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.06); }
+
+      .hero-fig{ justify-self:end; align-self:center; width:100%; margin-right:0; }
+      .hero-fig img{ width:80%; max-width:320px; margin:0; }
+
+      .hero-badge{
+        top:8px;
+        left:calc((100% - 80%) / 2 + 8px);
+        right:auto;
+        font-size:10px; padding:3px 6px;
+        border-color:rgba(233,230,223,.55);
+        box-shadow:0 4px 12px rgba(0,0,0,.06);
+      }
+
+      /* Always-visible chevrons on mobile */
+      .tile-nav{ opacity:1 !important; pointer-events:auto; }
+      .captioned.notch:hover .tile-nav{ opacity:1; }
+
+      /* Move chevrons ~halfway closer to the edge */
+      .tile-prev{ left:5px; }
+      .tile-next{ right:5px; }
+
+      /* MOBILE BADGE: smaller & top-right on tiles */
+      .tile-label{
+        top:8px; right:8px; left:auto; bottom:auto;
+        font-size:12px; padding:3px 6px; z-index:3;
+      }
+
+      .mosaic{ grid-template-columns:repeat(2,1fr); gap:10px; }
+      .tile-descs .row{ grid-template-columns:repeat(2,1fr); gap:10px; }
+      .tile-descs .blurb{ display:flex; flex-direction:column; }
+      .tile-descs .btn{ padding:6px 8px; font-size:12px; white-space:nowrap; margin-top:auto; }
+      .blurb{ padding:14px; }
+
+      .chips{ gap:6px; }
+      .chip{ padding:6px 10px; font-size:14px; line-height:1; white-space:nowrap; }
+
+      .grid-3{ grid-template-columns:repeat(3,1fr); gap:10px; }
+      .card{ padding:12px; }
+      .card h3{ font-size:16px; line-height:1.2; }
+      .card p{ font-size:14px; }
+    }
+
+    /* ===== Fullscreen lightbox (like adventure.html) ===== */
+    #ffLightbox{ position:fixed; inset:0; z-index:100; display:none; place-items:center; background:rgba(0,0,0,.72); }
+    #ffLightbox.open{ display:grid; }
+    #ffLightbox .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
+    #ffLightbox .lb-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#111; border:1px solid rgba(255,255,255,.15) }
+    #ffLightbox .lb-btn{
+      position:absolute; width:46px; height:46px; display:grid; place-items:center;
+      background:transparent; border:0; color:#fff; box-shadow:none;
+    }
+    #ffLbPrev{ top:50%; left:8px; transform:translateY(-50%); }
+    #ffLbNext{ top:50%; right:8px; transform:translateY(-50%); }
+    #ffLbClose{ top:8px; right:8px; }
+    #ffLightbox .lb-btn svg{ filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
   </style>
 </head>
 <body>
-  <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
     <!-- HERO -->
-    <section class="hero">
-      <div class="container">
-        <p class="crumb"><a href="/galleries/family-friends.html">← Back to Family &amp; Friends</a></p>
-        <div class="eyebrow">Family Portraits</div>
-        <h1 class="h1">Candid, connected, and true-to-life.</h1>
-        <p class="lead">Browse Family portrait galleries. Click any tile to open the full gallery.</p>
+    <section class="gallery-hero">
+      <div class="container wrap gallery-hero">
+        <div class="left">
+          <p class="crumb"><a href="/portraits.html">← Back to Portraits</a></p>
+          <div class="eyebrow">Galleries</div>
+          <h1 class="h1">Family &amp; Friends</h1>
+          <p class="lead">Movement-first sessions with natural prompts—real connection, real laughs, flattering light, and timeless edits.</p>
+          <div style="display:flex; gap:12px; margin-top:6px; flex-wrap:wrap">
+            <a class="btn" href="/book.html">Book a Session</a>
+            <a class="btn" href="/contact.html">Ask a Question</a>
+          </div>
+        </div>
+
+        <figure class="hero-fig">
+          <span class="hero-badge">Timeless</span>
+          <img src="/pictures/family-friends/girl-shells-golden.jpg" alt="Girl collecting shells at golden hour on the beach" />
+        </figure>
       </div>
     </section>
 
     <!-- TILES -->
-    <section class="value" aria-labelledby="galleries-title">
+    <section class="value" aria-labelledby="tiles-title">
       <div class="container">
-        <div class="eyebrow" id="galleries-title">Galleries</div>
         <div class="mosaic">
-
-          <!-- VENICE SEPT. 25 -->
-          <figure class="tile"
-            data-title="Venice — Sept. 25"
-            data-link="/galleries/family-portrait.html"
-            data-preferred="/pictures/venice25familytile/dad-tossing-son.jpg"
-            data-all-images='[
-              "/pictures/venice25familytile/dad-tossing-son.jpg",
-              "/pictures/venice25familytile/mom-dad-venice.jpg",
-              "/pictures/venice25familytile/parents-kiss-boy.jpg",
-              "/pictures/venice25familytile/statue-sunrise-palms.jpg"
-            ]'>
-            <img class="tile-media" src="/pictures/venice25familytile/dad-tossing-son.jpg" alt="Venice — Sept. 25 (preview)" loading="lazy" />
-            <figcaption class="tile-title">Venice — Sept. 25</figcaption>
+          <!-- Family -->
+          <a class="captioned notch" href="/galleries/family-portraits.html" aria-label="Family Gallery"
+             id="ff-family"
+             data-images='[
+               "/pictures/familyPortrait/image1.jpg",
+               "/pictures/familyPortrait/image2.jpg",
+               "/pictures/familyPortrait/image3.jpg",
+               "/pictures/familyPortrait/image4.jpg",
+               "/pictures/familyPortrait/image5.jpg",
+               "/pictures/familyPortrait/image6.jpg",
+               "/pictures/familyPortrait/image7.jpg",
+               "/pictures/familyPortrait/image8.jpg",
+               "/pictures/familyPortrait/image9.jpg",
+               "/pictures/familyPortrait/image10.jpg"
+             ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
+              <defs>
+                <mask id="mask-ff1" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask>
+                <filter id="shadow-ff1" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
+              </defs>
+              <g mask="url(#mask-ff1)"><g class="panGroup">
+                <image href="/pictures/familyPortrait/image1.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" />
+              </g></g>
+              <g class="frameGroup" filter="url(#shadow-ff1)"><path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/></g>
+            </svg>
+            <span class="tile-label">Family</span>
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
             </button>
             <button class="tile-nav tile-next" type="button" aria-label="Next">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
-          </figure>
+            <div class="tile-dots" role="tablist"></div>
+          </a>
 
-          <!-- LIDO JULY 25 -->
-          <figure class="tile"
-            data-title="Lido — July 25"
-            data-link="/galleries/sibling-portrait.html"
-            data-preferred="/pictures/lido25FamilyTile/girl-staring-sunset.jpg"
-            data-all-images='[
-              "/pictures/lido25FamilyTile/girl-staring-sunset.jpg",
-              "/pictures/lido25FamilyTile/sister-holding-sister.jpg",
-              "/pictures/lido25FamilyTile/sister-silhouette.jpg",
-              "/pictures/lido25FamilyTile/sisters-posing.jpg"
-            ]'>
-            <img class="tile-media" src="/pictures/lido25FamilyTile/girl-staring-sunset.jpg" alt="Lido — July 25 (preview)" loading="lazy" />
-            <figcaption class="tile-title">Lido — July 25</figcaption>
+          <!-- Friends -->
+          <a class="captioned notch" href="/galleries/friend-portraits.html" aria-label="Friends Gallery"
+             id="ff-friends"
+             data-images='[
+               "/pictures/thirdTileGal/E26A2017.jpg",
+               "/pictures/thirdTileGal/E26A2022%20(1).jpg",
+               "/pictures/thirdTileGal/E26A2047-2.jpg",
+               "/pictures/thirdTileGal/E26A2106.jpg",
+               "/pictures/thirdTileGal/E26A2245.jpg",
+               "/pictures/thirdTileGal/E26A2746.jpg",
+               "/pictures/thirdTileGal/E26A2768.jpg",
+               "/pictures/thirdTileGal/E26A2771.jpg",
+               "/pictures/thirdTileGal/E26A2854.jpg",
+               "/pictures/thirdTileGal/E26A2860.jpg"
+             ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
+              <defs>
+                <mask id="mask-ff2" x="0" y="0" width="800" height="1000"><rect x="0" y="0" width="800" height="1000" fill="white"/></mask>
+                <filter id="shadow-ff2" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)"/></filter>
+              </defs>
+              <g mask="url(#mask-ff2)"><g class="panGroup">
+                <image href="/pictures/thirdTileGal/E26A2017.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none" />
+              </g></g>
+              <g class="frameGroup" filter="url(#shadow-ff2)"><path class="u-stroke" d="M .5 .5 H 799.5 V 999.5 H .5 Z"/></g>
+            </svg>
+            <span class="tile-label">Friends</span>
             <button class="tile-nav tile-prev" type="button" aria-label="Previous">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
             </button>
             <button class="tile-nav tile-next" type="button" aria-label="Next">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
-          </figure>
-
-          <!-- BEE RIDGE OCT 25 -->
-          <figure class="tile"
-            data-title="Bee Ridge — Oct. 25"
-            data-link="/galleries/family-bee-ridge-oct-25.html"
-            data-preferred="/pictures/beeRidge25FamilyTile/costumes-siblings-hug.jpg"
-            data-all-images='[
-              "/pictures/beeRidge25FamilyTile/costumes-siblings-hug.jpg",
-              "/pictures/beeRidge25FamilyTile/family-holding-hands-halloween.jpg",
-              "/pictures/beeRidge25FamilyTile/girl-smiling-princess-crown.jpg",
-              "/pictures/beeRidge25FamilyTile/holding-hands-looking-back-costumes.jpg"
-            ]'>
-            <img class="tile-media" src="/pictures/beeRidge25FamilyTile/costumes-siblings-hug.jpg" alt="Bee Ridge — Oct. 25 (preview)" loading="lazy" />
-            <figcaption class="tile-title">Bee Ridge — Oct. 25</figcaption>
-            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-            </button>
-            <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </figure>
-
-          <!-- LIDO OCT. 25 (SECOND COLUMN, NEXT ROW) -->
-          <figure class="tile" style="grid-column:2"
-            data-title="Lido — Oct. 25"
-            data-link="/galleries/family-lido-oct-25.html"
-            data-preferred="/pictures/friendOct25Tile/2-girls-shells-golden.jpg"
-            data-all-images='[
-              "/pictures/friendOct25Tile/2-girls-shells-golden.jpg",
-              "/pictures/friendOct25Tile/couple-poing-beach-sunset-kids.jpg",
-              "/pictures/friendOct25Tile/girl-beach-sunset.jpg",
-              "/pictures/friendOct25Tile/girl-sunset-bush.jpg"
-            ]'>
-            <img class="tile-media" src="/pictures/friendOct25Tile/2-girls-shells-golden.jpg" alt="Lido — Oct. 25 (preview)" loading="lazy" />
-            <figcaption class="tile-title">Lido — Oct. 25</figcaption>
-            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-            </button>
-            <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </figure>
-
+            <div class="tile-dots" role="tablist"></div>
+          </a>
         </div>
 
-        <!-- CTA row -->
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center; margin:26px 0 6px;">
+        <!-- Descriptions under tiles -->
+        <div class="tile-descs">
+          <div class="row">
+            <article class="blurb">
+              <p>Movement-first sessions with natural prompts—real connection, real laughs, flattering light.</p>
+              <a class="btn" href="/galleries/family-portraits.html">View Family Galleries</a>
+            </article>
+            <article class="blurb">
+              <p>Easygoing, stylish, and authentic—best friends and roomies with a dash of editorial.</p>
+              <a class="btn" href="/galleries/friend-portraits.html">View Friends Galleries</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POPULAR LOCATIONS -->
+    <section class="section">
+      <div class="container">
+        <h2>Popular Sarasota Locations</h2>
+        <div class="chips" style="margin:8px 0 2px">
+          <span class="chip">Lido Key</span>
+          <span class="chip">Siesta Key</span>
+          <span class="chip">Longboat Key</span>
+          <span class="chip">Venice Jetty</span>
+          <span class="chip">Celery Fields</span>
+          <span class="chip">The Ringling</span>
+          <span class="chip">Selby Gardens</span>
+        </div>
+        <p class="muted" style="margin-top:8px">Travel from Tampa to Naples available.</p>
+      </div>
+    </section>
+
+    <!-- PREP & WARDROBE -->
+    <section class="section">
+      <div class="container">
+        <h2>Wardrobe & Prep</h2>
+        <div class="grid-3">
+          <div class="card"><h3>Keep it Comfortable</h3><p>Choose pieces you can move in—flowy dresses, linen, soft tees. Avoid heavy logos.</p></div>
+          <div class="card"><h3>Coordinate, Don’t Match</h3><p>Pick 2–3 colors (neutrals + one accent). Mix textures for depth.</p></div>
+          <div class="card"><h3>Bring the Little Things</h3><p>Water, wipes, hair ties, a favorite toy or blanket for kids—tiny items, big help.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+      <div class="container">
+        <h2>FAQ</h2>
+        <div class="faq">
+          <details>
+            <summary>What happens if it rains?</summary>
+            <p>We watch the radar together. If weather looks rough, we reschedule quickly to your next available golden-hour.</p>
+          </details>
+          <details>
+            <summary>How many images will we receive?</summary>
+            <p>Minis average 25–40 selects; full sessions 60–100+. You’ll receive a private, downloadable gallery.</p>
+          </details>
+          <details>
+            <summary>Can we include extended family?</summary>
+            <p>Yes! We’ll plan groupings ahead of time so the flow stays easy. A small add-on covers the extra time.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section" style="padding-bottom:40px">
+      <div class="container" style="text-align:center">
+        <h2>Ready to make something you’ll be proud to share?</h2>
+        <p class="muted" style="max-width:70ch;margin:6px auto 14px">Tell me who’s coming, where you love, and the vibe you’re after—I’ll take care of the rest.</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
           <a class="btn" href="/book.html">Book a Session</a>
-          <a class="btn alt" href="/contact.html">Ask a Question</a>
+          <a class="btn" href="/contact.html">Ask a Question</a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Shared Footer -->
-  <div data-include="/partials/footer.html"></div>
-  <script src="/assets/include.js?v=nav-6" defer></script>
+  <!-- Fullscreen Lightbox -->
+  <div class="lb" id="ffLightbox" aria-hidden="true">
+    <div class="lb-frame">
+      <img class="lb-img" id="ffLbImg" alt="">
+      <button class="lb-btn" id="ffLbPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+      </button>
+      <button class="lb-btn" id="ffLbNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <button class="lb-btn" id="ffLbClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
 
-  <!-- Simple tile rotator (preferred image first, then rotates others) -->
+  <div data-include="/partials/footer.html"></div>
+  <script src="/assets/include.js?v=nav-5" defer></script>
+
+  <!-- Lightweight rotator + lightbox (adventure.html behavior) -->
   <script>
     (function(){
-      const MAX_IMGS = 10;
+      const TILE_W = 800, TILE_H = 1000;
+      const ids = ['ff-family','ff-friends'];
 
-      function shuffled(arr){
-        const a = arr.slice();
-        for (let i = a.length - 1; i > 0; i--){
-          const j = Math.floor(Math.random() * (i + 1));
-          [a[i], a[j]] = [a[j], a[i]];
+      const natural = new Map();
+      function nat(src){
+        return new Promise(res=>{
+          if(natural.has(src)) return res(natural.get(src));
+          const im=new Image();
+          im.onload=()=>{ const o={w:im.naturalWidth||im.width,h:im.naturalHeight||im.height}; natural.set(src,o); res(o); };
+          im.onerror=()=>res({w:1600,h:1067});
+          im.src=src;
+        });
+      }
+      function parseList(el){ try { return JSON.parse(el.getAttribute('data-images')||'[]'); } catch { return []; } }
+      async function fit(img, src){
+        const g = img.parentNode; if(!g || !g.classList.contains('panGroup')) return;
+        const {w,h}=await nat(src);
+        const sH=TILE_H/h, drawW=h? (w*sH):TILE_W;
+        let x, y, dw, dh;
+        if(drawW < TILE_W){
+          const sW = TILE_W / w;
+          dw = TILE_W; dh = h*sW; x = 0; y = (TILE_H - dh)/2;
+        } else {
+          dw = drawW; dh = TILE_H; x = (TILE_W - dw)/2; y = 0;
         }
-        return a;
+        img.setAttribute('x',x); img.setAttribute('y',y);
+        img.setAttribute('width',dw); img.setAttribute('height',dh);
+        img.setAttribute('preserveAspectRatio','none');
+        g.setAttribute('transform','translate(0 0)');
       }
 
-      document.querySelectorAll('figure.tile').forEach(tile=>{
-        const media     = tile.querySelector('.tile-media');
-        const prevBtn   = tile.querySelector('.tile-prev');
-        const nextBtn   = tile.querySelector('.tile-next');
-        const link      = tile.getAttribute('data-link');
-        const preferred = (tile.getAttribute('data-preferred') || '').trim();
+      const state = new Map(); // id -> { idx, list }
 
-        let all = [];
-        try { all = JSON.parse(tile.getAttribute('data-all-images') || '[]'); } catch{}
-        if (!Array.isArray(all) || !all.length) return;
+      function wire(id){
+        const el = document.getElementById(id);
+        if(!el || el.dataset.wired) return;
+        const img = el.querySelector('image'); if(!img) return;
+        const list = parseList(el); if(!list.length) return;
 
-        const others = all.filter(src => src !== preferred);
-        const list   = preferred ? [preferred, ...shuffled(others).slice(0, Math.max(0, MAX_IMGS - 1))]
-                                 : shuffled(all).slice(0, MAX_IMGS);
+        img.setAttribute('href', list[0]);
+        img.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
+        fit(img, list[0]);
 
-        let idx = 0;
+        const st = { idx:0, list };
+        state.set(id, st);
 
-        function show(i){
-          idx = (i + list.length) % list.length;
-          const src = list[idx];
-          if (src) media.src = src;
+        const show = (i)=>{
+          st.idx=(i+list.length)%list.length;
+          const src=list[st.idx];
+          img.setAttribute('href', src);
+          img.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
+          fit(img, src);
+        };
+
+        el.querySelector('.tile-prev')?.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); show(st.idx-1); });
+        el.querySelector('.tile-next')?.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); show(st.idx+1); });
+
+        // Click *image area* opens LIGHTBOX like adventure.html.
+        // Keep the anchor navigation if user clicks the label or outside the SVG.
+        const svg = el.querySelector('svg.notch-figure');
+        if(svg){
+          svg.addEventListener('click', e=>{
+            e.preventDefault(); e.stopPropagation();
+            openLbFor(id, st.idx);
+          });
         }
 
-        /* Ensure first frame appears on mobile immediately */
-        show(0);
+        el.dataset.wired='1';
+      }
 
-        prevBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx - 1); });
-        nextBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx + 1); });
-        tile.addEventListener('click', e => {
-          if (e.target.closest('.tile-nav')) return;
-          if (link) window.location.href = link;
-        });
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(en=>{
+          if(en.isIntersecting){ wire(en.target.id); io.unobserve(en.target); }
+        })
+      }, { rootMargin: '200px 0px' });
 
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(()=> show(0));
-        } else {
-          window.addEventListener('load', ()=> show(0));
-        }
+      ids.forEach(id=>{ const el=document.getElementById(id); if(el) io.observe(el); });
+
+      /* ---------- LIGHTBOX ---------- */
+      const lb = document.getElementById('ffLightbox');
+      const lbImg = document.getElementById('ffLbImg');
+      const lbPrev = document.getElementById('ffLbPrev');
+      const lbNext = document.getElementById('ffLbNext');
+      const lbClose = document.getElementById('ffLbClose');
+
+      let lbTileId = null;
+      let lbIdx = 0;
+
+      function openLbFor(tileId, startIdx){
+        const st = state.get(tileId);
+        if(!st || !st.list || !st.list.length) return;
+        lbTileId = tileId;
+        lbIdx = (startIdx + st.list.length) % st.list.length;
+        lbImg.src = st.list[lbIdx];
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeLb(){
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden','true');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+        lbTileId = null;
+      }
+      function lbShow(delta){
+        const st = state.get(lbTileId);
+        if(!st) return;
+        lbIdx = (lbIdx + delta + st.list.length) % st.list.length;
+        lbImg.src = st.list[lbIdx];
+      }
+
+      lbPrev.addEventListener('click', (e)=>{ e.stopPropagation(); lbShow(-1); });
+      lbNext.addEventListener('click', (e)=>{ e.stopPropagation(); lbShow(+1); });
+      lbClose.addEventListener('click', (e)=>{ e.stopPropagation(); closeLb(); });
+      lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLb(); });
+
+      window.addEventListener('keydown', (e)=>{
+        if(!lb.classList.contains('open')) return;
+        if(e.key === 'Escape') closeLb();
+        if(e.key === 'ArrowLeft') lbShow(-1);
+        if(e.key === 'ArrowRight') lbShow(+1);
       });
+
+      // simple swipe
+      let touchX = null;
+      lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
+      lb.addEventListener('touchend', e=>{
+        if(touchX===null) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        touchX = null;
+        if(Math.abs(dx) > 40){ dx < 0 ? lbShow(+1) : lbShow(-1); }
+      }, {passive:true});
     })();
   </script>
 </body>
