@@ -142,28 +142,17 @@
     .notch-figure{ display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .u-stroke{ fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round }
 
-    /* ↓↓↓ Smaller nav arrows/diamonds (about half size) ↓↓↓ */
+    /* ==== FLOATING WHITE CHEVRONS (no diamonds) ==== */
     .tile-nav{
-      position:absolute; top:50%; transform:translateY(-50%) scale(.98);
-      background:transparent !important; border:0 !important;
-      width:28px; height:28px;
-      display:grid; place-items:center;
-      color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0;
-      transition:opacity .2s ease, transform .2s ease;
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:40px; height:40px; display:grid; place-items:center;
+      color:#fff; cursor:pointer; user-select:none; z-index:4; border:0; background:transparent; box-shadow:none;
+      opacity:0; transition:opacity .2s ease;
     }
-    .captioned.notch:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
+    .captioned.notch:hover .tile-nav{ opacity:1; }
     .tile-prev{ left:10px } .tile-next{ right:10px }
-    .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:4px;
-      transform:rotate(45deg);
-      background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05);
-      box-shadow:0 6px 18px rgba(0,0,0,.14);
-    }
-    .tile-nav::after{
-      content:""; position:absolute; inset:0; margin:4px;
-      transform:rotate(45deg); border:1px solid var(--accent);
-    }
-    .tile-nav svg{ width:12px; height:12px; position:relative; z-index:2 }
+    .tile-nav::before, .tile-nav::after{ display:none !important; }
+    .tile-nav svg{ width:18px; height:18px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
 
     .tile-dots{ display:none !important; }
     .panGroup{ will-change: transform; }
@@ -208,18 +197,24 @@
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
     }
 
+    /* Mobile: keep chevrons visible (no hover on touch) */
     @media (max-width:960px){
-      .tile-nav{
-        opacity:1 !important;
-        transform:translateY(-50%) scale(1) !important;
-        display:grid; place-items:center;
-      }
-      .captioned.notch:hover .tile-nav{ opacity:1; }
-      .tile-nav > svg{ display:block; position:static; margin:0; transform:none; }
-      .tile-prev{ padding-left:2px; padding-top:1px; }
-      .tile-prev > svg{ transform:translate(2px,1px); }
-      .tile-next > svg{ transform:translate(-1px,0); }
+      .tile-nav{ opacity:1 !important; }
     }
+
+    /* ===== Lightbox (matches adventure.html behavior) ===== */
+    #porLightbox{ position:fixed; inset:0; z-index:100; display:none; place-items:center; background:rgba(0,0,0,.72); }
+    #porLightbox.open{ display:grid; }
+    #porLightbox .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
+    #porLightbox .lb-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#111; border:1px solid rgba(255,255,255,.15) }
+    #porLightbox .lb-btn{
+      position:absolute; width:46px; height:46px; display:grid; place-items:center;
+      background:transparent; border:0; color:#fff; box-shadow:none;
+    }
+    #porLbPrev{ top:50%; left:8px; transform:translateY(-50%); }
+    #porLbNext{ top:50%; right:8px; transform:translateY(-50%); }
+    #porLbClose{ top:8px; right:8px; }
+    #porLightbox .lb-btn svg{ filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
   </style>
 </head>
 <body>
@@ -234,7 +229,7 @@
           <div class="eyebrow">Portraits</div>
           <h1 class="h1">Clean, candid, true-to-life portraits you’ll be proud to share.</h1>
           <p class="lead">
-            Calm, organized sessions in Sarasota & the Gulf Coast. Natural direction, flattering light, and timeless edits—so your photos feel like <em>you</em>, in the best light.
+            Calm, organized sessions in Sarasota &amp; the Gulf Coast. Natural direction, flattering light, and timeless edits—so your photos feel like <em>you</em>, in the best light.
           </p>
           <div style="display:flex; gap:12px; margin-top:14px;">
             <a class="btn" href="/book.html">Book a Portrait Session</a>
@@ -464,11 +459,11 @@
         <div class="cards">
           <div class="card pack">
             <h3>Mini — 30 min · $400</h3>
-            <p>Short & sweet—perfect for quick updates and gifts.</p>
+            <p>Short &amp; sweet—perfect for quick updates and gifts.</p>
             <ul>
               <li>Single nearby location</li>
               <li>Immediate family or couple/friends</li>
-              <li>Curated, edited gallery (web & hi-res)</li>
+              <li>Curated, edited gallery (web &amp; hi-res)</li>
             </ul>
             <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
               <a class="btn" href="/book.html">Book Mini</a>
@@ -480,8 +475,8 @@
             <p>Most popular—time to breathe, move, and explore.</p>
             <ul>
               <li>One location (walkable variety)</li>
-              <li>Outfit guidance & gentle direction</li>
-              <li>Expanded edited gallery (web & hi-res)</li>
+              <li>Outfit guidance &amp; gentle direction</li>
+              <li>Expanded edited gallery (web &amp; hi-res)</li>
             </ul>
             <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
               <a class="btn" href="/book.html">Book Standard</a>
@@ -493,8 +488,8 @@
             <p>Extended storytelling—multiple looks and settings.</p>
             <ul>
               <li>Up to two nearby locations</li>
-              <li>Wardrobe planning & expanded shot list</li>
-              <li>Largest edited gallery (web & hi-res)</li>
+              <li>Wardrobe planning &amp; expanded shot list</li>
+              <li>Largest edited gallery (web &amp; hi-res)</li>
             </ul>
             <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
               <a class="btn" href="/book.html">Book Deluxe</a>
@@ -506,10 +501,26 @@
     </section>
   </main>
 
+  <!-- Fullscreen Lightbox (shared for all tiles on this page) -->
+  <div class="lb" id="porLightbox" aria-hidden="true">
+    <div class="lb-frame">
+      <img class="lb-img" id="porLbImg" alt="">
+      <button class="lb-btn" id="porLbPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+      </button>
+      <button class="lb-btn" id="porLbNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <button class="lb-btn" id="porLbClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- ==== Tiles: baseline layout (trimmed for production) ==== -->
+  <!-- ==== Tiles: baseline layout (trimmed for production) + Lightbox wiring ==== -->
   <script>
   (function () {
     const TILE_W = 800, TILE_H = 1000;
@@ -597,7 +608,14 @@
 
       tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(st.idx-1); });
       tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(st.idx+1); });
-      tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>show(st.idx+1));
+
+      // Click image to open LIGHTBOX — but do NOT override tiles with a data-link (those navigate)
+      const hasLink = !!tile.dataset.link;
+      if (!hasLink){
+        tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>openLbFor(id, st.idx));
+      } else {
+        // still allow long-press context-menu etc.; no lightbox on linked tiles per your "don't touch anything else"
+      }
 
       tile.dataset.wired = '1';
     }
@@ -630,6 +648,62 @@
         initForViewport();
       }
     });
+
+    /* ---------- LIGHTBOX shared across tiles ---------- */
+    const lb = document.getElementById('porLightbox');
+    const lbImg = document.getElementById('porLbImg');
+    const lbPrev = document.getElementById('porLbPrev');
+    const lbNext = document.getElementById('porLbNext');
+    const lbClose = document.getElementById('porLbClose');
+
+    let lbTileId = null;
+    let lbIdx = 0;
+
+    function openLbFor(tileId, startIdx){
+      const st = stateByTile.get(tileId);
+      if(!st || !st.list || !st.list.length) return;
+      lbTileId = tileId;
+      lbIdx = (startIdx + st.list.length) % st.list.length;
+      lbImg.src = st.list[lbIdx];
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLb(){
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden','true');
+      lbImg.src = '';
+      document.body.style.overflow = '';
+      lbTileId = null;
+    }
+    function lbShow(next){
+      const st = stateByTile.get(lbTileId);
+      if(!st) return;
+      lbIdx = (lbIdx + next + st.list.length) % st.list.length;
+      lbImg.src = st.list[lbIdx];
+    }
+
+    lbPrev.addEventListener('click', (e)=>{ e.stopPropagation(); lbShow(-1); });
+    lbNext.addEventListener('click', (e)=>{ e.stopPropagation(); lbShow(+1); });
+    lbClose.addEventListener('click', (e)=>{ e.stopPropagation(); closeLb(); });
+    lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLb(); });
+
+    window.addEventListener('keydown', (e)=>{
+      if(!lb.classList.contains('open')) return;
+      if(e.key === 'Escape') closeLb();
+      if(e.key === 'ArrowLeft') lbShow(-1);
+      if(e.key === 'ArrowRight') lbShow(+1);
+    });
+
+    // simple swipe
+    let touchX = null;
+    lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
+    lb.addEventListener('touchend', e=>{
+      if(touchX===null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if(Math.abs(dx) > 40){ dx < 0 ? lbShow(+1) : lbShow(-1); }
+    }, {passive:true});
   })();
   </script>
 
