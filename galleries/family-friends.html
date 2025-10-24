@@ -134,6 +134,18 @@
       /* Keep chevrons visible on mobile */
       .tile-nav{ opacity:1 !important; transform:translateY(-50%) scale(1) !important; }
 
+      /* Cancel any extra transform applied directly to the hero when the drawer is open
+         (the whole #content already shifts, so doing the hero again causes a double move). */
+      body.nav-open .hero,
+      body.menu-open .hero,
+      html.nav-open .hero,
+      .nav-open .hero,
+      .menu-open .hero,
+      [data-nav-open="1"] .hero{
+        transform:none !important;
+        left:auto !important; right:auto !important; margin-left:0 !important;
+      }
+
       /* Ensure all four tiles show on 1-col */
       @media (max-width:740px){
         .mosaic .tile{ grid-column:auto !important; }
