@@ -39,8 +39,8 @@
       --mobile-header-h:64px;
 
       /* tile controls (smaller to match other pages) */
-      --arrow-size:28px;        /* was 54px */
-      --arrow-inset:10px;       /* was 12px */
+      --arrow-size:28px;
+      --arrow-inset:10px;
       --glass-bg: rgba(255,255,255,.28);
       --glass-blur: blur(7px) saturate(1.05);
       --glass-border: 1px solid rgba(63,58,51,.18);
@@ -118,21 +118,39 @@
     figure.tile:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1) }
     .tile-prev{ left:var(--arrow-inset) } .tile-next{ right:var(--arrow-inset) }
     .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:4px;                 /* was 7px */
+      content:""; position:absolute; inset:0; margin:4px;
       transform:rotate(45deg);
       background:var(--glass-bg); -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
       border:var(--glass-border); box-shadow:var(--glass-shadow);
     }
-    .tile-nav svg{ width:12px; height:12px; position:relative; z-index:1 } /* was 22px */
+    .tile-nav svg{ width:12px; height:12px; position:relative; z-index:1 }
 
     /* Footer */
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
-    /* Mobile spacing with fixed nav */
+    /* Mobile spacing & stop nav drawer from shifting content */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
       .hero{ padding-top: calc(var(--mobile-header-h) + 10px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
+
+      #content{ position:relative !important; transform:none !important; margin-left:0 !important; left:0 !important; right:0 !important; max-width:100% !important; width:100% !important; }
+      body.nav-open #content,
+      body.menu-open #content,
+      .nav-open #content,
+      .menu-open #content{ transform:none !important; margin-left:0 !important; left:0 !important; right:0 !important; }
+
+      /* keep any animated elements steady while menu opens */
+      body.nav-open .mosaic,
+      body.menu-open .mosaic,
+      html.nav-open .mosaic,
+      [data-nav-open="1"] .mosaic{
+        transform:none !important;
+        opacity:1 !important;
+        visibility:visible !important;
+        transition:none !important;
+        will-change:auto !important;
+      }
     }
   </style>
 </head>
@@ -293,6 +311,9 @@
           if (src) media.src = src;
         }
 
+        // ⬇️ Ensure first frame appears on mobile immediately (even if load/fonts events already fired)
+        show(0);
+
         prevBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx - 1); });
         nextBtn?.addEventListener('click', e => { e.stopPropagation(); show(idx + 1); });
         tile.addEventListener('click', e => {
@@ -300,9 +321,11 @@
           if (link) window.location.href = link;
         });
 
+        // Keep the previous behavior too, but it's now a no-op if already shown
         if (document.fonts && document.fonts.ready) {
           document.fonts.ready.then(()=> show(0));
         } else {
+          // If load has already fired, this won't run — hence the immediate show(0) above.
           window.addEventListener('load', ()=> show(0));
         }
       });
