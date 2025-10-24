@@ -123,22 +123,17 @@
     .u-stroke{ fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round }
     .panGroup{ will-change: transform; }
 
+    /* === Floating white chevrons (no diamonds), like adventure.html === */
     .tile-nav{
-      position:absolute; top:50%; transform:translateY(-50%) scale(.98);
-      background:transparent !important; border:0 !important;
-      width:28px; height:28px; display:grid; place-items:center;
-      color:var(--accent); cursor:pointer; user-select:none; z-index:4; opacity:0;
-      transition:opacity .2s ease, transform .2s ease;
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:40px; height:40px; display:grid; place-items:center;
+      color:#fff; cursor:pointer; user-select:none; z-index:4; border:0; background:transparent; box-shadow:none;
+      opacity:0; transition:opacity .2s ease;
     }
-    .captioned.notch:hover .tile-nav{ opacity:1; transform:translateY(-50%) scale(1); }
+    .captioned.notch:hover .tile-nav{ opacity:1; }
     .tile-prev{ left:10px } .tile-next{ right:10px }
-    .tile-nav::before{
-      content:""; position:absolute; inset:0; margin:4px; transform:rotate(45deg);
-      background:rgba(255,255,255,.22); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05);
-      box-shadow:0 6px 18px rgba(0,0,0,.14);
-    }
-    .tile-nav::after{ content:""; position:absolute; inset:0; margin:4px; transform:rotate(45deg); border:1px solid var(--accent); }
-    .tile-nav svg{ width:12px; height:12px; position:relative; z-index:2 }
+    .tile-nav::before, .tile-nav::after{ display:none !important; } /* remove diamonds */
+    .tile-nav svg{ width:18px; height:18px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
     .tile-dots{ display:none !important; }
 
     .tile-label{
@@ -186,12 +181,9 @@
     /* ===== PHONE-ONLY CHANGES ===== */
     @media (max-width:480px){
       .container{ padding:0 22px; }
-
-      /* more breathing room between nav and Back link */
       .topbar{ padding-bottom:16px !important; }
-      .gallery-hero{ padding-top:30px; } /* Back link clears the logo fully */
+      .gallery-hero{ padding-top:30px; }
 
-      /* 2-col hero, safe gap so image doesn't touch text */
       .gallery-hero .wrap{
         grid-template-columns:minmax(0,1fr) minmax(0,1fr);
         gap:22px;
@@ -200,28 +192,15 @@
       .gallery-hero .left{ gap:6px; }
       .crumb a{ font-size:12.5px; }
 
-      /* Keep headline on one line */
       .h1{ font-size:clamp(24px,6vw,30px); white-space:nowrap; }
-
       .lead{ font-size:15px; }
 
       .gallery-hero .left > div{ gap:8px !important; flex-wrap:nowrap !important; }
       .gallery-hero .left .btn{ padding:5px 8px; font-size:12px; line-height:1.1; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.06); }
 
-      /* Maintain same visual size without negative nudge */
-      .hero-fig{
-        justify-self:end;
-        align-self:center;
-        width:100%;
-        margin-right:0;
-      }
-      .hero-fig img{
-        width:80%;
-        max-width:320px;
-        margin:0;
-      }
+      .hero-fig{ justify-self:end; align-self:center; width:100%; margin-right:0; }
+      .hero-fig img{ width:80%; max-width:320px; margin:0; }
 
-      /* Timeless badge — top-left INSIDE the image */
       .hero-badge{
         top:8px;
         left:calc((100% - 80%) / 2 + 8px);
@@ -231,8 +210,7 @@
         box-shadow:0 4px 12px rgba(0,0,0,.06);
       }
 
-      /* Tile labels & always-visible arrows on mobile */
-      .tile-label{ top:8px; right:8px; left:auto; bottom:auto; font-size:12px; padding:3px 6px; }
+      /* Always-visible chevrons on mobile */
       .tile-nav{ opacity:1 !important; pointer-events:auto; }
       .captioned.notch:hover .tile-nav{ opacity:1; }
 
@@ -250,6 +228,20 @@
       .card h3{ font-size:16px; line-height:1.2; }
       .card p{ font-size:14px; }
     }
+
+    /* ===== Fullscreen lightbox (like adventure.html) ===== */
+    #ffLightbox{ position:fixed; inset:0; z-index:100; display:none; place-items:center; background:rgba(0,0,0,.72); }
+    #ffLightbox.open{ display:grid; }
+    #ffLightbox .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
+    #ffLightbox .lb-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#111; border:1px solid rgba(255,255,255,.15) }
+    #ffLightbox .lb-btn{
+      position:absolute; width:46px; height:46px; display:grid; place-items:center;
+      background:transparent; border:0; color:#fff; box-shadow:none;
+    }
+    #ffLbPrev{ top:50%; left:8px; transform:translateY(-50%); }
+    #ffLbNext{ top:50%; right:8px; transform:translateY(-50%); }
+    #ffLbClose{ top:8px; right:8px; }
+    #ffLightbox .lb-btn svg{ filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
   </style>
 </head>
 <body>
@@ -431,10 +423,26 @@
     </section>
   </main>
 
+  <!-- Fullscreen Lightbox -->
+  <div class="lb" id="ffLightbox" aria-hidden="true">
+    <div class="lb-frame">
+      <img class="lb-img" id="ffLbImg" alt="">
+      <button class="lb-btn" id="ffLbPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+      </button>
+      <button class="lb-btn" id="ffLbNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <button class="lb-btn" id="ffLbClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Lightweight rotator -->
+  <!-- Lightweight rotator + lightbox (adventure.html behavior) -->
   <script>
     (function(){
       const TILE_W = 800, TILE_H = 1000;
@@ -467,6 +475,9 @@
         img.setAttribute('preserveAspectRatio','none');
         g.setAttribute('transform','translate(0 0)');
       }
+
+      const state = new Map(); // id -> { idx, list }
+
       function wire(id){
         const el = document.getElementById(id);
         if(!el || el.dataset.wired) return;
@@ -477,20 +488,33 @@
         img.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
         fit(img, list[0]);
 
-        let idx=0;
+        const st = { idx:0, list };
+        state.set(id, st);
+
         const show = (i)=>{
-          idx=(i+list.length)%list.length;
-          const src=list[idx];
+          st.idx=(i+list.length)%list.length;
+          const src=list[st.idx];
           img.setAttribute('href', src);
           img.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
           fit(img, src);
         };
 
-        el.querySelector('.tile-prev')?.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); show(idx-1); });
-        el.querySelector('.tile-next')?.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); show(idx+1); });
+        el.querySelector('.tile-prev')?.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); show(st.idx-1); });
+        el.querySelector('.tile-next')?.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); show(st.idx+1); });
+
+        // Click *image area* opens LIGHTBOX like adventure.html.
+        // Keep the anchor navigation if user clicks the label or outside the SVG.
+        const svg = el.querySelector('svg.notch-figure');
+        if(svg){
+          svg.addEventListener('click', e=>{
+            e.preventDefault(); e.stopPropagation();
+            openLbFor(id, st.idx);
+          });
+        }
 
         el.dataset.wired='1';
       }
+
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(en=>{
           if(en.isIntersecting){ wire(en.target.id); io.unobserve(en.target); }
@@ -498,6 +522,62 @@
       }, { rootMargin: '200px 0px' });
 
       ids.forEach(id=>{ const el=document.getElementById(id); if(el) io.observe(el); });
+
+      /* ---------- LIGHTBOX ---------- */
+      const lb = document.getElementById('ffLightbox');
+      const lbImg = document.getElementById('ffLbImg');
+      const lbPrev = document.getElementById('ffLbPrev');
+      const lbNext = document.getElementById('ffLbNext');
+      const lbClose = document.getElementById('ffLbClose');
+
+      let lbTileId = null;
+      let lbIdx = 0;
+
+      function openLbFor(tileId, startIdx){
+        const st = state.get(tileId);
+        if(!st || !st.list || !st.list.length) return;
+        lbTileId = tileId;
+        lbIdx = (startIdx + st.list.length) % st.list.length;
+        lbImg.src = st.list[lbIdx];
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeLb(){
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden','true');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+        lbTileId = null;
+      }
+      function lbShow(delta){
+        const st = state.get(lbTileId);
+        if(!st) return;
+        lbIdx = (lbIdx + delta + st.list.length) % st.list.length;
+        lbImg.src = st.list[lbIdx];
+      }
+
+      lbPrev.addEventListener('click', (e)=>{ e.stopPropagation(); lbShow(-1); });
+      lbNext.addEventListener('click', (e)=>{ e.stopPropagation(); lbShow(+1); });
+      lbClose.addEventListener('click', (e)=>{ e.stopPropagation(); closeLb(); });
+      lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLb(); });
+
+      window.addEventListener('keydown', (e)=>{
+        if(!lb.classList.contains('open')) return;
+        if(e.key === 'Escape') closeLb();
+        if(e.key === 'ArrowLeft') lbShow(-1);
+        if(e.key === 'ArrowRight') lbShow(+1);
+      });
+
+      // simple swipe
+      let touchX = null;
+      lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
+      lb.addEventListener('touchend', e=>{
+        if(touchX===null) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        touchX = null;
+        if(Math.abs(dx) > 40){ dx < 0 ? lbShow(+1) : lbShow(-1); }
+      }, {passive:true});
     })();
   </script>
 </body>
