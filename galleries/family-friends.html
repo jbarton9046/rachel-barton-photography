@@ -70,14 +70,14 @@
     .btn:hover, .btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none; }
 
     /* ===== HERO (DESKTOP/TABLET — UNCHANGED) ===== */
-    .hero{ padding:clamp(18px,5vw,44px) 0; }
-    .hero .wrap{
+    .gallery-hero{ padding:clamp(18px,5vw,44px) 0; }
+    .gallery-hero .wrap{
       display:grid;
       grid-template-columns:1.1fr .9fr;
       gap:clamp(20px,4vw,40px);
       align-items:center;
     }
-    .hero .left{ display:flex; flex-direction:column; gap:10px; margin-top:0; }
+    .gallery-hero .left{ display:flex; flex-direction:column; gap:10px; margin-top:0; }
     .crumb{ margin:0 0 6px; }
     .crumb a{
       text-decoration:underline;
@@ -114,35 +114,6 @@
       padding:6px 10px;
       box-shadow:0 6px 18px rgba(0,0,0,.08);
       font-size:13px;
-    }
-
-    /* ===== Keep hero from shifting when the mobile nav opens ===== */
-    body.nav-open .hero,
-    body.menu-open .hero,
-    html.nav-open .hero,
-    [data-nav-open="1"] .hero{
-      display:block !important;
-      opacity:1 !important;
-      visibility:visible !important;
-      transform:none !important;
-    }
-    body.nav-open .hero .wrap,
-    body.menu-open .hero .wrap,
-    html.nav-open .hero .wrap,
-    [data-nav-open="1"] .hero .wrap,
-    body.nav-open .hero-fig,
-    body.menu-open .hero-fig,
-    html.nav-open .hero-fig,
-    [data-nav-open="1"] .hero-fig,
-    body.nav-open .hero-fig img,
-    body.menu-open .hero-fig img,
-    html.nav-open .hero-fig img,
-    [data-nav-open="1"] .hero-fig img{
-      transform:none !important;
-      left:auto !important;
-      right:auto !important;
-      will-change:auto !important;
-      transition:none !important;
     }
 
     /* ===== Tiles ===== */
@@ -203,9 +174,9 @@
 
     /* ====== RESPONSIVE ====== */
     @media (max-width:980px){
-      .hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
+      .gallery-hero{ padding-top: calc(var(--mobile-header-h) + 12px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
-      .hero .wrap{ grid-template-columns:1fr; }
+      .gallery-hero .wrap{ grid-template-columns:1fr; }
       .mosaic{ grid-template-columns:1fr; }
       .tile-descs .row{ grid-template-columns:1fr; }
       .hero-fig img{ width:100%; }
@@ -218,15 +189,15 @@
 
       /* more breathing room between nav and Back link */
       .topbar{ padding-bottom:16px !important; }
-      .hero{ padding-top:30px; } /* Back link clears the logo fully */
+      .gallery-hero{ padding-top:30px; } /* Back link clears the logo fully */
 
       /* 2-col hero, safe gap so image doesn't touch text */
-      .hero .wrap{
+      .gallery-hero .wrap{
         grid-template-columns:minmax(0,1fr) minmax(0,1fr);
         gap:22px;
         align-items:center;
       }
-      .hero .left{ gap:6px; }
+      .gallery-hero .left{ gap:6px; }
       .crumb a{ font-size:12.5px; }
 
       /* Keep headline on one line */
@@ -234,15 +205,15 @@
 
       .lead{ font-size:15px; }
 
-      .hero .left > div{ gap:8px !important; flex-wrap:nowrap !important; }
-      .hero .left .btn{ padding:5px 8px; font-size:12px; line-height:1.1; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.06); }
+      .gallery-hero .left > div{ gap:8px !important; flex-wrap:nowrap !important; }
+      .gallery-hero .left .btn{ padding:5px 8px; font-size:12px; line-height:1.1; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.06); }
 
-      /* Maintain same visual size without negative nudge (prevents slide-out on nav open) */
+      /* Maintain same visual size without negative nudge */
       .hero-fig{
         justify-self:end;
         align-self:center;
         width:100%;
-        margin-right:0; /* ← changed from -10px to stop the “slides right” issue */
+        margin-right:0;
       }
       .hero-fig img{
         width:80%;
@@ -286,8 +257,8 @@
 
   <main id="content">
     <!-- HERO -->
-    <section class="hero">
-      <div class="container wrap hero">
+    <section class="gallery-hero">
+      <div class="container wrap gallery-hero">
         <div class="left">
           <p class="crumb"><a href="/portraits.html">← Back to Portraits</a></p>
           <div class="eyebrow">Galleries</div>
