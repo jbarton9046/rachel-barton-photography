@@ -116,7 +116,9 @@
       font-size:13px;
     }
 
-    /* ===== Keep hero visible when mobile nav opens (override layout.css) ===== */
+    /* ===== Keep hero from sliding when the mobile nav opens =====
+       Some layout.css implementations shift content with a transform
+       on nav-open. These overrides pin the hero + its direct children. */
     body.nav-open .hero,
     body.menu-open .hero,
     html.nav-open .hero,
@@ -126,6 +128,30 @@
       visibility:visible !important;
       transform:none !important;
     }
+    body.nav-open .hero .wrap,
+    body.menu-open .hero .wrap,
+    html.nav-open .hero .wrap,
+    [data-nav-open="1"] .hero .wrap,
+    body.nav-open .hero-fig,
+    body.menu-open .hero-fig,
+    html.nav-open .hero-fig,
+    [data-nav-open="1"] .hero-fig,
+    body.nav-open .hero-fig img,
+    body.menu-open .hero-fig img,
+    html.nav-open .hero-fig img,
+    [data-nav-open="1"] .hero-fig img{
+      transform:none !important;
+      left:auto !important;
+      right:auto !important;
+      will-change:auto !important;
+      transition:none !important;
+    }
+    /* the tiny mobile nudge can push past the viewport when the page shifts;
+       neutralize it only while the nav is open */
+    body.nav-open .hero-fig,
+    body.menu-open .hero-fig,
+    html.nav-open .hero-fig,
+    [data-nav-open="1"] .hero-fig{ margin-right:0 !important; }
 
     /* ===== Tiles ===== */
     .mosaic{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(10px,1.6vw,16px); margin-top:8px }
