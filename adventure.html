@@ -117,19 +117,22 @@
     .carousel img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
 
     .dots{ display:none !important; }
+
+    /* Chev buttons (no diamonds) */
     .nav{
-      position:absolute; top:50%; transform:translateY(-50%); width:var(--arrow-size); height:var(--arrow-size);
-      display:grid; place-items:center; color:var(--accent); z-index:3; cursor:pointer; border:0; background:transparent;
-      opacity:.95; transition:opacity .15s ease, transform .15s ease;
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:46px; height:46px; display:grid; place-items:center;
+      color:#fff; z-index:3; cursor:pointer; border:0;
+      background:rgba(255,255,255,.75);
+      -webkit-backdrop-filter:saturate(1.05) blur(.5px);
+      backdrop-filter:saturate(1.05) blur(.5px);
+      border:1px solid rgba(63,58,51,.18);
+      box-shadow:0 10px 22px rgba(0,0,0,.10);
+      border-radius:6px; opacity:.96; transition:opacity .15s, transform .15s;
     }
-    .nav:hover{ opacity:1; transform:translateY(-50%) scale(1.02) }
-    .nav::before{
-      content:""; position:absolute; inset:0; margin:8px; transform:rotate(45deg);
-      background:rgba(255,255,255,.28); -webkit-backdrop-filter:blur(7px) saturate(1.05); backdrop-filter:blur(7px) saturate(1.05);
-      border:1px solid rgba(63,58,51,.18); box-shadow:0 10px 22px rgba(0,0,0,.10); border-radius:2px;
-    }
-    .nav svg{ width:22px; height:22px; position:relative; z-index:1; }
-    .prev{ left:var(--arrow-inset) } .next{ right:var(--arrow-inset) }
+    .nav:hover, .nav:focus-visible{ opacity:1; transform:translateY(-50%) scale(1.02); outline:none; }
+    .nav svg{ width:22px; height:22px; }
+    .prev{ left:14px } .next{ right:14px }
 
     /* NOTES COLUMN */
     aside.notes-col .eyebrow{ margin-bottom:8px }
@@ -153,6 +156,20 @@
       .adventure-hero{ padding-top: var(--mobile-header-h); } /* no extra +10px */
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
     }
+
+    /* Fullscreen lightbox */
+    #advLightbox{ position:fixed; inset:0; z-index:100; display:none; place-items:center; background:rgba(0,0,0,.72); }
+    #advLightbox.open{ display:grid; }
+    #advLightbox .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
+    #advLightbox .lb-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#111; border:1px solid rgba(255,255,255,.15) }
+    #advLightbox .lb-btn{
+      position:absolute; width:46px; height:46px; display:grid; place-items:center;
+      background:rgba(255,255,255,.75); border:1px solid rgba(63,58,51,.18);
+      box-shadow:0 10px 22px rgba(0,0,0,.10); border-radius:6px; color:#fff;
+    }
+    #advLbPrev{ top:50%; left:8px; transform:translateY(-50%); }
+    #advLbNext{ top:50%; right:8px; transform:translateY(-50%); }
+    #advLbClose{ top:8px; right:8px; color:#3f3a33; }
   </style>
 </head>
 <body>
@@ -214,7 +231,7 @@
                 "/pictures/andrewsBaldPics/E26A1098.jpg"
               ]'>
               <img id="adv-frame" src="/pictures/andrewsBaldPics/E26A1013.jpg" alt="Adventure gallery slide" />
-              <!-- dots intentionally hidden -->
+              <!-- chevrons -->
               <button class="nav prev" type="button" aria-label="Previous slide">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
               </button>
@@ -263,11 +280,27 @@
     </section>
   </main>
 
+  <!-- Fullscreen Lightbox -->
+  <div class="lb" id="advLightbox" aria-hidden="true">
+    <div class="lb-frame">
+      <img class="lb-img" id="advLbImg" alt="">
+      <button class="lb-btn" id="advLbPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+      </button>
+      <button class="lb-btn" id="advLbNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <button class="lb-btn" id="advLbClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+
   <!-- Shared Footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Carousel logic + focal-point control + size sync to notes height -->
+  <!-- Carousel logic + focal-point control + size sync to notes height + Lightbox -->
   <script>
     (function(){
       const figure = document.getElementById('adv-carousel');
@@ -348,6 +381,57 @@
       }
       window.addEventListener('resize', sizeCarousel);
       document.addEventListener('DOMContentLoaded', () => setTimeout(sizeCarousel, 0));
+
+      /* ---------- LIGHTBOX (click carousel -> fullscreen; swipe/keys/chevrons) ---------- */
+      const lb    = document.getElementById('advLightbox');
+      const lbImg = document.getElementById('advLbImg');
+      const lbPrev= document.getElementById('advLbPrev');
+      const lbNext= document.getElementById('advLbNext');
+      const lbClose=document.getElementById('advLbClose');
+
+      function openLb(index){
+        i = (index + images.length) % images.length;
+        lbImg.src = images[i];
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeLb(){
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden','true');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+      }
+      function lbShow(n){ i = (n + images.length) % images.length; lbImg.src = images[i]; }
+
+      // open from the carousel image
+      frame.addEventListener('click', () => openLb(i));
+
+      // buttons
+      lbPrev.addEventListener('click', e=>{ e.stopPropagation(); lbShow(i-1); });
+      lbNext.addEventListener('click', e=>{ e.stopPropagation(); lbShow(i+1); });
+      lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); });
+
+      // backdrop click
+      lb.addEventListener('click', e=>{ if(e.target===lb) closeLb(); });
+
+      // keyboard
+      window.addEventListener('keydown', e=>{
+        if(!lb.classList.contains('open')) return;
+        if(e.key==='Escape') closeLb();
+        if(e.key==='ArrowLeft') lbShow(i-1);
+        if(e.key==='ArrowRight') lbShow(i+1);
+      });
+
+      // simple swipe
+      let touchX = null;
+      lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
+      lb.addEventListener('touchend', e=>{
+        if(touchX===null) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        touchX = null;
+        if(Math.abs(dx) > 40){ dx < 0 ? lbShow(i+1) : lbShow(i-1); }
+      }, {passive:true});
     })();
   </script>
 </body>
