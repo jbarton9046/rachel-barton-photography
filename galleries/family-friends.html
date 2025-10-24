@@ -92,7 +92,7 @@
       display:grid;
       place-items:center;
     }
-    /* desktop/tablet image rules reverted to original */
+    /* desktop/tablet image rules */
     .hero-fig img{
       width:80%;
       max-width:100%;
@@ -116,9 +116,7 @@
       font-size:13px;
     }
 
-    /* ===== Keep hero from sliding when the mobile nav opens =====
-       Some layout.css implementations shift content with a transform
-       on nav-open. These overrides pin the hero + its direct children. */
+    /* ===== Keep hero from shifting when the mobile nav opens ===== */
     body.nav-open .hero,
     body.menu-open .hero,
     html.nav-open .hero,
@@ -146,12 +144,6 @@
       will-change:auto !important;
       transition:none !important;
     }
-    /* the tiny mobile nudge can push past the viewport when the page shifts;
-       neutralize it only while the nav is open */
-    body.nav-open .hero-fig,
-    body.menu-open .hero-fig,
-    html.nav-open .hero-fig,
-    [data-nav-open="1"] .hero-fig{ margin-right:0 !important; }
 
     /* ===== Tiles ===== */
     .mosaic{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(10px,1.6vw,16px); margin-top:8px }
@@ -245,16 +237,16 @@
       .hero .left > div{ gap:8px !important; flex-wrap:nowrap !important; }
       .hero .left .btn{ padding:5px 8px; font-size:12px; line-height:1.1; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.06); }
 
-      /* Keep SAME visual size, push further right ~¼" */
+      /* Maintain same visual size without negative nudge (prevents slide-out on nav open) */
       .hero-fig{
         justify-self:end;
         align-self:center;
         width:100%;
-        margin-right:-10px;   /* nudge to the gutter without changing size */
+        margin-right:0; /* ← changed from -10px to stop the “slides right” issue */
       }
       .hero-fig img{
-        width:80%;           /* same sizing behavior as desktop default */
-        max-width:320px;     /* cap to keep visual size consistent */
+        width:80%;
+        max-width:320px;
         margin:0;
       }
 
