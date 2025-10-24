@@ -27,12 +27,23 @@
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
   <link rel="stylesheet" href="/assets/gallery.css?v=14">
 
-  <!-- Thin underline for back link -->
+  <!-- Small page-specific tweaks -->
   <style>
+    :root{ --mobile-header-h:64px; }
+
+    /* Thin underline for back link */
     .gallery-head .crumb a{
       text-decoration: underline;
       text-decoration-thickness: 1px;
       text-underline-offset: 4px;
+    }
+
+    /* Mobile-only spacing so the crumb clears the fixed topbar,
+       and ensure the page can slide with the drawer without horizontal overflow */
+    @media (max-width:820px){
+      html, body{ overflow-x:hidden; }
+      header.gallery-head.container{ padding-top: calc(var(--mobile-header-h) + 6px); }
+      .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
     }
   </style>
 </head>
@@ -41,43 +52,46 @@
   <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
-  <!-- Compact left-aligned header -->
-  <header class="gallery-head container" role="region" aria-label="Gallery intro">
-    <p class="crumb"><a href="/galleries/family-portraits.html">← Back to Family Portraits</a></p>
-    <h1>Sibling Portraits</h1>
-    <p class="lede">Candid, movement-filled portraits with warm, true-to-life color.</p>
-    <div class="actions">
-      <a href="/book.html">Book a Session</a>
-      <a href="/contact.html">Say Hello</a>
-    </div>
-  </header>
-
-  <main class="container">
-    <section aria-label="Sibling portraits gallery">
-      <div class="grid" id="gallery">
-        <figure><a href="/pictures/siblingPortraitGal/E26A0671%20(3).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0671%20(3).jpg" alt="Sibling portrait 1" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0674.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0674.jpg" alt="Sibling portrait 2" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0691.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0691.jpg" alt="Sibling portrait 3" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0693.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0693.jpg" alt="Sibling portrait 4" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0695.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0695.jpg" alt="Sibling portrait 5" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0698%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0698%20(1).jpg" alt="Sibling portrait 6" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0699%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0699%20(1).jpg" alt="Sibling portrait 7" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0701%20(2).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0701%20(2).jpg" alt="Sibling portrait 8" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0702.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0702.jpg" alt="Sibling portrait 9" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0712%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0712%20(1).jpg" alt="Sibling portrait 10" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0718%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0718%20(1).jpg" alt="Sibling portrait 11" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0720.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0720.jpg" alt="Sibling portrait 12" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0722.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0722.jpg" alt="Sibling portrait 13" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0734%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0734%20(1).jpg" alt="Sibling portrait 14" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0739%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0739%20(1).jpg" alt="Sibling portrait 15" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0753%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0753%20(1).jpg" alt="Sibling portrait 16" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0755.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0755.jpg" alt="Sibling portrait 17" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0758%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0758%20(1).jpg" alt="Sibling portrait 18" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0759%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0759%20(1).jpg" alt="Sibling portrait 19" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0761%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0761%20(1).jpg" alt="Sibling portrait 20" /></a></figure>
-        <figure><a href="/pictures/siblingPortraitGal/E26A0764%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0764%20(1).jpg" alt="Sibling portrait 21" /></a></figure>
+  <!-- Everything that should shift with the mobile nav drawer lives inside #content -->
+  <main id="content">
+    <!-- Compact left-aligned header -->
+    <header class="gallery-head container" role="region" aria-label="Gallery intro">
+      <p class="crumb"><a href="/galleries/family-portraits.html">← Back to Family Portraits</a></p>
+      <h1>Sibling Portraits</h1>
+      <p class="lede">Candid, movement-filled portraits with warm, true-to-life color.</p>
+      <div class="actions">
+        <a href="/book.html">Book a Session</a>
+        <a href="/contact.html">Say Hello</a>
       </div>
-    </section>
+    </header>
+
+    <div class="container">
+      <section aria-label="Sibling portraits gallery">
+        <div class="grid" id="gallery">
+          <figure><a href="/pictures/siblingPortraitGal/E26A0671%20(3).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0671%20(3).jpg" alt="Sibling portrait 1" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0674.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0674.jpg" alt="Sibling portrait 2" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0691.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0691.jpg" alt="Sibling portrait 3" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0693.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0693.jpg" alt="Sibling portrait 4" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0695.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0695.jpg" alt="Sibling portrait 5" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0698%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0698%20(1).jpg" alt="Sibling portrait 6" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0699%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0699%20(1).jpg" alt="Sibling portrait 7" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0701%20(2).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0701%20(2).jpg" alt="Sibling portrait 8" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0702.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0702.jpg" alt="Sibling portrait 9" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0712%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0712%20(1).jpg" alt="Sibling portrait 10" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0718%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0718%20(1).jpg" alt="Sibling portrait 11" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0720.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0720.jpg" alt="Sibling portrait 12" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0722.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0722.jpg" alt="Sibling portrait 13" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0734%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0734%20(1).jpg" alt="Sibling portrait 14" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0739%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0739%20(1).jpg" alt="Sibling portrait 15" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0753%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0753%20(1).jpg" alt="Sibling portrait 16" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0755.jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0755.jpg" alt="Sibling portrait 17" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0758%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0758%20(1).jpg" alt="Sibling portrait 18" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0759%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0759%20(1).jpg" alt="Sibling portrait 19" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0761%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0761%20(1).jpg" alt="Sibling portrait 20" /></a></figure>
+          <figure><a href="/pictures/siblingPortraitGal/E26A0764%20(1).jpg"><img loading="lazy" src="/pictures/siblingPortraitGal/E26A0764%20(1).jpg" alt="Sibling portrait 21" /></a></figure>
+        </div>
+      </section>
+    </div>
   </main>
 
   <!-- Shared Footer -->
