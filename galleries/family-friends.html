@@ -38,7 +38,7 @@
       --nav-gap-top:16px; --nav-gap-bottom:40px;
       --mobile-header-h:64px;
 
-      /* tile controls (smaller to match other pages) */
+      /* tile controls */
       --arrow-size:28px;
       --arrow-inset:10px;
       --glass-bg: rgba(255,255,255,.28);
@@ -46,6 +46,7 @@
       --glass-border: 1px solid rgba(63,58,51,.18);
       --glass-shadow: 0 10px 22px rgba(0,0,0,.10);
     }
+
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer, .page-top-spacer { height:0!important; }
 
@@ -134,29 +135,44 @@
       .hero{ padding-top: calc(var(--mobile-header-h) + 10px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
 
-      /* Always show chevrons on mobile (no hover on touch) */
-      .tile-nav{
-        opacity:1 !important;
-        transform:translateY(-50%) scale(1) !important;
-      }
+      /* Always show chevrons on mobile */
+      .tile-nav{ opacity:1 !important; transform:translateY(-50%) scale(1) !important; }
 
-      /* Prevent the hero from receiving any extra transform while drawer is open */
-      body.nav-open .hero,
-      body.menu-open .hero,
-      html.nav-open .hero,
-      [data-nav-open="1"] .hero,
-      body.nav-open .hero > .container,
-      body.menu-open .hero > .container,
-      html.nav-open .hero > .container,
-      [data-nav-open="1"] .hero > .container{
-        transform:none !important;
-        transition:none !important;
-        will-change:auto !important;
-      }
-
-      /* Ensure all four tiles appear on 1-column mobile grid */
+      /* Make sure any inline grid placement doesn't hide tiles on 1-col */
       @media (max-width:740px){
         .mosaic .tile{ grid-column:auto !important; }
+      }
+
+      /* ---- Neutralize drawer push on this page (no double-shift) ---- */
+      #content{
+        position:relative !important;
+        left:0 !important; right:0 !important; margin-left:0 !important;
+        transform:none !important; max-width:100% !important; width:100% !important;
+      }
+      /* When body adds its nav-open class, also neutralize inner containers */
+      body.nav-open #content,
+      body.menu-open #content,
+      html.nav-open #content,
+      .nav-open #content,
+      .menu-open #content,
+      [data-nav-open="1"] #content{
+        transform:none !important; margin-left:0 !important; left:0 !important; right:0 !important;
+      }
+      body.nav-open #content .container,
+      body.menu-open #content .container,
+      html.nav-open #content .container,
+      .nav-open #content .container,
+      .menu-open #content .container,
+      [data-nav-open="1"] #content .container{
+        transform:none !important;
+        margin-left:0 !important; left:auto !important; right:auto !important;
+        will-change:auto !important;
+      }
+      /* Keep the gallery grid steady while menu animates */
+      body.nav-open .mosaic,
+      body.menu-open .mosaic,
+      [data-nav-open="1"] .mosaic{
+        transform:none !important; opacity:1 !important; visibility:visible !important; transition:none !important;
       }
     }
   </style>
