@@ -134,49 +134,13 @@
       .hero{ padding-top: calc(var(--mobile-header-h) + 10px); }
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
 
-      /* 1) Always show chevrons on mobile (no hover on touch) */
+      /* Always show chevrons on mobile (no hover on touch) */
       .tile-nav{
         opacity:1 !important;
         transform:translateY(-50%) scale(1) !important;
       }
 
-      /* 2) Keep the whole page from “nudging” when the nav opens */
-      #content{
-        position:relative !important;
-        left:0 !important; right:0 !important; margin-left:0 !important;
-        transform:none !important; max-width:100% !important; width:100% !important;
-      }
-      body.nav-open #content,
-      body.menu-open #content,
-      html.nav-open #content,
-      .nav-open #content,
-      .menu-open #content,
-      [data-nav-open="1"] #content{
-        transform:none !important;
-        margin-left:0 !important;
-        left:0 !important; right:0 !important;
-      }
-
-      /* Also freeze the gallery grid + its children while menu animates */
-      body.nav-open .mosaic,
-      body.menu-open .mosaic,
-      html.nav-open .mosaic,
-      [data-nav-open="1"] .mosaic,
-      body.nav-open .mosaic .tile,
-      body.menu-open .mosaic .tile,
-      html.nav-open .mosaic .tile,
-      [data-nav-open="1"] .mosaic .tile,
-      body.nav-open .mosaic .tile .tile-media,
-      body.menu-open .mosaic .tile .tile-media,
-      html.nav-open .mosaic .tile .tile-media,
-      [data-nav-open="1"] .mosaic .tile .tile-media{
-        transform:none !important;
-        left:auto !important; right:auto !important;
-        transition:none !important; will-change:auto !important;
-        opacity:1 !important; visibility:visible !important;
-      }
-
-      /* 3) Ensure all four tiles appear on 1-column mobile grid */
+      /* Ensure all four tiles appear when the grid collapses to 1-col */
       @media (max-width:740px){
         .mosaic .tile{ grid-column:auto !important; }
       }
