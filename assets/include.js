@@ -98,19 +98,32 @@
       function startFreeze(){
         // Freeze the pushed layout while finger is down so nothing slides left
         document.documentElement.classList.add('submenu-tap');
+        // keep the page pushed right regardless of checkbox state
+        document.body.classList.add('drawer-open');
+        var navchk = document.getElementById('navchk');
+        if (navchk) navchk.checked = true; // reassert open state if something toggles it
         // safety timeout in case navigation is delayed
-        setTimeout(function(){ document.documentElement.classList.remove('submenu-tap'); }, 700);
+        setTimeout(function(){
+          document.documentElement.classList.remove('submenu-tap');
+          // leave drawer-open; it will be cleared on unload below
+        }, 700);
       }
-      function endFreeze(){
+      function cleanupFreeze(){
         document.documentElement.classList.remove('submenu-tap');
       }
+      function removeLock(){
+        document.body.classList.remove('drawer-open');
+        document.documentElement.classList.remove('submenu-tap');
+      }
+      window.addEventListener('beforeunload', removeLock, { once:true });
+      window.addEventListener('pagehide', removeLock, { once:true });
 
       links.forEach(function(a){
         // Freeze layout for the duration of the tap
         a.addEventListener('touchstart', startFreeze, { passive:true, capture:true });
         a.addEventListener('mousedown',   startFreeze, { capture:true });
-        a.addEventListener('touchend',    endFreeze,   { passive:true, capture:true });
-        a.addEventListener('mouseup',     endFreeze,   { capture:true });
+        a.addEventListener('touchend',    cleanupFreeze, { passive:true, capture:true });
+        a.addEventListener('mouseup',     cleanupFreeze, { capture:true });
 
         // Let the browser navigate, but prevent global click-outside handlers
         // from closing/re-rendering the drawer first.
@@ -120,6 +133,10 @@
           if (e.defaultPrevented) {
             try { window.location.assign(a.href); } catch(_) {}
           }
+          // Keep the drawer/push locked until the page changes
+          document.body.classList.add('drawer-open');
+          var navchk = document.getElementById('navchk');
+          if (navchk) navchk.checked = true;
         }, {capture:true});
       });
     }catch(e){ /* no-op */ }
