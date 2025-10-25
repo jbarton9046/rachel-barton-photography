@@ -132,7 +132,7 @@
     }
     .nowrap{ white-space:nowrap; }
 
-    /* CTA layout */
+    /* CTA layout (default) */
     .cta{
       display:flex; gap:22px; margin:28px 0; flex-wrap:wrap; justify-content:center;
       text-align:center;
@@ -192,11 +192,17 @@
         line-height: 1.04;
         margin: .05em 0 .05em;
       }
+
+      /* ✅ Stack CTA links in a centered column on mobile */
       .cta{
-        display:grid; grid-template-columns:1fr 1fr; gap:10px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
         margin: 12px 0 6px;
-        place-items:center;
       }
+
       .btn{
         padding:10px 0; font-size:16px;
         border:0; background:transparent; box-shadow:none; border-radius:0;
@@ -257,8 +263,9 @@
       <h1><span class="nowrap">Rachel Barton</span><br>Photography</h1>
 
       <div class="cta">
-        <a class="btn" href="/book.html" aria-label="Book a Session">Book a Session</a>
+        <!-- ✅ Say Hello on top, centered column -->
         <a class="btn" href="/contact.html" aria-label="Say Hello">Say Hello</a>
+        <a class="btn" href="/book.html" aria-label="Book a Session">Book a Session</a>
       </div>
 
       <div class="localities">
