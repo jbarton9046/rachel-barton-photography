@@ -86,3 +86,26 @@
   // And once the page is fully loaded, as a final safety net
   window.addEventListener('load', markCurrentNav, { once: true });
 })();
+
+/* === Stabilize submenu link clicks on mobile: ensure navigation isn't swallowed === */
+(function(){
+  function wireStableSubmenuClicks(){
+    try{
+      var menu = document.querySelector('.topbar .is-galleries-dropdown');
+      if(!menu) return;
+      var links = menu.querySelectorAll('a[href]');
+      links.forEach(function(a){
+        a.addEventListener('click', function(e){
+          // Let the browser navigate, but prevent global click-outside handlers
+          // from closing/re-rendering the drawer first.
+          e.stopPropagation();
+        }, {capture:true});
+      });
+    }catch(e){ /* no-op */ }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(wireStableSubmenuClicks, 0); });
+  }else{
+    setTimeout(wireStableSubmenuClicks, 0);
+  }
+})();
