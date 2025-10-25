@@ -94,11 +94,32 @@
       var menu = document.querySelector('.topbar .is-galleries-dropdown');
       if(!menu) return;
       var links = menu.querySelectorAll('a[href]');
+
+      function startFreeze(){
+        // Freeze the pushed layout while finger is down so nothing slides left
+        document.documentElement.classList.add('submenu-tap');
+        // safety timeout in case navigation is delayed
+        setTimeout(function(){ document.documentElement.classList.remove('submenu-tap'); }, 700);
+      }
+      function endFreeze(){
+        document.documentElement.classList.remove('submenu-tap');
+      }
+
       links.forEach(function(a){
+        // Freeze layout for the duration of the tap
+        a.addEventListener('touchstart', startFreeze, { passive:true, capture:true });
+        a.addEventListener('mousedown',   startFreeze, { capture:true });
+        a.addEventListener('touchend',    endFreeze,   { passive:true, capture:true });
+        a.addEventListener('mouseup',     endFreeze,   { capture:true });
+
+        // Let the browser navigate, but prevent global click-outside handlers
+        // from closing/re-rendering the drawer first.
         a.addEventListener('click', function(e){
-          // Let the browser navigate, but prevent global click-outside handlers
-          // from closing/re-rendering the drawer first.
           e.stopPropagation();
+          // Fallback: if some script prevented default navigation, force it.
+          if (e.defaultPrevented) {
+            try { window.location.assign(a.href); } catch(_) {}
+          }
         }, {capture:true});
       });
     }catch(e){ /* no-op */ }
