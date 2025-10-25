@@ -138,7 +138,7 @@
       text-align:center;
     }
 
-    /* Buttons */
+    /* Buttons (desktop baseline) */
     .btn{
       --btn-bg: rgba(255,255,255,.14);
       --btn-border: rgba(62,62,58,.28);
@@ -204,32 +204,28 @@
       }
       .btn--say { order:-1; } /* move Say Hello to the top on mobile */
 
+      /* ✅ Mobile buttons: same style as desktop, but tighter padding
+         so the outline hugs the text tastefully */
       .btn{
-        padding:10px 0; font-size:16px;
-        border:0; background:transparent; box-shadow:none; border-radius:0;
-        color:#2f2a24; text-align:center;
-        background-image: linear-gradient(currentColor, currentColor);
-        background-repeat: no-repeat;
-        background-position: 50% 100%;
-        background-size: 0% 1px;
-        transition: background-size .2s ease, color .18s ease, transform .18s ease, text-shadow .18s ease;
-        text-shadow:
-          0 1px 0 rgba(255,255,255,.35),
-          0 8px 20px rgba(0,0,0,.18);
+        padding:8px 14px;         /* tighter than desktop */
+        font-size:16px;
+        background:var(--btn-bg);
+        border:1px solid var(--btn-border);
+        box-shadow:0 4px 14px rgba(0,0,0,.06);
+        border-radius:0;
+        min-width:auto;
       }
       .btn:hover{
+        background:rgba(255,255,255,.20);
+        border-color:var(--btn-border-hover);
         color:var(--accent);
-        background-size: 100% 1px;
-        transform: translateY(-1px);
-        text-shadow:
-          0 1px 0 rgba(255,255,255,.4),
-          0 10px 26px rgba(0,0,0,.22);
+        transform:translateY(-1px);
       }
       .btn:focus-visible{
         outline:0;
         box-shadow:0 0 0 3px var(--ring);
-        background-size:100% 1px;
       }
+
       .localities{
         font-size: 12.25px;
         line-height: 1.35;
@@ -244,7 +240,7 @@
     @media (max-width: 380px){
       .hero .copy{ padding: 9px 16px; top: 43.5%; }
       h1{ font-size: clamp(28px, 8.4vw, 36px); }
-      .btn{ font-size: 15px; padding: 9px 0; }
+      .btn{ font-size: 15px; padding: 7px 12px; } /* keep the tight feel on very small screens */
       .localities{ font-size: 11.8px; line-height: 1.32; }
     }
 
