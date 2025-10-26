@@ -79,7 +79,7 @@
       padding:10px 16px; background:#fff; color:#3f3a33; border:1px solid var(--line);
       border-radius:0; font-weight:700; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,.06);
       transition:background-color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease, color .15s ease;
-      vertical-align:middle; /* helps baseline align when side-by-side */
+      vertical-align:middle;
     }
     .btn:hover, .btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); }
     .btn.alt{ background:#fff; }
@@ -175,7 +175,6 @@
       .cards{ grid-template-columns:1fr }
       .mosaic{ grid-template-columns:1fr }
       .service-blurbs .row{ grid-template-columns:1fr }
-      /* MOBILE HERO OFFSET BELOW NAV */
       .hero{ padding-top: calc(var(--mobile-header-h) + 16px); }
     }
 
@@ -197,7 +196,6 @@
       .topbar{ padding-top:8px !important; padding-bottom:12px !important; }
     }
 
-    /* Mobile: keep chevrons visible (no hover on touch) */
     @media (max-width:960px){
       .tile-nav{ opacity:1 !important; }
     }
@@ -259,7 +257,15 @@
       <div class="container">
         <div class="eyebrow">Galleries</div>
         <h2 class="section-title" id="galleries-title">Explore the feel of each session</h2>
-        <p class="section-sub">Candid, timeless, true-to-life portraits—made to feel like you, in the best light.</p>
+
+        <!-- Desktop instructions -->
+        <div class="desktop-only">
+          <p class="section-sub">Candid, timeless, true-to-life portraits—made to feel like you, in the best light. Hover a tile to peek, use the arrow to browse, and click to view it larger.</p>
+        </div>
+        <!-- Mobile instructions -->
+        <div class="mobile-only">
+          <p class="section-sub">Candid, timeless, true-to-life portraits—made to feel like you, in the best light. Swipe a tile to browse, then tap to open. In the lightbox, swipe to move between photos.</p>
+        </div>
 
         <!-- DESKTOP -->
         <div class="desktop-only">
@@ -614,12 +620,9 @@
       tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(st.idx-1); });
       tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(st.idx+1); });
 
-      // Click image to open LIGHTBOX — but do NOT override tiles with a data-link (those navigate)
       const hasLink = !!tile.dataset.link;
       if (!hasLink){
         tile.querySelector('svg.notch-figure')?.addEventListener('click',()=>openLbFor(id, st.idx));
-      } else {
-        // still allow long-press context-menu etc.; no lightbox on linked tiles per your "don't touch anything else"
       }
 
       tile.dataset.wired = '1';
@@ -694,13 +697,12 @@
     lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLb(); });
 
     window.addEventListener('keydown', (e)=>{
-      if(!lb.classList.contains('open')) return;
+      if(!lb.classListcontains?.('open') && !lb.classList.contains('open')) return;
       if(e.key === 'Escape') closeLb();
       if(e.key === 'ArrowLeft') lbShow(-1);
       if(e.key === 'ArrowRight') lbShow(+1);
     });
 
-    // simple swipe
     let touchX = null;
     lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
     lb.addEventListener('touchend', e=>{
