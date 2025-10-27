@@ -144,6 +144,9 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
 @media (max-width:820px){
   html, body{ overflow-x:hidden }
 
+  /* Lock page scroll when the drawer is open */
+  body.drawer-open{ overflow:hidden }
+
   .topbar{
     justify-content:flex-start !important;
     padding-top:10px !important;
@@ -163,7 +166,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   .nav-toggle .bar{ display:none !important }
   .nav-toggle::before{ content:""; position:absolute; inset:0; border-radius:0; }
 
-  /* ===== FULL-PAGE OVERLAY MENU ===== */
+  /* ===== FULL-PAGE OVERLAY MENU (the nav itself becomes the overlay) ===== */
   nav.primary{
     position:fixed; inset:0;
     width:100vw; height:100dvh; max-height:none;
@@ -176,6 +179,23 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   .navchk:checked ~ nav.primary{
     opacity:1; pointer-events:auto; transform:translateY(0);
   }
+
+  /* Optional backdrop overlay element (sibling in the partial) */
+  .nav-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,.25);
+    opacity:0; pointer-events:none; transition:opacity .28s ease; z-index:1990;
+  }
+  #navchk:checked ~ .nav-overlay{ opacity:1; pointer-events:auto; }
+
+  /* Floating “×” close button (no circle, no layout impact) */
+  .nav-x{
+    position:fixed; top:10px; right:12px; z-index:2300;
+    width:auto; height:auto; padding:8px 10px;
+    background:transparent; border:0; box-shadow:none;
+    color:#3f3a33; font-size:26px; line-height:1; cursor:pointer;
+    opacity:0; pointer-events:none; transition:opacity .2s ease;
+  }
+  #navchk:checked ~ .nav-x{ opacity:1; pointer-events:auto; }
 
   /* Center/stack the links with comfortable spacing (default: left align) */
   nav.primary ul{
@@ -190,7 +210,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   }
   nav.primary .has-sub > a{ font-weight:700 }
 
-  /* Show the Galleries items inline in the same list (flattened look) */
+  /* --- FLATTENED SUBMENU (your current mobile look) --- */
   nav.primary .has-sub .dropdown{
     position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
     display:block; background:transparent; border:0; box-shadow:none;
@@ -212,6 +232,19 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   nav.primary .has-sub .dropdown a:hover::before,
   nav.primary .has-sub .dropdown a:focus-visible::before{
     background:var(--accent); opacity:1;
+  }
+
+  /* --- OPTIONAL CARET-TOGGLE STYLE (if using .subtoggle & .dropdown-overlay) --- */
+  nav.primary .has-sub.dropdown-overlay{ position:relative; display:flex; align-items:center; gap:6px; }
+  nav.primary .has-sub.dropdown-overlay > .subtoggle{
+    appearance:none; border:0; background:transparent; padding:8px 10px; margin-left:6px;
+    font:inherit; color:inherit; line-height:1; border-radius:10px; cursor:pointer;
+  }
+  nav.primary .has-sub.dropdown-overlay > .dropdown{
+    position:absolute; left:50%; transform:translateX(-50%);
+    top:calc(100% + 8px); width:min(520px, 92vw);
+    background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:8px 0; box-shadow:var(--shadow);
   }
 
   /* Do NOT push the page/hero for overlay */
