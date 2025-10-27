@@ -5,8 +5,10 @@
 
   <!-- MOBILE overlay backdrop (click to close; desktop hidden) -->
   <div class="nav-overlay mobile-only" aria-hidden="true"></div>
+  <!-- MOBILE floating X (does not affect layout) -->
+  <button class="nav-x mobile-only" type="button" aria-label="Close menu">×</button>
 
-  <!-- Left cluster: your original hamburger + brand (MOBILE ONLY; unchanged) -->
+  <!-- Left cluster: your original hamburger + brand (unchanged) -->
   <div class="left-cluster mobile-only">
     <label for="navchk"
            class="nav-toggle-8"
@@ -27,18 +29,13 @@
 
   <!-- Primary nav (desktop header, mobile FULL-PAGE overlay) -->
   <nav class="primary center-mobile" id="site-menu" aria-label="Primary">
-    <!-- MOBILE: professional close button (desktop hidden) -->
-    <button class="nav-close mobile-only" type="button" aria-label="Close menu">Close ✕</button>
-
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/about.html">Meet Rachel</a></li>
 
-      <!-- MOBILE COLLAPSIBLE + DESKTOP DROPDOWN (Galleries is a real page link) -->
+      <!-- Real page link + mobile collapsible submenu -->
       <li class="has-sub is-collapsible">
-        <!-- Keep link clickable to the page -->
         <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
-        <!-- Mobile-only subtoggle button to expand/collapse submenu without hijacking the link -->
         <button class="subtoggle mobile-only"
                 type="button"
                 aria-label="Toggle Galleries submenu"
@@ -79,22 +76,17 @@
     position:fixed; top:8px; left:0; right:0; z-index:2200;
     padding:0 10px; background:transparent; justify-content:flex-start;
   }
-  .mobile-header-8 .left-cluster{
-    display:flex; align-items:center; gap:12px;
-    transform:none; transition:transform .28s ease;
-  }
+  .mobile-header-8 .left-cluster{ display:flex; align-items:center; gap:12px; }
 
+  /* your existing hamburger look */
   .nav-toggle-8{
     -webkit-tap-highlight-color:transparent;
     appearance:none; -webkit-appearance:none;
-    position:relative;
-    width:44px; height:26px;
-    border:0; background:transparent !important; box-shadow:none !important; cursor:pointer;
-    color:#2f2a24;
+    position:relative; width:44px; height:26px; border:0;
+    background:transparent !important; box-shadow:none !important; cursor:pointer; color:#2f2a24;
   }
   .nav-toggle-8 .bar{
-    position:absolute; left:0;
-    height:2px; border-radius:999px; background:currentColor; opacity:.96;
+    position:absolute; left:0; height:2px; border-radius:999px; background:currentColor; opacity:.96;
     box-shadow:0 .5px 0 rgba(255,255,255,.45), 0 6px 12px rgba(0,0,0,.18);
   }
   .nav-toggle-8 .b-bot{ width:28px; bottom:2px; left:0; }
@@ -107,146 +99,118 @@
     text-decoration:none; line-height:1.02; color:#2f2a24;
     text-shadow:0 1px 0 rgba(255,255,255,.45), 0 8px 18px rgba(0,0,0,.18);
   }
-  .rbp-1{
-    font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
-    font-weight:700; font-size:18px; letter-spacing:.01em;
-  }
-  .rbp-2{
-    font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    font-weight:600; font-size:11.5px; letter-spacing:.18em; text-transform:uppercase;
-    color:#6a5b45; margin-top:2px;
-  }
+  .rbp-1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:18px; }
+  .rbp-2{ font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:#6a5b45; margin-top:2px; }
 
-  /* ===== Full-page overlay nav (desktop untouched) ===== */
+  /* ===== Full-page overlay nav ===== */
   nav.primary{
-    position:fixed; inset:0;
-    width:100vw; height:100dvh; max-height:none;
-    background:var(--drawer-bg, #fff);
-    border:0; box-shadow:none;
+    position:fixed; inset:0; width:100vw; height:100dvh;
+    background:var(--drawer-bg, #fff); border:0; box-shadow:none;
     transform:translateY(-4%); opacity:0; pointer-events:none;
     transition:opacity .28s ease, transform .28s ease;
     z-index:2100; overflow:auto; -webkit-overflow-scrolling:touch;
   }
   .navchk:checked ~ nav.primary{ opacity:1; pointer-events:auto; transform:translateY(0); }
 
-  /* centered stack */
+  /* centered stack; no extra top padding (floating X won’t push content) */
   nav.primary.center-mobile ul{
-    display:flex; flex-direction:column; align-items:center; /* center */
-    gap:12px; margin:0;
-    padding:calc(16px + 56px) 16px 28px; /* room under header */
-    list-style:none; row-gap:6px; text-align:center; width:100%;
+    display:flex; flex-direction:column; align-items:center;
+    gap:12px; margin:0; padding:32px 16px 28px; list-style:none; row-gap:6px; text-align:center; width:100%;
   }
-  nav.primary li{ width:min(520px, 92vw); } /* nice readable line length */
+  nav.primary li{ width:min(520px, 92vw); }
   nav.primary > ul > li > a{
-    display:block; width:100%; font-size:20px; line-height:1.35;
+    display:block; width:100%;
+    font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-weight:500; font-size:20px; line-height:1.35;
     padding:12px 16px; border-radius:10px;
   }
+  nav.primary > ul > li + li{ position:relative }
+  nav.primary > ul > li + li::before{
+    content:""; position:absolute; left:10%; right:10%; top:-3px; height:1px;
+    background:linear-gradient(to right, transparent, var(--drawer-rule, rgba(0,0,0,.06)), transparent); opacity:.6;
+  }
 
-  /* overlay backdrop (behind menu content but above page) */
+  /* overlay backdrop */
   .nav-overlay{
     position:fixed; inset:0; background:rgba(0,0,0,.25);
     opacity:0; pointer-events:none; transition:opacity .28s ease; z-index:2000;
   }
   .navchk:checked ~ .nav-overlay{ opacity:1; pointer-events:auto; }
 
-  /* professional "Close" button */
-  .nav-close{
-    position:sticky; top:0; margin-left:auto; margin-right:8px; margin-top:8px;
-    display:inline-flex; align-items:center; gap:8px;
-    padding:10px 14px; background:#fff; color:#3f3a33;
-    border:1px solid var(--line, #e9e6df); border-radius:999px;
-    box-shadow:0 6px 18px rgba(0,0,0,.06);
+  /* floating X – top-right, no layout impact */
+  .nav-x{
+    position:fixed; top:10px; right:10px; z-index:2300;
+    display:inline-grid; place-items:center; width:38px; height:38px;
+    background:#fff; color:#3f3a33; border:1px solid var(--line, #e9e6df); border-radius:999px;
+    box-shadow:0 6px 18px rgba(0,0,0,.06); font-size:20px; line-height:1;
   }
+  .navchk:not(:checked) ~ .nav-x{ pointer-events:none; opacity:0; transition:opacity .18s ease; }
+  .navchk:checked ~ .nav-x{ pointer-events:auto; opacity:1; }
 
-  /* Collapsible Galleries: caret button sits inline with the link */
-  .is-collapsible{
-    display:grid; grid-template-columns:auto max-content; align-items:center;
-    column-gap:8px;
-  }
-  .is-collapsible > a{ justify-self:center; } /* keep link centered */
+  /* Collapsible Galleries: keep link centered; caret doesn’t shift layout */
+  .is-collapsible{ display:grid; grid-template-columns:1fr auto; align-items:center; column-gap:8px; }
+  .is-collapsible > a{ justify-self:center; }
+
   .is-collapsible > .subtoggle{
-    -webkit-tap-highlight-color:transparent;
-    appearance:none; border:1px solid var(--line, #e9e6df); background:#fff;
-    padding:6px 10px; border-radius:999px; line-height:1; font-size:14px;
-    box-shadow:0 6px 18px rgba(0,0,0,.06);
+    -webkit-tap-highlight-color:transparent; appearance:none;
+    border:1px solid var(--line, #e9e6df); background:#fff; padding:6px 10px;
+    border-radius:999px; line-height:1; font-size:14px; box-shadow:0 6px 18px rgba(0,0,0,.06);
   }
 
-  /* Mobile dropdown look (centered; no left rule) */
+  /* Submenu typography = match main mobile links (slightly smaller) */
   nav.primary .has-sub .dropdown{
     position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
     display:block; background:transparent; border:0; box-shadow:none;
     margin:6px 0 12px 0; padding-left:0; text-align:center;
   }
   nav.primary .has-sub .dropdown a{
-    font-weight:400; font-size:16px; padding:6px 0; border-radius:0;
-    display:block;
+    display:block; font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-weight:500; font-size:18px; line-height:1.35; padding:6px 0; border-radius:0;
   }
-
-  /* Do NOT push the page/hero for overlay */
-  .hero, #content, [data-include="/partials/footer.html"]{ transition:none !important; transform:none !important; }
 
   /* Current page color */
   nav.primary a[aria-current="page"]{ background:transparent !important; color:var(--accent) !important; }
 
-  /* subtle separators between major items */
-  nav.primary > ul > li + li{ position:relative }
-  nav.primary > ul > li + li::before{
-    content:""; position:absolute; left:10%; right:10%; top:-3px; height:1px;
-    background:linear-gradient(to right, transparent, var(--drawer-rule, rgba(0,0,0,.06)), transparent);
-    opacity:.6;
-  }
+  /* Don’t move the page underneath */
+  .hero, #content, [data-include="/partials/footer.html"]{ transition:none !important; transform:none !important; }
 }
 
-/* shift header cluster: overlay doesn’t slide the header */
+/* overlay doesn’t slide the header */
 @media (max-width:820px){
   body:has(#navchk:checked) .mobile-header-8 .left-cluster,
-  body.drawer-open .mobile-header-8 .left-cluster{
-    transform:none;
-  }
+  body.drawer-open .mobile-header-8 .left-cluster{ transform:none; }
 }
 </style>
 
 <script>
-/* Overlay/drawer logic + close behaviors (mobile only); desktop untouched */
+/* Overlay logic + collapsible Galleries (mobile only); desktop untouched */
 (function () {
   const chk = document.getElementById('navchk');
   if (!chk) return;
 
   const isMobile = () => window.matchMedia('(max-width:820px)').matches;
+  const openMenu  = () => { chk.checked = true;  sync(); };
+  const closeMenu = () => { chk.checked = false; sync(); };
 
-  function sync() {
+  function sync(){
     document.body.classList.toggle('drawer-open', chk.checked);
     const label = document.querySelector('.nav-toggle-8');
     if (label) label.setAttribute('aria-expanded', String(chk.checked));
   }
 
-  // Close helpers
-  function closeMenu(){ chk.checked = false; sync(); }
-  function openMenu(){ chk.checked = true; sync(); }
+  // Floating X and overlay close
+  document.querySelector('.nav-x')?.addEventListener('click', closeMenu);
+  document.querySelector('.nav-overlay')?.addEventListener('click', closeMenu);
 
-  // Close on overlay tap
-  const overlay = document.querySelector('.nav-overlay');
-  if (overlay) overlay.addEventListener('click', closeMenu);
+  // Esc closes (mobile only)
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isMobile() && chk.checked) closeMenu(); });
 
-  // Close button inside menu
-  const closeBtn = document.querySelector('nav.primary .nav-close');
-  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  // Link tap closes
+  document.getElementById('site-menu')?.addEventListener('click', (e) => {
+    const a = e.target.closest('a'); if (a) closeMenu();
+  }, { capture:true });
 
-  // Close on Esc (mobile only)
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isMobile() && chk.checked) closeMenu();
-  });
-
-  // Close when a nav link is tapped
-  const nav = document.getElementById('site-menu');
-  if (nav) {
-    nav.addEventListener('click', (e) => {
-      const a = e.target.closest('a');
-      if (a) closeMenu();
-    }, { capture:true });
-  }
-
-  // Collapsible Galleries (mobile only): separate subtoggle, keeps main link intact
+  // Collapsible Galleries with separate subtoggle
   (function wireCollapsible(){
     const li = document.querySelector('nav.primary .is-collapsible');
     if (!li) return;
@@ -254,35 +218,34 @@
     const menu = li.querySelector('.dropdown');
     if (!btn || !menu) return;
 
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (!isMobile()) return; // desktop uses hover dropdown
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      const next = !open;
-      btn.setAttribute('aria-expanded', String(next));
-      menu.hidden = !next;
-      menu.setAttribute('aria-hidden', String(!next));
-      openMenu(); // ensure menu stays open while toggling
-    });
-
-    // initial collapsed state on mobile
     function setInitial(){
       if (isMobile()){
         btn.setAttribute('aria-expanded','false');
         menu.hidden = true;
         menu.setAttribute('aria-hidden','true');
       } else {
-        // desktop shows dropdown normally; don't force hidden
         menu.hidden = false;
         menu.removeAttribute('aria-hidden');
         btn.setAttribute('aria-expanded','false');
       }
     }
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!isMobile()) return;
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      const next = !open;
+      btn.setAttribute('aria-expanded', String(next));
+      menu.hidden = !next;
+      menu.setAttribute('aria-hidden', String(!next));
+      openMenu();
+    });
+
     setInitial();
     window.matchMedia('(max-width:820px)').addEventListener('change', setInitial);
   })();
 
-  // Click outside menu closes (mobile only)
+  // Click outside closes (mobile only)
   document.addEventListener('click', (e) => {
     if (!chk.checked || !isMobile()) return;
     if (e.target.closest('nav.primary') || e.target.closest('.nav-toggle-8')) return;
@@ -297,46 +260,27 @@
   }
 })();
 
-/* ===== Mark the current page in the nav (desktop + mobile) ===== */
+/* Mark current page */
 (function markCurrentNav(){
   const normalize = (href) => {
     const url = new URL(href, location.origin);
-    let p = url.pathname
-      .replace(/\/+/g, "/")
-      .replace(/\/index\.html?$/i, "")
-      .replace(/\.html?$/i, "")
-      .replace(/\/$/, "");
+    let p = url.pathname.replace(/\/+/g,"/").replace(/\/index\.html?$/i,"").replace(/\.html?$/i,"").replace(/\/$/,"");
     return p === "" ? "/" : p;
   };
-
   const here = normalize(location.pathname);
-
   const apply = () => {
     const links = document.querySelectorAll('.topbar nav.primary a[href]');
     if (!links.length) return false;
-
     links.forEach(a => {
       const target = normalize(a.href);
-      if (target === here) {
-        a.setAttribute('aria-current','page');
-        a.classList.add('is-current');
-      } else {
-        a.removeAttribute('aria-current');
-        a.classList.remove('is-current');
-      }
+      if (target === here){ a.setAttribute('aria-current','page'); a.classList.add('is-current'); }
+      else { a.removeAttribute('aria-current'); a.classList.remove('is-current'); }
     });
     return true;
   };
-
-  let tries = 0;
-  const maxTries = 10;
-  const tick = () => {
-    if (apply() || ++tries >= maxTries) return;
-    setTimeout(tick, 50);
-  };
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", tick, { once:true });
-  }
+  let tries = 0; const maxTries = 10;
+  const tick = () => { if (apply() || ++tries >= maxTries) return; setTimeout(tick, 50); };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", tick, { once:true });
   tick();
 })();
 </script>
