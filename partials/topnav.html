@@ -1,304 +1,214 @@
-:root{
-  --bg:#FAFAF8;
-  --paper:#fff;
-  --ink:#3e3e3a;
-  --muted:#7a766e;
-  --accent:#A88A5A;
-  --line:#e9e6df;
-  --shadow:0 10px 30px rgba(0,0,0,.08);
-  --gap:clamp(16px,3vw,32px);
-  --maxw:1200px;
+<!-- /partials/topnav.html -->
+<div class="topbar container mobile-header-8">
+  <!-- drawer checkbox (mobile) -->
+  <input id="navchk" class="navchk" type="checkbox" aria-hidden="true" />
 
-  /* “Galleries” dropdown knobs */
-  --submenu-offset: 1px;
-  --submenu-gap:    8px;
+  <!-- Left cluster: floating stepped lines + brand (MOBILE ONLY) -->
+  <div class="left-cluster mobile-only">
+    <label for="navchk"
+           class="nav-toggle-8"
+           aria-label="Open menu"
+           role="button"
+           aria-controls="site-menu"
+           aria-expanded="false">
+      <span class="bar b-top"></span>
+      <span class="bar b-mid"></span>
+      <span class="bar b-bot"></span>
+    </label>
 
-  /* Mobile knobs */
-  --mobile-icon: 54px;
-  /* drawer width — tweak this to taste */
-  --drawer-w: clamp(145px, 28vw, 145px);
+    <a class="brand-name" href="/" aria-label="Rachel Barton Photography – Home">
+      <span class="rbp-1">Rachel Barton</span>
+      <span class="rbp-2">Photography</span>
+    </a>
+  </div>
 
-  /* Drawer polish knobs */
-  --drawer-bg:#fff;
-  --drawer-hover:rgba(168,138,90,.10);
-  --drawer-rule:rgba(0,0,0,.06);
+  <!-- Primary nav (desktop header, mobile drawer) -->
+  <nav class="primary" id="site-menu" aria-label="Primary">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about.html">Meet Rachel</a></li>
 
-  /* NEW: left padding + optional bottom gap */
-  --drawer-pad-x: 10px;          /* move links closer/farther from the left edge */
-  --drawer-bottom-gap: 24px;     /* distance from drawer bottom to screen bottom; set 0px for full-height */
-}
+      <li class="has-sub">
+        <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
+        <ul class="dropdown" aria-label="Galleries submenu">
+          <li><a href="/portraits.html">Portraits</a></li>
+          <li><a href="/branding.html">Branding</a></li>
+          <li><a href="/events.html">Events</a></li>
+        </ul>
+      </li>
 
-/* Base */
-*{ box-sizing:border-box }
-html,body{ margin:0; background:var(--bg); color:var(--ink); line-height:1.65 }
-a{ color:inherit; text-decoration:none; transition:color .15s ease }
-img{ max-width:100%; height:auto; display:block }
-.container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
+      <li><a href="/testimonials.html">Testimonials</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/light-planner.html">Golden Hour</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/book.html">Book</a></li>
+    </ul>
+  </nav>
+</div>
 
-/* Reserve space for injected partials */
-[data-include="/partials/topnav.html"]{ display:block; min-height:64px }
-[data-include="/partials/footer.html"]{ display:block; min-height:68px }
+<style>
+/* desktop shows your regular header; hide the mobile cluster */
+@media (min-width:821px){ .mobile-only{ display:none !important; } }
+/* mobile hides any desktop-only bits */
+@media (max-width:820px){ .desktop-only{ display:none !important; } }
 
-/* ================= TOP NAV ================= */
-.topbar{
+/* base header wrapper */
+.mobile-header-8{
   position:relative; display:flex; align-items:center; justify-content:center;
-  padding:16px var(--gap); z-index:10; background:transparent;
-}
-.brand{ display:none }
-
-/* Main links */
-nav.primary ul{ display:flex; gap:28px; list-style:none; margin:0; padding:0 }
-nav.primary li{ position:relative }
-nav.primary a{
-  font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight:500; font-size:clamp(16px,1.8vw,20px);
-  letter-spacing:.02em; padding:4px 2px; border:0;
-}
-nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); outline:none }
-.has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent) }
-
-/* Dropdown (desktop) */
-.has-sub{ position:relative }
-.has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent }
-
-nav.primary .has-sub > .dropdown{
-  position:absolute; top:calc(100% + var(--submenu-offset)); left:50%; transform:translateX(-50%);
-  background:transparent; border:0; box-shadow:none;
-  display:flex; flex-direction:column; align-items:center; gap:var(--submenu-gap);
-  margin:0; padding:0; list-style:none; min-width:unset;
-  opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .15s ease, transform .15s ease; z-index:999;
-}
-.has-sub:hover > .dropdown, .has-sub:focus-within > .dropdown, nav.primary .dropdown:hover{
-  opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
-}
-nav.primary .dropdown li{ list-style:none; margin:0; padding:0 }
-nav.primary .dropdown a{
-  display:block; font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-  font-weight:700; font-size:clamp(14px,1.35vw,16px); line-height:1.02; letter-spacing:.005em;
-  padding:0; margin:0; border:0; background:transparent; white-space:nowrap;
-}
-/* Safety net */
-nav.primary li.has-sub:hover > ul.dropdown{
-  display:flex !important; opacity:1 !important; visibility:visible !important;
-  pointer-events:auto !important; transform:translate(-50%, 2px) !important;
+  padding:16px var(--gap);
 }
 
-/* Footer */
-footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px }
-.footer-social{ display:flex; align-items:center; gap:10px }
-.footer-social .social-ico{
-  display:inline-grid; place-items:center; width:34px; height:34px; border-radius:50%;
-  background:rgba(255,255,255,.7); border:1px solid rgba(63,58,51,.6); color:#3f3a33;
-  text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,.06);
-  -webkit-backdrop-filter:saturate(1.05) blur(2px); backdrop-filter:saturate(1.05) blur(2px);
-  transition:color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
-}
-.footer-social .social-ico:hover, .footer-social .social-ico:focus-visible{
-  color:var(--accent); border-color:var(--accent); box-shadow:0 10px 22px rgba(0,0,0,.08);
-  transform:translateY(-1px); outline:none;
-}
-.footer-social .social-ico svg{ width:18px; height:18px; display:block }
-@media (max-width:720px){
-  footer .container{ justify-content:center !important; text-align:center }
-  .footer-social{ justify-content:center }
-}
-
-/* ===== site-header (non-hero pages) ===== */
-.site-header .topnav, .site-header .topnav ul{ list-style:none; margin:0; padding:0 }
-.site-header .topnav{ display:flex; gap:28px; justify-content:center; padding:18px 0 }
-.site-header .topnav .has-sub{ position:relative }
-.site-header .topnav .has-sub > .dropdown{
-  position:absolute; top:calc(100% + var(--submenu-offset)); left:50%; transform:translateX(-50%);
-  display:flex; flex-direction:column; gap:var(--submenu-gap);
-  opacity:0; visibility:hidden; pointer-events:none; background:transparent; border:0; box-shadow:none; min-width:unset; z-index:1000;
-}
-.site-header .topnav .has-sub:hover > .dropdown, .site-header .topnav .has-sub:focus-within > .dropdown{
-  opacity:1; visibility:visible; pointer-events:auto;
-}
-.site-header .topnav .dropdown a{
-  font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-  font-weight:700; font-size:clamp(13px,1.65vw,15px); line-height:1.05; padding:0; border:0; background:transparent; white-space:nowrap;
-}
-
-/* ===== Sidebar Galleries spacing ===== */
-.side-galleries{ --gap:14px }
-.side-galleries h3{ margin:0 }
-.side-galleries .links{ display:grid; row-gap:var(--gap); padding-top:var(--gap); margin:0; list-style:none }
-.side-galleries .links a{ display:block }
-
-/* =================================================================== */
-/* ======================= MOBILE NAV: LEFT DRAWER =================== */
-/* =================================================================== */
-
-.navchk{ position:absolute; opacity:0; pointer-events:none }
-.nav-toggle{ display:none }
-
-/* Desktop */
-@media (min-width:821px){
-  nav.primary ul{ display:flex; gap:28px; align-items:center }
-}
-
-/* Mobile */
+/* =========================== MOBILE ONLY =========================== */
 @media (max-width:820px){
-  html, body{ overflow-x:hidden }
-
-  .topbar{
-    justify-content:flex-start !important;
-    padding-top:10px !important;
-    padding-bottom:10px !important;
-    gap:12px; border:0 !important;
+  .mobile-header-8{
+    position:fixed; top:8px; left:0; right:0; z-index:1200;
+    padding:0 10px; background:transparent; justify-content:flex-start;
   }
-  .brand{ display:none !important }
-
-  /* Photo icon button on the far left */
-  .nav-toggle{
-    display:inline-flex !important;
-    position:fixed !important; left:12px; top:12px;
-    width:var(--mobile-icon); height:var(--mobile-icon);
-    background:#fff; border:1px solid var(--line); border-radius:0;
-    box-shadow:0 6px 18px rgba(0,0,0,.06);
-    padding:0; margin:0; z-index:1100; cursor:pointer;
-  }
-  .nav-toggle .bar{ display:none !important }
-  .nav-toggle::before{
-    content:""; position:absolute; inset:0;
-    background:url("/pictures/topnavIcon/E26A2872%20(1).jpg") center/cover no-repeat; border-radius:0;
+  .mobile-header-8 .left-cluster{
+    display:flex; align-items:center; gap:12px;
+    transform:translateX(0); transition:transform .28s ease;
   }
 
-  /* Drawer (fixed on the left) */
-  nav.primary{
-    position:fixed; top:0; left:0; right:auto;
-    /* SHORTER drawer that ends above the bottom a bit */
-    bottom:auto; height:auto; max-height:calc(100dvh - var(--drawer-bottom-gap));
-    width:var(--drawer-w);
-    background:var(--drawer-bg);
-    border-right:1px solid var(--line);
-    box-shadow:0 10px 24px rgba(0,0,0,.08);
-    transform:translateX(-100%);               /* hidden */
-    transition:transform .28s ease;
-    z-index:1050; overflow:auto; will-change:transform;
+  .nav-toggle-8{
+    -webkit-tap-highlight-color:transparent;
+    appearance:none; -webkit-appearance:none;
+    position:relative;
+    width:44px; height:26px;
+    border:0; background:transparent !important; box-shadow:none !important; cursor:pointer;
+    color:#2f2a24;
   }
-  .navchk:checked ~ nav.primary{ transform:translateX(0) }
+  .nav-toggle-8 .bar{
+    position:absolute; left:0;
+    height:2px; border-radius:999px; background:currentColor; opacity:.96;
+    box-shadow:0 .5px 0 rgba(255,255,255,.45), 0 6px 12px rgba(0,0,0,.18);
+  }
+  .nav-toggle-8 .b-bot{ width:28px; bottom:2px; left:0; }
+  .nav-toggle-8 .b-mid{ width:20px; top:50%; transform:translate(-50%, -50%); left:50%; }
+  .nav-toggle-8 .b-top{ width:14px; top:2px; left:50%; }
 
-  /* Equal padding on both sides inside the drawer */
-  nav.primary ul{
-    display:flex; flex-direction:column; align-items:flex-start;
-    gap:12px; margin:0; padding:18px var(--drawer-pad-x); /* moved closer to the left */
-    list-style:none; row-gap:4px;
-  }
-  nav.primary li{ width:100% }
-  nav.primary a{
-    display:block; width:100%; font-size:18px; line-height:1.35;
-    padding:10px var(--drawer-pad-x); border-radius:10px;
-  }
-  nav.primary .has-sub > a{ font-weight:700 }
+  .nav-toggle-8:active .bar{ opacity:.85; }
 
-  /* Submenu is static; no layout shift on touch */
-  nav.primary .has-sub .dropdown{
-    position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
-    display:block; background:transparent; border:0; box-shadow:none;
-    margin:6px 0 12px 0; padding-left:0;
+  .brand-name{
+    display:inline-flex; flex-direction:column; justify-content:center;
+    text-decoration:none; line-height:1.02; color:#2f2a24;
+    text-shadow:0 1px 0 rgba(255,255,255,.45), 0 8px 18px rgba(0,0,0,.18);
   }
-  nav.primary .has-sub .dropdown a{
-    font-weight:400; font-size:16px; padding:6px 0 6px calc(var(--drawer-pad-x) + 6px);
-    position:relative; border-radius:0;
+  .rbp-1{
+    font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
+    font-weight:700; font-size:18px; letter-spacing:.01em;
   }
-  nav.primary .has-sub .dropdown a::before{
-    content:""; position:absolute; left:var(--drawer-pad-x); top:6px; bottom:6px; width:2px;
-    background:var(--drawer-rule); border-radius:2px; opacity:1;
-    transition:background-color .15s ease, opacity .15s ease;
-  }
-  nav.primary .has-sub .dropdown a:hover,
-  nav.primary .has-sub .dropdown a:focus-visible{
-    color:var(--accent); outline:none;
-  }
-  nav.primary .has-sub .dropdown a:hover::before,
-  nav.primary .has-sub .dropdown a:focus-visible::before{
-    background:var(--accent); opacity:1;
+  .rbp-2{
+    font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    font-weight:600; font-size:11.5px; letter-spacing:.18em; text-transform:uppercase;
+    color:#6a5b45; margin-top:2px;
   }
 
-  /* Hide the icon while open */
-  .navchk:checked ~ .nav-toggle{ opacity:0; pointer-events:none }
+  .nav-toggle{ background:transparent !important; border:0 !important; box-shadow:none !important; }
+}
 
-  /* ---------- PUSH THE PAGE/HERO (not the drawer) ---------- */
-  .hero{ transition:transform .28s ease; will-change:transform }
-  #content,
-  [data-include="/partials/footer.html"]{
-    transition:transform .28s ease; will-change:transform;
-  }
-
-  /* Modern browsers */
-  body:has(#navchk:checked) #content,
-  body:has(#navchk:checked) [data-include="/partials/footer.html"],
-  body:has(#navchk:checked) .hero{
+/* shift the whole left cluster same as page when drawer opens */
+@media (max-width:820px){
+  body:has(#navchk:checked) .mobile-header-8 .left-cluster,
+  body.drawer-open .mobile-header-8 .left-cluster{
     transform:translateX(var(--drawer-w));
   }
-
-  /* Fallback (when a script toggles .drawer-open on body) */
-  body.drawer-open #content,
-  body.drawer-open [data-include="/partials/footer.html"],
-  body.drawer-open .hero{
-    transform:translateX(var(--drawer-w));
-  }
-
-  .has-sub:hover > .dropdown{ opacity:1; visibility:visible }
-
-  /* Hover/active polish */
-  nav.primary > ul > li > a{
-    font-size:18px; line-height:1.3; letter-spacing:.01em;
-  }
-  nav.primary > ul > li > a:hover,
-  nav.primary > ul > li > a:focus-visible{
-    background:var(--drawer-hover); color:var(--ink); outline:none;
-  }
-
-  /* CURRENT PAGE (mobile): gold text only — no bubble, no left bar */
-  nav.primary a[aria-current="page"]{
-    background:transparent !important;
-    color:var(--accent) !important;
-    position:static !important;
-  }
-  nav.primary a[aria-current="page"]::before{
-    content:none !important;
-  }
-
-  /* subtle separators between major items */
-  nav.primary > ul > li + li{ position:relative }
-  nav.primary > ul > li + li::before{
-    content:""; position:absolute; left:var(--drawer-pad-x); right:var(--drawer-pad-x); top:-3px; height:1px;
-    background:linear-gradient(to right, transparent, var(--drawer-rule), transparent);
-    opacity:.6;
-  }
 }
+</style>
 
-/* ================= Desktop “current page” state ================= */
-@media (min-width:821px){
-  .topbar nav.primary a[aria-current="page"],
-  .topbar nav.primary a.is-current{
-    color: var(--accent);
-    position: static;           /* no underline, no relative positioning */
-    text-decoration: none;
-  }
-  .topbar nav.primary a[aria-current="page"]::after,
-  .topbar nav.primary a.is-current::after{
-    content: none;              /* remove underline pseudo-element */
-  }
-}
+<script>
+/* drawer logic + shift content and the new mobile header cluster */
+(function () {
+  const chk = document.getElementById('navchk');
+  if (!chk) return;
 
-/* FINAL OVERRIDE: no underline for current nav item on desktop */
-@media (min-width:821px){
-  .topbar nav.primary a.is-current,
-  .topbar nav.primary a[aria-current="page"]{
-    color: var(--accent);
-    text-decoration: none !important;
-    border-bottom: 0 !important;
-    box-shadow: none !important;
-    position: static !important;
+  const targets = () => [
+    document.getElementById('content'),
+    document.querySelector('[data-include="/partials/footer.html"]'),
+    document.querySelector('.hero'),
+    document.querySelector('.mobile-header-8 .left-cluster')
+  ].filter(Boolean);
+
+  const applyShift = (on) => {
+    const tx = on ? 'translateX(var(--drawer-w))' : '';
+    for (const el of targets()) el.style.transform = tx;
+  };
+
+  const sync = () => {
+    document.body.classList.toggle('drawer-open', chk.checked);
+    const label = document.querySelector('.nav-toggle-8');
+    if (label) label.setAttribute('aria-expanded', String(chk.checked));
+    applyShift(chk.checked);
+  };
+
+  const nav = document.getElementById('site-menu');
+  if (nav) {
+    nav.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (a) { chk.checked = false; sync(); }
+    });
   }
-  .topbar nav.primary a.is-current::after,
-  .topbar nav.primary a[aria-current="page"]::after{
-    content: none !important;
-    display: none !important;
+
+  document.addEventListener('click', (e) => {
+    if (!chk.checked) return;
+    if (e.target.closest('nav.primary') || e.target.closest('.nav-toggle-8')) return;
+    chk.checked = false; sync();
+  }, true);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && chk.checked) { chk.checked = false; sync(); }
+  });
+
+  chk.addEventListener('change', sync);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', sync);
+  } else {
+    requestAnimationFrame(sync);
   }
-}
+})();
+
+/* ===== Mark the current page in the nav (desktop + mobile) ===== */
+(function markCurrentNav(){
+  // Normalize any href/path: remove /index.html, .html, trailing slash; collapse double slashes
+  const normalize = (href) => {
+    const url = new URL(href, location.origin);
+    let p = url.pathname
+      .replace(/\/+/g, "/")
+      .replace(/\/index\.html?$/i, "")
+      .replace(/\.html?$/i, "")
+      .replace(/\/$/, "");
+    return p === "" ? "/" : p;
+  };
+
+  const here = normalize(location.pathname);
+
+  const apply = () => {
+    const links = document.querySelectorAll('.topbar nav.primary a[href]');
+    if (!links.length) return false;
+
+    links.forEach(a => {
+      const target = normalize(a.href);
+      // exact match only
+      if (target === here) {
+        a.setAttribute('aria-current','page');  // mobile drawer style hook
+        a.classList.add('is-current');          // desktop underline hook
+      } else {
+        a.removeAttribute('aria-current');
+        a.classList.remove('is-current');
+      }
+    });
+    return true;
+  };
+
+  // Try immediately, then a few times in case the partial finished a tick later
+  let tries = 0;
+  const maxTries = 10;
+  const tick = () => {
+    if (apply() || ++tries >= maxTries) return;
+    setTimeout(tick, 50);
+  };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", tick, { once:true });
+  }
+  tick();
+})();
+</script>
