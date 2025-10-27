@@ -22,7 +22,7 @@
     </a>
   </div>
 
-  <!-- Primary nav (desktop header, mobile drawer) -->
+  <!-- Primary nav (desktop header, mobile overlay) -->
   <nav class="primary" id="site-menu" aria-label="Primary">
     <ul>
       <li><a href="/">Home</a></li>
@@ -106,17 +106,17 @@
   .nav-toggle{ background:transparent !important; border:0 !important; box-shadow:none !important; }
 }
 
-/* shift the whole left cluster same as page when drawer opens */
+/* shift the whole left cluster same as page when drawer opens (desktop only; mobile overlay doesn't push) */
 @media (max-width:820px){
   body:has(#navchk:checked) .mobile-header-8 .left-cluster,
   body.drawer-open .mobile-header-8 .left-cluster{
-    transform:translateX(var(--drawer-w));
+    transform:none; /* overlay doesn't slide the header */
   }
 }
 </style>
 
 <script>
-/* drawer logic + shift content and the new mobile header cluster */
+/* drawer/overlay logic + sync aria-expanded; DO NOT push page on mobile */
 (function () {
   const chk = document.getElementById('navchk');
   if (!chk) return;
@@ -129,7 +129,8 @@
   ].filter(Boolean);
 
   const applyShift = (on) => {
-    const tx = on ? 'translateX(var(--drawer-w))' : '';
+    const isMobile = window.matchMedia('(max-width:820px)').matches;
+    const tx = (on && !isMobile) ? 'translateX(var(--drawer-w))' : '';
     for (const el of targets()) el.style.transform = tx;
   };
 
@@ -168,7 +169,6 @@
 
 /* ===== Mark the current page in the nav (desktop + mobile) ===== */
 (function markCurrentNav(){
-  // Normalize any href/path: remove /index.html, .html, trailing slash; collapse double slashes
   const normalize = (href) => {
     const url = new URL(href, location.origin);
     let p = url.pathname
@@ -187,10 +187,9 @@
 
     links.forEach(a => {
       const target = normalize(a.href);
-      // exact match OR folder-page match (e.g., /galleries vs /galleries/portraits keeps only exact)
       if (target === here) {
-        a.setAttribute('aria-current','page');  // mobile drawer style hook
-        a.classList.add('is-current');          // desktop underline hook
+        a.setAttribute('aria-current','page');
+        a.classList.add('is-current');
       } else {
         a.removeAttribute('aria-current');
         a.classList.remove('is-current');
@@ -199,7 +198,6 @@
     return true;
   };
 
-  // Try immediately, then a few times in case the partial finished a tick later
   let tries = 0;
   const maxTries = 10;
   const tick = () => {
