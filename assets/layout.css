@@ -177,7 +177,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     opacity:1; pointer-events:auto; transform:translateY(0);
   }
 
-  /* Center/stack the links with comfortable spacing */
+  /* Center/stack the links with comfortable spacing (default: left align) */
   nav.primary ul{
     display:flex; flex-direction:column; align-items:flex-start;
     gap:12px; margin:0; padding:calc(16px + 56px) var(--drawer-pad-x) 28px; /* leave room under header */
@@ -338,4 +338,35 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   html.nav-flattened nav.primary li.nav-subitem > a:focus-visible{ color:var(--accent); outline:none; }
   html.nav-flattened nav.primary li.nav-subitem > a:hover::before,
   html.nav-flattened nav.primary li.nav-subitem > a:focus-visible::before{ background:var(--accent); opacity:1; }
+}
+
+/* ============== MOBILE: CENTER THE FULL-PAGE NAV WHEN ENABLED ============== */
+@media (max-width:820px){
+  /* This kicks in when include.js adds html.nav-centered-mobile (mobile only) */
+  html.nav-centered-mobile nav.primary ul{
+    align-items:center;                 /* center the stack */
+    text-align:center;                  /* center link text */
+    padding-left:16px;                  /* balanced side padding */
+    padding-right:16px;
+  }
+  html.nav-centered-mobile nav.primary > ul > li > a{
+    justify-content:center;             /* if using flex children inside links */
+    padding-left:16px;                  /* symmetric padding */
+    padding-right:16px;
+  }
+  /* Center the Galleries submenu and remove the left guide bar for a clean look */
+  html.nav-centered-mobile nav.primary .has-sub .dropdown{
+    text-align:center;
+  }
+  html.nav-centered-mobile nav.primary .has-sub .dropdown a{
+    padding:6px 0;                      /* no left indent */
+  }
+  html.nav-centered-mobile nav.primary .has-sub .dropdown a::before{
+    content:none;                        /* hide the left rule when centered */
+  }
+  /* Shorten separators so they don't run edge-to-edge when centered */
+  html.nav-centered-mobile nav.primary > ul > li + li::before{
+    left:10%;
+    right:10%;
+  }
 }
