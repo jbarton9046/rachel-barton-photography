@@ -41,7 +41,7 @@
       <li><a href="/">Home</a></li>
       <li><a href="/about.html">Meet Rachel</a></li>
 
-      <!-- Real page link + mobile DROPDOWN (overlay; no layout shift) -->
+      <!-- Real page link + mobile DROPDOWN (inline on page; no cards) -->
       <li class="has-sub is-collapsible dropdown-overlay">
         <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
         <!-- Caret sits to the RIGHT; toggles submenu only -->
@@ -136,21 +136,33 @@
   }
   .navchk:checked ~ .nav-x{ pointer-events:auto; opacity:1; }
 
-  /* ===== Mobile DROPDOWN that does NOT move layout ===== */
-  .dropdown-overlay{ position:relative; }
+  /* ===== Mobile DROPDOWN INLINE (NO CARDS) ===== */
+  .dropdown-overlay{ position:relative; display:flex; align-items:center; gap:6px; }
+  .dropdown-overlay > a{ font-weight:700; }             /* “Galleries” label */
   .dropdown-overlay > .subtoggle{
     -webkit-tap-highlight-color:transparent; appearance:none;
-    border:0; background:transparent; padding:8px 10px; margin-left:6px;
-    border-radius:10px; line-height:1; font-size:16px;
+    border:0; background:transparent; padding:2px 6px; margin-left:6px;
+    border-radius:8px; line-height:1; font-size:26px;  /* bigger caret */
+    cursor:pointer;
   }
 
-  /* Submenu as absolute overlay centered under "Galleries" */
+  /* Submenu is part of the normal flow (no borders/shadows) */
   .dropdown-overlay > .dropdown{
-    position:absolute; left:50%; transform:translateX(-50%);
-    top:calc(100% + 8px); width:min(520px, 92vw);
-    background:var(--paper); border:1px solid var(--line); border-radius:12px;
-    padding:8px 0; box-shadow:var(--shadow);
+    position:static; transform:none; width:100%;
+    margin:6px 0 12px 0; padding:0;
+    background:transparent; border:0; box-shadow:none; list-style:none;
   }
+  .dropdown-overlay > .dropdown[hidden]{ display:none !important; }
+
+  .dropdown-overlay .dropdown li{ list-style:none; }
+  .dropdown-overlay .dropdown a{
+    display:block; text-align:left;
+    font-weight:500; font-size:16px; line-height:1.35;
+    padding:6px 0 6px calc(var(--drawer-pad-x, 10px) + 6px);
+    border-radius:0; background:transparent;
+  }
+  .dropdown-overlay .dropdown a:hover,
+  .dropdown-overlay .dropdown a:focus-visible{ color:var(--accent); outline:none; }
 
   /* drawer content */
   .nav-drawer > div{ width:100%; }
@@ -198,7 +210,7 @@
   }
   function closeMenu(){ if (chk){ chk.checked = false; sync(); } }
 
-  // caret toggle
+  // caret toggle (submenu hidden by default; inline on page)
   (function wireSubtoggle(){
     if (!isMobile()) return;
     const li = document.querySelector('nav.primary .is-collapsible');
