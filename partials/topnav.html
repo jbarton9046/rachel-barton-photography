@@ -187,7 +187,7 @@
 
     links.forEach(a => {
       const target = normalize(a.href);
-      // exact match only
+      // exact match OR folder-page match (e.g., /galleries vs /galleries/portraits keeps only exact)
       if (target === here) {
         a.setAttribute('aria-current','page');  // mobile drawer style hook
         a.classList.add('is-current');          // desktop underline hook
