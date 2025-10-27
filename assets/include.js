@@ -115,6 +115,13 @@
       overlay.dataset.wired = '1';
     }
 
+    // Floating “×” button (top-right, class .nav-x)
+    const closeX = document.querySelector('.nav-x');
+    if (closeX && !closeX.dataset.wired){
+      closeX.addEventListener('click', closeDrawer);
+      closeX.dataset.wired = '1';
+    }
+
     // Visible "Close" button at top of drawer (if present)
     const closeBtn = document.querySelector('nav.primary .nav-close');
     if (closeBtn && !closeBtn.dataset.wired){

@@ -14,21 +14,29 @@
            class="nav-toggle-8"
            aria-label="Open menu"
            role="button"
-           aria-controls="site-menu"
+           aria-controls="primary-nav"
            aria-expanded="false">
       <span class="bar b-top"></span>
       <span class="bar b-mid"></span>
       <span class="bar b-bot"></span>
     </label>
 
-    <a class="brand-name" href="/" aria-label="Rachel Barton Photography – Home">
-      <span class="rbp-1">Rachel Barton</span>
-      <span class="rbp-2">Photography</span>
+    <a href="/" class="brand-name" aria-label="Rachel Barton Photography — Home">
+      <span class="brand-line1">Rachel</span>
+      <span class="brand-line2">Barton</span>
+      <span class="brand-sub">Photography</span>
     </a>
   </div>
 
-  <!-- Primary nav (desktop header, mobile FULL-PAGE overlay) -->
-  <nav class="primary center-mobile" id="site-menu" aria-label="Primary">
+  <!-- Desktop brand (unchanged) -->
+  <a class="brand desktop-only" href="/" aria-label="Home">
+    <span class="brand-line1">Rachel</span>
+    <span class="brand-line2">Barton</span>
+    <span class="brand-sub">Photography</span>
+  </a>
+
+  <!-- PRIMARY NAV -->
+  <nav id="primary-nav" class="primary center-mobile" aria-label="Primary">
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/about.html">Meet Rachel</a></li>
@@ -36,13 +44,15 @@
       <!-- Real page link + mobile DROPDOWN (overlay; no layout shift) -->
       <li class="has-sub is-collapsible dropdown-overlay">
         <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
+        <!-- Caret sits to the RIGHT; toggles submenu only -->
         <button class="subtoggle mobile-only"
                 type="button"
                 aria-label="Toggle Galleries submenu"
                 aria-controls="galleries-submenu"
                 aria-expanded="false">▾</button>
 
-        <ul class="dropdown" id="galleries-submenu" aria-label="Galleries submenu">
+        <!-- Hidden by default for a11y; JS will manage -->
+        <ul class="dropdown" id="galleries-submenu" aria-label="Galleries submenu" hidden aria-hidden="true">
           <li><a href="/portraits.html">Portraits</a></li>
           <li><a href="/branding.html">Branding</a></li>
           <li><a href="/events.html">Events</a></li>
@@ -61,7 +71,6 @@
 <style>
 /* desktop shows your regular header; hide the mobile cluster */
 @media (min-width:821px){ .mobile-only{ display:none !important; } }
-/* mobile hides any desktop-only bits */
 @media (max-width:820px){ .desktop-only{ display:none !important; } }
 
 /* base header wrapper */
@@ -78,10 +87,8 @@
   }
   .mobile-header-8 .left-cluster{ display:flex; align-items:center; gap:12px; }
 
-  /* your existing hamburger look */
+  /* original hamburger (kept exactly as you had it) */
   .nav-toggle-8{
-    -webkit-tap-highlight-color:transparent;
-    appearance:none; -webkit-appearance:none;
     position:relative; width:44px; height:26px; border:0;
     background:transparent !important; box-shadow:none !important; cursor:pointer; color:#2f2a24;
   }
@@ -96,22 +103,58 @@
   .brand-name{
     display:inline-flex; flex-direction:column; justify-content:center;
     text-decoration:none; line-height:1.02; color:#2f2a24;
-    text-shadow:0 1px 0 rgba(255,255,255,.45), 0 8px 18px rgba(0,0,0,.18);
+    text-shadow:0 1px 0 rgba(255,255,255,.45), 0 8px 18px rgba(0,0,0,.04);
   }
-  .rbp-1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:18px; }
-  .rbp-2{ font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:#6a5b45; margin-top:2px; }
+  .brand-name .brand-line1{ font-family:"Fraunces", serif; font-weight:700; font-size:16px; letter-spacing:.2px; }
+  .brand-name .brand-line2{ font-family:"Fraunces", serif; font-weight:700; font-size:16px; margin-top:-2px; }
+  .brand-name .brand-sub{ font-family:"Raleway", sans-serif; font-weight:500; font-size:11px; opacity:.9; margin-top:1px; }
 
-  /* ===== Full-page overlay nav ===== */
-  nav.primary{
-    position:fixed; inset:0; width:100vw; height:100dvh;
-    background:var(--drawer-bg, #fff); border:0; box-shadow:none;
-    transform:translateY(-4%); opacity:0; pointer-events:none;
+  /* full-page drawer */
+  .nav-drawer{
+    position:fixed; inset:0; z-index:2100; display:flex; align-items:flex-start; justify-content:center;
+    background:var(--paper); overflow:auto; -webkit-overflow-scrolling:touch;
+    padding-top:86px; /* clear the top bar */
+    transform:translateY(-2%); opacity:0; pointer-events:none;
     transition:opacity .28s ease, transform .28s ease;
-    z-index:2100; overflow:auto; -webkit-overflow-scrolling:touch;
   }
-  .navchk:checked ~ nav.primary{ opacity:1; pointer-events:auto; transform:translateY(0); }
+  .navchk:checked ~ .nav-drawer{ transform:none; opacity:1; pointer-events:auto; }
 
-  /* centered stack */
+  /* overlay backdrop */
+  .nav-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,.25);
+    opacity:0; pointer-events:none; transition:opacity .28s ease; z-index:2000;
+  }
+  .navchk:checked ~ .nav-overlay{ opacity:1; pointer-events:auto; }
+
+  /* floating X – no circle */
+  .nav-x{
+    position:fixed; top:10px; right:12px; z-index:2300;
+    width:auto; height:auto; padding:8px 10px;
+    background:transparent; border:0; box-shadow:none;
+    color:#3f3a33; font-size:26px; line-height:1; cursor:pointer;
+    opacity:0; pointer-events:none; transition:opacity .2s ease;
+  }
+  .navchk:checked ~ .nav-x{ pointer-events:auto; opacity:1; }
+
+  /* ===== Mobile DROPDOWN that does NOT move layout ===== */
+  .dropdown-overlay{ position:relative; }
+  .dropdown-overlay > .subtoggle{
+    -webkit-tap-highlight-color:transparent; appearance:none;
+    border:0; background:transparent; padding:8px 10px; margin-left:6px;
+    border-radius:10px; line-height:1; font-size:16px;
+  }
+
+  /* Submenu as absolute overlay centered under "Galleries" */
+  .dropdown-overlay > .dropdown{
+    position:absolute; left:50%; transform:translateX(-50%);
+    top:calc(100% + 8px); width:min(520px, 92vw);
+    background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:8px 0; box-shadow:var(--shadow);
+  }
+
+  /* drawer content */
+  .nav-drawer > div{ width:100%; }
+  nav.primary.center-mobile{ width:100%; }
   nav.primary.center-mobile ul{
     display:flex; flex-direction:column; align-items:center;
     gap:12px; margin:0; padding:32px 16px 28px; list-style:none; row-gap:6px; text-align:center; width:100%;
@@ -129,63 +172,15 @@
     background:linear-gradient(to right, transparent, var(--drawer-rule, rgba(0,0,0,.06)), transparent); opacity:.6;
   }
 
-  /* overlay backdrop */
-  .nav-overlay{
-    position:fixed; inset:0; background:rgba(0,0,0,.25);
-    opacity:0; pointer-events:none; transition:opacity .28s ease; z-index:2000;
+  /* subtle hover */
+  nav.primary a:hover{ color:var(--accent); }
+
+  /* highlight current page (mobile) */
+  nav.primary a.is-current,
+  nav.primary a[aria-current="page"]{
+    color:var(--accent);
+    text-decoration:none !important;
   }
-  .navchk:checked ~ .nav-overlay{ opacity:1; pointer-events:auto; }
-
-  /* floating X – no circle */
-  .nav-x{
-    position:fixed; top:10px; right:12px; z-index:2300;
-    width:auto; height:auto; padding:8px 10px;
-    background:transparent; border:0; box-shadow:none;
-    color:#3f3a33; font-size:26px; line-height:1; cursor:pointer;
-  }
-  .navchk:not(:checked) ~ .nav-x{ pointer-events:none; opacity:0; transition:opacity .18s ease; }
-  .navchk:checked ~ .nav-x{ pointer-events:auto; opacity:1; }
-
-  /* ===== Mobile DROPDOWN that does NOT move layout ===== */
-  .dropdown-overlay{ position:relative; }
-  .dropdown-overlay > .subtoggle{
-    -webkit-tap-highlight-color:transparent; appearance:none;
-    border:0; background:transparent; padding:8px 10px; margin-left:6px;
-    border-radius:10px; line-height:1; font-size:16px;
-  }
-
-  /* Submenu as absolute overlay centered under "Galleries" */
-  .dropdown-overlay > .dropdown{
-    position:absolute; left:50%; transform:translateX(-50%);
-    top:calc(100% + 8px); width:min(520px, 92vw);
-    background:linear-gradient(to bottom, rgba(0,0,0,0.02), rgba(0,0,0,0.02));
-    padding:8px 0; margin:0; list-style:none;
-    text-align:center;
-    border-radius:12px;
-    opacity:0; pointer-events:none; transition:opacity .18s ease;
-    z-index:2150;   /* above list, below the X */
-  }
-  .dropdown-overlay.open > .dropdown{ opacity:1; pointer-events:auto; }
-
-  /* Submenu typography = match main links, slightly smaller */
-  .dropdown-overlay > .dropdown a{
-    display:block;
-    font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    font-weight:500; font-size:18px; line-height:1.35;
-    padding:10px 12px;
-  }
-
-  /* Active/current */
-  nav.primary a[aria-current="page"]{ background:transparent !important; color:var(--accent) !important; }
-
-  /* No page push under overlay */
-  .hero, #content, [data-include="/partials/footer.html"]{ transition:none !important; transform:none !important; }
-}
-
-/* overlay doesn’t slide the header */
-@media (max-width:820px){
-  body:has(#navchk:checked) .mobile-header-8 .left-cluster,
-  body.drawer-open .mobile-header-8 .left-cluster{ transform:none; }
 }
 </style>
 
@@ -193,109 +188,88 @@
 /* Overlay + dropdown behavior (MOBILE ONLY); desktop untouched */
 (function () {
   const chk = document.getElementById('navchk');
-  if (!chk) return;
-
   const isMobile = () => window.matchMedia('(max-width:820px)').matches;
-  const openMenu  = () => { chk.checked = true;  sync(); };
-  const closeMenu = () => { chk.checked = false; sync(); };
 
   function sync(){
-    document.body.classList.toggle('drawer-open', chk.checked);
+    const open = !!(chk && chk.checked);
+    document.body.classList.toggle('drawer-open', open);
     const label = document.querySelector('.nav-toggle-8');
-    if (label) label.setAttribute('aria-expanded', String(chk.checked));
+    if (label) label.setAttribute('aria-expanded', String(open));
   }
+  function closeMenu(){ if (chk){ chk.checked = false; sync(); } }
 
-  // Floating X and overlay close
-  document.querySelector('.nav-x')?.addEventListener('click', closeMenu);
-  document.querySelector('.nav-overlay')?.addEventListener('click', closeMenu);
+  // caret toggle
+  (function wireSubtoggle(){
+    if (!isMobile()) return;
+    const li = document.querySelector('nav.primary .is-collapsible');
+    const btn = li && li.querySelector('.subtoggle');
+    const dd  = li && li.querySelector('.dropdown');
+    if (!li || !btn || !dd) return;
 
-  // Esc closes (mobile only)
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isMobile() && chk.checked) closeMenu(); });
+    btn.setAttribute('aria-expanded', 'false');
+    dd.hidden = true; dd.setAttribute('aria-hidden','true');
 
-  // Link tap closes entire menu
-  document.getElementById('site-menu')?.addEventListener('click', (e) => {
-    const a = e.target.closest('a'); if (a) closeMenu();
-  }, { capture:true });
-
-  // Collapsible Galleries (overlay dropdown; no layout shift)
-  (function wireDropdown(){
-    const li   = document.querySelector('nav.primary .dropdown-overlay');
-    const btn  = li?.querySelector('.subtoggle');
-    const menu = li?.querySelector('.dropdown');
-    if (!li || !btn || !menu) return;
-
-    // initial state (collapsed on mobile; always visible on desktop)
-    function setInitial(){
-      if (isMobile()){
-        li.classList.remove('open');
-        btn.setAttribute('aria-expanded','false');
-        menu.setAttribute('aria-hidden','true');
-      } else {
-        li.classList.remove('open');
-        btn.setAttribute('aria-expanded','false');
-        menu.removeAttribute('aria-hidden');  // desktop hover handles it
-      }
-    }
-
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener('click', (e)=>{
       e.stopPropagation();
-      if (!isMobile()) return;
-      const open = li.classList.toggle('open');
-      btn.setAttribute('aria-expanded', String(open));
-      menu.setAttribute('aria-hidden', String(!open));
-      openMenu();
-    });
-
-    // tap outside submenu closes just the submenu (keeps menu open)
-    document.addEventListener('click', (e) => {
-      if (!isMobile()) return;
-      if (!li.classList.contains('open')) return;
-      if (e.target.closest('.dropdown-overlay')) return;
-      li.classList.remove('open');
-      btn.setAttribute('aria-expanded','false');
-      menu.setAttribute('aria-hidden','true');
-    }, true);
-
-    setInitial();
-    window.matchMedia('(max-width:820px)').addEventListener('change', setInitial);
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      const next = !open;
+      btn.setAttribute('aria-expanded', String(next));
+      dd.hidden = !next;
+      dd.setAttribute('aria-hidden', String(!next));
+    }, { passive:false });
   })();
 
-  // click outside entire nav closes menu
-  document.addEventListener('click', (e) => {
-    if (!chk.checked || !isMobile()) return;
+  // close mechanics: overlay, X, Esc, any link
+  (function wireClose(){
+    const overlay = document.querySelector('.nav-overlay');
+    if (overlay) overlay.addEventListener('click', closeMenu, { passive:true });
+
+    const closeX = document.querySelector('.nav-x');
+    if (closeX) closeX.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Escape' && isMobile() && chk?.checked) closeMenu();
+    });
+
+    const nav = document.querySelector('nav.primary');
+    if (nav){
+      nav.addEventListener('click', (e)=>{
+        const a = e.target.closest('a');
+        if (a) closeMenu();
+      }, { capture:true });
+    }
+  })();
+
+  function setInitial(){
+    if (!isMobile()) return;
+    sync();
+  }
+  setInitial();
+  window.matchMedia('(max-width:820px)').addEventListener('change', setInitial);
+
+  // click outside closes
+  document.addEventListener('click', (e)=>{
+    if (!chk?.checked || !isMobile()) return;
     if (e.target.closest('nav.primary') || e.target.closest('.nav-toggle-8')) return;
     closeMenu();
   }, true);
 
-  chk.addEventListener('change', sync);
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', sync);
-  } else {
-    requestAnimationFrame(sync);
-  }
-})();
+  chk?.addEventListener('change', sync);
 
-/* Mark current page */
-(function markCurrentNav(){
-  const normalize = (href) => {
-    const url = new URL(href, location.origin);
-    let p = url.pathname.replace(/\/+/g,"/").replace(/\/index\.html?$/i,"").replace(/\.html?$/i,"").replace(/\/$/,"");
-    return p === "" ? "/" : p;
-  };
-  const here = normalize(location.pathname);
-  const apply = () => {
+  // mark current page quickly for mobile overlay, too
+  (function markCurrent(){
+    const normalize = (href) => {
+      const url = new URL(href, location.origin);
+      let p = url.pathname.replace(/\/+/g,"/").replace(/\/index\.html?$/i,"").replace(/\.html?$/i,"").replace(/\/$/,"");
+      return p === "" ? "/" : p;
+    };
+    const here = normalize(location.pathname);
     const links = document.querySelectorAll('.topbar nav.primary a[href]');
-    if (!links.length) return false;
     links.forEach(a => {
       const target = normalize(a.href);
       if (target === here){ a.setAttribute('aria-current','page'); a.classList.add('is-current'); }
       else { a.removeAttribute('aria-current'); a.classList.remove('is-current'); }
     });
-    return true;
-  };
-  let tries = 0; const maxTries = 10;
-  const tick = () => { if (apply() || ++tries >= maxTries) return; setTimeout(tick, 50); };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", tick, { once:true });
-  tick();
+  })();
 })();
 </script>
