@@ -87,8 +87,9 @@
   window.addEventListener('load', markCurrentNav, { once: true });
 })();
 
-/* === MOBILE-ONLY enhancements: caret-toggled Galleries submenu, overlay/close,
-       optional fallback flatten, and mobile-centering hook (html.nav-centered-mobile). Desktop untouched. === */
+/* === MOBILE-ONLY enhancements: caret-toggled Galleries submenu (no card/backdrop),
+       overlay/close controls, optional fallback flatten, and mobile-centering hook.
+       Desktop untouched. === */
 (function(){
   const mq = window.matchMedia('(max-width:820px)');
   const isMobile = () => mq.matches;
@@ -119,6 +120,23 @@
   function closeDrawer(){
     const c = navchk();
     if (c && c.checked) { c.checked = false; syncDrawer(); }
+  }
+
+  /* ---------- Safety: explicitly toggle drawer on hamburger click ---------- */
+  function wireHamburger(){
+    const ham = document.querySelector('.nav-toggle-8');
+    if (!ham || ham.dataset.wired) return;
+    ham.addEventListener('click', (e)=>{
+      // Explicitly toggle in case the <label for="navchk"> association is blocked by layout
+      const c = navchk();
+      if (!c) return;
+      c.checked = !c.checked;
+      syncDrawer();
+      // Prevent odd double-toggles if the label association also fires
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    ham.dataset.wired = '1';
   }
 
   /* ---------- Close mechanics: overlay, floating X, Esc, any link ---------- */
@@ -192,7 +210,7 @@
     return true;
   }
 
-  /* ---------- Fallback: flatten submenu into the list (kept, but matches menu style via CSS) ---------- */
+  /* ---------- Fallback: flatten submenu into the list (kept, styled to match) ---------- */
   let flattened = false;
   function flattenSubmenu(){
     if (!isMobile()) { unflatten(); return; }
@@ -236,6 +254,9 @@
 
     // Enable centering hook for mobile
     setMobileCentered(true);
+
+    // Ensure hamburger always toggles the drawer
+    wireHamburger();
 
     wireCloseBehaviors();
 
