@@ -428,3 +428,41 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     content:none !important;
   }
 }
+
+/* ================= ADDITIONS: fix rogue desktop brand & tighten centered Galleries ================= */
+
+/* Hide the stray desktop brand/wordmark entirely */
+@media (min-width:821px){
+  .topbar .brand.desktop-only{ display:none !important; }
+}
+
+/* Mobile: enforce fully centered Galleries row + submenu directly below it */
+@media (max-width:820px){
+  nav.primary .has-sub.nav-center{
+    width:auto !important;
+    margin:0 auto;
+    display:flex; align-items:center; gap:4px;
+    text-align:center;
+  }
+  nav.primary .has-sub.nav-center > a{
+    display:inline-flex;
+    width:auto !important;
+    padding:12px 10px;
+    justify-content:center; align-items:center;
+  }
+  nav.primary .has-sub.nav-center > .subtoggle{
+    margin-left:2px; padding:0 4px; font-size:22px; line-height:1;
+  }
+  nav.primary .has-sub.nav-center > .dropdown{
+    position:static; transform:none; width:100%;
+    margin:6px 0 12px 0; padding:0; text-align:center;
+    background:transparent; border:0; box-shadow:none; list-style:none;
+  }
+  nav.primary .has-sub.nav-center > .dropdown[hidden]{ display:none !important; }
+  nav.primary .has-sub.nav-center > .dropdown a{
+    display:inline-block;               /* make submenu items intrinsic width */
+    width:auto; padding:12px 10px; border-radius:10px;
+    background:transparent; text-align:center;
+  }
+  nav.primary .has-sub.nav-center > .dropdown a::before{ content:none !important; }
+}
