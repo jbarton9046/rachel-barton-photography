@@ -228,17 +228,20 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   }
 
   /* ====================== GRID LOCK: Galleries row stays put ====================== */
+  /* FIT-CONTENT center fix for iOS Safari */
   nav.primary .has-sub.dropdown-overlay{
     display:grid !important;
     grid-template-columns:max-content max-content;
     grid-auto-rows:auto;
     column-gap:6px;
-    justify-content:center;           /* center first-row content */
+    justify-content:center;
+    justify-items:center;              /* center grid items */
     align-items:center;
-    justify-items:center;             /* FIX: ensure grid items themselves center */
     text-align:center;
-    width:auto !important;
-    margin:0 auto;
+    width:fit-content !important;      /* <— key fix: grid sizes to its content */
+    max-width:92vw;                    /* safety */
+    margin:0 auto;                     /* center the grid itself */
+    align-self:center;                 /* keep centered within the UL */
   }
   nav.primary .has-sub.dropdown-overlay > a{
     grid-column:1; grid-row:1;
@@ -255,27 +258,23 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     display:inline-block; vertical-align:middle;
   }
 
-  /* Submenu spans beneath, centered — FLEX not 100% width */
+  /* Submenu spans beneath, centered — intrinsic width */
   nav.primary .has-sub.dropdown-overlay > .dropdown{
     grid-column:1 / -1; grid-row:2;
-    /* FIX: center submenu under Galleries */
-    display:flex;                      /* center the items as a row */
+    display:flex;
     flex-wrap:wrap;
     gap:10px;
     justify-content:center;
     align-items:center;
-    width:auto;                        /* do NOT force 100% width */
-    max-width:92vw;                    /* safety on very small screens */
-    margin:6px auto 12px auto;         /* centered block */
+    width:fit-content;                 /* <— key fix: avoid stretching left */
+    max-width:92vw;
+    margin:6px auto 12px auto;
     padding:0;
     list-style:none;
     text-align:center;
   }
-  nav.primary .has-sub.dropdown-overlay > .dropdown li{
-    display:inline-block;
-  }
+  nav.primary .has-sub.dropdown-overlay > .dropdown li{ display:inline-block; }
   nav.primary .has-sub.dropdown-overlay > .dropdown a{
-    /* FIX: pill-style items that don't stretch left */
     display:inline-block;
     width:auto;
     padding:12px 12px;
