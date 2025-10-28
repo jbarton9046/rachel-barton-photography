@@ -400,3 +400,31 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     right:10%;
   }
 }
+
+/* --- MOBILE OVERRIDES: Center "Galleries" row + inline centered submenu --- */
+@media (max-width:820px){
+  /* Center the Galleries row (text + caret together) */
+  nav.primary .has-sub.dropdown-overlay{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:6px;
+    text-align:center;
+  }
+  /* Let the Galleries link size to content so caret sits just to the right */
+  nav.primary .has-sub.dropdown-overlay > a{
+    display:inline-flex;
+    width:auto;                 /* override global 100% width */
+    padding:12px 10px;
+  }
+  /* Submenu: inline and centered, no left indent, no guideline */
+  nav.primary .has-sub.dropdown-overlay > .dropdown{
+    text-align:center;
+  }
+  nav.primary .has-sub.dropdown-overlay > .dropdown a{
+    padding:12px 0;             /* remove previous left padding */
+  }
+  nav.primary .has-sub.dropdown-overlay > .dropdown a::before{
+    content:none !important;
+  }
+}
