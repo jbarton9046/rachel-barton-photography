@@ -228,21 +228,23 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   }
 
   /* ====================== GRID LOCK: Galleries row stays put ====================== */
-  /* Turn the Galleries <li> into a 2-col grid: [link][caret] on row 1; submenu spans row 2 */
+  /* Force the Galleries <li> into a stable 2-col grid: [link][caret] on row 1; submenu spans row 2 */
   nav.primary .has-sub.dropdown-overlay{
-    display:grid;                     /* grid stops reflow weirdness */
+    display:grid !important;             /* defeat any display:block overrides */
     grid-template-columns:max-content max-content;
     grid-auto-rows:auto;
     column-gap:6px;
-    justify-content:center;           /* center the first row content */
+    justify-content:center;
     align-items:center;
     text-align:center;
+    width:auto !important;               /* intrinsic width so it stays centered */
+    margin:0 auto;
   }
-  /* Link in column 1, centered and inline-sized */
+  /* Link in column 1, never stretched */
   nav.primary .has-sub.dropdown-overlay > a{
     grid-column:1; grid-row:1;
     display:inline-block;
-    width:auto;                       /* do not stretch */
+    width:auto !important;               /* beats 100% from generic mobile rule */
     padding:12px 10px;
     vertical-align:middle;
   }
@@ -254,7 +256,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     padding:2px 6px; border-radius:8px; font-size:26px;
     display:inline-block; vertical-align:middle;
   }
-  /* Submenu spans full width underneath, always centered */
+  /* Submenu spans full width underneath, centered */
   nav.primary .has-sub.dropdown-overlay > .dropdown{
     grid-column:1 / -1; grid-row:2;
     width:100%; text-align:center;
