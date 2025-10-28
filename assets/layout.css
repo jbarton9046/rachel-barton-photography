@@ -228,85 +228,33 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   }
 
   /* ====================== GRID LOCK: Galleries row stays put ====================== */
-  /* FIT-CONTENT center fix for iOS Safari */
-  nav.primary .has-sub.dropdown-overlay{
-    display:grid !important;
-    grid-template-columns:max-content max-content;
-    grid-auto-rows:auto;
-    column-gap:6px;
-    justify-content:center;
-    justify-items:center;              /* center grid items */
-    align-items:center;
-    place-items:center;                /* ensure both axes center on iOS */
-    text-align:center;
-    width:fit-content !important;      /* grid sizes to its content */
-    max-width:92vw;                    /* safety */
-    margin:0 auto;                     /* center the grid itself */
-    align-self:center;                 /* keep centered within the UL */
-  }
-  nav.primary .has-sub.dropdown-overlay > a{
-    grid-column:1; grid-row:1;
-    display:inline-block;
-    width:auto !important;
-    padding:12px 10px;
-    vertical-align:middle;
-    justify-self:center;               /* keep the text centered in its cell */
-  }
-  nav.primary .has-sub.dropdown-overlay > .subtoggle{
-    grid-column:2; grid-row:1;
-    appearance:none; border:0; background:transparent;
-    font:inherit; color:inherit; line-height:1; cursor:pointer;
-    padding:2px 6px; border-radius:8px; font-size:26px;
-    display:inline-block; vertical-align:middle;
-    justify-self:center;               /* keep caret centered in its cell */
-  }
-
-  /* Submenu spans beneath, centered — intrinsic width */
-  nav.primary .has-sub.dropdown-overlay > .dropdown{
-    grid-column:1 / -1; grid-row:2;
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    justify-content:center;
-    align-items:center;
-    width:fit-content;                 /* avoid stretching left */
-    max-width:92vw;
-    margin:6px auto 12px auto;
-    padding:0;
-    list-style:none;
-    text-align:center;
-  }
-  nav.primary .has-sub.dropdown-overlay > .dropdown li{ display:inline-block; }
-  nav.primary .has-sub.dropdown-overlay > .dropdown a{
-    display:inline-block;
-    width:auto;
-    padding:12px 12px;
-    border-radius:10px;
-    background:transparent;
-    text-align:center;
-  }
-
-  /* === HARD OVERRIDE: center Galleries row even if caret is ::after on the link === */
+  /* Intrinsic width, centered block for the Galleries row */
   nav.primary > ul > li.has-sub{
-    width:auto !important;
-    margin:0 auto !important;
-    display:inline-flex !important;
-    align-items:center !important;
-    gap:8px !important;
+    width:auto;                /* ⬅ key: do not use the wide item width */
+    margin:0 auto;
+    display:inline-flex;       /* lay link + caret inline as a unit */
+    align-items:center;
+    justify-content:center;
+    gap:8px;
   }
+  /* make the link/caret center together */
   nav.primary > ul > li.has-sub > a{
-    width:auto !important;
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-    gap:8px !important;
+    width:auto;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    text-align:center;
   }
+  /* if the caret is injected via ::after on the link, neutralize right anchor */
   nav.primary > ul > li.has-sub > a::after{
-    position:static !important;     /* stop anchoring to the right edge */
-    display:inline-block !important;
-    margin-left:2px !important;
-    transform:none !important;
+    position:static;      /* not pinned to the right edge */
+    right:auto; left:auto;
+    float:none;
+    transform:none;
+    margin-left:4px;
   }
+  /* If your partial adds a separate caret element, it will sit inline next to the link and remain centered */
   /* =============================================================================== */
 
   .hero{ transition:none; will-change:auto }
