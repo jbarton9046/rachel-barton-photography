@@ -78,7 +78,7 @@
   markCurrentNav();
   window.addEventListener('load', markCurrentNav, { once: true });
 
-  // >>> NEW: tell the rest of the app that includes are ready
+  // >>> tell the rest of the app that includes are ready
   window.dispatchEvent(new Event('includes:ready'));
 })();
 
@@ -99,6 +99,7 @@
     const label = document.querySelector('.nav-toggle-8');
     if (label) label.setAttribute('aria-expanded', String(open));
 
+    // When closing the drawer, collapse Galleries submenu
     if (!open) {
       const li = document.querySelector('nav.primary .is-collapsible');
       const btn = li && li.querySelector('.subtoggle');
@@ -166,7 +167,7 @@
     }
   }
 
-  /* ---------- Caret-toggled Galleries (inline) ---------- */
+  /* ---------- Caret-toggled Galleries (inline, stays centered) ---------- */
   function wireCollapsibleGalleries(){
     if (!isMobile()) return false;
 
@@ -176,6 +177,13 @@
     const btn = li.querySelector('.subtoggle');
     const menu = li.querySelector('.dropdown');
     if (!btn || !menu) return !!li;
+
+    // Force centered layout at runtime (belt & suspenders with CSS)
+    li.style.display = 'flex';
+    li.style.justifyContent = 'center';
+    li.style.alignItems = 'center';
+    li.style.textAlign = 'center';
+    menu.style.textAlign = 'center';
 
     btn.setAttribute('aria-expanded', 'false');
     menu.hidden = true;
@@ -197,7 +205,7 @@
     return true;
   }
 
-  /* ---------- Fallback: flatten submenu ---------- */
+  /* ---------- Fallback: flatten submenu (only if needed) ---------- */
   let flattened = false;
   function flattenSubmenu(){
     if (!isMobile()) { unflatten(); return; }
@@ -239,6 +247,7 @@
   function initMobileEnhancements(){
     if (!isMobile()){ unflatten(); setMobileCentered(false); return; }
 
+    // Ensure all mobile items are centered before any user interaction
     setMobileCentered(true);
 
     wireHamburger();
@@ -267,10 +276,10 @@
   // Re-run when viewport crosses the mobile breakpoint
   mq.addEventListener('change', initMobileEnhancements);
 
-  // >>> NEW: re-run after includes finish injecting the navbar
+  // Re-run after includes finish injecting the navbar
   window.addEventListener('includes:ready', initMobileEnhancements);
 
-  // >>> NEW: MutationObserver fallback — wire as soon as .nav-toggle-8 shows up
+  // MutationObserver fallback — wire as soon as .nav-toggle-8 shows up
   const mo = new MutationObserver(() => {
     if (document.querySelector('.nav-toggle-8') && document.querySelector('#navchk')) {
       initMobileEnhancements();

@@ -8,7 +8,7 @@
   <!-- MOBILE floating X (no circle, no layout impact) -->
   <button class="nav-x mobile-only" type="button" aria-label="Close menu">×</button>
 
-  <!-- Left cluster: original hamburger + brand (UNCHANGED) -->
+  <!-- Left cluster: hamburger + brand (mobile only) -->
   <div class="left-cluster mobile-only">
     <label for="navchk"
            class="nav-toggle-8"
@@ -43,8 +43,8 @@
 
       <!-- Real page link + mobile DROPDOWN (inline; no cards/backdrop) -->
       <li class="has-sub is-collapsible dropdown-overlay">
+        <!-- The label + caret live together and stay centered -->
         <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
-        <!-- Caret sits to the RIGHT; toggles submenu only (bigger arrow) -->
         <button class="subtoggle mobile-only"
                 type="button"
                 aria-label="Toggle Galleries submenu"
@@ -87,11 +87,11 @@
   }
   .mobile-header-8 .left-cluster{ display:flex; align-items:center; gap:12px; }
 
-  /* original hamburger */
+  /* hamburger */
   .nav-toggle-8{
     position:relative; width:44px; height:26px; border:0;
     background:transparent !important; box-shadow:none !important; cursor:pointer; color:#2f2a24;
-    z-index:2400; pointer-events:auto; /* ensure always clickable */
+    z-index:2400; pointer-events:auto;
   }
   .nav-toggle-8 .bar{
     position:absolute; left:0; height:2px; border-radius:999px; background:currentColor; opacity:.96;
@@ -110,70 +110,38 @@
   .brand-name .brand-line2{ font-family:"Fraunces", serif; font-weight:700; font-size:16px; margin-top:-2px; }
   .brand-name .brand-sub{ font-family:"Raleway", sans-serif; font-weight:500; font-size:11px; opacity:.9; margin-top:1px; }
 
-  /* full-page drawer */
-  .nav-drawer{
-    position:fixed; inset:0; z-index:2100; display:flex; align-items:flex-start; justify-content:center;
-    background:var(--paper); overflow:auto; -webkit-overflow-scrolling:touch;
-    padding-top:86px; /* clear the top bar */
-    transform:translateY(-2%); opacity:0; pointer-events:none;
+  /* full-page overlay menu (nav itself) */
+  nav.primary{
+    position:fixed; inset:0;
+    width:100vw; height:100dvh;
+    background:var(--drawer-bg); border:0; box-shadow:none;
+    transform:translateY(-4%); opacity:0; pointer-events:none;
     transition:opacity .28s ease, transform .28s ease;
+    z-index:2000; overflow:auto;
   }
-  .navchk:checked ~ .nav-drawer{ transform:none; opacity:1; pointer-events:auto; }
+  .navchk:checked ~ nav.primary{ opacity:1; pointer-events:auto; transform:translateY(0); }
 
-  /* overlay backdrop */
+  /* backdrop + X */
   .nav-overlay{
     position:fixed; inset:0; background:rgba(0,0,0,.25);
-    opacity:0; pointer-events:none; transition:opacity .28s ease; z-index:2000;
+    opacity:0; pointer-events:none; transition:opacity .28s ease; z-index:1990;
   }
-  .navchk:checked ~ .nav-overlay{ opacity:1; pointer-events:auto; }
+  #navchk:checked ~ .nav-overlay{ opacity:1; pointer-events:auto; }
 
-  /* floating X – no circle */
   .nav-x{
     position:fixed; top:10px; right:12px; z-index:2300;
-    width:auto; height:auto; padding:8px 10px;
-    background:transparent; border:0; box-shadow:none;
+    padding:8px 10px; background:transparent; border:0; box-shadow:none;
     color:#3f3a33; font-size:26px; line-height:1; cursor:pointer;
     opacity:0; pointer-events:none; transition:opacity .2s ease;
   }
-  .navchk:checked ~ .nav-x{ pointer-events:auto; opacity:1; }
+  #navchk:checked ~ .nav-x{ opacity:1; pointer-events:auto; }
 
-  /* ===== Mobile DROPDOWN INLINE (NO CARDS) ===== */
-  .dropdown-overlay{ position:relative; display:flex; align-items:center; gap:6px; }
-  .dropdown-overlay > a{ font-weight:700; }             /* “Galleries” label */
-  .dropdown-overlay > .subtoggle{
-    -webkit-tap-highlight-color:transparent; appearance:none;
-    border:0; background:transparent; padding:2px 6px; margin-left:6px;
-    border-radius:8px; line-height:1; font-size:26px;  /* bigger caret */
-    cursor:pointer;
-  }
-
-  /* Submenu is part of the normal flow (no borders/shadows) */
-  .dropdown-overlay > .dropdown{
-    position:static; transform:none; width:100%;
-    margin:6px 0 12px 0; padding:0;
-    background:transparent; border:0; box-shadow:none; list-style:none;
-  }
-  .dropdown-overlay > .dropdown[hidden]{ display:none !important; }
-
-  .dropdown-overlay .dropdown li{ list-style:none; }
-
-  /* --- UPDATED: match top-level style & center --- */
-  .dropdown-overlay .dropdown a{
-    display:block; text-align:center;
-    font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    font-weight:500; font-size:20px; line-height:1.35;
-    padding:12px 16px; border-radius:10px; background:transparent;
-  }
-  .dropdown-overlay .dropdown a::before{ content:none; }
-  .dropdown-overlay .dropdown a:hover,
-  .dropdown-overlay .dropdown a:focus-visible{ color:var(--accent); outline:none; }
-
-  /* drawer content */
-  .nav-drawer > div{ width:100%; }
+  /* list layout */
   nav.primary.center-mobile{ width:100%; }
   nav.primary.center-mobile ul{
-    display:flex; flex-direction:column; align-items:center;
-    gap:12px; margin:0; padding:32px 16px 28px; list-style:none; row-gap:6px; text-align:center; width:100%;
+    display:flex; flex-direction:column; align-items:center !important;
+    gap:12px; margin:0; padding:calc(16px + 56px) 16px 28px; /* clears header */
+    list-style:none; row-gap:6px; text-align:center !important; width:100%;
   }
   nav.primary li{ width:min(520px, 92vw); }
   nav.primary > ul > li > a{
@@ -188,29 +156,63 @@
     background:linear-gradient(to right, transparent, var(--drawer-rule, rgba(0,0,0,.06)), transparent); opacity:.6;
   }
 
-  /* subtle hover */
+  /* hover */
   nav.primary a:hover{ color:var(--accent); }
 
-  /* highlight current page (mobile) */
+  /* current page */
   nav.primary a.is-current,
   nav.primary a[aria-current="page"]{
     color:var(--accent);
     text-decoration:none !important;
   }
 
-  /* --- NEW: center “Galleries” row + keep caret beside label --- */
+  /* --- CENTER “Galleries” + keep caret snug and centered --- */
   nav.primary .has-sub.dropdown-overlay{
-    justify-content:center;
+    display:flex; justify-content:center; align-items:center; gap:4px; /* tighter caret */
     text-align:center;
   }
+  /* keep the label + caret together, sized-to-content, centered in the row */
   nav.primary .has-sub.dropdown-overlay > a{
-    display:inline-flex; width:auto; padding:12px 16px;
+    display:inline-flex; align-items:center; width:auto;
+    padding:12px 12px;
   }
+  nav.primary .has-sub.dropdown-overlay > .subtoggle{
+    appearance:none; border:0; background:transparent; margin-left:2px; /* closer to label */
+    padding:2px 4px; border-radius:8px; line-height:1; font-size:24px; cursor:pointer;
+  }
+
+  /* submenu: centered beneath Galleries, no left indent or guide */
+  nav.primary .has-sub.dropdown-overlay > .dropdown{
+    position:static; transform:none; width:100%;
+    margin:6px 0 12px 0; padding:0;
+    background:transparent; border:0; box-shadow:none; list-style:none;
+    text-align:center;
+  }
+  nav.primary .has-sub.dropdown-overlay > .dropdown[hidden]{ display:none !important; }
+  nav.primary .has-sub.dropdown-overlay > .dropdown li{ list-style:none; }
+  nav.primary .has-sub.dropdown-overlay > .dropdown a{
+    display:block;
+    font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-weight:500; font-size:20px; line-height:1.35;
+    padding:12px 16px; border-radius:10px; background:transparent;
+  }
+  nav.primary .has-sub.dropdown-overlay > .dropdown a::before{ content:none; }
+  nav.primary .has-sub.dropdown-overlay > .dropdown a:hover,
+  nav.primary .has-sub.dropdown-overlay > .dropdown a:focus-visible{
+    color:var(--accent); outline:none;
+  }
+
+  /* prevent page shift while menu open */
+  body.drawer-open{ overflow:hidden }
+  .hero, #content, [data-include="/partials/footer.html"]{ transition:none; will-change:auto }
+  body:has(#navchk:checked) #content,
+  body:has(#navchk:checked) [data-include="/partials/footer.html"],
+  body:has(#navchk:checked) .hero{ transform:none !important; }
 }
 </style>
 
 <script>
-/* Overlay + dropdown behavior (MOBILE ONLY); desktop untouched */
+/* Mobile-only behavior; desktop untouched */
 (function () {
   const chk = document.getElementById('navchk');
   const isMobile = () => window.matchMedia('(max-width:820px)').matches;
@@ -223,7 +225,7 @@
   }
   function closeMenu(){ if (chk){ chk.checked = false; sync(); } }
 
-  /* EXTRA SAFETY: explicitly toggle on hamburger click (prevents label-misfire) */
+  // explicit toggle on hamburger
   (function wireHamburger(){
     const ham = document.querySelector('.nav-toggle-8');
     if (!ham || ham.dataset.wired) return;
@@ -238,7 +240,7 @@
     ham.dataset.wired = '1';
   })();
 
-  // caret toggle (submenu hidden by default; inline on page)
+  // caret toggle — inline, centered under Galleries
   (function wireSubtoggle(){
     if (!isMobile()) return;
     const li = document.querySelector('nav.primary .is-collapsible');
@@ -259,7 +261,7 @@
     }, { passive:false });
   })();
 
-  // close mechanics: overlay, X, Esc, any link
+  // close mechanics
   (function wireClose(){
     const overlay = document.querySelector('.nav-overlay');
     if (overlay) overlay.addEventListener('click', closeMenu, { passive:true });
@@ -280,10 +282,7 @@
     }
   })();
 
-  function setInitial(){
-    if (!isMobile()) return;
-    sync();
-  }
+  function setInitial(){ if (isMobile()) sync(); }
   setInitial();
   window.matchMedia('(max-width:820px)').addEventListener('change', setInitial);
 
