@@ -228,23 +228,24 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   }
 
   /* ====================== GRID LOCK: Galleries row stays put ====================== */
-  /* Force the Galleries <li> into a stable 2-col grid: [link][caret] on row 1; submenu spans row 2 */
+  /* Force the Galleries <li> into a stable 2-col grid and keep it the same width
+     as other rows so nothing drifts left/right on open. */
   nav.primary .has-sub.dropdown-overlay{
-    display:grid !important;             /* defeat any display:block overrides */
+    display:grid !important;
     grid-template-columns:max-content max-content;
     grid-auto-rows:auto;
     column-gap:6px;
     justify-content:center;
     align-items:center;
     text-align:center;
-    width:auto !important;               /* intrinsic width so it stays centered */
-    margin:0 auto;
+    width:min(520px, 92vw) !important;   /* match siblings’ width */
+    margin:0 auto;                        /* center the grid itself */
   }
   /* Link in column 1, never stretched */
   nav.primary .has-sub.dropdown-overlay > a{
     grid-column:1; grid-row:1;
     display:inline-block;
-    width:auto !important;               /* beats 100% from generic mobile rule */
+    width:auto !important;
     padding:12px 10px;
     vertical-align:middle;
   }
@@ -256,11 +257,16 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     padding:2px 6px; border-radius:8px; font-size:26px;
     display:inline-block; vertical-align:middle;
   }
-  /* Submenu spans full width underneath, centered */
+  /* Submenu spans full row underneath and its links are inline pills, centered */
   nav.primary .has-sub.dropdown-overlay > .dropdown{
     grid-column:1 / -1; grid-row:2;
     width:100%; text-align:center;
     margin:6px 0 12px 0; padding:0; list-style:none;
+  }
+  nav.primary .has-sub.dropdown-overlay > .dropdown a{
+    display:inline-block;                /* override generic 100% width */
+    width:auto !important;
+    padding:12px 10px;
   }
   /* =============================================================================== */
 
