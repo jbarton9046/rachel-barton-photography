@@ -340,3 +340,27 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   }
   html.nav-flattened nav.primary li.nav-subitem > a::before{ content:none !important; }
 }
+
+/* === MOBILE FIX: keep "Galleries" centered, submenu drops below (no shift) === */
+@media (max-width:820px){
+  nav.primary .has-sub.dropdown-overlay{
+    display:grid !important;
+    grid-auto-flow:column;
+    grid-auto-columns:max-content;
+    align-items:center;
+    justify-content:center;   /* keeps label+caret centered */
+    gap:6px;
+    text-align:center;
+  }
+  /* submenu spans full width on the next row */
+  nav.primary .has-sub.dropdown-overlay > .dropdown{
+    grid-column: 1 / -1;
+    width:100%;
+    margin:6px 0 12px 0;
+    text-align:center;
+  }
+  nav.primary .has-sub.dropdown-overlay > a,
+  nav.primary .has-sub.dropdown-overlay > .subtoggle{
+    margin:0;
+  }
+}
