@@ -237,8 +237,9 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     justify-content:center;
     justify-items:center;              /* center grid items */
     align-items:center;
+    place-items:center;                /* ⬅ ensure both axes center on iOS */
     text-align:center;
-    width:fit-content !important;      /* <— key fix: grid sizes to its content */
+    width:fit-content !important;      /* grid sizes to its content */
     max-width:92vw;                    /* safety */
     margin:0 auto;                     /* center the grid itself */
     align-self:center;                 /* keep centered within the UL */
@@ -249,6 +250,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     width:auto !important;
     padding:12px 10px;
     vertical-align:middle;
+    justify-self:center;               /* ⬅ keep the text centered in its cell */
   }
   nav.primary .has-sub.dropdown-overlay > .subtoggle{
     grid-column:2; grid-row:1;
@@ -256,6 +258,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     font:inherit; color:inherit; line-height:1; cursor:pointer;
     padding:2px 6px; border-radius:8px; font-size:26px;
     display:inline-block; vertical-align:middle;
+    justify-self:center;               /* ⬅ keep caret centered in its cell */
   }
 
   /* Submenu spans beneath, centered — intrinsic width */
@@ -266,7 +269,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     gap:10px;
     justify-content:center;
     align-items:center;
-    width:fit-content;                 /* <— key fix: avoid stretching left */
+    width:fit-content;                 /* avoid stretching left */
     max-width:92vw;
     margin:6px auto 12px auto;
     padding:0;
