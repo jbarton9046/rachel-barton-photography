@@ -28,7 +28,7 @@
     </a>
   </div>
 
-  <!-- Desktop brand (explicitly hidden via CSS below to kill the rogue logo) -->
+  <!-- Desktop brand (kept hidden to avoid the rogue logo) -->
   <a class="brand desktop-only" href="/" aria-label="Home">
     <span class="brand-line1">Rachel</span>
     <span class="brand-line2">Barton</span>
@@ -41,9 +41,9 @@
       <li><a href="/">Home</a></li>
       <li><a href="/about.html">Meet Rachel</a></li>
 
-      <!-- Centered, tight caret, submenu appears centered directly beneath -->
+      <!-- Galleries: label + caret locked on row 1; submenu spans row 2 (centered) -->
       <li class="has-sub is-collapsible dropdown-overlay nav-center">
-        <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
+        <a href="/galleries.html" aria-haspopup="true">Galleries</a>
         <button class="subtoggle mobile-only"
                 type="button"
                 aria-label="Toggle Galleries submenu"
@@ -157,37 +157,46 @@
   nav.primary a.is-current,
   nav.primary a[aria-current="page"]{ color:var(--accent); text-decoration:none !important; }
 
-  /* === THE IMPORTANT CENTERING TWEAKS === */
-  /* Make the Galleries row intrinsic width and keep it centered */
+  /* ======== GRID LOCK: keep Galleries row stationary & centered ======== */
+  /* Make the Galleries <li> a 2-col grid: [label][caret] on row 1; submenu on row 2 */
   nav.primary .has-sub.nav-center{
     width:auto !important;
-    margin:0 auto;                         /* centers the li in the column */
-    display:flex; align-items:center; gap:4px;
+    margin:0 auto;
+    display:grid;                         /* <— grid prevents reflow shift */
+    grid-template-columns:max-content max-content;
+    grid-auto-rows:auto;
+    column-gap:6px;
+    justify-content:center;               /* centers row 1 */
+    align-items:center;
+    text-align:center;
   }
-  /* keep label + caret tight and centered */
+  /* label in col 1 */
   nav.primary .has-sub.nav-center > a{
-    display:inline-flex; width:auto !important; padding:12px 10px;
+    grid-column:1; grid-row:1;
+    display:inline-block;
+    width:auto !important;                /* override the 100% width rule */
+    padding:12px 10px;
     justify-content:center; align-items:center;
   }
+  /* caret in col 2 */
   nav.primary .has-sub.nav-center > .subtoggle{
+    grid-column:2; grid-row:1;
     appearance:none; border:0; background:transparent;
-    padding:0 4px; margin-left:2px;        /* tighter caret */
-    border-radius:8px; line-height:1; font-size:22px; /* slightly smaller so it sits closer */
+    padding:0 4px; margin-left:2px;
+    border-radius:8px; line-height:1; font-size:22px;
     cursor:pointer;
   }
-
-  /* submenu appears directly below Galleries, centered, no left indent */
+  /* submenu spans both columns underneath; centered pills */
   nav.primary .has-sub.nav-center > .dropdown{
+    grid-column:1 / -1; grid-row:2;
     position:static; transform:none; width:100%;
     margin:6px 0 12px 0; padding:0; text-align:center;
     background:transparent; border:0; box-shadow:none; list-style:none;
   }
   nav.primary .has-sub.nav-center > .dropdown[hidden]{ display:none !important; }
-
-  /* inline, centered pills (no 100% width) */
   nav.primary .has-sub.nav-center > .dropdown li{ list-style:none; display:block; }
   nav.primary .has-sub.nav-center > .dropdown a{
-    display:inline-block;                   /* NOT full-width */
+    display:inline-block;                 /* NOT full-width */
     font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     font-weight:500; font-size:20px; line-height:1.35;
     padding:12px 10px; border-radius:10px; background:transparent;
@@ -200,6 +209,7 @@
     background:var(--drawer-hover);
   }
 }
+/* ==================================================================== */
 </style>
 
 <script>
