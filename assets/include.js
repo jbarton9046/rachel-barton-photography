@@ -127,12 +127,12 @@
     const ham = document.querySelector('.nav-toggle-8');
     if (!ham || ham.dataset.wired) return;
     ham.addEventListener('click', (e)=>{
-      // Explicitly toggle in case the <label for="navchk"> association is blocked by layout
+      // Explicit toggle in case <label for="navchk"> association gets blocked by layout
       const c = navchk();
       if (!c) return;
       c.checked = !c.checked;
       syncDrawer();
-      // Prevent odd double-toggles if the label association also fires
+      // Prevent double-toggles if native label behavior also fires
       e.preventDefault();
       e.stopPropagation();
     });

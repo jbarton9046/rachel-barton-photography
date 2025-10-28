@@ -140,7 +140,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   nav.primary ul{ display:flex; gap:28px; align-items:center }
 }
 
-/* Mobile: FULL-PAGE OVERLAY (desktop untouched) */
+/* Mobile: FULL-PAGE MENU (desktop untouched) */
 @media (max-width:820px){
   html, body{ overflow-x:hidden }
 
@@ -155,18 +155,22 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   }
   .brand{ display:none !important }
 
-  /* Keep legacy .nav-toggle harmless (your hamburger is .nav-toggle-8 in the partial) */
-  .nav-toggle{
-    display:inline-flex !important;
-    position:fixed !important; left:12px; top:12px;
-    width:var(--mobile-icon); height:var(--mobile-icon);
-    background:transparent; border:0; border-radius:0;
-    box-shadow:none; padding:0; margin:0; z-index:1100; cursor:pointer;
+  /* Ensure hamburger is always clickable and on top */
+  .nav-toggle-8{
+    position:relative; width:44px; height:26px; border:0;
+    background:transparent !important; box-shadow:none !important; cursor:pointer; color:#2f2a24;
+    z-index:2400;                 /* ↑ ensure above anything */
+    pointer-events:auto;          /* ensure it can be clicked */
   }
-  .nav-toggle .bar{ display:none !important }
-  .nav-toggle::before{ content:""; position:absolute; inset:0; border-radius:0; }
+  .nav-toggle-8 .bar{
+    position:absolute; left:0; height:2px; border-radius:999px; background:currentColor; opacity:.96;
+    box-shadow:0 .5px 0 rgba(255,255,255,.45), 0 6px 12px rgba(0,0,0,.18);
+  }
+  .nav-toggle-8 .b-bot{ width:28px; bottom:2px; left:0; }
+  .nav-toggle-8 .b-mid{ width:20px; top:50%; transform:translate(-50%, -50%); left:50%; }
+  .nav-toggle-8 .b-top{ width:14px; top:2px; left:50%; }
 
-  /* ===== FULL-PAGE MENU (the nav itself becomes the overlay) ===== */
+  /* ===== FULL-PAGE OVERLAY MENU (the nav itself becomes the overlay) ===== */
   nav.primary{
     position:fixed; inset:0;
     width:100vw; height:100dvh; max-height:none;
@@ -180,7 +184,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     opacity:1; pointer-events:auto; transform:translateY(0);
   }
 
-  /* Optional backdrop overlay element (sibling in the partial) — kept unchanged */
+  /* Optional backdrop overlay element (sibling in the partial) — unchanged */
   .nav-overlay{
     position:fixed; inset:0; background:rgba(0,0,0,.25);
     opacity:0; pointer-events:none; transition:opacity .28s ease; z-index:1990;
@@ -220,7 +224,6 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     margin:6px 0 12px 0; padding:0; list-style:none;
   }
   nav.primary .has-sub .dropdown[hidden]{ display:none !important; }
-
   nav.primary .has-sub .dropdown li{ list-style:none; margin:0; padding:0; }
 
   /* Same as top-level links */
@@ -244,14 +247,13 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   /* (Kept) Galleries label a bit bolder like before */
   nav.primary .has-sub > a{ font-weight:700 }
 
-  /* Caret toggle (kept but WITHOUT any card/absolute menu) */
+  /* Caret to the RIGHT of “Galleries”, larger (mobile only) */
   nav.primary .has-sub.dropdown-overlay{ position:relative; display:flex; align-items:center; gap:6px; }
   nav.primary .has-sub.dropdown-overlay > .subtoggle{
     appearance:none; border:0; background:transparent; margin-left:6px;
     font:inherit; color:inherit; line-height:1; cursor:pointer;
-    padding:2px 6px; border-radius:8px; font-size:26px; /* bigger caret */
+    padding:2px 6px; border-radius:8px; font-size:26px;
   }
-  /* Make sure the dropdown under caret also matches the same inline look */
   nav.primary .has-sub.dropdown-overlay > .dropdown{
     position:static; transform:none; width:100%;
     margin:6px 0 12px 0; padding:0;

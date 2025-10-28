@@ -8,7 +8,7 @@
   <!-- MOBILE floating X (no circle, no layout impact) -->
   <button class="nav-x mobile-only" type="button" aria-label="Close menu">×</button>
 
-  <!-- Left cluster: your original hamburger + brand (UNCHANGED) -->
+  <!-- Left cluster: original hamburger + brand (UNCHANGED) -->
   <div class="left-cluster mobile-only">
     <label for="navchk"
            class="nav-toggle-8"
@@ -41,10 +41,10 @@
       <li><a href="/">Home</a></li>
       <li><a href="/about.html">Meet Rachel</a></li>
 
-      <!-- Real page link + mobile DROPDOWN (inline on page; no cards) -->
+      <!-- Real page link + mobile DROPDOWN (inline; no cards/backdrop) -->
       <li class="has-sub is-collapsible dropdown-overlay">
         <a href="/galleries.html" aria-haspopup="true" aria-expanded="false">Galleries</a>
-        <!-- Caret sits to the RIGHT; toggles submenu only -->
+        <!-- Caret sits to the RIGHT; toggles submenu only (bigger arrow) -->
         <button class="subtoggle mobile-only"
                 type="button"
                 aria-label="Toggle Galleries submenu"
@@ -87,10 +87,11 @@
   }
   .mobile-header-8 .left-cluster{ display:flex; align-items:center; gap:12px; }
 
-  /* original hamburger (kept exactly as you had it) */
+  /* original hamburger */
   .nav-toggle-8{
     position:relative; width:44px; height:26px; border:0;
     background:transparent !important; box-shadow:none !important; cursor:pointer; color:#2f2a24;
+    z-index:2400; pointer-events:auto; /* ensure always clickable */
   }
   .nav-toggle-8 .bar{
     position:absolute; left:0; height:2px; border-radius:999px; background:currentColor; opacity:.96;
@@ -209,6 +210,21 @@
     if (label) label.setAttribute('aria-expanded', String(open));
   }
   function closeMenu(){ if (chk){ chk.checked = false; sync(); } }
+
+  /* EXTRA SAFETY: explicitly toggle on hamburger click (prevents label-misfire) */
+  (function wireHamburger(){
+    const ham = document.querySelector('.nav-toggle-8');
+    if (!ham || ham.dataset.wired) return;
+    ham.addEventListener('click', (e)=>{
+      if (!isMobile()) return;
+      if (!chk) return;
+      chk.checked = !chk.checked;
+      sync();
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    ham.dataset.wired = '1';
+  })();
 
   // caret toggle (submenu hidden by default; inline on page)
   (function wireSubtoggle(){
