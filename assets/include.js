@@ -82,9 +82,9 @@
   window.dispatchEvent(new Event('includes:ready'));
 })();
 
-/* === MOBILE-ONLY: transform the Galleries <li> into a native
-       <details><summary class="g-sum"><a class="g-link" href="/galleries.html">Galleries</a><button class="g-caret"></button></summary>…</details>
-       Label navigates; caret toggles. === */
+/* === MOBILE-ONLY: transform the Galleries <li> into
+       <details><summary class="g-sum"><a class="g-link" ...>Galleries</a><button class="g-caret"></button></summary>…</details>
+       Label navigates; caret toggles. Desktop untouched. === */
 (function(){
   const mq = window.matchMedia('(max-width:820px)');
   const isMobile = () => mq.matches;
@@ -123,7 +123,6 @@
 
     const link = document.createElement('a');
     link.className = 'g-link';
-    // Preserve original href when possible; default to /galleries.html
     link.href = a.getAttribute('href') || '/galleries.html';
     link.textContent = (a.textContent || 'Galleries').trim();
 
@@ -140,26 +139,24 @@
     details.appendChild(summary);
     details.appendChild(dd);
 
-    // Tag the LI for CSS rules
     li.classList.add('m-galleries');
     li.dataset.detailsified = '1';
     details.open = false;
 
-    // Click behaviors
-    // 1) Link: navigate only (don’t toggle details)
+    // 1) Label navigates (don’t toggle)
     link.addEventListener('click', (e)=>{
-      e.stopPropagation(); // prevent summary toggle
+      e.stopPropagation();
       // allow normal navigation
     });
 
-    // 2) Caret: toggle only (don’t navigate)
+    // 2) Caret toggles submenu (don’t navigate)
     caret.addEventListener('click', (e)=>{
       e.preventDefault();
       e.stopPropagation();
       details.open = !details.open;
     });
 
-    // Prevent dropdown clicks from closing drawer unintentionally
+    // Keep clicks inside dropdown from closing the drawer
     dd.addEventListener('click', (e)=> e.stopPropagation());
   }
 
