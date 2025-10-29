@@ -227,42 +227,34 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     background:var(--drawer-hover); color:var(--ink); outline:none;
   }
 
-  /* ===== MOBILE FIX (targeted): keep Galleries on its own row ===== */
-  /* JS adds .js-mobile-galleries to the li that owns the dropdown */
-  nav.primary li.js-mobile-galleries{
-    display:grid !important;
-    grid-template-columns:max-content max-content;
-    grid-auto-rows:auto;
-    justify-content:center;
-    justify-items:center;
-    align-items:center;
+  /* ===== MOBILE <details> TRANSFORM FOR GALLERIES ===== */
+  /* JS converts the Galleries <li> into: <li class="m-galleries"><details>…</details></li> */
+  nav.primary li.m-galleries{ width:min(520px,92vw); margin:0 auto; }
+  nav.primary li.m-galleries details{
+    display:grid; justify-content:center; justify-items:center; text-align:center;
+  }
+  nav.primary li.m-galleries summary{
+    list-style:none; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:12px 16px; border-radius:10px; user-select:none; -webkit-tap-highlight-color:transparent;
+    font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-weight:500; font-size:20px; line-height:1.35;
+  }
+  /* remove default marker and draw our own */
+  nav.primary li.m-galleries summary::-webkit-details-marker{ display:none; }
+  nav.primary li.m-galleries summary::after{
+    content:"▾"; font-size:22px; line-height:1; margin-left:4px;
+  }
+  nav.primary li.m-galleries details[open] summary::after{ content:"▴"; }
+
+  nav.primary li.m-galleries ul.dropdown{
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center;
+    width:fit-content; max-width:92vw; margin:6px auto 12px auto; padding:0; list-style:none;
     text-align:center;
-    width:fit-content !important;
-    margin:0 auto !important;
-    gap:6px;
   }
-  nav.primary li.js-mobile-galleries > a{
-    grid-column:1; grid-row:1;
-    width:auto !important;
-    display:inline-block !important;
-    white-space:nowrap !important;
-    padding:12px 10px !important;
-  }
-  nav.primary li.js-mobile-galleries > .subtoggle{
-    grid-column:2; grid-row:1;
-    appearance:none; border:0; background:transparent;
-    font:inherit; color:inherit; line-height:1; cursor:pointer;
-    padding:2px 6px; border-radius:8px; font-size:26px;
-    display:inline-block; vertical-align:middle;
-  }
-  nav.primary li.js-mobile-galleries > ul.dropdown{
-    grid-column:1 / -1; grid-row:2;
-    display:flex; flex-wrap:wrap; gap:10px;
-    justify-content:center; align-items:center;
-    width:fit-content; max-width:92vw; margin:6px auto 12px auto; padding:0; list-style:none; text-align:center;
-  }
-  /* kill any pseudo-caret on the label when this mode is active */
-  nav.primary li.js-mobile-galleries > a::after{ content:none !important; }
+
+  /* kill any original pseudo-caret from desktop styles on the label that JS hides */
+  nav.primary li.m-galleries a::after{ content:none !important; }
 
   .hero{ transition:none; will-change:auto }
   #content, [data-include="/partials/footer.html"]{ transition:none; will-change:auto; transform:none !important; }
@@ -343,4 +335,4 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   }
 }
 
-/* === Fallback flatten removed (was causing left drift) === */
+/* === Fallback “flatten” removed entirely to avoid drift === */
