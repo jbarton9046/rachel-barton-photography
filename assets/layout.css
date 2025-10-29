@@ -279,6 +279,13 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     background:linear-gradient(to right, transparent, var(--drawer-rule), transparent);
     opacity:.6;
   }
+
+  /* ------ Standard practice: subtle hierarchy for mobile submenu ------ */
+  nav.primary li.m-galleries .dropdown a{
+    font-size:18px;         /* top-level remains 20px */
+    padding:10px 14px;      /* keeps tap area ~44px+ with line-height */
+    line-height:1.35;
+  }
 }
 
 /* ================= Desktop current page state ================= */
