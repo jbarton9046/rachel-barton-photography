@@ -236,17 +236,26 @@
   }
   function closeMenu(){ if (chk){ chk.checked = false; sync(); } }
 
+  /* --- 🔧 ONLY CHANGE: make label behave natively; fallback toggles manually --- */
   (function wireHamburger(){
     const ham = document.querySelector('.nav-toggle-8');
     if (!ham || ham.dataset.wired) return;
-    ham.addEventListener('click', (e)=>{
-      if (!isMobile()) return;
-      if (!chk) return;
-      chk.checked = !chk.checked;
-      sync();
-      e.preventDefault();
-      e.stopPropagation();
-    });
+
+    const isProperLabel = ham.tagName === 'LABEL' && (ham.getAttribute('for') || ham.htmlFor) === 'navchk';
+
+    if (isProperLabel) {
+      // Let the browser toggle #navchk; just resync UI after the click.
+      ham.addEventListener('click', () => { setTimeout(sync, 0); }, { passive:true });
+    } else {
+      // Fallback for non-label triggers.
+      ham.addEventListener('click', (e)=>{
+        if (!isMobile() || !chk) return;
+        e.preventDefault();
+        chk.checked = !chk.checked;
+        sync();
+      });
+    }
+
     ham.dataset.wired = '1';
   })();
 
