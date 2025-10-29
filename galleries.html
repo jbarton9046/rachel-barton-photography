@@ -21,56 +21,40 @@
   <!-- Fonts + shared layout -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Add Raleway so the desktop nav matches about.html exactly -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
-  <!-- Keep a SINGLE hero preload (ok to keep fast paint) -->
+  <!-- Keep a SINGLE hero preload -->
   <link rel="preload" as="image" href="/pictures/introEventPics/E26A1309.jpg" imagesrcset="/pictures/introEventPics/E26A1309.jpg" fetchpriority="high">
 
-  <!-- Desktop navbar: match about.html (font + spacing + Galleries dropdown) -->
+  <!-- Desktop navbar tweaks -->
   <style>
     :root{
       --bg:#FAFAF8; --paper:#ffffff; --ink:#3e3e3a; --muted:#7a766e;
       --accent:#A88A5A; --line:#e9e6df;
       --ring:rgba(168,138,90,.25); --shadow:0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-      --mobile-header-h:64px; /* fixed mobile header height */
-
-      /* Desktop navbar spacing (exact) */
-      --nav-gap-top:20px;
-      --nav-gap-bottom:44px;
+      --mobile-header-h:64px;
+      --nav-gap-top:20px; --nav-gap-bottom:44px;
     }
-    .topbar{
-      padding-top:var(--nav-gap-top) !important;
-      padding-bottom:var(--nav-gap-bottom) !important;
-    }
+    .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     @media (min-width:821px){
       .topbar nav.primary > ul > li > a{
-        font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
-        font-weight:500 !important;
-        letter-spacing:.02em;
-        text-transform:none;
+        font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif!important;
+        font-weight:500!important; letter-spacing:.02em; text-transform:none;
       }
       .topbar nav.primary > ul > li > a:hover,
-      .topbar nav.primary > ul > li > a:focus-visible{
-        font-weight:500 !important;
-      }
+      .topbar nav.primary > ul > li > a:focus-visible{ font-weight:500!important; }
     }
     @media (min-width:900px){
-      .topbar .submenu, .topbar .dropdown{
-        background:transparent; border:0; box-shadow:none; padding:6px 0 10px; min-width:170px;
-      }
+      .topbar .submenu,.topbar .dropdown{ background:transparent; border:0; box-shadow:none; padding:6px 0 10px; min-width:170px; }
       .topbar .dropdown-title{
-        font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
-        font-weight:700; font-size:26px; line-height:1.1;
+        font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:26px; line-height:1.1;
         color:var(--accent,#A88A5A); text-align:center; margin:0 10px 6px; pointer-events:none;
       }
       .topbar .is-galleries-dropdown a{
-        display:block;
-        font-family:"Cormorant Garamond","Playfair Display",Georgia,serif !important;
-        font-weight:500 !important; font-size:18px; line-height:1.35;
-        letter-spacing:0; text-transform:none; text-align:center; color:#3e3e3a; padding:6px 12px;
+        display:block; font-family:"Cormorant Garamond","Playfair Display",Georgia,serif!important;
+        font-weight:500!important; font-size:18px; line-height:1.35; letter-spacing:0; text-transform:none; text-align:center; color:#3e3e3a; padding:6px 12px;
       }
       .topbar .is-galleries-dropdown a:hover,
       .topbar .is-galleries-dropdown a:focus-visible{ color:var(--accent,#A88A5A); }
@@ -125,10 +109,10 @@
     }
     .captioned.notch:hover .tile-nav{ opacity:1; transform:translateY(-50%) }
     .tile-prev{ left:10px } .tile-next{ right:10px }
-    .tile-nav::before, .tile-nav::after{ content:none !important; display:none !important; }
+    .tile-nav::before, .tile-nav::after{ content:none!important; display:none!important; }
     .tile-nav svg{ width:18px; height:18px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
 
-    .tile-dots{ display:none !important; }
+    .tile-dots{ display:none!important; }
 
     .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px) }
     .mosaic figure{ margin:0 }
@@ -142,10 +126,9 @@
     .service{ display:grid; gap:12px; align-content:start; }
 
     @media (max-width:960px){
-      .tile-nav{ opacity:1 !important; transform:translateY(-50%) }
+      .tile-nav{ opacity:1!important; transform:translateY(-50%) }
       .captioned.notch:hover .tile-nav{ opacity:1; }
     }
-
     @media (max-width:960px){
       .mosaic{ grid-template-columns:1fr 1fr }
       .service-blurbs .row{ grid-template-columns:1fr 1fr }
@@ -162,8 +145,7 @@
     .captioned.notch .u-stroke,
     .captioned.notch .recessStroke,
     .captioned.notch .framePath{
-      display:none !important;
-      stroke:transparent !important;
+      display:none!important; stroke:transparent!important;
     }
 
     @media (max-width:960px){
@@ -175,10 +157,7 @@
     #tileLightbox.open{ display:grid; }
     #tileLightbox .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
     #tileLightbox .lb-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#111; border:1px solid rgba(255,255,255,.15) }
-    #tileLightbox .lb-btn{
-      position:absolute; width:46px; height:46px; display:grid; place-items:center;
-      background:transparent; border:0; color:#fff; box-shadow:none;
-    }
+    #tileLightbox .lb-btn{ position:absolute; width:46px; height:46px; display:grid; place-items:center; background:transparent; border:0; color:#fff; box-shadow:none; }
     #lbPrev{ top:50%; left:8px; transform:translateY(-50%); }
     #lbNext{ top:50%; right:8px; transform:translateY(-50%); }
     #lbClose{ top:8px; right:8px; }
@@ -186,8 +165,6 @@
   </style>
 </head>
 <body>
-  <!-- (Removed off-screen high-priority warmers to free bandwidth) -->
-
   <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
 
@@ -205,25 +182,24 @@
         <h2 class="section-title" id="portfolio-title">Signature Galleries</h2>
         <p class="section-sub">Candid, timeless, true-to-life work—made to feel like you, in the best light.</p>
 
-        <!-- ================= DESKTOP (original layout) ================= -->
+        <!-- ================= DESKTOP ================= -->
         <div class="desktop-only">
-          <!-- Tiles -->
           <div class="mosaic">
-            <!-- PORTRAITS (desktop ids) -->
+            <!-- PORTRAITS -->
             <figure class="captioned notch" id="gallery-meadow" aria-label="Portraits"
-                    data-images='[
-                      "pictures/introPortPics/E26A0702%20(1).jpg",
-                      "pictures/introPortPics/E26A0712%20(2).jpg",
-                      "pictures/introPortPics/E26A0739%20(2).jpg",
-                      "pictures/introPortPics/E26A0753%20(2).jpg",
-                      "pictures/introPortPics/E26A1931%20(2).jpg",
-                      "pictures/introPortPics/E26A2047-2%20(2).jpg",
-                      "pictures/introPortPics/E26A2237%20(1).jpg",
-                      "pictures/introPortPics/E26A2245%20(2).jpg",
-                      "pictures/introPortPics/E26A2465-2%20(2).jpg",
-                      "pictures/introPortPics/E26A2614%20(1).jpg",
-                      "pictures/introPortPics/E26A2665%20(1).jpg"
-                    ]'>
+              data-images='[
+                "pictures/introPortPics/E26A0702%20(1).jpg",
+                "pictures/introPortPics/E26A0712%20(2).jpg",
+                "pictures/introPortPics/E26A0739%20(2).jpg",
+                "pictures/introPortPics/E26A0753%20(2).jpg",
+                "pictures/introPortPics/E26A1931%20(2).jpg",
+                "pictures/introPortPics/E26A2047-2%20(2).jpg",
+                "pictures/introPortPics/E26A2237%20(1).jpg",
+                "pictures/introPortPics/E26A2245%20(2).jpg",
+                "pictures/introPortPics/E26A2465-2%20(2).jpg",
+                "pictures/introPortPics/E26A2614%20(1).jpg",
+                "pictures/introPortPics/E26A2665%20(1).jpg"
+              ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                 <defs>
                   <mask id="notchMask-3a">
@@ -234,8 +210,7 @@
                     <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                   </filter>
                 </defs>
-                <image data-initial="/pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000"
-                       preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
+                <image data-initial="/pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-3a)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
               </svg>
               <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -243,18 +218,18 @@
               <div class="tile-dots" role="tablist"></div>
             </figure>
 
-            <!-- BRANDING (desktop id) -->
+            <!-- BRANDING -->
             <figure class="captioned notch" id="gallery-family" aria-label="Branding"
-                    data-images='[
-                      "pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg",
-                      "pictures/introBrandPics/ali-mkumbwa-PxlKOcj0a3Q-unsplash.jpg",
-                      "pictures/introBrandPics/man-clutching-his-leather-duffle-bag.jpg",
-                      "pictures/introBrandPics/pexels-leeloothefirst-8970679.jpg",
-                      "pictures/introBrandPics/pexels-oliver-mussiett-131960-639146.jpg",
-                      "pictures/introBrandPics/pexels-picturemechaniq-1749303.jpg",
-                      "pictures/introBrandPics/s-o-c-i-a-l-c-u-t-7KkDiSs5UdQ-unsplash.jpg",
-                      "pictures/introBrandPics/tim-mossholder-qvWnGmoTbik-unsplash.jpg"
-                    ]'>
+              data-images='[
+                "pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg",
+                "pictures/introBrandPics/ali-mkumbwa-PxlKOcj0a3Q-unsplash.jpg",
+                "pictures/introBrandPics/man-clutching-his-leather-duffle-bag.jpg",
+                "pictures/introBrandPics/pexels-leeloothefirst-8970679.jpg",
+                "pictures/introBrandPics/pexels-oliver-mussiett-131960-639146.jpg",
+                "pictures/introBrandPics/pexels-picturemechaniq-1749303.jpg",
+                "pictures/introBrandPics/s-o-c-i-a-l-c-u-t-7KkDiSs5UdQ-unsplash.jpg",
+                "pictures/introBrandPics/tim-mossholder-qvWnGmoTbik-unsplash.jpg"
+              ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                 <defs>
                   <mask id="notchMask-1">
@@ -263,8 +238,7 @@
                   </mask>
                   <filter id="frameShadow-1" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
                 </defs>
-                <image data-initial="/pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" x="0" y="0" width="800" height="1000"
-                       preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
+                <image data-initial="/pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-1)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
               </svg>
               <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -272,18 +246,18 @@
               <div class="tile-dots" role="tablist"></div>
             </figure>
 
-            <!-- EVENTS (desktop id) -->
+            <!-- EVENTS -->
             <figure class="captioned notch" id="gallery-beach" aria-label="Events"
-                    data-images='[
-                      "pictures/introEventPics/E26A1193.jpg",
-                      "pictures/introEventPics/E26A1196.jpg",
-                      "pictures/introEventPics/E26A1211.jpg",
-                      "pictures/introEventPics/E26A1230.jpg",
-                      "pictures/introEventPics/E26A1235.jpg",
-                      "pictures/introEventPics/E26A1309.jpg",
-                      "pictures/introEventPics/E26A1312.jpg",
-                      "pictures/introEventPics/E26A1314.jpg"
-                    ]'>
+              data-images='[
+                "pictures/introEventPics/E26A1193.jpg",
+                "pictures/introEventPics/E26A1196.jpg",
+                "pictures/introEventPics/E26A1211.jpg",
+                "pictures/introEventPics/E26A1230.jpg",
+                "pictures/introEventPics/E26A1235.jpg",
+                "pictures/introEventPics/E26A1309.jpg",
+                "pictures/introEventPics/E26A1312.jpg",
+                "pictures/introEventPics/E26A1314.jpg"
+              ]'>
               <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                 <defs>
                   <mask id="notchMask-2">
@@ -292,8 +266,7 @@
                   </mask>
                   <filter id="frameShadow-2" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
                 </defs>
-                <image data-initial="/pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000"
-                       preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
+                <image data-initial="/pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-2)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
               </svg>
               <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -302,7 +275,7 @@
             </figure>
           </div>
 
-          <!-- Desktop blurbs row -->
+          <!-- blurbs -->
           <div class="service-blurbs">
             <div class="row">
               <article class="blurb">
@@ -324,29 +297,27 @@
           </div>
         </div>
 
-        <!-- ================= MOBILE (paired blocks) ================= -->
+        <!-- ================= MOBILE ================= -->
         <div class="mobile-only">
           <div class="services-grid">
-            <!-- PORTRAITS (mobile ids) -->
+            <!-- PORTRAITS -->
             <div class="service">
               <figure class="captioned notch" id="gallery-meadow-m" aria-label="Portraits"
-                      data-images='[
-                        "pictures/introPortPics/E26A0702%20(1).jpg",
-                        "pictures/introPortPics/E26A0712%20(2).jpg",
-                        "pictures/introPortPics/E26A0739%20(2).jpg",
-                        "pictures/introPortPics/E26A0753%20(2).jpg",
-                        "pictures/introPortPics/E26A1931%20(2).jpg",
-                        "pictures/introPortPics/E26A2047-2%20(2).jpg",
-                        "pictures/introPortPics/E26A2237%20(1).jpg",
-                        "pictures/introPortPics/E26A2245%20(2).jpg",
-                        "pictures/introPortPics/E26A2465-2%20(2).jpg",
-                        "pictures/introPortPics/E26A2614%20(1).jpg",
-                        "pictures/introPortPics/E26A2665%20(1).jpg"
-                      ]'>
+                data-images='[
+                  "pictures/introPortPics/E26A0702%20(1).jpg",
+                  "pictures/introPortPics/E26A0712%20(2).jpg",
+                  "pictures/introPortPics/E26A0739%20(2).jpg",
+                  "pictures/introPortPics/E26A0753%20(2).jpg",
+                  "pictures/introPortPics/E26A1931%20(2).jpg",
+                  "pictures/introPortPics/E26A2047-2%20(2).jpg",
+                  "pictures/introPortPics/E26A2237%20(1).jpg",
+                  "pictures/introPortPics/E26A2245%20(2).jpg",
+                  "pictures/introPortPics/E26A2465-2%20(2).jpg",
+                  "pictures/introPortPics/E26A2614%20(1).jpg",
+                  "pictures/introPortPics/E26A2665%20(1).jpg"
+                ]'>
                 <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                  <defs>
-                    <mask id="notchMask-m1"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
-                  </defs>
+                  <defs><mask id="notchMask-m1"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask></defs>
                   <image data-initial="/pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m1)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -360,23 +331,21 @@
               </article>
             </div>
 
-            <!-- BRANDING (mobile id) -->
+            <!-- BRANDING -->
             <div class="service">
               <figure class="captioned notch" id="gallery-family-m" aria-label="Branding"
-                      data-images='[
-                        "pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg",
-                        "pictures/introBrandPics/ali-mkumbwa-PxlKOcj0a3Q-unsplash.jpg",
-                        "pictures/introBrandPics/man-clutching-his-leather-duffle-bag.jpg",
-                        "pictures/introBrandPics/pexels-leeloothefirst-8970679.jpg",
-                        "pictures/introBrandPics/pexels-oliver-mussiett-131960-639146.jpg",
-                        "pictures/introBrandPics/pexels-picturemechaniq-1749303.jpg",
-                        "pictures/introBrandPics/s-o-c-i-a-l-c-u-t-7KkDiSs5UdQ-unsplash.jpg",
-                        "pictures/introBrandPics/tim-mossholder-qvWnGmoTbik-unsplash.jpg"
-                      ]'>
+                data-images='[
+                  "pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg",
+                  "pictures/introBrandPics/ali-mkumbwa-PxlKOcj0a3Q-unsplash.jpg",
+                  "pictures/introBrandPics/man-clutching-his-leather-duffle-bag.jpg",
+                  "pictures/introBrandPics/pexels-leeloothefirst-8970679.jpg",
+                  "pictures/introBrandPics/pexels-oliver-mussiett-131960-639146.jpg",
+                  "pictures/introBrandPics/pexels-picturemechaniq-1749303.jpg",
+                  "pictures/introBrandPics/s-o-c-i-a-l-c-u-t-7KkDiSs5UdQ-unsplash.jpg",
+                  "pictures/introBrandPics/tim-mossholder-qvWnGmoTbik-unsplash.jpg"
+                ]'>
                 <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                  <defs>
-                    <mask id="notchMask-m2"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
-                  </defs>
+                  <defs><mask id="notchMask-m2"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask></defs>
                   <image data-initial="/pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m2)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -390,23 +359,21 @@
               </article>
             </div>
 
-            <!-- EVENTS (mobile id) -->
+            <!-- EVENTS -->
             <div class="service">
               <figure class="captioned notch" id="gallery-beach-m" aria-label="Events"
-                      data-images='[
-                        "pictures/introEventPics/E26A1193.jpg",
-                        "pictures/introEventPics/E26A1196.jpg",
-                        "pictures/introEventPics/E26A1211.jpg",
-                        "pictures/introEventPics/E26A1230.jpg",
-                        "pictures/introEventPics/E26A1235.jpg",
-                        "pictures/introEventPics/E26A1309.jpg",
-                        "pictures/introEventPics/E26A1312.jpg",
-                        "pictures/introEventPics/E26A1314.jpg"
-                      ]'>
+                data-images='[
+                  "pictures/introEventPics/E26A1193.jpg",
+                  "pictures/introEventPics/E26A1196.jpg",
+                  "pictures/introEventPics/E26A1211.jpg",
+                  "pictures/introEventPics/E26A1230.jpg",
+                  "pictures/introEventPics/E26A1235.jpg",
+                  "pictures/introEventPics/E26A1309.jpg",
+                  "pictures/introEventPics/E26A1312.jpg",
+                  "pictures/introEventPics/E26A1314.jpg"
+                ]'>
                 <svg class="notch-figure" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                  <defs>
-                    <mask id="notchMask-m3"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
-                  </defs>
+                  <defs><mask id="notchMask-m3"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask></defs>
                   <image data-initial="/pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m3)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -425,7 +392,7 @@
     </section>
   </main>
 
-  <!-- Fullscreen Lightbox for tiles -->
+  <!-- Fullscreen Lightbox -->
   <div id="tileLightbox" aria-hidden="true">
     <div class="lb-frame">
       <img class="lb-img" id="lbImg" alt="" loading="lazy" decoding="async" fetchpriority="low">
@@ -445,239 +412,185 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Collapse notch label area (no in-image labels now) -->
+  <!-- Collapse notch label area -->
   <script>
     (function(){
-      document.querySelectorAll('.captioned.notch svg .notchRect').forEach(r=>{
+      document.querySelectorAll('.captioned.notch svg .notchRect').forEach(function(r){
         r.setAttribute('x','400'); r.setAttribute('y','1000');
         r.setAttribute('width','0.01'); r.setAttribute('height','0.01');
       });
     })();
   </script>
 
-  <!-- Viewport-only, lazy slider init (desktop OR mobile; not both) + Lightbox wiring -->
+  <!-- Initial image set + lazy interaction wiring -->
   <script>
     (function () {
       function toAbs(p){ if(!p) return p; return p.startsWith('/') ? p : ('/' + p); }
+      function parseList(el){ try{ return JSON.parse(el.getAttribute('data-images')||'[]'); }catch(e){ return []; } }
       function normalizeDataImagesFor(el){
-        const raw = el.getAttribute('data-images');
-        if(!raw) return;
+        var raw = el.getAttribute('data-images'); if(!raw) return;
         try{
-          const arr = JSON.parse(raw);
-          if(Array.isArray(arr)){
-            const fixed = arr.map(toAbs);
-            el.setAttribute('data-images', JSON.stringify(fixed));
-          }
+          var arr = JSON.parse(raw);
+          if(Array.isArray(arr)){ el.setAttribute('data-images', JSON.stringify(arr.map(toAbs))); }
         }catch(e){}
       }
-      document.querySelectorAll('figure.captioned.notch').forEach(normalizeDataImagesFor);
-
-      function currentIds() {
+      function currentIds(){
         return (window.matchMedia('(max-width: 960px)').matches)
           ? ['gallery-meadow-m','gallery-family-m','gallery-beach-m']
           : ['gallery-meadow','gallery-family','gallery-beach'];
       }
 
-      const prefer = {
+      var prefer = {
         'gallery-beach'   : '/pictures/introEventPics/E26A1309.jpg',
         'gallery-beach-m' : '/pictures/introEventPics/E26A1309.jpg',
         'gallery-meadow'  : '/pictures/introPortPics/E26A2614%20(1).jpg',
         'gallery-meadow-m': '/pictures/introPortPics/E26A2614%20(1).jpg'
       };
 
-      function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j]] } return a }
-      function parseList(tile){ try{ return JSON.parse(tile.getAttribute('data-images')||'[]') }catch{ return [] } }
-
-      function prime(tileId){
-        const tile = document.getElementById(tileId);
-        if(!tile || tile.dataset.primed) return;
-
-        const imgEl = tile.querySelector('svg image');
-        let list = parseList(tile);
-        if(!imgEl || !Array.isArray(list) || list.length <= 1) return;
-
-        list = list.map(toAbs);
-
-        const fromData = imgEl.getAttribute('data-initial');
-        const want = prefer[tileId] || fromData || list[0];
-
-        const idx = list.indexOf(want);
-        if (idx > 0){ const [hit] = list.splice(idx,1); list.unshift(hit); }
-        else if (idx === -1){ list.unshift(want); }
-
-        tile.setAttribute('data-images', JSON.stringify(list));
-
-        // Set the first frame only on prime (lazy)
-        imgEl.setAttribute('href', list[0]);
-        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
-
-        tile.dataset.primed = '1';
-      }
-
-      /* === Minimal preloader: only the immediate "next" image for snappy nav === */
-      const preloaded = new Set();
+      var preloaded = new Set();
       function preloadOne(src){
-        if (!src || preloaded.has(src)) return;
-        const im = new Image();
-        im.decoding = 'async';
-        im.src = src;
-        preloaded.add(src);
+        if(!src || preloaded.has(src)) return;
+        var im = new Image(); im.decoding = 'async'; im.src = src; preloaded.add(src);
       }
 
-      // ---------- Lightbox ----------
-      const lb = document.getElementById('tileLightbox');
-      const lbImg = document.getElementById('lbImg');
-      const lbPrev = document.getElementById('lbPrev');
-      const lbNext = document.getElementById('lbNext');
-      const lbClose = document.getElementById('lbClose');
+      function setInitialFrame(tile){
+        if(!tile || tile.dataset.initSet) return;
+        normalizeDataImagesFor(tile);
+        var list = parseList(tile).map(toAbs);
+        var imgEl = tile.querySelector('svg image'); if(!imgEl) return;
 
-      let lbList = [];
-      let lbIdx = 0;
+        var id = tile.id;
+        var first = prefer[id] || imgEl.getAttribute('data-initial') || list[0] || null;
+        if(first){
+          var idx = list.indexOf(first);
+          if(idx > 0){ var hit = list.splice(idx,1)[0]; list.unshift(hit); }
+          else if(idx === -1){ list.unshift(first); }
+          tile.setAttribute('data-images', JSON.stringify(list));
+          imgEl.setAttribute('href', first);
+          imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', first);
+        }
+        tile.dataset.initSet = '1';
+      }
+
+      Array.prototype.forEach.call(document.querySelectorAll('figure.captioned.notch'), setInitialFrame);
+
+      // Lightbox
+      var lb = document.getElementById('tileLightbox');
+      var lbImg = document.getElementById('lbImg');
+      var lbPrev = document.getElementById('lbPrev');
+      var lbNext = document.getElementById('lbNext');
+      var lbClose = document.getElementById('lbClose');
+      var lbList = []; var lbIdx = 0;
 
       function openLb(list, startIndex){
         lbList = Array.isArray(list) ? list.slice() : [];
         lbIdx = ((startIndex|0) + lbList.length) % lbList.length;
         lbImg.src = lbList[lbIdx] || '';
-        lb.classList.add('open');
-        lb.setAttribute('aria-hidden','false');
+        lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
         document.body.style.overflow = 'hidden';
       }
-      function closeLb(){
-        lb.classList.remove('open');
-        lb.setAttribute('aria-hidden','true');
-        lbImg.src = '';
-        document.body.style.overflow = '';
-      }
+      function closeLb(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbImg.src = ''; document.body.style.overflow = ''; }
       function lbShow(n){
         if(!lbList.length) return;
         lbIdx = (typeof n==='number' ? ((n+lbList.length)%lbList.length) : (lbIdx+1)%lbList.length);
         lbImg.src = lbList[lbIdx];
       }
-
-      lbPrev.addEventListener('click', e=>{ e.stopPropagation(); lbShow(lbIdx-1); });
-      lbNext.addEventListener('click', e=>{ e.stopPropagation(); lbShow(lbIdx+1); });
-      lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); });
-      lb.addEventListener('click', e=>{ if(e.target===lb) closeLb(); });
-      window.addEventListener('keydown', e=>{
+      lbPrev.addEventListener('click', function(e){ e.stopPropagation(); lbShow(lbIdx-1); });
+      lbNext.addEventListener('click', function(e){ e.stopPropagation(); lbShow(lbIdx+1); });
+      lbClose.addEventListener('click', function(e){ e.stopPropagation(); closeLb(); });
+      lb.addEventListener('click', function(e){ if(e.target===lb) closeLb(); });
+      window.addEventListener('keydown', function(e){
         if(!lb.classList.contains('open')) return;
         if(e.key==='Escape') closeLb();
         if(e.key==='ArrowLeft') lbShow(lbIdx-1);
         if(e.key==='ArrowRight') lbShow(lbIdx+1);
       });
-      let touchX=null;
-      lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
-      lb.addEventListener('touchend', e=>{
+      var touchX=null;
+      lb.addEventListener('touchstart', function(e){ touchX = e.changedTouches[0].clientX; }, {passive:true});
+      lb.addEventListener('touchend', function(e){
         if(touchX===null) return;
-        const dx = e.changedTouches[0].clientX - touchX;
-        touchX = null;
+        var dx = e.changedTouches[0].clientX - touchX; touchX = null;
         if(Math.abs(dx) > 40){ dx < 0 ? lbShow(lbIdx+1) : lbShow(lbIdx-1); }
       }, {passive:true});
 
-      // ---------- Tile wiring ----------
+      // Wire interactions lazily
       function wire(tileId){
-        const tile = document.getElementById(tileId);
+        var tile = document.getElementById(tileId);
         if(!tile || tile.dataset.wired) return;
 
-        const imgEl = tile.querySelector('svg image'); if(!imgEl) return;
-        let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
+        var imgEl = tile.querySelector('svg image'); if(!imgEl) return;
+        var list = parseList(tile).map(toAbs);
         if(!Array.isArray(list) || list.length <= 1) return;
 
-        list = list.map(toAbs);
-        tile.setAttribute('data-images', JSON.stringify(list));
-
-        // prime sets the first frame and marks primed
-        prime(tileId);
-
-        let idx = 0;
-        const dotsWrap = tile.querySelector('.tile-dots');
-        const dots = [];
+        var idx = 0;
+        var dotsWrap = tile.querySelector('.tile-dots');
+        var dots = [];
         if(dotsWrap){
-          for(let i=0;i<list.length;i++){
-            const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide '+(i+1));
-            b.addEventListener('click',(e)=>{ e.stopPropagation(); show(i); });
+          for(var i=0;i<list.length;i++){
+            var b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide '+(i+1));
+            (function(i2){ b.addEventListener('click', function(e){ e.stopPropagation(); show(i2); }); })(i);
             dotsWrap.appendChild(b); dots.push(b);
           }
         }
-        function updateDots(){ dots.forEach((d,i)=>{ d.classList.toggle('is-active', i===idx); d.setAttribute('aria-selected', i===idx ? 'true':'false'); }); }
+        function updateDots(){ dots.forEach(function(d,i){ d.classList.toggle('is-active', i===idx); d.setAttribute('aria-selected', i===idx ? 'true':'false'); }); }
         function show(i){
           idx=(i+list.length)%list.length;
-          const src=list[idx];
+          var src=list[idx];
           imgEl.setAttribute('href',src);
           imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href',src);
-          // minimally warm just the next frame
-          const next = list[(idx+1)%list.length];
-          preloadOne(next);
+          preloadOne(list[(idx+1)%list.length]);
           updateDots();
         }
-
-        // Initial tiny warm of the next image only (no bulk queues)
-        const next0 = list[1] || null;
-        preloadOne(next0);
-
-        tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx-1); });
-        tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx+1); });
-
-        tile.querySelector('svg.notch-figure')?.addEventListener('click', (e)=>{
-          e.stopPropagation();
-          openLb(list, idx);
-        });
+        preloadOne(list[1] || null);
+        tile.querySelector('.tile-prev') && tile.querySelector('.tile-prev').addEventListener('click', function(e){ e.stopPropagation(); show(idx-1); });
+        tile.querySelector('.tile-next') && tile.querySelector('.tile-next').addEventListener('click', function(e){ e.stopPropagation(); show(idx+1); });
+        tile.querySelector('svg.notch-figure') && tile.querySelector('svg.notch-figure').addEventListener('click', function(e){ e.stopPropagation(); openLb(list, idx); });
 
         updateDots();
-
         tile.dataset.wired = '1';
       }
 
-      // Lazy init: observe only the visible set
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            const id = entry.target.id;
-            wire(id);
-            io.unobserve(entry.target);
-          }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){ wire(entry.target.id); io.unobserve(entry.target); }
         });
       }, { rootMargin: '320px 0px' });
 
-      function initForViewport(){
-        currentIds().forEach(id=>{
-          const el = document.getElementById(id);
-          if (el) io.observe(el);
+      function observeVisibleSet(){
+        currentIds().forEach(function(id){
+          var el = document.getElementById(id);
+          if(el) io.observe(el);
         });
       }
+      observeVisibleSet();
 
-      initForViewport();
-
-      // If user crosses the 960px breakpoint, start observing the other set
-      let wasMobile = window.matchMedia('(max-width: 960px)').matches;
-      window.addEventListener('resize', ()=>{
-        const isMobile = window.matchMedia('(max-width: 960px)').matches;
-        if (isMobile !== wasMobile){
-          wasMobile = isMobile;
-          initForViewport();
-        }
+      var wasMobile = window.matchMedia('(max-width: 960px)').matches;
+      window.addEventListener('resize', function(){
+        var isMobile = window.matchMedia('(max-width: 960px)').matches;
+        if(isMobile !== wasMobile){ wasMobile = isMobile; observeVisibleSet(); }
       });
     })();
   </script>
 
-  <!-- Wire the Galleries dropdown styling once the nav partial is injected -->
+  <!-- Style the Galleries dropdown after nav loads -->
   <script>
     (function () {
       function wire(){
-        const links = Array.from(document.querySelectorAll('.site-nav a, .topbar nav a'));
-        const galLink = links.find(a => a.textContent.trim() === 'Galleries');
+        var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a, .topbar nav a'));
+        var galLink = links.find(function(a){ return a.textContent.trim() === 'Galleries'; });
         if(!galLink) return;
-        const submenu = galLink.parentElement?.querySelector('.submenu, .dropdown, ul');
+        var submenu = galLink.parentElement && galLink.parentElement.querySelector('.submenu, .dropdown, ul');
         if(!submenu) return;
         submenu.classList.add('is-galleries-dropdown');
         if(!submenu.querySelector('.dropdown-title')){
-          const title = document.createElement('div');
+          var title = document.createElement('div');
           title.className = 'dropdown-title';
           title.textContent = 'Galleries';
           submenu.insertBefore(title, submenu.firstChild);
         }
       }
       if (document.readyState === 'loading'){
-        document.addEventListener('DOMContentLoaded', () => setTimeout(wire, 0));
+        document.addEventListener('DOMContentLoaded', function(){ setTimeout(wire, 0); });
       } else {
         setTimeout(wire, 0);
       }
