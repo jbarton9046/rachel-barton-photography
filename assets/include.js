@@ -168,13 +168,43 @@
     }
   }
 
-  // IMPORTANT: Do NOT toggle the checkbox in JS—let the <label for="navchk"> do it.
-  // This avoids the "double toggle = no change" bug.
+  // IMPORTANT: safely handle both cases:
+  // 1) Proper <label for="navchk"> (native toggling)
+  // 2) A generic element (div/button) or label missing "for" (manual toggle)
   function wireHamburgerA11y(){
     const ham = document.querySelector('.nav-toggle-8');
     if (!ham || ham.dataset.wired) return;
-    // No toggling here—just prevent accidental event bubbling issues on iOS.
-    ham.addEventListener('click', (e)=>{ /* allow native label behavior */ }, { passive:true });
+
+    const isLabel = ham.tagName === 'LABEL';
+    const forId = (isLabel && (ham.getAttribute('for') || ham.htmlFor)) ? (ham.getAttribute('for') || ham.htmlFor) : null;
+    const isProperNative = isLabel && forId === 'navchk';
+
+    if (isProperNative) {
+      // Let the browser toggle the checkbox; just resync UI after the click.
+      ham.addEventListener('click', () => { setTimeout(syncDrawer, 0); }, { passive: true });
+    } else {
+      // Fallback: toggle #navchk ourselves (prevents "tap does nothing" bug).
+      ham.setAttribute('role', ham.getAttribute('role') || 'button');
+      ham.setAttribute('aria-controls', 'navchk');
+      ham.addEventListener('click', (e) => {
+        e.preventDefault();
+        const c = navchk();
+        if (!c) return;
+        c.checked = !c.checked;
+        syncDrawer();
+      });
+      // Keyboard a11y for non-label triggers
+      ham.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const c = navchk();
+          if (!c) return;
+          c.checked = !c.checked;
+          syncDrawer();
+        }
+      });
+    }
+
     ham.dataset.wired = '1';
   }
 
