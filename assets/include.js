@@ -62,6 +62,7 @@
       if (looksLikeNav) {
         markCurrentNav();
         requestAnimationFrame(markCurrentNav);
+        window.dispatchEvent(new Event('includes:ready'));
       }
     } catch (e) {
       console.warn('Include failed:', url, e);
@@ -78,100 +79,146 @@
   const isMobile = () => mq.matches;
   const navchk = () => document.getElementById('navchk');
 
-  function sync(){
+  const getDropdown = (li) => li ? (li.querySelector(':scope > ul.dropdown') || li.querySelector('ul.dropdown')) : null;
+  function getTopLink(li){
+    if (!li) return null;
+    const dd = getDropdown(li);
+    if (!dd) return null;
+    const anchors = Array.from(li.querySelectorAll(':scope > a[href], a[href]'));
+    for (const a of anchors){ if (!dd.contains(a)) return a; }
+    return null;
+  }
+  function getGalleriesLI(){
+    const lis = document.querySelectorAll('nav.primary li');
+    for (const li of lis){ if (getDropdown(li)) return li; }
+    return null;
+  }
+
+  function transformToDetails(){
+    if (!isMobile()) return;
+
+    const li = getGalleriesLI();
+    if (!li || li.dataset.detailsified) return;
+
+    const dd = getDropdown(li);
+    const a  = getTopLink(li);
+    if (!dd || !a) return;
+
+    // Remove any existing theme caret/chevron elements (not ours),
+    // AND remove .subtoggle (the blue caret) so only our black caret remains.
+    li.querySelectorAll(':scope > .caret, :scope .caret, [class*="chev"], [class*="arrow"], :scope > .subtoggle, .subtoggle')
+      .forEach(el => el.remove());
+
+    // Build <details><summary> with link + our black caret button
+    const details = document.createElement('details');
+
+    const summary = document.createElement('summary');
+    summary.className = 'g-sum';
+    summary.style.listStyle = 'none';
+    summary.style.appearance = 'none';
+    summary.style.webkitAppearance = 'none';
+
+    const link = document.createElement('a');
+    link.className = 'g-link';
+    link.href = a.getAttribute('href') || '/galleries.html';
+    link.textContent = (a.textContent || 'Galleries').trim();
+
+    const caret = document.createElement('button');
+    caret.type = 'button';
+    caret.className = 'g-caret';
+    caret.setAttribute('aria-label','Toggle Galleries');
+
+    summary.appendChild(link);
+    summary.appendChild(caret);
+
+    a.replaceWith(details);
+    details.appendChild(summary);
+    details.appendChild(dd);
+
+    li.classList.add('m-galleries');
+    li.dataset.detailsified = '1';
+    details.open = false;
+
+    link.addEventListener('click', (e)=>{ e.stopPropagation(); }); // allow normal nav
+    caret.addEventListener('click', (e)=>{
+      e.preventDefault(); e.stopPropagation();
+      details.open = !details.open;
+    });
+    dd.addEventListener('click', (e)=> e.stopPropagation());
+  }
+
+  function syncDrawer(){
     const c = navchk();
     const open = !!(c && c.checked);
     document.body.classList.toggle('drawer-open', open);
+    if (!open){
+      const details = document.querySelector('nav.primary li.m-galleries details');
+      if (details) details.open = false;
+    }
     const label = document.querySelector('.nav-toggle-8');
     if (label) label.setAttribute('aria-expanded', String(open));
+  }
 
-    if (!open) {
-      const li = document.querySelector('nav.primary .is-collapsible');
-      const btn = li && li.querySelector('.subtoggle');
-      const dd  = li && li.querySelector('.dropdown');
-      if (btn && dd){
-        btn.setAttribute('aria-expanded','false');
-        dd.hidden = true; dd.setAttribute('aria-hidden','true');
-      }
+  function wireDrawer(){
+    const c = navchk();
+    if (c && !c.dataset.syncWired){
+      c.addEventListener('change', syncDrawer); // rely on label's native toggle
+      c.dataset.syncWired = '1';
+      syncDrawer();
     }
   }
-  function closeMenu(){ const c = navchk(); if (c){ c.checked = false; sync(); } }
 
-  // Hamburger (guarded so it doesn't double-wire)
-  (function wireHamburger(){
+  // IMPORTANT: Do NOT toggle the checkbox in JS—let the <label for="navchk"> do it.
+  // This avoids the "double toggle = no change" bug.
+  function wireHamburgerA11y(){
     const ham = document.querySelector('.nav-toggle-8');
     if (!ham || ham.dataset.wired) return;
-    ham.addEventListener('click', (e)=>{
-      if (!isMobile()) return;
-      const c = navchk(); if (!c) return;
-      c.checked = !c.checked;
-      sync();
-      e.preventDefault(); e.stopPropagation();
-    });
+    // No toggling here—just prevent accidental event bubbling issues on iOS.
+    ham.addEventListener('click', (e)=>{ /* allow native label behavior */ }, { passive:true });
     ham.dataset.wired = '1';
-  })();
+  }
 
-  // Subtoggle (guarded)
-  (function wireSubtoggle(){
+  function initMobile(){
     if (!isMobile()) return;
-    const li  = document.querySelector('nav.primary .is-collapsible');
-    const btn = li && li.querySelector('.subtoggle');
-    const dd  = li && li.querySelector('.dropdown');
-    if (!li || !btn || !dd || btn.dataset.wired) return;
+    transformToDetails();
+    wireHamburgerA11y();
+    wireDrawer();
+  }
 
-    btn.setAttribute('aria-expanded','false');
-    dd.hidden = true; dd.setAttribute('aria-hidden','true');
+  if (document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', initMobile); }
+  else { initMobile(); }
 
-    btn.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      const next = btn.getAttribute('aria-expanded') !== 'true';
-      btn.setAttribute('aria-expanded', String(next));
-      dd.hidden = !next; dd.setAttribute('aria-hidden', String(!next));
-    }, { passive:false });
-    btn.dataset.wired = '1';
-  })();
+  mq.addEventListener('change', initMobile);
+  window.addEventListener('includes:ready', initMobile);
 
-  // Close mechanics (guarded)
-  (function wireClose(){
-    const overlay = document.querySelector('.nav-overlay');
-    if (overlay && !overlay.dataset.wired){
-      overlay.addEventListener('click', closeMenu, { passive:true });
-      overlay.dataset.wired = '1';
+  const mo = new MutationObserver(() => {
+    if (document.querySelector('nav.primary') && document.querySelector('#navchk')) {
+      initMobile();
+      // We only needed to wait for the nav once; stop observing to reduce overhead.
+      mo.disconnect();
     }
-    const closeX = document.querySelector('.nav-x');
-    if (closeX && !closeX.dataset.wired){
-      closeX.addEventListener('click', closeMenu);
-      closeX.dataset.wired = '1';
-    }
+  });
+  mo.observe(document.documentElement, { childList: true, subtree: true });
 
-    document.addEventListener('keydown', (e)=>{
-      if (e.key === 'Escape' && isMobile() && navchk()?.checked) closeMenu();
-    });
+  function closeMenu(){
+    const c = navchk();
+    if (c && c.checked){ c.checked = false; syncDrawer(); }
+  }
 
-    const nav = document.querySelector('nav.primary');
-    if (nav && !nav.dataset.wired){
-      nav.addEventListener('click', (e)=>{
-        const a = e.target.closest('a');
-        if (a) closeMenu();
-      }, { capture:true });
-      nav.dataset.wired = '1';
-    }
-  })();
-
-  // Initialize (and re-run on viewport change)
-  function setInitial(){ if (isMobile()) sync(); }
-  setInitial();
-  window.matchMedia('(max-width:820px)').addEventListener('change', setInitial);
-
+  // Close on outside click (bubble phase so it runs after native label toggle)
   document.addEventListener('click', (e)=>{
-    if (!navchk()?.checked || !isMobile()) return;
-    if (e.target.closest('nav.primary') || e.target.closest('.nav-toggle-8')) return;
-    closeMenu();
-  }, true);
+    if (!isMobile()) return;
+    const c = navchk();
+    if (!c || !c.checked) return;
+    const inside = e.target.closest('nav.primary') || e.target.closest('.nav-toggle-8');
+    if (!inside) closeMenu();
+  });
 
-  navchk()?.addEventListener('change', sync);
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape' && isMobile() && navchk()?.checked) closeMenu();
+  });
 
-  // mark current page quickly (unchanged)
+  // mark current page quickly
   (function markCurrent(){
     const normalize = (href) => {
       const url = new URL(href, location.origin);
