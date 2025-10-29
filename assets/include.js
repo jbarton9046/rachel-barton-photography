@@ -116,8 +116,10 @@
     const a  = getTopLink(li);
     if (!dd || !a) return;
 
-    // Remove any pre-existing caret-ish elements (prevents duplicate blue caret)
-    li.querySelectorAll(':scope > .caret, :scope .caret, :scope [class*="caret"], :scope [class*="arrow"], :scope [class*="chev"]').forEach(el => el.remove());
+    // Remove any pre-existing caret/chevron elements (prevents duplicate blue caret)
+    li.querySelectorAll(
+      ':scope > .caret, :scope .caret, :scope [class*="caret"], :scope [class*="arrow"], :scope [class*="chev"]'
+    ).forEach(el => el.remove());
 
     // Build <details><summary> with link + caret button
     const details = document.createElement('details');
@@ -146,13 +148,16 @@
     li.dataset.detailsified = '1';
     details.open = false;
 
-    // 1) Label navigates (don’t toggle)
-    link.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      // allow normal navigation to galleries.html
+    // prevent summary itself from toggling; only caret should
+    summary.addEventListener('click', (e)=>{
+      if (e.target.closest('.g-caret') || e.target.closest('.g-link')) return;
+      e.preventDefault();
     });
 
-    // 2) Caret toggles submenu (don’t navigate)
+    // Label navigates normally
+    link.addEventListener('click', (e)=>{ e.stopPropagation(); });
+
+    // Caret toggles submenu
     caret.addEventListener('click', (e)=>{
       e.preventDefault();
       e.stopPropagation();
