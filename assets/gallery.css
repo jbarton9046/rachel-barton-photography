@@ -180,3 +180,18 @@ main section{ padding:0 0 calc(var(--gap)*1.5) }
 
 /* Prevent background scroll while open */
 body.modal-open{ overflow:hidden; }
+
+/* --------- PERFORMANCE HINTS (no visual/behavior change) --------- */
+@supports (content-visibility: auto) {
+  /* Defer offscreen rendering of grid cells while preserving size */
+  .grid > * {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px 1000px; /* matches 4/5 aspect */
+  }
+
+  /* Lightbox stays “as-is” visually; browser skips work until opened */
+  #lightbox {
+    content-visibility: auto;
+    contain-intrinsic-size: 90vh 90vh;
+  }
+}
