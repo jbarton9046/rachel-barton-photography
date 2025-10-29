@@ -3,7 +3,6 @@
 // and reliably mark the current page link in the navbar.
 
 (async () => {
-  // ---- Helper: mark current page in the primary nav (idempotent) ----
   const markCurrentNav = () => {
     const normalize = (href) => {
       const url = new URL(href, location.origin);
@@ -17,7 +16,6 @@
     const here = normalize(location.pathname);
     const links = document.querySelectorAll('.topbar nav.primary a[href]');
     if (!links.length) return false;
-
     links.forEach(a => {
       const target = normalize(a.href);
       if (target === here) {
@@ -31,7 +29,6 @@
     return true;
   };
 
-  // ---- Include all [data-include] mounts ----
   const targets = document.querySelectorAll('[data-include]');
   for (const mount of targets) {
     const url = mount.getAttribute('data-include');
@@ -52,16 +49,13 @@
         if (node.querySelectorAll) {
           node.querySelectorAll('script').forEach(old => {
             const s = document.createElement('script');
-            for (const { name, value } of Array.from(old.attributes)) {
-              s.setAttribute(name, value);
-            }
+            for (const { name, value } of Array.from(old.attributes)) s.setAttribute(name, value);
             if (!old.src) s.textContent = old.textContent || '';
             old.replaceWith(s);
           });
         }
       });
 
-      // If this include contains the navbar, mark active link
       const looksLikeNav =
         (typeof url === 'string' && url.includes('/partials/topnav.html')) ||
         nodes.some(n => n.querySelector && n.querySelector('.topbar nav.primary'));
@@ -74,23 +68,18 @@
     }
   }
 
-  // Run once more after all includes are done
   markCurrentNav();
   window.addEventListener('load', markCurrentNav, { once: true });
-
-  // >>> tell the rest of the app that includes are ready
   window.dispatchEvent(new Event('includes:ready'));
 })();
 
-/* === MOBILE-ONLY: transform the Galleries <li> into
-       <details><summary class="g-sum"><a class="g-link" ...>Galleries</a><button class="g-caret"></button></summary>…</details>
-       Label navigates; caret toggles. Desktop untouched. === */
+/* ===== MOBILE-ONLY “Galleries” details/summary (desktop untouched) ===== */
 (function(){
   const mq = window.matchMedia('(max-width:820px)');
   const isMobile = () => mq.matches;
   const navchk = () => document.getElementById('navchk');
 
-  function getDropdown(li){ return li ? (li.querySelector(':scope > ul.dropdown') || li.querySelector('ul.dropdown')) : null; }
+  const getDropdown = (li) => li ? (li.querySelector(':scope > ul.dropdown') || li.querySelector('ul.dropdown')) : null;
   function getTopLink(li){
     if (!li) return null;
     const dd = getDropdown(li);
@@ -100,7 +89,6 @@
     return null;
   }
   function getGalleriesLI(){
-    // First LI that has a direct dropdown is our target
     const lis = document.querySelectorAll('nav.primary li');
     for (const li of lis){ if (getDropdown(li)) return li; }
     return null;
@@ -116,13 +104,18 @@
     const a  = getTopLink(li);
     if (!dd || !a) return;
 
-    // Remove any pre-existing caret-like elements in this LI (prevents duplicate blue caret)
-    li.querySelectorAll(':scope > .caret, :scope .caret, [class*="caret"], [class*="chev"], [class*="arrow"]').forEach(el => el.remove());
+    // Remove any existing theme caret/chevron elements (not ours)
+    li.querySelectorAll(':scope > .caret, :scope .caret, [class*="chev"], [class*="arrow"]').forEach(el => el.remove());
 
-    // Build <details><summary> with link + caret button
+    // Build <details><summary> with link + our black caret button
     const details = document.createElement('details');
+
     const summary = document.createElement('summary');
     summary.className = 'g-sum';
+    // iOS/Safari: nuke default disclosure marker in case CSS is delayed
+    summary.style.listStyle = 'none';
+    summary.style.appearance = 'none';
+    summary.style.webkitAppearance = 'none';
 
     const link = document.createElement('a');
     link.className = 'g-link';
@@ -137,7 +130,6 @@
     summary.appendChild(link);
     summary.appendChild(caret);
 
-    // Replace the label link with details
     a.replaceWith(details);
     details.appendChild(summary);
     details.appendChild(dd);
@@ -146,20 +138,11 @@
     li.dataset.detailsified = '1';
     details.open = false;
 
-    // 1) Label navigates (don’t toggle)
-    link.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      // allow normal navigation to galleries.html
-    });
-
-    // 2) Caret toggles submenu (don’t navigate)
+    link.addEventListener('click', (e)=>{ e.stopPropagation(); }); // allow normal nav
     caret.addEventListener('click', (e)=>{
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault(); e.stopPropagation();
       details.open = !details.open;
     });
-
-    // Keep clicks inside dropdown from closing the drawer
     dd.addEventListener('click', (e)=> e.stopPropagation());
   }
 
@@ -193,8 +176,7 @@
       if (!c) return;
       c.checked = !c.checked;
       syncDrawer();
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault(); e.stopPropagation();
     });
     ham.dataset.wired = '1';
   }
@@ -206,24 +188,19 @@
     wireDrawer();
   }
 
-  if (document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', initMobile);
-  } else {
-    initMobile();
-  }
+  if (document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', initMobile); }
+  else { initMobile(); }
+
   mq.addEventListener('change', initMobile);
   window.addEventListener('includes:ready', initMobile);
 
-  // MutationObserver fallback if navbar is injected late
   const mo = new MutationObserver(() => {
     if (document.querySelector('nav.primary') && document.querySelector('#navchk')) {
-      initMobile();
-      mo.disconnect();
+      initMobile(); mo.disconnect();
     }
   });
   mo.observe(document.documentElement, { childList: true, subtree: true });
 
-  // Click outside the nav closes (when open) — mobile only
   document.addEventListener('click', (e)=>{
     if (!isMobile()) return;
     const c = navchk();
