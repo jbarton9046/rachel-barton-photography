@@ -82,45 +82,108 @@
   window.dispatchEvent(new Event('includes:ready'));
 })();
 
-/* === MOBILE-ONLY enhancements: caret-toggled Galleries (no card/backdrop),
-       robust hamburger wiring (handles late-loaded navbar), close controls,
-       fallback flatten, and mobile-centering hook. Desktop untouched. === */
+/* === MOBILE-ONLY: transform the Galleries <li> into
+       <details><summary class="g-sum"><a class="g-link" ...>Galleries</a><button class="g-caret"></button></summary>…</details>
+       Label navigates; caret toggles. Desktop untouched. === */
 (function(){
   const mq = window.matchMedia('(max-width:820px)');
   const isMobile = () => mq.matches;
-
-  /* ---------- Drawer helpers ---------- */
   const navchk = () => document.getElementById('navchk');
+
+  function getDropdown(li){ return li ? (li.querySelector(':scope > ul.dropdown') || li.querySelector('ul.dropdown')) : null; }
+  function getTopLink(li){
+    if (!li) return null;
+    const dd = getDropdown(li);
+    if (!dd) return null;
+    const anchors = Array.from(li.querySelectorAll(':scope > a[href], a[href]'));
+    for (const a of anchors){ if (!dd.contains(a)) return a; }
+    return null;
+  }
+  function getGalleriesLI(){
+    // First LI that has a direct dropdown is our target
+    const lis = document.querySelectorAll('nav.primary li');
+    for (const li of lis){ if (getDropdown(li)) return li; }
+    return null;
+  }
+
+  function transformToDetails(){
+    if (!isMobile()) return;
+
+    const li = getGalleriesLI();
+    if (!li || li.dataset.detailsified) return;
+
+    const dd = getDropdown(li);
+    const a  = getTopLink(li);
+    if (!dd || !a) return;
+
+    // Build <details><summary> with link + caret button
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.className = 'g-sum';
+
+    const link = document.createElement('a');
+    link.className = 'g-link';
+    link.href = a.getAttribute('href') || '/galleries.html';
+    link.textContent = (a.textContent || 'Galleries').trim();
+
+    const caret = document.createElement('button');
+    caret.type = 'button';
+    caret.className = 'g-caret';
+    caret.setAttribute('aria-label','Toggle Galleries');
+
+    summary.appendChild(link);
+    summary.appendChild(caret);
+
+    // Replace the label link with details
+    a.replaceWith(details);
+    details.appendChild(summary);
+    details.appendChild(dd);
+
+    li.classList.add('m-galleries');
+    li.dataset.detailsified = '1';
+    details.open = false;
+
+    // 1) Label navigates (don’t toggle)
+    link.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      // allow normal navigation
+    });
+
+    // 2) Caret toggles submenu (don’t navigate)
+    caret.addEventListener('click', (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      details.open = !details.open;
+    });
+
+    // Keep clicks inside dropdown from closing the drawer
+    dd.addEventListener('click', (e)=> e.stopPropagation());
+  }
 
   function syncDrawer(){
     const c = navchk();
     const open = !!(c && c.checked);
     document.body.classList.toggle('drawer-open', open);
+    if (!open){
+      const details = document.querySelector('nav.primary li.m-galleries details');
+      if (details) details.open = false;
+    }
     const label = document.querySelector('.nav-toggle-8');
     if (label) label.setAttribute('aria-expanded', String(open));
+  }
 
-    // When closing the drawer, collapse Galleries submenu
-    if (!open) {
-      const li = document.querySelector('nav.primary .is-collapsible');
-      const btn = li && li.querySelector('.subtoggle');
-      const menu = li && li.querySelector('.dropdown');
-      if (btn && menu) {
-        btn.setAttribute('aria-expanded', 'false');
-        menu.hidden = true;
-        menu.setAttribute('aria-hidden','true');
-      }
+  function wireDrawer(){
+    const c = navchk();
+    if (c && !c.dataset.syncWired){
+      c.addEventListener('change', syncDrawer);
+      c.dataset.syncWired = '1';
+      syncDrawer();
     }
   }
 
-  function closeDrawer(){
-    const c = navchk();
-    if (c && c.checked) { c.checked = false; syncDrawer(); }
-  }
-
-  /* ---------- Wire hamburger (explicit toggle) ---------- */
   function wireHamburger(){
     const ham = document.querySelector('.nav-toggle-8');
-    if (!ham || ham.dataset.wired) return false;
+    if (!ham || ham.dataset.wired) return;
     ham.addEventListener('click', (e)=>{
       if (!isMobile()) return;
       const c = navchk();
@@ -131,242 +194,27 @@
       e.stopPropagation();
     });
     ham.dataset.wired = '1';
-    return true;
   }
 
-  /* ---------- Close mechanics ---------- */
-  function wireCloseBehaviors(){
+  function initMobile(){
     if (!isMobile()) return;
-
-    const overlay = document.querySelector('.nav-overlay');
-    if (overlay && !overlay.dataset.wired){
-      overlay.addEventListener('click', closeDrawer, { passive:true });
-      overlay.dataset.wired = '1';
-    }
-
-    const closeX = document.querySelector('.nav-x');
-    if (closeX && !closeX.dataset.wired){
-      closeX.addEventListener('click', closeDrawer);
-      closeX.dataset.wired = '1';
-    }
-
-    if (!document.body.dataset.navEscWired){
-      document.addEventListener('keydown', (e)=>{
-        if (e.key === 'Escape' && isMobile() && navchk()?.checked) closeDrawer();
-      });
-      document.body.dataset.navEscWired = '1';
-    }
-
-    const nav = document.querySelector('nav.primary');
-    if (nav && !nav.dataset.closeOnLink){
-      nav.addEventListener('click', (e)=>{
-        const a = e.target.closest('a');
-        if (a) closeDrawer();
-      }, { capture:true });
-      nav.dataset.closeOnLink = '1';
-    }
-  }
-
-  /* ---------- Inject a mobile-only style to kill ::after caret on Galleries link ---------- */
-  function injectCaretKiller(){
-    if (document.getElementById('js-caret-kill')) return;
-    const style = document.createElement('style');
-    style.id = 'js-caret-kill';
-    style.textContent = `
-      @media (max-width:820px){
-        nav.primary li.has-sub > a::after{ content:none !important; display:none !important; }
-        nav.primary li.has-sub .caret{ display:none !important; }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  /* ---------- Convert the Galleries caret into a real button & center the row ---------- */
-  function hardFixGalleriesRow(){
-    if (!isMobile()) return false;
-
-    const parentLi =
-      document.querySelector('nav.primary li.has-sub') ||
-      document.querySelector('nav.primary .is-collapsible');
-
-    if (!parentLi || parentLi.dataset.hardfixed) return !!parentLi;
-
-    const anchor = parentLi.querySelector(':scope > a');
-    const dropdown = parentLi.querySelector(':scope > ul.dropdown');
-    if (!anchor || !dropdown) return !!parentLi;
-
-    injectCaretKiller();
-
-    // Remove any existing caret elements that a theme/partial may have added
-    parentLi.querySelectorAll(':scope > .caret, :scope > a .caret').forEach(el => el.remove());
-
-    // Tag for CSS centering + caret cleanup
-    parentLi.classList.add('is-collapsible','dropdown-overlay');
-
-    // Ensure inline-flex centering even if CSS hasn't applied yet
-    Object.assign(parentLi.style, {
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textAlign: 'center',
-      width: 'auto',
-      marginInline: 'auto'
-    });
-
-    // Build a real caret button if not present
-    let btn = parentLi.querySelector(':scope > .subtoggle');
-    if (!btn){
-      btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'subtoggle';
-      btn.setAttribute('aria-expanded','false');
-      btn.setAttribute('aria-label','Toggle Galleries');
-      btn.textContent = '▾';
-      anchor.insertAdjacentElement('afterend', btn);
-    }
-
-    // Hide dropdown initially
-    dropdown.hidden = true;
-    dropdown.setAttribute('aria-hidden','true');
-    dropdown.style.textAlign = 'center';
-
-    // Toggle handler
-    btn.addEventListener('click', (e)=>{
-      e.preventDefault();
-      e.stopPropagation();
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      const next = !open;
-      btn.setAttribute('aria-expanded', String(next));
-      dropdown.hidden = !next;
-      dropdown.setAttribute('aria-hidden', String(!next));
-    }, { passive:false });
-
-    // Keep clicks inside menu from closing drawer
-    dropdown.addEventListener('click', (e)=> e.stopPropagation());
-
-    parentLi.dataset.hardfixed = '1';
-    return true;
-  }
-
-  /* ---------- Caret-toggled Galleries (soft wiring; may be skipped by hard fix) ---------- */
-  function wireCollapsibleGalleries(){
-    if (!isMobile()) return false;
-
-    const li = document.querySelector('nav.primary .is-collapsible');
-    if (!li || li.dataset.wired) return !!li;
-
-    const btn = li.querySelector('.subtoggle');
-    const menu = li.querySelector('.dropdown');
-    if (!btn || !menu) return !!li;
-
-    li.style.display = 'flex';
-    li.style.justifyContent = 'center';
-    li.style.alignItems = 'center';
-    li.style.textAlign = 'center';
-    menu.style.textAlign = 'center';
-
-    btn.setAttribute('aria-expanded', 'false');
-    menu.hidden = true;
-    menu.setAttribute('aria-hidden','true');
-
-    btn.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      e.preventDefault();
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      const next = !open;
-      btn.setAttribute('aria-expanded', String(next));
-      menu.hidden = !next;
-      menu.setAttribute('aria-hidden', String(!next));
-    });
-
-    menu.addEventListener('click', (e)=> e.stopPropagation());
-
-    li.dataset.wired = '1';
-    return true;
-  }
-
-  /* ---------- Fallback: flatten submenu (only if needed) ---------- */
-  let flattened = false;
-  function flattenSubmenu(){
-    if (!isMobile()) { unflatten(); return; }
-    if (flattened) return;
-
-    const nav = document.querySelector('.topbar nav.primary ul');
-    const parentLi = nav && nav.querySelector('li.has-sub');
-    const dropdown = parentLi && parentLi.querySelector(':scope > ul.dropdown');
-    if (!nav || !parentLi || !dropdown) return;
-
-    const afterNode = parentLi;
-    const items = Array.from(dropdown.querySelectorAll(':scope > li > a[href]'));
-    items.forEach(a => {
-      const li = document.createElement('li');
-      li.className = 'nav-subitem';
-      const clone = a.cloneNode(true);
-      li.appendChild(clone);
-      afterNode.parentNode.insertBefore(li, afterNode.nextSibling);
-    });
-
-    document.documentElement.classList.add('nav-flattened');
-    flattened = true;
-  }
-  function unflatten(){
-    if (!flattened) return;
-    document.querySelectorAll('nav.primary li.nav-subitem').forEach(li => li.remove());
-    document.documentElement.classList.remove('nav-flattened');
-    flattened = false;
-  }
-
-  /* ---------- Optional: center the entire mobile nav ---------- */
-  function setMobileCentered(on){
-    document.documentElement.classList.toggle('nav-centered-mobile', !!on);
-    const nav = document.querySelector('nav.primary');
-    if (nav) nav.setAttribute('data-centered', on ? '1' : '0');
-  }
-
-  /* ---------- Init (mobile only) ---------- */
-  function initMobileEnhancements(){
-    if (!isMobile()){ unflatten(); setMobileCentered(false); return; }
-
-    setMobileCentered(true);
+    transformToDetails();
     wireHamburger();
-    wireCloseBehaviors();
-
-    // Hard fix first (creates real caret and kills extras)
-    const hard = hardFixGalleriesRow();
-
-    // If hard fix didn’t wire (markup variant), try soft wiring
-    if (!hard) {
-      const usedCollapsible = wireCollapsibleGalleries();
-      if (!usedCollapsible){
-        flattenSubmenu();
-      }
-    }
-
-    const c = navchk();
-    if (c && !c.dataset.syncWired){
-      c.addEventListener('change', syncDrawer);
-      c.dataset.syncWired = '1';
-      syncDrawer();
-    }
+    wireDrawer();
   }
 
-  // Initial run if the nav is already in the DOM
   if (document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', initMobileEnhancements);
+    document.addEventListener('DOMContentLoaded', initMobile);
   } else {
-    initMobileEnhancements();
+    initMobile();
   }
+  mq.addEventListener('change', initMobile);
+  window.addEventListener('includes:ready', initMobile);
 
-  // Re-run when viewport crosses the mobile breakpoint
-  mq.addEventListener('change', initMobileEnhancements);
-
-  // Re-run after includes finish injecting the navbar
-  window.addEventListener('includes:ready', initMobileEnhancements);
-
-  // MutationObserver fallback — wire as soon as nav controls show up
+  // MutationObserver fallback if navbar is injected late
   const mo = new MutationObserver(() => {
-    if (document.querySelector('.nav-toggle-8') && document.querySelector('#navchk')) {
-      initMobileEnhancements();
+    if (document.querySelector('nav.primary') && document.querySelector('#navchk')) {
+      initMobile();
       mo.disconnect();
     }
   });
@@ -377,7 +225,7 @@
     if (!isMobile()) return;
     const c = navchk();
     if (!c || !c.checked) return;
-    const insideNav = e.target.closest('nav.primary') || e.target.closest('.nav-toggle-8');
-    if (!insideNav) closeDrawer();
+    const inside = e.target.closest('nav.primary') || e.target.closest('.nav-toggle-8');
+    if (!inside) { c.checked = false; syncDrawer(); }
   }, true);
 })();
