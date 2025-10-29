@@ -1,371 +1,239 @@
-/* /assets/layout.css */
-:root{
-  --bg:#FAFAF8;
-  --paper:#fff;
-  --ink:#3e3e3a;
-  --muted:#7a766e;
-  --accent:#A88A5A;
-  --line:#e9e6df;
-  --shadow:0 10px 30px rgba(0,0,0,.08);
-  --gap:clamp(16px,3vw,32px);
-  --maxw:1200px;
+// /assets/include.js
+// Inject partials, execute any <script> tags inside them,
+// and reliably mark the current page link in the navbar.
 
-  /* “Galleries” dropdown knobs */
-  --submenu-offset: 1px;
-  --submenu-gap:    8px;
+(async () => {
+  // ---- Helper: mark current page in the primary nav (idempotent) ----
+  const markCurrentNav = () => {
+    const normalize = (href) => {
+      const url = new URL(href, location.origin);
+      let p = url.pathname
+        .replace(/\/+/g, "/")
+        .replace(/\/index\.html?$/i, "")
+        .replace(/\.html?$/i, "")
+        .replace(/\/$/, "");
+      return p === "" ? "/" : p;
+    };
+    const here = normalize(location.pathname);
+    const links = document.querySelectorAll('.topbar nav.primary a[href]');
+    if (!links.length) return false;
 
-  /* Mobile knobs */
-  --mobile-icon: 54px;
-  /* drawer width — tweak this to taste (desktop-only now) */
-  --drawer-w: clamp(145px, 28vw, 145px);
+    links.forEach(a => {
+      const target = normalize(a.href);
+      if (target === here) {
+        a.setAttribute('aria-current', 'page');
+        a.classList.add('is-current');
+      } else {
+        a.removeAttribute('aria-current');
+        a.classList.remove('is-current');
+      }
+    });
+    return true;
+  };
 
-  /* Drawer polish knobs */
-  --drawer-bg:#fff;
-  --drawer-hover:rgba(168,138,90,.10);
-  --drawer-rule:rgba(0,0,0,.06);
+  // ---- Include all [data-include] mounts ----
+  const targets = document.querySelectorAll('[data-include]');
+  for (const mount of targets) {
+    const url = mount.getAttribute('data-include');
+    try {
+      const res = await fetch(url, { cache: 'no-cache' });
+      const html = await res.text();
 
-  /* left padding + optional bottom gap */
-  --drawer-pad-x: 10px;
-  --drawer-bottom-gap: 24px;
-}
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
 
-/* Base */
-*{ box-sizing:border-box }
-html,body{ margin:0; background:var(--bg); color:var(--ink); line-height:1.65 }
-a{ color:inherit; text-decoration:none; transition:color .15s ease }
-img{ max-width:100%; height:auto; display:block }
-.container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
+      const parent = mount.parentNode;
+      const nodes = Array.from(wrapper.childNodes);
+      for (const n of nodes) parent.insertBefore(n, mount);
+      parent.removeChild(mount);
 
-/* Reserve space for injected partials */
-[data-include="/partials/topnav.html"]{ display:block; min-height:64px }
-[data-include="/partials/footer.html"]{ display:block; min-height:68px }
+      // Recreate <script> tags so they execute
+      nodes.forEach(node => {
+        if (node.querySelectorAll) {
+          node.querySelectorAll('script').forEach(old => {
+            const s = document.createElement('script');
+            for (const { name, value } of Array.from(old.attributes)) {
+              s.setAttribute(name, value);
+            }
+            if (!old.src) s.textContent = old.textContent || '';
+            old.replaceWith(s);
+          });
+        }
+      });
 
-/* ================= TOP NAV ================= */
-.topbar{
-  position:relative; display:flex; align-items:center; justify-content:center;
-  padding:16px var(--gap); z-index:10; background:transparent;
-}
-.brand{ display:none }
-
-/* Main links */
-nav.primary ul{ display:flex; gap:28px; list-style:none; margin:0; padding:0 }
-nav.primary li{ position:relative }
-nav.primary a{
-  font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight:500; font-size:clamp(16px,1.8vw,20px);
-  letter-spacing:.02em; padding:4px 2px; border:0;
-}
-nav.primary a:hover, nav.primary a:focus-visible{ color:var(--accent); outline:none }
-.has-sub:hover > a, .has-sub:focus-within > a{ color:var(--accent) }
-
-/* Dropdown (desktop) */
-.has-sub{ position:relative }
-.has-sub::after{ content:""; position:absolute; left:-8px; right:-8px; top:100%; height:12px; background:transparent }
-
-nav.primary .has-sub > .dropdown{
-  position:absolute; top:calc(100% + var(--submenu-offset)); left:50%; transform:translateX(-50%);
-  background:transparent; border:0; box-shadow:none;
-  display:flex; flex-direction:column; align-items:center; gap:var(--submenu-gap);
-  margin:0; padding:0; list-style:none; min-width:unset;
-  opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .15s ease, transform .15s ease; z-index:999;
-}
-.has-sub:hover > .dropdown, .has-sub:focus-within > .dropdown, nav.primary .dropdown:hover{
-  opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%, 2px);
-}
-nav.primary .dropdown li{ list-style:none; margin:0; padding:0 }
-nav.primary .dropdown a{
-  display:block; font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-  font-weight:700; font-size:clamp(14px,1.35vw,16px); line-height:1.02; letter-spacing:.005em;
-  padding:0; margin:0; border:0; background:transparent; white-space:nowrap;
-}
-/* Safety net */
-nav.primary li.has-sub:hover > ul.dropdown{
-  display:flex !important; opacity:1 !important; visibility:visible !important;
-  pointer-events:auto !important; transform:translate(-50%, 2px) !important;
-}
-
-/* Footer */
-footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-top:32px }
-.footer-social{ display:flex; align-items:center; gap:10px }
-.footer-social .social-ico{
-  display:inline-grid; place-items:center; width:34px; height:34px; border-radius:50%;
-  background:rgba(255,255,255,.7); border:1px solid rgba(63,58,51,.6); color:#3f3a33;
-  text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,.06);
-  -webkit-backdrop-filter:saturate(1.05) blur(2px); backdrop-filter:saturate(1.05) blur(2px);
-  transition:color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
-}
-.footer-social .social-ico:hover, .footer-social .social-ico:focus-visible{
-  color:var(--accent); border-color:var(--accent); box-shadow:0 10px 22px rgba(0,0,0,.08);
-  transform:translateY(-1px); outline:none;
-}
-.footer-social .social-ico svg{ width:18px; height:18px; display:block }
-@media (max-width:720px){
-  footer .container{ justify-content:center !important; text-align:center }
-  .footer-social{ justify-content:center }
-}
-
-/* ===== site-header (non-hero pages) ===== */
-.site-header .topnav, .site-header .topnav ul{ list-style:none; margin:0; padding:0 }
-.site-header .topnav{ display:flex; gap:28px; justify-content:center; padding:18px 0 }
-.site-header .topnav .has-sub{ position:relative }
-.site-header .topnav .has-sub > .dropdown{
-  position:absolute; top:calc(100% + var(--submenu-offset)); left:50%; transform:translateX(-50%);
-  display:flex; flex-direction:column; gap:var(--submenu-gap);
-  opacity:0; visibility:hidden; pointer-events:none; background:transparent; border:0; box-shadow:none; min-width:unset; z-index:1000;
-}
-.site-header .topnav .has-sub:hover > .dropdown, .site-header .topnav .has-sub:focus-within > .dropdown{
-  opacity:1; visibility:visible; pointer-events:auto;
-}
-.site-header .topnav .dropdown a{
-  font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-  font-weight:700; font-size:clamp(13px,1.65vw,15px); line-height:1.05; padding:0; border:0; background:transparent; white-space:nowrap;
-}
-
-/* ===== Sidebar Galleries spacing ===== */
-.side-galleries{ --gap:14px }
-.side-galleries h3{ margin:0 }
-.side-galleries .links{ display:grid; row-gap:var(--gap); padding-top:var(--gap); margin:0; list-style:none }
-.side-galleries .links a{ display:block }
-
-/* =================================================================== */
-/* ======================= MOBILE NAV: FULL-PAGE ===================== */
-/* =================================================================== */
-
-.navchk{ position:absolute; opacity:0; pointer-events:none }
-.nav-toggle{ display:none }
-
-/* Desktop */
-@media (min-width:821px){
-  nav.primary ul{ display:flex; gap:28px; align-items:center }
-}
-
-/* Mobile: FULL-PAGE MENU (desktop untouched) */
-@media (max-width:820px){
-  html, body{ overflow-x:hidden }
-  body.drawer-open{ overflow:hidden }
-
-  .topbar{
-    justify-content:flex-start !important;
-    padding-top:10px !important;
-    padding-bottom:10px !important;
-    gap:12px; border:0 !important;
-  }
-  .brand{ display:none !important }
-
-  .nav-toggle-8{
-    position:relative; width:44px; height:26px; border:0;
-    background:transparent !important; box-shadow:none !important; cursor:pointer; color:#2f2a24;
-    z-index:2400; pointer-events:auto;
-  }
-  .nav-toggle-8 .bar{
-    position:absolute; left:0; height:2px; border-radius:999px; background:currentColor; opacity:.96;
-    box-shadow:0 .5px 0 rgba(255,255,255,.45), 0 6px 12px rgba(0,0,0,.18);
-  }
-  .nav-toggle-8 .b-bot{ width:28px; bottom:2px; left:0; }
-  .nav-toggle-8 .b-mid{ width:20px; top:50%; transform:translate(-50%, -50%); left:50%; }
-  .nav-toggle-8 .b-top{ width:14px; top:2px; left:50%; }
-
-  nav.primary{
-    position:fixed; inset:0; width:100vw; height:100dvh; max-height:none;
-    background:var(--drawer-bg); border:0; box-shadow:none;
-    transform:translateY(-4%); opacity:0; pointer-events:none;
-    transition:opacity .28s ease, transform .28s ease;
-    z-index:2000; overflow:auto; will-change:opacity,transform;
-  }
-  .navchk:checked ~ nav.primary{ opacity:1; pointer-events:auto; transform:translateY(0); }
-
-  .nav-overlay{
-    position:fixed; inset:0; background:rgba(0,0,0,.25);
-    opacity:0; pointer-events:none; transition:opacity .28s ease; z-index:1990;
-  }
-  #navchk:checked ~ .nav-overlay{ opacity:1; pointer-events:auto; }
-
-  .nav-x{
-    position:fixed; top:10px; right:12px; z-index:2300;
-    width:auto; height:auto; padding:8px 10px;
-    background:transparent; border:0; box-shadow:none;
-    color:#3f3a33; font-size:26px; line-height:1; cursor:pointer;
-    opacity:0; pointer-events:none; transition:opacity .2s ease;
-  }
-  #navchk:checked ~ .nav-x{ opacity:1; pointer-events:auto; }
-
-  /* Stack links — CENTERED */
-  nav.primary ul{
-    display:flex; flex-direction:column; align-items:center;
-    gap:12px; margin:0; padding:calc(16px + 56px) 16px 28px;
-    list-style:none; row-gap:6px; text-align:center;
-  }
-  nav.primary li{ width:min(520px, 92vw); }
-
-  /* Top-level link style */
-  nav.primary > ul > li > a{
-    display:block; width:100%;
-    font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    font-weight:500; font-size:20px; line-height:1.35;
-    padding:12px 16px; border-radius:10px; text-align:center;
+      // If this include contains the navbar, mark active link
+      const looksLikeNav =
+        (typeof url === 'string' && url.includes('/partials/topnav.html')) ||
+        nodes.some(n => n.querySelector && n.querySelector('.topbar nav.primary'));
+      if (looksLikeNav) {
+        markCurrentNav();
+        requestAnimationFrame(markCurrentNav);
+      }
+    } catch (e) {
+      console.warn('Include failed:', url, e);
+    }
   }
 
-  /* --- SUBMENU: centered & below (generic) --- */
-  nav.primary .has-sub .dropdown{
-    position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
-    display:block; background:transparent; border:0; box-shadow:none;
-    margin:6px 0 12px 0; padding:0; list-style:none; text-align:center;
+  // Run once more after all includes are done
+  markCurrentNav();
+  window.addEventListener('load', markCurrentNav, { once: true });
+
+  // >>> tell the rest of the app that includes are ready
+  window.dispatchEvent(new Event('includes:ready'));
+})();
+
+/* === MOBILE-ONLY: transform the Galleries <li> into
+       <details><summary class="g-sum"><a class="g-link" ...>Galleries</a><button class="g-caret"></button></summary>…</details>
+       Label navigates; caret toggles. Desktop untouched. === */
+(function(){
+  const mq = window.matchMedia('(max-width:820px)');
+  const isMobile = () => mq.matches;
+  const navchk = () => document.getElementById('navchk');
+
+  function getDropdown(li){ return li ? (li.querySelector(':scope > ul.dropdown') || li.querySelector('ul.dropdown')) : null; }
+  function getTopLink(li){
+    if (!li) return null;
+    const dd = getDropdown(li);
+    if (!dd) return null;
+    const anchors = Array.from(li.querySelectorAll(':scope > a[href], a[href]'));
+    for (const a of anchors){ if (!dd.contains(a)) return a; }
+    return null;
   }
-  nav.primary .has-sub .dropdown[hidden]{ display:none !important; }
-  nav.primary .has-sub .dropdown li{ list-style:none; margin:0; padding:0; }
-  nav.primary .has-sub .dropdown a{
-    display:block; width:100%;
-    font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    font-weight:500; font-size:20px; line-height:1.35;
-    padding:12px 16px; border-radius:10px;
-    background:transparent; text-align:center;
-  }
-  nav.primary .has-sub .dropdown a::before{ content:none; }
-  nav.primary .has-sub .dropdown a:hover,
-  nav.primary .has-sub .dropdown a:focus-visible{
-    background:var(--drawer-hover); color:var(--ink); outline:none;
+  function getGalleriesLI(){
+    // First LI that has a direct dropdown is our target
+    const lis = document.querySelectorAll('nav.primary li');
+    for (const li of lis){ if (getDropdown(li)) return li; }
+    return null;
   }
 
-  /* ===== MOBILE <details>/<summary> pattern for GALLERIES ===== */
-  nav.primary li.m-galleries{ width:min(520px,92vw); margin:0 auto; }
+  function transformToDetails(){
+    if (!isMobile()) return;
 
-  /* Hide default disclosure markers (Safari + spec) */
-  nav.primary li.m-galleries summary::-webkit-details-marker{ display:none !important; }
-  nav.primary li.m-galleries summary::marker{ content:"" !important; display:none !important; }
-  details > summary::-webkit-details-marker{ display:none !important; }
-  details > summary::marker{ content:"" !important; display:none !important; }
-  /* Also kill any theme pseudo on summary itself */
-  nav.primary li.m-galleries summary.g-sum::before,
-  nav.primary li.m-galleries summary.g-sum::after{ content:none !important; display:none !important; }
+    const li = getGalleriesLI();
+    if (!li || li.dataset.detailsified) return;
 
-  /* The summary row */
-  nav.primary li.m-galleries summary.g-sum{
-    list-style:none !important; cursor:default;
-    display:inline-flex; align-items:center; justify-content:center; gap:10px;
-    padding:12px 16px; border-radius:10px; user-select:none; -webkit-tap-highlight-color:transparent;
-    font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    font-weight:500; font-size:20px; line-height:1.35; color:var(--ink);
-  }
-  /* Label link: match the other links exactly */
-  nav.primary li.m-galleries .g-link{
-    color:var(--ink) !important; text-decoration:none; display:inline-block;
-    font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
-    font-weight:500 !important; font-size:20px !important; line-height:1.35 !important;
-    background:none !important;
-  }
+    const dd = getDropdown(li);
+    const a  = getTopLink(li);
+    if (!dd || !a) return;
 
-  /* Single caret (black) */
-  nav.primary li.m-galleries .g-caret{
-    appearance:none; border:0; background:transparent; padding:0 2px; line-height:1; cursor:pointer;
-    font-size:20px; color:var(--ink); display:inline-block;
-  }
-  nav.primary li.m-galleries .g-caret::after{ content:"▾"; }
-  nav.primary li.m-galleries details[open] .g-caret::after{ content:"▴"; }
+    // Remove any pre-existing caret/chevron elements (prevents duplicate blue caret)
+    li.querySelectorAll(
+      ':scope > .caret, :scope .caret, :scope [class*="caret"], :scope [class*="arrow"], :scope [class*="chev"]'
+    ).forEach(el => el.remove());
 
-  /* Remove any EXTRA carets/chevrons, but keep .g-caret */
-  nav.primary li.m-galleries a::after,
-  .topbar nav.primary li.m-galleries a::after{ content:none !important; }
-  nav.primary li.m-galleries [class*="caret"]:not(.g-caret),
-  nav.primary li.m-galleries [class*="arrow"],
-  nav.primary li.m-galleries [class*="chev"]{ display:none !important; }
-  nav.primary li.m-galleries svg.icon,
-  nav.primary li.m-galleries i.icon{ display:none !important; }
+    // Build <details><summary> with link + caret button
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.className = 'g-sum';
 
-  /* NEW: kill *any* pseudo-caret on descendants except our .g-caret */
-  nav.primary li.m-galleries .g-sum :not(.g-caret)::after,
-  nav.primary li.m-galleries .g-sum :not(.g-caret)::before{
-    content:none !important;
-    display:none !important;
-    border:0 !important;
-    background:none !important;
-    box-shadow:none !important;
-    width:0 !important;
-    height:0 !important;
-  }
+    const link = document.createElement('a');
+    link.className = 'g-link';
+    link.href = a.getAttribute('href') || '/galleries.html';
+    link.textContent = (a.textContent || 'Galleries').trim();
 
-  /* dropdown visibility ties to details[open] */
-  nav.primary li.m-galleries details:not([open]) ul.dropdown{ display:none !important; }
-  nav.primary li.m-galleries details[open] ul.dropdown{
-    display:flex !important; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center;
-    width:fit-content; max-width:92vw; margin:6px auto 12px auto; padding:0; list-style:none; text-align:center;
+    const caret = document.createElement('button');
+    caret.type = 'button';
+    caret.className = 'g-caret';
+    caret.setAttribute('aria-label','Toggle Galleries');
+
+    summary.appendChild(link);
+    summary.appendChild(caret);
+
+    // Replace the label link with details
+    a.replaceWith(details);
+    details.appendChild(summary);
+    details.appendChild(dd);
+
+    li.classList.add('m-galleries');
+    li.dataset.detailsified = '1';
+    details.open = false;
+
+    // prevent summary itself from toggling; only caret should
+    summary.addEventListener('click', (e)=>{
+      if (e.target.closest('.g-caret') || e.target.closest('.g-link')) return;
+      e.preventDefault();
+    });
+
+    // Label navigates normally
+    link.addEventListener('click', (e)=>{ e.stopPropagation(); });
+
+    // Caret toggles submenu
+    caret.addEventListener('click', (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      details.open = !details.open;
+    });
+
+    // Keep clicks inside dropdown from closing the drawer
+    dd.addEventListener('click', (e)=> e.stopPropagation());
   }
 
-  .hero{ transition:none; will-change:auto }
-  #content, [data-include="/partials/footer.html"]{ transition:none; will-change:auto; transform:none !important; }
-  body:has(#navchk:checked) #content,
-  body:has(#navchk:checked) [data-include="/partials/footer.html"],
-  body:has(#navchk:checked) .hero{ transform:none !important; }
-  body.drawer-open #content,
-  body.drawer-open [data-include="/partials/footer.html"],
-  body.drawer-open .hero{ transform:none !important; }
+  function syncDrawer(){
+    const c = navchk();
+    const open = !!(c && c.checked);
+    document.body.classList.toggle('drawer-open', open);
+    if (!open){
+      const details = document.querySelector('nav.primary li.m-galleries details');
+      if (details) details.open = false;
+    }
+    const label = document.querySelector('.nav-toggle-8');
+    if (label) label.setAttribute('aria-expanded', String(open));
+  }
 
-  nav.primary a[aria-current="page"]{
-    background:transparent !important; color:var(--accent) !important; position:static !important;
+  function wireDrawer(){
+    const c = navchk();
+    if (c && !c.dataset.syncWired){
+      c.addEventListener('change', syncDrawer);
+      c.dataset.syncWired = '1';
+      syncDrawer();
+    }
   }
-  nav.primary a[aria-current="page"]::before{ content:none !important }
 
-  nav.primary > ul > li + li{ position:relative }
-  nav.primary > ul > li + li::before{
-    content:""; position:absolute; left:10%; right:10%; top:-3px; height:1px;
-    background:linear-gradient(to right, transparent, var(--drawer-rule), transparent);
-    opacity:.6;
+  function wireHamburger(){
+    const ham = document.querySelector('.nav-toggle-8');
+    if (!ham || ham.dataset.wired) return;
+    ham.addEventListener('click', (e)=>{
+      if (!isMobile()) return;
+      const c = navchk();
+      if (!c) return;
+      c.checked = !c.checked;
+      syncDrawer();
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    ham.dataset.wired = '1';
   }
-}
 
-/* ================= Desktop “current page” state ================= */
-@media (min-width:821px){
-  .topbar nav.primary a[aria-current="page"],
-  .topbar nav.primary a.is-current{
-    color: var(--accent);
-    position: static;
-    text-decoration: none;
+  function initMobile(){
+    if (!isMobile()) return;
+    transformToDetails();
+    wireHamburger();
+    wireDrawer();
   }
-  .topbar nav.primary a[aria-current="page"]::after,
-  .topbar nav.primary a.is-current::after{ content: none; }
-}
 
-/* FINAL OVERRIDE: no underline for current nav item on desktop */
-@media (min-width:821px){
-  .topbar nav.primary a.is-current,
-  .topbar nav.primary a[aria-current="page"]{
-    color: var(--accent);
-    text-decoration: none !important;
-    border-bottom: 0 !important;
-    box-shadow: none !important;
-    position: static !important;
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initMobile);
+  } else {
+    initMobile();
   }
-  .topbar nav.primary a.is-current::after,
-  .topbar nav.primary a[aria-current="page"]::after{
-    content: none !important; display: none !important;
-  }
-}
+  mq.addEventListener('change', initMobile);
+  window.addEventListener('includes:ready', initMobile);
 
-/* === Anti-shift on tap === */
-@media (max-width:820px){
-  .topbar .is-galleries-dropdown a{
-    transition-property: color, background-color, box-shadow, text-shadow, border-color;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    touch-action: manipulation;
-  }
-  .topbar .is-galleries-dropdown a:active,
-  .topbar .is-galleries-dropdown a:focus{
-    font-weight: inherit !important;
-    transform: none !important;
-    padding-left: inherit !important;
-    margin-left: 0 !important;
-  }
-  .topbar .is-galleries-dropdown a.current,
-  .topbar .is-galleries-dropdown a[aria-current="page"]{
-    font-weight: inherit !important;
-  }
-}
+  // MutationObserver fallback if navbar is injected late
+  const mo = new MutationObserver(() => {
+    if (document.querySelector('nav.primary') && document.querySelector('#navchk')) {
+      initMobile();
+      mo.disconnect();
+    }
+  });
+  mo.observe(document.documentElement, { childList: true, subtree: true });
 
-/* === Freeze pushed layout during submenu tap === */
-@media (max-width:820px){
-  html.submenu-tap #content,
-  html.submenu-tap .hero,
-  html.submenu-tap [data-include="/partials/footer.html"]{
-    transition: none !important; transform: none !important;
-  }
-}
+  // Click outside the nav closes (when open) — mobile only
+  document.addEventListener('click', (e)=>{
+    if (!isMobile()) return;
+    const c = navchk();
+    if (!c || !c.checked) return;
+    const inside = e.target.closest('nav.primary') || e.target.closest('.nav-toggle-8');
+    if (!inside) { c.checked = false; syncDrawer(); }
+  }, true);
+})();
