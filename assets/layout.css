@@ -227,58 +227,42 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     background:var(--drawer-hover); color:var(--ink); outline:none;
   }
 
-  /* ===== Keep Galleries label centered & caret inline (no right pinning) ===== */
-  nav.primary > ul > li.has-sub{
-    width:auto !important;
-    margin:0 auto !important;
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-    gap:8px !important;
-    flex-wrap:nowrap !important;
-  }
-  nav.primary > ul > li.has-sub > *{ flex:0 0 auto !important; }
-
-  nav.primary > ul > li.has-sub > a{
-    width:auto !important;
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-    gap:8px !important;
-    text-align:center !important;
-    white-space:nowrap !important;
-    padding-left:0 !important; padding-right:0 !important;
-  }
-  /* caret as pseudo on link */
-  nav.primary > ul > li.has-sub > a::after{
-    position:static !important;
-    right:auto !important; left:auto !important;
-    float:none !important;
-    transform:none !important;
-    margin-left:6px !important;
-    content:inherit;
-  }
-  /* caret as real element */
-  nav.primary > ul > li.has-sub > .caret,
-  nav.primary > ul > li.has-sub > span.caret,
-  nav.primary > ul > li.has-sub > svg.caret{
-    position:static !important;
-    margin-left:6px !important;
-    float:none !important;
-    display:inline-block !important;
-  }
-  nav.primary > ul > li.has-sub::after{ content:none !important; }
-
-  /* Submenu keeps intrinsic width & centers */
-  nav.primary .has-sub > .dropdown{
-    position:static !important;
+  /* ===== MOBILE FIX (targeted): keep Galleries on its own row ===== */
+  /* JS adds .js-mobile-galleries to the li that owns the dropdown */
+  nav.primary li.js-mobile-galleries{
+    display:grid !important;
+    grid-template-columns:max-content max-content;
+    grid-auto-rows:auto;
+    justify-content:center;
+    justify-items:center;
+    align-items:center;
+    text-align:center;
     width:fit-content !important;
-    margin:8px auto 12px auto !important;
-    text-align:center !important;
+    margin:0 auto !important;
+    gap:6px;
   }
-  nav.primary .has-sub > .dropdown li{ display:inline-block !important; }
-  nav.primary .has-sub > .dropdown a{ display:inline-block !important; }
-  /* =================================================================== */
+  nav.primary li.js-mobile-galleries > a{
+    grid-column:1; grid-row:1;
+    width:auto !important;
+    display:inline-block !important;
+    white-space:nowrap !important;
+    padding:12px 10px !important;
+  }
+  nav.primary li.js-mobile-galleries > .subtoggle{
+    grid-column:2; grid-row:1;
+    appearance:none; border:0; background:transparent;
+    font:inherit; color:inherit; line-height:1; cursor:pointer;
+    padding:2px 6px; border-radius:8px; font-size:26px;
+    display:inline-block; vertical-align:middle;
+  }
+  nav.primary li.js-mobile-galleries > ul.dropdown{
+    grid-column:1 / -1; grid-row:2;
+    display:flex; flex-wrap:wrap; gap:10px;
+    justify-content:center; align-items:center;
+    width:fit-content; max-width:92vw; margin:6px auto 12px auto; padding:0; list-style:none; text-align:center;
+  }
+  /* kill any pseudo-caret on the label when this mode is active */
+  nav.primary li.js-mobile-galleries > a::after{ content:none !important; }
 
   .hero{ transition:none; will-change:auto }
   #content, [data-include="/partials/footer.html"]{ transition:none; will-change:auto; transform:none !important; }
@@ -359,4 +343,4 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   }
 }
 
-/* === Fallback flatten removed (caused duplicates/left drift) === */
+/* === Fallback flatten removed (was causing left drift) === */

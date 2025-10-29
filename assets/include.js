@@ -82,8 +82,8 @@
   window.dispatchEvent(new Event('includes:ready'));
 })();
 
-/* === MOBILE-ONLY enhancements: convert Galleries caret to inline button,
-       keep label centered, prevent left drift, close mechanics, etc. === */
+/* === MOBILE-ONLY enhancements: center Galleries row with an inline caret,
+       keep label on its own row, and robust drawer/close behavior. === */
 (function(){
   const mq = window.matchMedia('(max-width:820px)');
   const isMobile = () => mq.matches;
@@ -200,20 +200,10 @@
     const menu = getDropdown(li);
     if (!anchor || !menu) return !!li;
 
-    // force centering/inline caret regardless of markup
-    li.classList.add('is-collapsible','dropdown-overlay');
+    // tag for CSS (grid layout that keeps label row separate)
+    li.classList.add('js-mobile-galleries');
 
-    Object.assign(li.style, {
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textAlign: 'center',
-      width: 'auto',
-      marginInline: 'auto',
-      gap: '8px'
-    });
-
-    // Make/tune caret button
+    // Make caret button (if missing)
     let btn = li.querySelector(':scope > .subtoggle');
     if (!btn){
       btn = document.createElement('button');
@@ -223,6 +213,7 @@
       anchor.insertAdjacentElement('afterend', btn);
     }
     btn.setAttribute('aria-expanded','false');
+    btn.style.color = 'inherit'; // ensure no blue caret
 
     // Start hidden
     menu.hidden = true;
@@ -240,7 +231,7 @@
       menu.setAttribute('aria-hidden', String(!next));
     });
 
-    // Intercept anchor tap on mobile to toggle (no navigation / no shift)
+    // Intercept anchor tap on mobile to toggle (no navigation)
     anchor.addEventListener('click', (e)=>{
       if (!isMobile()) return;
       e.preventDefault();
