@@ -104,8 +104,7 @@
     const a  = getTopLink(li);
     if (!dd || !a) return;
 
-    // Remove any existing theme caret/chevron elements (not ours),
-    // AND remove .subtoggle (the blue caret) so only our black caret remains.
+    // Remove theme carets and .subtoggle so only our black caret remains.
     li.querySelectorAll(':scope > .caret, :scope .caret, [class*="chev"], [class*="arrow"], :scope > .subtoggle, .subtoggle')
       .forEach(el => el.remove());
 
@@ -162,48 +161,32 @@
   function wireDrawer(){
     const c = navchk();
     if (c && !c.dataset.syncWired){
-      c.addEventListener('change', syncDrawer); // rely on label's native toggle
+      c.addEventListener('change', syncDrawer);
       c.dataset.syncWired = '1';
       syncDrawer();
     }
   }
 
-  // IMPORTANT: safely handle both cases:
-  // 1) Proper <label for="navchk"> (native toggling)
-  // 2) A generic element (div/button) or label missing "for" (manual toggle)
+  // ===== 🔧 CHANGED: always toggle #navchk manually on click/keyboard =====
   function wireHamburgerA11y(){
     const ham = document.querySelector('.nav-toggle-8');
-    if (!ham || ham.dataset.wired) return;
+    const c = navchk();
+    if (!ham || !c || ham.dataset.wired) return;
 
-    const isLabel = ham.tagName === 'LABEL';
-    const forId = (isLabel && (ham.getAttribute('for') || ham.htmlFor)) ? (ham.getAttribute('for') || ham.htmlFor) : null;
-    const isProperNative = isLabel && forId === 'navchk';
+    ham.addEventListener('click', (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      c.checked = !c.checked;
+      syncDrawer();
+    }, { passive:false });
 
-    if (isProperNative) {
-      // Let the browser toggle the checkbox; just resync UI after the click.
-      ham.addEventListener('click', () => { setTimeout(syncDrawer, 0); }, { passive: true });
-    } else {
-      // Fallback: toggle #navchk ourselves (prevents "tap does nothing" bug).
-      ham.setAttribute('role', ham.getAttribute('role') || 'button');
-      ham.setAttribute('aria-controls', 'navchk');
-      ham.addEventListener('click', (e) => {
+    ham.addEventListener('keydown', (e)=>{
+      if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        const c = navchk();
-        if (!c) return;
         c.checked = !c.checked;
         syncDrawer();
-      });
-      // Keyboard a11y for non-label triggers
-      ham.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const c = navchk();
-          if (!c) return;
-          c.checked = !c.checked;
-          syncDrawer();
-        }
-      });
-    }
+      }
+    });
 
     ham.dataset.wired = '1';
   }
@@ -224,7 +207,6 @@
   const mo = new MutationObserver(() => {
     if (document.querySelector('nav.primary') && document.querySelector('#navchk')) {
       initMobile();
-      // We only needed to wait for the nav once; stop observing to reduce overhead.
       mo.disconnect();
     }
   });
@@ -235,7 +217,7 @@
     if (c && c.checked){ c.checked = false; syncDrawer(); }
   }
 
-  // Close on outside click (bubble phase so it runs after native label toggle)
+  // Close on outside click (after native/our toggle runs)
   document.addEventListener('click', (e)=>{
     if (!isMobile()) return;
     const c = navchk();
