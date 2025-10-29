@@ -228,32 +228,41 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   }
 
   /* ===== MOBILE <details> TRANSFORM FOR GALLERIES ===== */
-  /* JS converts the Galleries <li> into: <li class="m-galleries"><details>…</details></li> */
   nav.primary li.m-galleries{ width:min(520px,92vw); margin:0 auto; }
   nav.primary li.m-galleries details{
     display:grid; justify-content:center; justify-items:center; text-align:center;
   }
-  nav.primary li.m-galleries summary{
+  /* hide default Safari marker (all syntaxes) */
+  nav.primary li.m-galleries summary::-webkit-details-marker{ display:none; }
+  nav.primary li.m-galleries summary::marker{ content:""; display:none; }
+  details > summary::-webkit-details-marker{ display:none; }
+  details > summary::marker{ content:""; display:none; }
+
+  nav.primary li.m-galleries summary.g-sum{
     list-style:none; cursor:pointer;
     display:inline-flex; align-items:center; justify-content:center; gap:8px;
     padding:12px 16px; border-radius:10px; user-select:none; -webkit-tap-highlight-color:transparent;
     font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     font-weight:500; font-size:20px; line-height:1.35;
   }
-  /* remove default marker and draw our own */
-  nav.primary li.m-galleries summary::-webkit-details-marker{ display:none; }
-  nav.primary li.m-galleries summary::after{
-    content:"▾"; font-size:22px; line-height:1; margin-left:4px;
+  nav.primary li.m-galleries .g-link{
+    text-decoration:none;
   }
-  nav.primary li.m-galleries details[open] summary::after{ content:"▴"; }
+  nav.primary li.m-galleries .g-caret{
+    appearance:none; border:0; background:transparent; padding:0 4px; line-height:1; cursor:pointer;
+    font-size:22px;
+  }
+  nav.primary li.m-galleries .g-caret::after{ content:"▾"; }
+  nav.primary li.m-galleries details[open] .g-caret::after{ content:"▴"; }
 
-  nav.primary li.m-galleries ul.dropdown{
+  /* dropdown visibility ties to details[open] */
+  nav.primary li.m-galleries details:not([open]) ul.dropdown{ display:none !important; }
+  nav.primary li.m-galleries details[open] ul.dropdown{
     display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center;
-    width:fit-content; max-width:92vw; margin:6px auto 12px auto; padding:0; list-style:none;
-    text-align:center;
+    width:fit-content; max-width:92vw; margin:6px auto 12px auto; padding:0; list-style:none; text-align:center;
   }
 
-  /* kill any original pseudo-caret from desktop styles on the label that JS hides */
+  /* kill any original pseudo-caret on anchors in this <li> */
   nav.primary li.m-galleries a::after{ content:none !important; }
 
   .hero{ transition:none; will-change:auto }

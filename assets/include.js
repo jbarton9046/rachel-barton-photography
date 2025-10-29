@@ -83,34 +83,26 @@
 })();
 
 /* === MOBILE-ONLY: transform the Galleries <li> into a native
-       <details><summary>Galleries</summary><ul class="dropdown">…</ul></details>
-       so the label stays centered and the submenu sits beneath it. === */
+       <details><summary class="g-sum"><a class="g-link" href="/galleries.html">Galleries</a><button class="g-caret"></button></summary>…</details>
+       Label navigates; caret toggles. === */
 (function(){
   const mq = window.matchMedia('(max-width:820px)');
   const isMobile = () => mq.matches;
-
   const navchk = () => document.getElementById('navchk');
 
-  function getDropdown(li){
-    return li ? (li.querySelector(':scope > ul.dropdown') || li.querySelector('ul.dropdown')) : null;
-  }
+  function getDropdown(li){ return li ? (li.querySelector(':scope > ul.dropdown') || li.querySelector('ul.dropdown')) : null; }
   function getTopLink(li){
     if (!li) return null;
     const dd = getDropdown(li);
     if (!dd) return null;
-    // first anchor that is not inside the dropdown
-    const anchors = Array.from(li.querySelectorAll('a[href]'));
-    for (const a of anchors){
-      if (!dd.contains(a)) return a;
-    }
+    const anchors = Array.from(li.querySelectorAll(':scope > a[href], a[href]'));
+    for (const a of anchors){ if (!dd.contains(a)) return a; }
     return null;
   }
   function getGalleriesLI(){
+    // First LI that has a direct dropdown is our target
     const lis = document.querySelectorAll('nav.primary li');
-    for (const li of lis){
-      const dd = getDropdown(li);
-      if (dd) return li;
-    }
+    for (const li of lis){ if (getDropdown(li)) return li; }
     return null;
   }
 
@@ -124,27 +116,50 @@
     const a  = getTopLink(li);
     if (!dd || !a) return;
 
-    // Create <details> with <summary>
+    // Build <details><summary> with link + caret button
     const details = document.createElement('details');
     const summary = document.createElement('summary');
-    summary.textContent = a.textContent.trim();
+    summary.className = 'g-sum';
 
-    // Move dropdown into details, remove the label link
+    const link = document.createElement('a');
+    link.className = 'g-link';
+    // Preserve original href when possible; default to /galleries.html
+    link.href = a.getAttribute('href') || '/galleries.html';
+    link.textContent = (a.textContent || 'Galleries').trim();
+
+    const caret = document.createElement('button');
+    caret.type = 'button';
+    caret.className = 'g-caret';
+    caret.setAttribute('aria-label','Toggle Galleries');
+
+    summary.appendChild(link);
+    summary.appendChild(caret);
+
+    // Replace the label link with details
     a.replaceWith(details);
     details.appendChild(summary);
     details.appendChild(dd);
 
-    // Tag for CSS
+    // Tag the LI for CSS rules
     li.classList.add('m-galleries');
     li.dataset.detailsified = '1';
-
-    // Start closed
     details.open = false;
 
-    // Prevent summary text selection
-    summary.addEventListener('mousedown', (e)=> e.preventDefault());
+    // Click behaviors
+    // 1) Link: navigate only (don’t toggle details)
+    link.addEventListener('click', (e)=>{
+      e.stopPropagation(); // prevent summary toggle
+      // allow normal navigation
+    });
 
-    // Stop clicks inside menu from propagating
+    // 2) Caret: toggle only (don’t navigate)
+    caret.addEventListener('click', (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      details.open = !details.open;
+    });
+
+    // Prevent dropdown clicks from closing drawer unintentionally
     dd.addEventListener('click', (e)=> e.stopPropagation());
   }
 
@@ -152,7 +167,6 @@
     const c = navchk();
     const open = !!(c && c.checked);
     document.body.classList.toggle('drawer-open', open);
-    // Close details when drawer closes
     if (!open){
       const details = document.querySelector('nav.primary li.m-galleries details');
       if (details) details.open = false;
@@ -200,7 +214,7 @@
   mq.addEventListener('change', initMobile);
   window.addEventListener('includes:ready', initMobile);
 
-  // MutationObserver fallback in case navbar is injected late
+  // MutationObserver fallback if navbar is injected late
   const mo = new MutationObserver(() => {
     if (document.querySelector('nav.primary') && document.querySelector('#navchk')) {
       initMobile();
