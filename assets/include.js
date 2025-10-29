@@ -167,7 +167,86 @@
     }
   }
 
-  /* ---------- Caret-toggled Galleries (inline, stays centered) ---------- */
+  /* ---------- Inject a mobile-only style to kill ::after caret on Galleries link ---------- */
+  function injectCaretKiller(){
+    if (document.getElementById('js-caret-kill')) return;
+    const style = document.createElement('style');
+    style.id = 'js-caret-kill';
+    style.textContent = `
+      @media (max-width:820px){
+        nav.primary li.has-sub.js-caret-fix > a::after{ content:none !important; }
+        nav.primary li.has-sub.js-caret-fix{ display:inline-flex !important; align-items:center !important; gap:8px !important; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  /* ---------- Convert the Galleries caret into a real button & center the row ---------- */
+  function hardFixGalleriesRow(){
+    if (!isMobile()) return false;
+
+    const parentLi =
+      document.querySelector('nav.primary li.has-sub') ||
+      document.querySelector('nav.primary .is-collapsible');
+
+    if (!parentLi || parentLi.dataset.hardfixed) return !!parentLi;
+
+    const anchor = parentLi.querySelector(':scope > a');
+    const dropdown = parentLi.querySelector(':scope > ul.dropdown');
+    if (!anchor || !dropdown) return !!parentLi;
+
+    injectCaretKiller();
+
+    // Tag for the CSS caret killer + centering
+    parentLi.classList.add('is-collapsible','dropdown-overlay','js-caret-fix');
+
+    // Ensure inline-flex centering even if CSS fails to load first
+    Object.assign(parentLi.style, {
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
+      width: 'auto',
+      marginInline: 'auto'
+    });
+
+    // Build a real caret button if not present
+    let btn = parentLi.querySelector(':scope > .subtoggle');
+    if (!btn){
+      btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'subtoggle';
+      btn.setAttribute('aria-expanded','false');
+      btn.setAttribute('aria-label','Toggle Galleries');
+      btn.textContent = '▾';
+      // place right after the anchor
+      anchor.insertAdjacentElement('afterend', btn);
+    }
+
+    // Hide dropdown initially
+    dropdown.hidden = true;
+    dropdown.setAttribute('aria-hidden','true');
+    dropdown.style.textAlign = 'center';
+
+    // Toggle handler
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      const next = !open;
+      btn.setAttribute('aria-expanded', String(next));
+      dropdown.hidden = !next;
+      dropdown.setAttribute('aria-hidden', String(!next));
+    }, { passive:false });
+
+    // Keep click inside menu from bubbling and closing drawer
+    dropdown.addEventListener('click', (e)=> e.stopPropagation());
+
+    parentLi.dataset.hardfixed = '1';
+    return true;
+  }
+
+  /* ---------- Caret-toggled Galleries (soft wiring; may be skipped by hard fix) ---------- */
   function wireCollapsibleGalleries(){
     if (!isMobile()) return false;
 
@@ -178,7 +257,6 @@
     const menu = li.querySelector('.dropdown');
     if (!btn || !menu) return !!li;
 
-    // Force centered layout at runtime (belt & suspenders with CSS)
     li.style.display = 'flex';
     li.style.justifyContent = 'center';
     li.style.alignItems = 'center';
@@ -247,15 +325,19 @@
   function initMobileEnhancements(){
     if (!isMobile()){ unflatten(); setMobileCentered(false); return; }
 
-    // Ensure all mobile items are centered before any user interaction
     setMobileCentered(true);
-
     wireHamburger();
     wireCloseBehaviors();
 
-    const usedCollapsible = wireCollapsibleGalleries();
-    if (!usedCollapsible){
-      flattenSubmenu();
+    // NEW: hard fix first (creates real caret and kills ::after)
+    const hard = hardFixGalleriesRow();
+
+    // If hard fix didn’t wire (e.g., markup different), try soft wiring
+    if (!hard) {
+      const usedCollapsible = wireCollapsibleGalleries();
+      if (!usedCollapsible){
+        flattenSubmenu();
+      }
     }
 
     const c = navchk();
@@ -279,7 +361,7 @@
   // Re-run after includes finish injecting the navbar
   window.addEventListener('includes:ready', initMobileEnhancements);
 
-  // MutationObserver fallback — wire as soon as .nav-toggle-8 shows up
+  // MutationObserver fallback — wire as soon as nav controls show up
   const mo = new MutationObserver(() => {
     if (document.querySelector('.nav-toggle-8') && document.querySelector('#navchk')) {
       initMobileEnhancements();
