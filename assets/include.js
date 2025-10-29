@@ -83,8 +83,7 @@
 })();
 
 /* === MOBILE-ONLY enhancements: caret-toggled Galleries (no card/backdrop),
-       robust hamburger wiring (handles late-loaded navbar), close controls,
-       fallback flatten, and mobile-centering hook. Desktop untouched. === */
+       robust hamburger wiring, close controls, fallback flatten. Desktop untouched. === */
 (function(){
   const mq = window.matchMedia('(max-width:820px)');
   const isMobile = () => mq.matches;
@@ -167,51 +166,21 @@
     }
   }
 
-  /* ---------- Inject a mobile-only style to kill ::after caret on Galleries link ---------- */
-  function injectCaretKiller(){
-    if (document.getElementById('js-caret-kill')) return;
-    const style = document.createElement('style');
-    style.id = 'js-caret-kill';
-    style.textContent = `
-      @media (max-width:820px){
-        nav.primary li.has-sub.js-caret-fix > a::after{ content:none !important; }
-        nav.primary li.has-sub.js-caret-fix{ display:inline-flex !important; align-items:center !important; gap:8px !important; }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  /* ---------- Convert the Galleries caret into a real button & center the row ---------- */
-  function hardFixGalleriesRow(){
+  /* ---------- Caret-toggled Galleries (kept simple; CSS now centers the row) ---------- */
+  function wireCollapsibleGalleries(){
     if (!isMobile()) return false;
 
-    const parentLi =
-      document.querySelector('nav.primary li.has-sub') ||
-      document.querySelector('nav.primary .is-collapsible');
+    const li = document.querySelector('nav.primary .is-collapsible') || document.querySelector('nav.primary li.has-sub');
+    if (!li || li.dataset.wired) return !!li;
 
-    if (!parentLi || parentLi.dataset.hardfixed) return !!parentLi;
+    li.classList.add('is-collapsible'); // harmless if already present
 
-    const anchor = parentLi.querySelector(':scope > a');
-    const dropdown = parentLi.querySelector(':scope > ul.dropdown');
-    if (!anchor || !dropdown) return !!parentLi;
+    // Ensure dropdown exists
+    const menu = li.querySelector(':scope > .dropdown');
+    if (!menu) return !!li;
 
-    injectCaretKiller();
-
-    // Tag for the CSS caret killer + centering
-    parentLi.classList.add('is-collapsible','dropdown-overlay','js-caret-fix');
-
-    // Ensure inline-flex centering even if CSS fails to load first
-    Object.assign(parentLi.style, {
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textAlign: 'center',
-      width: 'auto',
-      marginInline: 'auto'
-    });
-
-    // Build a real caret button if not present
-    let btn = parentLi.querySelector(':scope > .subtoggle');
+    // If there isn't a real button, create one
+    let btn = li.querySelector(':scope > .subtoggle');
     if (!btn){
       btn = document.createElement('button');
       btn.type = 'button';
@@ -219,56 +188,18 @@
       btn.setAttribute('aria-expanded','false');
       btn.setAttribute('aria-label','Toggle Galleries');
       btn.textContent = '▾';
-      anchor.insertAdjacentElement('afterend', btn);
+      const anchor = li.querySelector(':scope > a');
+      if (anchor) anchor.insertAdjacentElement('afterend', btn);
+      else li.insertAdjacentElement('afterbegin', btn);
     }
 
-    // Hide dropdown initially
-    dropdown.hidden = true;
-    dropdown.setAttribute('aria-hidden','true');
-    dropdown.style.textAlign = 'center';
-
-    // Toggle handler
-    btn.addEventListener('click', (e)=>{
-      e.preventDefault();
-      e.stopPropagation();
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      const next = !open;
-      btn.setAttribute('aria-expanded', String(next));
-      dropdown.hidden = !next;
-      dropdown.setAttribute('aria-hidden', String(!next));
-    }, { passive:false });
-
-    // Keep click inside menu from bubbling and closing drawer
-    dropdown.addEventListener('click', (e)=> e.stopPropagation());
-
-    parentLi.dataset.hardfixed = '1';
-    return true;
-  }
-
-  /* ---------- Caret-toggled Galleries (soft wiring; may be skipped by hard fix) ---------- */
-  function wireCollapsibleGalleries(){
-    if (!isMobile()) return false;
-
-    const li = document.querySelector('nav.primary .is-collapsible');
-    if (!li || li.dataset.wired) return !!li;
-
-    const btn = li.querySelector('.subtoggle');
-    const menu = li.querySelector('.dropdown');
-    if (!btn || !menu) return !!li;
-
-    li.style.display = 'flex';
-    li.style.justifyContent = 'center';
-    li.style.alignItems = 'center';
-    li.style.textAlign = 'center';
-    menu.style.textAlign = 'center';
-
-    btn.setAttribute('aria-expanded', 'false');
+    // Start collapsed
     menu.hidden = true;
     menu.setAttribute('aria-hidden','true');
 
     btn.addEventListener('click', (e)=>{
-      e.stopPropagation();
       e.preventDefault();
+      e.stopPropagation();
       const open = btn.getAttribute('aria-expanded') === 'true';
       const next = !open;
       btn.setAttribute('aria-expanded', String(next));
@@ -313,31 +244,15 @@
     flattened = false;
   }
 
-  /* ---------- Optional: center the entire mobile nav ---------- */
-  function setMobileCentered(on){
-    document.documentElement.classList.toggle('nav-centered-mobile', !!on);
-    const nav = document.querySelector('nav.primary');
-    if (nav) nav.setAttribute('data-centered', on ? '1' : '0');
-  }
-
-  /* ---------- Init (mobile only) ---------- */
   function initMobileEnhancements(){
-    if (!isMobile()){ unflatten(); setMobileCentered(false); return; }
+    if (!isMobile()){ unflatten(); return; }
 
-    setMobileCentered(true);
     wireHamburger();
     wireCloseBehaviors();
 
-    // NEW: hard fix first (creates real caret and kills ::after)
-    const hard = hardFixGalleriesRow();
-
-    // If hard fix didn’t wire (e.g., markup different), try soft wiring
-    if (!hard) {
-      const usedCollapsible = wireCollapsibleGalleries();
-      if (!usedCollapsible){
-        flattenSubmenu();
-      }
-    }
+    // Wire the Galleries submenu (row is now forcibly centered by CSS)
+    const wired = wireCollapsibleGalleries();
+    if (!wired){ flattenSubmenu(); }
 
     const c = navchk();
     if (c && !c.dataset.syncWired){
@@ -347,20 +262,15 @@
     }
   }
 
-  // Initial run if the nav is already in the DOM
   if (document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', initMobileEnhancements);
   } else {
     initMobileEnhancements();
   }
 
-  // Re-run when viewport crosses the mobile breakpoint
   mq.addEventListener('change', initMobileEnhancements);
-
-  // Re-run after includes finish injecting the navbar
   window.addEventListener('includes:ready', initMobileEnhancements);
 
-  // MutationObserver fallback — wire as soon as nav controls show up
   const mo = new MutationObserver(() => {
     if (document.querySelector('.nav-toggle-8') && document.querySelector('#navchk')) {
       initMobileEnhancements();
@@ -369,7 +279,6 @@
   });
   mo.observe(document.documentElement, { childList: true, subtree: true });
 
-  // Click outside the nav closes (when open) — mobile only
   document.addEventListener('click', (e)=>{
     if (!isMobile()) return;
     const c = navchk();

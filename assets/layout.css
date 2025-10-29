@@ -206,8 +206,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     padding:12px 16px; border-radius:10px; text-align:center;
   }
 
-  /* --- SUBMENU: centered & below --- */
-  /* (Make the submenu itself flex & centered so its items never left-float) */
+  /* --- SUBMENU: centered & below; DOES NOT affect Galleries row --- */
   nav.primary .has-sub .dropdown{
     position:static; transform:none; opacity:1; visibility:visible; pointer-events:auto;
     display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center;
@@ -230,7 +229,6 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
   }
 
   /* ====================== GRID LOCK: Galleries row stays put ====================== */
-  /* FIT-CONTENT center fix for iOS Safari (when JS adds .dropdown-overlay) */
   nav.primary .has-sub.dropdown-overlay{
     display:grid !important;
     grid-template-columns:max-content max-content;
@@ -253,7 +251,7 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     padding:12px 10px;
     vertical-align:middle;
     justify-self:center;
-    white-space:nowrap;        /* prevent wrapping drop */
+    white-space:nowrap;
   }
   nav.primary .has-sub.dropdown-overlay > .subtoggle{
     grid-column:2; grid-row:1;
@@ -269,15 +267,18 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     width:fit-content; max-width:92vw; margin:6px auto 12px auto; padding:0; list-style:none; text-align:center;
   }
 
-  /* === HARD OVERRIDE (generic): center Galleries row no matter how caret is added === */
+  /* === HARD OVERRIDE (generic): neutralize caret & keep on one line === */
   nav.primary > ul > li.has-sub{
-    width:auto !important;
-    margin:0 auto !important;
+    width:max-content !important;
+    margin:0 !important;
+    position:relative !important;
+    left:50% !important;
+    transform:translateX(-50%) !important; /* <- explicit centering lock */
     display:flex !important;
     align-items:center !important;
     justify-content:center !important;
     gap:8px !important;
-    flex-wrap:nowrap !important;        /* never drop to next line */
+    flex-wrap:nowrap !important;
     text-align:center !important;
   }
   nav.primary > ul > li.has-sub > *{ flex:0 0 auto !important; }
@@ -288,10 +289,10 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     justify-content:center !important;
     gap:8px !important;
     text-align:center !important;
-    white-space:nowrap !important;      /* keep label on one line */
+    white-space:nowrap !important;
+    margin:0 auto !important;
     padding-left:0 !important; padding-right:0 !important;
   }
-  /* normalize any right-anchored caret/toggle to inline */
   nav.primary > ul > li.has-sub > button,
   nav.primary > ul > li.has-sub > .subtoggle,
   nav.primary > ul > li.has-sub > .caret{
@@ -299,16 +300,18 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     margin:0 !important;
     float:none !important;
   }
-  /* if the caret comes from the link’s ::after, un-pin it */
   nav.primary > ul > li.has-sub > a::after{
     position:static !important;
     right:auto !important; left:auto !important;
     float:none !important;
     transform:none !important;
     margin-left:4px !important;
+    content: var(--caret-content, "") !important; /* allows killing via JS if needed */
   }
-  /* if the caret was on the <li> pseudo-element, suppress it */
   nav.primary > ul > li.has-sub::after{ content:none !important; }
+  nav.primary > ul > li.has-sub > .dropdown{
+    width:max-content !important; margin-left:0 !important;
+  }
 
   .hero{ transition:none; will-change:auto }
   #content, [data-include="/partials/footer.html"]{ transition:none; will-change:auto; transform:none !important; }
