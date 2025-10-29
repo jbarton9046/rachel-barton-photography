@@ -25,6 +25,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
+  <!-- Performance: Preload the initial tile images used on both desktop & mobile -->
+  <link rel="preload" as="image" href="/pictures/introEventPics/E26A1309.jpg" imagesrcset="/pictures/introEventPics/E26A1309.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="/pictures/introPortPics/E26A2614%20(1).jpg" imagesrcset="/pictures/introPortPics/E26A2614%20(1).jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="/pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" imagesrcset="/pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" fetchpriority="high">
+
   <!-- Desktop navbar: match about.html (font + spacing + Galleries dropdown) -->
   <style>
     :root{
@@ -439,7 +444,7 @@
   <!-- Fullscreen Lightbox for tiles -->
   <div id="tileLightbox" aria-hidden="true">
     <div class="lb-frame">
-      <img class="lb-img" id="lbImg" alt="">
+      <img class="lb-img" id="lbImg" alt="" loading="lazy" decoding="async" fetchpriority="low">
       <button class="lb-btn" id="lbPrev" aria-label="Previous">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
       </button>
@@ -483,7 +488,7 @@
         'gallery-meadow-m': 'pictures/introPortPics/E26A2614%20(1).jpg'
       };
 
-      function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a }
+      function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j]] } return a }
       function parseList(tile){ try{ return JSON.parse(tile.getAttribute('data-images')||'[]') }catch{ return [] } }
 
       function prime(tileId){
@@ -509,15 +514,39 @@
         tile.dataset.primed = '1';
       }
 
-      /* === SIMPLE image preloader (warms cache) === */
+      /* === LIGHTER image preloader (warms cache without blocking) === */
       const preloaded = new Set();
+      function _preloadOne(src){
+        if (!src || preloaded.has(src)) return;
+        const im = new Image();
+        im.decoding = 'async';
+        im.loading = 'eager';
+        im.src = src;
+        preloaded.add(src);
+      }
       function preloadList(list) {
-        for (const src of list) {
-          if (!src || preloaded.has(src)) continue;
-          const im = new Image();
-          im.decoding = 'async';
-          im.src = src;
-          preloaded.add(src);
+        if (!Array.isArray(list) || !list.length) return;
+
+        // Preload only the first 2 right away (snappy navigation)
+        const immediate = list.slice(0, 2);
+        immediate.forEach(_preloadOne);
+
+        // Queue the rest when the browser is idle (no visual change)
+        const rest = list.slice(2);
+        const enqueue = () => {
+          let i = 0;
+          const step = () => {
+            if (i >= rest.length) return;
+            _preloadOne(rest[i++]);
+            // Spread work across frames
+            setTimeout(step, 0);
+          };
+          step();
+        };
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(enqueue, { timeout: 2000 });
+        } else {
+          setTimeout(enqueue, 300);
         }
       }
 
