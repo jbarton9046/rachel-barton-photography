@@ -62,6 +62,8 @@
       if (looksLikeNav) {
         markCurrentNav();
         requestAnimationFrame(markCurrentNav);
+        // Signal that nav is ready (used by mobile init below)
+        window.dispatchEvent(new Event('includes:ready'));
       }
     } catch (e) {
       console.warn('Include failed:', url, e);
@@ -70,7 +72,6 @@
 
   markCurrentNav();
   window.addEventListener('load', markCurrentNav, { once: true });
-  window.dispatchEvent(new Event('includes:ready'));
 })();
 
 /* ===== MOBILE-ONLY “Galleries” details/summary (desktop untouched) ===== */
@@ -93,9 +94,6 @@
     for (const li of lis){ if (getDropdown(li)) return li; }
     return null;
   }
-
-  // Run-once guard
-  let __navInitDone = false;
 
   function transformToDetails(){
     if (!isMobile()) return;
@@ -188,13 +186,14 @@
 
   function initMobile(){
     if (!isMobile()) return;
-    if (__navInitDone) return;               // run-once guard
+
+    // Always safe to re-run: each sub-step has its own guard.
     transformToDetails();
     wireHamburger();
     wireDrawer();
-    __navInitDone = true;
   }
 
+  // Try at different lifecycle points to ensure wiring occurs after partial loads.
   if (document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', initMobile); }
   else { initMobile(); }
 
@@ -202,14 +201,9 @@
   window.addEventListener('includes:ready', initMobile);
 
   const mo = new MutationObserver(() => {
-    // If details structure already exists, nothing to do (disconnect).
-    if (document.querySelector('nav.primary li.m-galleries details')) {
-      mo.disconnect();
-      return;
-    }
+    // As soon as nav + checkbox exist, (re)wire.
     if (document.querySelector('nav.primary') && document.querySelector('#navchk')) {
       initMobile();
-      if (__navInitDone) mo.disconnect();
     }
   });
   mo.observe(document.documentElement, { childList: true, subtree: true });
