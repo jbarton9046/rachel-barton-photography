@@ -43,12 +43,10 @@
       --nav-gap-top:20px;
       --nav-gap-bottom:44px;
     }
-    /* Apply spacing only; base nav styles live in layout.css */
     .topbar{
       padding-top:var(--nav-gap-top) !important;
       padding-bottom:var(--nav-gap-bottom) !important;
     }
-    /* Exact desktop nav font like about.html */
     @media (min-width:821px){
       .topbar nav.primary > ul > li > a{
         font-family:"Raleway","Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
@@ -58,10 +56,9 @@
       }
       .topbar nav.primary > ul > li > a:hover,
       .topbar nav.primary > ul > li > a:focus-visible{
-        font-weight:500 !important; /* don't thicken on hover */
+        font-weight:500 !important;
       }
     }
-    /* Galleries dropdown styling (serif, centered) */
     @media (min-width:900px){
       .topbar .submenu, .topbar .dropdown{
         background:transparent; border:0; box-shadow:none; padding:6px 0 10px; min-width:170px;
@@ -93,11 +90,9 @@
     a:hover, a:focus-visible{ color:var(--accent); outline:0 }
     img{max-width:100%; height:auto; display:block; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06)}
     .container{max-width:var(--maxw); margin:0 auto; padding:0 var(--gap)}
-    /* show desktop vs mobile blocks */
     .desktop-only{ display:block; } .mobile-only{ display:none; }
     @media (max-width:960px){ .desktop-only{ display:none; } .mobile-only{ display:block; } }
 
-    /* Intro */
     header.page-intro{ padding:clamp(24px,6vw,56px) 0 10px; text-align:center }
     .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
     .h1{ font-family:"Cormorant Garamond","Times New Roman",serif; font-weight:700; font-size:clamp(28px,5vw,52px); line-height:1.08; margin:8px 0 10px }
@@ -112,7 +107,6 @@
     }
     .section-sub{ color:#67635b; margin:0 0 22px; text-align:left; }
 
-    /* Buttons */
     .btn{
       font-family:"Cormorant Garamond","Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
@@ -122,12 +116,10 @@
     }
     .btn:hover, .btn:focus-visible{ background:#fff; border-color:#dcd4c3; color:var(--accent); box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); }
 
-    /* ====== TILE CHROME (shared) ====== */
     .captioned.notch{ position:relative; display:block }
     .notch-figure{ display:block; width:100%; aspect-ratio:4/5; background:transparent; border:1px solid transparent; box-shadow:0 6px 18px rgba(0,0,0,.06) }
     .u-stroke{ fill:none; stroke:#ecebea; stroke-width:1; vector-effect:non-scaling-stroke; stroke-linejoin:round }
 
-    /* Floating white chevrons (no diamonds) */
     .tile-nav{
       position:absolute; top:50%; transform:translateY(-50%); width:36px; height:36px;
       display:grid; place-items:center; color:#fff; cursor:pointer; user-select:none; z-index:4;
@@ -138,10 +130,8 @@
     .tile-nav::before, .tile-nav::after{ content:none !important; display:none !important; }
     .tile-nav svg{ width:18px; height:18px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
 
-    /* Remove bottom dots on all tiles (desktop + mobile) */
     .tile-dots{ display:none !important; }
 
-    /* ====== DESKTOP LAYOUT (original kept) ====== */
     .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.6vw,16px) }
     .mosaic figure{ margin:0 }
     .service-blurbs{ margin-top:clamp(18px,3vw,28px) }
@@ -150,30 +140,26 @@
     .blurb h3{ font-family:"Cormorant Garamond","Times New Roman",serif; margin:0 0 6px; font-size:20px }
     .blurb p{ margin:0 0 10px; color:#5b574f }
 
-    /* ====== MOBILE LAYOUT (paired blocks) ====== */
     .services-grid{ display:grid; gap:clamp(18px,2vw,22px); }
     .service{ display:grid; gap:12px; align-content:start; }
 
-    /* On phones, keep the tile controls always visible (no hover) */
     @media (max-width:960px){
       .tile-nav{ opacity:1 !important; transform:translateY(-50%) }
       .captioned.notch:hover .tile-nav{ opacity:1; }
     }
 
-    /* breakpoints for desktop grid */
     @media (max-width:960px){
       .mosaic{ grid-template-columns:1fr 1fr }
       .service-blurbs .row{ grid-template-columns:1fr 1fr }
     }
     @media (max-width:640px){
-      header.page-intro{ padding-top: calc(var(--mobile-header-h) + 12px); } /* prevent nav clash on phones */
+      header.page-intro{ padding-top: calc(var(--mobile-header-h) + 12px); }
       .h1{ font-size:clamp(28px,7vw,40px) }
       .lead{ font-size:clamp(15px,4vw,18px) }
       .mosaic{ grid-template-columns:1fr }
       .service-blurbs .row{ grid-template-columns:1fr }
     }
 
-    /* ===== Remove legacy white SVG frame lines on all tiles ===== */
     .captioned.notch .frameGroup,
     .captioned.notch .u-stroke,
     .captioned.notch .recessStroke,
@@ -182,13 +168,11 @@
       stroke:transparent !important;
     }
 
-    /* === Mobile-only: tiny optical nudge for chevrons === */
     @media (max-width:960px){
       .tile-prev > svg{ transform:translate(1px,0); }
       .tile-next > svg{ transform:translate(-1px,0); }
     }
 
-    /* ---------- Fullscreen Lightbox (same feel as adventure) ---------- */
     #tileLightbox{ position:fixed; inset:0; z-index:100; display:none; place-items:center; background:rgba(0,0,0,.72); }
     #tileLightbox.open{ display:grid; }
     #tileLightbox .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
@@ -250,7 +234,8 @@
                     <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                   </filter>
                 </defs>
-                <image href="pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000"
+                <!-- CHANGED: make href absolute so it hits the preload -->
+                <image href="/pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000"
                        preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-3a)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
               </svg>
@@ -279,7 +264,8 @@
                   </mask>
                   <filter id="frameShadow-1" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
                 </defs>
-                <image href="pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" x="0" y="0" width="800" height="1000"
+                <!-- CHANGED: make href absolute so it hits the preload -->
+                <image href="/pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" x="0" y="0" width="800" height="1000"
                        preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-1)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
               </svg>
@@ -308,7 +294,8 @@
                   </mask>
                   <filter id="frameShadow-2" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
                 </defs>
-                <image href="pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000"
+                <!-- CHANGED: make href absolute so it hits the preload -->
+                <image href="/pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000"
                        preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-2)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
               </svg>
@@ -363,7 +350,8 @@
                   <defs>
                     <mask id="notchMask-m1"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
                   </defs>
-                <image href="pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m1)"></image>
+                  <!-- CHANGED: make href absolute so it hits the preload -->
+                  <image href="/pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m1)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
                 <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
@@ -393,7 +381,8 @@
                   <defs>
                     <mask id="notchMask-m2"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
                   </defs>
-                  <image href="pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m2)"></image>
+                  <!-- CHANGED: make href absolute so it hits the preload -->
+                  <image href="/pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m2)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
                 <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
@@ -423,7 +412,8 @@
                   <defs>
                     <mask id="notchMask-m3"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
                   </defs>
-                  <image href="pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m3)"></image>
+                  <!-- CHANGED: make href absolute so it hits the preload -->
+                  <image href="/pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m3)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
                 <button class="tile-nav tile-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
@@ -474,6 +464,30 @@
   <!-- Viewport-only, lazy slider init (desktop OR mobile; not both) + Lightbox wiring -->
   <script>
     (function () {
+      /* ---- NEW: normalize all gallery image URLs to absolute so preloads are reused ---- */
+      function toAbs(p){ if(!p) return p; return p.startsWith('/') ? p : ('/' + p); }
+      function normalizeDataImagesFor(el){
+        const raw = el.getAttribute('data-images');
+        if(!raw) return;
+        try{
+          const arr = JSON.parse(raw);
+          if(Array.isArray(arr)){
+            const fixed = arr.map(toAbs);
+            el.setAttribute('data-images', JSON.stringify(fixed));
+          }
+        }catch(e){}
+      }
+      document.querySelectorAll('figure.captioned.notch').forEach(normalizeDataImagesFor);
+      // Also fix any inline SVG <image> that might still be relative (defensive)
+      document.querySelectorAll('figure.captioned.notch svg image').forEach(img=>{
+        const href = img.getAttribute('href') || img.getAttributeNS('http://www.w3.org/1999/xlink','href');
+        if(href && !href.startsWith('/')){
+          const fixed = '/' + href;
+          img.setAttribute('href', fixed);
+          img.setAttributeNS('http://www.w3.org/1999/xlink','href', fixed);
+        }
+      });
+
       // Which set is visible right now?
       function currentIds() {
         return (window.matchMedia('(max-width: 960px)').matches)
@@ -482,10 +496,10 @@
       }
 
       const prefer = {
-        'gallery-beach'   : 'pictures/introEventPics/E26A1309.jpg',
-        'gallery-beach-m' : 'pictures/introEventPics/E26A1309.jpg',
-        'gallery-meadow'  : 'pictures/introPortPics/E26A2614%20(1).jpg',
-        'gallery-meadow-m': 'pictures/introPortPics/E26A2614%20(1).jpg'
+        'gallery-beach'   : '/pictures/introEventPics/E26A1309.jpg',
+        'gallery-beach-m' : '/pictures/introEventPics/E26A1309.jpg',
+        'gallery-meadow'  : '/pictures/introPortPics/E26A2614%20(1).jpg',
+        'gallery-meadow-m': '/pictures/introPortPics/E26A2614%20(1).jpg'
       };
 
       function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j]] } return a }
@@ -495,8 +509,11 @@
         const tile = document.getElementById(tileId);
         if(!tile || tile.dataset.primed) return;
 
-        const list = parseList(tile);
+        let list = parseList(tile);
         if(!Array.isArray(list) || list.length <= 1) return;
+
+        // ensure absolute
+        list = list.map(toAbs);
 
         shuffle(list);
         const want = prefer[tileId];
@@ -538,7 +555,6 @@
           const step = () => {
             if (i >= rest.length) return;
             _preloadOne(rest[i++]);
-            // Spread work across frames
             setTimeout(step, 0);
           };
           step();
@@ -608,6 +624,10 @@
         let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
         if(!Array.isArray(list) || list.length <= 1) return;
 
+        // ensure absolute before preloading/wiring
+        list = list.map(toAbs);
+        tile.setAttribute('data-images', JSON.stringify(list));
+
         preloadList(list);
 
         let idx = 0;
@@ -631,7 +651,6 @@
         tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx-1); });
         tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx+1); });
 
-        // 👉 Click the tile image to open the fullscreen lightbox (like adventure.html)
         tile.querySelector('svg.notch-figure')?.addEventListener('click', (e)=>{
           e.stopPropagation();
           openLb(list, idx);
@@ -652,7 +671,7 @@
             io.unobserve(entry.target);
           }
         });
-      }, { rootMargin: '200px 0px' });
+      }, { rootMargin: '320px 0px' }); /* CHANGED: prime a bit earlier */
 
       function initForViewport(){
         currentIds().forEach(id=>{
