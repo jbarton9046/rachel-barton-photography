@@ -244,20 +244,25 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
     font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     font-weight:500; font-size:20px; line-height:1.35; color:var(--ink);
   }
-  /* Label link: match other links exactly */
+  /* Label link: MATCH other links exactly (fixes smaller size) */
   nav.primary li.m-galleries .g-link{
     color:var(--ink) !important; text-decoration:none; display:inline-block;
+    font-family:"Raleway", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+    font-weight:500 !important; font-size:20px !important; line-height:1.35 !important;
   }
 
-  /* Single caret (black); kill any other pseudo-caret rules */
+  /* Single caret (black); kill any other caret elements/pseudos inside this LI */
   nav.primary li.m-galleries .g-caret{
     appearance:none; border:0; background:transparent; padding:0 2px; line-height:1; cursor:pointer;
     font-size:20px; color:var(--ink); display:inline-block;
   }
   nav.primary li.m-galleries .g-caret::after{ content:"▾"; }
   nav.primary li.m-galleries details[open] .g-caret::after{ content:"▴"; }
+
+  /* Remove any extra carets the theme might add in this LI */
   nav.primary li.m-galleries a::after,
   .topbar nav.primary li.m-galleries a::after{ content:none !important; }
+  nav.primary li.m-galleries .caret{ display:none !important; }
 
   /* dropdown visibility ties to details[open] */
   nav.primary li.m-galleries details:not([open]) ul.dropdown{ display:none !important; }
