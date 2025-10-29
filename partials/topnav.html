@@ -209,7 +209,6 @@
     background:var(--drawer-hover);
   }
 }
-/* ==================================================================== */
 </style>
 
 <script>
@@ -277,7 +276,7 @@
     if (overlay) overlay.addEventListener('click', closeMenu, { passive:true });
 
     const closeX = document.querySelector('.nav-x');
-    if (closeX) closeX.addEventListener('click', closeMenu);
+    if (closeX) closeMenu && closeX.addEventListener('click', closeMenu);
 
     document.addEventListener('keydown', (e)=>{
       if (e.key === 'Escape' && isMobile() && chk?.checked) closeMenu();

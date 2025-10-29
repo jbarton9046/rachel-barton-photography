@@ -105,7 +105,9 @@
     if (!dd || !a) return;
 
     // Remove any existing theme caret/chevron elements (not ours)
-    li.querySelectorAll(':scope > .caret, :scope .caret, [class*="chev"], [class*="arrow"]').forEach(el => el.remove());
+    // CHANGED: also remove .subtoggle (blue caret) so only our black caret remains
+    li.querySelectorAll(':scope > .caret, :scope .caret, [class*="chev"], [class*="arrow"], :scope > .subtoggle, .subtoggle')
+      .forEach(el => el.remove());
 
     // Build <details><summary> with link + our black caret button
     const details = document.createElement('details');
