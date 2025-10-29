@@ -94,6 +94,9 @@
     return null;
   }
 
+  // Run-once guard
+  let __navInitDone = false;
+
   function transformToDetails(){
     if (!isMobile()) return;
 
@@ -105,7 +108,7 @@
     if (!dd || !a) return;
 
     // Remove any existing theme caret/chevron elements (not ours)
-    // CHANGED: also remove .subtoggle (blue caret) so only our black caret remains
+    // Also remove .subtoggle (blue caret) so only our black caret remains
     li.querySelectorAll(':scope > .caret, :scope .caret, [class*="chev"], [class*="arrow"], :scope > .subtoggle, .subtoggle')
       .forEach(el => el.remove());
 
@@ -185,9 +188,11 @@
 
   function initMobile(){
     if (!isMobile()) return;
+    if (__navInitDone) return;               // run-once guard
     transformToDetails();
     wireHamburger();
     wireDrawer();
+    __navInitDone = true;
   }
 
   if (document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', initMobile); }
@@ -197,8 +202,14 @@
   window.addEventListener('includes:ready', initMobile);
 
   const mo = new MutationObserver(() => {
+    // If details structure already exists, nothing to do (disconnect).
+    if (document.querySelector('nav.primary li.m-galleries details')) {
+      mo.disconnect();
+      return;
+    }
     if (document.querySelector('nav.primary') && document.querySelector('#navchk')) {
-      initMobile(); mo.disconnect();
+      initMobile();
+      if (__navInitDone) mo.disconnect();
     }
   });
   mo.observe(document.documentElement, { childList: true, subtree: true });

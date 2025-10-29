@@ -158,11 +158,10 @@
   nav.primary a[aria-current="page"]{ color:var(--accent); text-decoration:none !important; }
 
   /* ======== GRID LOCK: keep Galleries row stationary & centered ======== */
-  /* Make the Galleries <li> a 2-col grid: [label][caret] on row 1; submenu on row 2 */
   nav.primary .has-sub.nav-center{
     width:auto !important;
     margin:0 auto;
-    display:grid;                         /* <— grid prevents reflow shift */
+    display:grid;                         /* prevents reflow shift */
     grid-template-columns:max-content max-content;
     grid-auto-rows:auto;
     column-gap:6px;
@@ -170,7 +169,6 @@
     align-items:center;
     text-align:center;
   }
-  /* label in col 1 */
   nav.primary .has-sub.nav-center > a{
     grid-column:1; grid-row:1;
     display:inline-block;
@@ -178,7 +176,6 @@
     padding:12px 10px;
     justify-content:center; align-items:center;
   }
-  /* caret in col 2 */
   nav.primary .has-sub.nav-center > .subtoggle{
     grid-column:2; grid-row:1;
     appearance:none; border:0; background:transparent;
@@ -186,7 +183,6 @@
     border-radius:8px; line-height:1; font-size:22px;
     cursor:pointer;
   }
-  /* submenu spans both columns underneath; centered pills */
   nav.primary .has-sub.nav-center > .dropdown{
     grid-column:1 / -1; grid-row:2;
     position:static; transform:none; width:100%;
@@ -212,8 +208,13 @@
 </style>
 
 <script>
-/* Mobile-only behavior; desktop untouched */
+/* Mobile-only behavior; desktop untouched
+   If include.js already converted Galleries to <details>, no-op this script to avoid double-wiring. */
 (function () {
+  if (document.querySelector('nav.primary li.m-galleries details')) {
+    return; // mobile logic already handled by include.js
+  }
+
   const chk = document.getElementById('navchk');
   const isMobile = () => window.matchMedia('(max-width:820px)').matches;
 
@@ -223,7 +224,6 @@
     const label = document.querySelector('.nav-toggle-8');
     if (label) label.setAttribute('aria-expanded', String(open));
 
-    /* When closing, also collapse the Galleries submenu so it reopens centered cleanly */
     if (!open) {
       const li = document.querySelector('nav.primary .is-collapsible');
       const btn = li && li.querySelector('.subtoggle');
@@ -236,7 +236,6 @@
   }
   function closeMenu(){ if (chk){ chk.checked = false; sync(); } }
 
-  /* Explicit toggle to avoid label misfires on iOS */
   (function wireHamburger(){
     const ham = document.querySelector('.nav-toggle-8');
     if (!ham || ham.dataset.wired) return;
@@ -251,7 +250,6 @@
     ham.dataset.wired = '1';
   })();
 
-  /* Caret toggle (submenu inline, centered) */
   (function wireSubtoggle(){
     if (!isMobile()) return;
     const li  = document.querySelector('nav.primary .is-collapsible');
@@ -270,7 +268,6 @@
     }, { passive:false });
   })();
 
-  /* Close mechanics */
   (function wireClose(){
     const overlay = document.querySelector('.nav-overlay');
     if (overlay) overlay.addEventListener('click', closeMenu, { passive:true });
@@ -303,7 +300,6 @@
 
   chk?.addEventListener('change', sync);
 
-  /* mark current page quickly */
   (function markCurrent(){
     const normalize = (href) => {
       const url = new URL(href, location.origin);

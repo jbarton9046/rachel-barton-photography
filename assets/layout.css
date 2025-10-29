@@ -261,9 +261,8 @@ footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f; margin-
 
   .hero{ transition:none; will-change:auto }
   #content, [data-include="/partials/footer.html"]{ transition:none; will-change:auto; transform:none !important; }
-  body:has(#navchk:checked) #content,
-  body:has(#navchk:checked) [data-include="/partials/footer.html"],
-  body:has(#navchk:checked) .hero{ transform:none !important; }
+
+  /* (Removed :has() variant; .drawer-open covers the same state) */
   body.drawer-open #content,
   body.drawer-open [data-include="/partials/footer.html"],
   body.drawer-open .hero{ transform:none !important; }
