@@ -219,7 +219,6 @@
       btn.setAttribute('aria-expanded','false');
       btn.setAttribute('aria-label','Toggle Galleries');
       btn.textContent = '▾';
-      // place right after the anchor
       anchor.insertAdjacentElement('afterend', btn);
     }
 
