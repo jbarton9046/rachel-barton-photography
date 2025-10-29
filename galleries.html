@@ -25,10 +25,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
-  <!-- Performance: Preload the initial tile images used on both desktop & mobile -->
+  <!-- Keep a SINGLE hero preload (ok to keep fast paint) -->
   <link rel="preload" as="image" href="/pictures/introEventPics/E26A1309.jpg" imagesrcset="/pictures/introEventPics/E26A1309.jpg" fetchpriority="high">
-  <link rel="preload" as="image" href="/pictures/introPortPics/E26A2614%20(1).jpg" imagesrcset="/pictures/introPortPics/E26A2614%20(1).jpg" fetchpriority="high">
-  <link rel="preload" as="image" href="/pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" imagesrcset="/pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" fetchpriority="high">
 
   <!-- Desktop navbar: match about.html (font + spacing + Galleries dropdown) -->
   <style>
@@ -188,9 +186,7 @@
   </style>
 </head>
 <body>
-  <!-- Warm first frames so Branding & Events tiles show instantly (desktop & mobile) -->
-  <img src="/pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" alt="" fetchpriority="high" decoding="sync" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
-  <img src="/pictures/introEventPics/E26A1309.jpg" alt="" fetchpriority="high" decoding="sync" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+  <!-- (Removed off-screen high-priority warmers to free bandwidth) -->
 
   <!-- Shared Top Nav -->
   <div data-include="/partials/topnav.html"></div>
@@ -238,7 +234,6 @@
                     <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
                   </filter>
                 </defs>
-                <!-- LAZY: no eager href; hydrate on intersect -->
                 <image data-initial="/pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000"
                        preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-3a)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-3a)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
@@ -268,7 +263,6 @@
                   </mask>
                   <filter id="frameShadow-1" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
                 </defs>
-                <!-- LAZY: no eager href; hydrate on intersect -->
                 <image data-initial="/pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" x="0" y="0" width="800" height="1000"
                        preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-1)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-1)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
@@ -298,7 +292,6 @@
                   </mask>
                   <filter id="frameShadow-2" x="-20%" y="-20%" width="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" /></filter>
                 </defs>
-                <!-- LAZY: no eager href; hydrate on intersect -->
                 <image data-initial="/pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000"
                        preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-2)"></image>
                 <g class="frameGroup" filter="url(#frameShadow-2)"><path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" /><rect class="u-stroke recessStroke" x="260" y="920" width="280" height="80" /></g>
@@ -354,7 +347,6 @@
                   <defs>
                     <mask id="notchMask-m1"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
                   </defs>
-                  <!-- LAZY: no eager href; hydrate on intersect -->
                   <image data-initial="/pictures/introPortPics/E26A2614%20(1).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m1)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -385,7 +377,6 @@
                   <defs>
                     <mask id="notchMask-m2"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
                   </defs>
-                  <!-- LAZY: no eager href; hydrate on intersect -->
                   <image data-initial="/pictures/introBrandPics/adam-winger--THiqda3iGM-unsplash.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m2)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -416,7 +407,6 @@
                   <defs>
                     <mask id="notchMask-m3"><rect x="0" y="0" width="100%" height="100%" fill="white"/><rect class="notchRect" x="400" y="1000" width="0.01" height="0.01" fill="black"/></mask>
                   </defs>
-                  <!-- LAZY: no eager href; hydrate on intersect -->
                   <image data-initial="/pictures/introEventPics/E26A1309.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#notchMask-m3)"></image>
                 </svg>
                 <button class="tile-nav tile-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg></button>
@@ -482,7 +472,6 @@
       }
       document.querySelectorAll('figure.captioned.notch').forEach(normalizeDataImagesFor);
 
-      // Which set is visible right now?
       function currentIds() {
         return (window.matchMedia('(max-width: 960px)').matches)
           ? ['gallery-meadow-m','gallery-family-m','gallery-beach-m']
@@ -507,56 +496,32 @@
         let list = parseList(tile);
         if(!imgEl || !Array.isArray(list) || list.length <= 1) return;
 
-        // ensure absolute
         list = list.map(toAbs);
 
-        // choose initial hero (prefer map > data-initial > list[0])
         const fromData = imgEl.getAttribute('data-initial');
         const want = prefer[tileId] || fromData || list[0];
 
-        // reorder so chosen first
         const idx = list.indexOf(want);
         if (idx > 0){ const [hit] = list.splice(idx,1); list.unshift(hit); }
         else if (idx === -1){ list.unshift(want); }
 
         tile.setAttribute('data-images', JSON.stringify(list));
 
-        // now actually set the href; this is the key lazy step
+        // Set the first frame only on prime (lazy)
         imgEl.setAttribute('href', list[0]);
         imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
 
         tile.dataset.primed = '1';
       }
 
-      /* === LIGHTER image preloader (only after prime; warms cache without blocking) === */
+      /* === Minimal preloader: only the immediate "next" image for snappy nav === */
       const preloaded = new Set();
-      function _preloadOne(src){
+      function preloadOne(src){
         if (!src || preloaded.has(src)) return;
         const im = new Image();
         im.decoding = 'async';
-        im.loading = 'eager';
         im.src = src;
         preloaded.add(src);
-      }
-      function preloadList(list) {
-        if (!Array.isArray(list) || !list.length) return;
-        const immediate = list.slice(0, 2);
-        immediate.forEach(_preloadOne);
-        const rest = list.slice(2);
-        const enqueue = () => {
-          let i = 0;
-          const step = () => {
-            if (i >= rest.length) return;
-            _preloadOne(rest[i++]);
-            setTimeout(step, 0);
-          };
-          step();
-        };
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(enqueue, { timeout: 2000 });
-        } else {
-          setTimeout(enqueue, 300);
-        }
       }
 
       // ---------- Lightbox ----------
@@ -617,16 +582,11 @@
         let list; try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){ list = []; }
         if(!Array.isArray(list) || list.length <= 1) return;
 
-        // ensure absolute before preloading/wiring
         list = list.map(toAbs);
         tile.setAttribute('data-images', JSON.stringify(list));
 
         // prime sets the first frame and marks primed
         prime(tileId);
-
-        // preload after we’ve set the first frame
-        try { list = JSON.parse(tile.getAttribute('data-images') || '[]'); } catch(e){}
-        preloadList(list);
 
         let idx = 0;
         const dotsWrap = tile.querySelector('.tile-dots');
@@ -644,8 +604,16 @@
           const src=list[idx];
           imgEl.setAttribute('href',src);
           imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href',src);
+          // minimally warm just the next frame
+          const next = list[(idx+1)%list.length];
+          preloadOne(next);
           updateDots();
         }
+
+        // Initial tiny warm of the next image only (no bulk queues)
+        const next0 = list[1] || null;
+        preloadOne(next0);
+
         tile.querySelector('.tile-prev')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx-1); });
         tile.querySelector('.tile-next')?.addEventListener('click',e=>{ e.stopPropagation(); show(idx+1); });
 
