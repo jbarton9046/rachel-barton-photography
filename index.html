@@ -18,19 +18,13 @@
   <!-- Shared layout -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
-  <!-- Preload hero image (updated path) -->
+  <!-- Preload hero image (updated to cropped homePic/index.jpg) -->
   <link rel="preload" as="image" href="pictures/homePic/index.jpg">
 
   <style>
     :root{
-      --bg:#FAFAF8; 
-      --paper:#ffffff;
-      --ink:#3e3e3a; 
-      --accent:#A88A5A; 
-      --line:#e9e6df;
-      --ring:rgba(168,138,90,.25); 
-      --gap:clamp(16px,3vw,32px); 
-      --maxw:1200px;
+      --bg:#FAFAF8; --ink:#3e3e3a; --accent:#A88A5A; --line:#e9e6df;
+      --ring:rgba(168,138,90,.25); --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
       /* Positioning knobs (decrease to nudge the card LEFT) */
       --card-max: 1100px;
@@ -60,64 +54,17 @@
     a{ color:inherit; text-decoration:none }
     img{ max-width:100%; height:auto; display:block; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06) }
 
-    /* FRAME: gives us soft “borders” left/right */
-    .hero-frame{
+    /* HERO fills the entire viewport and is fixed behind everything */
+    .hero{
       position:fixed;
       inset:0;
-      background:var(--bg); /* matches site background */
-      display:flex;
-      justify-content:center;
-      align-items:stretch;
-      z-index:0;
-    }
-
-    /* These are the side panels ("borders") */
-    .hero-frame::before,
-    .hero-frame::after{
-      content:"";
-      flex:0 0 clamp(16px,3vw,32px); /* width of the side frame */
-      background:
-        radial-gradient(circle at 40% 40%, rgba(255,255,255,.6) 0%, rgba(255,255,255,0) 70%);
-      background-color:rgba(255,255,255,.55);
-      border-left:1px solid rgba(0,0,0,.06);
-      border-right:1px solid rgba(0,0,0,.06);
-      box-shadow:0 10px 30px rgba(0,0,0,.08) inset;
-    }
-    .hero-frame::before{
-      border-left:0; /* avoid double-thick edge on extreme sides */
-      box-shadow:5px 0 30px rgba(0,0,0,.12) inset;
-    }
-    .hero-frame::after{
-      border-right:0;
-      box-shadow:-5px 0 30px rgba(0,0,0,.12) inset;
-    }
-
-    /* HERO: full image visible, contained inside the frame */
-    .hero{
-      position:relative;
-      flex:1 1 auto;
-      min-width:0;
-      /* show entire photo: */
-      background:
-        url('pictures/homePic/index.jpg')
-        center bottom / contain
-        no-repeat;
-      background-color:var(--bg);
-      /* still pin it in place visually */
-      background-attachment:fixed;
-
-      /* keep card positioned over it the same way you had */
-      inset:0;
+      /* updated to new cropped file */
+      background:url('pictures/homePic/index.jpg') center 15% / cover no-repeat fixed;
     }
 
     /* ✅ Navbar: fixed like before, but spacing + font EXACTLY like others */
     .topbar{
-      position:fixed; 
-      left:0; 
-      right:0; 
-      top:0; 
-      z-index:2; 
-      background:transparent;
+      position:fixed; left:0; right:0; top:0; z-index:2; background:transparent;
       padding-top: var(--nav-gap-top) !important;
       padding-bottom: var(--nav-gap-bottom) !important;
     }
@@ -155,11 +102,8 @@
 
     /* Card */
     .hero .copy{
-      position:absolute; 
-      z-index:1;
-      top:50%; 
-      left:50%; 
-      transform:translate(-50%,-50%);
+      position:absolute; z-index:1;
+      top:50%; left:50%; transform:translate(-50%,-50%);
       display:inline-block;
       max-width:min(94vw, var(--card-max));
       background:rgba(255,255,255,.68);
@@ -179,30 +123,19 @@
     }
 
     .eyebrow{
-      color:#8d7a5c; 
-      font-weight:700; 
-      letter-spacing:.16em; 
-      text-transform:uppercase;
-      font-size:clamp(12px,1.2vw,14px); 
-      margin-bottom:12px;
+      color:#8d7a5c; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+      font-size:clamp(12px,1.2vw,14px); margin-bottom:12px;
     }
     h1{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       font-size:clamp(44px,7.2vw,74px);
-      line-height:1.08; 
-      margin:.25em 0 .15em; 
-      font-weight:700; 
-      color:#3f3a33;
+      line-height:1.08; margin:.25em 0 .15em; font-weight:700; color:#3f3a33;
     }
     .nowrap{ white-space:nowrap; }
 
     /* CTA layout (desktop default: row, original order) */
     .cta{
-      display:flex; 
-      gap:22px; 
-      margin:28px 0; 
-      flex-wrap:wrap; 
-      justify-content:center;
+      display:flex; gap:22px; margin:28px 0; flex-wrap:wrap; justify-content:center;
       text-align:center;
     }
 
@@ -213,10 +146,7 @@
       --btn-border-hover: rgba(62,62,58,.45);
 
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      display:inline-flex; 
-      align-items:center; 
-      justify-content:center; 
-      gap:8px;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
 
       padding:12px 22px;
       background:var(--btn-bg);
@@ -225,9 +155,7 @@
       border-radius:0;
       box-shadow:0 6px 18px rgba(0,0,0,.06);
 
-      font-weight:700; 
-      text-decoration:none; 
-      text-align:center;
+      font-weight:700; text-decoration:none; text-align:center;
       transition:background-color .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease, transform .18s ease;
       white-space:nowrap;
     }
@@ -244,18 +172,9 @@
       border-color:var(--btn-border-hover);
     }
 
-    .localities{ 
-      color:#5c5850; 
-      margin-top:6px; 
-      line-height:1.75 
-    }
-    .localities .dot::after{ 
-      content:" • "; 
-      color:#8a857a 
-    }
-    .localities .dot:last-child::after{ 
-      content:"" 
-    }
+    .localities{ color:#5c5850; margin-top:6px; line-height:1.75 }
+    .localities .dot::after{ content:" • "; color:#8a857a }
+    .localities .dot:last-child::after{ content:"" }
 
     /* ---------------- MOBILE OPTIMIZATION ---------------- */
     @media (max-width: 820px){
@@ -267,9 +186,7 @@
         padding: 10px 18px;
       }
       .eyebrow{
-        font-size: 11px; 
-        letter-spacing: .14em; 
-        margin-bottom: 4px;
+        font-size: 11px; letter-spacing: .14em; margin-bottom: 4px;
       }
       h1{
         font-size: clamp(34px, 7.8vw, 44px);
@@ -288,7 +205,8 @@
       }
       .btn--say { order:-1; } /* move Say Hello to the top on mobile */
 
-      /* ✅ Mobile buttons: same style as desktop, but tighter padding */
+      /* ✅ Mobile buttons: same style as desktop, but tighter padding
+         so the outline hugs the text tastefully */
       .btn{
         padding:8px 14px;
         font-size:16px;
@@ -337,27 +255,25 @@
   <!-- Shared Top Nav lives OUTSIDE the hero so the drawer stays fixed left -->
   <div data-include="/partials/topnav.html"></div>
 
-  <!-- HERO FRAME wraps HERO so we can fake borders + keep card positioning -->
-  <div class="hero-frame">
-    <section id="content" class="hero" aria-label="Hero">
-      <div class="copy">
-        <div class="eyebrow">Welcome to</div>
-        <h1><span class="nowrap">Rachel Barton</span><br>Photography</h1>
+  <!-- HERO -->
+  <section id="content" class="hero" aria-label="Hero">
+    <div class="copy">
+      <div class="eyebrow">Welcome to</div>
+      <h1><span class="nowrap">Rachel Barton</span><br>Photography</h1>
 
-        <div class="cta">
-          <!-- Desktop keeps original order; mobile reorders via CSS -->
-          <a class="btn btn--book" href="/book.html" aria-label="Book a Session">Book a Session</a>
-          <a class="btn btn--say" href="/contact.html" aria-label="Say Hello">Say Hello</a>
-        </div>
-
-        <div class="localities">
-          <span class="dot">Sarasota</span><span class="dot">Siesta Key</span><span class="dot">Lido</span><span class="dot">Longboat Key</span><br>
-          <span class="dot">Lakewood Ranch</span><span class="dot">Venice</span><span class="dot">Bradenton</span><br>
-          <span class="dot">Tampa</span><span class="dot">St. Petersburg</span><span class="dot">Clearwater</span><span>Naples</span>
-        </div>
+      <div class="cta">
+        <!-- Desktop keeps original order; mobile reorders via CSS -->
+        <a class="btn btn--book" href="/book.html" aria-label="Book a Session">Book a Session</a>
+        <a class="btn btn--say" href="/contact.html" aria-label="Say Hello">Say Hello</a>
       </div>
-    </section>
-  </div>
+
+      <div class="localities">
+        <span class="dot">Sarasota</span><span class="dot">Siesta Key</span><span class="dot">Lido</span><span class="dot">Longboat Key</span><br>
+        <span class="dot">Lakewood Ranch</span><span class="dot">Venice</span><span class="dot">Bradenton</span><br>
+        <span class="dot">Tampa</span><span class="dot">St. Petersburg</span><span class="dot">Clearwater</span><span>Naples</span>
+      </div>
+    </div>
+  </section>
 
   <!-- Partials loader -->
   <script src="/assets/include.js?v=nav-5" defer></script>
