@@ -26,7 +26,7 @@
       --bg:#FAFAF8; --ink:#3e3e3a; --accent:#A88A5A; --line:#e9e6df;
       --ring:rgba(168,138,90,.25); --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
-      /* Positioning knobs (decrease to nudge the card LEFT) */
+      /* Positioning knobs */
       --card-max: 1100px;
       --subject-right: 40vw;
       --subject-right-mobile: 24vw;
@@ -58,29 +58,28 @@
        HERO FRAME (desktop border matte)
        ---------------------------------- */
 
-    /* default/mobile: do nothing special */
+    /* default/mobile: basically inert wrapper so we don't mess mobile */
     .hero-frame{
       position:fixed;
       inset:0;
       z-index:0;
-      /* we let .hero itself be fixed full-bleed underneath on mobile/tablet */
-      pointer-events:none; /* so clicks go through to nav etc */
+      pointer-events:none; /* clicks go through to nav etc */
     }
 
-    /* desktop only: turn hero-frame into the two side panels + centered hero */
+    /* desktop only: show side mattes + center hero content */
     @media (min-width:1024px){
       .hero-frame{
         display:flex;
         justify-content:center;
         align-items:stretch;
-        background:var(--bg); /* matches site bg so the "mattes" feel natural */
+        background:var(--bg);
         pointer-events:auto;
       }
 
       .hero-frame::before,
       .hero-frame::after{
         content:"";
-        flex:0 0 clamp(16px,3vw,32px); /* border thickness */
+        flex:0 0 clamp(16px,3vw,32px); /* matte thickness */
         background:
           radial-gradient(circle at 40% 40%, rgba(255,255,255,.6) 0%, rgba(255,255,255,0) 70%);
         background-color:rgba(255,255,255,.55);
@@ -102,7 +101,7 @@
        HERO BACKGROUND
        ---------------------------------- */
 
-    /* mobile/tablet default = your current behavior */
+    /* mobile/tablet (unchanged from your version) */
     .hero{
       position:fixed;
       inset:0;
@@ -111,17 +110,16 @@
     }
 
     /* desktop override:
-       - use contain to show full body
-       - anchor bottom so we see feet
-       - stop using full-bleed cover
-       - let hero sit as flexible middle column inside hero-frame
+       - contain so we see head-to-toe
+       - anchor bottom so feet land near bottom edge
+       - hero becomes the middle column between mattes
     */
     @media (min-width:1024px){
       .hero{
         position:relative;
         flex:1 1 auto;
         min-width:0;
-        inset:auto; /* don't pin to viewport edges inside the frame */
+        inset:auto;
         background:
           url('pictures/oonaIvy/E26A0671.jpg')
           center bottom / contain
@@ -184,18 +182,16 @@
     }
 
     /* desktop adjust:
-       - pull card slightly more toward true center so it's not smashed
-         against the new right matte border.
-       We’ll bias it a little less to the right than before.
+       pull card a bit toward center so it's not hugging the right matte.
+       We do that by updating --subject-right just on desktop and reusing your math.
     */
     @media (min-width:1024px){
+      :root{
+        --subject-right: 32vw; /* was 40vw */
+      }
       .hero .copy{
         left: calc( (var(--subject-right) + 100vw) / 2 );
         transform: translate(-50%, -50%);
-      }
-      /* nudge the card further left (toward center) by reducing --subject-right */
-      :root{
-        --subject-right: 32vw; /* was 40vw */
       }
     }
 
@@ -282,8 +278,7 @@
       }
       .btn--say { order:-1; } /* move Say Hello to the top on mobile */
 
-      /* ✅ Mobile buttons: same style as desktop, but tighter padding
-         so the outline hugs the text tastefully */
+      /* ✅ Mobile buttons: same style as desktop, but tighter padding */
       .btn{
         padding:8px 14px;         /* tighter than desktop */
         font-size:16px;
@@ -319,7 +314,7 @@
     @media (max-width: 380px){
       .hero .copy{ padding: 9px 16px; top: 43.5%; }
       h1{ font-size: clamp(28px, 8.4vw, 36px); }
-      .btn{ font-size: 15px; padding: 7px 12px; } /* keep the tight feel on very small screens */
+      .btn{ font-size: 15px; padding: 7px 12px; }
       .localities{ font-size: 11.8px; line-height: 1.32; }
     }
 
