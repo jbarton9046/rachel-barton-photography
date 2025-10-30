@@ -18,8 +18,8 @@
   <!-- Shared layout -->
   <link rel="stylesheet" href="/assets/layout.css?v=nav-5">
 
-  <!-- Preload hero image -->
-  <link rel="preload" as="image" href="pictures/oonaIvy/E26A0671.jpg">
+  <!-- Preload hero image (updated to cropped homePic/index.jpg) -->
+  <link rel="preload" as="image" href="pictures/homePic/index.jpg">
 
   <style>
     :root{
@@ -58,7 +58,8 @@
     .hero{
       position:fixed;
       inset:0;
-      background:url('pictures/oonaIvy/E26A0671.jpg') center 35% / cover no-repeat fixed;
+      /* updated to new cropped file */
+      background:url('pictures/homePic/index.jpg') center 15% / cover no-repeat fixed;
     }
 
     /* ✅ Navbar: fixed like before, but spacing + font EXACTLY like others */
@@ -207,7 +208,7 @@
       /* ✅ Mobile buttons: same style as desktop, but tighter padding
          so the outline hugs the text tastefully */
       .btn{
-        padding:8px 14px;         /* tighter than desktop */
+        padding:8px 14px;
         font-size:16px;
         background:var(--btn-bg);
         border:1px solid var(--btn-border);
@@ -241,7 +242,7 @@
     @media (max-width: 380px){
       .hero .copy{ padding: 9px 16px; top: 43.5%; }
       h1{ font-size: clamp(28px, 8.4vw, 36px); }
-      .btn{ font-size: 15px; padding: 7px 12px; } /* keep the tight feel on very small screens */
+      .btn{ font-size: 15px; padding: 7px 12px; }
       .localities{ font-size: 11.8px; line-height: 1.32; }
     }
 
