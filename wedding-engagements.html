@@ -97,26 +97,21 @@
     }
     .process p{ margin:0 0 8px; color:#5b574f; font-size:1rem; line-height:1.6; }
 
-    /* MOSAIC GRID SECTION */
+    /* MOSAIC GRID */
     .mosaic-wrap{ padding:0 0 clamp(20px,4vw,32px); }
 
-    /* outer wrapper */
     .mosaic-outer{
       width:100%; overflow:hidden; display:flex; justify-content:center; align-items:flex-start;
     }
-
-    /* scale wrapper for mobile (we transform this, not the grid) */
-    .mosaic-scale{
-      transform-origin:top center; will-change:transform;
-    }
+    .mosaic-scale{ transform-origin:top center; will-change:transform; }
 
     .mosaic-grid{
       display:grid;
-      grid-template-columns:repeat(6, 1fr); /* desktop rhythm */
+      grid-template-columns:repeat(6, 1fr);
       grid-auto-rows:8px;
       grid-auto-flow:dense;
       gap:12px;
-      width:calc(var(--maxw) - 2 * var(--gap)); /* lock to desktop inner width */
+      width:calc(var(--maxw) - 2 * var(--gap));
       margin:0 auto;
     }
 
@@ -125,15 +120,13 @@
       box-shadow:0 6px 18px rgba(0,0,0,.06); background:#fff; cursor:pointer;
     }
     .mosaic-item img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-    /* focus helper if an image needs less sky / more people */
     .obj-people{ object-position:center 80%; }
 
     /* spans */
     .span-tall   { grid-row:span 40; grid-column:span 2; }
     .span-wide   { grid-row:span 24; grid-column:span 3; }
     .span-std    { grid-row:span 24; grid-column:span 2; }
-    .span-small  { grid-row:span 16; grid-column:span 2; }
+    .span-small  { grid-row:span 16; grid-column:span 1; } /* 1-col small to fill tight gaps */
 
     /* lightbox */
     #wedLightbox{
@@ -148,16 +141,11 @@
     #wedLightbox .lb-btn{
       position:absolute; width:56px; height:56px; display:grid; place-items:center;
       background:rgba(0,0,0,.25); border:0; color:#fff; box-shadow:none; border-radius:999px;
-      -webkit-tap-highlight-color: transparent;
-      touch-action:manipulation;
+      -webkit-tap-highlight-color: transparent; touch-action:manipulation;
     }
     #wedLbPrev{ top:50%; left:8px; transform:translateY(-50%); }
     #wedLbNext{ top:50%; right:8px; transform:translateY(-50%); }
-    #wedLbClose{
-      top:8px; right:8px;
-      width:64px; height:64px; /* bigger hit target on mobile */
-    }
-    #wedLightbox .lb-btn svg{ filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
+    #wedLbClose{ top:8px; right:8px; width:64px; height:64px; }
 
     /* responsive */
     .desktop-only{ display:block; }
@@ -170,7 +158,6 @@
       .hero-wrap{ grid-template-columns:1fr; }
       .hero{ padding-top: calc(var(--mobile-header-h) + 16px); }
 
-      /* MOBILE-ONLY: gallery grid edge-to-edge; header aligned with hero padding */
       .mosaic-wrap.container{ padding-left:0; padding-right:0; }
       .mosaic-head{ padding-left:var(--gap); padding-right:var(--gap); }
     }
@@ -197,10 +184,7 @@
           <p class="crumb"><a href="/galleries.html">← Back to Galleries</a></p>
           <div class="eyebrow">Weddings • Engagements • Couples</div>
           <h1 class="h1">Movement-first, true-to-life, and honestly you.</h1>
-          <p class="lead">
-            Zero stiffness, clean edits, and gentle direction so you can feel like yourselves.
-            Here’s how a couples session flows—and how it looks when the nerves melt and the good stuff shows up.
-          </p>
+          <p class="lead">Zero stiffness, clean edits, and gentle direction so you can feel like yourselves.</p>
           <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
             <a class="btn" href="/book.html" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,'Times New Roman',serif; font-weight:700; border:1px solid var(--line); background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); padding:10px 16px; text-decoration:none; color:#3f3a33;">Book This Session</a>
             <a class="btn" href="/contact.html" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,'Times New Roman',serif; font-weight:700; border:1px solid var(--line); background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); padding:10px 16px; text-decoration:none; color:#3f3a33;">Ask a Question</a>
@@ -214,7 +198,7 @@
       </div>
     </section>
 
-    <!-- PROCESS / EXPERIENCE STORY -->
+    <!-- PROCESS -->
     <section class="container" style="padding:clamp(12px,3vw,24px) 0;">
       <article class="process">
         <h2>What it feels like</h2>
@@ -228,43 +212,50 @@
     <section class="container mosaic-wrap">
       <div class="mosaic-head">
         <div class="eyebrow">What it really looks like</div>
-        <h2 class="section-title">Nine moments that feel like you two</h2>
+        <h2 class="section-title">Nine (okay, ten) moments that feel like you two</h2>
         <p class="section-sub">Tap any photo to view it full-screen. Swipe/arrow through the set.</p>
       </div>
 
       <div class="mosaic-outer">
         <div class="mosaic-scale" id="wedScale">
           <div class="mosaic-grid" id="wedMosaic">
-            <!-- ORDER SHUFFLED FOR BETTER RHYTHM -->
-            <div class="mosaic-item span-tall"  data-src="/pictures/lidoCoupleOctGallPics/E26A3605.jpg">
+            <!-- Rebalanced order/spans so rows pack to ~6 cols frequently -->
+
+            <!-- Row A: 2 + 2 + 2 = 6 -->
+            <div class="mosaic-item span-tall" data-src="/pictures/lidoCoupleOctGallPics/E26A3605.jpg">
               <img src="/pictures/lidoCoupleOctGallPics/E26A3605.jpg" alt="Tall portrait embrace" />
             </div>
-            <div class="mosaic-item span-wide"  data-src="/pictures/lidoCoupleOctGallPics/E26A3679.jpg">
+            <div class="mosaic-item span-std" data-src="/pictures/lidoCoupleOctGallPics/E26A3730.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3730.jpg" alt="Foreheads together" />
+            </div>
+            <div class="mosaic-item span-std" data-src="/pictures/lidoCoupleOctGallPics/E26A3642.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3642.jpg" alt="Walking in seagrass" />
+            </div>
+
+            <!-- Row B: 3 + 2 + 1 = 6 -->
+            <div class="mosaic-item span-wide" data-src="/pictures/lidoCoupleOctGallPics/E26A3679.jpg">
               <img src="/pictures/lidoCoupleOctGallPics/E26A3679.jpg" alt="Golden-hour walk wide" />
             </div>
-            <div class="mosaic-item span-std"   data-src="/pictures/lidoCoupleOctGallPics/E26A3730.jpg">
-              <img src="/pictures/lidoCoupleOctGallPics/E26A3730.jpg" alt="Foreheads together" />
+            <div class="mosaic-item span-std" data-src="/pictures/lidoCoupleOctGallPics/E26A3582.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3582.jpg" alt="Close laughter moment" />
+            </div>
+            <div class="mosaic-item span-small" data-src="/pictures/lidoCoupleOctGallPics/E26A3741.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3741.jpg" alt="Sunlit smile (detail)" />
+            </div>
+
+            <!-- Row C: 3 + 2 + 1 = 6 -->
+            <div class="mosaic-item span-wide" data-src="/pictures/lidoCoupleOctGallPics/E26A3579.jpg">
+              <img class="obj-people" src="/pictures/lidoCoupleOctGallPics/E26A3579.jpg" alt="Couple at Lido, wide scene focused on people" />
+            </div>
+            <div class="mosaic-item span-std" data-src="/pictures/lidoCoupleOctGallPics/E26A3746.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3746.jpg" alt="Backlit hug" />
             </div>
             <div class="mosaic-item span-small" data-src="/pictures/lidoCoupleOctGallPics/E26A3620.jpg">
               <img src="/pictures/lidoCoupleOctGallPics/E26A3620.jpg" alt="Hand-in-hand detail" />
             </div>
-            <div class="mosaic-item span-std"   data-src="/pictures/lidoCoupleOctGallPics/E26A3642.jpg">
-              <img src="/pictures/lidoCoupleOctGallPics/E26A3642.jpg" alt="Walking in seagrass" />
-            </div>
-            <!-- People-focused image appears mid-set -->
-            <div class="mosaic-item span-wide"  data-src="/pictures/lidoCoupleOctGallPics/E26A3579.jpg">
-              <img class="obj-people" src="/pictures/lidoCoupleOctGallPics/E26A3579.jpg" alt="Couple at Lido, wide scene" />
-            </div>
-            <div class="mosaic-item span-std"   data-src="/pictures/lidoCoupleOctGallPics/E26A3746.jpg">
-              <img src="/pictures/lidoCoupleOctGallPics/E26A3746.jpg" alt="Backlit hug" />
-            </div>
-            <div class="mosaic-item span-small" data-src="/pictures/lidoCoupleOctGallPics/E26A3741.jpg">
-              <img src="/pictures/lidoCoupleOctGallPics/E26A3741.jpg" alt="Sunlit smile" />
-            </div>
-            <div class="mosaic-item span-std"   data-src="/pictures/lidoCoupleOctGallPics/E26A3582.jpg">
-              <img src="/pictures/lidoCoupleOctGallPics/E26A3582.jpg" alt="Close laughter moment" />
-            </div>
-            <div class="mosaic-item span-std"   data-src="/pictures/lidoCoupleOctGallPics/E26A3789.jpg">
+
+            <!-- Tail: fill neatly under tall column -->
+            <div class="mosaic-item span-std" data-src="/pictures/lidoCoupleOctGallPics/E26A3789.jpg">
               <img src="/pictures/lidoCoupleOctGallPics/E26A3789.jpg" alt="Silhouette at dusk" />
             </div>
           </div><!-- /.mosaic-grid -->
@@ -283,7 +274,7 @@
       <button class="lb-btn" id="wedLbNext" aria-label="Next">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
       </button>
-      <button class="lb-btn" id="wedLbClose" aria-label="Close (tap anywhere outside image, too)">
+      <button class="lb-btn" id="wedLbClose" aria-label="Close (tap outside image or swipe down)">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
@@ -326,26 +317,17 @@
       lbImg.src = items[currentIndex].getAttribute('data-src') || '';
     }
 
-    // open
     items.forEach((item, idx)=> item.addEventListener('click', ()=>openAt(idx)));
+    lbPrev.addEventListener('click', e=>{ e.stopPropagation(); showDelta(-1); });
+    lbNext.addEventListener('click', e=>{ e.stopPropagation(); showDelta(+1); });
+    lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); });
 
-    // controls
-    lbPrev.addEventListener('click', e=>{ e.stopPropagation(); showDelta(-1); }, {passive:false});
-    lbNext.addEventListener('click', e=>{ e.stopPropagation(); showDelta(+1); }, {passive:false});
-    lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); }, {passive:false});
-
-    // close if you tap outside the image
+    // Tap outside image to close
     lb.addEventListener('click', e=>{
-      const frame = e.currentTarget.querySelector('.lb-frame');
       if(e.target === lb) closeLb();
-      if(!e.target.closest('.lb-img') && !e.target.closest('.lb-btn') && e.target.closest('.lb-frame')) {
-        const rect = frame.getBoundingClientRect();
-        const y = e.clientY;
-        if(y - rect.top < 48) closeLb();
-      }
     });
 
-    // keyboard
+    // Keyboard
     window.addEventListener('keydown', e=>{
       if(!lb.classList.contains('open')) return;
       if(e.key==='Escape') closeLb();
@@ -353,7 +335,7 @@
       if(e.key==='ArrowRight') showDelta(+1);
     });
 
-    // swipe (left/right to nav, swipe-down to close)
+    // Swipe: left/right nav, swipe-down to close
     let touchX = null, touchY = null;
     lb.addEventListener('touchstart', e=>{
       const t = e.changedTouches[0];
