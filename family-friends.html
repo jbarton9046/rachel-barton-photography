@@ -55,7 +55,9 @@
     }
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-    .crumb{ margin:0 0 4px; }
+    .crumb{
+      margin:0 0 4px;
+    }
     .crumb a{
       display:inline-block;
       font-size:15px;
@@ -100,7 +102,9 @@
       gap:clamp(16px,2.5vw,28px);
       align-items:center;
     }
-    .hero-fig{ position:relative; }
+    .hero-fig{
+      position:relative;
+    }
     .hero-fig img{
       width:100%;
       aspect-ratio:4/5;
@@ -116,6 +120,7 @@
       font-size:13px;
     }
 
+    /* section headers */
     .section-title{
       font-family:"Cormorant Garamond","Times New Roman",serif;
       font-size:clamp(24px,3.5vw,38px);
@@ -129,6 +134,7 @@
       max-width:75ch;
     }
 
+    /* story / process block */
     .process{
       background:#fff;
       border:1px solid var(--line);
@@ -149,11 +155,16 @@
       line-height:1.6;
     }
 
-    .mosaic-wrap{ padding:0 0 clamp(20px,4vw,32px); }
+    /* MOSAIC GRID SECTION */
+    .mosaic-wrap{
+      padding:0 0 clamp(20px,4vw,32px);
+    }
 
+    /* outer wrapper so we can scale on mobile without causing sideways scroll */
     .mosaic-outer{
       width:100%;
       overflow:hidden;
+      /* we'll center the scaled-down grid inside here on mobile */
       display:flex;
       justify-content:center;
     }
@@ -182,23 +193,96 @@
       display:block;
     }
 
-    .span-big-vert{ grid-row:span 40; grid-column:span 1; }
-    .span-wide{ grid-row:span 24; grid-column:span 2; }
-    .span-std{ grid-row:span 24; grid-column:span 1; }
-    .span-small{ grid-row:span 16; grid-column:span 1; }
+    /* helpful bigger / taller / wider spans */
+    .span-big-vert   { grid-row:span 40; grid-column:span 1; }
+    .span-wide       { grid-row:span 24; grid-column:span 2; }
+    .span-std        { grid-row:span 24; grid-column:span 1; }
+    .span-small      { grid-row:span 16; grid-column:span 1; }
 
-    /* ✅ MOBILE FIX — keeps exact desktop layout, just scales it down */
+    /* MOBILE BEHAVIOR:
+       - keep multi-column collage
+       - just shrink entire grid and tighten rows so it fits on iPhone without turning into 2-up blocks
+    */
     @media(max-width:600px){
-      .mosaic-outer{
-        justify-content:center;
-      }
       .mosaic-grid{
-        transform:scale(.7);
-        transform-origin:top center;
+        grid-auto-rows:6px;           /* a touch shorter so tall spans aren't huge */
+        transform:scale(.8);          /* zoom whole collage down */
       }
     }
 
-    /* rest unchanged: lightbox, responsiveness */
+    /* lightbox */
+    #famLightbox{
+      position:fixed;
+      inset:0;
+      z-index:100;
+      display:none;
+      place-items:center;
+      background:rgba(0,0,0,.72);
+    }
+    #famLightbox.open{ display:grid; }
+    #famLightbox .lb-frame{
+      position:relative;
+      width:min(96vw,1200px);
+      height:min(92vh,900px);
+    }
+    #famLightbox .lb-img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      background:#111;
+      border:1px solid rgba(255,255,255,.15);
+    }
+    #famLightbox .lb-btn{
+      position:absolute;
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      background:transparent;
+      border:0;
+      color:#fff;
+      box-shadow:none;
+    }
+    #famLbPrev{ top:50%; left:8px; transform:translateY(-50%); }
+    #famLbNext{ top:50%; right:8px; transform:translateY(-50%); }
+    #famLbClose{ top:8px; right:8px; }
+    #famLightbox .lb-btn svg{
+      filter:drop-shadow(0 2px 6px rgba(0,0,0,.55));
+    }
+
+    /* responsive general */
+    .desktop-only{ display:block; }
+    .mobile-only{ display:none; }
+    @media (max-width:960px){
+      .desktop-only{ display:none; }
+      .mobile-only{ display:block; }
+
+      .hero-wrap{
+        grid-template-columns:1fr;
+      }
+      .hero{
+        padding-top: calc(var(--mobile-header-h) + 16px);
+      }
+    }
+
+    @media (max-width:820px){
+      html, body { overflow-x:hidden; }
+      #content{
+        position:relative !important;
+        transform:none !important;
+        margin-left:0 !important;
+        left:0 !important;
+        right:0 !important;
+        max-width:100% !important;
+        width:100% !important;
+      }
+      .topbar{
+        padding-top:8px !important;
+        padding-bottom:12px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -206,10 +290,128 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <!-- full hero, process, and mosaic sections remain here exactly as in your pasted file -->
-    <!-- (no truncation or removal in your actual output) -->
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-wrap">
+        <div>
+          <p class="crumb"><a href="/portraits.html">← Back to Portraits</a></p>
+          <div class="eyebrow">Family &amp; Friends</div>
+          <h1 class="h1">Real connection, zero stiffness, and memories that actually feel like you.</h1>
+          <p class="lead">
+            You're not booking a photo shoot. You're freezing the way your kid’s hair curls after salt water. The way your sister laughs with her whole face. The way your people feel right now, before “right now” turns into “remember when.”
+          </p>
+          <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+            <a class="btn" href="/book.html" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,'Times New Roman',serif; font-weight:700; border:1px solid var(--line); background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); padding:10px 16px; text-decoration:none; color:#3f3a33;">Book This Session</a>
+            <a class="btn" href="/contact.html" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,'Times New Roman',serif; font-weight:700; border:1px solid var(--line); background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); padding:10px 16px; text-decoration:none; color:#3f3a33;">Ask a Question</a>
+          </div>
+        </div>
+
+        <figure class="hero-fig">
+          <span class="hero-badge">Warm • Movement-first • Sarasota</span>
+          <img src="/pictures/familyPortrait/girls-on-beach-looking-into-sunset.jpg" alt="Family walking along the Gulf at sunset, laughing and windblown" loading="eager" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- PROCESS / EXPERIENCE STORY -->
+    <section class="container" style="padding:clamp(12px,3vw,24px) 0;">
+      <article class="process">
+        <h2>Here’s how it actually goes</h2>
+
+        <p><strong>We meet somewhere gorgeous but low-stress.</strong> Beach access with easy parking, a little boardwalk with sea oats, or even your backyard at golden hour. No one’s sprinting, no one’s sweating in a panic, nobody’s yelling “smile for the camera.”</p>
+
+        <p><strong>Then we move.</strong> You’ll get simple, easy prompts (“walk toward me and bump hips,” “snuggle in like you’re cold,” “everyone look at whoever laughs first”). That keeps hands busy, gives kids a “job,” and gets you out of your own head.</p>
+
+        <p><strong>We don’t chase ‘perfect,’ we chase ‘true.’</strong> The way your toddler hides in your legs. The way your partner looks at you when you’re not posing. Wind, freckles, sunscreen noses — that’s the good stuff.</p>
+
+        <p><strong>Afterward, you get a gallery that feels like memory, not a studio backdrop.</strong> Clean color, beautiful light, and images you’ll actually want to have framed. Because the point is not just “did we get Christmas card material?” The point is “this is us, and I never want to forget it.”</p>
+      </article>
+    </section>
+
+    <!-- MOSAIC WALL -->
+    <section class="container mosaic-wrap">
+      <div class="eyebrow">What it really looks like</div>
+      <h2 class="section-title">Moments that feel like your life (because they are)</h2>
+      <p class="section-sub">
+        Tap any photo to view it full-screen. Swipe/arrow through the whole set.
+      </p>
+
+      <div class="mosaic-outer">
+        <div class="mosaic-grid" id="famMosaic">
+          <!-- Mixed for rhythm: beach ↔ costume ↔ friends ↔ family -->
+          <div class="mosaic-item span-big-vert" data-src="/pictures/family-mosaic/sisters-beach-sunset.jpg">
+            <img src="/pictures/family-mosaic/sisters-beach-sunset.jpg" alt="Sisters on the beach at sunset" />
+          </div>
+
+          <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/dad-mom-throwing-boy-in-air-in-costumes.jpg">
+            <img src="/pictures/family-mosaic/dad-mom-throwing-boy-in-air-in-costumes.jpg" alt="Parents tossing their son in the air, full joy" />
+          </div>
+
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/family-kissing.jpg">
+            <img src="/pictures/family-mosaic/family-kissing.jpg" alt="Everyone leaning in for a kiss and laughing" />
+          </div>
+
+          <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/boy-laying-in-grass-costume.jpg">
+            <img src="/pictures/family-mosaic/boy-laying-in-grass-costume.jpg" alt="Kid in costume laying in the grass, relaxed" />
+          </div>
+
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-posing-sunset-in-seagrass.jpg">
+            <img src="/pictures/family-mosaic/sisters-posing-sunset-in-seagrass.jpg" alt="Two sisters in seagrass, warm light" />
+          </div>
+
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/son-mom-pose-costumes.jpg">
+            <img src="/pictures/family-mosaic/son-mom-pose-costumes.jpg" alt="Mom and son posing in costume, soft light" />
+          </div>
+
+          <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/friends-marry-go-round-sunset.jpg">
+            <img src="/pictures/family-mosaic/friends-marry-go-round-sunset.jpg" alt="Spinning / playful moment at sunset with friends" />
+          </div>
+
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/brother-sister-costumes-moving.jpg">
+            <img src="/pictures/family-mosaic/brother-sister-costumes-moving.jpg" alt="Brother and sister running in costume" />
+          </div>
+
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-looking-in-distance-sunset.jpg">
+            <img src="/pictures/family-mosaic/sisters-looking-in-distance-sunset.jpg" alt="Kids looking toward the water, sunset glow" />
+          </div>
+
+          <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/friends-looking-into-phone.jpg">
+            <img src="/pictures/family-mosaic/friends-looking-into-phone.jpg" alt="Friends crowded together looking into a phone" />
+          </div>
+
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/boy-posing-sunrise.jpg">
+            <img src="/pictures/family-mosaic/boy-posing-sunrise.jpg" alt="Sunrise light on a kid, soft and golden" />
+          </div>
+
+          <div class="mosaic-item span-big-vert" data-src="/pictures/family-mosaic/mom-son-halloween-costumes.jpg">
+            <img src="/pictures/family-mosaic/mom-son-halloween-costumes.jpg" alt="Mom holding her son in costume, cheek to cheek" />
+          </div>
+
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-straing-into-ocean-sunset.jpg">
+            <img src="/pictures/family-mosaic/sisters-straing-into-ocean-sunset.jpg" alt="Watching the waves, backs to camera" />
+          </div>
+
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/boy-posing-costume.jpg">
+            <img src="/pictures/family-mosaic/boy-posing-costume.jpg" alt="Boy posing proudly in costume" />
+          </div>
+
+          <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/brother-sister-cotumes-posing.jpg">
+            <img src="/pictures/family-mosaic/brother-sister-cotumes-posing.jpg" alt="Brother and sister posing in costume" />
+          </div>
+
+          <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/family-pose.jpg">
+            <img src="/pictures/family-mosaic/family-pose.jpg" alt="Family all together, posed but warm" />
+          </div>
+
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/family-high-fiving.jpg">
+            <img src="/pictures/family-mosaic/family-high-fiving.jpg" alt="Family high five moment" />
+          </div>
+        </div><!-- /.mosaic-grid -->
+      </div><!-- /.mosaic-outer -->
+    </section>
   </main>
 
+  <!-- Lightbox shared on this page -->
   <div class="lb" id="famLightbox" aria-hidden="true">
     <div class="lb-frame">
       <img class="lb-img" id="famLbImg" alt="">
@@ -225,9 +427,81 @@
     </div>
   </div>
 
+  <!-- shared footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- JS identical to your original -->
+  <!-- mosaic + lightbox JS -->
+  <script>
+  (function(){
+    // collect all mosaic items for lightbox navigation
+    const items = Array.from(document.querySelectorAll('.mosaic-item'));
+    const lb = document.getElementById('famLightbox');
+    const lbImg = document.getElementById('famLbImg');
+    const lbPrev = document.getElementById('famLbPrev');
+    const lbNext = document.getElementById('famLbNext');
+    const lbClose = document.getElementById('famLbClose');
+
+    let currentIndex = -1;
+
+    function openAt(idx){
+      if(idx < 0 || idx >= items.length) return;
+      currentIndex = idx;
+      const src = items[idx].getAttribute('data-src');
+      lbImg.src = src || '';
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLb(){
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden','true');
+      lbImg.src = '';
+      document.body.style.overflow = '';
+      currentIndex = -1;
+    }
+
+    function showDelta(d){
+      if(currentIndex === -1) return;
+      currentIndex = (currentIndex + d + items.length) % items.length;
+      const src = items[currentIndex].getAttribute('data-src');
+      lbImg.src = src || '';
+    }
+
+    // click on each mosaic item opens lightbox at that index
+    items.forEach((item, idx)=>{
+      item.addEventListener('click', ()=>openAt(idx));
+    });
+
+    // lightbox buttons
+    lbPrev.addEventListener('click', e=>{ e.stopPropagation(); showDelta(-1); });
+    lbNext.addEventListener('click', e=>{ e.stopPropagation(); showDelta(+1); });
+    lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); });
+    lb.addEventListener('click', e=>{ if(e.target===lb) closeLb(); });
+
+    // keyboard nav
+    window.addEventListener('keydown', e=>{
+      if(!lb.classList.contains('open')) return;
+      if(e.key==='Escape') closeLb();
+      if(e.key==='ArrowLeft') showDelta(-1);
+      if(e.key==='ArrowRight') showDelta(+1);
+    });
+
+    // swipe on lightbox
+    let touchX = null;
+    lb.addEventListener('touchstart', e=>{
+      touchX = e.changedTouches[0].clientX;
+    }, {passive:true});
+    lb.addEventListener('touchend', e=>{
+      if(touchX===null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if(Math.abs(dx) > 40){
+        dx < 0 ? showDelta(+1) : showDelta(-1);
+      }
+    }, {passive:true});
+  })();
+  </script>
 </body>
 </html>
