@@ -166,6 +166,7 @@
       overflow:hidden;
       display:flex;
       justify-content:center;
+      align-items:flex-start;
     }
 
     .mosaic-grid{
@@ -174,8 +175,9 @@
       grid-auto-rows:8px;
       grid-auto-flow:dense;
       gap:12px;
-      transform-origin:top center;                     /* added */
-      width:calc(var(--maxw) - 2 * var(--gap));        /* added: lock to desktop inner width */
+      transform-origin:top center;
+      width:calc(var(--maxw) - 2 * var(--gap));
+      margin:0 auto; /* center the scaled grid */
     }
 
     .mosaic-item{
@@ -199,11 +201,9 @@
     .span-std        { grid-row:span 24; grid-column:span 1; }
     .span-small      { grid-row:span 16; grid-column:span 1; }
 
-    /* MOBILE: keep exact desktop layout; JS sets the scale */
+    /* No structural mobile changes; we scale with JS */
     @media(max-width:600px){
-      .mosaic-grid{
-        /* no changes to rows/columns here */
-      }
+      .mosaic-grid{ /* keep exact desktop rhythm */ }
     }
 
     /* lightbox */
@@ -499,34 +499,61 @@
     }, {passive:true});
   })();
 
-  // === Mobile-only exact-fit scaler (keeps desktop layout, just shrinks) ===
+  /* === Mobile-only exact-fit scaler (keeps desktop layout, just shrinks) ===
+     Updates:
+     - Runs after window load to catch iOS Safari image/layout timing.
+     - Uses ResizeObserver to update when images load.
+     - Sets outer height to the scaled height so nothing overlaps.
+  */
   (function(){
-    const grid = document.getElementById('famMosaic');
+    const grid  = document.getElementById('famMosaic');
     const outer = grid ? grid.parentElement : null;
     if(!grid || !outer) return;
 
-    function fitMosaic(){
-      const isPhone = window.matchMedia('(max-width: 600px)').matches;
-
-      // reset before measuring
+    function measureNatural(){
+      // Temporarily remove transform to get natural size
+      const prev = grid.style.transform;
       grid.style.transform = 'none';
-
-      // measure natural (desktop) width of the grid
-      // scrollWidth gives us unscaled width regardless of transforms
-      const baseW = grid.scrollWidth || grid.getBoundingClientRect().width;
-      const available = outer.clientWidth; // inside container
-
-      let scale = 1;
-      if(isPhone && baseW){
-        scale = Math.min(1, available / baseW);
-      }
-      grid.style.transformOrigin = 'top center';
-      grid.style.transform = scale === 1 ? 'none' : 'scale(' + scale + ')';
+      const w = grid.scrollWidth || grid.getBoundingClientRect().width;
+      const h = grid.scrollHeight || grid.getBoundingClientRect().height;
+      grid.style.transform = prev;
+      return {w, h};
     }
 
+    function fitMosaic(){
+      const isPhone = window.matchMedia('(max-width: 600px)').matches;
+      const {w: baseW, h: baseH} = measureNatural();
+      const available = outer.clientWidth;
+
+      let scale = 1;
+      if(isPhone && baseW) scale = Math.min(1, available / baseW);
+
+      grid.style.transformOrigin = 'top center';
+      const t = (scale === 1) ? 'none' : 'scale(' + scale + ')';
+      grid.style.transform = t;
+      grid.style.webkitTransform = t;
+
+      // Reserve correct vertical space so the scaled grid doesn't overflow/crop
+      const scaledH = baseH * scale;
+      outer.style.height = scaledH ? (scaledH + 'px') : '';
+    }
+
+    // Recalculate on load (important for iOS), resize, and orientation
+    window.addEventListener('load', fitMosaic, {once:true});
     window.addEventListener('resize', fitMosaic);
     window.addEventListener('orientationchange', fitMosaic);
-    // run once after load
+
+    // Update when images finish loading / layout changes
+    if ('ResizeObserver' in window) {
+      const ro = new ResizeObserver(fitMosaic);
+      ro.observe(grid);
+    } else {
+      // Fallback: run a couple of times after start
+      setTimeout(fitMosaic, 200);
+      setTimeout(fitMosaic, 800);
+    }
+
+    // Initial call in case everything is already ready
     fitMosaic();
   })();
   </script>
