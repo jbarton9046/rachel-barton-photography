@@ -57,7 +57,7 @@
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
     .crumb{
-      margin:0 0 6px;
+      margin:0 0 4px;
     }
     .crumb a{
       display:inline-block;
@@ -77,7 +77,7 @@
       font-size:12px;
       letter-spacing:.22em;
       color:#6e6a62;
-      margin:2px 0 8px;
+      margin:2px 0 6px;
       text-transform:uppercase;
     }
     .h1{
@@ -85,21 +85,22 @@
       font-weight:700;
       font-size:clamp(32px,5vw,56px);
       line-height:1.08;
-      margin:8px 0 10px;
+      margin:6px 0 8px;
     }
     .lead{
       font-size:clamp(16px,2.3vw,20px);
       color:#58554e;
       max-width:70ch;
+      margin:0 0 10px;
     }
 
     .hero{
-      padding:clamp(24px,6vw,56px) 0;
+      padding:clamp(16px,3vw,32px) 0; /* tighter */
     }
     .hero-wrap{
       display:grid;
       grid-template-columns:1.1fr .9fr;
-      gap:clamp(20px,4vw,40px);
+      gap:clamp(16px,2.5vw,28px); /* tighter */
       align-items:center;
     }
     .hero-fig{
@@ -124,12 +125,12 @@
     .section-title{
       font-family:"Cormorant Garamond","Times New Roman",serif;
       font-size:clamp(24px,3.5vw,38px);
-      margin:0 0 14px;
+      margin:0 0 10px;
       text-align:left;
     }
     .section-sub{
       color:#67635b;
-      margin:0 0 22px;
+      margin:0 0 16px;
       text-align:left;
       max-width:75ch;
     }
@@ -139,30 +140,40 @@
       background:#fff;
       border:1px solid var(--line);
       box-shadow:0 6px 18px rgba(0,0,0,.06);
-      padding:clamp(16px,2vw,20px);
-      margin-bottom:clamp(24px,4vw,40px);
+      padding:clamp(14px,2vw,18px);
+      margin:0 auto;
     }
     .process h2{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
       font-size:clamp(22px,2vw,26px);
       line-height:1.2;
-      margin:0 0 10px;
+      margin:0 0 8px;
     }
     .process p{
-      margin:0 0 12px;
+      margin:0 0 8px;
       color:#5b574f;
       font-size:1rem;
-      line-height:1.6;
+      line-height:1.55;
     }
 
-    /* featured sessions carousel grid (desktop = 3 up, mobile stacks like portraits.html) */
+    /* featured sessions grid */
     .mosaic{
       display:grid;
       grid-template-columns:repeat(3,1fr);
-      gap:clamp(10px,1.6vw,16px);
+      gap:clamp(12px,1.4vw,16px);
       overflow:visible;
     }
-    .mosaic figure{ margin:0 }
+
+    /* each session block (image carousel on top, then its own text + CTA)
+       this makes the relationship dead obvious */
+    .session-block{
+      background:#fff;
+      border:1px solid var(--line);
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      padding:clamp(12px,1.2vw,14px);
+      display:flex;
+      flex-direction:column;
+    }
 
     .captioned.notch{
       position:relative;
@@ -355,7 +366,7 @@
           <p class="lead">
             You're not booking a photo shoot. You're freezing the way your kid’s hair curls after salt water. The way your sister laughs with her whole face. The way your people feel right now, before “right now” turns into “remember when.”
           </p>
-          <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:14px;">
+          <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;">
             <a class="btn" href="/book.html">Book This Session</a>
             <a class="btn" href="/contact.html">Ask a Question</a>
           </div>
@@ -363,14 +374,13 @@
 
         <figure class="hero-fig">
           <span class="hero-badge">Warm • Movement-first • Sarasota</span>
-          <!-- TODO swap for fav “girls-on-beach-looking-into-sunset.jpg” or similar hero -->
           <img src="/pictures/familyPortrait/girls-on-beach-looking-into-sunset.jpg" alt="Family walking along the Gulf at sunset, laughing and windblown" loading="eager" />
         </figure>
       </div>
     </section>
 
     <!-- PROCESS / EXPERIENCE STORY -->
-    <section class="container" style="padding:clamp(20px,6vw,50px) 0;">
+    <section class="container" style="padding:clamp(12px,3vw,24px) 0;">
       <article class="process">
         <h2>Here’s how it actually goes</h2>
 
@@ -380,131 +390,135 @@
 
         <p><strong>We don’t chase ‘perfect,’ we chase ‘true.’</strong> The way your toddler hides in your legs. The way your partner looks at you when you’re not posing. Wind, freckles, sunscreen noses — that’s the good stuff.</p>
 
-        <p><strong>Afterward, you get a gallery that feels like memory, not a studio backdrop.</strong> Clean color, beautiful light, and images you’ll actually print big. Because the point is not just “did we get Christmas card material?” The point is “this is us, and I never want to forget it.”</p>
+        <p><strong>Afterward, you get a gallery that feels like memory, not a studio backdrop.</strong> Clean color, beautiful light, and images you’ll actually want to have framed. Because the point is not just “did we get Christmas card material?” The point is “this is us, and I never want to forget it.”</p>
       </article>
     </section>
 
     <!-- FEATURED SESSIONS / CAROUSEL TILES -->
-    <section class="container" style="padding:0 0 clamp(24px,6vw,56px)">
+    <section class="container" style="padding:0 0 clamp(16px,3vw,28px)">
       <div class="eyebrow">Featured Sessions</div>
       <h2 class="section-title">Some recent favorites</h2>
-      <p class="section-sub">Tap through each tile. Click to open full-screen. If you fall in love with one, you can view that full gallery.</p>
+      <p class="section-sub">Tap through each tile. Click to open full-screen. Each block is one real session — and its button opens that full gallery.</p>
 
       <div class="mosaic">
         <!-- SESSION 1 -->
-        <figure class="captioned notch" id="fam-session-1"
-          data-images='[
-            "/pictures/familyPortrait/girls-on-beach-looking-into-sunset.jpg",
-            "/pictures/familyPortrait/family-tickles-sunset.jpg",
-            "/pictures/familyPortrait/mom-hugging-kid-close.jpg",
-            "/pictures/familyPortrait/dad-carrying-kid-walking-surf.jpg"
-          ]'>
-          <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
-            <defs>
-              <mask id="notchMask-f1" x="0" y="0" width="800" height="1000">
-                <rect x="0" y="0" width="800" height="1000" fill="white" />
-              </mask>
-              <filter id="frameShadow-f1" x="-20%" y="-20%" width="140%">
-                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-              </filter>
-            </defs>
-            <g mask="url(#notchMask-f1)"><g class="panGroup">
-              <!-- TODO first frame of session 1 -->
-              <image href="/pictures/familyPortrait/girls-on-beach-looking-into-sunset.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
-            </g></g>
-            <g class="frameGroup" filter="url(#frameShadow-f1)">
-              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-            </g>
-          </svg>
-          <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-          </button>
-          <button class="tile-nav tile-next" type="button" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-          <div class="tile-dots" role="tablist"></div>
-        </figure>
-        <div class="session-meta">
-          <h3>Sarasota Beach at Golden Hour</h3>
-          <p>Wind, saltwater, bare feet, zero pressure. Just “be here with your people.”</p>
-          <a class="btn" href="/gallery-sarasota-beach.html">View Full Gallery →</a>
+        <div class="session-block">
+          <figure class="captioned notch" id="fam-session-1"
+            data-images='[
+              "/pictures/familyPortrait/girls-on-beach-looking-into-sunset.jpg",
+              "/pictures/familyPortrait/family-tickles-sunset.jpg",
+              "/pictures/familyPortrait/mom-hugging-kid-close.jpg",
+              "/pictures/familyPortrait/dad-carrying-kid-walking-surf.jpg"
+            ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
+              <defs>
+                <mask id="notchMask-f1" x="0" y="0" width="800" height="1000">
+                  <rect x="0" y="0" width="800" height="1000" fill="white" />
+                </mask>
+                <filter id="frameShadow-f1" x="-20%" y="-20%" width="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+                </filter>
+              </defs>
+              <g mask="url(#notchMask-f1)"><g class="panGroup">
+                <image href="/pictures/familyPortrait/girls-on-beach-looking-into-sunset.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
+              </g></g>
+              <g class="frameGroup" filter="url(#frameShadow-f1)">
+                <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+              </g>
+            </svg>
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+            <div class="tile-dots" role="tablist"></div>
+          </figure>
+          <div class="session-meta">
+            <h3>Sarasota Beach at Golden Hour</h3>
+            <p>Wind, saltwater, bare feet, zero pressure. Just “be here with your people.”</p>
+            <a class="btn" href="/gallery-sarasota-beach.html">View Full Gallery →</a>
+          </div>
         </div>
 
         <!-- SESSION 2 -->
-        <figure class="captioned notch" id="fam-session-2"
-          data-images='[
-            "/pictures/andrewsBaldGallery/couple-on-trail.jpg",
-            "/pictures/andrewsBaldGallery/holding-hands-closeup.jpg",
-            "/pictures/andrewsBaldGallery/foreheads-touching.jpg"
-          ]'>
-          <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
-            <defs>
-              <mask id="notchMask-f2" x="0" y="0" width="800" height="1000">
-                <rect x="0" y="0" width="800" height="1000" fill="white" />
-              </mask>
-              <filter id="frameShadow-f2" x="-20%" y="-20%" width="140%">
-                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-              </filter>
-            </defs>
-            <g mask="url(#notchMask-f2)"><g class="panGroup">
-              <!-- TODO first frame of session 2 -->
-              <image href="/pictures/andrewsBaldGallery/couple-on-trail.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
-            </g></g>
-            <g class="frameGroup" filter="url(#frameShadow-f2)">
-              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-            </g>
-          </svg>
-          <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-          </button>
-          <button class="tile-nav tile-next" type="button" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-          <div class="tile-dots" role="tablist"></div>
-        </figure>
-        <div class="session-meta">
-          <h3>Mangrove Boardwalk</h3>
-          <p>Boardwalk, palms, and that Florida-warm twilight. Movement, whispers, hands-in-hands.</p>
-          <a class="btn" href="/gallery-mangrove-boardwalk.html">View Full Gallery →</a>
+        <div class="session-block">
+          <figure class="captioned notch" id="fam-session-2"
+            data-images='[
+              "/pictures/mom-son-halloween-costumes.jpg",
+              "/pictures/andrewsBaldGallery/holding-hands-closeup.jpg",
+              "/pictures/andrewsBaldGallery/foreheads-touching.jpg"
+            ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
+              <defs>
+                <mask id="notchMask-f2" x="0" y="0" width="800" height="1000">
+                  <rect x="0" y="0" width="800" height="1000" fill="white" />
+                </mask>
+                <filter id="frameShadow-f2" x="-20%" y="-20%" width="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+                </filter>
+              </defs>
+              <g mask="url(#notchMask-f2)"><g class="panGroup">
+                <!-- updated hero frame for session 2 -->
+                <image href="/pictures/mom-son-halloween-costumes.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
+              </g></g>
+              <g class="frameGroup" filter="url(#frameShadow-f2)">
+                <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+              </g>
+            </svg>
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+            <div class="tile-dots" role="tablist"></div>
+          </figure>
+          <div class="session-meta">
+            <h3>Mangrove Boardwalk</h3>
+            <p>Boardwalk, palms, and that Florida-warm twilight. Movement, whispers, hands-in-hands.</p>
+            <a class="btn" href="/gallery-mangrove-boardwalk.html">View Full Gallery →</a>
+          </div>
         </div>
 
         <!-- SESSION 3 -->
-        <figure class="captioned notch" id="fam-session-3"
-          data-images='[
-            "/pictures/portraitPageGal/E26A0759%20(2).jpg",
-            "/pictures/portraitPageGal/E26A0712%20(2).jpg",
-            "/pictures/portraitPageGal/E26A2465-2%20(2).jpg",
-            "/pictures/portraitPageGal/E26A2614%20(1).jpg"
-          ]'>
-          <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
-            <defs>
-              <mask id="notchMask-f3" x="0" y="0" width="800" height="1000">
-                <rect x="0" y="0" width="800" height="1000" fill="white" />
-              </mask>
-              <filter id="frameShadow-f3" x="-20%" y="-20%" width="140%">
-                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-              </filter>
-            </defs>
-            <g mask="url(#notchMask-f3)"><g class="panGroup">
-              <!-- TODO first frame of session 3 -->
-              <image href="/pictures/portraitPageGal/E26A0759%20(2).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
-            </g></g>
-            <g class="frameGroup" filter="url(#frameShadow-f3)">
-              <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-            </g>
-          </svg>
-          <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-          </button>
-          <button class="tile-nav tile-next" type="button" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-          <div class="tile-dots" role="tablist"></div>
-        </figure>
-        <div class="session-meta">
-          <h3>At Home, Slow & Real</h3>
-          <p>Little hands, little freckles, big feelings. Zero performy smiles — just your people, how you actually are together.</p>
-          <a class="btn" href="/gallery-at-home.html">View Full Gallery →</a>
+        <div class="session-block">
+          <figure class="captioned notch" id="fam-session-3"
+            data-images='[
+              "/pictures/portraitPageGal/E26A0759%20(2).jpg",
+              "/pictures/portraitPageGal/E26A0712%20(2).jpg",
+              "/pictures/portraitPageGal/E26A2465-2%20(2).jpg",
+              "/pictures/portraitPageGal/E26A2614%20(1).jpg"
+            ]'>
+            <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
+              <defs>
+                <mask id="notchMask-f3" x="0" y="0" width="800" height="1000">
+                  <rect x="0" y="0" width="800" height="1000" fill="white" />
+                </mask>
+                <filter id="frameShadow-f3" x="-20%" y="-20%" width="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
+                </filter>
+              </defs>
+              <g mask="url(#notchMask-f3)"><g class="panGroup">
+                <image href="/pictures/portraitPageGal/E26A0759%20(2).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
+              </g></g>
+              <g class="frameGroup" filter="url(#frameShadow-f3)">
+                <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
+              </g>
+            </svg>
+            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+            </button>
+            <button class="tile-nav tile-next" type="button" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+            <div class="tile-dots" role="tablist"></div>
+          </figure>
+          <div class="session-meta">
+            <h3>At Home, Slow &amp; Real</h3>
+            <p>Little hands, little freckles, big feelings. Zero performy smiles — just your people, how you actually are together.</p>
+            <a class="btn" href="/gallery-at-home.html">View Full Gallery →</a>
+          </div>
         </div>
       </div>
     </section>
@@ -530,7 +544,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- carousel + lightbox JS (trimmed from portraits.html logic and namespaced so it won't collide) -->
+  <!-- carousel + lightbox JS -->
   <script>
   (function(){
     const TILE_W = 800, TILE_H = 1000;
@@ -703,7 +717,7 @@
       }
     }, {passive:true});
 
-    // lazy init like portraits.html uses IO
+    // lazy init IO
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(entry=>{
         if(entry.isIntersecting){
