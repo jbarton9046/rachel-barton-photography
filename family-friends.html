@@ -147,11 +147,24 @@
       position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
       background:#111; border:1px solid rgba(255,255,255,.15);
     }
-    #famLightbox .lb-btn{ position:absolute; width:46px; height:46px; display:grid; place-items:center; background:transparent; border:0; color:#fff; box-shadow:none; }
+    /* Bigger, easier mobile tap targets for lightbox controls */
+    #famLightbox .lb-btn{
+      position:absolute;
+      display:grid; place-items:center;
+      background:transparent; border:0; color:#fff; box-shadow:none;
+      width:56px; height:56px;           /* larger than 44px guideline */
+      padding:12px; line-height:0;       /* generous hit area */
+      touch-action:manipulation;         /* faster taps on mobile */
+      -webkit-tap-highlight-color: rgba(255,255,255,.12);
+    }
+    #famLightbox .lb-btn svg{
+      width:26px; height:26px;           /* bigger icon */
+      filter:drop-shadow(0 2px 6px rgba(0,0,0,.55));
+      pointer-events:none;               /* clicks go to button */
+    }
     #famLbPrev{ top:50%; left:8px; transform:translateY(-50%); }
     #famLbNext{ top:50%; right:8px; transform:translateY(-50%); }
-    #famLbClose{ top:8px; right:8px; }
-    #famLightbox .lb-btn svg{ filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
+    #famLbClose{ top:10px; right:10px; } /* larger close target */
 
     /* responsive */
     .desktop-only{ display:block; }
@@ -203,7 +216,8 @@
 
         <figure class="hero-fig">
           <span class="hero-badge">Warm • Movement-first • Sarasota</span>
-          <img src="/pictures/familyPortrait/girls-on-beach-looking-into-sunset.jpg" alt="Family walking along the Gulf at sunset, laughing and windblown" loading="eager" />
+          <!-- UPDATED HERO IMAGE -->
+          <img src="/pictures/dad-thorwing-son-costume.jpg" alt="Dad throwing son in costume into the air at sunset" loading="eager" />
         </figure>
       </div>
     </section>
@@ -298,13 +312,13 @@
     <div class="lb-frame">
       <img class="lb-img" id="famLbImg" alt="">
       <button class="lb-btn" id="famLbPrev" aria-label="Previous">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
       </button>
       <button class="lb-btn" id="famLbNext" aria-label="Next">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
       </button>
       <button class="lb-btn" id="famLbClose" aria-label="Close">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
   </div>
