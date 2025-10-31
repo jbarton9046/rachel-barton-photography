@@ -55,6 +55,9 @@
     }
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
+    /* NOTE: desktop & tablet keep normal container padding.
+       The gallery goes edge-to-edge ONLY on mobile (<=960px) below. */
+
     .crumb{ margin:0 0 4px; }
     .crumb a{
       display:inline-block; font-size:15px; color:#6e6a62;
@@ -106,7 +109,7 @@
       width:100%; overflow:hidden; display:flex; justify-content:center; align-items:flex-start;
     }
 
-    /* NEW: a scale wrapper we transform on mobile (better for iOS Safari) */
+    /* scale wrapper for mobile */
     .mosaic-scale{
       transform-origin:top center; /* JS sets transform + width */
       will-change:transform;
@@ -150,14 +153,19 @@
     #famLbClose{ top:8px; right:8px; }
     #famLightbox .lb-btn svg{ filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
 
-    /* responsive general */
+    /* responsive */
     .desktop-only{ display:block; }
     .mobile-only{ display:none; }
+
     @media (max-width:960px){
       .desktop-only{ display:none; }
       .mobile-only{ display:block; }
+
       .hero-wrap{ grid-template-columns:1fr; }
       .hero{ padding-top: calc(var(--mobile-header-h) + 16px); }
+
+      /* MOBILE-ONLY: make the gallery edge-to-edge; all other sections keep container padding */
+      .mosaic-wrap.container{ padding-left:0; padding-right:0; }
     }
 
     @media (max-width:820px){
@@ -220,74 +228,57 @@
       <p class="section-sub">Tap any photo to view it full-screen. Swipe/arrow through the whole set.</p>
 
       <div class="mosaic-outer">
-        <!-- NEW SCALE WRAPPER -->
         <div class="mosaic-scale" id="famScale">
           <div class="mosaic-grid" id="famMosaic">
-            <!-- Mixed for rhythm: beach ↔ costume ↔ friends ↔ family -->
+            <!-- gallery items (unchanged) -->
             <div class="mosaic-item span-big-vert" data-src="/pictures/family-mosaic/sisters-beach-sunset.jpg">
               <img src="/pictures/family-mosaic/sisters-beach-sunset.jpg" alt="Sisters on the beach at sunset" />
             </div>
-
             <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/dad-mom-throwing-boy-in-air-in-costumes.jpg">
               <img src="/pictures/family-mosaic/dad-mom-throwing-boy-in-air-in-costumes.jpg" alt="Parents tossing their son in the air, full joy" />
             </div>
-
             <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/family-kissing.jpg">
               <img src="/pictures/family-mosaic/family-kissing.jpg" alt="Everyone leaning in for a kiss and laughing" />
             </div>
-
             <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/boy-laying-in-grass-costume.jpg">
               <img src="/pictures/family-mosaic/boy-laying-in-grass-costume.jpg" alt="Kid in costume laying in the grass, relaxed" />
             </div>
-
             <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-posing-sunset-in-seagrass.jpg">
               <img src="/pictures/family-mosaic/sisters-posing-sunset-in-seagrass.jpg" alt="Two sisters in seagrass, warm light" />
             </div>
-
             <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/son-mom-pose-costumes.jpg">
               <img src="/pictures/family-mosaic/son-mom-pose-costumes.jpg" alt="Mom and son posing in costume, soft light" />
             </div>
-
             <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/friends-marry-go-round-sunset.jpg">
               <img src="/pictures/family-mosaic/friends-marry-go-round-sunset.jpg" alt="Spinning / playful moment at sunset with friends" />
             </div>
-
             <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/brother-sister-costumes-moving.jpg">
               <img src="/pictures/family-mosaic/brother-sister-costumes-moving.jpg" alt="Brother and sister running in costume" />
             </div>
-
             <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-looking-in-distance-sunset.jpg">
               <img src="/pictures/family-mosaic/sisters-looking-in-distance-sunset.jpg" alt="Kids looking toward the water, sunset glow" />
             </div>
-
             <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/friends-looking-into-phone.jpg">
               <img src="/pictures/family-mosaic/friends-looking-into-phone.jpg" alt="Friends crowded together looking into a phone" />
             </div>
-
             <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/boy-posing-sunrise.jpg">
               <img src="/pictures/family-mosaic/boy-posing-sunrise.jpg" alt="Sunrise light on a kid, soft and golden" />
             </div>
-
             <div class="mosaic-item span-big-vert" data-src="/pictures/family-mosaic/mom-son-halloween-costumes.jpg">
               <img src="/pictures/family-mosaic/mom-son-halloween-costumes.jpg" alt="Mom holding her son in costume, cheek to cheek" />
             </div>
-
             <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-straing-into-ocean-sunset.jpg">
               <img src="/pictures/family-mosaic/sisters-straing-into-ocean-sunset.jpg" alt="Watching the waves, backs to camera" />
             </div>
-
             <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/boy-posing-costume.jpg">
               <img src="/pictures/family-mosaic/boy-posing-costume.jpg" alt="Boy posing proudly in costume" />
             </div>
-
             <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/brother-sister-cotumes-posing.jpg">
               <img src="/pictures/family-mosaic/brother-sister-cotumes-posing.jpg" alt="Brother and sister posing in costume" />
             </div>
-
             <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/family-pose.jpg">
               <img src="/pictures/family-mosaic/family-pose.jpg" alt="Family all together, posed but warm" />
             </div>
-
             <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/family-high-fiving.jpg">
               <img src="/pictures/family-mosaic/family-high-fiving.jpg" alt="Family high five moment" />
             </div>
@@ -320,7 +311,6 @@
   <!-- mosaic + lightbox JS -->
   <script>
   (function(){
-    // collect all mosaic items for lightbox navigation
     const items = Array.from(document.querySelectorAll('.mosaic-item'));
     const lb = document.getElementById('famLightbox');
     const lbImg = document.getElementById('famLbImg');
@@ -333,13 +323,11 @@
     function openAt(idx){
       if(idx < 0 || idx >= items.length) return;
       currentIndex = idx;
-      const src = items[idx].getAttribute('data-src');
-      lbImg.src = src || '';
+      lbImg.src = items[idx].getAttribute('data-src') || '';
       lb.classList.add('open');
       lb.setAttribute('aria-hidden','false');
       document.body.style.overflow = 'hidden';
     }
-
     function closeLb(){
       lb.classList.remove('open');
       lb.setAttribute('aria-hidden','true');
@@ -347,12 +335,10 @@
       document.body.style.overflow = '';
       currentIndex = -1;
     }
-
     function showDelta(d){
       if(currentIndex === -1) return;
       currentIndex = (currentIndex + d + items.length) % items.length;
-      const src = items[currentIndex].getAttribute('data-src');
-      lbImg.src = src || '';
+      lbImg.src = items[currentIndex].getAttribute('data-src') || '';
     }
 
     items.forEach((item, idx)=> item.addEventListener('click', ()=>openAt(idx)));
@@ -368,7 +354,7 @@
       if(e.key==='ArrowRight') showDelta(+1);
     });
 
-    // swipe on lightbox
+    // swipe
     let touchX = null;
     lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
     lb.addEventListener('touchend', e=>{
@@ -379,10 +365,7 @@
     }, {passive:true});
   })();
 
-  /* === Mobile-only exact-fit scaler (keeps desktop layout, just shrinks) ===
-     - Scales the .mosaic-scale wrapper (more reliable on iOS Safari than scaling the grid)
-     - Reserves vertical space by setting .mosaic-outer height to the scaled height
-  */
+  // Mobile exact-fit scaler
   (function(){
     const grid   = document.getElementById('famMosaic');
     const scaleEl= document.getElementById('famScale');
@@ -390,47 +373,31 @@
     if(!grid || !scaleEl || !outer) return;
 
     function measure(){
-      // ensure natural (unscaled) measurements
       const prevT = scaleEl.style.transform;
       scaleEl.style.transform = 'none';
-      // width of the desktop grid (fixed via CSS)
       const baseW = grid.scrollWidth || grid.getBoundingClientRect().width;
       const baseH = grid.scrollHeight || grid.getBoundingClientRect().height;
       scaleEl.style.transform = prevT;
       return {baseW, baseH};
     }
-
     function fit(){
       const phone = window.matchMedia('(max-width: 600px)').matches;
       const {baseW, baseH} = measure();
       const available = outer.clientWidth;
-
       let scale = 1;
       if (phone && baseW) scale = Math.min(1, available / baseW);
-
-      // make wrapper the desktop width, then scale it to fit
       scaleEl.style.width = baseW ? (baseW + 'px') : '';
       const t = (scale === 1) ? 'none' : 'scale(' + scale + ')';
       scaleEl.style.transform = t;
       scaleEl.style.webkitTransform = t;
-
-      // set outer height so the scaled grid doesn't get cut off
       const scaledH = baseH * scale;
       outer.style.height = scaledH ? (scaledH + 'px') : '';
     }
-
     window.addEventListener('load', fit, {once:true});
     window.addEventListener('resize', fit);
     window.addEventListener('orientationchange', fit);
-
-    if ('ResizeObserver' in window) {
-      const ro = new ResizeObserver(fit);
-      ro.observe(grid);
-    } else {
-      setTimeout(fit, 200);
-      setTimeout(fit, 800);
-    }
-
+    if ('ResizeObserver' in window) new ResizeObserver(fit).observe(grid);
+    else { setTimeout(fit, 200); setTimeout(fit, 800); }
     fit();
   })();
   </script>
