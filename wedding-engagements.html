@@ -126,6 +126,9 @@
     }
     .mosaic-item img{ width:100%; height:100%; object-fit:cover; display:block; }
 
+    /* focus helper for first image (show more people, less sky) */
+    .obj-people{ object-position:center 80%; }
+
     /* spans (tuned for 9–10 images to balance) */
     .span-tall   { grid-row:span 40; grid-column:span 2; }
     .span-wide   { grid-row:span 24; grid-column:span 3; }
@@ -233,9 +236,9 @@
       <div class="mosaic-outer">
         <div class="mosaic-scale" id="wedScale">
           <div class="mosaic-grid" id="wedMosaic">
-            <!-- 10 images provided -->
+            <!-- FIRST IMAGE focuses on people (less sky) -->
             <div class="mosaic-item span-wide"  data-src="/pictures/lidoCoupleOctGallPics/E26A3579.jpg">
-              <img src="/pictures/lidoCoupleOctGallPics/E26A3579.jpg" alt="Couple at Lido, wide scene" />
+              <img class="obj-people" src="/pictures/lidoCoupleOctGallPics/E26A3579.jpg" alt="Couple at Lido, wide scene" />
             </div>
             <div class="mosaic-item span-std"   data-src="/pictures/lidoCoupleOctGallPics/E26A3582.jpg">
               <img src="/pictures/lidoCoupleOctGallPics/E26A3582.jpg" alt="Close laughter moment" />
@@ -334,14 +337,10 @@
     // close if you tap outside the image
     lb.addEventListener('click', e=>{
       const frame = e.currentTarget.querySelector('.lb-frame');
-      // if click target is the overlay (not controls or frame), close
       if(e.target === lb) closeLb();
-      // also allow click on top padding area of frame to close (easier thumb target)
       if(!e.target.closest('.lb-img') && !e.target.closest('.lb-btn') && e.target.closest('.lb-frame')) {
-        // ignore clicks that are on the buttons themselves
         const rect = frame.getBoundingClientRect();
         const y = e.clientY;
-        // top 48px of the frame (where the X lives) closes
         if(y - rect.top < 48) closeLb();
       }
     });
@@ -369,7 +368,6 @@
       if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)){
         dx < 0 ? showDelta(+1) : showDelta(-1);
       } else if (dy > 60) {
-        // swipe down to close (mobile-friendly)
         closeLb();
       }
     }, {passive:true});
