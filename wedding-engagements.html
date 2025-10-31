@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Weddings & Engagements | Rachel Barton Photography</title>
+  <title>Weddings, Engagements & Couples | Rachel Barton Photography</title>
 
   <!-- Primary SEO -->
-  <meta name="description" content="Everything you need to know about couples, engagement, and wedding sessions—what it feels like, what’s included, and a gallery that matches the way the day really felt." />
+  <meta name="description" content="Weddings, engagements, and couples photography — warm, movement-first, and true-to-life. See how a session feels and browse featured images." />
   <link rel="canonical" href="https://rachelsphotography.netlify.app/weddings-engagements.html" />
 
   <!-- Social share -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Rachel Barton Photography" />
-  <meta property="og:title" content="Weddings & Engagements — Rachel Barton Photography" />
-  <meta property="og:description" content="Candid, movement-first couples photography across Sarasota & Florida’s Gulf Coast." />
-  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/social/engagements-share.jpg" />
+  <meta property="og:title" content="Weddings, Engagements & Couples — Rachel Barton Photography" />
+  <meta property="og:description" content="Honest, movement-first couples imagery with clean, timeless edits." />
   <meta property="og:url" content="https://rachelsphotography.netlify.app/weddings-engagements.html" />
+  <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/lidoCoupleOctGallPics/E26A3679.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Fonts & shared layout -->
@@ -43,8 +43,7 @@
       margin:0; padding:0; background:var(--bg); color:var(--ink);
       font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
       line-height:1.65;
-      -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
     a{ color:inherit; text-decoration:none; transition:color .15s ease,border-color .15s ease }
     a:hover, a:focus-visible{ color:var(--accent); outline:none }
@@ -55,17 +54,24 @@
     }
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-    /* HERO */
-    .hero{ padding:clamp(16px,4vw,32px) 0; }
-    .hero-wrap{
-      display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(16px,2.5vw,28px); align-items:center;
+    .crumb{ margin:0 0 4px; }
+    .crumb a{
+      display:inline-block; font-size:15px; color:#6e6a62;
+      text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:1px;
     }
+    .crumb a:hover, .crumb a:focus-visible{ color:var(--accent); text-decoration-color:var(--accent); }
+
     .eyebrow{ font-size:12px; letter-spacing:.22em; color:#6e6a62; margin:2px 0 6px; text-transform:uppercase; }
     .h1{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
       font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:6px 0 8px;
     }
     .lead{ font-size:clamp(16px,2.3vw,20px); color:#58554e; max-width:70ch; margin:0 0 10px; }
+
+    .hero{ padding:clamp(16px,4vw,32px) 0; }
+    .hero-wrap{
+      display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(16px,2.5vw,28px); align-items:center;
+    }
     .hero-fig{ position:relative; }
     .hero-fig img{ width:100%; aspect-ratio:4/5; object-fit:cover; }
     .hero-badge{
@@ -73,7 +79,14 @@
       padding:6px 10px; box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px;
     }
 
-    /* PROCESS / INFO */
+    /* section headers */
+    .section-title{
+      font-family:"Cormorant Garamond","Times New Roman",serif;
+      font-size:clamp(24px,3.5vw,38px); margin:0 0 12px; text-align:left;
+    }
+    .section-sub{ color:#67635b; margin:0 0 16px; text-align:left; max-width:75ch; }
+
+    /* story / process block */
     .process{
       background:#fff; border:1px solid var(--line); box-shadow:0 6px 18px rgba(0,0,0,.06);
       padding:clamp(14px,2vw,18px); margin-bottom:clamp(16px,2.5vw,28px);
@@ -84,77 +97,78 @@
     }
     .process p{ margin:0 0 8px; color:#5b574f; font-size:1rem; line-height:1.6; }
 
-    /* SECTION HEADERS */
-    .section-title{
-      font-family:"Cormorant Garamond","Times New Roman",serif;
-      font-size:clamp(24px,3.5vw,38px); margin:0 0 12px; text-align:left;
-    }
-    .section-sub{ color:#67635b; margin:0 0 16px; text-align:left; max-width:75ch; }
-
-    /* MOSAIC */
+    /* MOSAIC GRID SECTION */
     .mosaic-wrap{ padding:0 0 clamp(20px,4vw,32px); }
+
+    /* outer wrapper */
     .mosaic-outer{
       width:100%; overflow:hidden; display:flex; justify-content:center; align-items:flex-start;
     }
+
+    /* scale wrapper for mobile (we transform this, not the grid) */
     .mosaic-scale{
-      transform-origin:top center;
-      will-change:transform;
+      transform-origin:top center; will-change:transform;
     }
+
     .mosaic-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fill, minmax(min(240px,100%),1fr));
+      grid-template-columns:repeat(6, 1fr); /* desktop rhythm */
       grid-auto-rows:8px;
       grid-auto-flow:dense;
       gap:12px;
       width:calc(var(--maxw) - 2 * var(--gap)); /* lock to desktop inner width */
       margin:0 auto;
     }
+
     .mosaic-item{
       position:relative; overflow:hidden; border:1px solid var(--line);
       box-shadow:0 6px 18px rgba(0,0,0,.06); background:#fff; cursor:pointer;
     }
     .mosaic-item img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    .span-big-vert{ grid-row:span 40; grid-column:span 1; }
-    .span-wide   { grid-row:span 24; grid-column:span 2; }
-    .span-std    { grid-row:span 24; grid-column:span 1; }
+    /* spans (tuned for 9–10 images to balance) */
+    .span-tall   { grid-row:span 40; grid-column:span 2; }
+    .span-wide   { grid-row:span 24; grid-column:span 3; }
+    .span-std    { grid-row:span 24; grid-column:span 2; }
+    .span-small  { grid-row:span 16; grid-column:span 2; }
 
-    /* LIGHTBOX (with larger mobile tap targets) */
-    #engLightbox{
+    /* lightbox */
+    #wedLightbox{
       position:fixed; inset:0; z-index:100; display:none; place-items:center; background:rgba(0,0,0,.72);
     }
-    #engLightbox.open{ display:grid; }
-    #engLightbox .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
-    #engLightbox .lb-img{
+    #wedLightbox.open{ display:grid; }
+    #wedLightbox .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
+    #wedLightbox .lb-img{
       position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
       background:#111; border:1px solid rgba(255,255,255,.15);
     }
-    #engLightbox .lb-btn{
-      position:absolute; display:grid; place-items:center;
-      background:transparent; border:0; color:#fff; box-shadow:none;
-      width:56px; height:56px; padding:12px; line-height:0;
+    #wedLightbox .lb-btn{
+      position:absolute; width:56px; height:56px; display:grid; place-items:center;
+      background:rgba(0,0,0,.25); border:0; color:#fff; box-shadow:none; border-radius:999px;
+      -webkit-tap-highlight-color: transparent;
       touch-action:manipulation;
-      -webkit-tap-highlight-color: rgba(255,255,255,.12);
     }
-    #engLightbox .lb-btn svg{
-      width:26px; height:26px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.55));
-      pointer-events:none;
+    #wedLbPrev{ top:50%; left:8px; transform:translateY(-50%); }
+    #wedLbNext{ top:50%; right:8px; transform:translateY(-50%); }
+    #wedLbClose{
+      top:8px; right:8px;
+      /* enlarge hit area on mobile */
+      width:64px; height:64px;
     }
-    #engLbPrev{ top:50%; left:8px; transform:translateY(-50%); }
-    #engLbNext{ top:50%; right:8px; transform:translateY(-50%); }
-    #engLbClose{ top:10px; right:10px; }
+    #wedLightbox .lb-btn svg{ filter:drop-shadow(0 2px 6px rgba(0,0,0,.55)); }
 
-    /* RESPONSIVE */
+    /* responsive */
     .desktop-only{ display:block; }
     .mobile-only{ display:none; }
 
     @media (max-width:960px){
       .desktop-only{ display:none; }
       .mobile-only{ display:block; }
+
       .hero-wrap{ grid-template-columns:1fr; }
       .hero{ padding-top: calc(var(--mobile-header-h) + 16px); }
 
-      /* Mobile: gallery grid goes edge-to-edge; header keeps side padding */
+      /* MOBILE-ONLY: gallery grid edge-to-edge; header aligned with hero padding */
       .mosaic-wrap.container{ padding-left:0; padding-right:0; }
       .mosaic-head{ padding-left:var(--gap); padding-right:var(--gap); }
     }
@@ -178,83 +192,77 @@
     <section class="hero">
       <div class="container hero-wrap">
         <div>
+          <p class="crumb"><a href="/galleries.html">← Back to Galleries</a></p>
           <div class="eyebrow">Weddings • Engagements • Couples</div>
-          <h1 class="h1">Warm, movement-first storytelling for the two of you (and everyone you love).</h1>
+          <h1 class="h1">Movement-first, true-to-life, and honestly you.</h1>
           <p class="lead">
-            Real laughs, wind in hair, sandy hems, and the exact way your partner looks at you. I’ll guide lightly, keep you moving, and deliver a gallery that feels like the day—beautiful, honest, and true-to-life.
+            Zero stiffness, clean edits, and gentle direction so you can feel like yourselves.
+            Here’s how a couples session flows—and how it looks when the nerves melt and the good stuff shows up.
           </p>
           <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
-            <a class="btn" href="/book.html" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,'Times New Roman',serif; font-weight:700; border:1px solid var(--line); background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); padding:10px 16px; text-decoration:none; color:#3f3a33;">Check Dates & Book</a>
+            <a class="btn" href="/book.html" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,'Times New Roman',serif; font-weight:700; border:1px solid var(--line); background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); padding:10px 16px; text-decoration:none; color:#3f3a33;">Book This Session</a>
             <a class="btn" href="/contact.html" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,'Times New Roman',serif; font-weight:700; border:1px solid var(--line); background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); padding:10px 16px; text-decoration:none; color:#3f3a33;">Ask a Question</a>
           </div>
         </div>
 
         <figure class="hero-fig">
-          <span class="hero-badge">Candid • Timeless • True-to-life</span>
-          <!-- Replace with your preferred couples/engagement hero image -->
-          <img src="/pictures/engagements/hero-couple-sunset.jpg" alt="Couple at sunset by the Gulf, laughing and close" loading="eager" />
+          <span class="hero-badge">Warm • Candid • Sarasota</span>
+          <img src="/pictures/lidoCoupleOctGallPics/E26A3679.jpg" alt="Couple laughing together at Lido, warm golden light" loading="eager" />
         </figure>
       </div>
     </section>
 
-    <!-- INFO -->
+    <!-- PROCESS / EXPERIENCE STORY -->
     <section class="container" style="padding:clamp(12px,3vw,24px) 0;">
       <article class="process">
-        <h2>What working together feels like</h2>
-        <p><strong>We pick meaningful places and great light.</strong> Beach access with dunes, downtown corners with texture, or your venue at golden hour.</p>
-        <p><strong>I’ll give you natural prompts, not stiff poses.</strong> Walk, spin, bump shoulders, breathe together. You’ll forget the camera, on purpose.</p>
-        <p><strong>You get a clean, classic edit.</strong> True color, flattering skin tones, and an easy gallery you’ll want to share and print everywhere.</p>
+        <h2>What it feels like</h2>
+        <p><strong>We keep you moving.</strong> Prompts that get you walking, spinning, snuggling—so you forget about the camera and remember each other.</p>
+        <p><strong>We chase the good light.</strong> Golden hour glow, clean color, and images you’ll actually want framed.</p>
+        <p><strong>We edit like reality, but a little kinder.</strong> True-to-life tones, gentle polish, and no trends that won’t age well.</p>
       </article>
     </section>
 
-    <!-- MOSAIC WALL (9 images) -->
+    <!-- MOSAIC WALL -->
     <section class="container mosaic-wrap">
       <div class="mosaic-head">
         <div class="eyebrow">What it really looks like</div>
-        <h2 class="section-title">A little whirlwind of the two of you</h2>
-        <p class="section-sub">Tap any photo to view it full-screen. Swipe/arrow through all 9.</p>
+        <h2 class="section-title">Nine moments that feel like you two</h2>
+        <p class="section-sub">Tap any photo to view it full-screen. Swipe/arrow through the set.</p>
       </div>
 
       <div class="mosaic-outer">
-        <div class="mosaic-scale" id="engScale">
-          <div class="mosaic-grid" id="engMosaic">
-            <!-- Use your 9 engagement/wedding images below (filenames are placeholders). 
-                 Feel free to swap paths; layout rhythm is set with spans. -->
-
-            <div class="mosaic-item span-big-vert" data-src="/pictures/engagements/couple-lift-sunrise.jpg">
-              <img src="/pictures/engagements/couple-lift-sunrise.jpg" alt="Couple embrace as the sun rises" />
+        <div class="mosaic-scale" id="wedScale">
+          <div class="mosaic-grid" id="wedMosaic">
+            <!-- 10 images provided -->
+            <div class="mosaic-item span-wide"  data-src="/pictures/lidoCoupleOctGallPics/E26A3579.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3579.jpg" alt="Couple at Lido, wide scene" />
             </div>
-
-            <div class="mosaic-item span-wide" data-src="/pictures/engagements/beach-run-laughing.jpg">
-              <img src="/pictures/engagements/beach-run-laughing.jpg" alt="Running along the shoreline, laughing" />
+            <div class="mosaic-item span-std"   data-src="/pictures/lidoCoupleOctGallPics/E26A3582.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3582.jpg" alt="Close laughter moment" />
             </div>
-
-            <div class="mosaic-item span-std" data-src="/pictures/engagements/hands-rings-close.jpg">
-              <img src="/pictures/engagements/hands-rings-close.jpg" alt="Close-up of hands and rings" />
+            <div class="mosaic-item span-tall"  data-src="/pictures/lidoCoupleOctGallPics/E26A3605.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3605.jpg" alt="Tall portrait embrace" />
             </div>
-
-            <div class="mosaic-item span-std" data-src="/pictures/engagements/veil-kiss-goldenhour.jpg">
-              <img src="/pictures/engagements/veil-kiss-goldenhour.jpg" alt="Kiss beneath a veil in golden light" />
+            <div class="mosaic-item span-small" data-src="/pictures/lidoCoupleOctGallPics/E26A3620.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3620.jpg" alt="Hand-in-hand detail" />
             </div>
-
-            <div class="mosaic-item span-wide" data-src="/pictures/engagements/downtown-walk-motion.jpg">
-              <img src="/pictures/engagements/downtown-walk-motion.jpg" alt="City walk with motion and blur" />
+            <div class="mosaic-item span-std"   data-src="/pictures/lidoCoupleOctGallPics/E26A3642.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3642.jpg" alt="Walking in seagrass" />
             </div>
-
-            <div class="mosaic-item span-std" data-src="/pictures/engagements/foreheads-touching.jpg">
-              <img src="/pictures/engagements/foreheads-touching.jpg" alt="Foreheads touching, quiet smile" />
+            <div class="mosaic-item span-wide"  data-src="/pictures/lidoCoupleOctGallPics/E26A3679.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3679.jpg" alt="Golden-hour walk wide" />
             </div>
-
-            <div class="mosaic-item span-std" data-src="/pictures/engagements/lift-spin-dunes.jpg">
-              <img src="/pictures/engagements/lift-spin-dunes.jpg" alt="Lift and spin among the dunes" />
+            <div class="mosaic-item span-std"   data-src="/pictures/lidoCoupleOctGallPics/E26A3730.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3730.jpg" alt="Foreheads together" />
             </div>
-
-            <div class="mosaic-item span-std" data-src="/pictures/engagements/wedding-dip-sunset.jpg">
-              <img src="/pictures/engagements/wedding-dip-sunset.jpg" alt="Sunset dip during portraits" />
+            <div class="mosaic-item span-small" data-src="/pictures/lidoCoupleOctGallPics/E26A3741.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3741.jpg" alt="Sunlit smile" />
             </div>
-
-            <div class="mosaic-item span-std" data-src="/pictures/engagements/laughing-closeup.jpg">
-              <img src="/pictures/engagements/laughing-closeup.jpg" alt="Tight frame, big laugh" />
+            <div class="mosaic-item span-std"   data-src="/pictures/lidoCoupleOctGallPics/E26A3746.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3746.jpg" alt="Backlit hug" />
+            </div>
+            <div class="mosaic-item span-std"   data-src="/pictures/lidoCoupleOctGallPics/E26A3789.jpg">
+              <img src="/pictures/lidoCoupleOctGallPics/E26A3789.jpg" alt="Silhouette at dusk" />
             </div>
           </div><!-- /.mosaic-grid -->
         </div><!-- /.mosaic-scale -->
@@ -262,18 +270,18 @@
     </section>
   </main>
 
-  <!-- LIGHTBOX -->
-  <div class="lb" id="engLightbox" aria-hidden="true">
+  <!-- Lightbox -->
+  <div class="lb" id="wedLightbox" aria-hidden="true">
     <div class="lb-frame">
-      <img class="lb-img" id="engLbImg" alt="">
-      <button class="lb-btn" id="engLbPrev" aria-label="Previous">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
+      <img class="lb-img" id="wedLbImg" alt="">
+      <button class="lb-btn" id="wedLbPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
       </button>
-      <button class="lb-btn" id="engLbNext" aria-label="Next">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      <button class="lb-btn" id="wedLbNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
       </button>
-      <button class="lb-btn" id="engLbClose" aria-label="Close">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      <button class="lb-btn" id="wedLbClose" aria-label="Close (tap anywhere outside image, too)">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
   </div>
@@ -282,15 +290,16 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- JS: lightbox + mobile exact-fit scaler (mirrors Family & Friends behavior) -->
+  <!-- mosaic + lightbox JS -->
   <script>
   (function(){
-    const items = Array.from(document.querySelectorAll('#engMosaic .mosaic-item'));
-    const lb = document.getElementById('engLightbox');
-    const lbImg = document.getElementById('engLbImg');
-    const lbPrev = document.getElementById('engLbPrev');
-    const lbNext = document.getElementById('engLbNext');
-    const lbClose = document.getElementById('engLbClose');
+    const items = Array.from(document.querySelectorAll('#wedMosaic .mosaic-item'));
+    const lb = document.getElementById('wedLightbox');
+    const lbImg = document.getElementById('wedLbImg');
+    const lbPrev = document.getElementById('wedLbPrev');
+    const lbNext = document.getElementById('wedLbNext');
+    const lbClose = document.getElementById('wedLbClose');
+
     let currentIndex = -1;
 
     function openAt(idx){
@@ -314,12 +323,30 @@
       lbImg.src = items[currentIndex].getAttribute('data-src') || '';
     }
 
+    // open
     items.forEach((item, idx)=> item.addEventListener('click', ()=>openAt(idx)));
-    lbPrev.addEventListener('click', e=>{ e.stopPropagation(); showDelta(-1); });
-    lbNext.addEventListener('click', e=>{ e.stopPropagation(); showDelta(+1); });
-    lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); });
-    lb.addEventListener('click', e=>{ if(e.target===lb) closeLb(); });
 
+    // controls
+    lbPrev.addEventListener('click', e=>{ e.stopPropagation(); showDelta(-1); }, {passive:false});
+    lbNext.addEventListener('click', e=>{ e.stopPropagation(); showDelta(+1); }, {passive:false});
+    lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); }, {passive:false});
+
+    // close if you tap outside the image
+    lb.addEventListener('click', e=>{
+      const frame = e.currentTarget.querySelector('.lb-frame');
+      // if click target is the overlay (not controls or frame), close
+      if(e.target === lb) closeLb();
+      // also allow click on top padding area of frame to close (easier thumb target)
+      if(!e.target.closest('.lb-img') && !e.target.closest('.lb-btn') && e.target.closest('.lb-frame')) {
+        // ignore clicks that are on the buttons themselves
+        const rect = frame.getBoundingClientRect();
+        const y = e.clientY;
+        // top 48px of the frame (where the X lives) closes
+        if(y - rect.top < 48) closeLb();
+      }
+    });
+
+    // keyboard
     window.addEventListener('keydown', e=>{
       if(!lb.classList.contains('open')) return;
       if(e.key==='Escape') closeLb();
@@ -328,20 +355,30 @@
     });
 
     // swipe
-    let touchX = null;
-    lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
+    let touchX = null, touchY = null;
+    lb.addEventListener('touchstart', e=>{
+      const t = e.changedTouches[0];
+      touchX = t.clientX; touchY = t.clientY;
+    }, {passive:true});
     lb.addEventListener('touchend', e=>{
-      if(touchX===null) return;
-      const dx = e.changedTouches[0].clientX - touchX;
-      touchX = null;
-      if(Math.abs(dx) > 40){ dx < 0 ? showDelta(+1) : showDelta(-1); }
+      if(touchX===null || touchY===null) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchX;
+      const dy = t.clientY - touchY;
+      touchX = null; touchY = null;
+      if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)){
+        dx < 0 ? showDelta(+1) : showDelta(-1);
+      } else if (dy > 60) {
+        // swipe down to close (mobile-friendly)
+        closeLb();
+      }
     }, {passive:true});
   })();
 
-  // Mobile exact-fit scaler (identical behavior to Family & Friends page)
+  // Mobile exact-fit scaler (keeps desktop layout, shrinks on phones)
   (function(){
-    const grid   = document.getElementById('engMosaic');
-    const scaleEl= document.getElementById('engScale');
+    const grid   = document.getElementById('wedMosaic');
+    const scaleEl= document.getElementById('wedScale');
     const outer  = scaleEl ? scaleEl.parentElement : null;
     if(!grid || !scaleEl || !outer) return;
 
