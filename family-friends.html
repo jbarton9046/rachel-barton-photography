@@ -56,7 +56,7 @@
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
     .crumb{
-      margin:0 0 4px; /* tightened slightly */
+      margin:0 0 4px;
     }
     .crumb a{
       display:inline-block;
@@ -76,7 +76,7 @@
       font-size:12px;
       letter-spacing:.22em;
       color:#6e6a62;
-      margin:2px 0 6px; /* tightened */
+      margin:2px 0 6px;
       text-transform:uppercase;
     }
     .h1{
@@ -84,22 +84,22 @@
       font-weight:700;
       font-size:clamp(32px,5vw,56px);
       line-height:1.08;
-      margin:6px 0 8px; /* tightened */
+      margin:6px 0 8px;
     }
     .lead{
       font-size:clamp(16px,2.3vw,20px);
       color:#58554e;
       max-width:70ch;
-      margin:0 0 10px; /* tightened */
+      margin:0 0 10px;
     }
 
     .hero{
-      padding:clamp(16px,4vw,32px) 0; /* tightened again */
+      padding:clamp(16px,4vw,32px) 0;
     }
     .hero-wrap{
       display:grid;
       grid-template-columns:1.1fr .9fr;
-      gap:clamp(16px,2.5vw,28px); /* tightened */
+      gap:clamp(16px,2.5vw,28px);
       align-items:center;
     }
     .hero-fig{
@@ -124,12 +124,12 @@
     .section-title{
       font-family:"Cormorant Garamond","Times New Roman",serif;
       font-size:clamp(24px,3.5vw,38px);
-      margin:0 0 12px; /* tightened */
+      margin:0 0 12px;
       text-align:left;
     }
     .section-sub{
       color:#67635b;
-      margin:0 0 16px; /* tightened */
+      margin:0 0 16px;
       text-align:left;
       max-width:75ch;
     }
@@ -139,25 +139,34 @@
       background:#fff;
       border:1px solid var(--line);
       box-shadow:0 6px 18px rgba(0,0,0,.06);
-      padding:clamp(14px,2vw,18px); /* tightened */
-      margin-bottom:clamp(16px,2.5vw,28px); /* tightened */
+      padding:clamp(14px,2vw,18px);
+      margin-bottom:clamp(16px,2.5vw,28px);
     }
     .process h2{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
       font-size:clamp(22px,2vw,26px);
       line-height:1.2;
-      margin:0 0 8px; /* tightened */
+      margin:0 0 8px;
     }
     .process p{
-      margin:0 0 8px; /* tightened */
+      margin:0 0 8px;
       color:#5b574f;
       font-size:1rem;
       line-height:1.6;
     }
 
-    /* MOSAIC GRID */
+    /* MOSAIC GRID SECTION */
     .mosaic-wrap{
-      padding:0 0 clamp(20px,4vw,32px); /* tightened */
+      padding:0 0 clamp(20px,4vw,32px);
+    }
+
+    /* outer wrapper so we can scale on mobile without causing sideways scroll */
+    .mosaic-outer{
+      width:100%;
+      overflow:hidden;
+      /* we'll center the scaled-down grid inside here on mobile */
+      display:flex;
+      justify-content:center;
     }
 
     .mosaic-grid{
@@ -166,6 +175,7 @@
       grid-auto-rows:8px;
       grid-auto-flow:dense;
       gap:12px;
+      transform-origin:top center;
     }
 
     .mosaic-item{
@@ -189,12 +199,14 @@
     .span-std        { grid-row:span 24; grid-column:span 1; }
     .span-small      { grid-row:span 16; grid-column:span 1; }
 
+    /* MOBILE BEHAVIOR:
+       - keep multi-column collage
+       - just shrink entire grid and tighten rows so it fits on iPhone without turning into 2-up blocks
+    */
     @media(max-width:600px){
       .mosaic-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-      .span-wide{
-        grid-column:span 2;
+        grid-auto-rows:6px;           /* a touch shorter so tall spans aren't huge */
+        transform:scale(.8);          /* zoom whole collage down */
       }
     }
 
@@ -324,77 +336,78 @@
         Tap any photo to view it full-screen. Swipe/arrow through the whole set.
       </p>
 
-      <div class="mosaic-grid" id="famMosaic">
-        <!-- Mixed for rhythm: beach ↔ costume ↔ friends ↔ family, so it feels lived-in not chronological -->
+      <div class="mosaic-outer">
+        <div class="mosaic-grid" id="famMosaic">
+          <!-- Mixed for rhythm: beach ↔ costume ↔ friends ↔ family -->
+          <div class="mosaic-item span-big-vert" data-src="/pictures/family-mosaic/sisters-beach-sunset.jpg">
+            <img src="/pictures/family-mosaic/sisters-beach-sunset.jpg" alt="Sisters on the beach at sunset" />
+          </div>
 
-        <div class="mosaic-item span-big-vert" data-src="/pictures/family-mosaic/sisters-beach-sunset.jpg">
-          <img src="/pictures/family-mosaic/sisters-beach-sunset.jpg" alt="Sisters on the beach at sunset" />
-        </div>
+          <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/dad-mom-throwing-boy-in-air-in-costumes.jpg">
+            <img src="/pictures/family-mosaic/dad-mom-throwing-boy-in-air-in-costumes.jpg" alt="Parents tossing their son in the air, full joy" />
+          </div>
 
-        <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/dad-mom-throwing-boy-in-air-in-costumes.jpg">
-          <img src="/pictures/family-mosaic/dad-mom-throwing-boy-in-air-in-costumes.jpg" alt="Parents tossing their son in the air, full joy" />
-        </div>
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/family-kissing.jpg">
+            <img src="/pictures/family-mosaic/family-kissing.jpg" alt="Everyone leaning in for a kiss and laughing" />
+          </div>
 
-        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/family-kissing.jpg">
-          <img src="/pictures/family-mosaic/family-kissing.jpg" alt="Everyone leaning in for a kiss and laughing" />
-        </div>
+          <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/boy-laying-in-grass-costume.jpg">
+            <img src="/pictures/family-mosaic/boy-laying-in-grass-costume.jpg" alt="Kid in costume laying in the grass, relaxed" />
+          </div>
 
-        <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/boy-laying-in-grass-costume.jpg">
-          <img src="/pictures/family-mosaic/boy-laying-in-grass-costume.jpg" alt="Kid in costume laying in the grass, relaxed" />
-        </div>
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-posing-sunset-in-seagrass.jpg">
+            <img src="/pictures/family-mosaic/sisters-posing-sunset-in-seagrass.jpg" alt="Two sisters in seagrass, warm light" />
+          </div>
 
-        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-posing-sunset-in-seagrass.jpg">
-          <img src="/pictures/family-mosaic/sisters-posing-sunset-in-seagrass.jpg" alt="Two sisters in seagrass, warm light" />
-        </div>
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/son-mom-pose-costumes.jpg">
+            <img src="/pictures/family-mosaic/son-mom-pose-costumes.jpg" alt="Mom and son posing in costume, soft light" />
+          </div>
 
-        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/son-mom-pose-costumes.jpg">
-          <img src="/pictures/family-mosaic/son-mom-pose-costumes.jpg" alt="Mom and son posing in costume, soft light" />
-        </div>
+          <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/friends-marry-go-round-sunset.jpg">
+            <img src="/pictures/family-mosaic/friends-marry-go-round-sunset.jpg" alt="Spinning / playful moment at sunset with friends" />
+          </div>
 
-        <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/friends-marry-go-round-sunset.jpg">
-          <img src="/pictures/family-mosaic/friends-marry-go-round-sunset.jpg" alt="Spinning / playful moment at sunset with friends" />
-        </div>
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/brother-sister-costumes-moving.jpg">
+            <img src="/pictures/family-mosaic/brother-sister-costumes-moving.jpg" alt="Brother and sister running in costume" />
+          </div>
 
-        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/brother-sister-costumes-moving.jpg">
-          <img src="/pictures/family-mosaic/brother-sister-costumes-moving.jpg" alt="Brother and sister running in costume" />
-        </div>
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-looking-in-distance-sunset.jpg">
+            <img src="/pictures/family-mosaic/sisters-looking-in-distance-sunset.jpg" alt="Kids looking toward the water, sunset glow" />
+          </div>
 
-        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-looking-in-distance-sunset.jpg">
-          <img src="/pictures/family-mosaic/sisters-looking-in-distance-sunset.jpg" alt="Kids looking toward the water, sunset glow" />
-        </div>
+          <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/friends-looking-into-phone.jpg">
+            <img src="/pictures/family-mosaic/friends-looking-into-phone.jpg" alt="Friends crowded together looking into a phone" />
+          </div>
 
-        <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/friends-looking-into-phone.jpg">
-          <img src="/pictures/family-mosaic/friends-looking-into-phone.jpg" alt="Friends crowded together looking into a phone" />
-        </div>
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/boy-posing-sunrise.jpg">
+            <img src="/pictures/family-mosaic/boy-posing-sunrise.jpg" alt="Sunrise light on a kid, soft and golden" />
+          </div>
 
-        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/boy-posing-sunrise.jpg">
-          <img src="/pictures/family-mosaic/boy-posing-sunrise.jpg" alt="Sunrise light on a kid, soft and golden" />
-        </div>
+          <div class="mosaic-item span-big-vert" data-src="/pictures/family-mosaic/mom-son-halloween-costumes.jpg">
+            <img src="/pictures/family-mosaic/mom-son-halloween-costumes.jpg" alt="Mom holding her son in costume, cheek to cheek" />
+          </div>
 
-        <div class="mosaic-item span-big-vert" data-src="/pictures/family-mosaic/mom-son-halloween-costumes.jpg">
-          <img src="/pictures/family-mosaic/mom-son-halloween-costumes.jpg" alt="Mom holding her son in costume, cheek to cheek" />
-        </div>
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-straing-into-ocean-sunset.jpg">
+            <img src="/pictures/family-mosaic/sisters-straing-into-ocean-sunset.jpg" alt="Watching the waves, backs to camera" />
+          </div>
 
-        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-straing-into-ocean-sunset.jpg">
-          <img src="/pictures/family-mosaic/sisters-straing-into-ocean-sunset.jpg" alt="Watching the waves, backs to camera" />
-        </div>
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/boy-posing-costume.jpg">
+            <img src="/pictures/family-mosaic/boy-posing-costume.jpg" alt="Boy posing proudly in costume" />
+          </div>
 
-        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/boy-posing-costume.jpg">
-          <img src="/pictures/family-mosaic/boy-posing-costume.jpg" alt="Boy posing proudly in costume" />
-        </div>
+          <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/brother-sister-cotumes-posing.jpg">
+            <img src="/pictures/family-mosaic/brother-sister-cotumes-posing.jpg" alt="Brother and sister posing in costume" />
+          </div>
 
-        <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/brother-sister-cotumes-posing.jpg">
-          <img src="/pictures/family-mosaic/brother-sister-cotumes-posing.jpg" alt="Brother and sister posing in costume" />
-        </div>
+          <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/family-pose.jpg">
+            <img src="/pictures/family-mosaic/family-pose.jpg" alt="Family all together, posed but warm" />
+          </div>
 
-        <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/family-pose.jpg">
-          <img src="/pictures/family-mosaic/family-pose.jpg" alt="Family all together, posed but warm" />
-        </div>
-
-        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/family-high-fiving.jpg">
-          <img src="/pictures/family-mosaic/family-high-fiving.jpg" alt="Family high five moment" />
-        </div>
-      </div>
+          <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/family-high-fiving.jpg">
+            <img src="/pictures/family-mosaic/family-high-fiving.jpg" alt="Family high five moment" />
+          </div>
+        </div><!-- /.mosaic-grid -->
+      </div><!-- /.mosaic-outer -->
     </section>
   </main>
 
@@ -456,12 +469,12 @@
       lbImg.src = src || '';
     }
 
-    // wire click on each mosaic item
+    // click on each mosaic item opens lightbox at that index
     items.forEach((item, idx)=>{
       item.addEventListener('click', ()=>openAt(idx));
     });
 
-    // wire lightbox buttons
+    // lightbox buttons
     lbPrev.addEventListener('click', e=>{ e.stopPropagation(); showDelta(-1); });
     lbNext.addEventListener('click', e=>{ e.stopPropagation(); showDelta(+1); });
     lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); });
