@@ -164,8 +164,10 @@
       .hero-wrap{ grid-template-columns:1fr; }
       .hero{ padding-top: calc(var(--mobile-header-h) + 16px); }
 
-      /* MOBILE-ONLY: make the gallery edge-to-edge; all other sections keep container padding */
+      /* MOBILE-ONLY: make the gallery grid edge-to-edge… */
       .mosaic-wrap.container{ padding-left:0; padding-right:0; }
+      /* …but keep the gallery header aligned with hero side padding */
+      .mosaic-head{ padding-left:var(--gap); padding-right:var(--gap); }
     }
 
     @media (max-width:820px){
@@ -223,9 +225,12 @@
 
     <!-- MOSAIC WALL -->
     <section class="container mosaic-wrap">
-      <div class="eyebrow">What it really looks like</div>
-      <h2 class="section-title">Moments that feel like your life (because they are)</h2>
-      <p class="section-sub">Tap any photo to view it full-screen. Swipe/arrow through the whole set.</p>
+      <!-- wrapped header so it keeps side padding on mobile -->
+      <div class="mosaic-head">
+        <div class="eyebrow">What it really looks like</div>
+        <h2 class="section-title">Moments that feel like your life (because they are)</h2>
+        <p class="section-sub">Tap any photo to view it full-screen. Swipe/arrow through the whole set.</p>
+      </div>
 
       <div class="mosaic-outer">
         <div class="mosaic-scale" id="famScale">
