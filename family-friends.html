@@ -14,7 +14,6 @@
   <meta property="og:site_name" content="Rachel Barton Photography" />
   <meta property="og:title" content="Family & Friends Sessions — Rachel Barton Photography" />
   <meta property="og:description" content="Movement-first, memory-heavy, zero-stiffness portraits in Sarasota & Florida’s Gulf Coast." />
-  <!-- TODO: pick a strong horizontal-ish image for social -->
   <meta property="og:image" content="https://rachelsphotography.netlify.app/pictures/social/family-share.jpg" />
   <meta property="og:url" content="https://rachelsphotography.netlify.app/family-friends.html" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -57,7 +56,7 @@
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
     .crumb{
-      margin:0 0 4px;
+      margin:0 0 6px;
     }
     .crumb a{
       display:inline-block;
@@ -77,7 +76,7 @@
       font-size:12px;
       letter-spacing:.22em;
       color:#6e6a62;
-      margin:2px 0 6px;
+      margin:2px 0 8px;
       text-transform:uppercase;
     }
     .h1{
@@ -85,22 +84,21 @@
       font-weight:700;
       font-size:clamp(32px,5vw,56px);
       line-height:1.08;
-      margin:6px 0 8px;
+      margin:8px 0 10px;
     }
     .lead{
       font-size:clamp(16px,2.3vw,20px);
       color:#58554e;
       max-width:70ch;
-      margin:0 0 10px;
     }
 
     .hero{
-      padding:clamp(16px,3vw,32px) 0; /* tighter */
+      padding:clamp(20px,5vw,40px) 0; /* tightened */
     }
     .hero-wrap{
       display:grid;
       grid-template-columns:1.1fr .9fr;
-      gap:clamp(16px,2.5vw,28px); /* tighter */
+      gap:clamp(20px,3vw,32px); /* tightened */
       align-items:center;
     }
     .hero-fig{
@@ -125,12 +123,12 @@
     .section-title{
       font-family:"Cormorant Garamond","Times New Roman",serif;
       font-size:clamp(24px,3.5vw,38px);
-      margin:0 0 10px;
+      margin:0 0 14px;
       text-align:left;
     }
     .section-sub{
       color:#67635b;
-      margin:0 0 16px;
+      margin:0 0 18px; /* tightened from 22px */
       text-align:left;
       max-width:75ch;
     }
@@ -140,134 +138,64 @@
       background:#fff;
       border:1px solid var(--line);
       box-shadow:0 6px 18px rgba(0,0,0,.06);
-      padding:clamp(14px,2vw,18px);
-      margin:0 auto;
+      padding:clamp(16px,2vw,20px);
+      margin-bottom:clamp(20px,3vw,32px); /* tightened */
     }
     .process h2{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
       font-size:clamp(22px,2vw,26px);
       line-height:1.2;
-      margin:0 0 8px;
-    }
-    .process p{
-      margin:0 0 8px;
-      color:#5b574f;
-      font-size:1rem;
-      line-height:1.55;
-    }
-
-    /* featured sessions grid */
-    .mosaic{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:clamp(12px,1.4vw,16px);
-      overflow:visible;
-    }
-
-    /* each session block (image carousel on top, then its own text + CTA)
-       this makes the relationship dead obvious */
-    .session-block{
-      background:#fff;
-      border:1px solid var(--line);
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      padding:clamp(12px,1.2vw,14px);
-      display:flex;
-      flex-direction:column;
-    }
-
-    .captioned.notch{
-      position:relative;
-      display:block;
-    }
-    .notch-figure{
-      display:block;
-      width:100%;
-      aspect-ratio:4/5;
-      background:transparent;
-      border:1px solid transparent;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-    }
-    .u-stroke{
-      fill:none;
-      stroke:#ecebea;
-      stroke-width:1;
-      vector-effect:non-scaling-stroke;
-      stroke-linejoin:round;
-    }
-
-    .tile-nav{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      width:40px;
-      height:40px;
-      display:grid;
-      place-items:center;
-      color:#fff;
-      cursor:pointer;
-      user-select:none;
-      z-index:4;
-      border:0;
-      background:transparent;
-      box-shadow:none;
-      opacity:0;
-      transition:opacity .2s ease;
-    }
-    .captioned.notch:hover .tile-nav{ opacity:1; }
-    .tile-prev{ left:10px }
-    .tile-next{ right:10px }
-    .tile-nav::before,
-    .tile-nav::after{ display:none !important; }
-    .tile-nav svg{
-      width:18px;
-      height:18px;
-      filter:drop-shadow(0 2px 6px rgba(0,0,0,.55));
-    }
-    .tile-dots{ display:none !important; }
-
-    .session-meta{
-      margin-top:10px;
-      font-size:0.95rem;
-      color:#5b574f;
-      line-height:1.5;
-    }
-    .session-meta h3{
-      font-family:"Cormorant Garamond","Times New Roman",serif;
-      margin:0 0 6px;
-      font-size:20px;
-      color:var(--ink);
-    }
-    .session-meta p{
       margin:0 0 10px;
     }
-
-    .btn{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:10px 16px;
-      background:#fff;
-      color:#3f3a33;
-      border:1px solid var(--line);
-      border-radius:0;
-      font-weight:700;
-      text-decoration:none;
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
-      vertical-align:middle;
-      font-size:0.95rem;
-      line-height:1.3;
-      white-space:nowrap;
+    .process p{
+      margin:0 0 10px; /* tightened */
+      color:#5b574f;
+      font-size:1rem;
+      line-height:1.6;
     }
-    .btn:hover,
-    .btn:focus-visible{
+
+    /* MOSAIC GRID */
+    .mosaic-wrap{
+      padding:0 0 clamp(24px,5vw,40px); /* section padding tightened */
+    }
+
+    .mosaic-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(min(240px,100%),1fr));
+      grid-auto-rows:8px;           /* base row unit */
+      grid-auto-flow:dense;
+      gap:12px;
+    }
+
+    .mosaic-item{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
       background:#fff;
-      border-color:#dcd4c3;
-      color:var(--accent);
-      box-shadow:0 10px 24px rgba(0,0,0,.08);
-      transform:translateY(-1px);
+      cursor:pointer;
+    }
+    .mosaic-item img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* helpful bigger / taller / wider spans */
+    .span-big-vert   { grid-row:span 40; grid-column:span 1; }
+    .span-wide       { grid-row:span 24; grid-column:span 2; }
+    .span-std        { grid-row:span 24; grid-column:span 1; }
+    .span-small      { grid-row:span 16; grid-column:span 1; }
+
+    /* responsive tune: on really narrow screens, force 2 cols max so nothing gets microscopic */
+    @media(max-width:600px){
+      .mosaic-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+      .span-wide{
+        grid-column:span 2;
+      }
     }
 
     /* lightbox */
@@ -312,7 +240,7 @@
       filter:drop-shadow(0 2px 6px rgba(0,0,0,.55));
     }
 
-    /* responsive */
+    /* responsive general */
     .desktop-only{ display:block; }
     .mobile-only{ display:none; }
     @media (max-width:960px){
@@ -325,12 +253,6 @@
       .hero{
         padding-top: calc(var(--mobile-header-h) + 16px);
       }
-
-      .mosaic{
-        grid-template-columns:1fr;
-      }
-
-      .tile-nav{ opacity:1 !important; }
     }
 
     @media (max-width:820px){
@@ -366,9 +288,9 @@
           <p class="lead">
             You're not booking a photo shoot. You're freezing the way your kid’s hair curls after salt water. The way your sister laughs with her whole face. The way your people feel right now, before “right now” turns into “remember when.”
           </p>
-          <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;">
-            <a class="btn" href="/book.html">Book This Session</a>
-            <a class="btn" href="/contact.html">Ask a Question</a>
+          <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:14px;">
+            <a class="btn" href="/book.html" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,'Times New Roman',serif; font-weight:700; border:1px solid var(--line); background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); padding:10px 16px; text-decoration:none; color:#3f3a33;">Book This Session</a>
+            <a class="btn" href="/contact.html" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,'Times New Roman',serif; font-weight:700; border:1px solid var(--line); background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.06); padding:10px 16px; text-decoration:none; color:#3f3a33;">Ask a Question</a>
           </div>
         </div>
 
@@ -380,7 +302,7 @@
     </section>
 
     <!-- PROCESS / EXPERIENCE STORY -->
-    <section class="container" style="padding:clamp(12px,3vw,24px) 0;">
+    <section class="container" style="padding:clamp(16px,4vw,32px) 0;">
       <article class="process">
         <h2>Here’s how it actually goes</h2>
 
@@ -394,131 +316,82 @@
       </article>
     </section>
 
-    <!-- FEATURED SESSIONS / CAROUSEL TILES -->
-    <section class="container" style="padding:0 0 clamp(16px,3vw,28px)">
-      <div class="eyebrow">Featured Sessions</div>
-      <h2 class="section-title">Some recent favorites</h2>
-      <p class="section-sub">Tap through each tile. Click to open full-screen. Each block is one real session — and its button opens that full gallery.</p>
+    <!-- MOSAIC WALL -->
+    <section class="container mosaic-wrap">
+      <div class="eyebrow">What it really looks like</div>
+      <h2 class="section-title">Moments that feel like your life (because they are)</h2>
+      <p class="section-sub">
+        Tap any photo to view it full-screen. Swipe/arrow through the whole set.
+      </p>
 
-      <div class="mosaic">
-        <!-- SESSION 1 -->
-        <div class="session-block">
-          <figure class="captioned notch" id="fam-session-1"
-            data-images='[
-              "/pictures/familyPortrait/girls-on-beach-looking-into-sunset.jpg",
-              "/pictures/familyPortrait/family-tickles-sunset.jpg",
-              "/pictures/familyPortrait/mom-hugging-kid-close.jpg",
-              "/pictures/familyPortrait/dad-carrying-kid-walking-surf.jpg"
-            ]'>
-            <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
-              <defs>
-                <mask id="notchMask-f1" x="0" y="0" width="800" height="1000">
-                  <rect x="0" y="0" width="800" height="1000" fill="white" />
-                </mask>
-                <filter id="frameShadow-f1" x="-20%" y="-20%" width="140%">
-                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-                </filter>
-              </defs>
-              <g mask="url(#notchMask-f1)"><g class="panGroup">
-                <image href="/pictures/familyPortrait/girls-on-beach-looking-into-sunset.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
-              </g></g>
-              <g class="frameGroup" filter="url(#frameShadow-f1)">
-                <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-              </g>
-            </svg>
-            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-            </button>
-            <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-            <div class="tile-dots" role="tablist"></div>
-          </figure>
-          <div class="session-meta">
-            <h3>Sarasota Beach at Golden Hour</h3>
-            <p>Wind, saltwater, bare feet, zero pressure. Just “be here with your people.”</p>
-            <a class="btn" href="/gallery-sarasota-beach.html">View Full Gallery →</a>
-          </div>
+      <div class="mosaic-grid" id="famMosaic">
+        <!-- we’ll span a few to create rhythm; others use default span-std -->
+        <div class="mosaic-item span-big-vert" data-src="/pictures/family-mosaic/mom-son-halloween-costumes.jpg">
+          <img src="/pictures/family-mosaic/mom-son-halloween-costumes.jpg" alt="Mom holding her son in costume, cheek to cheek" />
         </div>
 
-        <!-- SESSION 2 -->
-        <div class="session-block">
-          <figure class="captioned notch" id="fam-session-2"
-            data-images='[
-              "/pictures/mom-son-halloween-costumes.jpg",
-              "/pictures/andrewsBaldGallery/holding-hands-closeup.jpg",
-              "/pictures/andrewsBaldGallery/foreheads-touching.jpg"
-            ]'>
-            <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
-              <defs>
-                <mask id="notchMask-f2" x="0" y="0" width="800" height="1000">
-                  <rect x="0" y="0" width="800" height="1000" fill="white" />
-                </mask>
-                <filter id="frameShadow-f2" x="-20%" y="-20%" width="140%">
-                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-                </filter>
-              </defs>
-              <g mask="url(#notchMask-f2)"><g class="panGroup">
-                <!-- updated hero frame for session 2 -->
-                <image href="/pictures/mom-son-halloween-costumes.jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
-              </g></g>
-              <g class="frameGroup" filter="url(#frameShadow-f2)">
-                <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-              </g>
-            </svg>
-            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-            </button>
-            <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-            <div class="tile-dots" role="tablist"></div>
-          </figure>
-          <div class="session-meta">
-            <h3>Mangrove Boardwalk</h3>
-            <p>Boardwalk, palms, and that Florida-warm twilight. Movement, whispers, hands-in-hands.</p>
-            <a class="btn" href="/gallery-mangrove-boardwalk.html">View Full Gallery →</a>
-          </div>
+        <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/dad-mom-throwing-boy-in-air-in-costumes.jpg">
+          <img src="/pictures/family-mosaic/dad-mom-throwing-boy-in-air-in-costumes.jpg" alt="Parents tossing their son in the air, full joy" />
         </div>
 
-        <!-- SESSION 3 -->
-        <div class="session-block">
-          <figure class="captioned notch" id="fam-session-3"
-            data-images='[
-              "/pictures/portraitPageGal/E26A0759%20(2).jpg",
-              "/pictures/portraitPageGal/E26A0712%20(2).jpg",
-              "/pictures/portraitPageGal/E26A2465-2%20(2).jpg",
-              "/pictures/portraitPageGal/E26A2614%20(1).jpg"
-            ]'>
-            <svg class="notch-figure" viewBox="0 0 800 1000" aria-hidden="true">
-              <defs>
-                <mask id="notchMask-f3" x="0" y="0" width="800" height="1000">
-                  <rect x="0" y="0" width="800" height="1000" fill="white" />
-                </mask>
-                <filter id="frameShadow-f3" x="-20%" y="-20%" width="140%">
-                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.18)" />
-                </filter>
-              </defs>
-              <g mask="url(#notchMask-f3)"><g class="panGroup">
-                <image href="/pictures/portraitPageGal/E26A0759%20(2).jpg" x="0" y="0" width="800" height="1000" preserveAspectRatio="none"></image>
-              </g></g>
-              <g class="frameGroup" filter="url(#frameShadow-f3)">
-                <path class="u-stroke framePath" d="M .5 .5 H 799.5 V 999.5 H .5 Z" />
-              </g>
-            </svg>
-            <button class="tile-nav tile-prev" type="button" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12l6-6"/></svg>
-            </button>
-            <button class="tile-nav tile-next" type="button" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-            <div class="tile-dots" role="tablist"></div>
-          </figure>
-          <div class="session-meta">
-            <h3>At Home, Slow &amp; Real</h3>
-            <p>Little hands, little freckles, big feelings. Zero performy smiles — just your people, how you actually are together.</p>
-            <a class="btn" href="/gallery-at-home.html">View Full Gallery →</a>
-          </div>
+        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/son-mom-pose-costumes.jpg">
+          <img src="/pictures/family-mosaic/son-mom-pose-costumes.jpg" alt="Mom and son posing in costume, soft light" />
+        </div>
+
+        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/boy-posing-costume.jpg">
+          <img src="/pictures/family-mosaic/boy-posing-costume.jpg" alt="Boy posing proudly in costume" />
+        </div>
+
+        <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/boy-laying-in-grass-costume.jpg">
+          <img src="/pictures/family-mosaic/boy-laying-in-grass-costume.jpg" alt="Kid in costume laying in the grass, relaxed" />
+        </div>
+
+        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/boy-posing-sunrise.jpg">
+          <img src="/pictures/family-mosaic/boy-posing-sunrise.jpg" alt="Sunrise light on a kid, soft and golden" />
+        </div>
+
+        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/brother-sister-costumes-moving.jpg">
+          <img src="/pictures/family-mosaic/brother-sister-costumes-moving.jpg" alt="Brother and sister running in costume" />
+        </div>
+
+        <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/brother-sister-cotumes-posing.jpg">
+          <img src="/pictures/family-mosaic/brother-sister-cotumes-posing.jpg" alt="Brother and sister posing in costume" />
+        </div>
+
+        <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/family-pose.jpg">
+          <img src="/pictures/family-mosaic/family-pose.jpg" alt="Family all together, posed but warm" />
+        </div>
+
+        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/family-kissing.jpg">
+          <img src="/pictures/family-mosaic/family-kissing.jpg" alt="Everyone leaning in for a kiss and laughing" />
+        </div>
+
+        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/family-high-fiving.jpg">
+          <img src="/pictures/family-mosaic/family-high-fiving.jpg" alt="Family high five moment" />
+        </div>
+
+        <div class="mosaic-item span-small" data-src="/pictures/family-mosaic/friends-looking-into-phone.jpg">
+          <img src="/pictures/family-mosaic/friends-looking-into-phone.jpg" alt="Friends crowded together looking into a phone" />
+        </div>
+
+        <div class="mosaic-item span-wide" data-src="/pictures/family-mosaic/friends-marry-go-round-sunset.jpg">
+          <img src="/pictures/family-mosaic/friends-marry-go-round-sunset.jpg" alt="Spinning / playful moment at sunset with friends" />
+        </div>
+
+        <div class="mosaic-item span-big-vert" data-src="/pictures/family-mosaic/sisters-beach-sunset.jpg">
+          <img src="/pictures/family-mosaic/sisters-beach-sunset.jpg" alt="Sisters on the beach at sunset" />
+        </div>
+
+        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-looking-in-distance-sunset.jpg">
+          <img src="/pictures/family-mosaic/sisters-looking-in-distance-sunset.jpg" alt="Kids looking toward the water, sunset glow" />
+        </div>
+
+        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-posing-sunset-in-seagrass.jpg">
+          <img src="/pictures/family-mosaic/sisters-posing-sunset-in-seagrass.jpg" alt="Two sisters in seagrass, warm light" />
+        </div>
+
+        <div class="mosaic-item span-std" data-src="/pictures/family-mosaic/sisters-straing-into-ocean-sunset.jpg">
+          <img src="/pictures/family-mosaic/sisters-straing-into-ocean-sunset.jpg" alt="Watching the waves, backs to camera" />
         </div>
       </div>
     </section>
@@ -544,166 +417,64 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- carousel + lightbox JS -->
+  <!-- mosaic + lightbox JS -->
   <script>
   (function(){
-    const TILE_W = 800, TILE_H = 1000;
-
-    function clamp10(list){ return Array.isArray(list) ? list.slice(0,10) : []; }
-    function parseList(tile){ try{ return JSON.parse(tile.getAttribute('data-images')||'[]'); }catch{ return []; } }
-
-    // cache natural sizes
-    const naturalSizeCache = new Map();
-    function getNaturalSize(src){
-      return new Promise((resolve)=>{
-        if(naturalSizeCache.has(src)) return resolve(naturalSizeCache.get(src));
-        const im = new Image();
-        im.onload = () => {
-          const val = { w: im.naturalWidth||im.width, h: im.naturalHeight||im.height };
-          naturalSizeCache.set(src, val);
-          resolve(val);
-        };
-        im.onerror = () => resolve({ w:1600, h:1067 });
-        im.src = src;
-      });
-    }
-
-    function ensurePanGroup(imgEl){
-      const p = imgEl.parentNode;
-      return (p && p.classList && p.classList.contains('panGroup')) ? p : null;
-    }
-
-    async function applyFocal(imgEl, src){
-      const g = ensurePanGroup(imgEl); if(!g) return;
-      const { w:natW, h:natH } = await getNaturalSize(src);
-
-      const sH = TILE_H / natH;
-      const drawW_H = natW * sH;
-      let drawW, drawH, baseX, baseY;
-
-      if(drawW_H < TILE_W){
-        const sW = TILE_W / natW;
-        drawW = TILE_W;
-        drawH = natH * sW;
-        baseX = 0;
-        baseY = (TILE_H - drawH)/2;
-      } else {
-        drawW = drawW_H;
-        drawH = TILE_H;
-        baseX = (TILE_W - drawW)/2;
-        baseY = 0;
-      }
-
-      imgEl.setAttribute('x', String(baseX));
-      imgEl.setAttribute('y', String(baseY));
-      imgEl.setAttribute('width', String(drawW));
-      imgEl.setAttribute('height', String(drawH));
-      imgEl.setAttribute('preserveAspectRatio','none');
-
-      const href = imgEl.getAttribute('href');
-      if(href){
-        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', href);
-      }
-    }
-
-    const stateByTile = new Map();
-
-    function primeTile(tile){
-      if(!tile || tile.dataset.primed) return;
-      const list = clamp10(parseList(tile));
-      if(!list.length) return;
-
-      const imgEl = tile.querySelector('image');
-      if(imgEl){
-        imgEl.setAttribute('href', list[0]);
-        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', list[0]);
-        applyFocal(imgEl, list[0]);
-      }
-      tile.setAttribute('data-images', JSON.stringify(list));
-      tile.dataset.primed = '1';
-      stateByTile.set(tile.id, { idx:0, list });
-    }
-
-    function wireTile(tile){
-      if(!tile || tile.dataset.wired) return;
-      const imgEl = tile.querySelector('image'); if(!imgEl) return;
-
-      let list;
-      try { list = clamp10(JSON.parse(tile.getAttribute('data-images')||'[]')); }
-      catch(e){ list = []; }
-      if(list.length <= 1) return;
-
-      const st = stateByTile.get(tile.id) || { idx:0, list };
-      st.list = list;
-      stateByTile.set(tile.id, st);
-
-      function show(i){
-        st.idx = (i + list.length) % list.length;
-        const src = list[st.idx];
-        imgEl.setAttribute('href', src);
-        imgEl.setAttributeNS('http://www.w3.org/1999/xlink','href', src);
-        applyFocal(imgEl, src);
-      }
-
-      tile.querySelector('.tile-prev')?.addEventListener('click', e=>{
-        e.stopPropagation(); show(st.idx-1);
-      });
-      tile.querySelector('.tile-next')?.addEventListener('click', e=>{
-        e.stopPropagation(); show(st.idx+1);
-      });
-
-      tile.querySelector('svg.notch-figure')?.addEventListener('click', ()=>{
-        openLbFor(tile.id, st.idx);
-      });
-
-      tile.dataset.wired = '1';
-    }
-
-    // Lightbox wiring (page-local)
+    // collect all mosaic items for lightbox navigation
+    const items = Array.from(document.querySelectorAll('.mosaic-item'));
     const lb = document.getElementById('famLightbox');
     const lbImg = document.getElementById('famLbImg');
     const lbPrev = document.getElementById('famLbPrev');
     const lbNext = document.getElementById('famLbNext');
     const lbClose = document.getElementById('famLbClose');
-    let lbTileId = null;
-    let lbIdx = 0;
 
-    function openLbFor(tileId, startIdx){
-      const st = stateByTile.get(tileId);
-      if(!st || !st.list || !st.list.length) return;
-      lbTileId = tileId;
-      lbIdx = (startIdx + st.list.length) % st.list.length;
-      lbImg.src = st.list[lbIdx];
+    let currentIndex = -1;
+
+    function openAt(idx){
+      if(idx < 0 || idx >= items.length) return;
+      currentIndex = idx;
+      const src = items[idx].getAttribute('data-src');
+      lbImg.src = src || '';
       lb.classList.add('open');
       lb.setAttribute('aria-hidden','false');
       document.body.style.overflow = 'hidden';
     }
+
     function closeLb(){
       lb.classList.remove('open');
       lb.setAttribute('aria-hidden','true');
       lbImg.src = '';
       document.body.style.overflow = '';
-      lbTileId = null;
-    }
-    function lbShow(delta){
-      const st = stateByTile.get(lbTileId);
-      if(!st) return;
-      lbIdx = (lbIdx + delta + st.list.length) % st.list.length;
-      lbImg.src = st.list[lbIdx];
+      currentIndex = -1;
     }
 
-    lbPrev.addEventListener('click', e=>{ e.stopPropagation(); lbShow(-1); });
-    lbNext.addEventListener('click', e=>{ e.stopPropagation(); lbShow(+1); });
+    function showDelta(d){
+      if(currentIndex === -1) return;
+      currentIndex = (currentIndex + d + items.length) % items.length;
+      const src = items[currentIndex].getAttribute('data-src');
+      lbImg.src = src || '';
+    }
+
+    // wire click on each mosaic item
+    items.forEach((item, idx)=>{
+      item.addEventListener('click', ()=>openAt(idx));
+    });
+
+    // wire lightbox buttons
+    lbPrev.addEventListener('click', e=>{ e.stopPropagation(); showDelta(-1); });
+    lbNext.addEventListener('click', e=>{ e.stopPropagation(); showDelta(+1); });
     lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); });
     lb.addEventListener('click', e=>{ if(e.target===lb) closeLb(); });
 
+    // keyboard nav
     window.addEventListener('keydown', e=>{
       if(!lb.classList.contains('open')) return;
       if(e.key==='Escape') closeLb();
-      if(e.key==='ArrowLeft') lbShow(-1);
-      if(e.key==='ArrowRight') lbShow(+1);
+      if(e.key==='ArrowLeft') showDelta(-1);
+      if(e.key==='ArrowRight') showDelta(+1);
     });
 
+    // swipe on lightbox
     let touchX = null;
     lb.addEventListener('touchstart', e=>{
       touchX = e.changedTouches[0].clientX;
@@ -713,26 +484,9 @@
       const dx = e.changedTouches[0].clientX - touchX;
       touchX = null;
       if(Math.abs(dx) > 40){
-        dx < 0 ? lbShow(+1) : lbShow(-1);
+        dx < 0 ? showDelta(+1) : showDelta(-1);
       }
     }, {passive:true});
-
-    // lazy init IO
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          const tile = entry.target;
-          primeTile(tile);
-          wireTile(tile);
-          io.unobserve(tile);
-        }
-      });
-    }, { rootMargin:'200px 0px' });
-
-    ['fam-session-1','fam-session-2','fam-session-3'].forEach(id=>{
-      const el = document.getElementById(id);
-      if(el) io.observe(el);
-    });
   })();
   </script>
 </body>
