@@ -174,7 +174,8 @@
       grid-auto-rows:8px;
       grid-auto-flow:dense;
       gap:12px;
-      transform-origin:top center;
+      transform-origin:top center;                     /* added */
+      width:calc(var(--maxw) - 2 * var(--gap));        /* added: lock to desktop inner width */
     }
 
     .mosaic-item{
@@ -198,14 +199,10 @@
     .span-std        { grid-row:span 24; grid-column:span 1; }
     .span-small      { grid-row:span 16; grid-column:span 1; }
 
-    /* MOBILE BEHAVIOR (minimal): keep your desktop grid, just shrink it more so full collage fits */
+    /* MOBILE: keep exact desktop layout; JS sets the scale */
     @media(max-width:600px){
-      .mosaic-outer{
-        justify-content:center;
-      }
       .mosaic-grid{
-        grid-auto-rows:6px;
-        transform:scale(.72); /* was .8 — just a little more so the 3–4 wide rows fit on phone */
+        /* no changes to rows/columns here */
       }
     }
 
@@ -500,6 +497,37 @@
         dx < 0 ? showDelta(+1) : showDelta(-1);
       }
     }, {passive:true});
+  })();
+
+  // === Mobile-only exact-fit scaler (keeps desktop layout, just shrinks) ===
+  (function(){
+    const grid = document.getElementById('famMosaic');
+    const outer = grid ? grid.parentElement : null;
+    if(!grid || !outer) return;
+
+    function fitMosaic(){
+      const isPhone = window.matchMedia('(max-width: 600px)').matches;
+
+      // reset before measuring
+      grid.style.transform = 'none';
+
+      // measure natural (desktop) width of the grid
+      // scrollWidth gives us unscaled width regardless of transforms
+      const baseW = grid.scrollWidth || grid.getBoundingClientRect().width;
+      const available = outer.clientWidth; // inside container
+
+      let scale = 1;
+      if(isPhone && baseW){
+        scale = Math.min(1, available / baseW);
+      }
+      grid.style.transformOrigin = 'top center';
+      grid.style.transform = scale === 1 ? 'none' : 'scale(' + scale + ')';
+    }
+
+    window.addEventListener('resize', fitMosaic);
+    window.addEventListener('orientationchange', fitMosaic);
+    // run once after load
+    fitMosaic();
   })();
   </script>
 </body>
