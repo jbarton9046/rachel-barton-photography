@@ -42,8 +42,8 @@
       --nav-gap-top:16px; --nav-gap-bottom:40px;
 
       /* Hero tuning */
-      --hero-gap:12px;            /* space between image and buttons */
-      --copy-nudge:8px;           /* tiny right push so right column aligns rhythmically */
+      --hero-gap:12px;           /* space between image and buttons */
+      --copy-nudge:8px;          /* tiny right push so right column aligns rhythmically */
     }
 
     /* Site spacing + lightweight nav */
@@ -155,28 +155,32 @@
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
-    /* ======= MOBILE — mirror desktop ======= */
+    /* ======= MOBILE: mirror desktop, but scaled ======= */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
-      .topbar{ padding-top:24px !important; padding-bottom:8px !important; }
 
-      /* Keep two columns like desktop (slightly narrower left column for small screens) */
-      .intro-grid{
-        grid-template-columns: minmax(240px, 44vw) 1fr;
-        gap: clamp(12px, 4vw, 20px);
+      /* prevent logo/header overlap with first line of content */
+      .intro{ padding-top: calc(16px + 8px); }
+
+      /* Keep desktop two-column composition; just ensure legible hierarchy */
+      .h1{ font-size: clamp(28px, 8vw, 40px); }
+      .story{ column-count: 2; }
+      .story p{ font-size: 16px; }  /* body smaller than header */
+
+      /* Let the scale wrappers dictate the height after transform */
+      .intro-outer, .adv-mosaic-outer{
+        position: relative;
       }
-      .left-col{ display:flex; }          /* no display:contents; keep desktop structure */
-      .hero-figure{ height:auto; }        /* allow equalizer to set height */
-      .copy{ padding-left:var(--copy-nudge); }
-
-      /* Make sure story text is smaller than the page title on mobile */
-      .story{ column-count:1; font-size:16px; }  /* 1 column on phones for readability */
+      .intro-scale, .adv-mosaic-scale{
+        display:block;
+        transform-origin: top center;
+      }
     }
 
-    /* On mobile, keep the mosaic head aligned just like desktop (no extra side padding) */
+    /* Mosaic head padding on small screens */
     @media (max-width:960px){
       .adv-mosaic-wrap.container{ padding-left:0; padding-right:0; }
-      .adv-mosaic-head{ padding:0; width:calc(var(--maxw) - 2 * var(--gap)); }
+      .adv-mosaic-head{ padding-left:var(--gap); padding-right:var(--gap); width:auto; }
     }
 
     /* Fullscreen lightbox */
@@ -287,10 +291,10 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Equalize hero height (desktop + mobile now) + Masonry + Lightbox -->
+  <!-- Equalize hero height (desktop) + Masonry + Lightbox + Mobile scale -->
   <script>
     (function(){
-      /* ===== HERO EQUALIZER (runs on all breakpoints) ===== */
+      /* ===== DESKTOP HERO EQUALIZER ===== */
       const hero    = document.querySelector('.hero-figure');
       const copy    = document.querySelector('.copy');
       const buttons = document.querySelector('.btn-row');
@@ -305,7 +309,10 @@
 
       function sizeHero(){
         if(!hero || !copy || !buttons) return;
-
+        if (window.matchMedia('(max-width: 820px)').matches){
+          hero.style.height = '';
+          return;
+        }
         const gap  = getCssPx(document.documentElement, '--hero-gap', 12);
         const copyH = copy.getBoundingClientRect().height;
         const btnH  = buttons.getBoundingClientRect().height;
@@ -324,9 +331,9 @@
 
       /* ===== MASONRY BUILD ===== */
 
-      // KNOBS: set where & how big the new photo should be to plug the gap
+      // KNOBS: where & how big the extra image should be to plug the gap
       const NEW_IMG   = 'keep-couple-in-frame.jpg';
-      const NEW_INDEX = 9;              // try 8–12 if you want to nudge position
+      const NEW_INDEX = 9;              // adjust 8–12 if you want to nudge position
       const NEW_SPAN  = 'span-small';   // 'span-small' | 'span-std' | 'span-wide' | 'span-tall'
 
       const base = '/pictures/andrewsBaldGallery/';
@@ -343,7 +350,6 @@
         'span-small','span-std','span-wide'
       ];
 
-      // Build new arrays with the new image inserted where we want it
       const GALLERY = BASE_GALLERY.slice();
       const SPANS   = BASE_SPANS.slice();
       const insertAt = Math.max(0, Math.min(NEW_INDEX, GALLERY.length));
@@ -362,9 +368,7 @@
           img.loading = (idx > 8) ? 'lazy' : 'eager';
           img.alt = 'Andrews Bald adventure photo ' + (idx + 1);
           img.src = urlFor(name);
-
           if (name === NEW_IMG) img.style.objectPosition = '50% 50%';
-
           div.appendChild(img);
           grid.appendChild(div);
         });
@@ -431,6 +435,44 @@
         touchX = null;
         if(Math.abs(dx) > 40){ dx < 0 ? shift(+1) : shift(-1); }
       }, {passive:true});
+
+      /* ===== MOBILE SCALE to mirror desktop layout ===== */
+      function scaleBlock(scaleEl, innerEl){
+        if (!scaleEl || !innerEl) return;
+        // reset before measuring
+        scaleEl.style.transform = '';
+        const innerW = innerEl.offsetWidth;
+        const innerH = innerEl.offsetHeight;
+
+        const avail = document.documentElement.clientWidth; // full viewport width
+        const s = Math.min(1, avail / innerW);
+
+        if (window.matchMedia('(max-width: 820px)').matches){
+          scaleEl.style.transform = 'scale(' + s + ')';
+          // lock out the scaled height so the following content sits correctly
+          scaleEl.style.height = (innerH * s) + 'px';
+          scaleEl.parentElement.style.height = (innerH * s) + 'px';
+        } else {
+          scaleEl.style.transform = '';
+          scaleEl.style.height = '';
+          scaleEl.parentElement.style.height = '';
+        }
+      }
+
+      function rescaleAll(){
+        const introScale = document.getElementById('introScale');
+        const introInner = introScale ? introScale.querySelector('.intro-inner') : null;
+        const mosaicScale = document.getElementById('advScale');
+        const mosaicGrid  = mosaicScale ? mosaicScale.querySelector('.adv-mosaic-grid') : null;
+
+        scaleBlock(introScale, introInner);
+        scaleBlock(mosaicScale, mosaicGrid);
+      }
+
+      window.addEventListener('load', rescaleAll);
+      window.addEventListener('resize', rescaleAll);
+      // in case images change heights after load
+      setTimeout(rescaleAll, 300);
     })();
   </script>
 </body>
