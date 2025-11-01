@@ -37,7 +37,6 @@
       --accent:#A88A5A; --accent-2:#E8DFC9; --line:#e9e6df;
       --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
-
       /* Navbar spacing (site-wide preference) */
       --nav-gap-top:16px; --nav-gap-bottom:40px;
     }
@@ -64,27 +63,28 @@
       display:grid;
       grid-template-columns: minmax(280px, 520px) 1fr;
       gap: clamp(18px, 3.2vw, 36px);
-      align-items:stretch; /* allow left to grow to match right */
+      align-items:stretch; /* make both columns equal height */
     }
     @media (max-width: 980px){
       .intro-grid{ grid-template-columns: 1fr; }
     }
 
-    /* Left column: hero image + buttons under it */
-    .left-col{ display:flex; flex-direction:column; gap:12px; height:100%; }
+    /* Left column: hero image flex-fills; buttons are pinned to bottom */
+    .left-col{ display:flex; flex-direction:column; gap:12px; height:100%; min-height:0; }
     .hero-figure{
+      flex:1 1 auto;                 /* take remaining height */
       margin:0;
       border:1px solid var(--line);
       box-shadow:0 8px 24px rgba(0,0,0,.07);
       background:#fff;
-      border-radius:0; /* 90° corners */
+      border-radius:0;                /* 90° corners */
       overflow:hidden;
+      min-height:180px;               /* safe floor */
     }
     .hero-figure img{
-      display:block; width:100%;
-      height:auto;
-      aspect-ratio: 4 / 5;           /* TALLER hero to drop the buttons lower */
+      display:block; width:100%; height:100%; /* fill the figure height */
       object-fit:cover; object-position:center;
+      /* no fixed aspect ratio — height is driven by equal-column layout */
     }
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
@@ -97,9 +97,9 @@
       background:#fff; border-color:#dcd4c3; color:var(--accent);
       box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none;
     }
-    .btn-row{ display:flex; gap:10px; flex-wrap:wrap; }
+    .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; } /* anchors to bottom */
 
-    /* Right column: header + story (header spans full right column width) */
+    /* Right column: header + story */
     .copy .lead{ margin-bottom:8px; }
     .story{ column-gap: clamp(20px, 3vw, 36px); }
     @media (min-width: 1100px){ .story{ column-count: 2; } }
@@ -138,13 +138,12 @@
     .adv-item img{ width:100%; height:100%; object-fit:cover; display:block; }
 
     /* span set (tuned to finish cleaner at the bottom) */
-    .span-big-vert{ grid-row:span 44; grid-column:span 1; }  /* ~264px tall blocks */
-    .span-wide   { grid-row:span 30; grid-column:span 2; }   /* ~180px tall, wide */
-    .span-std    { grid-row:span 30; grid-column:span 1; }   /* ~180px tall */
-    .span-small  { grid-row:span 20; grid-column:span 1; }   /* ~120px tall */
+    .span-big-vert{ grid-row:span 44; grid-column:span 1; }
+    .span-wide   { grid-row:span 30; grid-column:span 2; }
+    .span-std    { grid-row:span 30; grid-column:span 1; }
+    .span-small  { grid-row:span 20; grid-column:span 1; }
 
     @media (max-width:960px){
-      /* Keep the gallery head aligned with page padding; let grid go edge-to-edge */
       .adv-mosaic-wrap.container{ padding-left:0; padding-right:0; }
       .adv-mosaic-head{ padding-left:var(--gap); padding-right:var(--gap); }
     }
@@ -157,7 +156,7 @@
       .topbar{ padding-top:24px !important; padding-bottom:8px !important; }
     }
 
-    /* Fullscreen lightbox (kept as-is) */
+    /* Fullscreen lightbox */
     #advLightbox{ position:fixed; inset:0; z-index:100; display:none; place-items:center; background:rgba(0,0,0,.72); }
     #advLightbox.open{ display:grid; }
     #advLightbox .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
@@ -294,7 +293,7 @@
         'couple-on-trail.jpg'
       ];
 
-      /* Tuned spans to reduce bottom choppiness (pairs of sizes mix cleaner) */
+      /* Tuned spans to reduce bottom choppiness */
       const spans = [
         'span-big-vert','span-wide','span-std','span-small','span-std','span-std','span-wide',
         'span-std','span-std','span-big-vert','span-std','span-std','span-small','span-std',
@@ -320,8 +319,7 @@
           grid.appendChild(div);
         });
 
-        /* Tiny bottom-balance tweak:
-           If the last item ends noticeably shorter, nudge its height up one step. */
+        /* Small bottom-balance tweak */
         const last = grid.lastElementChild;
         if (last && last.classList.contains('span-std')) {
           last.classList.remove('span-std');
@@ -329,7 +327,7 @@
         }
       }
 
-      /* Lightbox wiring (uses your existing styles/IDs) */
+      /* Lightbox */
       const items = Array.from(document.querySelectorAll('#advMosaic .adv-item'));
       const lb = document.getElementById('advLightbox');
       const lbImg = document.getElementById('advLbImg');
@@ -382,7 +380,7 @@
         if(Math.abs(dx) > 40){ dx < 0 ? shift(+1) : shift(-1); }
       }, {passive:true});
 
-      /* Mobile exact-fit scaler — clones Family behavior so mobile == desktop layout */
+      /* Mobile exact-fit scaler (mobile == desktop layout) */
       (function(){
         const scaleEl = document.getElementById('advScale');
         const outer   = scaleEl ? scaleEl.parentElement : null;
