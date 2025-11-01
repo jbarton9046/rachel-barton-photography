@@ -138,10 +138,10 @@
       width:calc(var(--maxw) - 2 * var(--gap)); margin:0 auto; align-content:start;
     }
 
-    /* Make the mosaic heading align with the grid edges (not the outer container padding) */
+    /* Make the mosaic heading align with the grid edges */
     .adv-mosaic-head{
       width:calc(var(--maxw) - 2 * var(--gap));
-      margin:0 auto 0 auto;
+      margin:0 auto;
       padding:0;
     }
 
@@ -155,7 +155,7 @@
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
-    /* ======= MOBILE (unchanged flow) ======= */
+    /* ======= MOBILE ======= */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
       .topbar{ padding-top:24px !important; padding-bottom:8px !important; }
@@ -328,25 +328,32 @@
       window.ADV.setHeroAdjust = function(px){ adjust = +px; sizeHero(); };
 
       /* ===== MASONRY BUILD ===== */
-      const base = '/pictures/andrewsBaldGallery/';
 
-      // Added "keep-couple-in-frame.jpg" to fill the hole
-      const GALLERY = [
+      // KNOBS: set where & how big the new photo should be to plug the gap
+      const NEW_IMG   = 'keep-couple-in-frame.jpg';
+      const NEW_INDEX = 9;              // try 8–12 if you want to nudge position
+      const NEW_SPAN  = 'span-small';   // 'span-small' | 'span-std' | 'span-wide' | 'span-tall'
+
+      const base = '/pictures/andrewsBaldGallery/';
+      const BASE_GALLERY = [
         'E26A1124.jpg','E26A1095 (1).jpg','E26A1043.jpg','E26A1146.jpg',
         'E26A1098 (1).jpg','E26A1062 (1).jpg','E26A1013 (1).jpg','E26A1075.jpg',
         'E26A1022 (1).jpg','E26A1139.jpg','E26A1045 (1).jpg','E26A1094 (1).jpg',
         'E26A1087 (1).jpg','E26A1054.jpg','E26A1033 (1).jpg','E26A1161.jpg',
-        'keep-couple-in-frame.jpg',      /* <-- new image for the empty slot */
         'couple-on-trail.jpg'
       ];
-
-      const SPANS = [
+      const BASE_SPANS = [
         'span-wide','span-tall','span-std','span-small','span-wide','span-std','span-std',
         'span-tall','span-std','span-std','span-small','span-std','span-wide','span-std',
-        'span-small','span-std',
-        'span-std',                      /* span for keep-couple-in-frame.jpg */
-        'span-wide'
+        'span-small','span-std','span-wide'
       ];
+
+      // Build new arrays with the new image inserted where we want it
+      const GALLERY = BASE_GALLERY.slice();
+      const SPANS   = BASE_SPANS.slice();
+      const insertAt = Math.max(0, Math.min(NEW_INDEX, GALLERY.length));
+      GALLERY.splice(insertAt, 0, NEW_IMG);
+      SPANS.splice(insertAt, 0, NEW_SPAN);
 
       const urlFor = n => base + encodeURIComponent(n);
       const grid = document.getElementById('advMosaic');
@@ -361,10 +368,8 @@
           img.alt = 'Andrews Bald adventure photo ' + (idx + 1);
           img.src = urlFor(name);
 
-          // Make sure your new photo stays nicely centered in its box
-          if (name === 'keep-couple-in-frame.jpg') {
-            img.style.objectPosition = '50% 50%';
-          }
+          // Keep your new photo nicely centered
+          if (name === NEW_IMG) img.style.objectPosition = '50% 50%';
 
           div.appendChild(img);
           grid.appendChild(div);
