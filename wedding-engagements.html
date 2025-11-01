@@ -126,7 +126,7 @@
     .span-tall   { grid-row:span 40; grid-column:span 2; }
     .span-wide   { grid-row:span 24; grid-column:span 3; }
     .span-std    { grid-row:span 24; grid-column:span 2; }
-    .span-small  { grid-row:span 16; grid-column:span 1; } /* 1-col small to fill tight gaps */
+    .span-small  { grid-row:span 16; grid-column:span 1; }
 
     /* lightbox */
     #wedLightbox{
@@ -212,16 +212,15 @@
     <section class="container mosaic-wrap">
       <div class="mosaic-head">
         <div class="eyebrow">What it really looks like</div>
-        <h2 class="section-title">Nine (okay, ten) moments that feel like you two</h2>
+        <!-- UPDATED TITLE BELOW -->
+        <h2 class="section-title">Moments that feel like the two of you</h2>
         <p class="section-sub">Tap any photo to view it full-screen. Swipe/arrow through the set.</p>
       </div>
 
       <div class="mosaic-outer">
         <div class="mosaic-scale" id="wedScale">
           <div class="mosaic-grid" id="wedMosaic">
-            <!-- Rebalanced order/spans so rows pack to ~6 cols frequently -->
-
-            <!-- Row A: 2 + 2 + 2 = 6 -->
+            <!-- layout unchanged -->
             <div class="mosaic-item span-tall" data-src="/pictures/lidoCoupleOctGallPics/E26A3605.jpg">
               <img src="/pictures/lidoCoupleOctGallPics/E26A3605.jpg" alt="Tall portrait embrace" />
             </div>
@@ -232,7 +231,6 @@
               <img src="/pictures/lidoCoupleOctGallPics/E26A3642.jpg" alt="Walking in seagrass" />
             </div>
 
-            <!-- Row B: 3 + 2 + 1 = 6 -->
             <div class="mosaic-item span-wide" data-src="/pictures/lidoCoupleOctGallPics/E26A3679.jpg">
               <img src="/pictures/lidoCoupleOctGallPics/E26A3679.jpg" alt="Golden-hour walk wide" />
             </div>
@@ -243,7 +241,6 @@
               <img src="/pictures/lidoCoupleOctGallPics/E26A3741.jpg" alt="Sunlit smile (detail)" />
             </div>
 
-            <!-- Row C: 3 + 2 + 1 = 6 -->
             <div class="mosaic-item span-wide" data-src="/pictures/lidoCoupleOctGallPics/E26A3579.jpg">
               <img class="obj-people" src="/pictures/lidoCoupleOctGallPics/E26A3579.jpg" alt="Couple at Lido, wide scene focused on people" />
             </div>
@@ -254,7 +251,6 @@
               <img src="/pictures/lidoCoupleOctGallPics/E26A3620.jpg" alt="Hand-in-hand detail" />
             </div>
 
-            <!-- Tail: fill neatly under tall column -->
             <div class="mosaic-item span-std" data-src="/pictures/lidoCoupleOctGallPics/E26A3789.jpg">
               <img src="/pictures/lidoCoupleOctGallPics/E26A3789.jpg" alt="Silhouette at dusk" />
             </div>
@@ -322,12 +318,10 @@
     lbNext.addEventListener('click', e=>{ e.stopPropagation(); showDelta(+1); });
     lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); });
 
-    // Tap outside image to close
     lb.addEventListener('click', e=>{
       if(e.target === lb) closeLb();
     });
 
-    // Keyboard
     window.addEventListener('keydown', e=>{
       if(!lb.classList.contains('open')) return;
       if(e.key==='Escape') closeLb();
@@ -355,7 +349,7 @@
     }, {passive:true});
   })();
 
-  // Mobile exact-fit scaler (keeps desktop layout, shrinks on phones)
+  // Mobile exact-fit scaler
   (function(){
     const grid   = document.getElementById('wedMosaic');
     const scaleEl= document.getElementById('wedScale');
