@@ -45,7 +45,7 @@
       --mobile-header-h:64px;
     }
 
-    /* Respect your site spacing + lightweight nav */
+    /* Site spacing + lightweight nav */
     .topbar{ padding-top:var(--nav-gap-top)!important; padding-bottom:var(--nav-gap-bottom)!important; }
     .nav-spacer,.page-top-spacer{ height:0!important; }
     .topbar nav a, .topbar .nav a, .topbar [role="navigation"] a{ font-weight:400 !important; }
@@ -57,48 +57,59 @@
     a:hover,a:focus-visible{ color:var(--accent) }
     .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gap) }
 
-    /* —— HERO (smaller + text wraps around like a newspaper) —— */
-    .adventure-hero{ padding:clamp(14px,3.5vw,28px) 0 0; }
-    .hero-wrap{
-      padding: clamp(14px, 3.5vw, 24px) 0 clamp(6px, 2vw, 12px);
-    }
-    .hero-figure{
-      float:left;
-      width:clamp(260px, 38vw, 520px);
-      margin:0 clamp(16px,2vw,24px) clamp(12px,2vw,18px) 0;
-      border:1px solid var(--line);
-      box-shadow:0 8px 24px rgba(0,0,0,.07);
-      background:#fff;
-      shape-outside: inset(0 round 8px);
-      border-radius:8px;
-      overflow:hidden;
-    }
-    .hero-figure img{
-      display:block; width:100%; height:auto; object-fit:cover; object-position:center;
-    }
-    .hero-badge{
-      position:absolute; left:14px; top:14px; background:#fff; border:1px solid var(--line);
-      padding:6px 10px; box-shadow:0 6px 18px rgba(0,0,0,.08); font-size:13px;
-    }
     .eyebrow{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#6e6a62 }
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.2vw,20px); color:#58554e; max-width:68ch }
 
-    /* Two-column newspaper text on wide screens */
-    .story{
-      /* start below the floated figure if it overflows */
-      overflow:auto;
-      margin-top:4px;
-      column-gap: clamp(20px, 3vw, 36px);
+    /* ========= INTRO GRID =========
+       Left   = image
+       Right  = header + story + buttons + notes
+    */
+    .intro{ padding: clamp(16px, 4vw, 32px) 0 clamp(8px, 2vw, 16px); }
+    .intro-grid{
+      display:grid;
+      grid-template-columns: minmax(260px, 520px) 1fr;
+      gap: clamp(18px, 3.2vw, 36px);
+      align-items:start;
     }
-    @media (min-width: 1020px){
-      .story{ column-count: 2; }
-    }
-    @media (max-width: 720px){
-      .hero-figure{ float:none; width:100%; margin:0 0 14px 0; }
+    @media (max-width: 980px){
+      .intro-grid{ grid-template-columns: 1fr; }
     }
 
-    /* Field notes (kept, but simplified) */
+    /* Left column image (smaller hero) */
+    .hero-figure{
+      margin:0;
+      border:1px solid var(--line);
+      box-shadow:0 8px 24px rgba(0,0,0,.07);
+      background:#fff;
+      border-radius:8px;
+      overflow:hidden;
+    }
+    .hero-figure img{
+      display:block; width:100%; height:auto; aspect-ratio: 4 / 3; object-fit:cover; object-position:center;
+    }
+
+    /* Right column content */
+    .copy .lead{ margin-bottom:8px; }
+    .story{ column-gap: clamp(20px, 3vw, 36px); }
+    @media (min-width: 1100px){ .story{ column-count: 2; } }
+
+    /* Buttons */
+    .btn{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 16px; border:1px solid var(--line); background:#fff; color:#3f3a33;
+      font-weight:700; text-decoration:none; border-radius:0; box-shadow:0 6px 18px rgba(0,0,0,.06);
+      transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease,color .15s ease;
+    }
+    .btn:hover, .btn:focus-visible{
+      background:#fff; border-color:#dcd4c3; color:var(--accent);
+      box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none;
+    }
+    .btn.alt{ background:#fff; border-color:var(--line); }
+    .cta-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+
+    /* Notes */
     .notes{
       display:grid; gap:clamp(10px,1.8vw,14px);
       grid-template-columns: repeat(3, minmax(0,1fr));
@@ -111,17 +122,15 @@
     }
     .note p{ margin:0; color:#4e4b45 }
 
-    /* —— Masonry Gallery (more pictures per row + tight fit) —— */
+    /* ========= MASONRY GALLERY ========= */
     .masonry{ padding: clamp(20px, 6vw, 60px) 0; }
     .masonry h2{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
       font-size:clamp(26px,4.2vw,40px); margin:0 0 8px;
     }
     .masonry .section-sub{ margin:0 0 18px; color:#66625a; max-width:70ch }
-    /* column-based masonry */
     .masonry-grid{
       column-gap: clamp(10px, 1.6vw, 18px);
-      /* desktop → mobile: 5 / 4 / 3 / 2 columns */
       column-count: 5;
     }
     @media (max-width: 1200px){ .masonry-grid{ column-count: 4; } }
@@ -131,15 +140,10 @@
     .m-item{
       display:inline-block; width:100%; margin:0 0 clamp(10px, 1.4vw, 16px);
       border:1px solid var(--line); background:#fff; box-shadow:0 8px 24px rgba(0,0,0,.06);
-      break-inside: avoid; /* key for masonry fit */
+      break-inside: avoid;
       overflow:hidden;
     }
     .m-item img{ width:100%; height:auto; display:block; }
-
-    /* CTA */
-    .cta{ background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; margin:32px 0 18px }
-    .cta .row{ display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap }
-    .cta small{ color:#6e6a62 }
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
@@ -149,7 +153,7 @@
       .topbar{ padding-top:24px !important; padding-bottom:8px !important; }
     }
 
-    /* Fullscreen lightbox (for gallery) */
+    /* Fullscreen lightbox */
     #advLightbox{ position:fixed; inset:0; z-index:100; display:none; place-items:center; background:rgba(0,0,0,.72); }
     #advLightbox.open{ display:grid; }
     #advLightbox .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
@@ -169,55 +173,49 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <!-- HERO (smaller; text wraps around) -->
-    <section class="adventure-hero">
-      <div class="container hero-wrap">
-        <figure class="hero-figure">
-          <img id="hero-image" src="/pictures/andrewsBaldGallery/couple-on-trail.jpg" alt="Couple hiking through wind-brushed meadow at Andrews Bald during sunrise" />
-        </figure>
+    <!-- INTRO: two-column grid; ALL TEXT IN RIGHT COLUMN -->
+    <section class="intro">
+      <div class="container">
+        <div class="intro-grid">
+          <!-- Left column: image -->
+          <figure class="hero-figure">
+            <img src="/pictures/andrewsBaldGallery/couple-on-trail.jpg" alt="Couple hiking through wind-brushed meadow at Andrews Bald during sunrise" />
+          </figure>
 
-        <div class="eyebrow">Adventure Sessions</div>
-        <h1 class="h1">Andrews Bald, Tennessee</h1>
-        <p class="lead">
-          High above Gatlinburg, the trail opens to a broad, wind-brushed meadow where the light hits different.
-          Our adventure sessions are built around movement and laughter—less posing, more story—so the pictures
-          feel like the day itself.
-        </p>
+          <!-- Right column: header + story + buttons + notes -->
+          <div class="copy">
+            <div class="eyebrow">Adventure Sessions</div>
+            <h1 class="h1">Andrews Bald, Tennessee</h1>
+            <p class="lead">
+              High above Gatlinburg, the trail opens to a broad, wind-brushed meadow where the light hits different.
+              Our adventure sessions are built around movement and laughter—less posing, more story—so the pictures feel like the day itself.
+            </p>
 
-        <div class="story">
-          <p>
-            We started before dawn, coffee steaming in the cool air, and reached the ridge as the sky softened from
-            slate to peach. The grass leaned with the wind, clouds slipped along the valleys, and the Smokies did what
-            they always do—turned every small moment into something cinematic.
-          </p>
-          <p>
-            We walked, we laughed, we warmed our hands, then let the morning unfold: twirls in the tall grass, a quiet
-            pause facing the mountains, and the kind of frames you only get when the sun breaks the horizon.
-          </p>
-          <p>
-            If you love movement and want photos that feel alive, this is the place. I’ll guide you through easy prompts,
-            keep things relaxed, and chase the light together.
-          </p>
-        </div>
+            <div class="story">
+              <p>We started before dawn, coffee steaming in the cool air, and reached the ridge as the sky softened from slate to peach. The grass leaned with the wind, clouds slipped along the valleys, and the Smokies did what they always do—turned every small moment into something cinematic.</p>
+              <p>We walked, we laughed, we warmed our hands, then let the morning unfold: twirls in the tall grass, a quiet pause facing the mountains, and the kind of frames you only get when the sun breaks the horizon.</p>
+              <p>If you love movement and want photos that feel alive, this is the place. I’ll guide you with easy prompts, keep things relaxed, and chase the light together.</p>
+            </div>
 
-        <div style="display:flex; gap:10px; margin-top:12px; clear:both;">
-          <a class="btn" href="/book.html">Book an Adventure</a>
-          <a class="btn alt" href="/contact.html">Ask a Question</a>
-        </div>
+            <div class="cta-row">
+              <a class="btn" href="/book.html">Book an Adventure</a>
+              <a class="btn alt" href="/contact.html">Ask a Question</a>
+            </div>
 
-        <!-- Field notes (kept, simple) -->
-        <div class="notes" style="margin-top:18px;">
-          <div class="note">
-            <h3>Best light</h3>
-            <p>Sunrise or late <a href="/light-planner.html">golden hour</a> keeps the mountains soft and the meadow glowing.</p>
-          </div>
-          <div class="note">
-            <h3>Move-friendly wardrobe</h3>
-            <p>Layers and textures love the wind. Comfortable shoes and a hands-free bag make the trail easy.</p>
-          </div>
-          <div class="note">
-            <h3>Weather = mood</h3>
-            <p>Fog, sun, clouds—every scenario tells a different story here. We’ll adjust for the best experience.</p>
+            <div class="notes">
+              <div class="note">
+                <h3>Best light</h3>
+                <p>Sunrise or late <a href="/light-planner.html">golden hour</a> keeps the mountains soft and the meadow glowing.</p>
+              </div>
+              <div class="note">
+                <h3>Move-friendly wardrobe</h3>
+                <p>Layers and textures love the wind. Comfortable shoes and a hands-free bag make the trail easy.</p>
+              </div>
+              <div class="note">
+                <h3>Weather = mood</h3>
+                <p>Fog, sun, clouds—every scenario tells a different story here. We’ll adjust for the best experience.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -232,18 +230,6 @@
         <div class="masonry-grid" id="masonryGrid">
           <!-- Items injected by JS -->
         </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta">
-      <div class="container row">
-        <p class="lead" style="margin:0">Ready to plan your Smokies adventure?</p>
-        <div style="display:flex; gap:10px;">
-          <a class="btn" href="/book.html">Book an Adventure</a>
-          <a class="btn alt" href="/contact.html">Start a Consultation</a>
-        </div>
-        <small>Pricing is provided after consultation to tailor coverage, timing, and hiking logistics.</small>
       </div>
     </section>
   </main>
@@ -271,7 +257,6 @@
   <!-- Masonry + Lightbox logic -->
   <script>
     (function(){
-      /* ---------- Source files (from your list) ---------- */
       const base = '/pictures/andrewsBaldGallery/';
       const fileNames = [
         'couple-on-trail.jpg',
@@ -296,9 +281,7 @@
       ];
       const urlFor = n => base + encodeURIComponent(n);
 
-      /* ---------- Build Masonry ---------- */
       const grid = document.getElementById('masonryGrid');
-      const tiles = [];
       if (grid){
         fileNames.forEach((name, idx) => {
           const a = document.createElement('a');
@@ -313,11 +296,10 @@
 
           a.appendChild(img);
           grid.appendChild(a);
-          tiles.push(a);
         });
       }
 
-      /* ---------- Lightbox ---------- */
+      /* Lightbox */
       const lb     = document.getElementById('advLightbox');
       const lbImg  = document.getElementById('advLbImg');
       const lbPrev = document.getElementById('advLbPrev');
@@ -365,7 +347,6 @@
         if(e.key==='ArrowRight') lbShow(li+1);
       });
 
-      // Simple swipe
       let touchX = null;
       lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
       lb.addEventListener('touchend', e=>{
