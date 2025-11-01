@@ -141,22 +141,23 @@
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
 
-      /* proper breathing room beneath the navbar */
-      .intro{ padding-top: calc(var(--nav-gap-top) + 20px); }
+      /* a touch more room beneath the navbar */
+      .intro{ padding-top: calc(var(--nav-gap-top) + 28px); }
 
-      /* Hierarchy: title > lead > body. Lead is heavier & bigger to fill blank space */
+      /* Hierarchy: title > lead > body. Lead is heavier & larger, now true black */
       .h1{ font-size: clamp(30px, 9.5vw, 44px); }
       .lead{
         font-size: clamp(19px, calc(2.2vh + 5.8vw), 28px);
         line-height: 1.55;
-        font-weight: 600; /* heavier than body */
+        font-weight: 600;
+        color: var(--ink); /* black on mobile */
       }
 
-      /* Two-column story stays smaller than lead */
+      /* Two-column story just a hair bigger to remove remaining gap */
       .story{ column-count: 2; }
       .story p{
-        font-size: clamp(17px, calc(1.1vh + 3.6vw), 21px);
-        line-height: 1.72;
+        font-size: clamp(18px, calc(1.3vh + 4.1vw), 22px);
+        line-height: 1.74;
         font-weight: 400;
       }
 
@@ -173,7 +174,6 @@
         font-size: clamp(16px, 4.4vw, 18px);
       }
 
-      /* scale wrappers unchanged; keep desktop composition mirrored */
       .intro-outer, .adv-mosaic-outer{ position: relative; }
       .intro-scale, .adv-mosaic-scale{ display:block; transform-origin: top center; }
     }
@@ -416,6 +416,7 @@
       lbPrev.addEventListener('click', e=>{ e.stopPropagation(); shift(-1); });
       lbNext.addEventListener('click', e=>{ e.stopPropagation(); shift(+1); });
       lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); });
+
       lb.addEventListener('click', e=>{ if(e.target===lb) closeLb(); });
 
       window.addEventListener('keydown', e=>{
