@@ -114,44 +114,34 @@
     }
     .note p{ margin:0; color:#4e4b45 }
 
-    /* ======= STONE MASONRY GALLERY ======= */
-    .masonry{ padding: clamp(22px, 6vw, 60px) 0; }
-    .masonry h2{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
-      font-size:clamp(26px,4.2vw,40px); margin:0 0 8px;
-    }
-    .masonry .section-sub{ margin:0 0 18px; color:#66625a; max-width:70ch }
-
-    /* Grid with mixed spans: 12 cols -> stone fit */
-    .stone-grid{
+    /* ======= MOSAIC WALL (Family & Friends style) ======= */
+    .adv-mosaic-wrap{ padding:0 0 clamp(20px,4vw,32px); }
+    .adv-mosaic-outer{ width:100%; overflow:hidden; display:flex; justify-content:center; align-items:flex-start; }
+    .adv-mosaic-scale{ transform-origin:top center; will-change:transform; }
+    .adv-mosaic-grid{
       display:grid;
-      grid-template-columns: repeat(12, minmax(0,1fr));
-      gap: clamp(8px, 1.6vw, 16px);
+      grid-template-columns:repeat(auto-fill, minmax(min(240px,100%),1fr));
+      grid-auto-rows:8px;
+      grid-auto-flow:dense;
+      gap:12px;
+      width:calc(var(--maxw) - 2 * var(--gap)); /* lock to desktop inner width */
+      margin:0 auto;
     }
-    .stone{
-      position:relative; display:block; overflow:hidden; background:#eee;
-      border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.06);
+    .adv-item{
+      position:relative; overflow:hidden; border:1px solid var(--line);
+      box-shadow:0 6px 18px rgba(0,0,0,.06); background:#fff; cursor:pointer;
     }
-    .stone img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .adv-item img{ width:100%; height:100%; object-fit:cover; display:block; }
+    /* span set (close to Family, not identical) */
+    .span-big-vert{ grid-row:span 40; grid-column:span 1; }
+    .span-wide   { grid-row:span 24; grid-column:span 2; }
+    .span-std    { grid-row:span 24; grid-column:span 1; }
+    .span-small  { grid-row:span 16; grid-column:span 1; }
 
-    /* span recipes (varied aspect ratios) */
-    .s-6x4 { grid-column: span 6;  aspect-ratio: 6 / 4; }
-    .s-6x5 { grid-column: span 6;  aspect-ratio: 6 / 5; }
-    .s-4x5 { grid-column: span 4;  aspect-ratio: 4 / 5; }
-    .s-8x5 { grid-column: span 8;  aspect-ratio: 8 / 5; }
-    .s-12x5{ grid-column: span 12; aspect-ratio: 12 / 5; }
-
-    @media (max-width: 1100px){
-      .s-12x5{ grid-column: span 12; }
-    }
-    @media (max-width: 900px){
-      .stone-grid{ grid-template-columns: repeat(8, minmax(0,1fr)); }
-      .s-8x5 { grid-column: span 8; }
-    }
-    @media (max-width: 680px){
-      .stone-grid{ grid-template-columns: repeat(6, minmax(0,1fr)); }
-      .s-6x4, .s-6x5, .s-8x5, .s-12x5 { grid-column: span 6; }
-      .s-4x5 { grid-column: span 6; }
+    @media (max-width:960px){
+      /* Keep the gallery head aligned with page padding; let grid go edge-to-edge */
+      .adv-mosaic-wrap.container{ padding-left:0; padding-right:0; }
+      .adv-mosaic-head{ padding-left:var(--gap); padding-right:var(--gap); }
     }
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
@@ -162,7 +152,7 @@
       .topbar{ padding-top:24px !important; padding-bottom:8px !important; }
     }
 
-    /* Fullscreen lightbox */
+    /* Fullscreen lightbox (kept as-is) */
     #advLightbox{ position:fixed; inset:0; z-index:100; display:none; place-items:center; background:rgba(0,0,0,.72); }
     #advLightbox.open{ display:grid; }
     #advLightbox .lb-frame{ position:relative; width:min(96vw,1200px); height:min(92vh,900px); }
@@ -234,13 +224,19 @@
       </div>
     </section>
 
-    <!-- STONE MASONRY GALLERY -->
-    <section class="masonry" aria-labelledby="masonry-heading">
-      <div class="container">
-        <h2 id="masonry-heading">Highlights from Andrews Bald</h2>
-        <p class="section-sub">Wind in the grass, trailside laughs, and the wide-open ridge—arranged in a stone-masonry grid.</p>
+    <!-- MOSAIC WALL (Family-style; mobile scales to look identical) -->
+    <section class="container adv-mosaic-wrap" aria-labelledby="adv-mosaic-heading">
+      <div class="adv-mosaic-head">
+        <h2 id="adv-mosaic-heading" class="h2 section-title" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,serif; font-weight:700; font-size:clamp(26px,4.2vw,40px); margin:0 0 8px;">Highlights from Andrews Bald</h2>
+        <p class="section-sub">Wind in the grass, trailside laughs, and the wide-open ridge — arranged as a planned mosaic. Tap any photo to view full-screen.</p>
+      </div>
 
-        <div class="stone-grid" id="stoneGrid"></div>
+      <div class="adv-mosaic-outer">
+        <div class="adv-mosaic-scale" id="advScale">
+          <div class="adv-mosaic-grid" id="advMosaic">
+            <!-- items are injected by JS using a fixed order -->
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -265,36 +261,12 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Masonry + Lightbox logic (order is pre-shuffled once and fixed) -->
+  <!-- Mosaic build + exact-fit scaler + lightbox -->
   <script>
     (function(){
       const base = '/pictures/andrewsBaldGallery/';
 
-      // Full set
-      const allFiles = [
-        'couple-on-trail.jpg',
-        'E26A1013 (1).jpg',
-        'E26A1015.jpg',
-        'E26A1022 (1).jpg',
-        'E26A1033 (1).jpg',
-        'E26A1043.jpg',
-        'E26A1045 (1).jpg',
-        'E26A1053.jpg',
-        'E26A1054.jpg',
-        'E26A1062 (1).jpg',
-        'E26A1075.jpg',
-        'E26A1087 (1).jpg',
-        'E26A1094 (1).jpg',
-        'E26A1095 (1).jpg',
-        'E26A1098 (1).jpg',
-        'E26A1124.jpg',
-        'E26A1139.jpg',
-        'E26A1146.jpg',
-        'E26A1161.jpg'
-      ];
-
-      // ---- ONE-TIME SHUFFLE (fixed here) ----
-      // This is a single randomized arrangement we’re locking in permanently.
+      /* Fixed one-time randomized order you asked me to lock in */
       const FIXED_GALLERY_ORDER = [
         'E26A1098 (1).jpg',
         'E26A1045 (1).jpg',
@@ -317,43 +289,45 @@
         'couple-on-trail.jpg'
       ];
 
+      const spans = [
+        'span-big-vert','span-wide','span-std','span-small','span-std','span-std','span-wide',
+        'span-std','span-std','span-big-vert','span-std','span-std','span-small','span-std',
+        'span-std','span-wide','span-std','span-std','span-wide'
+      ];
+
       const urlFor = n => base + encodeURIComponent(n);
 
-      // Stone spans cycle (varied sizes)
-      const spanCycle = ['s-6x4','s-4x5','s-8x5','s-6x5','s-4x5','s-12x5','s-6x4','s-4x5','s-6x5','s-8x5'];
-
-      // Build grid
-      const grid = document.getElementById('stoneGrid');
+      // Build the grid using the fixed order
+      const grid = document.getElementById('advMosaic');
       if (grid){
         FIXED_GALLERY_ORDER.forEach((name, idx) => {
-          const a = document.createElement('a');
-          a.href = urlFor(name);
-          a.className = 'stone ' + spanCycle[idx % spanCycle.length];
-          a.setAttribute('data-index', String(idx));
+          const div = document.createElement('div');
+          div.className = 'adv-item ' + (spans[idx] || 'span-std');
+          div.setAttribute('data-src', urlFor(name));
 
           const img = document.createElement('img');
           img.loading = (idx > 8) ? 'lazy' : 'eager';
           img.alt = 'Andrews Bald adventure photo ' + (idx + 1);
           img.src = urlFor(name);
 
-          a.appendChild(img);
-          grid.appendChild(a);
+          div.appendChild(img);
+          grid.appendChild(div);
         });
       }
 
-      /* Lightbox */
-      const lb     = document.getElementById('advLightbox');
-      const lbImg  = document.getElementById('advLbImg');
+      /* Lightbox wiring (uses your existing styles/IDs) */
+      const items = Array.from(document.querySelectorAll('#advMosaic .adv-item'));
+      const lb = document.getElementById('advLightbox');
+      const lbImg = document.getElementById('advLbImg');
       const lbPrev = document.getElementById('advLbPrev');
       const lbNext = document.getElementById('advLbNext');
-      const lbClose= document.getElementById('advLbClose');
+      const lbClose = document.getElementById('advLbClose');
 
-      const allImgs = FIXED_GALLERY_ORDER.map(urlFor);
-      let li = 0;
-
-      function openLb(index){
-        li = (index + allImgs.length) % allImgs.length;
-        lbImg.src = allImgs[li];
+      let i = -1;
+      function openAt(idx){
+        if(idx < 0 || idx >= items.length) return;
+        i = idx;
+        lbImg.src = items[idx].getAttribute('data-src') || '';
         lb.classList.add('open');
         lb.setAttribute('aria-hidden','false');
         document.body.style.overflow = 'hidden';
@@ -363,41 +337,71 @@
         lb.setAttribute('aria-hidden','true');
         lbImg.src = '';
         document.body.style.overflow = '';
+        i = -1;
       }
-      function lbShow(n){ li = (n + allImgs.length) % allImgs.length; lbImg.src = allImgs[li]; }
-
-      if (grid){
-        grid.addEventListener('click', (e)=>{
-          const anchor = e.target.closest('a.stone');
-          if (!anchor) return;
-          e.preventDefault();
-          const idx = Number(anchor.getAttribute('data-index')) || 0;
-          openLb(idx);
-        });
+      function shift(d){
+        if(i === -1) return;
+        i = (i + d + items.length) % items.length;
+        lbImg.src = items[i].getAttribute('data-src') || '';
       }
 
-      lbPrev.addEventListener('click', e=>{ e.stopPropagation(); lbShow(li-1); });
-      lbNext.addEventListener('click', e=>{ e.stopPropagation(); lbShow(li+1); });
+      items.forEach((el, idx)=> el.addEventListener('click', ()=>openAt(idx)));
+      lbPrev.addEventListener('click', e=>{ e.stopPropagation(); shift(-1); });
+      lbNext.addEventListener('click', e=>{ e.stopPropagation(); shift(+1); });
       lbClose.addEventListener('click', e=>{ e.stopPropagation(); closeLb(); });
-
       lb.addEventListener('click', e=>{ if(e.target===lb) closeLb(); });
 
       window.addEventListener('keydown', e=>{
         if(!lb.classList.contains('open')) return;
         if(e.key==='Escape') closeLb();
-        if(e.key==='ArrowLeft') lbShow(li-1);
-        if(e.key==='ArrowRight') lbShow(li+1);
+        if(e.key==='ArrowLeft') shift(-1);
+        if(e.key==='ArrowRight') shift(+1);
       });
 
-      // Simple swipe
+      // simple swipe
       let touchX = null;
       lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
       lb.addEventListener('touchend', e=>{
         if(touchX===null) return;
         const dx = e.changedTouches[0].clientX - touchX;
         touchX = null;
-        if(Math.abs(dx) > 40){ dx < 0 ? lbShow(li+1) : lbShow(li-1); }
+        if(Math.abs(dx) > 40){ dx < 0 ? shift(+1) : shift(-1); }
       }, {passive:true});
+
+      /* Mobile exact-fit scaler — clones Family behavior so mobile == desktop layout */
+      (function(){
+        const scaleEl = document.getElementById('advScale');
+        const outer   = scaleEl ? scaleEl.parentElement : null;
+        if(!grid || !scaleEl || !outer) return;
+
+        function measure(){
+          const prev = scaleEl.style.transform;
+          scaleEl.style.transform = 'none';
+          const baseW = grid.scrollWidth || grid.getBoundingClientRect().width;
+          const baseH = grid.scrollHeight || grid.getBoundingClientRect().height;
+          scaleEl.style.transform = prev;
+          return {baseW, baseH};
+        }
+        function fit(){
+          const phone = window.matchMedia('(max-width: 600px)').matches;
+          const {baseW, baseH} = measure();
+          const available = outer.clientWidth;
+          let s = 1;
+          if (phone && baseW) s = Math.min(1, available / baseW);
+          scaleEl.style.width = baseW ? (baseW + 'px') : '';
+          const t = (s === 1) ? 'none' : 'scale(' + s + ')';
+          scaleEl.style.transform = t;
+          scaleEl.style.webkitTransform = t;
+          outer.style.height = baseH ? (baseH * s + 'px') : '';
+        }
+
+        window.addEventListener('load', fit, {once:true});
+        window.addEventListener('resize', fit);
+        window.addEventListener('orientationchange', fit);
+        if ('ResizeObserver' in window) new ResizeObserver(fit).observe(grid);
+        else { setTimeout(fit, 200); setTimeout(fit, 800); }
+        fit();
+      })();
     })();
   </script>
 </body>
