@@ -40,9 +40,6 @@
 
       /* Navbar spacing (site-wide preference) */
       --nav-gap-top:16px; --nav-gap-bottom:40px;
-
-      /* Layout knobs */
-      --mobile-header-h:64px;
     }
 
     /* Site spacing + lightweight nav */
@@ -61,14 +58,11 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.2vw,20px); color:#58554e; max-width:68ch }
 
-    /* ========= INTRO GRID =========
-       Left   = image
-       Right  = header + story + buttons + notes
-    */
-    .intro{ padding: clamp(16px, 4vw, 32px) 0 clamp(8px, 2vw, 16px); }
+    /* ======= INTRO (2-col: image | text) ======= */
+    .intro{ padding: clamp(16px, 4vw, 32px) 0 clamp(10px, 2.2vw, 18px); }
     .intro-grid{
       display:grid;
-      grid-template-columns: minmax(260px, 520px) 1fr;
+      grid-template-columns: minmax(280px, 520px) 1fr;
       gap: clamp(18px, 3.2vw, 36px);
       align-items:start;
     }
@@ -76,25 +70,19 @@
       .intro-grid{ grid-template-columns: 1fr; }
     }
 
-    /* Left column image (smaller hero) */
+    /* Left column: hero image + buttons under it */
+    .left-col{ display:flex; flex-direction:column; gap:12px; }
     .hero-figure{
       margin:0;
       border:1px solid var(--line);
       box-shadow:0 8px 24px rgba(0,0,0,.07);
       background:#fff;
-      border-radius:8px;
+      border-radius:0; /* 90° corners */
       overflow:hidden;
     }
     .hero-figure img{
       display:block; width:100%; height:auto; aspect-ratio: 4 / 3; object-fit:cover; object-position:center;
     }
-
-    /* Right column content */
-    .copy .lead{ margin-bottom:8px; }
-    .story{ column-gap: clamp(20px, 3vw, 36px); }
-    @media (min-width: 1100px){ .story{ column-count: 2; } }
-
-    /* Buttons */
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
@@ -106,14 +94,18 @@
       background:#fff; border-color:#dcd4c3; color:var(--accent);
       box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none;
     }
-    .btn.alt{ background:#fff; border-color:var(--line); }
-    .cta-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .btn-row{ display:flex; gap:10px; flex-wrap:wrap; }
 
-    /* Notes */
+    /* Right column: header + story (header spans full right column width) */
+    .copy .lead{ margin-bottom:8px; }
+    .story{ column-gap: clamp(20px, 3vw, 36px); }
+    @media (min-width: 1100px){ .story{ column-count: 2; } }
+
+    /* ======= NOTES (full-row under intro) ======= */
+    .notes-wrap{ padding-top: clamp(12px, 3vw, 20px); }
     .notes{
       display:grid; gap:clamp(10px,1.8vw,14px);
       grid-template-columns: repeat(3, minmax(0,1fr));
-      margin: clamp(18px,4vw,28px) 0 0;
     }
     @media (max-width:900px){ .notes{ grid-template-columns: 1fr; } }
     .note{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
@@ -122,28 +114,45 @@
     }
     .note p{ margin:0; color:#4e4b45 }
 
-    /* ========= MASONRY GALLERY ========= */
-    .masonry{ padding: clamp(20px, 6vw, 60px) 0; }
+    /* ======= STONE MASONRY GALLERY ======= */
+    .masonry{ padding: clamp(22px, 6vw, 60px) 0; }
     .masonry h2{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,serif;
       font-size:clamp(26px,4.2vw,40px); margin:0 0 8px;
     }
     .masonry .section-sub{ margin:0 0 18px; color:#66625a; max-width:70ch }
-    .masonry-grid{
-      column-gap: clamp(10px, 1.6vw, 18px);
-      column-count: 5;
-    }
-    @media (max-width: 1200px){ .masonry-grid{ column-count: 4; } }
-    @media (max-width: 980px){ .masonry-grid{ column-count: 3; } }
-    @media (max-width: 680px){ .masonry-grid{ column-count: 2; } }
 
-    .m-item{
-      display:inline-block; width:100%; margin:0 0 clamp(10px, 1.4vw, 16px);
-      border:1px solid var(--line); background:#fff; box-shadow:0 8px 24px rgba(0,0,0,.06);
-      break-inside: avoid;
-      overflow:hidden;
+    /* Grid with mixed spans: 12 cols -> stone fit */
+    .stone-grid{
+      display:grid;
+      grid-template-columns: repeat(12, minmax(0,1fr));
+      gap: clamp(8px, 1.6vw, 16px);
     }
-    .m-item img{ width:100%; height:auto; display:block; }
+    .stone{
+      position:relative; display:block; overflow:hidden; background:#eee;
+      border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.06);
+    }
+    .stone img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* span recipes (varied aspect ratios) */
+    .s-6x4 { grid-column: span 6;  aspect-ratio: 6 / 4; }
+    .s-6x5 { grid-column: span 6;  aspect-ratio: 6 / 5; }
+    .s-4x5 { grid-column: span 4;  aspect-ratio: 4 / 5; }
+    .s-8x5 { grid-column: span 8;  aspect-ratio: 8 / 5; }
+    .s-12x5{ grid-column: span 12; aspect-ratio: 12 / 5; }
+
+    @media (max-width: 1100px){
+      .s-12x5{ grid-column: span 12; }
+    }
+    @media (max-width: 900px){
+      .stone-grid{ grid-template-columns: repeat(8, minmax(0,1fr)); }
+      .s-8x5 { grid-column: span 8; }
+    }
+    @media (max-width: 680px){
+      .stone-grid{ grid-template-columns: repeat(6, minmax(0,1fr)); }
+      .s-6x4, .s-6x5, .s-8x5, .s-12x5 { grid-column: span 6; }
+      .s-4x5 { grid-column: span 6; }
+    }
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
@@ -173,16 +182,22 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <!-- INTRO: two-column grid; ALL TEXT IN RIGHT COLUMN -->
+    <!-- INTRO -->
     <section class="intro">
       <div class="container">
         <div class="intro-grid">
-          <!-- Left column: image -->
-          <figure class="hero-figure">
-            <img src="/pictures/andrewsBaldGallery/couple-on-trail.jpg" alt="Couple hiking through wind-brushed meadow at Andrews Bald during sunrise" />
-          </figure>
+          <!-- Left: image + buttons (buttons under picture) -->
+          <div class="left-col">
+            <figure class="hero-figure">
+              <img src="/pictures/andrewsBaldGallery/couple-on-trail.jpg" alt="Couple hiking through wind-brushed meadow at Andrews Bald during sunrise" />
+            </figure>
+            <div class="btn-row">
+              <a class="btn" href="/book.html">Book an Adventure</a>
+              <a class="btn" href="/contact.html">Ask a Question</a>
+            </div>
+          </div>
 
-          <!-- Right column: header + story + buttons + notes -->
+          <!-- Right: header + story (header spans right column width) -->
           <div class="copy">
             <div class="eyebrow">Adventure Sessions</div>
             <h1 class="h1">Andrews Bald, Tennessee</h1>
@@ -196,40 +211,36 @@
               <p>We walked, we laughed, we warmed our hands, then let the morning unfold: twirls in the tall grass, a quiet pause facing the mountains, and the kind of frames you only get when the sun breaks the horizon.</p>
               <p>If you love movement and want photos that feel alive, this is the place. I’ll guide you with easy prompts, keep things relaxed, and chase the light together.</p>
             </div>
+          </div>
+        </div>
 
-            <div class="cta-row">
-              <a class="btn" href="/book.html">Book an Adventure</a>
-              <a class="btn alt" href="/contact.html">Ask a Question</a>
+        <!-- Notes: full-width row under the intro grid -->
+        <div class="notes-wrap">
+          <div class="notes">
+            <div class="note">
+              <h3>Best light</h3>
+              <p>Sunrise or late <a href="/light-planner.html">golden hour</a> keeps the mountains soft and the meadow glowing.</p>
             </div>
-
-            <div class="notes">
-              <div class="note">
-                <h3>Best light</h3>
-                <p>Sunrise or late <a href="/light-planner.html">golden hour</a> keeps the mountains soft and the meadow glowing.</p>
-              </div>
-              <div class="note">
-                <h3>Move-friendly wardrobe</h3>
-                <p>Layers and textures love the wind. Comfortable shoes and a hands-free bag make the trail easy.</p>
-              </div>
-              <div class="note">
-                <h3>Weather = mood</h3>
-                <p>Fog, sun, clouds—every scenario tells a different story here. We’ll adjust for the best experience.</p>
-              </div>
+            <div class="note">
+              <h3>Move-friendly wardrobe</h3>
+              <p>Layers and textures love the wind. Comfortable shoes and a hands-free bag make the trail easy.</p>
+            </div>
+            <div class="note">
+              <h3>Weather = mood</h3>
+              <p>Fog, sun, clouds—every scenario tells a different story here. We’ll adjust for the best experience.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- MASONRY GALLERY -->
+    <!-- STONE MASONRY GALLERY -->
     <section class="masonry" aria-labelledby="masonry-heading">
       <div class="container">
         <h2 id="masonry-heading">Highlights from Andrews Bald</h2>
-        <p class="section-sub">Wind in the grass, trailside laughs, and the wide-open ridge—shown as a tight-fit masonry grid.</p>
+        <p class="section-sub">Wind in the grass, trailside laughs, and the wide-open ridge—arranged in a stone-masonry grid.</p>
 
-        <div class="masonry-grid" id="masonryGrid">
-          <!-- Items injected by JS -->
-        </div>
+        <div class="stone-grid" id="stoneGrid"></div>
       </div>
     </section>
   </main>
@@ -254,11 +265,13 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Masonry + Lightbox logic -->
+  <!-- Masonry + Lightbox logic (order is pre-shuffled once and fixed) -->
   <script>
     (function(){
       const base = '/pictures/andrewsBaldGallery/';
-      const fileNames = [
+
+      // Full set
+      const allFiles = [
         'couple-on-trail.jpg',
         'E26A1013 (1).jpg',
         'E26A1015.jpg',
@@ -279,14 +292,43 @@
         'E26A1146.jpg',
         'E26A1161.jpg'
       ];
+
+      // ---- ONE-TIME SHUFFLE (fixed here) ----
+      // This is a single randomized arrangement we’re locking in permanently.
+      const FIXED_GALLERY_ORDER = [
+        'E26A1098 (1).jpg',
+        'E26A1045 (1).jpg',
+        'E26A1139.jpg',
+        'E26A1022 (1).jpg',
+        'E26A1053.jpg',
+        'E26A1094 (1).jpg',
+        'E26A1124.jpg',
+        'E26A1015.jpg',
+        'E26A1146.jpg',
+        'E26A1075.jpg',
+        'E26A1043.jpg',
+        'E26A1013 (1).jpg',
+        'E26A1095 (1).jpg',
+        'E26A1062 (1).jpg',
+        'E26A1033 (1).jpg',
+        'E26A1087 (1).jpg',
+        'E26A1054.jpg',
+        'E26A1161.jpg',
+        'couple-on-trail.jpg'
+      ];
+
       const urlFor = n => base + encodeURIComponent(n);
 
-      const grid = document.getElementById('masonryGrid');
+      // Stone spans cycle (varied sizes)
+      const spanCycle = ['s-6x4','s-4x5','s-8x5','s-6x5','s-4x5','s-12x5','s-6x4','s-4x5','s-6x5','s-8x5'];
+
+      // Build grid
+      const grid = document.getElementById('stoneGrid');
       if (grid){
-        fileNames.forEach((name, idx) => {
+        FIXED_GALLERY_ORDER.forEach((name, idx) => {
           const a = document.createElement('a');
           a.href = urlFor(name);
-          a.className = 'm-item';
+          a.className = 'stone ' + spanCycle[idx % spanCycle.length];
           a.setAttribute('data-index', String(idx));
 
           const img = document.createElement('img');
@@ -306,7 +348,7 @@
       const lbNext = document.getElementById('advLbNext');
       const lbClose= document.getElementById('advLbClose');
 
-      const allImgs = fileNames.map(urlFor);
+      const allImgs = FIXED_GALLERY_ORDER.map(urlFor);
       let li = 0;
 
       function openLb(index){
@@ -326,7 +368,7 @@
 
       if (grid){
         grid.addEventListener('click', (e)=>{
-          const anchor = e.target.closest('a.m-item');
+          const anchor = e.target.closest('a.stone');
           if (!anchor) return;
           e.preventDefault();
           const idx = Number(anchor.getAttribute('data-index')) || 0;
@@ -347,6 +389,7 @@
         if(e.key==='ArrowRight') lbShow(li+1);
       });
 
+      // Simple swipe
       let touchX = null;
       lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
       lb.addEventListener('touchend', e=>{
