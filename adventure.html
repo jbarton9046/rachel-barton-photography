@@ -37,8 +37,13 @@
       --accent:#A88A5A; --accent-2:#E8DFC9; --line:#e9e6df;
       --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
+
       /* Navbar spacing (site-wide preference) */
       --nav-gap-top:16px; --nav-gap-bottom:40px;
+
+      /* Hero knobs */
+      --btn-row-h: 56px;     /* fixed button-row height for exact baseline alignment */
+      --hero-trim: 36px;     /* “a few inches” visual trim; increase/decrease as you like */
     }
 
     /* Site spacing + lightweight nav */
@@ -59,33 +64,45 @@
 
     /* ======= INTRO (2-col: image | text) ======= */
     .intro{ padding: clamp(16px, 4vw, 32px) 0 clamp(10px, 2.2vw, 18px); }
+
+    /* scale wrapper so mobile == desktop layout */
+    .intro-outer{ width:100%; overflow:hidden; display:flex; justify-content:center; }
+    .intro-scale{ transform-origin:top center; will-change:transform; }
+    .intro-inner{ width:calc(var(--maxw) - 2 * var(--gap)); margin:0 auto; }
+
     .intro-grid{
       display:grid;
       grid-template-columns: minmax(280px, 520px) 1fr;
       gap: clamp(18px, 3.2vw, 36px);
-      align-items:stretch; /* make both columns equal height */
-    }
-    @media (max-width: 980px){
-      .intro-grid{ grid-template-columns: 1fr; }
+      align-items:stretch; /* equal column heights */
     }
 
-    /* Left column: hero image flex-fills; buttons are pinned to bottom */
-    .left-col{ display:flex; flex-direction:column; gap:12px; height:100%; min-height:0; }
+    /* Left column: hero image with trimmed height + button row baseline-locked */
+    .left-col{
+      position:relative;
+      display:block; /* container for absolute button row */
+      min-height:240px;
+    }
     .hero-figure{
-      flex:1 1 auto;                 /* take remaining height */
       margin:0;
       border:1px solid var(--line);
       box-shadow:0 8px 24px rgba(0,0,0,.07);
       background:#fff;
-      border-radius:0;                /* 90° corners */
       overflow:hidden;
-      min-height:180px;               /* safe floor */
+      /* exact height = (column height) - (gap to buttons) - (button row height) - (trim) */
+      height: calc(100% - 12px - var(--btn-row-h) - var(--hero-trim));
+      min-height:180px;
     }
     .hero-figure img{
-      display:block; width:100%; height:100%; /* fill the figure height */
+      display:block; width:100%; height:100%;
       object-fit:cover; object-position:center;
-      /* no fixed aspect ratio — height is driven by equal-column layout */
     }
+    .btn-row{
+      position:absolute; left:0; right:0; bottom:0;
+      height:var(--btn-row-h);
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
@@ -97,9 +114,8 @@
       background:#fff; border-color:#dcd4c3; color:var(--accent);
       box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none;
     }
-    .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; } /* anchors to bottom */
 
-    /* Right column: header + story */
+    /* Right column */
     .copy .lead{ margin-bottom:8px; }
     .story{ column-gap: clamp(20px, 3vw, 36px); }
     @media (min-width: 1100px){ .story{ column-count: 2; } }
@@ -124,10 +140,10 @@
     .adv-mosaic-grid{
       display:grid;
       grid-template-columns:repeat(auto-fill, minmax(min(240px,100%),1fr));
-      grid-auto-rows:6px;             /* finer rows to reduce “choppiness” */
+      grid-auto-rows:6px;             /* finer rows reduce bottom “chop” */
       grid-auto-flow:dense;
       gap:12px;
-      width:calc(var(--maxw) - 2 * var(--gap)); /* lock to desktop inner width */
+      width:calc(var(--maxw) - 2 * var(--gap));
       margin:0 auto;
       align-content:start;
     }
@@ -137,12 +153,13 @@
     }
     .adv-item img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    /* span set (tuned to finish cleaner at the bottom) */
+    /* span set (tuned to end cleaner) */
     .span-big-vert{ grid-row:span 44; grid-column:span 1; }
     .span-wide   { grid-row:span 30; grid-column:span 2; }
     .span-std    { grid-row:span 30; grid-column:span 1; }
     .span-small  { grid-row:span 20; grid-column:span 1; }
 
+    /* On phones, scale both hero and mosaic to fit (no layout change) */
     @media (max-width:960px){
       .adv-mosaic-wrap.container{ padding-left:0; padding-right:0; }
       .adv-mosaic-head{ padding-left:var(--gap); padding-right:var(--gap); }
@@ -176,53 +193,57 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <!-- INTRO -->
+    <!-- INTRO (desktop layout that scales on phones) -->
     <section class="intro">
-      <div class="container">
-        <div class="intro-grid">
-          <!-- Left: image + buttons (buttons under picture) -->
-          <div class="left-col">
-            <figure class="hero-figure">
-              <img src="/pictures/andrewsBaldGallery/couple-on-trail.jpg" alt="Couple hiking through wind-brushed meadow at Andrews Bald during sunrise" />
-            </figure>
-            <div class="btn-row">
-              <a class="btn" href="/book.html">Book an Adventure</a>
-              <a class="btn" href="/contact.html">Ask a Question</a>
-            </div>
+      <div class="intro-outer">
+        <div class="intro-scale" id="introScale">
+          <div class="intro-inner">
+            <div class="intro-grid" id="introGrid">
+              <!-- Left: image + buttons -->
+              <div class="left-col">
+                <figure class="hero-figure">
+                  <img src="/pictures/andrewsBaldGallery/couple-on-trail.jpg" alt="Couple hiking through wind-brushed meadow at Andrews Bald during sunrise" />
+                </figure>
+                <div class="btn-row">
+                  <a class="btn" href="/book.html">Book an Adventure</a>
+                  <a class="btn" href="/contact.html">Ask a Question</a>
+                </div>
+              </div>
+
+              <!-- Right: header + story -->
+              <div class="copy">
+                <div class="eyebrow">Adventure Sessions</div>
+                <h1 class="h1">Andrews Bald, Tennessee</h1>
+                <p class="lead">
+                  High above Gatlinburg, the trail opens to a broad, wind-brushed meadow where the light hits different.
+                  Our adventure sessions are built around movement and laughter—less posing, more story—so the pictures feel like the day itself.
+                </p>
+
+                <div class="story">
+                  <p>We started before dawn, coffee steaming in the cool air, and reached the ridge as the sky softened from slate to peach. The grass leaned with the wind, clouds slipped along the valleys, and the Smokies did what they always do—turned every small moment into something cinematic.</p>
+                  <p>We walked, we laughed, we warmed our hands, then let the morning unfold: twirls in the tall grass, a quiet pause facing the mountains, and the kind of frames you only get when the sun breaks the horizon.</p>
+                  <p>If you love movement and want photos that feel alive, this is the place. I’ll guide you with easy prompts, keep things relaxed, and chase the light together.</p>
+                </div>
+              </div>
+            </div><!-- /.intro-grid -->
+          </div><!-- /.intro-inner -->
+        </div><!-- /.intro-scale -->
+      </div><!-- /.intro-outer -->
+
+      <!-- Notes: full-width row under the intro -->
+      <div class="container notes-wrap">
+        <div class="notes">
+          <div class="note">
+            <h3>Best light</h3>
+            <p>Sunrise or late <a href="/light-planner.html">golden hour</a> keeps the mountains soft and the meadow glowing.</p>
           </div>
-
-          <!-- Right: header + story (header spans right column width) -->
-          <div class="copy">
-            <div class="eyebrow">Adventure Sessions</div>
-            <h1 class="h1">Andrews Bald, Tennessee</h1>
-            <p class="lead">
-              High above Gatlinburg, the trail opens to a broad, wind-brushed meadow where the light hits different.
-              Our adventure sessions are built around movement and laughter—less posing, more story—so the pictures feel like the day itself.
-            </p>
-
-            <div class="story">
-              <p>We started before dawn, coffee steaming in the cool air, and reached the ridge as the sky softened from slate to peach. The grass leaned with the wind, clouds slipped along the valleys, and the Smokies did what they always do—turned every small moment into something cinematic.</p>
-              <p>We walked, we laughed, we warmed our hands, then let the morning unfold: twirls in the tall grass, a quiet pause facing the mountains, and the kind of frames you only get when the sun breaks the horizon.</p>
-              <p>If you love movement and want photos that feel alive, this is the place. I’ll guide you with easy prompts, keep things relaxed, and chase the light together.</p>
-            </div>
+          <div class="note">
+            <h3>Move-friendly wardrobe</h3>
+            <p>Layers and textures love the wind. Comfortable shoes and a hands-free bag make the trail easy.</p>
           </div>
-        </div>
-
-        <!-- Notes: full-width row under the intro grid -->
-        <div class="notes-wrap">
-          <div class="notes">
-            <div class="note">
-              <h3>Best light</h3>
-              <p>Sunrise or late <a href="/light-planner.html">golden hour</a> keeps the mountains soft and the meadow glowing.</p>
-            </div>
-            <div class="note">
-              <h3>Move-friendly wardrobe</h3>
-              <p>Layers and textures love the wind. Comfortable shoes and a hands-free bag make the trail easy.</p>
-            </div>
-            <div class="note">
-              <h3>Weather = mood</h3>
-              <p>Fog, sun, clouds—every scenario tells a different story here. We’ll adjust for the best experience.</p>
-            </div>
+          <div class="note">
+            <h3>Weather = mood</h3>
+            <p>Fog, sun, clouds—every scenario tells a different story here. We’ll adjust for the best experience.</p>
           </div>
         </div>
       </div>
@@ -265,45 +286,71 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Mosaic build + exact-fit scaler + lightbox -->
+  <!-- Intro scaler + Mosaic build + Mosaic scaler + Lightbox -->
   <script>
     (function(){
-      const base = '/pictures/andrewsBaldGallery/';
+      /* ===== HERO SCALER (mobile == desktop layout) ===== */
+      const introScale = document.getElementById('introScale');
+      const introGrid  = document.getElementById('introGrid');
+      const introOuter = introScale ? introScale.parentElement : null;
 
-      /* Fixed one-time randomized order you asked me to lock in */
+      function measureIntro(){
+        const prev = introScale.style.transform;
+        introScale.style.transform = 'none';
+        const baseW = (introGrid && introGrid.scrollWidth) || introGrid.getBoundingClientRect().width;
+        const baseH = (introGrid && introGrid.scrollHeight) || introGrid.getBoundingClientRect().height;
+        introScale.style.transform = prev;
+        return {baseW, baseH};
+      }
+      function fitIntro(){
+        if(!introScale || !introGrid || !introOuter) return;
+        const phone = window.matchMedia('(max-width: 600px)').matches;
+        const {baseW, baseH} = measureIntro();
+        const available = introOuter.clientWidth;
+        let s = 1;
+        if (phone && baseW) s = Math.min(1, available / baseW);
+        const t = (s === 1) ? 'none' : 'scale(' + s + ')';
+        introScale.style.transform = t;
+        introScale.style.webkitTransform = t;
+        introOuter.style.height = baseH ? (baseH * s + 'px') : '';
+      }
+
+      window.addEventListener('load', fitIntro, {once:true});
+      window.addEventListener('resize', fitIntro);
+      window.addEventListener('orientationchange', fitIntro);
+      if ('ResizeObserver' in window) new ResizeObserver(fitIntro).observe(introGrid);
+
+      /* ===== MOSAIC (images you specified, order locked) ===== */
+      const base = '/pictures/andrewsBaldGallery/';
       const FIXED_GALLERY_ORDER = [
-        'E26A1098 (1).jpg',
-        'E26A1045 (1).jpg',
-        'E26A1139.jpg',
-        'E26A1022 (1).jpg',
-        'E26A1053.jpg',
-        'E26A1094 (1).jpg',
-        'E26A1124.jpg',
-        'E26A1015.jpg',
-        'E26A1146.jpg',
-        'E26A1075.jpg',
-        'E26A1043.jpg',
+        'couple-on-trail.jpg',
         'E26A1013 (1).jpg',
-        'E26A1095 (1).jpg',
-        'E26A1062 (1).jpg',
+        'E26A1022 (1).jpg',
         'E26A1033 (1).jpg',
-        'E26A1087 (1).jpg',
+        'E26A1043.jpg',
+        'E26A1045 (1).jpg',
         'E26A1054.jpg',
-        'E26A1161.jpg',
-        'couple-on-trail.jpg'
+        'E26A1062 (1).jpg',
+        'E26A1075.jpg',
+        'E26A1087 (1).jpg',
+        'E26A1094 (1).jpg',
+        'E26A1095 (1).jpg',
+        'E26A1098 (1).jpg',
+        'E26A1124.jpg',
+        'E26A1139.jpg',
+        'E26A1146.jpg',
+        'E26A1161.jpg'
       ];
 
-      /* Tuned spans to reduce bottom choppiness */
       const spans = [
         'span-big-vert','span-wide','span-std','span-small','span-std','span-std','span-wide',
         'span-std','span-std','span-big-vert','span-std','span-std','span-small','span-std',
-        'span-std','span-wide','span-std','span-std','span-wide'
+        'span-std','span-wide','span-std'
       ];
 
       const urlFor = n => base + encodeURIComponent(n);
-
-      // Build the grid using the fixed order
       const grid = document.getElementById('advMosaic');
+
       if (grid){
         FIXED_GALLERY_ORDER.forEach((name, idx) => {
           const div = document.createElement('div');
@@ -319,15 +366,14 @@
           grid.appendChild(div);
         });
 
-        /* Small bottom-balance tweak */
-        const last = grid.lastElementChild;
-        if (last && last.classList.contains('span-std')) {
-          last.classList.remove('span-std');
-          last.classList.add('span-wide');
+        /* gentle bottom-balance pass */
+        const kids = Array.from(grid.children);
+        if (kids.length >= 2 && kids[kids.length-1].classList.contains('span-std')) {
+          kids[kids.length-1].classList.replace('span-std','span-wide');
         }
       }
 
-      /* Lightbox */
+      /* ===== Lightbox ===== */
       const items = Array.from(document.querySelectorAll('#advMosaic .adv-item'));
       const lb = document.getElementById('advLightbox');
       const lbImg = document.getElementById('advLbImg');
@@ -370,7 +416,7 @@
         if(e.key==='ArrowRight') shift(+1);
       });
 
-      // simple swipe
+      // swipe
       let touchX = null;
       lb.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
       lb.addEventListener('touchend', e=>{
@@ -380,40 +426,8 @@
         if(Math.abs(dx) > 40){ dx < 0 ? shift(+1) : shift(-1); }
       }, {passive:true});
 
-      /* Mobile exact-fit scaler (mobile == desktop layout) */
-      (function(){
-        const scaleEl = document.getElementById('advScale');
-        const outer   = scaleEl ? scaleEl.parentElement : null;
-        if(!grid || !scaleEl || !outer) return;
-
-        function measure(){
-          const prev = scaleEl.style.transform;
-          scaleEl.style.transform = 'none';
-          const baseW = grid.scrollWidth || grid.getBoundingClientRect().width;
-          const baseH = grid.scrollHeight || grid.getBoundingClientRect().height;
-          scaleEl.style.transform = prev;
-          return {baseW, baseH};
-        }
-        function fit(){
-          const phone = window.matchMedia('(max-width: 600px)').matches;
-          const {baseW, baseH} = measure();
-          const available = outer.clientWidth;
-          let s = 1;
-          if (phone && baseW) s = Math.min(1, available / baseW);
-          scaleEl.style.width = baseW ? (baseW + 'px') : '';
-          const t = (s === 1) ? 'none' : 'scale(' + s + ')';
-          scaleEl.style.transform = t;
-          scaleEl.style.webkitTransform = t;
-          outer.style.height = baseH ? (baseH * s + 'px') : '';
-        }
-
-        window.addEventListener('load', fit, {once:true});
-        window.addEventListener('resize', fit);
-        window.addEventListener('orientationchange', fit);
-        if ('ResizeObserver' in window) new ResizeObserver(fit).observe(grid);
-        else { setTimeout(fit, 200); setTimeout(fit, 800); }
-        fit();
-      })();
+      /* run intro fit after DOM is ready */
+      fitIntro();
     })();
   </script>
 </body>
