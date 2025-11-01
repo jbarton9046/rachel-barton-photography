@@ -41,9 +41,9 @@
       /* Navbar spacing (site-wide preference) */
       --nav-gap-top:16px; --nav-gap-bottom:40px;
 
-      /* Hero knobs */
-      --btn-row-h: 56px;     /* fixed button-row height for exact baseline alignment */
-      --hero-trim: 275px;     /* “a few inches” visual trim; increase/decrease as you like */
+      /* Your existing hero knobs (kept as-is so image stays how you set it) */
+      --btn-row-h: 56px;
+      --hero-trim: 300px;
     }
 
     /* Site spacing + lightweight nav */
@@ -62,10 +62,10 @@
     .h1{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(32px,5vw,56px); line-height:1.08; margin:8px 0 10px }
     .lead{ font-size:clamp(16px,2.2vw,20px); color:#58554e; max-width:68ch }
 
-    /* ======= INTRO (2-col: image | text) ======= */
+    /* ======= INTRO ======= */
     .intro{ padding: clamp(16px, 4vw, 32px) 0 clamp(10px, 2.2vw, 18px); }
 
-    /* scale wrapper so mobile == desktop layout */
+    /* “scale” wrapper so mobile == desktop layout */
     .intro-outer{ width:100%; overflow:hidden; display:flex; justify-content:center; }
     .intro-scale{ transform-origin:top center; will-change:transform; }
     .intro-inner{ width:calc(var(--maxw) - 2 * var(--gap)); margin:0 auto; }
@@ -77,32 +77,24 @@
       align-items:stretch; /* equal column heights */
     }
 
-    /* Left column: hero image with trimmed height + button row baseline-locked */
-    .left-col{
-      position:relative;
-      display:block; /* container for absolute button row */
-      min-height:240px;
-    }
+    /* Left column: keep your hero height logic; buttons now sit directly under image */
+    .left-col{ display:flex; flex-direction:column; min-height:240px; }
     .hero-figure{
       margin:0;
       border:1px solid var(--line);
       box-shadow:0 8px 24px rgba(0,0,0,.07);
-      background:#fff;
-      overflow:hidden;
-      /* exact height = (column height) - (gap to buttons) - (button row height) - (trim) */
-      height: calc(100% - 12px - var(--btn-row-h) - var(--hero-trim));
+      background:#fff; overflow:hidden;
+      height: calc(100% - var(--btn-row-h) - 12px - var(--hero-trim));
       min-height:180px;
     }
-    .hero-figure img{
-      display:block; width:100%; height:100%;
-      object-fit:cover; object-position:center;
-    }
-    .btn-row{
-      position:absolute; left:0; right:0; bottom:0;
-      height:var(--btn-row-h);
-      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-    }
+    .hero-figure img{ width:100%; height:100%; display:block; object-fit:cover; object-position:center; }
 
+    /* Buttons pulled up under the image */
+    .btn-row{
+      margin-top:12px;        /* sits right under the image */
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      height:auto;            /* no fixed height anymore */
+    }
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
       display:inline-flex; align-items:center; justify-content:center;
@@ -120,7 +112,7 @@
     .story{ column-gap: clamp(20px, 3vw, 36px); }
     @media (min-width: 1100px){ .story{ column-count: 2; } }
 
-    /* ======= NOTES (full-row under intro) ======= */
+    /* ======= NOTES ======= */
     .notes-wrap{ padding-top: clamp(12px, 3vw, 20px); }
     .notes{
       display:grid; gap:clamp(10px,1.8vw,14px);
@@ -128,20 +120,18 @@
     }
     @media (max-width:900px){ .notes{ grid-template-columns: 1fr; } }
     .note{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
-    .note h3{
-      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:clamp(18px,2.2vw,20px)
-    }
+    .note h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:clamp(18px,2.2vw,20px) }
     .note p{ margin:0; color:#4e4b45 }
 
-    /* ======= MOSAIC WALL (Family & Friends style) ======= */
+    /* ======= PRO STONE MASONRY ======= */
     .adv-mosaic-wrap{ padding:0 0 clamp(20px,4vw,32px); }
     .adv-mosaic-outer{ width:100%; overflow:hidden; display:flex; justify-content:center; align-items:flex-start; }
     .adv-mosaic-scale{ transform-origin:top center; will-change:transform; }
     .adv-mosaic-grid{
       display:grid;
       grid-template-columns:repeat(auto-fill, minmax(min(240px,100%),1fr));
-      grid-auto-rows:6px;             /* finer rows reduce bottom “chop” */
-      grid-auto-flow:dense;
+      grid-auto-rows:6px;             /* fine rows keep edges smooth */
+      grid-auto-flow:dense;           /* back-fills gaps */
       gap:12px;
       width:calc(var(--maxw) - 2 * var(--gap));
       margin:0 auto;
@@ -153,13 +143,12 @@
     }
     .adv-item img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    /* span set (tuned to end cleaner) */
-    .span-big-vert{ grid-row:span 44; grid-column:span 1; }
+    /* varied spans (avoid same-size neighbors) */
+    .span-tall   { grid-row:span 44; grid-column:span 1; }
     .span-wide   { grid-row:span 30; grid-column:span 2; }
     .span-std    { grid-row:span 30; grid-column:span 1; }
     .span-small  { grid-row:span 20; grid-column:span 1; }
 
-    /* On phones, scale both hero and mosaic to fit (no layout change) */
     @media (max-width:960px){
       .adv-mosaic-wrap.container{ padding-left:0; padding-right:0; }
       .adv-mosaic-head{ padding-left:var(--gap); padding-right:var(--gap); }
@@ -167,7 +156,7 @@
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
-    /* Mobile navbar spacing per your site-wide preference */
+    /* Mobile navbar spacing */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
       .topbar{ padding-top:24px !important; padding-bottom:8px !important; }
@@ -193,13 +182,13 @@
   <div data-include="/partials/topnav.html"></div>
 
   <main id="content">
-    <!-- INTRO (desktop layout that scales on phones) -->
+    <!-- INTRO -->
     <section class="intro">
       <div class="intro-outer">
         <div class="intro-scale" id="introScale">
           <div class="intro-inner">
             <div class="intro-grid" id="introGrid">
-              <!-- Left: image + buttons -->
+              <!-- Left: image + buttons (now directly under image) -->
               <div class="left-col">
                 <figure class="hero-figure">
                   <img src="/pictures/andrewsBaldGallery/couple-on-trail.jpg" alt="Couple hiking through wind-brushed meadow at Andrews Bald during sunrise" />
@@ -230,7 +219,7 @@
         </div><!-- /.intro-scale -->
       </div><!-- /.intro-outer -->
 
-      <!-- Notes: full-width row under the intro -->
+      <!-- Notes -->
       <div class="container notes-wrap">
         <div class="notes">
           <div class="note">
@@ -249,7 +238,7 @@
       </div>
     </section>
 
-    <!-- MOSAIC WALL (Family-style; mobile scales to look identical) -->
+    <!-- STONE MASONRY -->
     <section class="container adv-mosaic-wrap" aria-labelledby="adv-mosaic-heading">
       <div class="adv-mosaic-head">
         <h2 id="adv-mosaic-heading" class="h2 section-title" style="font-family:'Cormorant Garamond','Playfair Display',Georgia,serif; font-weight:700; font-size:clamp(26px,4.2vw,40px); margin:0 0 8px;">Highlights from Andrews Bald</h2>
@@ -258,9 +247,7 @@
 
       <div class="adv-mosaic-outer">
         <div class="adv-mosaic-scale" id="advScale">
-          <div class="adv-mosaic-grid" id="advMosaic">
-            <!-- items are injected by JS using a fixed order -->
-          </div>
+          <div class="adv-mosaic-grid" id="advMosaic"></div>
         </div>
       </div>
     </section>
@@ -286,7 +273,7 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Intro scaler + Mosaic build + Mosaic scaler + Lightbox -->
+  <!-- Intro scaler + Masonry build + Masonry scaler + Lightbox -->
   <script>
     (function(){
       /* ===== HERO SCALER (mobile == desktop layout) ===== */
@@ -320,41 +307,57 @@
       window.addEventListener('orientationchange', fitIntro);
       if ('ResizeObserver' in window) new ResizeObserver(fitIntro).observe(introGrid);
 
-      /* ===== MOSAIC (images you specified, order locked) ===== */
+      /* ===== PRO MASONRY LAYOUT ===== */
       const base = '/pictures/andrewsBaldGallery/';
-      const FIXED_GALLERY_ORDER = [
-        'couple-on-trail.jpg',
-        'E26A1013 (1).jpg',
-        'E26A1022 (1).jpg',
-        'E26A1033 (1).jpg',
-        'E26A1043.jpg',
-        'E26A1045 (1).jpg',
-        'E26A1054.jpg',
-        'E26A1062 (1).jpg',
-        'E26A1075.jpg',
-        'E26A1087 (1).jpg',
-        'E26A1094 (1).jpg',
-        'E26A1095 (1).jpg',
-        'E26A1098 (1).jpg',
-        'E26A1124.jpg',
-        'E26A1139.jpg',
-        'E26A1146.jpg',
-        'E26A1161.jpg'
+      // Curated order to alternate scenic/wide with tighter portraits, avoiding repeats side-by-side.
+      const GALLERY = [
+        'E26A1124.jpg',          // opening wide ridge
+        'E26A1095 (1).jpg',      // portrait/tall
+        'E26A1043.jpg',          // standard forest trail
+        'E26A1146.jpg',          // small detail
+        'E26A1098 (1).jpg',      // wide
+        'E26A1062 (1).jpg',      // standard
+        'E26A1013 (1).jpg',      // standard
+        'E26A1075.jpg',          // tall
+        'E26A1022 (1).jpg',      // standard
+        'E26A1139.jpg',          // standard
+        'E26A1045 (1).jpg',      // small
+        'E26A1094 (1).jpg',      // standard
+        'E26A1087 (1).jpg',      // wide
+        'E26A1054.jpg',          // standard
+        'E26A1033 (1).jpg',      // small
+        'E26A1161.jpg',          // standard
+        'couple-on-trail.jpg'    // strong wide closer
       ];
 
-      const spans = [
-        'span-big-vert','span-wide','span-std','span-small','span-std','span-std','span-wide',
-        'span-std','span-std','span-big-vert','span-std','span-std','span-small','span-std',
-        'span-std','span-wide','span-std'
+      // Matching span classes (varied; avoids adjacency of same sizes; ends cleaner)
+      const SPANS = [
+        'span-wide',   // 1124
+        'span-tall',   // 1095
+        'span-std',    // 1043
+        'span-small',  // 1146
+        'span-wide',   // 1098
+        'span-std',    // 1062
+        'span-std',    // 1013
+        'span-tall',   // 1075
+        'span-std',    // 1022
+        'span-std',    // 1139
+        'span-small',  // 1045
+        'span-std',    // 1094
+        'span-wide',   // 1087
+        'span-std',    // 1054
+        'span-small',  // 1033
+        'span-std',    // 1161
+        'span-wide'    // couple-on-trail (anchor close)
       ];
 
       const urlFor = n => base + encodeURIComponent(n);
       const grid = document.getElementById('advMosaic');
 
       if (grid){
-        FIXED_GALLERY_ORDER.forEach((name, idx) => {
+        GALLERY.forEach((name, idx) => {
           const div = document.createElement('div');
-          div.className = 'adv-item ' + (spans[idx] || 'span-std');
+          div.className = 'adv-item ' + (SPANS[idx] || 'span-std');
           div.setAttribute('data-src', urlFor(name));
 
           const img = document.createElement('img');
@@ -366,10 +369,13 @@
           grid.appendChild(div);
         });
 
-        /* gentle bottom-balance pass */
+        /* Bottom-edge smoothing: if the last two are both std, widen the last */
         const kids = Array.from(grid.children);
-        if (kids.length >= 2 && kids[kids.length-1].classList.contains('span-std')) {
-          kids[kids.length-1].classList.replace('span-std','span-wide');
+        if (kids.length >= 2){
+          const a = kids[kids.length-1], b = kids[kids.length-2];
+          if (a.classList.contains('span-std') && b.classList.contains('span-std')) {
+            a.classList.replace('span-std','span-wide');
+          }
         }
       }
 
