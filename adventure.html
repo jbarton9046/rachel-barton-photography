@@ -42,8 +42,8 @@
       --nav-gap-top:16px; --nav-gap-bottom:40px;
 
       /* Hero tuning */
-      --hero-gap:12px;           /* space between image and buttons */
-      --copy-nudge:8px;          /* tiny right push so right column aligns rhythmically */
+      --hero-gap:12px;            /* space between image and buttons */
+      --copy-nudge:8px;           /* tiny right push so right column aligns rhythmically */
     }
 
     /* Site spacing + lightweight nav */
@@ -155,30 +155,28 @@
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
-    /* ======= MOBILE ======= */
+    /* ======= MOBILE — mirror desktop ======= */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
       .topbar{ padding-top:24px !important; padding-bottom:8px !important; }
 
+      /* Keep two columns like desktop (slightly narrower left column for small screens) */
       .intro-grid{
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "hero"
-          "copy"
-          "buttons";
-        gap: 16px;
+        grid-template-columns: minmax(240px, 44vw) 1fr;
+        gap: clamp(12px, 4vw, 20px);
       }
-      .left-col{ display:contents; }
-      .hero-figure{ grid-area: hero; height:auto !important; }
-      .copy{ grid-area: copy; padding-left:0; }
-      .btn-row{ grid-area: buttons; justify-content:flex-start; }
-      .story{ column-count:2; }
+      .left-col{ display:flex; }          /* no display:contents; keep desktop structure */
+      .hero-figure{ height:auto; }        /* allow equalizer to set height */
+      .copy{ padding-left:var(--copy-nudge); }
+
+      /* Make sure story text is smaller than the page title on mobile */
+      .story{ column-count:1; font-size:16px; }  /* 1 column on phones for readability */
     }
 
-    /* Mosaic head padding on small screens */
+    /* On mobile, keep the mosaic head aligned just like desktop (no extra side padding) */
     @media (max-width:960px){
       .adv-mosaic-wrap.container{ padding-left:0; padding-right:0; }
-      .adv-mosaic-head{ padding-left:var(--gap); padding-right:var(--gap); width:auto; }
+      .adv-mosaic-head{ padding:0; width:calc(var(--maxw) - 2 * var(--gap)); }
     }
 
     /* Fullscreen lightbox */
@@ -289,10 +287,10 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Equalize hero height (desktop) + Masonry + Lightbox -->
+  <!-- Equalize hero height (desktop + mobile now) + Masonry + Lightbox -->
   <script>
     (function(){
-      /* ===== DESKTOP HERO EQUALIZER ===== */
+      /* ===== HERO EQUALIZER (runs on all breakpoints) ===== */
       const hero    = document.querySelector('.hero-figure');
       const copy    = document.querySelector('.copy');
       const buttons = document.querySelector('.btn-row');
@@ -307,10 +305,7 @@
 
       function sizeHero(){
         if(!hero || !copy || !buttons) return;
-        if (window.matchMedia('(max-width: 820px)').matches){
-          hero.style.height = '';
-          return;
-        }
+
         const gap  = getCssPx(document.documentElement, '--hero-gap', 12);
         const copyH = copy.getBoundingClientRect().height;
         const btnH  = buttons.getBoundingClientRect().height;
@@ -368,7 +363,6 @@
           img.alt = 'Andrews Bald adventure photo ' + (idx + 1);
           img.src = urlFor(name);
 
-          // Keep your new photo nicely centered
           if (name === NEW_IMG) img.style.objectPosition = '50% 50%';
 
           div.appendChild(img);
