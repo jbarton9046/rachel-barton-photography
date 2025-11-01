@@ -141,8 +141,8 @@
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
 
-      /* a touch more room beneath the navbar */
-      .intro{ padding-top: calc(var(--nav-gap-top) + 28px); }
+      /* Clear the navbar reliably */
+      .intro{ padding-top: calc(var(--nav-gap-top) + 64px); }
 
       /* Keep H1 and lead the same measure like desktop */
       .copy .h1,
@@ -178,12 +178,24 @@
         font-weight: 400;
       }
 
-      /* Buttons: single row, 50/50 */
+      /* Ensure buttons are visible under the image */
+      .left-col{
+        gap: 12px;            /* space between image and buttons */
+        align-items: stretch;
+      }
+      .hero-figure{
+        max-height: 46vh;     /* cap photo height on mobile */
+        aspect-ratio: 4 / 3;  /* keep a friendly ratio */
+        flex: 0 0 auto;       /* don't hog space that hides buttons */
+      }
       .btn-row{
         display:grid;
         grid-template-columns: 1fr 1fr;
         gap: 12px;
         align-items: stretch;
+        margin-top: 4px;
+        position: relative;   /* ensure on top if overlapping */
+        z-index: 1;
       }
       .btn{
         width: 100%;
