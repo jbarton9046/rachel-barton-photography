@@ -148,21 +148,20 @@
       .copy .h1,
       .copy .lead{ max-width:68ch; }
 
-      /* Bigger eyebrow (around story size) */
+      /* Bigger eyebrow */
       .eyebrow{
         font-size: clamp(16px, 4.6vw, 20px);
         letter-spacing:.18em;
       }
 
-      /* ~2× bigger H1 but stay on one line */
+      /* Larger H1 but keep it single-line when possible */
       .h1{
         font-size: clamp(38px, 13vw, 64px);
         line-height: 1.04;
         letter-spacing: -0.01em;
-        white-space: nowrap; /* keep on one row */
+        white-space: nowrap;
       }
 
-      /* Lead remains strong and true black */
       .lead{
         font-size: clamp(19px, calc(2.2vh + 5.8vw), 28px);
         line-height: 1.55;
@@ -178,23 +177,15 @@
         font-weight: 400;
       }
 
-      /* Ensure buttons are visible under the image */
-      .left-col{
-        gap: 12px;            /* space between image and buttons */
-        align-items: stretch;
-      }
-      .hero-figure{
-        max-height: 46vh;     /* cap photo height on mobile */
-        aspect-ratio: 4 / 3;  /* keep a friendly ratio */
-        flex: 0 0 auto;       /* don't hog space that hides buttons */
-      }
+      /* Buttons: 50/50 row */
+      .left-col{ gap:12px; align-items:stretch; }
       .btn-row{
         display:grid;
         grid-template-columns: 1fr 1fr;
         gap: 12px;
         align-items: stretch;
         margin-top: 4px;
-        position: relative;   /* ensure on top if overlapping */
+        position: relative;
         z-index: 1;
       }
       .btn{
@@ -202,9 +193,6 @@
         padding: 15px 18px;
         font-size: clamp(16px, 4.4vw, 18px);
       }
-
-      .intro-outer, .adv-mosaic-outer{ position: relative; }
-      .intro-scale, .adv-mosaic-scale{ display:block; transform-origin: top center; }
     }
 
     /* Mosaic head padding on small screens */
@@ -321,15 +309,16 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Equalize hero height (desktop) + Masonry + Lightbox + Mobile scale -->
+  <!-- Equalize hero height (desktop & mobile) + Masonry + Lightbox + Mobile scale -->
   <script>
     (function(){
-      /* ===== DESKTOP HERO EQUALIZER ===== */
       const hero    = document.querySelector('.hero-figure');
       const copy    = document.querySelector('.copy');
       const buttons = document.querySelector('.btn-row');
 
-      let adjust = -6; // desktop tighten
+      const mm = window.matchMedia('(max-width: 820px)');
+      let adjustDesktop = -6; // desktop tighten
+      let adjustMobile  = 0;  // tweak if you want a hair more/less image on mobile
 
       function getCssPx(el, varName, fallback){
         const v = getComputedStyle(el || document.documentElement).getPropertyValue(varName).trim();
@@ -339,25 +328,38 @@
 
       function sizeHero(){
         if(!hero || !copy || !buttons) return;
-        if (window.matchMedia('(max-width: 820px)').matches){
-          hero.style.height = '';
-          return;
-        }
-        const gap  = getCssPx(document.documentElement, '--hero-gap', 12);
+
+        const gap = getCssPx(document.documentElement, '--hero-gap', 12);
         const copyH = copy.getBoundingClientRect().height;
         const btnH  = buttons.getBoundingClientRect().height;
-        const minH = 180;
-        const target = Math.max(minH, copyH - btnH - gap + adjust);
-        hero.style.height = target + 'px';
+
+        if (mm.matches){
+          // MOBILE: make (image + buttons + gap) == story height
+          const minH = 160;
+          const targetImg = Math.max(minH, copyH - btnH - gap + adjustMobile);
+          hero.style.height = targetImg + 'px';
+        } else {
+          // DESKTOP: keep existing behavior
+          const minH = 180;
+          const target = Math.max(minH, copyH - btnH - gap + adjustDesktop);
+          hero.style.height = target + 'px';
+        }
       }
 
       window.addEventListener('load', sizeHero, { once:true });
       window.addEventListener('resize', sizeHero);
-      if ('ResizeObserver' in window) new ResizeObserver(sizeHero).observe(copy);
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(sizeHero).observe(copy);
+        new ResizeObserver(sizeHero).observe(buttons);
+      }
+      mm.addEventListener?.('change', sizeHero);
 
+      // Expose tiny nudges if needed
       window.ADV = window.ADV || {};
-      window.ADV.nudgeHero = function(delta){ adjust += +delta; sizeHero(); };
-      window.ADV.setHeroAdjust = function(px){ adjust = +px; sizeHero(); };
+      window.ADV.nudgeHeroMobile  = function(delta){ adjustMobile  += +delta; sizeHero(); };
+      window.ADV.nudgeHeroDesktop = function(delta){ adjustDesktop += +delta; sizeHero(); };
+      window.ADV.setHeroAdjustMobile  = function(px){ adjustMobile  = +px; sizeHero(); };
+      window.ADV.setHeroAdjustDesktop = function(px){ adjustDesktop = +px; sizeHero(); };
 
       /* ===== MASONRY BUILD ===== */
       const NEW_IMG   = 'keep-couple-in-frame.jpg';
@@ -494,6 +496,7 @@
 
         scaleBlock(introScale, introInner);
         scaleBlock(mosaicScale, mosaicGrid);
+        sizeHero(); // ensure hero syncs after scaling settles
       }
 
       window.addEventListener('load', rescaleAll);
