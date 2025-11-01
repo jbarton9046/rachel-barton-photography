@@ -40,10 +40,6 @@
 
       /* Navbar spacing (site-wide preference) */
       --nav-gap-top:16px; --nav-gap-bottom:40px;
-
-      /* Your existing hero knobs (kept as-is so image stays how you set it) */
-      --btn-row-h: 56px;
-      --hero-trim: 300px;
     }
 
     /* Site spacing + lightweight nav */
@@ -65,7 +61,7 @@
     /* ======= INTRO ======= */
     .intro{ padding: clamp(16px, 4vw, 32px) 0 clamp(10px, 2.2vw, 18px); }
 
-    /* “scale” wrapper so mobile == desktop layout */
+    /* scale wrapper so mobile == desktop layout */
     .intro-outer{ width:100%; overflow:hidden; display:flex; justify-content:center; }
     .intro-scale{ transform-origin:top center; will-change:transform; }
     .intro-inner{ width:calc(var(--maxw) - 2 * var(--gap)); margin:0 auto; }
@@ -74,26 +70,26 @@
       display:grid;
       grid-template-columns: minmax(280px, 520px) 1fr;
       gap: clamp(18px, 3.2vw, 36px);
-      align-items:stretch; /* equal column heights */
+      align-items:start; /* let each column size naturally to kill the big blank gap */
     }
 
-    /* Left column: keep your hero height logic; buttons now sit directly under image */
-    .left-col{ display:flex; flex-direction:column; min-height:240px; }
+    /* Left column: hero image with buttons immediately under it */
+    .left-col{ display:flex; flex-direction:column; }
     .hero-figure{
       margin:0;
       border:1px solid var(--line);
       box-shadow:0 8px 24px rgba(0,0,0,.07);
       background:#fff; overflow:hidden;
-      height: calc(100% - var(--btn-row-h) - 12px - var(--hero-trim));
-      min-height:180px;
     }
-    .hero-figure img{ width:100%; height:100%; display:block; object-fit:cover; object-position:center; }
-
-    /* Buttons pulled up under the image */
+    .hero-figure img{
+      display:block; width:100%;
+      height:auto;            /* natural height */
+      aspect-ratio: 16 / 11;  /* keeps the visual you set while remaining flexible */
+      object-fit:cover; object-position:center;
+    }
     .btn-row{
-      margin-top:12px;        /* sits right under the image */
-      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-      height:auto;            /* no fixed height anymore */
+      margin-top:12px;                 /* pulled right under the image */
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
     }
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
@@ -107,10 +103,18 @@
       box-shadow:0 10px 24px rgba(0,0,0,.08); transform:translateY(-1px); outline:none;
     }
 
-    /* Right column */
+    /* Right column: make the two text columns start perfectly aligned and keep tidy spacing */
     .copy .lead{ margin-bottom:8px; }
-    .story{ column-gap: clamp(20px, 3vw, 36px); }
-    @media (min-width: 1100px){ .story{ column-count: 2; } }
+    .story{
+      column-gap: clamp(20px, 3vw, 36px);
+      column-fill: balance;
+    }
+    .story p{ margin:0; }
+    .story p + p{ margin-top:14px; }
+
+    @media (min-width:1100px){
+      .story{ column-count:2; }
+    }
 
     /* ======= NOTES ======= */
     .notes-wrap{ padding-top: clamp(12px, 3vw, 20px); }
@@ -120,18 +124,20 @@
     }
     @media (max-width:900px){ .notes{ grid-template-columns: 1fr; } }
     .note{ background:#fff; border:1px solid var(--line); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06) }
-    .note h3{ font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:clamp(18px,2.2vw,20px) }
+    .note h3{
+      font-family:"Cormorant Garamond","Playfair Display",Georgia,serif; margin:0 0 6px; font-size:clamp(18px,2.2vw,20px)
+    }
     .note p{ margin:0; color:#4e4b45 }
 
-    /* ======= PRO STONE MASONRY ======= */
+    /* ======= PRO “STONE MASONRY” ======= */
     .adv-mosaic-wrap{ padding:0 0 clamp(20px,4vw,32px); }
     .adv-mosaic-outer{ width:100%; overflow:hidden; display:flex; justify-content:center; align-items:flex-start; }
-    .adv-mosaic-scale{ transform-origin:top center; will-change:transform; }
+    .adv-mosaic-scale{ transform-origin:top center; will-change:transform; } /* used to scale on phones */
     .adv-mosaic-grid{
       display:grid;
       grid-template-columns:repeat(auto-fill, minmax(min(240px,100%),1fr));
-      grid-auto-rows:6px;             /* fine rows keep edges smooth */
-      grid-auto-flow:dense;           /* back-fills gaps */
+      grid-auto-rows:6px;             /* fine rows reduce jagged bottom */
+      grid-auto-flow:dense;           /* back-fills holes */
       gap:12px;
       width:calc(var(--maxw) - 2 * var(--gap));
       margin:0 auto;
@@ -143,7 +149,7 @@
     }
     .adv-item img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    /* varied spans (avoid same-size neighbors) */
+    /* varied spans to avoid same-size neighbors and finish cleanly */
     .span-tall   { grid-row:span 44; grid-column:span 1; }
     .span-wide   { grid-row:span 30; grid-column:span 2; }
     .span-std    { grid-row:span 30; grid-column:span 1; }
@@ -156,7 +162,7 @@
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
-    /* Mobile navbar spacing */
+    /* Mobile navbar spacing per your site-wide preference */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
       .topbar{ padding-top:24px !important; padding-bottom:8px !important; }
@@ -188,7 +194,7 @@
         <div class="intro-scale" id="introScale">
           <div class="intro-inner">
             <div class="intro-grid" id="introGrid">
-              <!-- Left: image + buttons (now directly under image) -->
+              <!-- Left: image + buttons -->
               <div class="left-col">
                 <figure class="hero-figure">
                   <img src="/pictures/andrewsBaldGallery/couple-on-trail.jpg" alt="Couple hiking through wind-brushed meadow at Andrews Bald during sunrise" />
@@ -309,28 +315,27 @@
 
       /* ===== PRO MASONRY LAYOUT ===== */
       const base = '/pictures/andrewsBaldGallery/';
-      // Curated order to alternate scenic/wide with tighter portraits, avoiding repeats side-by-side.
+      // Curated order (no two identical sizes adjacent; clean bottom edge)
       const GALLERY = [
-        'E26A1124.jpg',          // opening wide ridge
-        'E26A1095 (1).jpg',      // portrait/tall
-        'E26A1043.jpg',          // standard forest trail
-        'E26A1146.jpg',          // small detail
-        'E26A1098 (1).jpg',      // wide
-        'E26A1062 (1).jpg',      // standard
-        'E26A1013 (1).jpg',      // standard
-        'E26A1075.jpg',          // tall
-        'E26A1022 (1).jpg',      // standard
-        'E26A1139.jpg',          // standard
-        'E26A1045 (1).jpg',      // small
-        'E26A1094 (1).jpg',      // standard
-        'E26A1087 (1).jpg',      // wide
-        'E26A1054.jpg',          // standard
-        'E26A1033 (1).jpg',      // small
-        'E26A1161.jpg',          // standard
-        'couple-on-trail.jpg'    // strong wide closer
+        'E26A1124.jpg',
+        'E26A1095 (1).jpg',
+        'E26A1043.jpg',
+        'E26A1146.jpg',
+        'E26A1098 (1).jpg',
+        'E26A1062 (1).jpg',
+        'E26A1013 (1).jpg',
+        'E26A1075.jpg',
+        'E26A1022 (1).jpg',
+        'E26A1139.jpg',
+        'E26A1045 (1).jpg',
+        'E26A1094 (1).jpg',
+        'E26A1087 (1).jpg',
+        'E26A1054.jpg',
+        'E26A1033 (1).jpg',
+        'E26A1161.jpg',
+        'couple-on-trail.jpg'
       ];
 
-      // Matching span classes (varied; avoids adjacency of same sizes; ends cleaner)
       const SPANS = [
         'span-wide',   // 1124
         'span-tall',   // 1095
@@ -348,7 +353,7 @@
         'span-std',    // 1054
         'span-small',  // 1033
         'span-std',    // 1161
-        'span-wide'    // couple-on-trail (anchor close)
+        'span-wide'    // closer
       ];
 
       const urlFor = n => base + encodeURIComponent(n);
@@ -369,7 +374,7 @@
           grid.appendChild(div);
         });
 
-        /* Bottom-edge smoothing: if the last two are both std, widen the last */
+        /* Bottom smoothing: if last two are std, widen the last one */
         const kids = Array.from(grid.children);
         if (kids.length >= 2){
           const a = kids[kids.length-1], b = kids[kids.length-2];
@@ -431,6 +436,36 @@
         touchX = null;
         if(Math.abs(dx) > 40){ dx < 0 ? shift(+1) : shift(-1); }
       }, {passive:true});
+
+      /* ===== MOSAIC SCALER (mobile == desktop layout) ===== */
+      const advScale = document.getElementById('advScale');
+      const advOuter = advScale ? advScale.parentElement : null;
+
+      function measureGrid(){
+        const prev = advScale.style.transform;
+        advScale.style.transform = 'none';
+        const baseW = grid ? (grid.scrollWidth || grid.getBoundingClientRect().width) : 0;
+        const baseH = grid ? (grid.scrollHeight || grid.getBoundingClientRect().height) : 0;
+        advScale.style.transform = prev;
+        return {baseW, baseH};
+      }
+      function fitMosaic(){
+        if(!advScale || !grid || !advOuter) return;
+        const phone = window.matchMedia('(max-width: 600px)').matches;
+        const {baseW, baseH} = measureGrid();
+        const available = advOuter.clientWidth;
+        let s = 1;
+        if (phone && baseW) s = Math.min(1, available / baseW);
+        const t = (s === 1) ? 'none' : 'scale(' + s + ')';
+        advScale.style.transform = t;
+        advScale.style.webkitTransform = t;
+        advOuter.style.height = baseH ? (baseH * s + 'px') : '';
+      }
+
+      window.addEventListener('load', fitMosaic, {once:true});
+      window.addEventListener('resize', fitMosaic);
+      window.addEventListener('orientationchange', fitMosaic);
+      if ('ResizeObserver' in window) new ResizeObserver(fitMosaic).observe(grid);
 
       /* run intro fit after DOM is ready */
       fitIntro();
