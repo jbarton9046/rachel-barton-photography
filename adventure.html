@@ -38,8 +38,12 @@
       --ring: rgba(168,138,90,.25); --shadow: 0 10px 30px rgba(0,0,0,.08);
       --gap:clamp(16px,3vw,32px); --maxw:1200px;
 
-      /* Navbar spacing (site-wide preference) */
+      /* Navbar spacing (site-wide) */
       --nav-gap-top:16px; --nav-gap-bottom:40px;
+
+      /* Hero tuning */
+      --hero-gap:12px;           /* space between image and buttons (must match .btn-row margin-top) */
+      --copy-nudge:8px;          /* pushes the right column slightly to the right to match page rhythm */
     }
 
     /* Site spacing + lightweight nav */
@@ -61,7 +65,6 @@
     /* ======= INTRO ======= */
     .intro{ padding: clamp(16px, 4vw, 32px) 0 clamp(10px, 2.2vw, 18px); }
 
-    /* scale wrapper so mobile == desktop layout */
     .intro-outer{ width:100%; overflow:hidden; display:flex; justify-content:center; }
     .intro-scale{ transform-origin:top center; will-change:transform; }
     .intro-inner{ width:calc(var(--maxw) - 2 * var(--gap)); margin:0 auto; }
@@ -70,15 +73,15 @@
       display:grid;
       grid-template-columns: minmax(280px, 520px) 1fr;
       gap: clamp(18px, 3.2vw, 36px);
-      align-items:stretch; /* let the columns be the same height */
+      align-items:stretch; /* columns will be equal height when hero is sized */
     }
 
-    /* Left column = flex so the image grows to match the copy height */
+    /* Left column */
     .left-col{ display:flex; flex-direction:column; min-height:220px; }
     .hero-figure{
       margin:0; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.07);
       background:#fff; overflow:hidden;
-      flex:1 1 auto;                    /* fill remaining height to match the copy column */
+      flex:1 1 auto;                    /* grows to fill column height once we set an explicit height */
       min-height:180px;
     }
     .hero-figure img{
@@ -86,7 +89,7 @@
       object-fit:cover; object-position:center;
     }
     .btn-row{
-      margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin-top:var(--hero-gap); display:flex; gap:10px; flex-wrap:wrap; align-items:center;
     }
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
@@ -107,6 +110,11 @@
     .story p + p{ margin-top:14px; }
 
     @media (min-width:1100px){ .story{ column-count:2; } }
+
+    /* Subtle header/right-column nudge for desktop to match page edge spacing */
+    @media (min-width:821px){
+      .copy{ padding-left:var(--copy-nudge); }
+    }
 
     /* ======= NOTES ======= */
     .notes-wrap{ padding-top: clamp(12px, 3vw, 20px); }
@@ -138,10 +146,10 @@
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
-    /* ======= MOBILE LAYOUT (match site spacing; hero → copy → buttons) ======= */
+    /* ======= MOBILE (keep your requested flow) ======= */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
-      .topbar{ padding-top:24px !important; padding-bottom:8px !important; } /* same as rest of site */
+      .topbar{ padding-top:24px !important; padding-bottom:8px !important; }
 
       .intro-grid{
         grid-template-columns: 1fr;
@@ -151,17 +159,14 @@
           "buttons";
         gap: 16px;
       }
-      /* Make hero and buttons direct grid items without changing HTML */
       .left-col{ display:contents; }
-      .hero-figure{ grid-area: hero; }
-      .copy{ grid-area: copy; }
+      .hero-figure{ grid-area: hero; height:auto !important; } /* ignore desktop equalizer */
+      .copy{ grid-area: copy; padding-left:0; }
       .btn-row{ grid-area: buttons; justify-content:flex-start; }
-
-      /* Mobile wants two columns under the header as well */
       .story{ column-count:2; }
     }
 
-    /* Head padding for the mosaic on small screens */
+    /* Mosaic head padding on small screens */
     @media (max-width:960px){
       .adv-mosaic-wrap.container{ padding-left:0; padding-right:0; }
       .adv-mosaic-head{ padding-left:var(--gap); padding-right:var(--gap); }
@@ -190,7 +195,7 @@
         <div class="intro-scale" id="introScale">
           <div class="intro-inner">
             <div class="intro-grid" id="introGrid">
-              <!-- Left: image + buttons (desktop: together; mobile: reordered via CSS) -->
+              <!-- Left: image + buttons -->
               <div class="left-col">
                 <figure class="hero-figure">
                   <img src="/pictures/andrewsBaldGallery/couple-on-trail.jpg" alt="Couple hiking through wind-brushed meadow at Andrews Bald during sunrise" />
@@ -275,41 +280,53 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/assets/include.js?v=nav-5" defer></script>
 
-  <!-- Intro scaler + Masonry build + Masonry scaler + Lightbox -->
+  <!-- Equalize hero height (desktop) + Masonry + Lightbox -->
   <script>
     (function(){
-      /* ===== HERO SCALER (mobile == desktop layout) ===== */
-      const introScale = document.getElementById('introScale');
-      const introGrid  = document.getElementById('introGrid');
-      const introOuter = introScale ? introScale.parentElement : null;
+      /* ===== DESKTOP HERO EQUALIZER =====
+         Makes: hero image height = right copy height - buttons - gap
+         Result: image+buttons column === copy column, no empty space below. */
+      const hero    = document.querySelector('.hero-figure');
+      const copy    = document.querySelector('.copy');
+      const buttons = document.querySelector('.btn-row');
 
-      function measureIntro(){
-        const prev = introScale.style.transform;
-        introScale.style.transform = 'none';
-        const baseW = (introGrid && introGrid.scrollWidth) || introGrid.getBoundingClientRect().width;
-        const baseH = (introGrid && introGrid.scrollHeight) || introGrid.getBoundingClientRect().height;
-        introScale.style.transform = prev;
-        return {baseW, baseH};
-      }
-      function fitIntro(){
-        if(!introScale || !introGrid || !introOuter) return;
-        const phone = window.matchMedia('(max-width: 600px)').matches;
-        const {baseW, baseH} = measureIntro();
-        const available = introOuter.clientWidth;
-        let s = 1;
-        if (phone && baseW) s = Math.min(1, available / baseW);
-        const t = (s === 1) ? 'none' : 'scale(' + s + ')';
-        introScale.style.transform = t;
-        introScale.style.webkitTransform = t;
-        introOuter.style.height = baseH ? (baseH * s + 'px') : '';
+      let adjust = 0; // px; tweak if you want a touch taller/shorter (negative = shorter)
+
+      function getCssPx(el, varName, fallback){
+        const v = getComputedStyle(el || document.documentElement).getPropertyValue(varName).trim();
+        const n = parseFloat(v);
+        return Number.isFinite(n) ? n : fallback;
       }
 
-      window.addEventListener('load', fitIntro, {once:true});
-      window.addEventListener('resize', fitIntro);
-      window.addEventListener('orientationchange', fitIntro);
-      if ('ResizeObserver' in window) new ResizeObserver(fitIntro).observe(introGrid);
+      function sizeHero(){
+        if(!hero || !copy || !buttons) return;
 
-      /* ===== PRO MASONRY LAYOUT ===== */
+        // Only run on desktop (mobile stacks vertically)
+        if (window.matchMedia('(max-width: 820px)').matches){
+          hero.style.height = '';
+          return;
+        }
+
+        const gap = getCssPx(document.documentElement, '--hero-gap', 12);
+        const copyH = copy.getBoundingClientRect().height;
+        const btnH  = buttons.getBoundingClientRect().height;
+
+        // target hero height so hero + gap + buttons == copy height
+        const minH = 180;
+        const target = Math.max(minH, copyH - btnH - gap + adjust);
+        hero.style.height = target + 'px';
+      }
+
+      window.addEventListener('load', sizeHero, { once:true });
+      window.addEventListener('resize', sizeHero);
+      if ('ResizeObserver' in window) new ResizeObserver(sizeHero).observe(copy);
+
+      // Expose tiny helpers if you want to tune in DevTools:
+      window.ADV = window.ADV || {};
+      window.ADV.nudgeHero = function(delta){ adjust += +delta; sizeHero(); };
+      window.ADV.setHeroAdjust = function(px){ adjust = +px; sizeHero(); };
+
+      /* ===== MASONRY BUILD ===== */
       const base = '/pictures/andrewsBaldGallery/';
       const GALLERY = [
         'E26A1124.jpg','E26A1095 (1).jpg','E26A1043.jpg','E26A1146.jpg',
@@ -323,7 +340,6 @@
         'span-tall','span-std','span-std','span-small','span-std','span-wide','span-std',
         'span-small','span-std','span-wide'
       ];
-
       const urlFor = n => base + encodeURIComponent(n);
       const grid = document.getElementById('advMosaic');
 
@@ -340,7 +356,7 @@
           grid.appendChild(div);
         });
 
-        /* Bottom smoothing: if last two are std, widen the last one */
+        // Bottom smoothing: if last two are std, widen the last one
         const kids = Array.from(grid.children);
         if (kids.length >= 2){
           const a = kids[kids.length-1], b = kids[kids.length-2];
@@ -402,39 +418,6 @@
         touchX = null;
         if(Math.abs(dx) > 40){ dx < 0 ? shift(+1) : shift(-1); }
       }, {passive:true});
-
-      /* ===== MOSAIC SCALER (mobile == desktop layout) ===== */
-      const advScale = document.getElementById('advScale');
-      const advOuter = advScale ? advScale.parentElement : null;
-
-      function measureGrid(){
-        const prev = advScale.style.transform;
-        advScale.style.transform = 'none';
-        const baseW = grid ? (grid.scrollWidth || grid.getBoundingClientRect().width) : 0;
-        const baseH = grid ? (grid.scrollHeight || grid.getBoundingClientRect().height) : 0;
-        advScale.style.transform = prev;
-        return {baseW, baseH};
-      }
-      function fitMosaic(){
-        if(!advScale || !grid || !advOuter) return;
-        const phone = window.matchMedia('(max-width: 600px)').matches;
-        const {baseW, baseH} = measureGrid();
-        const available = advOuter.clientWidth;
-        let s = 1;
-        if (phone && baseW) s = Math.min(1, available / baseW);
-        const t = (s === 1) ? 'none' : 'scale(' + s + ')';
-        advScale.style.transform = t;
-        advScale.style.webkitTransform = t;
-        advOuter.style.height = baseH ? (baseH * s + 'px') : '';
-      }
-
-      window.addEventListener('load', fitMosaic, {once:true});
-      window.addEventListener('resize', fitMosaic);
-      window.addEventListener('orientationchange', fitMosaic);
-      if ('ResizeObserver' in window) new ResizeObserver(fitMosaic).observe(grid);
-
-      /* run intro fit after DOM is ready */
-      fitIntro();
     })();
   </script>
 </body>
