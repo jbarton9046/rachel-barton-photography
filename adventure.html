@@ -144,16 +144,23 @@
       /* a touch more room beneath the navbar */
       .intro{ padding-top: calc(var(--nav-gap-top) + 28px); }
 
-      /* Hierarchy: title > lead > body. Lead is heavier & larger, now true black */
+      /* Make H1 measure match the lead measure on mobile (like desktop) */
+      .copy .h1,
+      .copy .lead{ max-width:68ch; }
+
+      /* Slightly larger eyebrow on mobile */
+      .eyebrow{ font-size: clamp(12px, 3.2vw, 14px); letter-spacing:.18em; }
+
+      /* Hierarchy: title > lead > body. Lead is heavier & larger, true black */
       .h1{ font-size: clamp(30px, 9.5vw, 44px); }
       .lead{
         font-size: clamp(19px, calc(2.2vh + 5.8vw), 28px);
         line-height: 1.55;
         font-weight: 600;
-        color: var(--ink); /* black on mobile */
+        color: var(--ink);
       }
 
-      /* Two-column story just a hair bigger to remove remaining gap */
+      /* Two-column story — unchanged layout, keeps a nice fill */
       .story{ column-count: 2; }
       .story p{
         font-size: clamp(18px, calc(1.3vh + 4.1vw), 22px);
