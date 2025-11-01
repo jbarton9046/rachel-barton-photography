@@ -64,14 +64,14 @@
       display:grid;
       grid-template-columns: minmax(280px, 520px) 1fr;
       gap: clamp(18px, 3.2vw, 36px);
-      align-items:start;
+      align-items:stretch; /* allow left to grow to match right */
     }
     @media (max-width: 980px){
       .intro-grid{ grid-template-columns: 1fr; }
     }
 
     /* Left column: hero image + buttons under it */
-    .left-col{ display:flex; flex-direction:column; gap:12px; }
+    .left-col{ display:flex; flex-direction:column; gap:12px; height:100%; }
     .hero-figure{
       margin:0;
       border:1px solid var(--line);
@@ -81,7 +81,10 @@
       overflow:hidden;
     }
     .hero-figure img{
-      display:block; width:100%; height:auto; aspect-ratio: 4 / 3; object-fit:cover; object-position:center;
+      display:block; width:100%;
+      height:auto;
+      aspect-ratio: 4 / 5;           /* TALLER hero to drop the buttons lower */
+      object-fit:cover; object-position:center;
     }
     .btn{
       font-family:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",serif;
@@ -121,22 +124,24 @@
     .adv-mosaic-grid{
       display:grid;
       grid-template-columns:repeat(auto-fill, minmax(min(240px,100%),1fr));
-      grid-auto-rows:8px;
+      grid-auto-rows:6px;             /* finer rows to reduce “choppiness” */
       grid-auto-flow:dense;
       gap:12px;
       width:calc(var(--maxw) - 2 * var(--gap)); /* lock to desktop inner width */
       margin:0 auto;
+      align-content:start;
     }
     .adv-item{
       position:relative; overflow:hidden; border:1px solid var(--line);
       box-shadow:0 6px 18px rgba(0,0,0,.06); background:#fff; cursor:pointer;
     }
     .adv-item img{ width:100%; height:100%; object-fit:cover; display:block; }
-    /* span set (close to Family, not identical) */
-    .span-big-vert{ grid-row:span 40; grid-column:span 1; }
-    .span-wide   { grid-row:span 24; grid-column:span 2; }
-    .span-std    { grid-row:span 24; grid-column:span 1; }
-    .span-small  { grid-row:span 16; grid-column:span 1; }
+
+    /* span set (tuned to finish cleaner at the bottom) */
+    .span-big-vert{ grid-row:span 44; grid-column:span 1; }  /* ~264px tall blocks */
+    .span-wide   { grid-row:span 30; grid-column:span 2; }   /* ~180px tall, wide */
+    .span-std    { grid-row:span 30; grid-column:span 1; }   /* ~180px tall */
+    .span-small  { grid-row:span 20; grid-column:span 1; }   /* ~120px tall */
 
     @media (max-width:960px){
       /* Keep the gallery head aligned with page padding; let grid go edge-to-edge */
@@ -289,6 +294,7 @@
         'couple-on-trail.jpg'
       ];
 
+      /* Tuned spans to reduce bottom choppiness (pairs of sizes mix cleaner) */
       const spans = [
         'span-big-vert','span-wide','span-std','span-small','span-std','span-std','span-wide',
         'span-std','span-std','span-big-vert','span-std','span-std','span-small','span-std',
@@ -313,6 +319,14 @@
           div.appendChild(img);
           grid.appendChild(div);
         });
+
+        /* Tiny bottom-balance tweak:
+           If the last item ends noticeably shorter, nudge its height up one step. */
+        const last = grid.lastElementChild;
+        if (last && last.classList.contains('span-std')) {
+          last.classList.remove('span-std');
+          last.classList.add('span-wide');
+        }
       }
 
       /* Lightbox wiring (uses your existing styles/IDs) */
