@@ -155,20 +155,36 @@
 
     footer{ border-top:1px solid var(--line); padding:28px 0; color:#7f7f7f }
 
-    /* ======= MOBILE: mirror desktop, but scaled & larger text ======= */
+    /* ======= MOBILE: mirror desktop, scaled, plus larger text & full-width buttons ======= */
     @media (max-width:820px){
       html, body{ overflow-x:hidden; }
 
       /* keep room under the topbar */
       .intro{ padding-top: calc(16px + 8px); }
 
-      /* Larger type on mobile hero */
+      /* Larger type on mobile hero (keep header > body hierarchy) */
       .h1{ font-size: clamp(30px, 9.5vw, 44px); }
       .lead{ font-size: clamp(18px, 4.8vw, 22px); line-height: 1.55; }
-      .story{ column-count: 2; }
-      .story p{ font-size: clamp(16px, 4.2vw, 19px); line-height: 1.7; }
 
-      /* Scale wrappers simply mirror desktop layout at phone width */
+      /* Story body grows to use blank space on tall phones */
+      .story{ column-count: 2; }
+      .story p{ font-size: clamp(18px, calc(1.2vh + 3.8vw), 22px); line-height: 1.72; }
+
+      /* Buttons span the photo width and are easier to tap */
+      .btn-row{
+        grid-area: buttons;
+        display: flex;
+        flex-direction: column;  /* stack */
+        gap: 12px;
+        align-items: stretch;    /* full width */
+      }
+      .btn{
+        width: 100%;
+        padding: 14px 18px;
+        font-size: clamp(16px, 4.4vw, 18px);
+      }
+
+      /* Scale wrappers mirror desktop composition at phone width */
       .intro-outer, .adv-mosaic-outer{ position: relative; }
       .intro-scale, .adv-mosaic-scale{ display:block; transform-origin: top center; }
     }
