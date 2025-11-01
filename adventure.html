@@ -144,15 +144,25 @@
       /* a touch more room beneath the navbar */
       .intro{ padding-top: calc(var(--nav-gap-top) + 28px); }
 
-      /* Make H1 measure match the lead measure on mobile (like desktop) */
+      /* Keep H1 and lead the same measure like desktop */
       .copy .h1,
       .copy .lead{ max-width:68ch; }
 
-      /* Slightly larger eyebrow on mobile */
-      .eyebrow{ font-size: clamp(12px, 3.2vw, 14px); letter-spacing:.18em; }
+      /* Bigger eyebrow (around story size) */
+      .eyebrow{
+        font-size: clamp(16px, 4.6vw, 20px);
+        letter-spacing:.18em;
+      }
 
-      /* Hierarchy: title > lead > body. Lead is heavier & larger, true black */
-      .h1{ font-size: clamp(30px, 9.5vw, 44px); }
+      /* ~2× bigger H1 but stay on one line */
+      .h1{
+        font-size: clamp(38px, 13vw, 64px);
+        line-height: 1.04;
+        letter-spacing: -0.01em;
+        white-space: nowrap; /* keep on one row */
+      }
+
+      /* Lead remains strong and true black */
       .lead{
         font-size: clamp(19px, calc(2.2vh + 5.8vw), 28px);
         line-height: 1.55;
@@ -160,7 +170,7 @@
         color: var(--ink);
       }
 
-      /* Two-column story — unchanged layout, keeps a nice fill */
+      /* Two-column story */
       .story{ column-count: 2; }
       .story p{
         font-size: clamp(18px, calc(1.3vh + 4.1vw), 22px);
@@ -168,7 +178,7 @@
         font-weight: 400;
       }
 
-      /* Buttons: single row, each 50% of image width */
+      /* Buttons: single row, 50/50 */
       .btn-row{
         display:grid;
         grid-template-columns: 1fr 1fr;
